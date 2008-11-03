@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (wf_platform).
 -include ("wf.inc").
 -include ("yaws_api.hrl").
@@ -6,6 +10,8 @@
 	init_yaws_request/1,
 	get_platform/0,
 	get_platform_and_request/0,
+	get_raw_path/0,
+	get_querystring/0,
 	request_method/0,
 	parse_get_args/0,
 	parse_post_args/0,
@@ -42,13 +48,29 @@ get_platform_and_request() ->
 		yaws ->     { yaws, get(yaws_request) }
 	end.
 
+get_raw_path() ->
+	case get_platform_and_request() of
+		{mochiweb, Req} -> Req:get(raw_path);
+		{yaws, Arg} ->     wf:f("~s?~s", [Arg#arg.server_path, wf:to_list(Arg#arg.querydata)])
+	end.
+
+get_querystring() ->
+	case get_platform_and_request() of
+		{mochiweb, Req} -> 
+			RawPath = Req:get(raw_path),
+			{_, QueryString, _} = mochiweb_util:urlsplit_path(RawPath),
+			QueryString;
+			
+		{yaws, Arg} -> 
+			Arg#arg.querydata
+	end.
 
 %%% METHOD AND ARGS %%%
 
 request_method() ->
 	case get_platform_and_request() of
 		{mochiweb,Req} -> Req:get(method);
-		{yaws, Arg} ->    Arg#http_request.method
+		{yaws, Arg} ->    (Arg#arg.req)#http_request.method
 	end.
 
 parse_get_args() ->
@@ -137,10 +159,29 @@ set_content_type(ContentType) -> put(wf_content_type, ContentType).
 set_response_body(Body) -> put(wf_response_body, Body).
 	
 build_response() -> 
-	case get_platform() of 
+	% Handle any redirects...
+	case get(wf_redirect) of
+		undefined -> ignore;
+		Url -> build_redirect(Url)
+	end,
+	
+	% Build platform specific response...
+	case get_platform() of
 		mochiweb -> build_mochiweb_response();
-		yaws -> build_yaws_response()
+		yaws ->     build_yaws_response()
 	end.
+
+
+build_redirect(Url) ->
+	Url1 = wf:to_list(Url),
+	NewBody = case request_method() of
+		'GET' ->
+			wf:f("<meta http-equiv='refresh' content='0;url=~s'>", [Url1]);
+		'POST' ->
+			wf:f("document.location.href=\"~s\";", [wf_utils:js_escape(Url1)])
+	end,
+	set_response_body(NewBody),
+	ok.
 
 build_mochiweb_response() ->
 	{mochiweb, Req} = get_platform_and_request(),
@@ -164,6 +205,7 @@ build_mochiweb_response() ->
 	% Respond.
 	Req:respond({Code, Headers, Body1}).
 	
+		
 build_yaws_response() ->
 	% Prepare the body...
 	ContentType = get(wf_content_type),
@@ -182,10 +224,8 @@ build_yaws_response() ->
 		{content, ContentType, Body1}
 	]).
 
+
 inject_script(undefined, _) -> undefined;
 inject_script([script|Rest], Script) -> [Script, Rest];
 inject_script([Other|Rest], Script) -> [Other|inject_script(Rest, Script)];
-inject_script([], Script) -> 
-	?LOG("Missing script tag in template.", []),
-	"\r\n<script>\r\n" ++ Script ++ "\r\n</script>\r\n".
-
+inject_script([], _Script) -> [].

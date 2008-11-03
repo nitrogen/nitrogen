@@ -1,7 +1,6 @@
 OVERVIEW
 
 Nitrogen is a new web framework for Erlang. 
-Nitrogen is built on top of Yaws. It hooks into Yaws through an appmod.
 Nitrogen makes it faster and easier to develop event-driven web applications with AJAX in Erlang.
 
 

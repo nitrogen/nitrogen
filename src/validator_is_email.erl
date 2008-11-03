@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (validator_is_email).
 -include ("wf.inc").
 -compile(export_all).

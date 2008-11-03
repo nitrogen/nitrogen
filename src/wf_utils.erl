@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (wf_utils).
 -include ("wf.inc").
 -export ([
@@ -152,7 +156,38 @@ m_b64_d(<<H,  Rest/binary>>, Acc) -> m_b64_d(Rest, <<Acc/binary, H>>).
 	
 %%% URL ENCODE %%%
 
-url_encode(S) -> mochiweb_util:quote_plus(S).
+url_encode(S) -> quote_plus(S).
+
+% quote_plus and hexdigit are from Mochiweb.
+
+-define(PERCENT, 37).  % $\%
+-define(FULLSTOP, 46). % $\.
+-define(QS_SAFE(C), ((C >= $a andalso C =< $z) orelse
+                     (C >= $A andalso C =< $Z) orelse
+                     (C >= $0 andalso C =< $9) orelse
+                     (C =:= ?FULLSTOP orelse C =:= $- orelse C =:= $~ orelse
+                      C =:= $_))).
+
+hexdigit(C) when C < 10 -> $0 + C;
+hexdigit(C) when C < 16 -> $A + (C - 10).
+
+quote_plus(Atom) when is_atom(Atom) ->
+    quote_plus(atom_to_list(Atom));
+quote_plus(Int) when is_integer(Int) ->
+    quote_plus(integer_to_list(Int));
+quote_plus(String) ->
+    quote_plus(String, []).
+
+quote_plus([], Acc) ->
+    lists:reverse(Acc);
+quote_plus([C | Rest], Acc) when ?QS_SAFE(C) ->
+    quote_plus(Rest, [C | Acc]);
+quote_plus([$\s | Rest], Acc) ->
+    quote_plus(Rest, [$+ | Acc]);
+quote_plus([C | Rest], Acc) ->
+    <<Hi:4, Lo:4>> = <<C>>,
+    quote_plus(Rest, [hexdigit(Lo), hexdigit(Hi), ?PERCENT | Acc]).
+
 
 %%% ESCAPE JAVASCRIPT %%%
 

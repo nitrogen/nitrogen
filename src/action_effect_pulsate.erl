@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (action_effect_pulsate).
 -include ("wf.inc").
 -compile(export_all).

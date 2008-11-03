@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (wf_redirect).
 -export ([
 	redirect/1,
@@ -6,32 +10,21 @@
 	redirect_to_login_callback/2
 ]).
 
-redirect(Url) -> 
-	put(is_redirect, true),
-	wf:wire(wf:f("document.location.href=\"~s\";", [wf_utils:js_escape(wf:to_list(Url))])).
+redirect(Url) -> wf_platform:set_redirect(Url).
 
 redirect_to_login(Url) ->
-	Req = get(mochiweb_request),
-	RawPath = Req:get(raw_path),
+	RawPath = wf_platform:get_raw_path(),
 	NewUrl = web_x:link(Url, ?MODULE, redirect_to_login_callback, RawPath),
-	case Req:get(method) of
-		'GET' -> 
-			{redirect, NewUrl};
-		
-		'POST' -> 
-			Script = wf:wire(wf:f("document.location.href=\"~s\";", [wf_utils:js_escape(wf:to_list(NewUrl))])),
-			{content, "application/javascript", Script}
-	end.
+	redirect(NewUrl).
 	
 redirect_from_login(DefaultPath) ->	
 	% Redirect to the page the user was
 	% originally trying to navigate to.
-	% If that page isn't aronud, then redirect to 
-	% DefaultPath.
+	% If the user came straight to the login page, 
+	% then redirect to DefaultPath.
   case web_x:go(redirect_to_login_callback) of
-		not_handled -> wf:redirect(DefaultPath);
+		not_handled -> redirect(DefaultPath);
 		{ok, _ } -> ignore
 	end.
 
-redirect_to_login_callback(_, Path) ->
-	wf:redirect(Path).
+redirect_to_login_callback(_, Path) -> redirect(Path).

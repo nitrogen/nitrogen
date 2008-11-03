@@ -1,10 +1,14 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (wf_yaws).
+-include ("wf.inc").
 -include ("yaws_api.hrl").
 -export ([out/1, out/2]).
 
 out(Arg) ->
-	Req = Arg#arg.req,
-	{_, Path, _} = Req#http_request.path,
+	Path = Arg#arg.server_path,
 	Module = wf:path_to_module(Path),
 	out(Arg, Module).
 

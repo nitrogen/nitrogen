@@ -1,4 +1,0 @@
-
-- Get working with Yaws again.
-- Improve redirects.
-- Documentation.

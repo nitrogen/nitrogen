@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (wf_counter).
 -include ("wf.inc").
 -export ([start/1, count/1, count/2, format/2, display/2]).

@@ -9,8 +9,6 @@
 			<string>TODO.txt</string>
 			<key>lastUsed</key>
 			<date>2008-11-03T04:42:34Z</date>
-			<key>selected</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -22,7 +20,7 @@
 			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
-			<date>2008-10-31T21:56:14Z</date>
+			<date>2008-11-03T16:29:19Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -31,7 +29,9 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2008-11-03T04:23:43Z</date>
+					<date>2008-11-03T17:14:56Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -352,7 +352,7 @@
 									<key>filename</key>
 									<string>src/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2008-10-31T21:56:13Z</date>
+									<date>2008-11-03T17:14:54Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -455,7 +455,7 @@
 							<key>filename</key>
 							<string>src/wf_platform.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T04:41:26Z</date>
+							<date>2008-11-03T16:28:04Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -485,13 +485,13 @@
 							<key>filename</key>
 							<string>src/wf_redirect.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T04:02:13Z</date>
+							<date>2008-11-03T17:14:55Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_bind.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-02T22:24:59Z</date>
+							<date>2008-11-03T16:54:36Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -515,13 +515,13 @@
 							<key>filename</key>
 							<string>src/wf_session.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T04:41:26Z</date>
+							<date>2008-11-03T16:48:47Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T00:37:09Z</date>
+							<date>2008-11-03T16:29:20Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>

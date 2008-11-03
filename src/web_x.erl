@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
 -module (web_x).
 -include ("wf.inc").
 -export ([go/0, go/1, link/4, link/5, main/0, event/1]).
@@ -12,9 +16,7 @@ link(BaseHref, Module, Function, ExtraArgs, SecondsToLive) ->
 	
 go() -> go(undefined).
 go(Function) ->
-	Req = get(mochiweb_request),
-	RawPath = Req:get(raw_path),
-	{_, QueryString, _} = mochiweb_util:urlsplit_path(RawPath),
+	QueryString = wf_platform:get_querystring(),
 	case wf:depickle(QueryString) of 
 		{web_x, Expiration, Module, Function1, ExtraArgs} when Function==undefined orelse Function==Function1 ->
 			IsExpired = Expiration > get_seconds(),
@@ -26,7 +28,7 @@ go(Function) ->
 main() -> 
 	case go() of
 		{ok, Result} -> Result;
-		not_handled -> {redirect, "/"}
+		not_handled -> wf:redirect("/")
 	end.
 	
 event(_) -> ok.
