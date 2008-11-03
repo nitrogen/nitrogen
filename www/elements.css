@@ -1,0 +1,97 @@
+.label {
+	display: block;
+	font-weight: bold;
+	font-size: 0.9em;
+	margin-top: 7px;
+}
+
+.value {
+	display: block;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+	margin-top: 2px;
+	margin-bottom: 10px;
+	color: #000000;
+}
+
+/*** ROUNDED PANEL ***/
+table.rounded_panel.black td { background: #000000; }
+table.rounded_panel.gray td 	{ background: #F1F1F1; }
+table.rounded_panel.black td { background: #000000; }
+table.rounded_panel.white td { background: #FFFFFF; }
+table.rounded_panel tr.chrome td { font-size: 1px; line-height: 1px; padding: 0 0 0 0; margin: 0 0 0 0; border: 0; } 
+table.rounded_panel tr.chrome img { padding: 0 0 0 0; margin: 0 0 0 0; border: 0; } 
+
+
+table.rounded_panel { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; border: 0px; }
+table.rounded_panel td { padding: 0px 0px 0px 0px; }
+table.rounded_panel td.content { padding: 4px 20px 4px 20px; }
+
+table.rounded_panel { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; border: 0px; }
+table.rounded_panel td { padding: 0px 0px 0px 0px; }
+table.rounded_panel td.content { padding: 4px 20px 4px 20px; }
+
+
+/*** INPLACE EDITING ***/
+
+div.inplace_textbox div.view {
+	cursor: pointer;
+}
+
+div.inplace_textbox .label {
+	display: inline;
+}
+
+div.inplace_textbox .instructions {
+	padding-left: 12px;
+	font-size: 0.8em;
+}
+
+div.inplace_textbox .LV_invalid {
+	position: relative;
+	margin-right: 7px;
+  color:#CC0000;
+	background-color: #FFFF99;
+	border: solid 2px #D0D0C0;
+}
+
+.flash_container {
+}
+
+.flash {
+	color: #303030;
+	background-color: #FAEC7F;
+	border: #FFE800 solid 2px; 
+	padding: 3px 5px 3px 5px; 
+	margin-bottom: 7px;
+}
+
+.flash .flash_content {
+	margin-right: 50px;
+}
+
+.flash .flash_close_button {
+	float: right;
+	font-size: 90%;
+}
+
+.wizard {
+}
+
+.wizard .wizard_title {
+	font-family: 'Arial', Georgia; font-size: 1.2em; font-weight: bold;
+}
+
+.wizard .wizard_body {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.wizard .wizard_buttons {
+	padding-right: 40px;
+	text-align:right;
+}
+
+.wizard .wizard_buttons input {
+	margin-right: 20px;
+}

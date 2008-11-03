@@ -1,0 +1,11 @@
+-module (element_h3).
+-include ("wf.inc").
+-compile(export_all).
+
+render(ControlID, Record) -> 
+	wf:f("<h3 id='~s' class='h3 ~s' style='~s'>~s</h3>", [
+		ControlID,
+		Record#h3.class,
+		Record#h3.style,
+		wf:html_encode(Record#h3.text, Record#h3.html_encode)
+	]).

@@ -1,0 +1,11 @@
+-module (element_label).
+-include ("wf.inc").
+-compile(export_all).
+
+render(ControlID, Record) -> 
+	wf:f("<span id='~s' class='label ~s' style='~s'>~s</span>", [
+		ControlID,
+		Record#label.class,
+		Record#label.style,
+		wf:html_encode(Record#label.text, Record#label.html_encode)
+	]).
