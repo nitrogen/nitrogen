@@ -69,15 +69,11 @@ get_cookie(Key) ->
 	Key1 = wf:to_list(Key),
 	Value = case get_platform_and_request() of
 		{mochiweb, Req} -> 
-			?PRINT(Req),
-			?PRINT(Key1),
 			Req:get_cookie_value(Key1);
 		{yaws, Arg} ->
-			?PRINT(Arg),    
 			Headers = Arg#arg.headers,
 			yaws_api:find_cookie_val(Key1, Headers#headers.cookie)
 	end,
-	?PRINT(Value),
 	case Value of
 		[] -> undefined;
 		_ -> Value
@@ -164,7 +160,6 @@ build_mochiweb_response() ->
 	% Get headers...
 	Code = get(wf_response_code),
 	Headers = get(wf_headers),
-	?PRINT(Headers),
 	
 	% Respond.
 	Req:respond({Code, Headers, Body1}).

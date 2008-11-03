@@ -12,7 +12,8 @@
 	path_to_module/1,
 	replace/3,
 	coalesce/1,
-	is_process_alive/1
+	is_process_alive/1,
+	debug/0, break/0
 ]).
 
 %%% FORMAT %%%
@@ -124,7 +125,6 @@ depickle(Data, SecondsToLive) ->
 		wf:assert(S == Signature, invalid_signature),
 		binary_to_term(B)
 	catch _Type : _Message ->
-		%?PRINT({Type, Message}),
 		{0, undefined}
 	end,
 	IsExpired = (CreatedOn + SecondsToLive) < get_seconds(),

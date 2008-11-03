@@ -2,7 +2,8 @@
 -export ([
 	redirect/1,
 	redirect_to_login/1,
-	redirect_from_login/1
+	redirect_from_login/1,
+	redirect_to_login_callback/2
 ]).
 
 redirect(Url) -> 

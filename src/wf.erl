@@ -21,6 +21,14 @@ debug() -> wf_utils:debug().
 break() -> wf_utils:break().
 
 
+%%% EXPOSE WF_BIND %%%
+
+set(Element, Value) -> wf_bind:set(Element, Value).
+bind(BindingTuple, Record) -> wf_bind:bind(BindingTuple, Record).
+reverse_bind(BindingTuple) -> wf_bind:reverse_bind(BindingTuple).
+reverse_bind(BindingTuple, Record) -> wf_bind:reverse_bind(BindingTuple, Record).
+
+
 %%% EXPOSE WF_CONVERT %%%
 
 to_list(T) -> wf_convert:to_list(T).
@@ -54,6 +62,14 @@ wire(TriggerID, TargetID, Actions) -> wf_render:wire(TriggerID, TargetID, Action
 continue(Tag, Function) -> wf_continuation:continue(Tag, Function).
 continue(Tag, Function, Interval) -> wf_continuation:continue(Tag, Function, Interval).
 continue(Tag, Function, Interval, Timeout) -> wf_continuation:continue(Tag, Function, Interval, Timeout).
+
+
+%%% WF_REDIRECT %%%
+
+redirect(Url) -> wf_redirect:redirect(Url).
+redirect_to_login(Url) -> wf_redirect:redirect_to_login(Url).
+redirect_from_login(DefaultUrl) -> wf_redirect:redirect_from_login(DefaultUrl).
+
 
 
 %%% WF_SESSION %%%

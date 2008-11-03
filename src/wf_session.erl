@@ -13,17 +13,15 @@ user(User) -> session(wf_user, User).
 clear_user() -> user(undefined).
 
 %%% ROLES %%%
-role(Role) ->
-	Roles = session(wf_roles),
-	sets:is_element(Role, Roles).
+role(Role) ->       sets:is_element(Role, get_roles()).
+role(Role, true) -> session(wf_roles, sets:add_element(Role, get_roles()));
+role(Role, _) ->    session(wf_roles, sets:del_element(Role, get_roles())).
 	
-role(Role, true) ->
-	Roles = session(wf_roles),
-	session(wf_roles, sets:add_element(Role, Roles));
-	
-role(Role, _) ->
-	Roles = session(wf_roles),
-	session(wf_roles, sets:del_element(Role, Roles)).
+get_roles() -> 
+	case session(wf_roles) of
+		undefined -> sets:new();
+		Roles -> Roles
+	end.
 	
 clear_roles() -> 
 	session(wf_roles, sets:new()).
@@ -60,7 +58,6 @@ ensure_session() ->
 		Value ->
 			case wf:depickle(Value) of
 				{Pid, Unique} -> 
-					?PRINT(Pid),
 					ensure_session_is_alive(Pid, Unique);
 				_ -> create_session()
 			end

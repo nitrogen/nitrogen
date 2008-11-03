@@ -2,10 +2,8 @@
 -export ([
 	set/2,
 	bind/2,
-	bind/3,
 	reverse_bind/1,
-	reverse_bind/2,
-	reverse_bind/3
+	reverse_bind/2
 ]).
 
 set(Element, Value) ->
