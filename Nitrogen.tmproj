@@ -2,21 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/wf_utils.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>MIT-LICENSE</string>
 			<key>lastUsed</key>
-			<date>2008-11-03T19:22:31Z</date>
+			<date>2008-11-03T21:04:37Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>DOCS.txt</string>
 			<key>lastUsed</key>
-			<date>2008-11-03T19:19:50Z</date>
+			<date>2008-11-03T21:16:16Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -142,7 +142,7 @@
 							<key>filename</key>
 							<string>src/action_validate.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:23Z</date>
+							<date>2008-11-03T21:04:37Z</date>
 						</dict>
 					</array>
 					<key>name</key>
@@ -475,9 +475,7 @@
 							<key>filename</key>
 							<string>src/wf_platform.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:25:36Z</date>
-							<key>selected</key>
-							<true/>
+							<date>2008-11-03T21:16:16Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -543,7 +541,7 @@
 							<key>filename</key>
 							<string>src/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:28:06Z</date>
+							<date>2008-11-03T21:04:38Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -570,8 +568,6 @@
 							<date>2008-11-03T19:25:13Z</date>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Lib</string>
 				</dict>
@@ -602,26 +598,7 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>279</integer>
 	<key>metaData</key>
-	<dict>
-		<key>src/wf_utils.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>29</integer>
-				<key>line</key>
-				<integer>160</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>154</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/wf_utils.erl</string>
-	</array>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
