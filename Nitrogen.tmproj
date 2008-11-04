@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>documents</key>
@@ -15,8 +15,6 @@
 			<string>DOCS.txt</string>
 			<key>lastUsed</key>
 			<date>2008-11-03T21:16:16Z</date>
-			<key>selected</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -35,6 +33,14 @@
 				</dict>
 				<dict>
 					<key>filename</key>
+					<string>src/web_test.erl</string>
+					<key>lastUsed</key>
+					<date>2008-11-04T15:36:37Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>filename</key>
 					<string>src/wf_mochiweb.erl</string>
 					<key>lastUsed</key>
 					<date>2008-11-03T19:22:30Z</date>
@@ -43,7 +49,7 @@
 					<key>filename</key>
 					<string>src/wf_yaws.erl</string>
 					<key>lastUsed</key>
-					<date>2008-11-03T19:22:29Z</date>
+					<date>2008-11-04T15:36:37Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -602,6 +608,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{333, 51}, {896, 727}}</string>
+	<string>{{588, 226}, {896, 727}}</string>
 </dict>
 </plist>
