@@ -102,29 +102,18 @@ get_cookie(Key) ->
 	end.
 
 set_cookie(Key, Value) -> 
-	Header = create_cookie(Key, Value),
+	Timeout = wf_global:session_timeout(),
+	set_cookie(Key, Value, "/", Timeout).
+	
+set_cookie(Key, Value, Path, MinutesToLive) ->
+	Header = create_cookie(Key, Value, Path, MinutesToLive),
 	put(wf_headers, [Header|get(wf_headers)]),
 	ok.
 	
-set_cookie(Key, Value, Path, SecondsToLive) ->
-	Header = create_cookie(Key, Value, Path, SecondsToLive),
-	put(wf_headers, [Header|get(wf_headers)]),
-	ok.
-	
-create_cookie(Key, Value) ->
+create_cookie(Key, Value, Path, MinutesToLive) ->
 	Key1 = wf:to_list(Key),
 	Value1 = wf:to_list(Value),
-	
-	case get_platform() of
-		mochiweb -> 
-			mochiweb_cookies:cookie(Key1, Value1);
-		yaws -> 
-			yaws_api:setcookie(Key1, Value1)
-	end.
-
-create_cookie(Key, Value, Path, SecondsToLive) ->
-	Key1 = wf:to_list(Key),
-	Value1 = wf:to_list(Value),
+	SecondsToLive = MinutesToLive * 60,
 	
 	case get_platform() of
 		mochiweb -> 

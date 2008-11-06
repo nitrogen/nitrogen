@@ -230,5 +230,9 @@ is_running(Node, Application) ->
 start_if_not_running(Node, Application) ->
 	ok = case is_running(Node, Application) of
 		true -> ok;
-		false -> rpc:call(Node, application, start, [Application])
+		false -> 
+			case rpc:call(Node, application, start, [Application]) of
+				{error,_} -> Application:start();
+				_ -> ok
+			end
 	end.

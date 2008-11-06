@@ -16,13 +16,12 @@ send(From, To, Subject, Body) ->
 	Subject1 = wf:to_list(Subject),
 	Body1 = wf:to_list(Body),
 	
-	?PRINT(Body),
-	
-	Port = open_port({spawn,"./bin/sendmail -t"}, [stream,use_stdio]),
+	Port = open_port({spawn,"./bin/mailscript"}, [stream,use_stdio]),
 	true = port_command(Port, "From: " ++ From1 ++ "\n"),
 	[true = port_command(Port, "To: " ++ X ++ "\n") || X <- To1],
 	true = port_command(Port, "Subject: " ++ Subject1 ++ "\n"),
 	true = port_command(Port, "Content-Type: text/html; charset=\"us-ascii\"" ++ "\n"),
+	true = port_command(Port, "\n"),
 	true = port_command(Port, Body1 ++ "\n"),
 	true = port_command(Port, "." ++ "\n"),
 	true = port_close(Port).

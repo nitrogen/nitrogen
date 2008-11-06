@@ -63,7 +63,8 @@ ensure_session() ->
 			case wf:depickle(Value) of
 				{Pid, Unique} -> 
 					ensure_session_is_alive(Pid, Unique);
-				_ -> create_session()
+				_ -> 
+					create_session()
 			end
 	end.
 	
@@ -85,7 +86,8 @@ create_session() ->
 	Pid = erlang:spawn(fun() -> session_loop(Unique, []) end),
 	put(wf_session, Pid),
 	Session = wf:pickle({Pid, Unique}),
-	wf_platform:set_cookie(wf, Session).
+	Timeout = wf_global:session_timeout(),
+	wf_platform:set_cookie(wf, Session, "/", Timeout).
 
 get_session_pid() -> get(wf_session).
 

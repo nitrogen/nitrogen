@@ -76,8 +76,9 @@ ul {
 
 /*** VALIDATION ***/
 .LV_validation_message {
+	display: inline;
 	line-height: 1.1em;
-	position: fixed;
+	position: absolute;
   font-weight:bold;
 	margin: 0px 0px 0px 0px;
 	padding: 5px 7px 5px 7px;
