@@ -44,18 +44,8 @@ start_pulse(Seconds) ->
 	{ok, Pid}.
 	
 pulse(Seconds) ->
-	% Get a list of all nodes and share the db to them.
-	sync:connect(),
-	sync:soft(),
-	mnesia:change_config(extra_db_nodes, nodes()),
-	
-	% Start applications on all nodes...
-	Environment = get_environment(),
-	F = fun(NodeType) ->
-		io:format("Starting ~w nodes...~n", [NodeType]),
-		[sync_configuration:start_application(Environment, X, NodeType) || X <- sync_configuration:get_nodes(Environment, NodeType)]
-	end,		
-	[F(X) || X <- sync_configuration:get_node_types(Environment)],
+	pulse_code(),
+	pulse_apps(),
 	
 	case is_integer(Seconds) of
 		true ->
@@ -65,6 +55,26 @@ pulse(Seconds) ->
 		false ->
 			ok
 	end.
+
+pulse_code() ->
+	% Get a list of all nodes and share the db to them.
+	sync:connect(),
+	sync:soft(),
+	ok.
+	
+pulse_apps() ->
+	% Distribute the database...
+	mnesia:start(),
+	mnesia:change_config(extra_db_nodes, nodes()),
+
+	% Start applications on all nodes...
+	Environment = get_environment(),
+	F = fun(NodeType) ->
+		io:format("Starting ~w nodes...~n", [NodeType]),
+		[sync_configuration:start_application(Environment, X, NodeType) || X <- sync_configuration:get_nodes(Environment, NodeType)]
+	end,		
+	[F(X) || X <- sync_configuration:get_node_types(Environment)],
+	ok.
 	
 go() -> pulse(once).
 
