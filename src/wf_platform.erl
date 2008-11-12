@@ -17,6 +17,7 @@
 	parse_post_args/0,
 	
 	get_cookie/1, set_cookie/2, set_cookie/4,
+	clear_redirect/0,
 	set_redirect/1,
 	set_header/2,
 	set_response_code/1,
@@ -28,7 +29,6 @@
 
 %%% INIT PLATFORMS %%%
 init_mochiweb_request(Req) ->
-	erlang:erase(),
 	put(wf_platform, mochiweb),
 	put(mochiweb_request, Req),
 	ok.
@@ -141,6 +141,7 @@ set_header(Key, Value) ->
 	
 %%% RESPONSE %%%
 
+clear_redirect() -> set_redirect(undefined).
 set_redirect(Url) -> put(wf_redirect, Url).
 set_response_code(Code) -> put(wf_response_code, Code).
 set_content_type(ContentType) -> put(wf_content_type, ContentType).

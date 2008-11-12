@@ -10,7 +10,7 @@ handle_request(Module) ->
 	% Set up session.
 	L = [wf_action_queue, wf_update_queue, wf_content_script, wf_dom_script, wf_script, wf_paths, wf_state, wf_state_updates, wf_headers],
 	[put(X, []) || X <- L],
-	wf_platform:set_redirect(undefined),
+	wf_platform:clear_redirect(),
 	wf_platform:set_response_code(200),
 	wf_platform:set_content_type("text/html"),
 	wf_platform:set_response_body([]),

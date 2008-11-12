@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/sync.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -31,9 +29,7 @@
 					<key>filename</key>
 					<string>src/sync.erl</string>
 					<key>lastUsed</key>
-					<date>2008-11-06T14:44:50Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2008-11-12T04:21:08Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -573,7 +569,7 @@
 							<key>filename</key>
 							<string>src/wf_email.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-06T14:44:50Z</date>
+							<date>2008-11-12T04:21:08Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -612,44 +608,10 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>279</integer>
 	<key>metaData</key>
-	<dict>
-		<key>src/sync.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>6</integer>
-				<key>line</key>
-				<integer>242</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>212</integer>
-		</dict>
-		<key>src/wf_email.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>27</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>22</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/wf_email.erl</string>
-		<string>src/sync.erl</string>
-	</array>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{400, 140}, {896, 727}}</string>
+	<string>{{384, 51}, {896, 727}}</string>
 </dict>
 </plist>
