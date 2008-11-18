@@ -80,7 +80,7 @@ ensure_session_matches_unique(Pid, Unique) ->
 		{Pid, verify_ok} -> 
 			put(wf_session, Pid),
 			drop_session_cookie(Pid, Unique);
-		_ -> 
+		_Other -> 
 			create_session()
 	end.	
 		

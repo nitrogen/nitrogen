@@ -41,12 +41,24 @@ debug() -> wf_utils:debug().
 break() -> wf_utils:break().
 
 
+
+%%% EXPOSE WF_PLATFORM %%%
+
+set_cookie(Key, Value) -> wf_platform:set_cookie(Key, Value).
+set_cookie(Key, Value, Path, MinutesToLive) -> wf_platform:set_cookie(Key, Value, Path, MinutesToLive).
+get_cookie(Key) -> wf_platform:get_cookie(Key).
+set_response_code(Code) -> wf_platform:set_response_code(Code).
+set_content_type(ContentType) -> wf_platform:set_content_type(ContentType).
+
+
+
 %%% EXPOSE WF_BIND %%%
 
 set(Element, Value) -> wf_bind:set(Element, Value).
 bind(BindingTuple, Record) -> wf_bind:bind(BindingTuple, Record).
 reverse_bind(BindingTuple) -> wf_bind:reverse_bind(BindingTuple).
 reverse_bind(BindingTuple, Record) -> wf_bind:reverse_bind(BindingTuple, Record).
+
 
 
 %%% EXPOSE WF_CONVERT %%%

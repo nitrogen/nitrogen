@@ -13,7 +13,7 @@ out(Arg) ->
 	out(Arg, Module).
 
 out(Arg, Module) -> 
-	wf_platform:init_yaws_request(Arg),
+	wf_platform:init(yaws, Arg),
 	wf_handle:handle_request(Module).
 
 start(DocRoot) ->

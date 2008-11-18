@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>src/wf_handle.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -53,7 +55,7 @@
 					<key>filename</key>
 					<string>src/wf_yaws.erl</string>
 					<key>lastUsed</key>
-					<date>2008-11-04T15:36:37Z</date>
+					<date>2008-11-17T05:06:11Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -485,13 +487,13 @@
 							<key>filename</key>
 							<string>src/wf_platform.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T21:16:16Z</date>
+							<date>2008-11-17T07:54:33Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_handle.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:25:34Z</date>
+							<date>2008-11-17T17:11:55Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -551,7 +553,7 @@
 							<key>filename</key>
 							<string>src/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T21:04:38Z</date>
+							<date>2008-11-17T05:06:11Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -563,7 +565,7 @@
 							<key>filename</key>
 							<string>src/wf_query.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:25:17Z</date>
+							<date>2008-11-17T07:53:43Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -575,7 +577,7 @@
 							<key>filename</key>
 							<string>src/wf_path.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:25:13Z</date>
+							<date>2008-11-17T07:26:01Z</date>
 						</dict>
 					</array>
 					<key>name</key>
@@ -608,10 +610,59 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>279</integer>
 	<key>metaData</key>
-	<dict/>
+	<dict>
+		<key>src/wf_handle.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>41</integer>
+				<key>line</key>
+				<integer>56</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>31</integer>
+		</dict>
+		<key>src/wf_platform.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>9</integer>
+				<key>line</key>
+				<integer>127</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>227</integer>
+		</dict>
+		<key>src/wf_query.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>src/wf_query.erl</string>
+		<string>src/wf_platform.erl</string>
+		<string>src/wf_handle.erl</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{384, 51}, {896, 727}}</string>
+	<string>{{333, 51}, {896, 727}}</string>
 </dict>
 </plist>

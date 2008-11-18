@@ -54,7 +54,7 @@ handle_get_request(Module) ->
 	Response = Module:main(),
 	
 	% Send the response.
-	wf_platform:set_response_body(Response),
+	wf_platform:set_response_body(Response),	
 	wf_platform:build_response().
 
 
