@@ -5,7 +5,7 @@ start() ->
 	inets:start(),
 	inets:start(httpd, [
 		{port, 8000},
-		{document_root, "./wwwroot"},
+		{document_root, "./content/wwwroot"},
 		{server_root, "."},
 		{bind_address, "localhost"},
 		{server_name, "localhost"},

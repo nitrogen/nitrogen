@@ -48,7 +48,16 @@ short_guid() ->
 	lists:flatten(L).
 
 is_process_alive(Pid) ->
-	is_pid(Pid) andalso rpc:call(node(Pid), erlang, is_process_alive, [Pid]).
+	case is_pid(Pid) of
+		true -> 
+			% If node(Pid) is down, rpc:call returns something other than
+			% true or false.
+			case rpc:call(node(Pid), erlang, is_process_alive, [Pid]) of
+				true -> true;
+				_ -> false
+			end;
+		_ -> false
+	end.
 
 
 %%% XPATH STYLE QUERY LOOKUPS %%%

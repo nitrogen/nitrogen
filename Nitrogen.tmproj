@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/inets_helper.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -43,7 +41,7 @@
 					<key>filename</key>
 					<string>src/inets_helper.erl</string>
 					<key>lastUsed</key>
-					<date>2008-11-19T03:51:07Z</date>
+					<date>2008-11-20T20:06:43Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -63,7 +61,7 @@
 					<key>filename</key>
 					<string>src/wf_inets.erl</string>
 					<key>lastUsed</key>
-					<date>2008-11-18T16:44:44Z</date>
+					<date>2008-11-20T20:06:43Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -386,7 +384,7 @@
 									<key>filename</key>
 									<string>src/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2008-11-03T19:24:20Z</date>
+									<date>2008-11-20T20:15:45Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -573,13 +571,13 @@
 							<key>filename</key>
 							<string>src/wf_session.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-18T04:59:05Z</date>
+							<date>2008-11-20T20:14:17Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-17T05:06:11Z</date>
+							<date>2008-11-20T20:14:17Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -640,41 +638,7 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>279</integer>
 	<key>metaData</key>
-	<dict>
-		<key>src/inets_helper.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>56</integer>
-				<key>line</key>
-				<integer>15</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/wf_inets.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>20</integer>
-				<key>line</key>
-				<integer>18</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/wf_inets.erl</string>
-		<string>src/inets_helper.erl</string>
-	</array>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
