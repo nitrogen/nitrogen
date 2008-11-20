@@ -1,4 +1,4 @@
--module (web_test).
+-module (web_index).
 -include ("wf.inc").
 -export ([main/0, event/1]).
 
