@@ -49,11 +49,11 @@
 -record(tablecell, {?ELEMENT_BASE, text="", html_encode=true, body="", align="left", valign="middle", colspan=1, rowspan=1}).
 -record(singlerow, {?ELEMENT_BASE, cells}). 
 -record(file, {?ELEMENT_BASE, file=undefined}).
+-record(flash, {?ELEMENT_BASE}).
 
 %%% Controls %%%
 -define(CONTROL_BASE, ?ELEMENT_BASE, delegate, tag).
 -record(inplace_textbox, {?CONTROL_BASE, text="", html_encode=true, start_mode=view, validators=[]}).
--record(flash, {?CONTROL_BASE, text="", html_encode=true, body="" }).
 -record(wizard, {?CONTROL_BASE, titles=undefined, steps=undefined }).
 
 %%% Actions %%%

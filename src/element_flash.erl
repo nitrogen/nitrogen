@@ -12,12 +12,13 @@ render_in_template(_Record) ->
 update() ->
 	wf:insert_bottom(flash, get_flashes()).
 
-render(ControlID, _Record) -> 
+render(_ControlID, _Record) -> 
 	Terms = #panel { 
+		id=flash,
 		class=flash_container,
 		body=get_flashes()
 	},
-	element_panel:render(ControlID, Terms).
+	wf:render(Terms).
 	
 add_flash(Term) ->
 	Flashes = case wf:session(flashes) of

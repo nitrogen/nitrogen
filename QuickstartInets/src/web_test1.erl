@@ -8,7 +8,7 @@ main() ->
 			#textbox { id=myTextbox },
 			#button { text="Go", postback=go },
 			#br{},
-			#flash { id=flash },
+			#flash { },
 			#panel { id=test },
 			"Hello there"
 		]}
