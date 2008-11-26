@@ -417,7 +417,7 @@
 									<key>filename</key>
 									<string>src/element_flash.erl</string>
 									<key>lastUsed</key>
-									<date>2008-11-25T16:25:04Z</date>
+									<date>2008-11-25T22:29:24Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -644,6 +644,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{333, 36}, {896, 727}}</string>
+	<string>{{331, 36}, {896, 727}}</string>
 </dict>
 </plist>

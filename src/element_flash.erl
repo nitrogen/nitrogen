@@ -7,7 +7,7 @@
 -compile(export_all).
 
 render_in_template(_Record) ->
-	wf:render(#flash { id=flash }).
+	wf:render(#flash { }).
 	
 update() ->
 	wf:insert_bottom(flash, get_flashes()).
