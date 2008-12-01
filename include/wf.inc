@@ -27,6 +27,7 @@
 -record(label, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(value, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(link, {?ELEMENT_BASE, text="", html_encode=true, url="javascript:", postback=undefined}).
+-record(error, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(span, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(button, {?ELEMENT_BASE, text="Button", html_encode=true, postback=undefined}).
 -record(literal, {?ELEMENT_BASE, text="", html_encode=true}).
