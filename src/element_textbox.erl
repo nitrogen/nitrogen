@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, textbox).
+
 render(ControlID, Record) -> 
 	case Record#textbox.next of
 		undefined -> ok;

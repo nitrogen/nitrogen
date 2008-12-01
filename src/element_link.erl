@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, link).
+
 render(ControlID, Record) -> 
 	case Record#link.postback of
 		undefined -> ok;

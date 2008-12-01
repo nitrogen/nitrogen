@@ -16,7 +16,7 @@
 %%% Elements %%%
 -define(ELEMENT_BASE, id, actions, show_if=true, class="", style="").
 -record(template, { ?ELEMENT_BASE, file, title="[title]", headline="[headline]", section1, section2, section3, section4, extra }).
--record (body, {?ELEMENT_BASE, title="", body=[]}).
+-record(body, {?ELEMENT_BASE, title="", body=[]}).
 -record(h1, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(h2, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(h3, {?ELEMENT_BASE, text="", html_encode=true}).
@@ -27,7 +27,6 @@
 -record(label, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(value, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(link, {?ELEMENT_BASE, text="", html_encode=true, url="javascript:", postback=undefined}).
--record(error, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(span, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(button, {?ELEMENT_BASE, text="Button", html_encode=true, postback=undefined}).
 -record(literal, {?ELEMENT_BASE, text="", html_encode=true}).
@@ -50,6 +49,8 @@
 -record(singlerow, {?ELEMENT_BASE, cells}). 
 -record(file, {?ELEMENT_BASE, file=undefined}).
 -record(flash, {?ELEMENT_BASE}).
+-record(placeholder, {?ELEMENT_BASE, body=[]}).
+-record(bind, {?ELEMENT_BASE, data=[], map=[], transform=undefined, acc=[], body=[]}).
 
 %%% Controls %%%
 -define(CONTROL_BASE, ?ELEMENT_BASE, delegate, tag).
@@ -61,7 +62,8 @@
 -record(event, {?ACTION_BASE, type=click, interval=1, postback, delegate, controls=[]}).
 -record(validate, {?ACTION_BASE, on=submit, success_text=" ", validators, attach_to=undefined }).
 -record(validation_error, {?ACTION_BASE, text="" }).
--record(confirm, {?ACTION_BASE, text="", postback, delegate, controls=[]}).
+-record(alert, {?ACTION_BASE, text=""}).
+-record(confirm, {?ACTION_BASE, text="", postback}).
 -record(script, {?ACTION_BASE, script}).
 -record(effect_highlight, {?ACTION_BASE, duration=0.8}).
 -record(effect_fade, {?ACTION_BASE, duration=0.6}).

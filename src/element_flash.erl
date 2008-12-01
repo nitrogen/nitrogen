@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, flash).
+
 render_in_template(_Record) ->
 	wf:render(#flash { }).
 	

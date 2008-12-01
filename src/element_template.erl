@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, template).
+
 render(_ControlID, Record) ->
 	FileName = Record#template.file,
 	FilePath = io_lib:format("./content/web_content/~s.html", [FileName]),

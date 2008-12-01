@@ -7,6 +7,7 @@ do(Info) ->
 	Module = wf:path_to_module(Path),
 	
 	case Path of
+		"/" -> do(Info, web_index);
 		"/web" ++ _ -> do(Info, Module);
 		_ -> {proceed, Info#mod.data}
 	end.

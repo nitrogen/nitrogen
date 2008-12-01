@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, password).
+
 render(ControlID, Record) -> 
 	case Record#password.next of
 		undefined -> ok;

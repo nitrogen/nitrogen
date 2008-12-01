@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, dropdown).
+
 render(ControlID, Record) -> 
 	case Record#dropdown.postback of
 		undefined -> ok;

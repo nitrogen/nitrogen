@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, panel).
+
 render(ControlID, Record) -> 
 	[
 		wf:f("<div id='~s' class='panel ~s' style='~s'>", [

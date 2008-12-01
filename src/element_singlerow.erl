@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, singlerow).
+
 render(ControlID, Record) -> 
 	Terms = #table {
 		class = "singlerow " ++ wf:to_list(Record#singlerow.class),

@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, lightbox).
+
 render(ControlID, Record) -> 
 	Terms = #panel {
 		class=lightbox,

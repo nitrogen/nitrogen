@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>src/wf_render.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -35,9 +37,7 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2008-11-18T04:26:35Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2008-11-29T02:18:54Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -417,7 +417,7 @@
 									<key>filename</key>
 									<string>src/element_flash.erl</string>
 									<key>lastUsed</key>
-									<date>2008-11-25T22:29:24Z</date>
+									<date>2008-11-26T03:51:11Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -521,13 +521,13 @@
 							<key>filename</key>
 							<string>src/wf_handle.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-25T16:25:04Z</date>
+							<date>2008-11-29T02:18:38Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_render.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:25:33Z</date>
+							<date>2008-11-29T02:19:10Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -605,7 +605,7 @@
 							<key>filename</key>
 							<string>src/wf_path.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-17T07:26:01Z</date>
+							<date>2008-11-29T02:19:10Z</date>
 						</dict>
 					</array>
 					<key>name</key>
@@ -640,7 +640,72 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>279</integer>
 	<key>metaData</key>
-	<dict/>
+	<dict>
+		<key>src/wf.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/wf_path.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>16</integer>
+				<key>line</key>
+				<integer>120</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>104</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>120</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>16</integer>
+				<key>line</key>
+				<integer>120</integer>
+			</dict>
+		</dict>
+		<key>src/wf_render.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>41</integer>
+				<key>line</key>
+				<integer>68</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>50</integer>
+		</dict>
+	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>src/wf.erl</string>
+		<string>src/wf_path.erl</string>
+		<string>src/wf_render.erl</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>

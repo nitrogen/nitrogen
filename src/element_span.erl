@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, span).
+
 %%% DOCUMENTATION %%%
 name() -> "Span".
 attributes() -> [id, class, style, text, html_encode].

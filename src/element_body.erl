@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, body).
+
 render(_ControlID, Record) ->
 	["
 	<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\">

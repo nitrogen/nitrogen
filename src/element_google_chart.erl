@@ -7,6 +7,8 @@
 -include ("wf.inc").
 -include ("google_chart.inc").
 
+reflect() -> record_info(fields, google_chart).
+
 render(ControlID, Record) -> 
 	% Path...
 	Path = "http://chart.apis.google.com/chart?",

@@ -17,7 +17,8 @@
 	replace/3,
 	coalesce/1,
 	is_process_alive/1,
-	debug/0, break/0
+	debug/0, break/0,
+	is_string/1
 ]).
 
 %%% FORMAT %%%
@@ -245,6 +246,8 @@ coalesce([undefined|T]) -> coalesce(T);
 coalesce([[]|T]) -> coalesce(T);
 coalesce([H|_]) -> H.
 
+%%% IS STRING %%%
+is_string(Term) -> is_list(Term) andalso term /= [] andalso is_integer(hd(Term)).
 		
 %%% DEBUG %%%
 		

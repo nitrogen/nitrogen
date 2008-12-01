@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, checkbox).
+
 render(ControlID, Record) -> 
 	CheckedString = case Record#checkbox.checked of
 		true -> "checked=true";

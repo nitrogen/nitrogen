@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, wizard).
+
 render(ControlID, Record) -> 
 	% Set up callbacks...
 	Delegate = Record#wizard.delegate,

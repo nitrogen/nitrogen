@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, hidden).
+
 render(ControlID, Record) -> 
 	wf:f("<input id='~s' type='hidden' name='~s' value=\"~s\" />", [
 		ControlID, 

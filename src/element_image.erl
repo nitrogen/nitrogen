@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, image).
+
 render(ControlID, Record) -> 
 	wf:f("<img id='~s' class='span ~s' style='~s' src='~s'>", [
 		ControlID,

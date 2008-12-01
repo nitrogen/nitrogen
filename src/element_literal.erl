@@ -6,5 +6,7 @@
 -compile(export_all).
 -include ("wf.inc").
 
+reflect() -> record_info(fields, literal).
+
 render(_ControlID, Record) -> 
 	wf:html_encode(Record#literal.text, Record#literal.html_encode).

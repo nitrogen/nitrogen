@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, tablerow).
+
 render(ControlID, Record) -> 
 	[
 		wf:f("<tr id='~s' class='tablerow ~s' style='~s'>", [

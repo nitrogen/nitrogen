@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, textarea).
+
 render(ControlID, Record) -> 
 	wf:f("<textarea id='~s' class='textarea ~s' style='~s' name='~s'>~s</textarea>", [
 		ControlID, 

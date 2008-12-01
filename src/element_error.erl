@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, error).
+
 render(ControlID, Record) -> 
 	Terms = #span {
 		class="error " ++ wf:to_list(Record#error.class),

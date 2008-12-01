@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, spinner).
+
 render(_ControlID, Record) -> 
 	wf:wire(spinner, "obj(me).hide();"),
 	Terms = #panel {

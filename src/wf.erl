@@ -37,9 +37,10 @@ pickle(Data) -> wf_utils:pickle(Data).
 depickle(Data) -> wf_utils:depickle(Data).
 depickle(Data, SecondsToLive) -> wf_utils:depickle(Data, SecondsToLive).
 
+is_string(Term) -> wf_utils:is_string(Term).
+
 debug() -> wf_utils:debug().
 break() -> wf_utils:break().
-
 
 
 %%% EXPOSE WF_PLATFORM %%%

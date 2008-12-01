@@ -6,6 +6,8 @@
 -include ("wf.inc").
 -compile(export_all).
 
+reflect() -> record_info(fields, inplace_textbox).
+
 render(ControlID, Record) -> 
 	% Get vars...
 	OKButtonID = wf:temp_id(),
