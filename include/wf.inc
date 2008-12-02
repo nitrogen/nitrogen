@@ -77,6 +77,7 @@
 -record(effect_toggle, {?ACTION_BASE}).
 -record(disable_selection, {?ACTION_BASE}).
 -record(buttonize, {?ACTION_BASE}).
+-record(dragdrop, {?ACTION_BASE, postback, clone=true, revert=true, active_class=active, hover_class=hover}).
 
 %%% Validators %%%
 -define(VALIDATOR_BASE, text="Failed.").

@@ -16,7 +16,7 @@ render(ControlID, Record) ->
 			#panel { 			
 				class=lightbox_background, 
 				style="position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px; background-color: #000000;", 
-				actions=wf:f("obj(me).setOpacity(~f);", [Record#lightbox.opacity])
+				actions=wf:f("obj('me').setOpacity(~f);", [Record#lightbox.opacity])
 			},
 			#table { 
 				style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; overflow:auto;", 

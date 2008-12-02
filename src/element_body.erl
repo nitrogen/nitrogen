@@ -16,8 +16,8 @@ render(_ControlID, Record) ->
 	<title>
 	", Record#body.title, "
 	</title>	
-	<script src='/nitrogen/prototype.js' type='text/javascript' charset='utf-8'></script>
-	<script src='/nitrogen/scriptaculous.js' type='text/javascript' charset='utf-8'></script>
+	<script src='/nitrogen/jquery-1.2.6.js' type='text/javascript' charset='utf-8'></script>
+	<script src='/nitrogen/jquery-ui-personalized-1.5.3.min.js' type='text/javascript' charset='utf-8'></script>
 	<script src='/nitrogen/livevalidation.js' type='text/javascript' charset='utf-8'></script>
 	<script src='/nitrogen/nitrogen.js' type='text/javascript' charset='utf-8'></script>
 	<link href='/nitrogen/nitrogen.css' type='text/css' rel='stylesheet'>

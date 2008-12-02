@@ -35,7 +35,7 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-01T05:49:15Z</date>
+					<date>2008-12-02T04:01:34Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -92,67 +92,67 @@
 							<key>filename</key>
 							<string>src/action_disable_selection.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:28Z</date>
+							<date>2008-12-01T23:52:49Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_appear.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:28Z</date>
+							<date>2008-12-01T23:52:49Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_blinddown.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:28Z</date>
+							<date>2008-12-01T23:52:49Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_blindup.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:28Z</date>
+							<date>2008-12-01T23:52:49Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_fade.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:27Z</date>
+							<date>2008-12-01T23:52:48Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_hide.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:27Z</date>
+							<date>2008-12-01T23:52:50Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_highlight.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:27Z</date>
+							<date>2008-12-01T23:52:50Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_pulsate.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:27Z</date>
+							<date>2008-12-01T23:52:51Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_show.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:27Z</date>
+							<date>2008-12-01T23:52:51Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_effect_toggle.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:26Z</date>
+							<date>2008-12-01T23:52:51Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/action_event.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:22:26Z</date>
+							<date>2008-12-01T23:52:51Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -164,7 +164,7 @@
 							<key>filename</key>
 							<string>src/action_validate.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T21:04:37Z</date>
+							<date>2008-12-01T23:52:52Z</date>
 						</dict>
 					</array>
 					<key>expanded</key>
@@ -230,7 +230,7 @@
 									<key>filename</key>
 									<string>src/element_value.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-01T05:50:56Z</date>
+									<date>2008-12-01T23:52:54Z</date>
 								</dict>
 							</array>
 							<key>expanded</key>
@@ -439,7 +439,7 @@
 									<key>filename</key>
 									<string>src/element_flash.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-01T05:50:52Z</date>
+									<date>2008-12-01T23:52:53Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -502,7 +502,7 @@
 							<key>filename</key>
 							<string>src/validator_confirm_password.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:24:53Z</date>
+							<date>2008-12-01T23:52:52Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -551,13 +551,13 @@
 							<key>filename</key>
 							<string>src/wf_handle.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-01T05:53:21Z</date>
+							<date>2008-12-01T23:52:53Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_render.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-01T05:53:19Z</date>
+							<date>2008-12-02T04:01:34Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -617,13 +617,13 @@
 							<key>filename</key>
 							<string>src/wf_script.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-03T19:25:18Z</date>
+							<date>2008-12-01T23:54:37Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_query.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-18T04:15:59Z</date>
+							<date>2008-12-01T23:52:53Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -635,7 +635,7 @@
 							<key>filename</key>
 							<string>src/wf_path.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-01T05:45:31Z</date>
+							<date>2008-12-01T23:52:50Z</date>
 						</dict>
 					</array>
 					<key>name</key>
@@ -674,6 +674,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{316, 51}, {896, 727}}</string>
+	<string>{{463, 139}, {896, 727}}</string>
 </dict>
 </plist>

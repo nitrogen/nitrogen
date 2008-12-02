@@ -100,10 +100,6 @@ get_field(Key, Fields, Rec) ->
 	end.
 	
 replace_field(Key, Value, Fields, Rec) ->
-	?PRINT(Key),
-	?PRINT(Value),
-	?PRINT(Fields),
-	?PRINT(Rec),
 	N = indexof(Key, Fields),
 	setelement(N, Rec, Value).	
 	

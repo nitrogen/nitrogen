@@ -54,7 +54,7 @@ render(ControlID, Record) ->
 		view -> wf:wire(EditPanelID, #effect_hide{});
 		edit -> 
 			wf:wire(ViewPanelID, #effect_hide{}),
-			wf:wire(TextBoxID, "obj(me).focus(); obj(me).select();")
+			wf:wire(TextBoxID, "obj('me').focus(); obj('me').select();")
 	end,
 	
 	wf:wire(OKButtonID, TextBoxID, #validate { attach_to=CancelButtonID, validators=Record#inplace_textbox.validators }),

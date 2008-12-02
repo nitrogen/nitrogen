@@ -9,7 +9,7 @@
 reflect() -> record_info(fields, spinner).
 
 render(_ControlID, Record) -> 
-	wf:wire(spinner, "obj(me).hide();"),
+	wf:wire(spinner, "obj('me').hide();"),
 	Terms = #panel {
 		id=spinner,
 		class=wf:f("spinner ~s", [Record#spinner.class]),

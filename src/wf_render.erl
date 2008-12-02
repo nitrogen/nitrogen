@@ -14,16 +14,12 @@
 	insert_top/2,
 	insert_bottom/2,
 	
-	unsafe_update/2,
-	unsafe_insert_top/2,
-	unsafe_insert_bottom/2,
-	
 	wire/1, wire/2, wire/3
 ]).
 
 me_var() -> 
 	Path = get(current_path),
-	["var me=", wf_path:js_id(Path), "; "].
+	["wf_current_path='", wf_path:to_js_id(Path), "'; "].
 
 render(undefined) -> "";
 render(Term) when is_binary(Term) -> Term;
@@ -41,41 +37,26 @@ render(Term) when is_tuple(Term) ->
 	TypeModule = list_to_atom("element_" ++ atom_to_list(Type)),
 	
 	Response = case {ShowIf, wf_path:is_temp_element(ID)} of
-		{true, true} -> 
-			% This is a temp element, so no need to register the path.
-			Path = get(current_path),
-			ParentJSID = wf_path:js_id(Path),
-			JSID = wf_path:js_id(ID),
-			HtmlID = wf_path:html_id(ID),
-			
-			wf_script:add_dom_script(wf:f("wf_link('~s', '~s', '~s');", [ParentJSID, JSID, HtmlID])),
-			Html = lists:flatten([TypeModule:render(HtmlID, Term)]),
+		{true, true} -> 			
+			% Wire actions and render the control.
+			HtmlID = wf_path:to_html_id(ID),
 			wf:wire(HtmlID, HtmlID, Actions),
-			Html;
+			lists:flatten([TypeModule:render(HtmlID, Term)]);
 
 		{true, false} -> 
 			% Set the new path...
-			OldPath = get(current_path),
-			Path = [ID|OldPath],
-			put(current_path, Path),
-			
-			% Register the control path...
-			ParentJSID = wf_path:parent_js_id(Path),
-			JSID = wf_path:js_id(Path),
-			HtmlID = wf_path:html_id(Path),
-			wf_path:register_path(HtmlID, Path),
+			wf_path:push_path(ID),
 
-			% Render the control...
-			wf_script:add_dom_script(wf:f("wf_link('~s', '~s', '~s', '~s');", [ParentJSID, JSID, HtmlID, wf_utils:pickle({HtmlID, Path})])),
-		 	Html = lists:flatten([TypeModule:render(HtmlID, Term)]),
+			% Wire actions and render the control.
+			HtmlID = wf_path:to_html_id(wf_path:get_path()),
 			wf:wire(HtmlID, HtmlID, Actions),
+		 	Html = lists:flatten([TypeModule:render(HtmlID, Term)]),
 			
 			% Restore the old path...
-			put(current_path, OldPath),
+			wf_path:pop_path(),
 			Html;
 		{_, _} -> []
 	end,
-	%io:format("~s", [Response]),
 	Response.
 	
 %%% RENDER ACTIONS %%%
@@ -108,7 +89,7 @@ render_actions(TriggerPath, TargetPath, Term) when is_tuple(Term) ->
 			put(current_path, TargetPath1),
 			
 			% Render the action...
-			Script = lists:flatten([TypeModule:render_action(wf_path:to_ident(TriggerPath1), wf_path:to_ident(TargetPath1), Term)]),
+			Script = lists:flatten([TypeModule:render_action(wf_path:to_html_id(TriggerPath1), wf_path:to_html_id(TargetPath1), Term)]),
 			
 			% Restore the old path...
 			put(current_path, OldPath),
@@ -118,21 +99,13 @@ render_actions(TriggerPath, TargetPath, Term) when is_tuple(Term) ->
 			[]
 	end.
 	
-unsafe_update(TargetPath, Terms) -> update(TargetPath, Terms, false, "obj(me).update(\"~s\");").
-unsafe_insert_top(TargetPath, Terms) -> update(TargetPath, Terms, false, "obj(me).insert({ 'top' : \"~s\");").
-unsafe_insert_bottom(TargetPath, Terms) -> update(TargetPath, Terms, false, "obj(me).insert({ 'bottom' : \"~s\");").
+update(TargetPath, Terms) -> update(TargetPath, Terms, "wf_update(obj('me'), \"~s\");").
+insert_top(TargetPath, Terms) -> update(TargetPath, Terms, "wf_insert_top(obj('me'), \"~s\");").
+insert_bottom(TargetPath, Terms) -> update(TargetPath, Terms, "wf_insert_bottom(obj('me'), \"~s\");").
 
-update(TargetPath, Terms) -> update(TargetPath, Terms, true, "obj(me).update(\"~s\");").
-insert_top(TargetPath, Terms) -> update(TargetPath, Terms, true, "obj(me).insert({ 'top' : \"~s\"});").
-insert_bottom(TargetPath, Terms) -> update(TargetPath, Terms, true, "obj(me).insert({ 'bottom' : \"~s\"});").
-
-update(TargetPath, Terms, HtmlEncode, JSFormatString) ->
-	Terms1 = case HtmlEncode andalso is_list(Terms) andalso length(Terms) > 0 andalso is_integer(hd(Terms)) of
-		true -> wf:html_encode(Terms);
-		false -> Terms
-	end,
+update(TargetPath, Terms, JSFormatString) ->
 	UpdateQueue = get(wf_update_queue),
-	put(wf_update_queue, [{TargetPath, Terms1, JSFormatString}|UpdateQueue]),
+	put(wf_update_queue, [{TargetPath, Terms, JSFormatString}|UpdateQueue]),
 	ok.
 
 	

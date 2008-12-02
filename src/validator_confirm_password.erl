@@ -8,7 +8,7 @@
 
 render_validator(TriggerPath, TargetPath, Record)  ->
 	Text = wf_utils:js_escape(Record#confirm_password.text),
-	PasswordElement = wf:to_ident(Record#confirm_password.password),
+	PasswordElement = wf:to_js_id(Record#confirm_password.password),
 
 	validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, record=Record }),
 

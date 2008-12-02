@@ -10,5 +10,5 @@ render_action(_TriggerPath, TargetPath, Record) ->
 	Duration = Record#effect_blindup.duration,
 	[
 		wf:me_var(), 
-		wf:f("new Effect.BlindUp(obj('~s'), { duration: ~f });", [wf:to_ident(TargetPath), Duration])	
+		wf:f("new Effect.BlindUp(obj('~s'), { duration: ~f });", [wf:to_js_id(TargetPath), Duration])	
 	].

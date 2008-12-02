@@ -12,7 +12,10 @@ render_in_template(_Record) ->
 	wf:render(#flash { }).
 	
 update() ->
-	wf:insert_bottom(flash, get_flashes()).
+	case wf:state(has_flash) of
+		true -> wf:insert_bottom(flash, get_flashes());
+	  _ -> ignore
+	end.
 
 render(_ControlID, _Record) -> 
 	Terms = #panel { 
@@ -20,6 +23,7 @@ render(_ControlID, _Record) ->
 		class=flash_container,
 		body=get_flashes()
 	},
+	wf:state(has_flash, true),
 	wf:render(Terms).
 	
 add_flash(Term) ->

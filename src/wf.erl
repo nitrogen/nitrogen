@@ -42,7 +42,6 @@ is_string(Term) -> wf_utils:is_string(Term).
 debug() -> wf_utils:debug().
 break() -> wf_utils:break().
 
-
 %%% EXPOSE WF_PLATFORM %%%
 
 set_cookie(Key, Value) -> wf_platform:set_cookie(Key, Value).
@@ -80,10 +79,6 @@ render(Terms) -> wf_render:render(Terms).
 update(Element, Terms) -> wf_render:update(Element, Terms).
 insert_top(Element, Terms) -> wf_render:insert_top(Element, Terms).
 insert_bottom(Element, Terms) -> wf_render:insert_bottom(Element, Terms).
-
-unsafe_update(Element, Terms) -> wf_render:unsafe_update(Element, Terms).
-unsafe_insert_top(Element, Terms) -> wf_render:unsafe_insert_top(Element, Terms).
-unsafe_insert_bottom(Element, Terms) -> wf_render:unsafe_insert_bottom(Element, Terms).
 
 wire(Actions) -> wf_render:wire(Actions).
 wire(TargetID, Actions) -> wf_render:wire(TargetID, Actions).
@@ -138,7 +133,7 @@ q(Q) -> wf_query:q(Q).
 
 me_var() -> wf_render:me_var().
 temp_id() -> wf_path:temp_id().
-to_ident(Path) -> wf_path:to_ident(Path).
+to_js_id(Path) -> wf_path:to_js_id(Path).
 
 
 %%% OTHER %%%

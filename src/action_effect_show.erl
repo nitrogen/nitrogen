@@ -7,4 +7,4 @@
 -compile(export_all).
 
 render_action(_TriggerPath, TargetPath, _Record) -> 
-	[wf:me_var(), wf:f("obj('~s').show();", [wf:to_ident(TargetPath)])].
+	[wf:me_var(), wf:f("obj('~s').show();", [wf:to_js_id(TargetPath)])].

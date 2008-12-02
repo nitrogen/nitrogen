@@ -11,5 +11,5 @@ render_action(_TriggerPath, TargetPath, Record) ->
 	Duration = Record#effect_pulsate.duration,
 	[
 		wf:me_var(), 
-		wf:f("new Effect.Pulsate(obj('~s'), { pulses: ~p, duration: ~f });", [wf:to_ident(TargetPath), Pulses, Duration])	
+		wf:f("new Effect.Pulsate(obj('~s'), { pulses: ~p, duration: ~f });", [wf:to_js_id(TargetPath), Pulses, Duration])	
 	].

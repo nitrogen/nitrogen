@@ -15,8 +15,8 @@ render_action(TriggerPath, TargetPath, Record) ->
 		undefined -> "";
 		Node -> wf:f(", insertAfterWhatNode : obj(\"~s\")", [Node])
 	end,
-	ConstructorJS = wf:f("var v = obj(me).validator = new LiveValidation(obj(me), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [wf_utils:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
-	TriggerJS = wf:f("v.trigger = '~s';", [wf:to_ident(TriggerPath)]),
+	ConstructorJS = wf:f("var v = obj('me').validator = new LiveValidation(obj('me'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [wf_utils:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
+	TriggerJS = wf:f("v.trigger = obj('~s');", [wf:to_js_id(TriggerPath)]),
 	
 	% Render the validation javascript...
 	F = fun(X) ->
