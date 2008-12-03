@@ -55,7 +55,7 @@ start_continuation_wrapper(Tag, Function, Interval, Timeout) ->
 		Result = try Function() catch Type : Message -> {error, Type, Message} end,
 		WrapperPid!{result, self(), Result} 
 	end),
-	erlang:send_after(Timeout, Pid, timeout),
+	erlang:send_after(Timeout, self(), timeout),
 	continuation_wrapper(Tag, Pid, Interval, no_result).
 
 continuation_wrapper(Tag, Pid, Interval, Result) ->

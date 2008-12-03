@@ -1,11 +1,11 @@
--module (web_sorting).
+-module (web_sorting1).
 -include ("wf.inc").
 -export ([main/0, event/1, sort_event/2]).
 
 main() ->
-	Body = #body { title="Sorting Example", body=
+	Body = #body { title="Simple Sorting Example", body=
 		#panel { style="padding: 20px;", body=[
-			#h1 { text="Sorting Examples" },
+			#h1 { text="Simple Sorting Example" },
 			"
 			Drag to re-order a list, or drag from one list to another.
 			",
@@ -15,8 +15,8 @@ main() ->
 				#sortblock { id=block1, postback=sort, connect_with=block2, body=[
 					#sortitem { tag=tag1, body="Item1" },
 					#sortitem { tag=tag2, body="Item2" },
-					#sortitem { tag=tag3, class=handle, body="Item3" },
-					#sortitem { tag=tag4, class=handle, body="Item4" }
+					#sortitem { tag=tag3, body="Item3" },
+					#sortitem { tag=tag4, body="Item4" }
 				]}
 			]},
 						
@@ -29,7 +29,6 @@ main() ->
 					#sortitem { tag=tag8, body="Item8" }
 				]}
 			]}
-
 		]}
 	},
 	

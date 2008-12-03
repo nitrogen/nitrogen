@@ -105,7 +105,6 @@ indexof(Key, [_|T], N) -> indexof(Key, T, N + 1).
 %%% NORMALIZE_BINDING %%%
 normalize_bindings(Bindings) ->
 	Bindings1 = lists:flatten([Bindings]),
-	?PRINT(Bindings1),
 	Bindings2 = [{get_replacement_key_parts(Key), Value} || {Key, Value} <- Bindings1],
 	[{Key, Value} || {Key, Value} <- Bindings2, Key /= ignore].
 		

@@ -32,8 +32,6 @@ render_action(_TriggerPath, TargetPath, Record) ->
 	
 to_js(Options) ->
 	F = fun({Key, Value}) ->
-		?PRINT(Key),
-		?PRINT(Value),
 		if 
 			is_list(Value) -> 
 				wf:f("~s: '~s'", [Key, wf_utils:js_escape(Value)]);
@@ -45,7 +43,6 @@ to_js(Options) ->
 				wf:f("~s: ~p", [Key, Value])
 		end
 	end,
-	?PRINT(Options),
 	Options1 = [F(X) || X <- Options],
 	Options2 = string:join(Options1, ","),
 	wf:f("{ ~s }", [Options2]).

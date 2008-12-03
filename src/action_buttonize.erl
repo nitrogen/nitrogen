@@ -8,9 +8,9 @@
 
 render_action(TriggerPath, TargetPath, _Record) -> 
 	Actions = [
-		#event { type=mouseover, actions=wf:f("obj('~s').addClassName('hover')", [TargetPath]) },
-		#event { type=mouseout, actions=wf:f("obj('~s').removeClassName('hover')", [TargetPath]) },
-		#event { type=mousedown, actions=wf:f("obj('~s').addClassName('clicked')", [TargetPath]) },
-		#event { type=mouseup, actions=wf:f("obj('~s').removeClassName('clicked')", [TargetPath]) }
+		#event { type=mouseover, actions=#add_class { class=hover } },
+		#event { type=mouseout, actions=#remove_class { class=hover } },
+		#event { type=mousedown, actions=#add_class { class=clicked } },
+		#event { type=mouseup, actions=#remove_class { class=clicked } }
 	],
 	wf_render:render_actions(TriggerPath, TargetPath, Actions).

@@ -9,8 +9,8 @@
 render_validator(TriggerPath, TargetPath, Record)  ->
 	Text = wf_utils:js_escape(Record#min_length.text),
 	Length = Record#min_length.length,
-	validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, record=Record }),
+	validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, tag=Record }),
 	wf:f("v.add(Validate.Length, { minimum: ~p, tooShortMessage: \"~s\" });", [Length, Text]).
 
-validate(Value, Record) ->
+validate(Record, Value) ->
 	Record#min_length.length =< length(Value).

@@ -15,7 +15,7 @@ render_action(TriggerPath, TargetPath, Record) ->
 		enterkey ->
 			[
 				wf:f("wf_observe_event(obj('~s'), 'keypress', function anonymous(event) {", [wf:to_js_id(TriggerPath)]),
-				wf:f("if (wf_is_enter_key(event)) { ~s ~s; Event.stop(event); }", [Postback, Actions]),
+				wf:f("if (wf_is_enter_key(event)) { ~s ~s; return false; }", [Postback, Actions]),
 				wf:f("});\r\n")
 			];
 		

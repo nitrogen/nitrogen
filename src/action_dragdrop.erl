@@ -7,9 +7,9 @@
 -compile(export_all).
 
 render_action(TriggerPath, TargetPath, Record) -> 
-	Handle = case Record#dragdrop.has_handle of
-		true -> "'> .handle'";
-		false -> "null"
+	Handle = case Record#dragdrop.handle of
+		null -> "null";
+		Other -> wf:f("'.~s'", [Other])
 	end,
 
 	Helper = case Record#dragdrop.clone of

@@ -33,13 +33,17 @@ render(ControlID, Record) ->
 		body = [
 			#panel { id=ViewPanelID, class="view", body=[
 				#span { id=LabelID, class="label", text=Text, html_encode=Record#inplace_textbox.html_encode, actions=[
-					#buttonize { target=ViewPanelID },
-					#event { type=mouseover, target=MouseOverID, actions=#show {} },
-					#event { type=mouseout, target=MouseOverID, actions=#hide{} }
+					#buttonize { target=ViewPanelID }
 				]},
-				#span { id=MouseOverID, class="instructions", text="Click to edit" }
+				#span { id=MouseOverID, class="instructions", text="Click to edit", actions=#hide{} }
 			], actions = [
-				#event { type=click, actions=wf:f("obj('~s').hide(); obj('~s').show(); obj('~s').focus(); obj('~s').select();", [ViewPanelID, EditPanelID, TextBoxID, TextBoxID]) }
+				#event { type=click, actions=[
+					#hide { target=ViewPanelID },
+					#show { target=EditPanelID },
+					#script { script = wf:f("obj('~s').focus(); obj('~s').select();", [TextBoxID, TextBoxID]) }
+				]},
+				#event { type=mouseover, target=MouseOverID, actions=#show{} },
+				#event { type=mouseout, target=MouseOverID, actions=#hide{} }
 			]},
 			#panel { id=EditPanelID, class="edit", body=[
 				#textbox { id=TextBoxID, text=Text, next=OKButtonID },
@@ -69,13 +73,15 @@ event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}) ->
 	% update the textbox through javascript instead.
 	%wf:update(TextBoxID, Value1),
 	wf:wire(wf:f("obj('~s').value = \"~s\";", [TextBoxID, wf_utils:js_escape(Value1)])),
-	wf:wire(wf:f("obj('~s').hide(); obj('~s').show();", [EditPanelID, ViewPanelID])),
+	wf:wire(EditPanelID, #hide {}),
+	wf:wire(ViewPanelID, #show {}),
 	ok;
 
 event({cancel, {ViewPanelID, _LabelID, EditPanelID, TextBoxID}, _Tag, OriginalText}) ->
 	%wf:update(TextBoxID, OriginalText),
 	wf:wire(wf:f("obj('~s').value = \"~s\";", [TextBoxID, OriginalText])),
-	wf:wire(wf:f("obj('~s').hide(); obj('~s').show();", [EditPanelID, ViewPanelID])),
+	wf:wire(EditPanelID, #hide {}),
+	wf:wire(ViewPanelID, #show {}),
 	ok;	
 
 event(_Tag) -> ok.

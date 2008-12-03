@@ -22,7 +22,6 @@ function wf_dragdrop(dragObj, dragOptions, dropObj, dropOptions) {
 		dragObj.wf_is_draggable = true;
 	}
 	dropOptions.accept = "#" + dragObj.id;
-	dropOptions.handle = ".handle";
 	$("#" + dropObj.id).droppable(dropOptions);
 }
 
@@ -85,7 +84,7 @@ function wf_postback_loop() {
 
 function wf_queue_postback(triggerID, postbackInfo, extraParams) {
 	var o = new Object();
-	o.triggerID = triggerID;
+	o.triggerID = obj(triggerID).id;
 	o.postbackInfo = postbackInfo;
 	o.extraParams = extraParams;
 	wf_postbacks.push(o);
@@ -97,11 +96,12 @@ function wf_do_postback(triggerID, postbackInfo, extraParams) {
 
 	// Check validatation...
 	var isValid = true;
+	
 	var forms = document.getElementsByTagName("form"); 
 	for (var i=0; i<forms.length; i++) {
 		for (var j=0; j<forms[i].elements.length; j++) {
 			element = forms[i].elements[j];
-			if (element.validator && (element.validator.trigger == triggerID) && !element.validator.validate()) {
+			if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
 				isValid = false;
 			}
 		}
@@ -186,6 +186,10 @@ function wf_stop_spinner() {
 
 
 /*** MISC ***/
+
+function wf_return_false(value, args) { 
+	return false; 
+}
 
 function wf_is_enter_key(event) {
 	return (event && event.keyCode == 13);

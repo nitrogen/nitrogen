@@ -52,7 +52,7 @@
 -record(flash, {?ELEMENT_BASE}).
 -record(placeholder, {?ELEMENT_BASE, body=[]}).
 -record(bind, {?ELEMENT_BASE, data=[], map=[], transform=undefined, acc=[], body=[]}).
--record(sortblock, {?ELEMENT_BASE, postback, body=[], has_handle=false, connect_with=[]}).
+-record(sortblock, {?ELEMENT_BASE, postback, body=[], handle=null, connect_with=[]}).
 -record(sortitem, {?ELEMENT_BASE, tag, body=[]}).
 
 %%% Controls %%%
@@ -69,7 +69,7 @@
 -record(confirm, {?ACTION_BASE, text="", postback}).
 -record(script, {?ACTION_BASE, script}).
 -record(disable_selection, {?ACTION_BASE}).
--record(dragdrop, {?ACTION_BASE, postback, clone=true, revert=true, active_class=active, hover_class=hover, has_handle=false}).
+-record(dragdrop, {?ACTION_BASE, postback, clone=true, revert=true, active_class=active, hover_class=hover, handle=null}).
 -record(jquery_effect, {?ACTION_BASE, type, effect, speed, options=[], class, style, easing}).
 -record(show, {?ACTION_BASE, effect=none, options=[], speed=500}).
 -record(hide, {?ACTION_BASE, effect=none, options=[], speed=500}).
@@ -89,7 +89,7 @@
 -record(is_integer, {?VALIDATOR_BASE}).
 -record(min_length, {?VALIDATOR_BASE, length}).
 -record(confirm_password, {?VALIDATOR_BASE, password}).
--record(custom, {?VALIDATOR_BASE, function, record }).
+-record(custom, {?VALIDATOR_BASE, function, tag }).
 -record(js_custom, {?VALIDATOR_BASE, function, args="{}" }).
 
 

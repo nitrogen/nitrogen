@@ -11,9 +11,9 @@ reflect() -> record_info(fields, sortblock).
 render(ControlID, Record) -> 
 	% Get the postbackinfo...
 	PickledPostbackInfo = action_event:make_postback_info(Record#sortblock.postback, sort, ControlID, ControlID, ?MODULE),
-	Handle = case Record#sortblock.has_handle of
-		true -> "'> .handle'";
-		false -> "null"
+	Handle = case Record#sortblock.handle of
+		null -> "null";
+		Other -> wf:f("'.~s'", [Other])
 	end,
 	ConnectWith = lists:flatten([Record#sortblock.connect_with]),
 	ConnectWith1 = [wf:f("'#' + obj('~s').id", [X]) || X <- ConnectWith],

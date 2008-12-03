@@ -6,10 +6,17 @@ main() ->
 	Body = #body { title="User Notices", body=
 		#panel { style="padding: 20px;", body=[
 			#h1 { text="User Notice Examples" },
-			
+			"
+				Nitrogen provides you with a variety of ways to indicate
+				simple messages to a user.
+			",
+			#p{},			
 			#flash {},
-			
+			#p{},
 			#button { text="Show Flash Message", postback=show_flash },
+			#p{},
+
+			#button { text="Show Advanced Flash Message", postback=show_advanced_flash },
 			#p{},
 			
 			#button { text="Show Javascript Alert", postback=show_alert },
@@ -22,6 +29,16 @@ main() ->
 	
 event(show_flash) ->
 	wf:flash("This is a flash message.");
+
+event(show_advanced_flash) ->
+	wf:flash([
+		#span { text="Flash messages can contain nested controls." },
+		#p{},
+		#button { text="Click Me", postback=advanced_flash_click }
+	]);
+	
+event(advanced_flash_click) ->
+	wf:flash("You clicked the button.");
 	
 event(show_alert) ->
 	wf:wire(#alert { text="This is a Javascript Alert" });

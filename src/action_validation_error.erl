@@ -5,7 +5,7 @@
 render_action(TriggerPath, TargetPath, Record) -> 
 	Text = wf_utils:js_escape(Record#validation_error.text),
 	Script = [
-		"var v = new LiveValidation(obj(me), { onlyOnSubmit: true });",
+		"var v = new LiveValidation(obj('me'), { onlyOnSubmit: true });",
 		wf:f("v.add(Validate.Custom, { against: wf_return_false, failureMessage: \"~s\" });", [Text]),
 		"v.validate();"
 	],

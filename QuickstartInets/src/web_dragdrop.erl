@@ -22,7 +22,7 @@ main() ->
 		]}
 	},
 	
-	wf:wire(drag1, drop1, #dragdrop { clone=false, postback={drag, drag1, drop1}, has_handle=true }),
+	wf:wire(drag1, drop1, #dragdrop { clone=false, postback={drag, drag1, drop1}, handle=handle }),
 	wf:wire(drag2, drop1, #dragdrop { clone=true, postback={drag, drag2, drop1} }),
 	wf:wire(drag2, drop2, #dragdrop { clone=true, postback={drag, drag2, drop2} }),
 	
