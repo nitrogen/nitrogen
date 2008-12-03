@@ -5,11 +5,7 @@
 main() ->
 	Body = #body { body=#panel { style="margin: 50px;", body=[
 		#h1 { text="Nitrogen Example Pages" },
-		#h3 { text="Templates" },
-		link("No Template","/web/template_none", web_template_none),
-		link("Simple Template", "/web/template_simple", web_template_simple),
-		#p{},
-		
+	
 		#h3 { text="Controls and Validation" },
 		link("Simple Controls", "/web/simplecontrols", web_simplecontrols),
 		link("In-Place Textbox", "/web/advancedcontrols1", web_advancedcontrols1),
@@ -35,6 +31,11 @@ main() ->
 		link("Record-Based Binding", "/web/binding2", web_binding2),
 		link("Key/Value Pair Binding", "/web/binding3", web_binding3),
 		link("Binding With a Transform Function", "/web/binding4", web_binding4),
+		#p{},
+		
+		#h3 { text="Templates" },
+		link("No Template","/web/template_none", web_template_none),
+		link("Simple Template", "/web/template_simple", web_template_simple),
 		#p{},
 
 		#h3 { text="Advanced Topics" },

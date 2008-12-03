@@ -11,9 +11,11 @@ main() ->
 			
 			#panel { style=?DRAGGABLE_STYLE, id=drag1, body=[
 				#span { class=handle, text="(Handle)" }, 
-				#br{},
+				#br {},
 				"Drag1"
-			]}, #p{},
+			]}, 
+			#p{},
+			
 			#panel { style=?DRAGGABLE_STYLE, id=drag2, body="Drag2" }, 
 			#p{},
 			#p{},
