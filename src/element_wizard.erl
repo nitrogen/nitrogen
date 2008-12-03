@@ -10,9 +10,7 @@ reflect() -> record_info(fields, wizard).
 
 render(ControlID, Record) -> 
 	% Set up callbacks...
-	Delegate = Record#wizard.delegate,
 	Tag = Record#wizard.tag,
-	wf:assert(Delegate /= undefined, wizard_must_have_a_delegate_defined),
 
 	% Set up steps...
 	wf:assert(Record#wizard.id /= undefined, wizard_needs_a_proper_name),
@@ -40,14 +38,14 @@ render(ControlID, Record) ->
 				#tablecell { class="wizard_buttons_top", body=[
 					#button { id=backTop, show_if=(not IsFirst), text="Back", actions=#event { type=click, postback={back, N, FullIDs}, delegate=?MODULE } },
 					#button { id=nextTop, show_if=(not IsLast), text="Next", actions=#event { type=click, postback={next, N, FullIDs}, delegate=?MODULE } },
-					#button { id=finishTop, show_if=IsLast, text="Finish", actions=#event { type=click, postback={finish, Delegate, Tag}, delegate=?MODULE } }				
+					#button { id=finishTop, show_if=IsLast, text="Finish", actions=#event { type=click, postback={finish, Tag}, delegate=?MODULE } }				
 				]}
 			]},
 			#panel { class="wizard_body", body=StepBody },
 			#panel { class="wizard_buttons_bottom", body=[
 				#button { id=back, show_if=(not IsFirst), text="Back", actions=#event { type=click, postback={back, N, FullIDs}, delegate=?MODULE } },
 				#button { id=next, show_if=(not IsLast), text="Next", actions=#event { type=click, postback={next, N, FullIDs}, delegate=?MODULE } },
-				#button { id=finish, show_if=IsLast, text="Finish", actions=#event { type=click, postback={finish, Delegate, Tag}, delegate=?MODULE } }
+				#button { id=finish, show_if=IsLast, text="Finish", actions=#event { type=click, postback={finish, Tag}, delegate=?MODULE } }
 			]}
 		]}
 	end,
@@ -59,22 +57,23 @@ render(ControlID, Record) ->
 	},
 	
 	% Show the first step.
-	wf:wire(hd(FullIDs), #effect_show{}),	
+	wf:wire(hd(FullIDs), #show{}),	
 	
 	% Render.
 	element_panel:render(ControlID, Terms).
 	
 event({back, N, StepIDs}) -> 
-	wf:wire(lists:nth(N, StepIDs), #effect_hide {}),
-	wf:wire(lists:nth(N - 1, StepIDs), #effect_show {}),
+	wf:wire(lists:nth(N, StepIDs), #hide {}),
+	wf:wire(lists:nth(N - 1, StepIDs), #show {}),
 	ok;	
 
 event({next, N, StepIDs}) -> 
-	wf:wire(lists:nth(N, StepIDs), #effect_hide {}),
-	wf:wire(lists:nth(N + 1, StepIDs), #effect_show {}),
+	wf:wire(lists:nth(N, StepIDs), #hide {}),
+	wf:wire(lists:nth(N + 1, StepIDs), #show {}),
 	ok;	
 
-event({finish, Delegate, Tag}) -> 
+event({finish, Tag}) -> 
+	Delegate = wf_platform:get_page_module(),
 	Delegate:wizard_event(Tag),
 	ok;
 	

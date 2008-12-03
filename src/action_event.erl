@@ -27,11 +27,15 @@ render_action(TriggerPath, TargetPath, Record) ->
 				wf:f("wf_observe_event(obj('~s'), '~s', function anonymous(event) { ~s ~s });\r\n", [wf:to_js_id(TriggerPath), EventType, Postback, Actions])
 			]
 	end.
-		
+	
+make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate) ->
+	PostbackInfo = {EventType, TriggerPath, TargetPath, Tag, Delegate},
+	wf_utils:pickle(PostbackInfo).
+	
 make_postback(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
 	case Postback of
 		undefined -> [];
 		Tag ->
-			PostbackInfo = {EventType, TriggerPath, TargetPath, Tag, Delegate},
-			wf:f("wf_queue_postback('~s', '~s');", [wf:to_js_id(TriggerPath), wf_utils:pickle(PostbackInfo)])
+			PickledPostbackInfo = make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate),
+			wf:f("wf_queue_postback('~s', '~s');", [wf:to_js_id(TriggerPath), PickledPostbackInfo])
 	end.

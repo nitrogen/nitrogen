@@ -9,7 +9,8 @@
 	to_path/1, 
 	to_html_id/1,
 	to_js_id/1,
-	temp_id/0, is_temp_element/1
+	temp_id/0, is_temp_element/1,
+	split_path/1
 ]).
 
 %%% CURRENT PATH %%%
@@ -24,12 +25,9 @@ pop_path() -> put(current_path, tl(get(current_path))).
 % An atompath is of the form 'root.parentcontrol.control.childcontrol' or 'me.control.childcontrol'
 
 to_path(P) when is_list(P) ->
-	case is_integer(lists:nth(1, P)) of
-		true ->
-			Path = lists:reverse([wf:to_atom(X) || X <- string:tokens(P, "__")]),
-			to_absolute_path(Path);
-		false ->
-			P
+	case wf:is_string(P) of
+		true -> to_absolute_path(split_path(P));
+		false -> P
 	end;
 		
 to_path(P) when is_atom(P) ->
@@ -55,6 +53,18 @@ to_absolute_path(RelativePath) ->
 		end
 	end,
 	lists:foldr(F, [], RelativePath).
+
+split_path(S) -> 
+	L = split_path(S, []),
+	lists:reverse([wf:to_atom(X) || X <- L]).
+	
+split_path([], Acc) -> [lists:reverse(Acc)];
+split_path([$_,$_|T], Acc) -> [lists:reverse(Acc)|split_path(T, [])];
+split_path([H|T], Acc) -> split_path(T, [H|Acc]).
+	
+	
+	
+
 
 %%% TEMP ELEMENTS %%%
 

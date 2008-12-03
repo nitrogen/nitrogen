@@ -10,6 +10,7 @@ handle_request(Module) ->
 	% Set up session.
 	L = [wf_action_queue, wf_update_queue, wf_content_script, wf_dom_script, wf_script, wf_paths, wf_state, wf_state_updates, wf_headers],
 	[put(X, []) || X <- L],
+	wf_platform:set_page_module(Module),
 	wf_platform:clear_redirect(),
 	wf_platform:set_response_code(200),
 	wf_platform:set_content_type("text/html"),
@@ -49,7 +50,7 @@ handle_get_request(Module) ->
 	
 	% Render the page...
 	wf:state(validators, []),
-	put(current_path, [page]),	
+	put(current_path, [page]),
 	Response = Module:main(),
 	
 	% Send the response.

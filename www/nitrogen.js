@@ -17,9 +17,26 @@ function wf_insert_bottom(el, html) {
 }
 
 function wf_dragdrop(dragObj, dragOptions, dropObj, dropOptions) {
-	$(dragObj).draggable(dragOptions);
+	if (!dragObj.wf_is_draggable) {
+		$(dragObj).draggable(dragOptions);
+		dragObj.wf_is_draggable = true;
+	}
 	dropOptions.accept = "#" + dragObj.id;
+	dropOptions.handle = ".handle";
 	$("#" + dropObj.id).droppable(dropOptions);
+}
+
+function wf_sortable(sortBlock, sortOptions) {
+	sortOptions.update = function() {
+		var sortItems = "";
+		for (var i=0; i<this.childNodes.length; i++) {
+			var n = this.childNodes[i];
+			if (sortItems != "") sortItems += ",";
+			if (n.wf_sort_tag) sortItems += n.wf_sort_tag;
+		}
+		wf_queue_postback(this.id, this.wf_sort_postback, "sort_items=" + sortItems);
+	};
+	$(sortBlock).sortable(sortOptions);
 }
 
 function wf_serialize_forms() {
@@ -63,17 +80,18 @@ function wf_postback_loop() {
 	if (wf_postbacks.length == 0) return;
 	if (wf_is_in_postback) return;
 	var o = wf_postbacks.shift();
-	wf_do_postback(o.triggerID, o.postbackInfo);
+	wf_do_postback(o.triggerID, o.postbackInfo, o.extraParams);
 }
 
-function wf_queue_postback(triggerID, postbackInfo) {
+function wf_queue_postback(triggerID, postbackInfo, extraParams) {
 	var o = new Object();
 	o.triggerID = triggerID;
 	o.postbackInfo = postbackInfo;
+	o.extraParams = extraParams;
 	wf_postbacks.push(o);
 }
 
-function wf_do_postback(triggerID, postbackInfo) {
+function wf_do_postback(triggerID, postbackInfo, extraParams) {
 	// Flag to stop firing multiple postbacks at the same time...
 	wf_is_in_postback = true;
 
@@ -95,7 +113,13 @@ function wf_do_postback(triggerID, postbackInfo) {
 	}
 	
 	// Get params...
-	var params = "postbackInfo=" + postbackInfo + "&domState=" + wf_dom_state + "&" + wf_serialize_forms();
+	var params = 
+		"postbackInfo=" + postbackInfo + 
+		"&domState=" + wf_dom_state + 
+		"&" + wf_serialize_forms() + 
+		"&" + extraParams;
+		
+	// Go Ajax!
 	wf_ajax(params);
 }
 

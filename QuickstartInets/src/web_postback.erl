@@ -35,6 +35,4 @@ main() ->
 	
 event(EventInfo) ->
 	wf:wire(#alert { text=wf:f("~p", [EventInfo]) }),
-	ok;	
-
-event(_) -> ok.
+	ok.

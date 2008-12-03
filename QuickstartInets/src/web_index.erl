@@ -6,23 +6,39 @@ main() ->
 	Body = #body { body=#panel { style="margin: 50px;", body=[
 		#h1 { text="Nitrogen Example Pages" },
 		#h3 { text="Templates" },
-		#link { text="No Template", url="/web/template_none" }, #br{},
-		#link { text="Simple Template", url="/web/template_simple" },
+		link("No Template","/web/template_none", web_template_none),
+		link("Simple Template", "/web/template_simple", web_template_simple),
 		#p{},
 		
-		#h3 { text="Using Controls" },
-		#link { text="Some Simple Controls", url="/web/simplecontrols" }, #br{},
-		#link { text="Postbacks", url="/web/postback" }, #br{},
-		#link { text="AJAX Replacement", url="/web/ajax" }, #br{},
+		#h3 { text="Controls and Effects" },
+		link("Simple Controls", "/web/simplecontrols", web_simplecontrols),
+		link("Effects", "/web/effects", web_effects),
+		link("Postbacks", "/web/postback", web_postback),
+		link("AJAX Replacement", "/web/ajax", web_ajax),
+		link("Drag and Drop", "/web/dragdrop", web_dragdrop),
+		link("Sorting", "/web/sorting", web_sorting),
+		link("User Notices", "/web/notices", web_sorting),
 		#p{},
 		
 		#h3 { text="Data Binding" },
-		#link { text="Simple (List-Based) Binding", url="/web/binding1" }, #br{},
-		#link { text="Record-Based Binding", url="/web/binding2" }, #br{},
-		#link { text="Key/Value Pair Binding", url="/web/binding3" },
+		link("Simple (List-Based) Binding", "/web/binding1", web_binding1),
+		link("Record-Based Binding", "/web/binding2", web_binding2),
+		link("Key/Value Pair Binding", "/web/binding3", web_binding3),
+		link("Binding With a Transform Function", "/web/binding4", web_binding4),
 		#p{}
+		
 	]}},
 	wf:render(Body).
+	
+link(Text, Url, Module) ->
+	[
+		#link { text=Text, url=Url },
+		"&nbsp;", 
+		#span { style="font-size: 60%;", text="(" },
+		#link { style="font-size: 60%;", text="code", url=wf:f("/web/viewsource?module=~s", [Module])},
+		#span { style="font-size: 60%;", text=")" },
+		#br{}
+	].
 	
 event(go) ->
 	wf:flash("Hello there"),

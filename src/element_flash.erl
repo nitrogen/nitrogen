@@ -38,8 +38,8 @@ get_flashes() ->
 	% Create terms for an individual flash...
 	F = fun(X) ->
 		FlashID = wf:temp_id(),
-		InnerPanel = #panel { class=flash, actions=#effect_blinddown { target=FlashID, duration=0.4 }, body=[
-			#link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#effect_blindup {} } },
+		InnerPanel = #panel { class=flash, actions=#show { target=FlashID, effect=blind, speed=400 }, body=[
+			#link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#hide { effect=blind, speed=400 } } },
 			#panel { class=flash_content, body=X }
 		]},
 		#panel { id=FlashID, style="display: none;", body=InnerPanel}

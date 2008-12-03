@@ -1,0 +1,21 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
+-module (element_sortitem).
+-include ("wf.inc").
+-compile(export_all).
+
+reflect() -> record_info(fields, sortitem).
+
+render(ControlID, Record) -> 
+	PickledTag = wf_utils:pickle(Record#sortitem.tag),
+	Script = wf:f("obj('~s').wf_sort_tag = '~s';", [ControlID, PickledTag]),
+	wf:wire(Script),
+
+	element_panel:render(ControlID, #panel {
+		class="sortblock " ++ wf:to_list(Record#sortitem.class),
+		style=Record#sortitem.style,
+		body=Record#sortitem.body
+	}).
+	

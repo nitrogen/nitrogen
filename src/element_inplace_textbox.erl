@@ -17,14 +17,13 @@ render(ControlID, Record) ->
 	LabelID = wf:temp_id(),
 	MouseOverID = wf:temp_id(),
 	TextBoxID = wf:temp_id(),
-	Delegate = Record#inplace_textbox.delegate,
 	Tag = Record#inplace_textbox.tag,
 	OriginalText = Record#inplace_textbox.text,
 	
 	% Set up the events...
 	Controls = {ViewPanelID, LabelID, EditPanelID, TextBoxID},
-	OKEvent = #event { delegate=?MODULE, postback={ok, Controls, Delegate, Tag}, controls=[TextBoxID] },
-	CancelEvent = #event { delegate=?MODULE, postback={cancel, Controls, Delegate, Tag, OriginalText} },
+	OKEvent = #event { delegate=?MODULE, postback={ok, Controls, Tag}, controls=[TextBoxID] },
+	CancelEvent = #event { delegate=?MODULE, postback={cancel, Controls, Tag, OriginalText} },
 	
 	% Create the view...
 	Text = Record#inplace_textbox.text,
@@ -35,8 +34,8 @@ render(ControlID, Record) ->
 			#panel { id=ViewPanelID, class="view", body=[
 				#span { id=LabelID, class="label", text=Text, html_encode=Record#inplace_textbox.html_encode, actions=[
 					#buttonize { target=ViewPanelID },
-					#event { type=mouseover, target=MouseOverID, actions=#effect_show {} },
-					#event { type=mouseout, target=MouseOverID, actions=#effect_hide{} }
+					#event { type=mouseover, target=MouseOverID, actions=#show {} },
+					#event { type=mouseout, target=MouseOverID, actions=#hide{} }
 				]},
 				#span { id=MouseOverID, class="instructions", text="Click to edit" }
 			], actions = [
@@ -51,9 +50,9 @@ render(ControlID, Record) ->
 	},
 	
 	case Record#inplace_textbox.start_mode of
-		view -> wf:wire(EditPanelID, #effect_hide{});
+		view -> wf:wire(EditPanelID, #hide{});
 		edit -> 
-			wf:wire(ViewPanelID, #effect_hide{}),
+			wf:wire(ViewPanelID, #hide{}),
 			wf:wire(TextBoxID, "obj('me').focus(); obj('me').select();")
 	end,
 	
@@ -61,8 +60,9 @@ render(ControlID, Record) ->
 	
 	element_panel:render(ControlID, Terms).
 
-event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Delegate, Tag}) -> 
+event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}) -> 
 	[Value] = wf:q(TextBoxID),
+	Delegate = wf_platform:get_page_module(),
 	Value1 = Delegate:inplace_textbox_event(Tag, Value),
 	wf:update(LabelID, Value1),
 	% Safari bitches with the following line, so 
@@ -72,7 +72,7 @@ event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Delegate, Tag}) ->
 	wf:wire(wf:f("obj('~s').hide(); obj('~s').show();", [EditPanelID, ViewPanelID])),
 	ok;
 
-event({cancel, {ViewPanelID, _LabelID, EditPanelID, TextBoxID}, _Delegate, _Tag, OriginalText}) ->
+event({cancel, {ViewPanelID, _LabelID, EditPanelID, TextBoxID}, _Tag, OriginalText}) ->
 	%wf:update(TextBoxID, OriginalText),
 	wf:wire(wf:f("obj('~s').value = \"~s\";", [TextBoxID, OriginalText])),
 	wf:wire(wf:f("obj('~s').hide(); obj('~s').show();", [EditPanelID, ViewPanelID])),

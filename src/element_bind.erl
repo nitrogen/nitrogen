@@ -13,7 +13,7 @@ render(_ControlID, Record) ->
 	Data = Record#bind.data,
 	Map = Record#bind.map,
 	Transform = case Record#bind.transform of 
-		undefined -> fun(A, B) -> {A, B} end;
+		undefined -> fun(A, B) -> {A, B, []} end;
 		Other -> Other
 	end,
 	AccInit = Record#bind.acc,
@@ -39,12 +39,12 @@ render_rows([H|T], N) ->
 bind(_, [], _, _, _) -> [];
 bind(Body, [DataRow|Data], Map, Transform, Acc) ->
   % Run the transform function...
-	{DataRow1, Acc1} = Transform(DataRow, Acc),
+	{DataRow1, Acc1, ExtraBindings} = Transform(DataRow, Acc),
 	
 	% Map the data into the body...
 	RawBindings = extract_bindings(Map, DataRow1),
-	Bindings = normalize_bindings(RawBindings),
-	Body1 = apply_bindings(Bindings, Body, ''),
+	Bindings = normalize_bindings([RawBindings ++ [ExtraBindings]]),
+	Body1 = apply_bindings(Bindings, Body),
 	
 	% Iterate.
 	[Body1|bind(Body, Data, Map, Transform, Acc1)].
@@ -54,13 +54,13 @@ bind(Body, [DataRow|Data], Map, Transform, Acc) ->
 
 %% apply_bindings/2 - Given a list of terms and a list
 %% of replacements, update the terms with values from replacements.
-apply_bindings(Bindings, Term, Level) when is_list(Term) ->
+apply_bindings(Bindings, Term) when is_list(Term) ->
 	case Term == [] orelse wf:is_string(Term) of
 		true -> Term;
-		false -> [apply_bindings(Bindings, X, Level) || X <- Term]
+		false -> [apply_bindings(Bindings, X) || X <- Term]
 	end;
 	
-apply_bindings(Bindings, Term, Level) when is_tuple(Term) ->
+apply_bindings(Bindings, Term) when is_tuple(Term) ->
 	Type = element(1, Term),
 	TypeModule = list_to_atom("element_" ++ atom_to_list(Type)),
 	Fields = TypeModule:reflect(),
@@ -68,26 +68,20 @@ apply_bindings(Bindings, Term, Level) when is_tuple(Term) ->
 	
 	% Do replacements on this term...
 	F1 = fun(Binding, Rec) ->
-		{{RepLevel, RepID, RepAttr}, Value} = Binding,
-		case RepLevel == Level andalso RepID == ID of
+		{{RepID, RepAttr}, Value} = Binding,
+		case RepID == ID of
 			true -> replace_field(RepAttr, Value, Fields, Rec);
 			false ->Rec
 		end
 	end,
 	Term1 = lists:foldl(F1, Term, Bindings),
-
-	% Get the new level...
-	Level1 = case ID of 
-		undefined -> Level;
-		_ -> new_level(Level, ID)
-	end,
 	
 	% Do replacements on children (in 'body', 'rows', or 'cells' fields)...	
 	F2 = fun(ChildField, Rec) ->
 		case get_field(ChildField, Fields, Term1) of
 			undefined -> Rec;
 			Children -> 
-				Children1 = apply_bindings(Bindings, Children, Level1),
+				Children1 = apply_bindings(Bindings, Children),
 				replace_field(ChildField, Children1, Fields, Rec)
 		end
 	end,
@@ -108,24 +102,16 @@ indexof(_Key, [], _) -> undefined;
 indexof(Key, [Key|_T], N) -> N;
 indexof(Key, [_|T], N) -> indexof(Key, T, N + 1).
 
-new_level('', ID) -> wf:to_atom(ID);
-new_level(Level, ID) ->	wf:to_atom(wf:to_list(Level) ++ "." ++ wf:to_list(ID)).
-
-
 %%% NORMALIZE_BINDING %%%
 normalize_bindings(Bindings) ->
 	Bindings1 = lists:flatten([Bindings]),
+	?PRINT(Bindings1),
 	Bindings2 = [{get_replacement_key_parts(Key), Value} || {Key, Value} <- Bindings1],
 	[{Key, Value} || {Key, Value} <- Bindings2, Key /= ignore].
 		
 get_replacement_key_parts(Key) ->
 	case string:tokens(wf:to_list(Key), "@") of
-		[Element, Attr] ->
-			ElementParts = string:tokens(Element, "."),
-			Level = wf:to_atom(lists:reverse(tl(lists:reverse(ElementParts)))),
-			ID = wf:to_atom(hd(lists:reverse(ElementParts))),
-			Attr1 = wf:to_atom(Attr),
-			{Level, ID, Attr1};
+		[ID, Attr] -> {wf:to_atom(ID), wf:to_atom(Attr)};
 		_ -> ignore
 	end.
 

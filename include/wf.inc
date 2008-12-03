@@ -52,9 +52,11 @@
 -record(flash, {?ELEMENT_BASE}).
 -record(placeholder, {?ELEMENT_BASE, body=[]}).
 -record(bind, {?ELEMENT_BASE, data=[], map=[], transform=undefined, acc=[], body=[]}).
+-record(sortblock, {?ELEMENT_BASE, postback, body=[], has_handle=false, connect_with=[]}).
+-record(sortitem, {?ELEMENT_BASE, tag, body=[]}).
 
 %%% Controls %%%
--define(CONTROL_BASE, ?ELEMENT_BASE, delegate, tag).
+-define(CONTROL_BASE, ?ELEMENT_BASE, tag).
 -record(inplace_textbox, {?CONTROL_BASE, text="", html_encode=true, start_mode=view, validators=[]}).
 -record(wizard, {?CONTROL_BASE, titles=undefined, steps=undefined }).
 
@@ -66,18 +68,19 @@
 -record(alert, {?ACTION_BASE, text=""}).
 -record(confirm, {?ACTION_BASE, text="", postback}).
 -record(script, {?ACTION_BASE, script}).
--record(effect_highlight, {?ACTION_BASE, duration=0.8}).
--record(effect_fade, {?ACTION_BASE, duration=0.6}).
--record(effect_appear, {?ACTION_BASE, duration=0.6}).
--record(effect_blindup, {?ACTION_BASE, duration=0.6}).
--record(effect_blinddown, {?ACTION_BASE, duration=0.6}).
--record(effect_pulsate, {?ACTION_BASE, pulses=1, duration=0.3}).
--record(effect_show, {?ACTION_BASE}).
--record(effect_hide, {?ACTION_BASE}).
--record(effect_toggle, {?ACTION_BASE}).
 -record(disable_selection, {?ACTION_BASE}).
+-record(dragdrop, {?ACTION_BASE, postback, clone=true, revert=true, active_class=active, hover_class=hover, has_handle=false}).
+-record(jquery_effect, {?ACTION_BASE, type, effect, speed, options=[], class, style, easing}).
+-record(show, {?ACTION_BASE, effect=none, options=[], speed=500}).
+-record(hide, {?ACTION_BASE, effect=none, options=[], speed=500}).
+-record(appear, {?ACTION_BASE, speed=500}).
+-record(fade, {?ACTION_BASE, speed=500}).
+-record(effect, {?ACTION_BASE, effect=none, options=[], speed=500}).
+-record(toggle, {?ACTION_BASE, effect=none, options=[], speed=500}).
+-record(add_class, {?ACTION_BASE, class=none, speed=500}).
+-record(remove_class, {?ACTION_BASE, class=none, speed=500}).
+-record(animate, {?ACTION_BASE, options=[], speed=500, easing=swing}).
 -record(buttonize, {?ACTION_BASE}).
--record(dragdrop, {?ACTION_BASE, postback, clone=true, revert=true, active_class=active, hover_class=hover}).
 
 %%% Validators %%%
 -define(VALIDATOR_BASE, text="Failed.").

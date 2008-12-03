@@ -7,16 +7,28 @@
 -compile(export_all).
 
 render_action(TriggerPath, TargetPath, Record) -> 
-	% JQUERY SPECIFIC CODE.
+	Handle = case Record#dragdrop.has_handle of
+		true -> "'> .handle'";
+		false -> "null"
+	end,
+
 	Helper = case Record#dragdrop.clone of
 		true -> clone;
 		false -> original
 	end,
 	
+	Revert = case Record#dragdrop.revert of
+		true -> "true";
+		false -> "false";
+		valid -> "'valid'";
+		invalid -> "'invalid'"
+	end,
+	
 	% Make drag options.
-	DragOptions = wf:f("{ helper: '~s', revert: '~s' }", [
+	DragOptions = wf:f("{ handle: ~s, helper: '~s', revert: ~s }", [
+		Handle,
 		Helper, 
-		Record#dragdrop.revert
+	  Revert
 	]),
 		
 	% Make drop options.
