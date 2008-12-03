@@ -26,18 +26,18 @@
 -record(p, { ?ELEMENT_BASE }).
 -record(label, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(value, {?ELEMENT_BASE, text="", html_encode=true}).
--record(link, {?ELEMENT_BASE, text="", html_encode=true, url="javascript:", postback=undefined}).
+-record(link, {?ELEMENT_BASE, text="", html_encode=true, url="javascript:", postback}).
 -record(error, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(span, {?ELEMENT_BASE, text="", html_encode=true}).
--record(button, {?ELEMENT_BASE, text="Button", html_encode=true, postback=undefined}).
+-record(button, {?ELEMENT_BASE, text="Button", html_encode=true, postback}).
 -record(literal, {?ELEMENT_BASE, text="", html_encode=true}).
--record(textbox, {?ELEMENT_BASE, text="", html_encode=true, next=undefined, postback=undefined}).
+-record(textbox, {?ELEMENT_BASE, text="", html_encode=true, next, postback}).
 -record(hidden, {?ELEMENT_BASE, text="", html_encode=true}).
 -record(textarea, {?ELEMENT_BASE, text="", html_encode=true}).
--record(dropdown, {?ELEMENT_BASE, options=[], html_encode=true, postback=undefined, value=undefined}).
+-record(dropdown, {?ELEMENT_BASE, options=[], html_encode=true, postback, value}).
 -record(option, { text="", value="", selected=false }).
--record(checkbox, {?ELEMENT_BASE, text="", html_encode=true, checked=false, postback=undefined}).
--record(password, {?ELEMENT_BASE, text="", html_encode=true, next=undefined, postback=undefined}).
+-record(checkbox, {?ELEMENT_BASE, text="", html_encode=true, checked=false, postback}).
+-record(password, {?ELEMENT_BASE, text="", html_encode=true, next, postback}).
 -record(panel, {?ELEMENT_BASE, body=""}).
 -record(spinner, {?ELEMENT_BASE, image="/nitrogen/spinner.gif"}).
 -record(image, {?ELEMENT_BASE, image=""}).
@@ -48,28 +48,29 @@
 -record(tableheader, {?ELEMENT_BASE, text="", html_encode=true, body="", align="left", valign="middle", colspan=1, rowspan=1}).
 -record(tablecell, {?ELEMENT_BASE, text="", html_encode=true, body="", align="left", valign="middle", colspan=1, rowspan=1}).
 -record(singlerow, {?ELEMENT_BASE, cells}). 
--record(file, {?ELEMENT_BASE, file=undefined}).
+-record(file, {?ELEMENT_BASE, file}).
 -record(flash, {?ELEMENT_BASE}).
 -record(placeholder, {?ELEMENT_BASE, body=[]}).
--record(bind, {?ELEMENT_BASE, data=[], map=[], transform=undefined, acc=[], body=[]}).
--record(sortblock, {?ELEMENT_BASE, postback, body=[], handle=null, connect_with=[]}).
--record(sortitem, {?ELEMENT_BASE, tag, body=[]}).
+-record(bind, {?ELEMENT_BASE, data=[], map=[], transform, acc=[], body=[]}).
+-record(sortitem, {?ELEMENT_BASE, tag, body=[] }).
+-record(sortblock, {?ELEMENT_BASE, postback, body=[], group, connect_with_groups=none, handle }).
+-record(draggable, {?ELEMENT_BASE, tag, body=[], group, handle, clone=true, revert=true}).
+-record(droppable, {?ELEMENT_BASE, tag, body=[], accept_groups=all, active_class=active, hover_class=hover}).
 
 %%% Controls %%%
 -define(CONTROL_BASE, ?ELEMENT_BASE, tag).
 -record(inplace_textbox, {?CONTROL_BASE, text="", html_encode=true, start_mode=view, validators=[]}).
--record(wizard, {?CONTROL_BASE, titles=undefined, steps=undefined }).
+-record(wizard, {?CONTROL_BASE, titles, steps }).
 
 %%% Actions %%%
 -define(ACTION_BASE, trigger, target, actions, show_if=true).
 -record(event, {?ACTION_BASE, type=click, interval=1, postback, delegate, controls=[]}).
--record(validate, {?ACTION_BASE, on=submit, success_text=" ", validators, attach_to=undefined }).
+-record(validate, {?ACTION_BASE, on=submit, success_text=" ", validators, attach_to }).
 -record(validation_error, {?ACTION_BASE, text="" }).
 -record(alert, {?ACTION_BASE, text=""}).
 -record(confirm, {?ACTION_BASE, text="", postback}).
 -record(script, {?ACTION_BASE, script}).
 -record(disable_selection, {?ACTION_BASE}).
--record(dragdrop, {?ACTION_BASE, postback, clone=true, revert=true, active_class=active, hover_class=hover, handle=null}).
 -record(jquery_effect, {?ACTION_BASE, type, effect, speed, options=[], class, style, easing}).
 -record(show, {?ACTION_BASE, effect=none, options=[], speed=500}).
 -record(hide, {?ACTION_BASE, effect=none, options=[], speed=500}).

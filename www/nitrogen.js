@@ -16,16 +16,24 @@ function wf_insert_bottom(el, html) {
 	$(el).append(html);
 }
 
-function wf_dragdrop(dragObj, dragOptions, dropObj, dropOptions) {
-	if (!dragObj.wf_is_draggable) {
-		$(dragObj).draggable(dragOptions);
-		dragObj.wf_is_draggable = true;
-	}
-	dropOptions.accept = "#" + dragObj.id;
-	$("#" + dropObj.id).droppable(dropOptions);
+function wf_draggable(dragObj, dragOptions, dragTag) {
+	dragObj.wf_drag_tag = dragTag;
+	$(dragObj).draggable(dragOptions);	
 }
 
-function wf_sortable(sortBlock, sortOptions) {
+function wf_droppable(dropObj, dropOptions, dropPostbackInfo) {
+	dropOptions.drop = function(ev, ui) {
+		var dragItem = ui.draggable[0].wf_drag_tag;
+		wf_queue_postback(this.id, dropPostbackInfo, "drag_item=" + dragItem);
+	}
+	$(dropObj).droppable(dropOptions);
+}
+
+function wf_sortitem(sortItem, sortTag) {
+	sortItem.wf_sort_tag = sortTag;
+}
+
+function wf_sortblock(sortBlock, sortOptions, sortPostbackInfo) {
 	sortOptions.update = function() {
 		var sortItems = "";
 		for (var i=0; i<this.childNodes.length; i++) {
@@ -33,7 +41,7 @@ function wf_sortable(sortBlock, sortOptions) {
 			if (sortItems != "") sortItems += ",";
 			if (n.wf_sort_tag) sortItems += n.wf_sort_tag;
 		}
-		wf_queue_postback(this.id, this.wf_sort_postback, "sort_items=" + sortItems);
+		wf_queue_postback(this.id, sortPostbackInfo, "sort_items=" + sortItems);
 	};
 	$(sortBlock).sortable(sortOptions);
 }

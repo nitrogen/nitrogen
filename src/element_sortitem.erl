@@ -10,7 +10,10 @@ reflect() -> record_info(fields, sortitem).
 
 render(ControlID, Record) -> 
 	PickledTag = wf_utils:pickle(Record#sortitem.tag),
-	Script = wf:f("obj('~s').wf_sort_tag = '~s';", [ControlID, PickledTag]),
+	Script = wf:f("wf_sortitem(obj('~s'), '~s');", [
+		ControlID, 
+		PickledTag
+	]),
 	wf:wire(Script),
 
 	element_panel:render(ControlID, #panel {

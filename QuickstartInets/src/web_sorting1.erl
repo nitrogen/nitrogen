@@ -7,12 +7,12 @@ main() ->
 		#panel { style="padding: 20px;", body=[
 			#h1 { text="Simple Sorting Example" },
 			"
-			Drag to re-order a list, or drag from one list to another.
+			Drag to re-order a list, or drag from the left to the right.
 			",
 			#p{},			
 			#panel { style="width: 200px; float: left;", body=[
 				#h3 { text="Block 1" },
-				#sortblock { id=block1, postback=sort, connect_with=block2, body=[
+				#sortblock { group=block1, connect_with_groups=block2, postback=sort, body=[
 					#sortitem { tag=tag1, body="Item1" },
 					#sortitem { tag=tag2, body="Item2" },
 					#sortitem { tag=tag3, body="Item3" },
@@ -22,7 +22,7 @@ main() ->
 						
 			#panel { style="width: 200px; float: left;", body=[
 				#h3 { text="Block 2" },
-				#sortblock { style="width: 200px; float: left;", id=block2, postback=sort, connect_with=block1, body=[
+				#sortblock { group=block2, postback=sort, body=[
 					#sortitem { tag=tag5, body="Item5" },
 					#sortitem { tag=tag6, body="Item6" },
 					#sortitem { tag=tag7, body="Item7" },

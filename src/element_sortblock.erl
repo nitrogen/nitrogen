@@ -9,25 +9,27 @@
 reflect() -> record_info(fields, sortblock).
 
 render(ControlID, Record) -> 
-	% Get the postbackinfo...
+	% Get properties...
+	
 	PickledPostbackInfo = action_event:make_postback_info(Record#sortblock.postback, sort, ControlID, ControlID, ?MODULE),
 	Handle = case Record#sortblock.handle of
-		null -> "null";
+		undefined -> "null";
 		Other -> wf:f("'.~s'", [Other])
 	end,
-	ConnectWith = lists:flatten([Record#sortblock.connect_with]),
-	ConnectWith1 = [wf:f("'#' + obj('~s').id", [X]) || X <- ConnectWith],
-	ConnectWith2 = wf:f("[~s]", [string:join(ConnectWith1, ", ")]),
+	ConnectWithGroups = groups_to_connect_with(Record#sortblock.connect_with_groups),
+	GroupClasses = groups_to_classes(Record#sortblock.group),
 		
 	% Emit the javascript...
-	Script = [
-		wf:f("obj('~s').wf_sort_postback='~s';", [ControlID, PickledPostbackInfo]),
-		wf:f("wf_sortable(obj('~s'), { handle: ~s, connectWith: ~s });", [ControlID, Handle, ConnectWith2])
-	],
+	Script = wf:f("wf_sortblock(obj('~s'), { handle: ~s, connectWith: [~s] }, '~s');", [
+		ControlID, 
+		Handle, 
+		ConnectWithGroups,
+		PickledPostbackInfo
+	]),
 	wf:wire(Script),
 
 	element_panel:render(ControlID, #panel {
-		class="sortblock " ++ wf:to_list(Record#sortblock.class),
+		class="sortblock " ++ GroupClasses ++ " " ++ wf:to_list(Record#sortblock.class),
 		style=Record#sortblock.style,
 		body=Record#sortblock.body
 	}).
@@ -37,3 +39,19 @@ event(Postback) ->
 	SortTags = [wf:depickle(X) || X <- string:tokens(SortItems, ",")],
 	Module = wf_platform:get_page_module(),
 	Module:sort_event(Postback, SortTags).
+
+groups_to_classes([]) -> "";
+groups_to_classes(undefined) -> "";
+groups_to_classes(Groups) ->
+	Groups1 = lists:flatten([Groups]),
+	Groups2 = ["drag_group_" ++ wf:to_list(X) || X <- Groups1],
+	string:join(Groups2, " ").
+	
+groups_to_connect_with(all) -> "'*'";
+groups_to_connect_with(undefined) -> "'*'";
+groups_to_connect_with(none) -> "";
+groups_to_connect_with([]) -> "'*'";
+groups_to_connect_with(Groups) ->
+	Groups1 = lists:flatten([Groups]),
+	Groups2 = ["'.drag_group_" ++ wf:to_list(X) ++ "'" || X <- Groups1],
+	string:join(Groups2, ", ").

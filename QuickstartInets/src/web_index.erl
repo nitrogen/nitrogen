@@ -17,13 +17,14 @@ main() ->
 		#h3 { text="Effects, Events, and Ajax" },
 		link("Postbacks", "/web/postback", web_postback),
 		link("AJAX Replacement", "/web/ajax", web_ajax),
-		link("User Notices", "/web/notices", web_sorting),
+		link("User Notices", "/web/notices", web_notices),
 		#p{},
 		
 		#h3 { text="User Interface" },
 		link("Effects", "/web/effects", web_effects),
 		link("Drag and Drop", "/web/dragdrop", web_dragdrop),
-		link("Sorting", "/web/sorting", web_sorting),
+		link("Sorting", "/web/sorting1", web_sorting1),
+		link("Nested Sorting", "/web/sorting2", web_sorting2),
 		#p{},
 		
 		#h3 { text="Data Binding" },
