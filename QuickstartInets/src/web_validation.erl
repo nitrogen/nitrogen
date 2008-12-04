@@ -17,11 +17,11 @@ main() ->
 			#p{},
 			
 			#label { text="Password" },
-			#textbox { id=passwordTextBox, next=confirmTextBox },
+			#password { id=passwordTextBox, next=confirmTextBox },
 			#p{},
 			
 			#label { text="Confirm" },
-			#textbox { id=confirmTextBox, next=otherTextBox },
+			#password { id=confirmTextBox, next=otherTextBox },
 			#p{},
 			
 			#label { text="Other" },
