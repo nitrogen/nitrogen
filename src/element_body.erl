@@ -21,7 +21,6 @@ render(_ControlID, Record) ->
 	<script src='/nitrogen/livevalidation.js' type='text/javascript' charset='utf-8'></script>
 	<script src='/nitrogen/nitrogen.js' type='text/javascript' charset='utf-8'></script>
 	<link href='/nitrogen/nitrogen.css' type='text/css' rel='stylesheet'>
-	<link href='/css/style.css' type='text/css' rel='stylesheet'>
 	<body>
 	<form id='page' onsubmit='return false;'>
 	", wf:render(Record#body.body), "

@@ -10,13 +10,13 @@ main() ->
 	{ok, B} = file:read_file(Source),
 	[
 		"<pre>",
-		replace_tabs(wf:to_list(B)),
+		replacements(wf:to_list(B)),
 		"</pre>"
 	].
 	
-replace_tabs([]) -> [];
-replace_tabs([$\t|T]) -> [$\s, $\s|replace_tabs(T)];
-replace_tabs([H|T]) -> [H|replace_tabs(T)].
+replacements([]) -> [];
+replacements([$<|T]) -> [$&,$l,$t,$;|replacements(T)];
+replacements([$\t|T]) -> [$\s, $\s|replacements(T)];
+replacements([H|T]) -> [H|replacements(T)].
 	
-
 event(_) -> ok.

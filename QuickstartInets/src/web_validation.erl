@@ -4,9 +4,9 @@
 -export ([main/0, event/1]).
 
 main() ->
-	Body = #body { title="Validation", body=
-		#panel { id=mainPanel, style="padding: 20px;", body=[
-			#h1 { text="Validation Sample" },
+	Title = "Validation",
+	Body = #template { file=onecolumn, title=Title, headline=Title, section1=[
+
 			#flash {},
 			#label { text="Name" },
 			#textbox { id=nameTextBox, next=emailTextBox },
@@ -29,10 +29,10 @@ main() ->
 			#p{},
 			
 			#button { id=continueButton, text="Continue", postback=continue }
-		]}
-	},
+			
+	]},
 	
-	wf:wire(mainPanel.continueButton, nameTextBox, #validate { validators=[
+	wf:wire(continueButton, nameTextBox, #validate { validators=[
 		#is_required { text="Required." },
 		#custom { text="Must start with 'Rusty'.", tag=some_tag, function=fun custom_validator/2 }
 	]}),
@@ -63,7 +63,6 @@ event(continue) ->
 event(_) -> ok.
 
 custom_validator(_Tag, Value) ->
-	?PRINT(Value),
 	Value1 = string:to_lower(Value),
 	case Value1 of 
 		"rusty" ++ _ -> true;

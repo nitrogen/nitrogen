@@ -36,6 +36,7 @@ validate(TriggerPath) ->
 				Function = Record#custom.function,
 				Text = Record#custom.text,
 				[Value] = wf:q(wf_path:to_path(TargetPath)),
+				
 				case Function(Record#custom.tag, Value) of
 					true -> FailedPaths;
 					false ->

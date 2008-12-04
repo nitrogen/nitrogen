@@ -3,28 +3,27 @@
 -export ([main/0, event/1]).
 
 main() ->
-	Body = #body { title="User Notices", body=
-		#panel { style="padding: 20px;", body=[
-			#h1 { text="User Notice Examples" },
-			"
-				Nitrogen provides you with a variety of ways to indicate
-				simple messages to a user.
-			",
-			#p{},			
-			#flash {},
-			#p{},
-			#button { text="Show Flash Message", postback=show_flash },
-			#p{},
+	Title = "User Notices",
+	Body = #template { file=onecolumn, title=Title, headline=Title, section1=[
 
-			#button { text="Show Advanced Flash Message", postback=show_advanced_flash },
-			#p{},
-			
-			#button { text="Show Javascript Alert", postback=show_alert },
-			#p{},
-			
-			#button { text="Show Javascript Confirm", postback=show_confirm }	
-		]}
-	},
+		"
+			Nitrogen provides you with a variety of ways to indicate
+			simple messages to a user.
+		",
+		#p{},			
+		#flash {},
+		#p{},
+		#button { text="Show Flash Message", postback=show_flash },
+		#p{},
+
+		#button { text="Show Advanced Flash Message", postback=show_advanced_flash },
+		#p{},
+		
+		#button { text="Show Javascript Alert", postback=show_alert },
+		#p{},
+		
+		#button { text="Show Javascript Confirm", postback=show_confirm }	
+	]},
 	wf:render(Body).
 	
 event(show_flash) ->

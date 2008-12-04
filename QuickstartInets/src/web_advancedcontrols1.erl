@@ -4,17 +4,18 @@
 -export ([main/0, event/1, inplace_textbox_event/2]).
 
 main() ->
-	Body = #body { title="Edit-In-Place Textbox Example", body=
-		#panel { style="padding: 20px;", body=[
-			#h1 { text="Edit-In-Place Textbox Example" },
+	Title = "Edit-In-Place Textbox Example",
+	Body = #template { file=onecolumn, title=Title, headline=Title,
+	section1=[
+	
 			#inplace_textbox { text="Sample Text 1." }, 
 			#p{},			
 			#inplace_textbox { text="Sample Text 2." }, 
 			#p{},			
 			#inplace_textbox { text="Sample Text 3." }, 
 			#p{}
-		]}
-	},
+
+	]},
 	wf:render(Body).
 	
 event(_) -> ok.

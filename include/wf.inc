@@ -42,7 +42,7 @@
 -record(spinner, {?ELEMENT_BASE, image="/nitrogen/spinner.gif"}).
 -record(image, {?ELEMENT_BASE, image=""}).
 -record(rounded_panel, {?ELEMENT_BASE, body="", color=gray}).
--record(lightbox, {?ELEMENT_BASE, body="", opacity=0.8}).
+-record(lightbox, {?ELEMENT_BASE, body="" }).
 -record(table, {?ELEMENT_BASE, rows}).
 -record(tablerow, {?ELEMENT_BASE, cells}).
 -record(tableheader, {?ELEMENT_BASE, text="", html_encode=true, body="", align="left", valign="middle", colspan=1, rowspan=1}).

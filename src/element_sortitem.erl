@@ -17,7 +17,7 @@ render(ControlID, Record) ->
 	wf:wire(Script),
 
 	element_panel:render(ControlID, #panel {
-		class="sortblock " ++ wf:to_list(Record#sortitem.class),
+		class="sortitem " ++ wf:to_list(Record#sortitem.class),
 		style=Record#sortitem.style,
 		body=Record#sortitem.body
 	}).
