@@ -21,7 +21,7 @@ Released for free under a Creative Commons Attribution 2.5 License
 body {
 	margin: 0px;
 	padding: 0px;
-	background: #3D5D68 url(/images/img01.jpg) repeat-x;
+	background: #3D5D68 url(/images/img01a.jpg) repeat-x;
 	font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	color: #333333;
 }
@@ -55,7 +55,7 @@ hr {
 .header {
 	position: relative;
 	width: 800px;
-	height: 240px;
+	height: 115px;
 	margin: 0px auto;
 }
 
@@ -63,17 +63,13 @@ hr {
 
 .logo {
 	float: left;
-	padding: 40px 0 0 0;
+	padding: 0;
 	color: #FFFFFF;
 }
 
-.logo .logo1 {
+.logo img {
 	position: absolute;
-}
-
-.logo .logo2 {
-	position: absolute;
-	padding: 60px 0px 0px 180px;
+	padding: 32px 0px 0px 0px;
 }
 
 
