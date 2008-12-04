@@ -8,7 +8,8 @@
 	init/2,
 	get_platform/0,
 	get_request/0,
-	
+	get_page_module/0, set_page_module/1,
+
 	get_raw_path/0,
 	get_querystring/0,
 	request_method/0,
@@ -54,6 +55,9 @@ do(Method, Args) ->
 
 get_platform() -> get(wf_platform).
 get_request() -> get(wf_request).
+get_page_module() -> get(wf_page_module).
+set_page_module(Module) -> put(wf_page_module, Module).
+
 get_raw_path() -> do(get_raw_path).
 get_querystring() -> do(get_querystring).
 

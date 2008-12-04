@@ -12,34 +12,39 @@ main() ->
 	],
 	Map = #mydata { title=titleLabel@text, author=authorLabel@text, description=descriptionLabel@text, postback=myButton@postback },
 	
-	Body = #body { title="Record-Based Binding", body=#panel { style="margin: 50px;", body=[
-		#h1 { text="Record-Based Binding" },
-		#h3 { text="Div Binding" },
-		#hr{},
-		#bind { id=simpleBinding, data=Data, map=Map, body=[
-			#label { id=titleLabel },
-			#label { id=authorLabel },
-			#label { id=descriptionLabel },
-			#button { id=myButton, text="Button" },
-			#hr{}
-		]},
+	Title = "Record-Based Binding",
+	Body = #template { file=twocolumn, title=Title, headline=Title,
+	
+		section1 = [
+			#h3 { text="Div Binding" },
+			#bind { id=simpleBinding, data=Data, map=Map, body=[
+				#hr{},
+				#label { class=tiny, id=titleLabel },
+				#label { class=tiny, id=authorLabel },
+				#label { class=tiny, id=descriptionLabel },
+				#button { class=tiny, id=myButton, text="Button" }
+			]}	
+		],
 		
-		#h3 { text="Table Binding" },
-		#table { rows=[
-			#tablerow { cells=[
-				#tableheader { text="Title" },
-				#tableheader { text="Author" },
-				#tableheader { text="Description" },
-				#tableheader { }
-			]},
-			#bind { id=tableBinding, data=Data, map=Map, body=#tablerow { cells=[
-				#tablecell { id=titleLabel },
-				#tablecell { id=authorLabel },
-				#tablecell { id=descriptionLabel },
-				#tablecell { body=#button { id=myButton, text="Button" } }
-			]}}
-		]}
-	]}},
+		section2 = [		
+			#h3 { text="Table Binding" },
+			#table { class=tiny, rows=[
+				#tablerow { cells=[
+					#tableheader { text="Title" },
+					#tableheader { text="Author" },
+					#tableheader { text="Description" },
+					#tableheader { }
+				]},
+				#bind { id=tableBinding, data=Data, map=Map, body=#tablerow { cells=[
+					#tablecell { id=titleLabel },
+					#tablecell { id=authorLabel },
+					#tablecell { id=descriptionLabel },
+					#tablecell { body=#button { id=myButton, text="Button" } }
+				]}}
+			]}			
+		]
+		
+	},
 	wf:render(Body).
 	
 event({data, Data}) ->

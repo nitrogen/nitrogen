@@ -116,12 +116,13 @@ render(ControlID, Record) ->
 			wf:f("&chbh=~b,~b,~b", [trunc(IndividualBarSize), BarSpace, BarGroupSpace])
 	end,
 	
-	wf:f("<img id='~s' class='~s' style='~s' src=\"~s\">", [
-		ControlID,
-		Record#google_chart.class,
-		Record#google_chart.style,
-		[Path, Type, Title, TitleStyle, Size, Grid, BGColors, LegendLocation, BarSize, Axes, Data]
-	]).
+	% Render the image tag...
+	Image = #image {
+		class="google_chart " ++ wf:to_list(Record#google_chart.class),
+		style = Record#google_chart.style,
+		image = lists:flatten([Path, Type, Title, TitleStyle, Size, Grid, BGColors, LegendLocation, BarSize, Axes, Data])
+	},
+	element_image:render(ControlID, Image).
 	
 process_axis(N, Axis) ->
 	Position = case Axis#chart_axis.position of

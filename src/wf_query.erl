@@ -12,19 +12,7 @@
 
 prepare_request_query_paths(Query) ->
 	% Get all query keys, convert them to reverse sorted paths.
-	F = fun(Ident) -> 
-		Ident1 = list_to_atom(Ident),
-		
-		case wf_path:to_paths(Ident1) of
-			[] -> 
-				% Element not found, just use the supplied ident.
-				[Ident1];
-			[Path] -> 
-				% Found a matching element, use its path.
-				Path
-		end
-	end,
-	Paths = [{F(Ident), Value} || {Ident, Value} <- Query],
+	Paths = [{wf_path:to_path(Ident), Value} || {Ident, Value} <- Query],
 	put(request_query_paths, Paths).
 
 

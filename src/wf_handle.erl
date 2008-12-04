@@ -10,12 +10,12 @@ handle_request(Module) ->
 	% Set up session.
 	L = [wf_action_queue, wf_update_queue, wf_content_script, wf_dom_script, wf_script, wf_paths, wf_state, wf_state_updates, wf_headers],
 	[put(X, []) || X <- L],
+	wf_platform:set_page_module(Module),
 	wf_platform:clear_redirect(),
 	wf_platform:set_response_code(200),
 	wf_platform:set_content_type("text/html"),
 	wf_platform:set_response_body([]),
 	wf_session:ensure_session(),
-	wf_path:register_path(page, [page]),
 	
 	% Check authorization...
 	case wf_global:request(Module) of
@@ -50,7 +50,7 @@ handle_get_request(Module) ->
 	
 	% Render the page...
 	wf:state(validators, []),
-	put(current_path, [page]),	
+	put(current_path, [page]),
 	Response = Module:main(),
 	
 	% Send the response.
@@ -62,13 +62,12 @@ handle_post_request(Module) ->
 	% Process the query...
 	Query = wf_platform:parse_post_args(),
 	put(request_query, Query),
-	wf_path:restore_paths_from_post(Query),
 	wf_state:restore_state_from_post(Query),
 	wf_query:prepare_request_query_paths(Query),
 	
 	% Get the event that triggered the postback...
-	[EventInfo] = wf:q(eventInfo),
-	{EventType, TriggerID, TargetID, Tag, Delegate} = wf:depickle(EventInfo),
+	[PostbackInfo] = wf:q(postbackInfo),
+	{EventType, TriggerID, TargetID, Tag, Delegate} = wf:depickle(PostbackInfo),
 	
 	% Move to the right path...
 	put(current_path, wf_path:to_path(TargetID)),
@@ -100,11 +99,9 @@ handle_post_request(Module) ->
 	end,
 	
 	% Process any 'flash' messages so long as:
-	% - A flash element is present.
 	% - This isn't an event FROM the flash element.
 	% - We are not redirecting.
-	HasFlash = wf_path:to_paths(flash) /= [],
-	case HasFlash andalso Module1 /= element_flash andalso get(is_redirect) /= true of
+	case Module1 /= element_flash andalso get(is_redirect) /= true of
 		true -> element_flash:update();
 		false -> ok
 	end,

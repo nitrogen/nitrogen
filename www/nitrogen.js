@@ -1,102 +1,186 @@
-function wf_event_loop() {
-	setTimeout("wf_event_loop()", 1);
-	if (wf_events.length == 0) return;
-	if (wf_is_in_event) return;
-	var o = wf_events.shift();
-	wf_do_event(o.triggerID, o.eventInfo, o.controls);
+/*** JQUERY SPECIFIC CODE ***/
+
+function wf_observe_event(el, type, func) {
+	$(el).bind(type, func);
 }
 
-function wf_queue_event(triggerID, eventInfo, controls) {
-	var o = new Object();
-	o.triggerID = triggerID;
-	o.eventInfo = eventInfo;
-	o.controls = controls;
-	wf_events.push(o);
+function wf_update(el, html) {
+	$(el).html(html);
 }
 
-function wf_do_event(triggerID, eventInfo, controls) {
-	// Flag to stop firing multiple events at the same time...
-	wf_is_in_event = true;
+function wf_insert_top(el, html) {
+	$(el).prepend(html);
+}
 
-	// Check validatation...
-	var elements = $(document.forms[0]).getElements();
-	var isValid = true;
-	for (var i = 0; i<elements.length; i++) {
-		element = elements[i];
-		if (element.validator && (element.validator.trigger == triggerID) && !element.validator.validate()) {
-			isValid = false;
+function wf_insert_bottom(el, html) {
+	$(el).append(html);
+}
+
+function wf_draggable(dragObj, dragOptions, dragTag) {
+	dragObj.wf_drag_tag = dragTag;
+	$(dragObj).draggable(dragOptions);	
+}
+
+function wf_droppable(dropObj, dropOptions, dropPostbackInfo) {
+	dropOptions.drop = function(ev, ui) {
+		var dragItem = ui.draggable[0].wf_drag_tag;
+		wf_queue_postback(this.id, dropPostbackInfo, "drag_item=" + dragItem);
+	}
+	$(dropObj).droppable(dropOptions);
+}
+
+function wf_sortitem(sortItem, sortTag) {
+	sortItem.wf_sort_tag = sortTag;
+}
+
+function wf_sortblock(sortBlock, sortOptions, sortPostbackInfo) {
+	sortOptions.update = function() {
+		var sortItems = "";
+		for (var i=0; i<this.childNodes.length; i++) {
+			var n = this.childNodes[i];
+			if (sortItems != "") sortItems += ",";
+			if (n.wf_sort_tag) sortItems += n.wf_sort_tag;
 		}
+		wf_queue_postback(this.id, sortPostbackInfo, "sort_items=" + sortItems);
+	};
+	$(sortBlock).sortable(sortOptions);
+}
+
+function wf_serialize_forms() {
+	var forms = document.getElementsByTagName("form"); 
+	var s = "";
+	for (var i = 0; i<forms.length; i++) {
+		s += "&" + $(forms[i]).serialize();
 	}
-	if (!isValid) {
-		wf_is_in_event = false;
-		return;
-	}
-	
-	// Create the dom_paths string...
-	var argDomPaths = "";	
-	for (var key in dom_paths) {
-		if (!dom_paths[key] || dom_paths[key] == "") continue;
-		if (argDomPaths != "") argDomPaths += "|";
-		argDomPaths += dom_paths[key];
-	}
-	
-	// Get params...
-	var params = "eventInfo=" + eventInfo + "&domState=" + wf_dom_state + "&domPaths=" + argDomPaths;
-	if (controls && controls.length > 0) {
-		for (var i = 0; i<controls.length; i++) {
-			var control= obj(controls[i]);
-			if (control.serialize) params += "&" + control.serialize();
-		}
-	} else {
-		params += "&" + obj('dom_root.page').serialize();
- 	}		 	
-	
-	wf_start_spinner();
-	
-	new Ajax.Request(document.location.href, { 
-		method:'post',
-		parameters: params,
-		evalJS: true,
-		evalJS: false,
-		onSuccess: function(transport) {
+	return s;
+}
+
+function wf_ajax(params) {
+	wf_start_spinner();	
+	$.ajax({ 
+		url: document.location.href,
+		type:'post',
+		data: params,
+		dataType: 'text',
+		success: function(data, textStatus) {
 			wf_stop_spinner();
 			try {
 				//alert("SUCCESS: " + transport.responseText);
-				eval(transport.responseText);
+				eval(data);
 			} catch (E) {
-				alert("JAVASCRIPT ERROR: " + transport.responseText);
+				alert("JAVASCRIPT ERROR: " + data);
 				alert(E);
 			}
-			wf_is_in_event = false;
+			wf_is_in_postback = false;
 		},
-		onFailure: function(transport) {
-			alert("FAIL: " + transport.responseText);
-			wf_is_in_event = false;
+		error: function(xmlHttpRequest, textStatus, errorThrown) {
+			alert("FAIL: " + textStatus);
+			wf_is_in_postback = false;
 		}
 	});			
 }
 
-function wf_is_enter_key(event) {
-	return (event && event.keyCode == 13);
+/*** POSTBACK LOOP ***/
+
+function wf_postback_loop() {
+	setTimeout("wf_postback_loop()", 1);
+	if (wf_postbacks.length == 0) return;
+	if (wf_is_in_postback) return;
+	var o = wf_postbacks.shift();
+	wf_do_postback(o.triggerID, o.postbackInfo, o.extraParams);
 }
 
-function wf_go_next(controlID) {
-	var o = obj(controlID);
-	if (o.focus) o.focus();
-	if (o.select) o.select();
-	if (o.click) o.click();
+function wf_queue_postback(triggerID, postbackInfo, extraParams) {
+	var o = new Object();
+	o.triggerID = obj(triggerID).id;
+	o.postbackInfo = postbackInfo;
+	o.extraParams = extraParams;
+	wf_postbacks.push(o);
 }
 
-function wf_link(parentControlID, controlID, htmlControlID, ePath) {
-	var s = 
-	  controlID + " = new String(\"" + htmlControlID + "\");\n" +
-		controlID + ".id= \"" + htmlControlID + "\";\n" +
-		controlID + ".isWLinkObject = true;\n" +
-		controlID + ".parent = " + parentControlID + ";\n" + 
-	  "js_dom_paths[\"" + controlID + "\"] = " + controlID + ";";
-	eval(s);
-	if (ePath) dom_paths[controlID] = ePath;
+function wf_do_postback(triggerID, postbackInfo, extraParams) {
+	// Flag to stop firing multiple postbacks at the same time...
+	wf_is_in_postback = true;
+
+	// Check validatation...
+	var isValid = true;
+	
+	var forms = document.getElementsByTagName("form"); 
+	for (var i=0; i<forms.length; i++) {
+		for (var j=0; j<forms[i].elements.length; j++) {
+			element = forms[i].elements[j];
+			if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
+				isValid = false;
+			}
+		}
+	}
+	
+	if (!isValid) {
+		wf_is_in_postback = false;
+		return;
+	}
+	
+	// Get params...
+	var params = 
+		"postbackInfo=" + postbackInfo + 
+		"&domState=" + wf_dom_state + 
+		"&" + wf_serialize_forms() + 
+		"&" + extraParams;
+		
+	// Go Ajax!
+	wf_ajax(params);
 }
+
+/*** PATH LOOKUPS ***/
+
+
+function obj(path) {
+	path = wf_normalize_partial_path(path);
+	
+	// Try the easy option...
+	var el = document.getElementById(path);
+	if (el) return el;
+	
+	// Not found, so scan recursively...
+	return wf_scan_elements(path, document.childNodes);
+}
+
+function wf_scan_elements(path, elements) {
+	if (!elements) return;
+	
+	for (var i=0; i<elements.length; i++) {
+		var t = elements[i].id;
+		if (t == undefined) continue;
+		var pos = t.indexOf(path);
+		if (pos == -1) continue;
+		if (t.indexOf(path) + path.length == t.length) {
+			return elements[i];
+		}
+	}
+	
+	for (var i=0; i<elements.length; i++) {
+		var el = wf_scan_elements(path, elements[i].childNodes)
+		if (el) return el;
+	}
+
+	return null;
+}
+
+function wf_normalize_partial_path(path) {
+	var oldparts = wf_current_path.split(".");
+	var newparts = path.split(".");
+	var a = new Array();
+	for (var i=0; i<newparts.length; i++) {
+		var part = newparts[i];
+		if (part == "me") a = oldparts;
+		else if (part == "parent") a.pop();
+		else a.push(part);
+	}
+	
+	return a.join("__");
+}
+
+/*** SPINNER ***/
 
 function wf_start_spinner() {
 	var spinner = obj('spinner');
@@ -108,8 +192,22 @@ function wf_stop_spinner() {
 	if (spinner) spinner.show();
 }
 
+
+/*** MISC ***/
+
 function wf_return_false(value, args) { 
 	return false; 
+}
+
+function wf_is_enter_key(event) {
+	return (event && event.keyCode == 13);
+}
+
+function wf_go_next(controlID) {
+	var o = obj(controlID);
+	if (o.focus) o.focus();
+	if (o.select) o.select();
+	if (o.click) o.click();
 }
 
 function wf_disable_selection(element) {
@@ -128,29 +226,12 @@ function wf_set_value(elementID, value) {
 	else element.update(value);
 }
 
+/*** INITIALIZE VARS ***/
 
-function obj(t) {
-	if (t.isWLinkObject) return $(t.toString());
-	if ($(t)) return $(t);
-	
-	var result = null;
-	for (var path in js_dom_paths) {
-		if (!path.endsWith(t)) continue;
-		if (result != null) alert("Obj() found too many matches for: " + t);
-		result = js_dom_paths[path];
-	}
-	if (result) {
-		return $(result.toString());
-	} 
-	
-	return null;
-}
-
-var wf_is_in_event = false;
+var wf_is_in_postback = false;
 var wf_dom_state = "";
-var wf_events = new Array();
-var dom_paths = new Object();
-var js_dom_paths = new Object();
+var wf_postbacks = new Array();
 var dom_root = new Object();
-wf_link("dom_root.page", "dom_root.page", "page");
-wf_event_loop(); // Start the event loop.
+var wf_current_path = "";
+wf_postback_loop(); // Start the postback loop.
+

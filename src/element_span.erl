@@ -8,18 +8,6 @@
 
 reflect() -> record_info(fields, span).
 
-%%% DOCUMENTATION %%%
-name() -> "Span".
-attributes() -> [id, class, style, text, html_encode].
-attribute(text) -> "List or binary text to display on the span.";
-attribute(html_encode) -> "Boolean determining whether the text will be HTML encoded. Switch '<' to '&lt;'".
-
-example() -> [
-	#span { id=theSpan, style="font-size: 20px;", text="Hello, world." }
-].
-
-see_also() -> [element_panel].
-
 %%% CODE %%%
 
 render(ControlID, Record) -> 

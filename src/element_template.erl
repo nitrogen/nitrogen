@@ -36,9 +36,9 @@ lookup(Tag, Record) ->
 		title -> Record#template.title;
 		headline -> Record#template.headline;
 		section1 -> wf:render(Record#template.section1);
-		section2 -> wf:render(Record#template.section1);
-		section3 -> wf:render(Record#template.section1);
-		section4 -> wf:render(Record#template.section1);
+		section2 -> wf:render(Record#template.section2);
+		section3 -> wf:render(Record#template.section3);
+		section4 -> wf:render(Record#template.section4);
 		script -> script;
 		_ -> Tag:render_in_template(Record)
 	end. 

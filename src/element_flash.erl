@@ -12,7 +12,10 @@ render_in_template(_Record) ->
 	wf:render(#flash { }).
 	
 update() ->
-	wf:insert_bottom(flash, get_flashes()).
+	case wf:state(has_flash) of
+		true -> wf:insert_bottom(flash, get_flashes());
+	  _ -> ignore
+	end.
 
 render(_ControlID, _Record) -> 
 	Terms = #panel { 
@@ -20,6 +23,7 @@ render(_ControlID, _Record) ->
 		class=flash_container,
 		body=get_flashes()
 	},
+	wf:state(has_flash, true),
 	wf:render(Terms).
 	
 add_flash(Term) ->
@@ -34,8 +38,8 @@ get_flashes() ->
 	% Create terms for an individual flash...
 	F = fun(X) ->
 		FlashID = wf:temp_id(),
-		InnerPanel = #panel { class=flash, actions=#effect_blinddown { target=FlashID, duration=0.4 }, body=[
-			#link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#effect_blindup {} } },
+		InnerPanel = #panel { class=flash, actions=#show { target=FlashID, effect=blind, speed=400 }, body=[
+			#link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#hide { effect=blind, speed=400 } } },
 			#panel { class=flash_content, body=X }
 		]},
 		#panel { id=FlashID, style="display: none;", body=InnerPanel}

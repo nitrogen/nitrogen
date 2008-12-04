@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>documents</key>
+	<array>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>content</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>content</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>src</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src</string>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>Quickstart Inets</string>
+		</dict>
+	</array>
+	<key>fileHierarchyDrawerWidth</key>
+	<integer>200</integer>
+	<key>metaData</key>
+	<dict/>
+	<key>showFileHierarchyDrawer</key>
+	<true/>
+	<key>windowFrame</key>
+	<string>{{390, 157}, {995, 778}}</string>
+</dict>
+</plist>
