@@ -247,7 +247,7 @@ coalesce([[]|T]) -> coalesce(T);
 coalesce([H|_]) -> H.
 
 %%% IS STRING %%%
-is_string(Term) -> is_list(Term) andalso term /= [] andalso is_integer(hd(Term)).
+is_string(Term) -> is_list(Term) andalso Term /= [] andalso is_integer(hd(Term)).
 		
 %%% DEBUG %%%
 		
