@@ -18,5 +18,5 @@ start() ->
 	]),
 	io:format("~n~n---~n"),
 	io:format("Nitrogen is now running, using inets:httpd().~n"),
-	io:format("Open your browser to: http://localhost:8000/web/index~n"),
+	io:format("Open your browser to: http://localhost:8000~n"),
 	io:format("---~n~n").

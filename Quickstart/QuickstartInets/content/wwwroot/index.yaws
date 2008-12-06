@@ -1,0 +1,3 @@
+<erl>
+out(Arg) -> wf_yaws:out(Arg, web_index).
+</erl>
