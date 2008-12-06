@@ -8,11 +8,25 @@ technology stack.
 
 ---
 
-To get started:
+------------------------------------
+ GETTING STARTED IN MAC OSX / LINUX
+------------------------------------
 
-cd Quickstart 
-./quickstart.sh
+$> cd Quickstart 
+$> ./quickstart.sh
+
 Open your web browser to http://localhost:8000
+
+------------------------------------
+     GETTING STARTED IN WINDOWS
+------------------------------------
+
+$> cd Quickstart 
+$> quickstart.bat
+
+Open your web browser to http://localhost:8000
+
+---
 
 See Quickstart/README for information on how to get up and running 
 quickly in Mochiweb and Inets.
