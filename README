@@ -1,0 +1,7 @@
+
+Thank you for trying out the Nitrogen Web Framework for Erlang.
+To get started:
+
+	cd Quickstart 
+	./quickstart.sh
+	Open browser to http://localhost:8000
