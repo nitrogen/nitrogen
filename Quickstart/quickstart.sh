@@ -12,7 +12,7 @@ erl \
 	-pa $PWD/ebin $PWD/include \
 	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
 	-sync_environment development \
-	-s make all \
 	-s inets_helper
+#	-s make all \
 
 

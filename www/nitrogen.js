@@ -219,8 +219,7 @@ function wf_disable_selection(element) {
     element.style.cursor = "default";
 }
 
-function wf_set_value(elementID, value) {
-	var element = obj(elementID);
+function wf_set_value(element, value) {
 	if (element.value != undefined) element.value = value;
 	else if (element.checked != undefined) element.checked = value;
 	else element.update(value);

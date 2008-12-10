@@ -27,7 +27,7 @@ render(_ControlID, Record) ->
 
 render_rows([], _) -> [];
 render_rows([H|T], N) ->
-	ID = wf:to_atom("row" ++ wf:to_list(N)),
+	ID = "row" ++ wf:to_list(N),
 	Placeholder = #placeholder { id=ID, body=H },
 	[wf:render(Placeholder)|render_rows(T, N + 1)].
 		
@@ -61,10 +61,10 @@ apply_bindings(Bindings, Term) when is_list(Term) ->
 	end;
 	
 apply_bindings(Bindings, Term) when is_tuple(Term) ->
-	Type = element(1, Term),
-	TypeModule = list_to_atom("element_" ++ atom_to_list(Type)),
+	Base = wf_utils:get_elementbase(Term),
+	TypeModule = Base#elementbase.module,
 	Fields = TypeModule:reflect(),
-	ID = wf:to_atom(element(2, Term)),
+	ID = wf:to_list(Base#elementbase.id),
 	
 	% Do replacements on this term...
 	F1 = fun(Binding, Rec) ->
@@ -110,7 +110,7 @@ normalize_bindings(Bindings) ->
 		
 get_replacement_key_parts(Key) ->
 	case string:tokens(wf:to_list(Key), "@") of
-		[ID, Attr] -> {wf:to_atom(ID), wf:to_atom(Attr)};
+		[ID, Attr] -> {ID, wf:to_atom(Attr)};
 		_ -> ignore
 	end.
 

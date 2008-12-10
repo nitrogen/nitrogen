@@ -6,6 +6,9 @@
 -export ([start/0]).
 
 start() ->
+	% Initialize Nitrogen.
+	wf:init(),
+
 	SC = [
 		{listen, {0,0,0,0}},
 	  {port, 8000},

@@ -20,8 +20,8 @@ render_action(TriggerPath, TargetPath, Record) ->
 	
 	% Render the validation javascript...
 	F = fun(X) ->
-			Type = element(1, X),
-			TypeModule = list_to_atom("validator_" ++ atom_to_list(Type)),
+			Base = wf_utils:get_validatorbase(X),
+			TypeModule = Base#validatorbase.module,
 			TypeModule:render_validator(TriggerPath, TargetPath, X)
 	end,
 	ValidatorsJS = [F(X) || X <- lists:flatten([Record#validate.validators])],

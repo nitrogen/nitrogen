@@ -69,17 +69,13 @@ event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}) ->
 	Delegate = wf_platform:get_page_module(),
 	Value1 = Delegate:inplace_textbox_event(Tag, Value),
 	wf:update(LabelID, Value1),
-	% Safari bitches with the following line, so 
-	% update the textbox through javascript instead.
-	%wf:update(TextBoxID, Value1),
-	wf:wire(wf:f("obj('~s').value = \"~s\";", [TextBoxID, wf_utils:js_escape(Value1)])),
+	wf:set(TextBoxID, Value1),
 	wf:wire(EditPanelID, #hide {}),
 	wf:wire(ViewPanelID, #show {}),
 	ok;
 
 event({cancel, {ViewPanelID, _LabelID, EditPanelID, TextBoxID}, _Tag, OriginalText}) ->
-	%wf:update(TextBoxID, OriginalText),
-	wf:wire(wf:f("obj('~s').value = \"~s\";", [TextBoxID, OriginalText])),
+	wf:set(TextBoxID, OriginalText),
 	wf:wire(EditPanelID, #hide {}),
 	wf:wire(ViewPanelID, #show {}),
 	ok;	

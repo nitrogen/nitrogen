@@ -6,6 +6,9 @@
 -export([start/0, loop/2]).
 
 start() ->
+	% Initialize Nitrogen.
+	wf:init(),
+	
 	% Start crypto...
 	crypto:start(),
 

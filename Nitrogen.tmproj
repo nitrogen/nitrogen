@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/wf_utils.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -31,57 +29,57 @@
 					<key>filename</key>
 					<string>src/sync.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-05T22:15:44Z</date>
+					<date>2008-12-10T02:12:40Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-05T21:41:05Z</date>
+					<date>2008-12-10T02:12:40Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/mochiweb_helper.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-05T22:26:49Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2008-12-10T00:02:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/yaws_helper.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-05T22:15:49Z</date>
+					<date>2008-12-10T00:02:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/inets_helper.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-05T22:09:54Z</date>
+					<date>2008-12-10T00:02:56Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_yaws.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-05T21:41:05Z</date>
+					<date>2008-12-10T00:02:56Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_mochiweb.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-05T22:09:50Z</date>
+					<date>2008-12-10T00:02:57Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_inets.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-02T14:07:42Z</date>
+					<date>2008-12-10T00:02:57Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/web_x.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-02T06:10:37Z</date>
+					<date>2008-12-10T00:02:57Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>children</key>
@@ -114,7 +112,7 @@
 							<key>filename</key>
 							<string>src/action_validate.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T23:22:21Z</date>
+							<date>2008-12-10T04:53:55Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -164,7 +162,7 @@
 							<key>filename</key>
 							<string>src/action_jquery_effect.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T04:23:33Z</date>
+							<date>2008-12-06T19:07:43Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -325,7 +323,7 @@
 									<key>filename</key>
 									<string>src/element_dropdown.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-01T05:50:54Z</date>
+									<date>2008-12-09T23:52:51Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -367,13 +365,13 @@
 									<key>filename</key>
 									<string>src/element_inplace_textbox.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T04:25:44Z</date>
+									<date>2008-12-09T23:52:51Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/element_wizard.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T04:23:35Z</date>
+									<date>2008-12-09T23:00:39Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -392,7 +390,7 @@
 									<key>filename</key>
 									<string>src/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T19:00:41Z</date>
+									<date>2008-12-09T23:52:50Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -429,13 +427,13 @@
 									<key>filename</key>
 									<string>src/element_droppable.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T18:44:22Z</date>
+									<date>2008-12-09T22:32:00Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/element_draggable.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T21:59:28Z</date>
+									<date>2008-12-09T22:32:00Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -465,13 +463,13 @@
 									<key>filename</key>
 									<string>src/element_google_chart.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T23:22:21Z</date>
+									<date>2008-12-09T22:32:00Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/element_bind.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T21:34:31Z</date>
+									<date>2008-12-09T23:52:50Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -535,6 +533,12 @@
 					<array>
 						<dict>
 							<key>filename</key>
+							<string>src/wf_init.erl</string>
+							<key>lastUsed</key>
+							<date>2008-12-10T00:52:41Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
 							<string>src/wf_platform.erl</string>
 							<key>lastUsed</key>
 							<date>2008-12-03T21:40:16Z</date>
@@ -543,7 +547,7 @@
 							<key>filename</key>
 							<string>src/wf_platform_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2008-11-18T04:15:59Z</date>
+							<date>2008-12-09T22:32:00Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -555,7 +559,7 @@
 							<key>filename</key>
 							<string>src/wf_platform_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-02T14:07:44Z</date>
+							<date>2008-12-09T23:52:50Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -567,7 +571,7 @@
 							<key>filename</key>
 							<string>src/wf_render.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T05:33:44Z</date>
+							<date>2008-12-09T23:01:25Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -591,7 +595,7 @@
 							<key>filename</key>
 							<string>src/wf_bind.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T00:20:17Z</date>
+							<date>2008-12-09T23:52:52Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -621,7 +625,7 @@
 							<key>filename</key>
 							<string>src/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-05T21:46:30Z</date>
+							<date>2008-12-10T00:52:42Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -633,7 +637,7 @@
 							<key>filename</key>
 							<string>src/wf_query.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-05T21:44:07Z</date>
+							<date>2008-12-09T23:52:51Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -645,9 +649,11 @@
 							<key>filename</key>
 							<string>src/wf_path.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-05T21:44:06Z</date>
+							<date>2008-12-09T23:52:51Z</date>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Lib</string>
 				</dict>
@@ -664,13 +670,13 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2008-12-04T00:20:54Z</date>
+					<date>2008-12-10T04:53:54Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>include/google_chart.inc</string>
 					<key>lastUsed</key>
-					<date>2008-12-03T04:23:34Z</date>
+					<date>2008-12-09T22:31:59Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -699,7 +705,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2008-12-03T23:22:20Z</date>
+					<date>2008-12-09T23:52:52Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -711,29 +717,42 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>279</integer>
 	<key>metaData</key>
-	<dict>
-		<key>src/wf_utils.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
-				<key>line</key>
-				<integer>246</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>232</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/wf_utils.erl</string>
-	</array>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
+	<key>treeState</key>
+	<dict>
+		<key>Include</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
+		<key>SRC</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict>
+				<key>Lib</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
+		</dict>
+		<key>WWW</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
+	</dict>
 	<key>windowFrame</key>
-	<string>{{469, 127}, {1193, 778}}</string>
+	<string>{{383, 94}, {1193, 778}}</string>
 </dict>
 </plist>

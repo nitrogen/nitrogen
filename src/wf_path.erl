@@ -54,32 +54,23 @@ to_absolute_path(RelativePath) ->
 	end,
 	lists:foldr(F, [], RelativePath).
 
-split_path(S) -> 
-	L = split_path(S, []),
-	lists:reverse([wf:to_atom(X) || X <- L]).
-	
+split_path(S) -> lists:reverse(split_path(S, [])).
 split_path([], Acc) -> [lists:reverse(Acc)];
 split_path([$_,$_|T], Acc) -> [lists:reverse(Acc)|split_path(T, [])];
 split_path([H|T], Acc) -> split_path(T, [H|Acc]).
-	
-	
-	
-
 
 %%% TEMP ELEMENTS %%%
 
 temp_id() ->
 	{_, _, C} = now(), 
-	list_to_atom("temp" ++ integer_to_list(C)).
+	"temp" ++ integer_to_list(C).
 	
 is_temp_element(undefined) -> true;
 is_temp_element([P]) -> is_temp_element(P);
-is_temp_element(P) when is_atom(P) -> 
-	Name = atom_to_list(P),
+is_temp_element(P) -> 
+	Name = wf:to_list(P),
 	length(Name) > 4 andalso
 	lists:nth(1, Name) == $t andalso
 	lists:nth(2, Name) == $e andalso
 	lists:nth(3, Name) == $m andalso
-	lists:nth(4, Name) == $p;
-
-is_temp_element(_) -> false.
+	lists:nth(4, Name) == $p.

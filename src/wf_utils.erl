@@ -18,7 +18,8 @@
 	coalesce/1,
 	is_process_alive/1,
 	debug/0, break/0,
-	is_string/1
+	is_string/1,	
+	get_elementbase/1, get_actionbase/1, get_validatorbase/1
 ]).
 
 %%% FORMAT %%%
@@ -218,12 +219,17 @@ js_escape(<<>>, Acc) -> Acc.
 %% path_to_module/1 - Convert a web path to a module.
 path_to_module(undefined) -> web_index;
 path_to_module(S) ->
-	case hd(lists:reverse(S)) of
+	case lists:last(S) of
 		$/ -> 
 			path_to_module(S ++ "index");
-		_ ->
-			list_to_atom(string:join(string:tokens(S, "/"), "_"))
+		_ -> 
+			try
+				list_to_existing_atom(string:join(string:tokens(S, "/"), "_"))
+			catch _ : _ -> 
+				web_404 
+			end
 	end.
+	
 
 
 %%% STRING REPLACE %%%
@@ -248,6 +254,17 @@ coalesce([H|_]) -> H.
 
 %%% IS STRING %%%
 is_string(Term) -> is_list(Term) andalso Term /= [] andalso is_integer(hd(Term)).
+
+%%% BASE RECORDS %%%
+
+get_actionbase(Term) -> copy_to_baserecord(#actionbase{}, Term).
+get_elementbase(Term) -> copy_to_baserecord(#elementbase{}, Term).
+get_validatorbase(Term) -> copy_to_baserecord(#validatorbase{}, Term).
+
+copy_to_baserecord(BaseRec, SourceRec) ->
+	F = fun(N, Acc) -> setelement(N, Acc, element(N, SourceRec)) end,
+	lists:foldl(F, BaseRec, lists:seq(2, size(BaseRec))).
+	
 		
 %%% DEBUG %%%
 		

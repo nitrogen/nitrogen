@@ -22,6 +22,10 @@
 -include ("wf.inc").
 -compile (export_all).
 
+%%% EXPOSE WF_INIT %%%
+
+init() -> wf_init:init().
+
 %%% EXPOSE WF_UTILS %%%
 
 path_to_module(Path) -> wf_utils:path_to_module(Path).

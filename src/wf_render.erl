@@ -26,22 +26,21 @@ render(Term) when is_binary(Term) -> Term;
 render(Terms=[H|_]) when is_list(Terms), is_integer(H) -> Terms;
 render(Terms) when is_list(Terms) ->[render(X) || X <- Terms];
 render(Term) when is_tuple(Term) ->
+	Base = wf_utils:get_elementbase(Term),
+	Module = Base#elementbase.module, 
+
 	% Load vars...
-	Type = element(1, Term),
-	ID = case wf:to_atom(element(2, Term)) of
+	ID = case Base#elementbase.id of
 		undefined -> wf:temp_id();
 		Other -> Other
 	end,
-	Actions = element(3, Term),
-	ShowIf = element(4, Term),
-	TypeModule = list_to_atom("element_" ++ atom_to_list(Type)),
 	
-	Response = case {ShowIf, wf_path:is_temp_element(ID)} of
+	Response = case {Base#elementbase.show_if, wf_path:is_temp_element(ID)} of
 		{true, true} -> 			
 			% Wire actions and render the control.
 			HtmlID = wf_path:to_html_id(ID),
-			wf:wire(HtmlID, HtmlID, Actions),
-			lists:flatten([TypeModule:render(HtmlID, Term)]);
+			wf:wire(HtmlID, HtmlID, Base#elementbase.actions),
+			lists:flatten([Module:render(HtmlID, Term)]);
 
 		{true, false} -> 
 			% Set the new path...
@@ -49,8 +48,8 @@ render(Term) when is_tuple(Term) ->
 
 			% Wire actions and render the control.
 			HtmlID = wf_path:to_html_id(wf_path:get_path()),
-			wf:wire(HtmlID, HtmlID, Actions),
-		 	Html = lists:flatten([TypeModule:render(HtmlID, Term)]),
+			wf:wire(HtmlID, HtmlID, Base#elementbase.actions),
+		 	Html = lists:flatten([Module:render(HtmlID, Term)]),
 			
 			% Restore the old path...
 			wf_path:pop_path(),
@@ -65,21 +64,19 @@ render_actions(_, _, undefined) -> [];
 render_actions(TriggerPath, TargetPath, Terms=[H|_]) when is_list(Terms), is_integer(H) -> render_actions(TriggerPath, TargetPath, #script { script=Terms });
 render_actions(TriggerPath, TargetPath, Terms) when is_list(Terms) -> [render_actions(TriggerPath, TargetPath, X) || X <- Terms];
 render_actions(TriggerPath, TargetPath, Term) when is_tuple(Term) ->
-	% Vars...
-	Type = element(1, Term),
-	ShowIf = element(5, Term),
-	TypeModule = list_to_atom("action_" ++ atom_to_list(Type)),
+	Base = wf_utils:get_actionbase(Term),
+	Module = Base#actionbase.module, 
 
-	case ShowIf of 
+	case Base#actionbase.show_if of 
 		true -> 
 			% Get the TriggerPaths...	
-			TriggerPath1 = case element(2, Term) of
+			TriggerPath1 = case Base#actionbase.trigger of
 				undefined -> wf_path:to_path(TriggerPath);
 				X1 -> wf_path:to_path(X1)
 			end,
 	
 			% Get the TargetPaths...
-			TargetPath1 = case element(3, Term) of
+			TargetPath1 = case Base#actionbase.target of
 				undefined -> wf_path:to_path(TargetPath);
 				X2 -> wf_path:to_path(X2)
 			end,
@@ -89,7 +86,7 @@ render_actions(TriggerPath, TargetPath, Term) when is_tuple(Term) ->
 			put(current_path, TargetPath1),
 			
 			% Render the action...
-			Script = lists:flatten([TypeModule:render_action(wf_path:to_html_id(TriggerPath1), wf_path:to_html_id(TargetPath1), Term)]),
+			Script = lists:flatten([Module:render_action(wf_path:to_html_id(TriggerPath1), wf_path:to_html_id(TargetPath1), Term)]),
 			
 			% Restore the old path...
 			put(current_path, OldPath),
@@ -98,6 +95,8 @@ render_actions(TriggerPath, TargetPath, Term) when is_tuple(Term) ->
 		false -> 
 			[]
 	end.
+	
+%%% AJAX UPDATES %%%
 	
 update(TargetPath, Terms) -> update(TargetPath, Terms, "wf_update(obj('me'), \"~s\");").
 insert_top(TargetPath, Terms) -> update(TargetPath, Terms, "wf_insert_top(obj('me'), \"~s\");").

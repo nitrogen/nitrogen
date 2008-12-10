@@ -20,13 +20,18 @@ prepare_request_query_paths(Query) ->
 q(Partial) when is_atom(Partial) -> 
 	% Normalize data for the path search.
 	% Split Path into atoms and reverse it.
-	Partial1 = [list_to_atom(X) || X <- string:tokens(atom_to_list(Partial), ".")],
+	Partial1 = string:tokens(atom_to_list(Partial), "."),
 	Partial2 = lists:reverse(Partial1),
 	q(Partial2);
 	
 q(Partial) when is_list(Partial) ->	
 	% Get the matching paths.
-	Paths = wf_utils:path_search(Partial, 1, get(request_query_paths)),
+	Partial1 = case wf:is_string(Partial) of
+		true -> [Partial];
+		false -> Partial
+	end,
+	
+	Paths = wf_utils:path_search(Partial1, 1, get(request_query_paths)),
 
 	% Pull out the values.
 	[Value || {_, Value} <- Paths].

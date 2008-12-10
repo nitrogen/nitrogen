@@ -12,7 +12,7 @@
 
 set(Element, Value) ->
 	Value1 = wf_utils:js_escape(wf:to_list(Value)),
-	wf:wire(Element, wf:f("wf_set_value(me, \"~s\");", [Value1])).
+	wf:wire(Element, wf:f("wf_set_value(obj('me'), \"~s\");", [Value1])).
 	
 
 bind(T, Record) when is_tuple(T), is_tuple(Record) -> 

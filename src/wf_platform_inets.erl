@@ -51,7 +51,7 @@ parse_post_args() ->
 %%% COOKIES %%%
 	
 get_cookie(Key) ->
-	Key1 = wf:to_atom(Key),
+	Key1 = wf:to_list(Key),
 	Info = wf_platform:get_request(),
 	Headers = Info#mod.parsed_header,
 	CookieData = proplists:get_value("cookie", Headers, ""),
@@ -59,7 +59,7 @@ get_cookie(Key) ->
 		case string:tokens(Cookie, "=") of
 			[] -> [];
 			L -> 
-				X = list_to_atom(string:strip(hd(L))),
+				X = string:strip(hd(L)),
 				Y = string:join(tl(L), "="),
 				{X, Y}
 		end

@@ -6,6 +6,9 @@
 -export ([start/0]).
 
 start() ->
+	% Initialize Nitrogen.
+	wf:init(),
+
 	inets:start(),
 	inets:start(httpd, [
 		{port, 8000},
