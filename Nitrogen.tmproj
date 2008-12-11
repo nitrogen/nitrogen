@@ -41,7 +41,7 @@
 					<key>filename</key>
 					<string>src/mochiweb_helper.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-10T00:02:55Z</date>
+					<date>2008-12-11T14:45:29Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -53,7 +53,7 @@
 					<key>filename</key>
 					<string>src/inets_helper.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-10T00:02:56Z</date>
+					<date>2008-12-11T17:07:23Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -65,7 +65,7 @@
 					<key>filename</key>
 					<string>src/wf_mochiweb.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-10T00:02:57Z</date>
+					<date>2008-12-11T14:45:30Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -78,8 +78,6 @@
 					<string>src/web_x.erl</string>
 					<key>lastUsed</key>
 					<date>2008-12-10T00:02:57Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>children</key>
@@ -384,7 +382,7 @@
 									<key>filename</key>
 									<string>src/element_body.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T21:34:30Z</date>
+									<date>2008-12-11T17:07:24Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -451,7 +449,7 @@
 									<key>filename</key>
 									<string>src/element_flash.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-03T21:34:31Z</date>
+									<date>2008-12-11T17:07:24Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -516,7 +514,7 @@
 							<key>filename</key>
 							<string>src/validator_custom.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T23:22:20Z</date>
+							<date>2008-12-11T17:07:25Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -541,13 +539,15 @@
 							<key>filename</key>
 							<string>src/wf_platform.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T21:40:16Z</date>
+							<date>2008-12-11T17:07:24Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_platform_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-09T22:32:00Z</date>
+							<date>2008-12-11T17:07:25Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -559,13 +559,13 @@
 							<key>filename</key>
 							<string>src/wf_platform_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-09T23:52:50Z</date>
+							<date>2008-12-11T17:07:23Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/wf_handle.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T05:49:50Z</date>
+							<date>2008-12-11T17:07:24Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -601,7 +601,7 @@
 							<key>filename</key>
 							<string>src/wf_continuation.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-03T04:23:32Z</date>
+							<date>2008-12-11T14:45:28Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -613,7 +613,7 @@
 							<key>filename</key>
 							<string>src/wf_state.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-02T18:06:44Z</date>
+							<date>2008-12-11T17:07:25Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -625,7 +625,7 @@
 							<key>filename</key>
 							<string>src/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-10T00:52:42Z</date>
+							<date>2008-12-11T17:07:24Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -705,7 +705,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2008-12-09T23:52:52Z</date>
+					<date>2008-12-11T17:07:23Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -753,6 +753,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{383, 94}, {1193, 778}}</string>
+	<string>{{562, 250}, {933, 778}}</string>
 </dict>
 </plist>
