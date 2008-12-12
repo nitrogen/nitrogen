@@ -11,8 +11,10 @@
 ]).
 
 set(Element, Value) ->
+	Element1 = wf:to_list(Element),
 	Value1 = wf_utils:js_escape(wf:to_list(Value)),
-	wf:wire(Element, wf:f("wf_set_value(obj('me'), \"~s\");", [Value1])).
+	Script = wf:f("wf_set_value('~s', \"~s\");", [Element1, Value1]),
+	wf:wire(Script).
 	
 
 bind(T, Record) when is_tuple(T), is_tuple(Record) -> 

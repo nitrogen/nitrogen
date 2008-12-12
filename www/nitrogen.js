@@ -220,9 +220,10 @@ function wf_disable_selection(element) {
 }
 
 function wf_set_value(element, value) {
+	if (!element.id) element = obj(element);
 	if (element.value != undefined) element.value = value;
 	else if (element.checked != undefined) element.checked = value;
-	else element.update(value);
+	else wf_update(element, value);
 }
 
 /*** INITIALIZE VARS ***/

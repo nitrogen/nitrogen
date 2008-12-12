@@ -80,8 +80,8 @@
 -record(fade, {?ACTION_BASE(action_fade), speed=500}).
 -record(effect, {?ACTION_BASE(action_effect), effect=none, options=[], speed=500}).
 -record(toggle, {?ACTION_BASE(action_toggle), effect=none, options=[], speed=500}).
--record(add_class, {?ACTION_BASE(action_add_class), class=none, speed=500}).
--record(remove_class, {?ACTION_BASE(action_remove_class), class=none, speed=500}).
+-record(add_class, {?ACTION_BASE(action_add_class), class=none, speed=0}).
+-record(remove_class, {?ACTION_BASE(action_remove_class), class=none, speed=0}).
 -record(animate, {?ACTION_BASE(action_animate), options=[], speed=500, easing=swing}).
 -record(buttonize, {?ACTION_BASE(action_buttonize)}).
 
