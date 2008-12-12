@@ -35,6 +35,8 @@ main() ->
 			#p{},
 		
 			#h3 { text="Advanced Topics" },
+			#link { text="Counter with Comet", url="/web/comet1" }, #br{},
+			#link { text="Chatroom with Comet", url="/web/comet2" }, #br{},
 			#link { text="Continuations", url="/web/continuations" }
 		]
 	},

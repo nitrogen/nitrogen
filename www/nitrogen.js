@@ -80,6 +80,40 @@ function wf_ajax(params) {
 	});			
 }
 
+function wf_comet_start(postbackInfo) {
+	if (!wf_comet_is_running) {
+		wf_comet(postbackInfo);
+		wf_comet_is_running = true;
+	}
+}
+
+function wf_comet(postbackInfo) {
+	// Get params...
+	var params = 
+		"postbackInfo=" + postbackInfo + 
+		"&domState=" + wf_dom_state;
+	
+	$.ajax({ 
+		url: document.location.href,
+		type:'post',
+		data: params,
+		dataType: 'text',
+		success: function(data, textStatus) {
+			try {
+				//alert("SUCCESS: " + data);
+				eval(data);
+			} catch (E) {
+				alert("JAVASCRIPT ERROR: " + data);
+				alert(E);
+			}
+			setTimeout("wf_comet('" + postbackInfo + "');", 0);
+		},
+		error: function(xmlHttpRequest, textStatus, errorThrown) {
+			setTimeout("wf_comet('" + postbackInfo + "');", 5000);
+		}
+	});			
+}
+
 /*** POSTBACK LOOP ***/
 
 function wf_postback_loop() {
@@ -228,10 +262,10 @@ function wf_set_value(element, value) {
 
 /*** INITIALIZE VARS ***/
 
+var	wf_comet_is_running = false;
 var wf_is_in_postback = false;
 var wf_dom_state = "";
 var wf_postbacks = new Array();
-var dom_root = new Object();
 var wf_current_path = "";
 wf_postback_loop(); // Start the postback loop.
 

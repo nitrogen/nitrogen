@@ -29,7 +29,11 @@ render_action(TriggerPath, TargetPath, Record) ->
 	end.
 	
 make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate) ->
-	PostbackInfo = {EventType, TriggerPath, TargetPath, Tag, Delegate},
+	Delegate1 = case Delegate of
+		undefined -> wf_platform:get_page_module();
+		_ -> Delegate
+	end,
+	PostbackInfo = {EventType, TriggerPath, TargetPath, Tag, Delegate1},
 	wf_utils:pickle(PostbackInfo).
 	
 make_postback(Postback, EventType, TriggerPath, TargetPath, Delegate) ->

@@ -6,9 +6,9 @@
 -include ("wf.inc").
 -export ([
 	add_content_script/1,
-	add_dom_script/1,
 	add_script/1,
-	get_script/0
+	get_script/0,
+	get_script/1
 ]).
 
 add_content_script([]) -> ok;
@@ -16,18 +16,14 @@ add_content_script(Script) ->
 	Script1 = lists:flatten([Script,"\r\n"]),
 	put(wf_content_script, [Script1|get(wf_content_script)]).
 
-add_dom_script([]) -> ok;
-add_dom_script(Script) ->
-	Script1 = lists:flatten([Script,"\r\n"]),
-	put(wf_dom_script, [Script1|get(wf_dom_script)]).
-
 add_script([]) -> ok;
 add_script(Script) ->
 	Script1 = lists:flatten([Script,"\r\n"]),
 	put(wf_script, [Script1|get(wf_script)]).
 
-get_script() ->
-	ScriptTypes = [wf_content_script, wf_dom_script, wf_script],
+get_script() -> get_script(true).
+get_script(IncludeStateScript) ->
+	ScriptTypes = [wf_content_script, wf_script],
 	
 	% - FIRST PASS - 
 	% Gather first-pass scripts, then clear for a second pass.
@@ -54,11 +50,12 @@ get_script() ->
 	end,
 	ActionQueue = get(wf_action_queue),
 	[DoWire(X) || X <- lists:reverse(ActionQueue)],
-	
-	% Add the state variable...
-	add_script(wf_state:get_state_script()),
 	SecondPass = [lists:reverse(get(X)) || X <- ScriptTypes],
 	
 	% - FINALLY - 
 	% Return the scripts...
-	lists:flatten([FirstPass, SecondPass]).
+	WFStateScript = case IncludeStateScript of
+		true -> wf_state:get_state_script();
+		false -> []
+	end,
+	lists:flatten([WFStateScript, FirstPass, SecondPass]).

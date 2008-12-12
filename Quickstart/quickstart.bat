@@ -5,6 +5,6 @@ rmdir /s /q .\content\wwwroot\nitrogen
 mkdir .\content\wwwroot\nitrogen
 copy ..\www\* .\content\wwwroot\nitrogen
 
-echo Starting Erlang...
+echo Starting Nitrogen on Inets...
 erl -make
 erl -name nitrogen@localhost -pa ebin include -pa ..\ebin ..\include -sync_environment development -s inets_helper

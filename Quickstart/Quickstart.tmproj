@@ -34,7 +34,9 @@
 	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
+	<key>treeState</key>
+	<dict/>
 	<key>windowFrame</key>
-	<string>{{390, 157}, {995, 778}}</string>
+	<string>{{352, 55}, {995, 778}}</string>
 </dict>
 </plist>

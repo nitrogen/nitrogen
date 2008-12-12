@@ -84,25 +84,17 @@ create_header(Key, Value) ->
 	{Key, Value}.
 	
 
-
 %%% RESPONSE %%%
 	
 build_response() ->
+	% Get vars...
 	Info = wf_platform:get_request(),
-
-	% Prepare the body...
 	ResponseCode = get(wf_response_code),
 	ContentType = get(wf_content_type),
 	Body = get(wf_response_body),
-	Body1 = case ContentType of
-		"text/html" ->
-			Script = wf_script:get_script(),
-			wf_platform:inject_script(Body, Script);
-		_ -> 
-			Body
-	end,
+	Size = integer_to_list(httpd_util:flatlength(Body)),
 	
-	Size = integer_to_list(httpd_util:flatlength(Body1)),
+	% Assemble headers...
 	Headers = lists:flatten([
 		{code, ResponseCode},
 		{content_type, ContentType},
@@ -110,8 +102,9 @@ build_response() ->
 		get(wf_headers)
 	]),		
 
+	% Send the inets response...
 	{proceed,[
-		{response, {response, Headers, Body1}},
+		{response, {response, Headers, Body}},
 		{mime_type, ContentType} | Info#mod.data
 	]}.
 
