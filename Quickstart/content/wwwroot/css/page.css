@@ -134,28 +134,21 @@ table.tiny td input
 	line-height: 16px;
 }
 
-.lightbox_background {
-		opacity: 0.8;
-	-moz-opacity: 0.8;
-	filter:alpha(opacity=80);
-}
-
-.lightbox {
-}
-
-.code {
+.chat_history {
 	width: 80%;
-	height: 500px;
-	background-color: #ffffff;
-	border: solid 5px #DDD;
-}
-
-.code .code_panel {
-	text-align: left;
+	height: 150px;
 	overflow: auto;
-	height: 420px;
-	border-bottom: solid 1px #DDD;
-	padding: 20px;
-	margin-bottom: 7px;
+	background-color: #ffffff;
+	border: solid 1px black;
+	padding: 12px;
+	font-size: 110%;
 }
 
+.chat_history .username {
+	font-weight: bold;
+	color: #0000ff;
+}
+
+.chat_history .message {
+	color: #888;
+}
