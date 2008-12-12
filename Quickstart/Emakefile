@@ -1,12 +1,26 @@
 % Compile Nitrogen Files (assuming Nitrogen root is the parent directory.)
 { '../src/*', [
 	{ i, "../include" },
-	{ outdir, "../ebin" }
+	{ outdir, "../ebin" },
+	debug_info
+]}.
+
+{ '../src/*/*', [
+	{ i, "../include" },
+	{ outdir, "../ebin" },
+	debug_info
+]}.
+
+{ '../src/*/*/*', [
+	{ i, "../include" },
+	{ outdir, "../ebin" },
+	debug_info
 ]}.
 
 % Compile Quickstart files.
 { './src/*', [
 	{ i, "./include" },
 	{ i, "../include" },
-	{ outdir, "./ebin" }
+	{ outdir, "./ebin" },
+	debug_info
 ]}.

@@ -35,18 +35,11 @@ state(Key, undefined) ->
 		{value, _, State1} -> put(wf_state, State1);
 		false -> undefined
 	end,	
-	case lists:keytake(Key, 1, get(wf_state_updates)) of
-		{value, _, State2} -> put(wf_state_updates, State2);
-		false -> undefined
-	end,
-	
 	undefined;
 
 state(Key, Value) ->
-	State1 = lists:keystore(Key, 1, get(wf_state), {Key, Value}),
-	put(wf_state, State1),
-	State2 = lists:keystore(Key, 1, get(wf_state_updates), {Key, Value}),
-	put(wf_state_updates, State2),	
+	State = lists:keystore(Key, 1, get(wf_state), {Key, Value}),
+	put(wf_state, State),
 	Value.
 
 clear_state() ->

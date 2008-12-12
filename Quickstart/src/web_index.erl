@@ -35,7 +35,8 @@ main() ->
 			#p{},
 		
 			#h3 { text="Advanced Topics" },
-			#link { text="Continuations", url="/web/continuations" }
+			#link { text="Continuations", url="/web/continuations" }, #br{},
+			#link { text="Comet", url="/web/comet" }
 		]
 	},
 	wf:render(Body).

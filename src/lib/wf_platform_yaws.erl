@@ -72,19 +72,13 @@ create_header(Key, Value) ->
 %%% RESPONSE %%%
 
 build_response() ->
-	% Prepare the body...
+	% Get vars...
 	ContentType = get(wf_content_type),
 	Body = get(wf_response_body),
-	Body1 = case ContentType of
-		"text/html" ->
-			Script = wf_script:get_script(),
-			wf_platform:inject_script(Body, Script);
-		_ -> 
-			Body
-	end,
-	
+
+	% Send the yaws response...
 	lists:flatten([
 		{status, get(wf_response_code)},
 		get(wf_headers),
-		{content, ContentType, Body1}
+		{content, ContentType, Body}
 	]).

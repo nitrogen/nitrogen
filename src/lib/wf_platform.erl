@@ -110,33 +110,43 @@ clear_redirect() -> set_redirect(undefined).
 set_redirect(Url) -> put(wf_redirect, Url).
 set_response_code(Code) -> put(wf_response_code, Code).
 set_content_type(ContentType) -> put(wf_content_type, ContentType).
-	
+
 set_response_body(Body) -> put(wf_response_body, Body).
 	
 build_response() -> 
 	% Handle any redirects...
-	case get(wf_redirect) of
-		undefined -> ignore;
-		Url -> build_redirect(Url)
-	end,
+	handle_redirects(),
 	
 	% Build platform specific response...
 	do(build_response).
-
+	
+%%% REDIRECTS %%%
+	
+handle_redirects() ->
+	case get(wf_redirect) of
+		undefined -> ignore;
+		Url -> 
+			Redirect = build_redirect(Url),
+			set_response_body(Redirect)
+	end.
 
 build_redirect(Url) ->
 	Url1 = wf:to_list(Url),
-	NewBody = case request_method() of
-		'GET' ->
-			wf:f("<meta http-equiv='refresh' content='0;url=~s'>", [Url1]);
-		'POST' ->
-			wf:f("document.location.href=\"~s\";", [wf_utils:js_escape(Url1)])
-	end,
-	set_response_body(NewBody),
-	ok.
+	case request_method() of
+		'GET' -> build_get_redirect(Url1);
+		'POST' -> build_post_redirect(Url1)
+	end.
 
+build_get_redirect(Url) -> wf:f("<meta http-equiv='refresh' content='0;url=~s'>", [Url]).
+build_post_redirect(Url) -> wf:f("document.location.href=\"~s\";", [wf_utils:js_escape(Url)]).
+
+%%% INJECT SCRIPT %%%
 
 inject_script(undefined, _) -> undefined;
 inject_script([script|Rest], Script) -> [Script, Rest];
 inject_script([Other|Rest], Script) -> [Other|inject_script(Rest, Script)];
 inject_script([], _Script) -> [].
+
+
+%%% CHUNKED RESPONSE %%%
+

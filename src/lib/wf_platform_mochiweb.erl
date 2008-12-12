@@ -64,23 +64,15 @@ create_header(Key, Value) ->
 %%% RESPONSE %%%
 
 build_response() ->
+	% Get vars...
 	Req = wf_platform:get_request(),
-	
-	% Prepare the body...
+	Code = get(wf_response_code),
 	ContentType = get(wf_content_type),
 	Body = get(wf_response_body),
-	Body1 = case ContentType of
-		"text/html" -> 
-			Script = wf_script:get_script(),
-			wf_platform:inject_script(Body, Script);
-		_ -> 
-			wf_platform:set_header("Content-Type", ContentType),
-			Body
-	end,
-	
-	% Get headers...
-	Code = get(wf_response_code),
+
+	% Set the content-type...
+	wf_platform:set_header("Content-Type", ContentType),
 	Headers = get(wf_headers),
 	
-	% Respond.
-	Req:respond({Code, Headers, Body1}).
+	% Send the mochiweb response...
+	Req:respond({Code, Headers, Body}).
