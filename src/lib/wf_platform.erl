@@ -30,30 +30,21 @@
 
 
 %%% INIT PLATFORMS %%%
-init(Platform, Request) ->
-	put(wf_platform, Platform),
+init(PlatformModule, Request) ->
+	put(wf_platform_module, PlatformModule),
 	put(wf_request, Request),
 	ok.
 	
-do(Method) ->
-	case get_platform() of
-		yaws     -> wf_platform_yaws:Method();
-		mochiweb -> wf_platform_mochiweb:Method();
-		inets    -> wf_platform_inets:Method()
-	end.
-
+do(Method) -> do(Method, []).
 do(Method, Args) ->
-	case get_platform() of
-		yaws     -> erlang:apply(wf_platform_yaws, Method, Args);
-		mochiweb -> erlang:apply(wf_platform_mochiweb, Method, Args);
-		inets    -> erlang:apply(wf_platform_inets, Method, Args)
-	end.
+	PlatformModule = get(wf_platform_module),
+	erlang:apply(PlatformModule, Method, Args).
 
 
 
 %%% GET PLATFORM INFO %%%
 
-get_platform() -> get(wf_platform).
+get_platform() -> do(get_platform).
 get_request() -> get(wf_request).
 get_page_module() -> get(wf_page_module).
 set_page_module(Module) -> put(wf_page_module, Module).

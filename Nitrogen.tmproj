@@ -50,29 +50,33 @@
 							<key>filename</key>
 							<string>src/platforms/inets_helper.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-12T01:27:25Z</date>
+							<date>2008-12-13T03:42:55Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/mochiweb_helper.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-11T21:23:30Z</date>
+							<date>2008-12-13T03:42:55Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/yaws_helper.erl</string>
+							<key>lastUsed</key>
+							<date>2008-12-13T03:42:54Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-12T02:51:41Z</date>
+							<date>2008-12-13T03:42:54Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-11T21:02:29Z</date>
+							<date>2008-12-13T03:42:54Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -391,8 +395,6 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/other/element_spinner.erl</string>
-									<key>selected</key>
-									<true/>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -714,6 +716,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{390, 189}, {1177, 761}}</string>
+	<string>{{282, 17}, {933, 761}}</string>
 </dict>
 </plist>

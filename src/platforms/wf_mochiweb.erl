@@ -11,5 +11,5 @@ loop(Req) ->
 	loop(Req, Module).
 
 loop(Req, Module) ->
-	wf_platform:init(mochiweb, Req),
+	wf_platform:init(wf_platform_mochiweb, Req),
 	wf_handle:handle_request(Module).

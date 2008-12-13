@@ -1,6 +1,8 @@
 -module (wf_platform_inets).
 -include ("httpd.hrl").
 -export ([
+	get_platform/0,
+
 	get_raw_path/0,
 	get_querystring/0,
 	request_method/0,
@@ -16,7 +18,7 @@
 	build_response/0
 ]).
 
-
+get_platform() -> inets.
 
 %%% PATH, METHOD, AND ARGS %%%
 

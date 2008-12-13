@@ -13,5 +13,5 @@ out(Arg) ->
 	out(Arg, Module).
 
 out(Arg, Module) -> 
-	wf_platform:init(yaws, Arg),
+	wf_platform:init(wf_platform_yaws, Arg),
 	wf_handle:handle_request(Module).

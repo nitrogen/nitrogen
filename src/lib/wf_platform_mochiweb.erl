@@ -1,5 +1,7 @@
 -module (wf_platform_mochiweb).
 -export ([
+	get_platform/0,
+	
 	get_raw_path/0,
 	get_querystring/0,
 	request_method/0,
@@ -15,7 +17,7 @@
 	build_response/0
 ]).
 
-
+get_platform() -> mochiweb.
 
 %%% PATH, METHOD, AND ARGS %%%
 

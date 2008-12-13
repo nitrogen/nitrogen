@@ -1,6 +1,8 @@
 -module (wf_platform_yaws).
 -include ("yaws_api.hrl").
 -export ([
+	get_platform/0,
+	
 	get_raw_path/0,
 	get_querystring/0,
 	request_method/0,
@@ -16,7 +18,7 @@
 	build_response/0
 ]).
 
-
+get_platform() -> yaws.
 
 %%% PATH, METHOD, AND ARGS %%%
 

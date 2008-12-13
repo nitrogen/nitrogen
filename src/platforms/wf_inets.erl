@@ -18,7 +18,7 @@ do(Info) ->
 	
 	
 do(Info, Module) ->
-	wf_platform:init(inets, Info),
+	wf_platform:init(wf_platform_inets, Info),
 	try wf_handle:handle_request(Module)
 	catch Type : Error ->
 		io:format("CAUGHT ERROR: ~p-~p~n~p~n", [Type, Error, erlang:get_stacktrace()]),
