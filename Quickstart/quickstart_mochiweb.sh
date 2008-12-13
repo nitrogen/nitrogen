@@ -1,6 +1,6 @@
 #!/bin/sh
 export NITROGEN_SRC=..
-export MOCHIWEB_SRC=../platforms/mochiweb
+export MOCHIWEB_SRC=../http_servers/mochiweb
 cd `dirname $0`
 
 if [[ -d $MOCHIWEB_SRC ]]; then

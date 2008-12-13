@@ -1,6 +1,6 @@
 #!/bin/sh
 export NITROGEN_SRC=..
-export YAWS_SRC=../platforms/yaws
+export YAWS_SRC=../http_servers/yaws
 cd `dirname $0`
 
 if [[ -d $YAWS_SRC ]]; then
