@@ -51,38 +51,38 @@
 							<string>src/platforms/inets_helper.erl</string>
 							<key>lastUsed</key>
 							<date>2008-12-13T03:42:55Z</date>
-							<key>selected</key>
-							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/mochiweb_helper.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-13T03:42:55Z</date>
+							<date>2008-12-13T14:51:11Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/yaws_helper.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-13T03:42:54Z</date>
+							<date>2008-12-13T14:35:57Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-13T03:42:54Z</date>
+							<date>2008-12-13T14:35:58Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-13T03:42:54Z</date>
+							<date>2008-12-13T14:35:59Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-11T21:02:28Z</date>
+							<date>2008-12-13T14:35:56Z</date>
 						</dict>
 					</array>
 					<key>expanded</key>
@@ -454,13 +454,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-12T03:17:57Z</date>
+							<date>2008-12-13T14:38:35Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_platform.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-12T02:39:58Z</date>
+							<date>2008-12-13T14:51:11Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -520,13 +520,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-12T03:17:59Z</date>
+							<date>2008-12-13T14:51:12Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_platform_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-12T03:17:59Z</date>
+							<date>2008-12-13T14:38:35Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -716,6 +716,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{282, 17}, {933, 761}}</string>
+	<string>{{517, 96}, {933, 761}}</string>
 </dict>
 </plist>
