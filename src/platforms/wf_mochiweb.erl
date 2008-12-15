@@ -7,9 +7,11 @@
 
 loop(Req) ->
 	Path = Req:get(path),
-	Module = wf:path_to_module(Path),
-	loop(Req, Module).
+	{Module, PathInfo} = wf:path_to_module(Path),
+	loop(Req, Module, PathInfo).
+	
+loop(Req, Module) -> loop(Req, Module, "").
 
-loop(Req, Module) ->
+loop(Req, Module, PathInfo) ->
 	wf_platform:init(wf_platform_mochiweb, Req),
-	wf_handle:handle_request(Module).
+	wf_handle:handle_request(Module, PathInfo).

@@ -8,18 +8,18 @@
 	
 do(Info) ->
 	{Path, _QueryString} = httpd_util:split_path(Info#mod.request_uri),
-	Module = wf:path_to_module(Path),
-	
+	{Module, PathInfo} = wf:path_to_module(Path),
 	case Path of
 		"/" -> do(Info, web_index);
-		"/web" ++ _ -> do(Info, Module);
+		"/web" ++ _ -> do(Info, Module, PathInfo);
 		_ -> {proceed, Info#mod.data}
 	end.
 	
+do(Info, Module) -> do(Info, Module, "").
 	
-do(Info, Module) ->
+do(Info, Module, PathInfo) ->	
 	wf_platform:init(wf_platform_inets, Info),
-	try wf_handle:handle_request(Module)
+	try wf_handle:handle_request(Module, PathInfo)
 	catch Type : Error ->
 		io:format("CAUGHT ERROR: ~p-~p~n~p~n", [Type, Error, erlang:get_stacktrace()]),
 		{proceed, Info#mod.data}

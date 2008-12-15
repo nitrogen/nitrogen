@@ -218,19 +218,36 @@ js_escape(<<>>, Acc) -> Acc.
 
 %% path_to_module/1 - Convert a web path to a module.
 path_to_module(undefined) -> web_index;
-path_to_module(S) ->
+path_to_module(S) -> 
 	case lists:last(S) of
 		$/ -> 
-			path_to_module(S ++ "index");
+			S1 = S ++ "index",
+			tokens_to_module(string:tokens(S1, "/"), [], true);
 		_ -> 
-			try
-				list_to_existing_atom(string:join(string:tokens(S, "/"), "_"))
-			catch _ : _ -> 
-				web_404 
-			end
+			tokens_to_module(string:tokens(S, "/"), [], false)
 	end.
 	
-
+tokens_to_module([], PathInfoAcc, AddedIndex) -> {web_404, to_path_info(PathInfoAcc, AddedIndex)};
+tokens_to_module(Tokens, PathInfoAcc, AddedIndex) ->
+	try
+		% Try to get the name of a module.
+		ModuleString = string:join(Tokens, "_"),
+		Module = list_to_existing_atom(ModuleString),
+		
+		% Moke sure the module is loaded.
+		code:ensure_loaded(Module),
+		{Module, to_path_info(PathInfoAcc, AddedIndex)}
+	catch _ : _ -> 
+		% Strip off the last token, and try again.
+		LastToken = lists:last(Tokens),
+		Tokens1 = lists:reverse(tl(lists:reverse(Tokens))),
+		tokens_to_module(Tokens1, [LastToken|PathInfoAcc], AddedIndex)
+	end.	
+	
+chop_last_element(L) -> lists:reverse(tl(lists:reverse(L))).
+to_path_info([], _) -> "";
+to_path_info(PathInfoAcc, true)  -> string:join(chop_last_element(PathInfoAcc), "/");
+to_path_info(PathInfoAcc, false) -> string:join(PathInfoAcc, "/").
 
 %%% STRING REPLACE %%%
 

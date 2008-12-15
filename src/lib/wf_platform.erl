@@ -9,6 +9,7 @@
 	get_platform/0,
 	get_request/0,
 	get_page_module/0, set_page_module/1,
+	get_path_info/0, set_path_info/1,
 
 	get_raw_path/0,
 	get_querystring/0,
@@ -48,6 +49,8 @@ get_platform() -> do(get_platform).
 get_request() -> get(wf_request).
 get_page_module() -> get(wf_page_module).
 set_page_module(Module) -> put(wf_page_module, Module).
+get_path_info() -> get(wf_path_info).
+set_path_info(PathInfo) -> put(wf_path_info, PathInfo).
 
 get_raw_path() -> do(get_raw_path).
 get_querystring() -> do(get_querystring).

@@ -4,13 +4,14 @@
 
 -module (wf_handle).
 -include ("wf.inc").
--export ([handle_request/1]).
+-export ([handle_request/2]).
 
-handle_request(Module) ->
+handle_request(Module, PathInfo) ->
 	% Set up session.
 	L = [wf_action_queue, wf_update_queue, wf_content_script, wf_script, wf_paths, wf_state, wf_headers],
 	[put(X, []) || X <- L],
 	wf_platform:set_page_module(Module),
+	wf_platform:set_path_info(PathInfo),
 	wf_platform:clear_redirect(),
 	wf_platform:set_response_code(200),
 	wf_platform:set_content_type("text/html"),

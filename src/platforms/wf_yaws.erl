@@ -9,9 +9,11 @@
 
 out(Arg) ->
 	Path = Arg#arg.server_path,
-	Module = wf:path_to_module(Path),
-	out(Arg, Module).
+	{Module, PathInfo} = wf:path_to_module(Path),
+	out(Arg, Module, PathInfo).
 
-out(Arg, Module) -> 
+out(Arg, Module) -> out(Arg, Module, "").
+
+out(Arg, Module, PathInfo) ->
 	wf_platform:init(wf_platform_yaws, Arg),
-	wf_handle:handle_request(Module).
+	wf_handle:handle_request(Module, PathInfo).
