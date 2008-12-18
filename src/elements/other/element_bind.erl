@@ -6,6 +6,10 @@
 -include ("wf.inc").
 -compile(export_all).
 
+% Transform function is of the form:
+% Function(DataRow, Acc) -> {NewDataRow, NewAcc, ExtraBindings}.
+% <ExtraBindings> -> {field@attr}, Value}.
+
 reflect() -> record_info(fields, bind).
 
 render(_ControlID, Record) -> 

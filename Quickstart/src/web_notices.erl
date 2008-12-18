@@ -1,30 +1,30 @@
 -module (web_notices).
 -include ("wf.inc").
--export ([main/0, event/1]).
+-compile(export_all).
 
-main() ->
-	Title = "User Notices",
-	Body = #template { file=onecolumn, title=Title, headline=Title, section1=[
+main() -> #template { file="./templates/onecolumn.html" }.
+title() -> "User Notices".
+headline() -> "User Notices". 
 
-		"
-			Nitrogen provides you with a variety of ways to indicate
-			simple messages to a user.
-		",
-		#p{},			
-		#flash {},
-		#p{},
-		#button { text="Show Flash Message", postback=show_flash },
-		#p{},
+body() -> [
+	"
+		Nitrogen provides you with a variety of ways to indicate
+		simple messages to a user.
+	",
+	#p{},			
+	#flash {},
+	#p{},
+	#button { text="Show Flash Message", postback=show_flash },
+	#p{},
 
-		#button { text="Show Advanced Flash Message", postback=show_advanced_flash },
-		#p{},
-		
-		#button { text="Show Javascript Alert", postback=show_alert },
-		#p{},
-		
-		#button { text="Show Javascript Confirm", postback=show_confirm }	
-	]},
-	wf:render(Body).
+	#button { text="Show Advanced Flash Message", postback=show_advanced_flash },
+	#p{},
+	
+	#button { text="Show Javascript Alert", postback=show_alert },
+	#p{},
+	
+	#button { text="Show Javascript Confirm", postback=show_confirm }	
+].
 	
 event(show_flash) ->
 	wf:flash("This is a flash message.");

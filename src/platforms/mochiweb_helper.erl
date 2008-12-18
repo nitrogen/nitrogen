@@ -8,18 +8,18 @@
 start() ->
 	% Initialize Nitrogen.
 	wf:init(),
-	
+	{Port, DocumentRoot} = wf_init:get_config(),
+
 	% Start crypto...
 	crypto:start(),
 
 	% Start mochiweb server...
-	DocRoot = "./content/wwwroot",
 	Options = [
 		{ip, "0.0.0.0"},
-		{port, 8000}
+		{port, Port}
 	],
 
-	Loop = fun (Req) -> ?MODULE:loop(Req, DocRoot) end,
+	Loop = fun (Req) -> ?MODULE:loop(Req, DocumentRoot) end,
 	
 	F = fun() -> 
 		mochiweb_http:start([{name, ?MODULE}, {loop, Loop} | Options]),

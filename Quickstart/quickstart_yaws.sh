@@ -14,8 +14,8 @@ else
 fi
 
 echo Creating link to nitrogen support files...
-rm -f content/wwwroot/nitrogen
-ln -s ../../$NITROGEN_SRC/www content/wwwroot/nitrogen
+rm -f wwwroot/nitrogen
+ln -s ../$NITROGEN_SRC/www wwwroot/nitrogen
 
 echo Starting Nitrogen on Yaws...
 exec erl \

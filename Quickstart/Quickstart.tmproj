@@ -8,14 +8,18 @@
 			<key>children</key>
 			<array>
 				<dict>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
-					<string>content</string>
+					<string>templates</string>
 					<key>regexFolderFilter</key>
 					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
 					<key>sourceDirectory</key>
-					<string>content</string>
+					<string>templates</string>
 				</dict>
 				<dict>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>src</string>
 					<key>regexFolderFilter</key>
@@ -24,6 +28,8 @@
 					<string>src</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>Quickstart Inets</string>
 		</dict>
@@ -35,8 +41,31 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>treeState</key>
-	<dict/>
+	<dict>
+		<key>Quickstart Inets</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict>
+				<key>src</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+				<key>templates</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
 	<key>windowFrame</key>
-	<string>{{352, 55}, {995, 778}}</string>
+	<string>{{230, 0}, {995, 778}}</string>
 </dict>
 </plist>

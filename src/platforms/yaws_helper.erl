@@ -8,17 +8,18 @@
 start() ->
 	% Initialize Nitrogen.
 	wf:init(),
+	{Port, DocumentRoot} = wf_init:get_config(),
 
 	SC = [
 		{listen, {0,0,0,0}},
-	  {port, 8000},
+	  {port, Port},
 	  {appmods, [{"/web", wf_yaws}]
 	}],
 	GC = [
 		{logdir, "./logs"},
 		{cache_refresh_secs, 0}
 	],
-	yaws:start_embedded("./content/wwwroot", SC, GC),
+	yaws:start_embedded(DocumentRoot, SC, GC),
 
 	io:format("~n~n---~n"),
 	io:format("Nitrogen is now running, using yaws:start_embedded().~n"),

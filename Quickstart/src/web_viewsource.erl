@@ -1,6 +1,6 @@
 -module (web_viewsource).
 -include ("wf.inc").
--export ([main/0, event/1]).
+-compile(export_all).
 
 main() ->
 	[Module] = wf:q(module),

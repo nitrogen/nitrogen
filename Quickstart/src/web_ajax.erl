@@ -1,33 +1,31 @@
 -module (web_ajax).
 -include ("wf.inc").
--export ([main/0, event/1]).
+-compile(export_all).
 
-main() ->
-	Title = "Ajax Example",
-	Body = #template { file=onecolumn, title=Title, headline=Title,
-	section1=[
+main() -> #template { file="./templates/onecolumn.html" }.
+title() -> "Ajax Example".
+headline() -> "Ajax Example".
 
-		% Set up the form...
-		#textbox { id=theMessage, text="This is a message...", next=theButton },
-		#button { id=theButton, text="Go", postback=click },
-		#p{},
-		
-		% Create a table with three columns...
-		#table { style="width: 100%;", rows=[
-			#tablerow { cells=[
-				#tableheader { style="width: 33%;", text="Update" },
-				#tableheader { style="width: 33%;", text="Insert Top" },
-				#tableheader { style="width: 33%;", text="Insert Bottom" }
-			]},
-			#tablerow { cells=[
-				#tablecell { id=updateCell },
-				#tablecell { id=topCell },
-				#tablecell { id=bottomCell }
-			]}
+body() -> [
+	% Set up the form...
+	#textbox { id=theMessage, text="This is a message...", next=theButton },
+	#button { id=theButton, text="Go", postback=click },
+	#p{},
+	
+	% Create a table with three columns...
+	#table { style="width: 100%;", rows=[
+		#tablerow { cells=[
+			#tableheader { style="width: 33%;", text="Update" },
+			#tableheader { style="width: 33%;", text="Insert Top" },
+			#tableheader { style="width: 33%;", text="Insert Bottom" }
+		]},
+		#tablerow { cells=[
+			#tablecell { id=updateCell },
+			#tablecell { id=topCell },
+			#tablecell { id=bottomCell }
 		]}
-		
-	]},
-	wf:render(Body).
+	]}
+].
 	
 event(click) ->
 	% Get the message...

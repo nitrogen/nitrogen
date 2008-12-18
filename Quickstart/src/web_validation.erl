@@ -1,36 +1,37 @@
 -module (web_validation).
 -include ("wf.inc").
 -include ("google_chart.inc").
--export ([main/0, event/1]).
+-compile(export_all).
 
-main() ->
-	Title = "Validation",
-	Body = #template { file=onecolumn, title=Title, headline=Title, section1=[
+main() -> #template { file="./templates/onecolumn.html" }.
+title() -> "Validation".
+headline() -> "Validation". 
 
-			#flash {},
-			#label { text="Name" },
-			#textbox { id=nameTextBox, next=emailTextBox },
-			#p{},
-			
-			#label { text="Email Address" },
-			#textbox { id=emailTextBox, next=passwordTextBox },
-			#p{},
-			
-			#label { text="Password" },
-			#password { id=passwordTextBox, next=confirmTextBox },
-			#p{},
-			
-			#label { text="Confirm" },
-			#password { id=confirmTextBox, next=otherTextBox },
-			#p{},
-			
-			#label { text="Other" },
-			#textbox { id=otherTextBox, next=continueButton },
-			#p{},
-			
-			#button { id=continueButton, text="Continue", postback=continue }
-			
-	]},
+body() -> 
+	Body = [
+		#flash {},
+		#label { text="Name" },
+		#textbox { id=nameTextBox, next=emailTextBox },
+		#p{},
+	
+		#label { text="Email Address" },
+		#textbox { id=emailTextBox, next=passwordTextBox },
+		#p{},
+	
+		#label { text="Password" },
+		#password { id=passwordTextBox, next=confirmTextBox },
+		#p{},
+	
+		#label { text="Confirm" },
+		#password { id=confirmTextBox, next=otherTextBox },
+		#p{},
+	
+		#label { text="Other" },
+		#textbox { id=otherTextBox, next=continueButton },
+		#p{},
+	
+		#button { id=continueButton, text="Continue", postback=continue }
+	],
 	
 	wf:wire(continueButton, nameTextBox, #validate { validators=[
 		#is_required { text="Required." },
@@ -51,7 +52,7 @@ main() ->
 		#is_required { text="Required." },
 		#confirm_password { password=passwordTextBox, text="Passwords must match." }
 	]}),	
-	
+		
 	wf:render(Body).
 	
 event(continue) ->

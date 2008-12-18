@@ -10,13 +10,13 @@ reflect() -> record_info(fields, file).
 
 render(ControlID, Record) -> 
 	FileName = Record#file.file,
-	FilePath = io_lib:format("./content/web_content/~s.html", [FileName]),
+	FilePath = io_lib:format(FileName),
 	FileContents = case file:read_file(FilePath) of
 		{ok, B} -> 
 			B;
 		_ -> 
 			?LOG("Error reading file: ~s~n", [FilePath]),
-			wf:f("File not %%%title%%% found: ~s.", [FilePath])
+			wf:f("File not found: ~s.", [FilePath])
 	end,
 
 	Panel = #panel {

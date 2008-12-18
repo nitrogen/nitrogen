@@ -1,12 +1,13 @@
 -module (web_barebones).
 -include ("wf.inc").
--export ([main/0, event/1]).
+-compile(export_all).
 
-main() ->
-	Title = "Bare Bones Page",
-	Body = #template { file=onecolumn, title=Title, headline=Title, section1=[
-		"Nothing to see here."
-	]},
-	wf:render(Body).
+main() -> #template { file="./templates/onecolumn.html" }.
+title() -> "Bare Bones Page".
+headline() -> "Bare Bones Page".
+
+body() -> [
+	"Nothing to see here."
+].
 	
 event(_) -> ok.

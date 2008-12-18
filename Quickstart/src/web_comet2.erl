@@ -1,13 +1,15 @@
 -module (web_comet2).
 -include ("wf.inc").
--export ([main/0, event/1]).
+-compile(export_all).
 
-main() ->
+main() -> #template { file="./templates/onecolumn.html" }.
+title() -> "Comet Chatroom".
+headline() -> "Comet Chatroom".
+
+body() ->
 	ensure_chatroom_running(),
 	
-	Title = "Comet Chatroom",
-	Body = #template { file=onecolumn, title=Title, headline=Title,
-	section1=[
+	Body=[
 		"
 			This page uses comet to create a chatroom. Open this page in different browser
 			windows and try chatting to yourself.
@@ -20,7 +22,7 @@ main() ->
 		#p{},
 		#textbox { id=messageTextBox, style="width: 70%;", next=sendButton },
 		#button { id=sendButton, text="Send", postback=chat }
-	]},
+	],
 	
 	% Start a process to listen for messages,
 	% and then tell the chatroom that we would like to join.

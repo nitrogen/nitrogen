@@ -8,8 +8,7 @@
 
 reflect() -> record_info(fields, flash).
 
-render_in_template(_Record) ->
-	wf:render(#flash { }).
+render() -> wf:render(#flash { }).
 	
 update() -> update(any).
 update(element_flash) -> ok;

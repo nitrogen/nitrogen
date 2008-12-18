@@ -16,7 +16,7 @@
 %%% Elements %%%
 -define(ELEMENT_BASE(Module), module=Module, id, actions, show_if=true, class="", style="").
 -record(elementbase, {?ELEMENT_BASE(undefined)}).
--record(template, {?ELEMENT_BASE(element_template), file, title="[title]", headline="[headline]", section1, section2, section3, section4, extra }).
+-record(template, {?ELEMENT_BASE(element_template), file, bindings=[] }).
 -record(body, {?ELEMENT_BASE(element_body), title="", body=[]}).
 -record(h1, {?ELEMENT_BASE(element_h1), text="", html_encode=true}).
 -record(h2, {?ELEMENT_BASE(element_h2), text="", html_encode=true}).

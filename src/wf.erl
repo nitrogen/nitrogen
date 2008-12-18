@@ -134,6 +134,12 @@ clear_session() -> wf_session:clear_session().
 logout() -> clear_user(), clear_roles(), clear_state(), clear_session().
 
 
+%%% WF_CACHE %%%
+
+cache(Key, Function) -> wf_cache:cache(Key, Function).
+cache(Key, Function, Options) -> wf_cache:cache(Key, Function, Options).
+
+
 %%% WF_QUERY %%%
 
 q(Q) -> wf_query:q(Q).

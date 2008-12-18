@@ -8,11 +8,12 @@
 start() ->
 	% Initialize Nitrogen.
 	wf:init(),
-
+	{Port, DocumentRoot} = wf_init:get_config(),
+	
 	inets:start(),
 	inets:start(httpd, [
-		{port, 8000},
-		{document_root, "./content/wwwroot"},
+		{port, Port},
+		{document_root, DocumentRoot},
 		{server_root, "."},
 		{bind_address, "localhost"},
 		{server_name, "localhost"},

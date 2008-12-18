@@ -14,7 +14,7 @@ Description: A multi-column, fixed-width design for 800x600 resolutions.
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Nitrogen - [[[title]]]</title>
+<title>Nitrogen - [[[page:title()]]]</title>
 <link href="/css/style.css" rel="stylesheet" type="text/css" />
 <script src='/nitrogen/jquery-1.2.6.js' type='text/javascript' charset='utf-8'></script>
 <script src='/nitrogen/jquery-ui-personalized-1.5.3.min.js' type='text/javascript' charset='utf-8'></script>
@@ -45,29 +45,26 @@ Description: A multi-column, fixed-width design for 800x600 resolutions.
 	<div class="wrapper-inner">
 		<!-- start content -->
 		<div class="content">
-			<h1>[[[headline]]]</h1>
-			[[[element_flash]]]
-			<div style="width: 45%; float: left; padding-right: 10px;">
-				[[[section1]]]
-			</div>
-			<div style="width: 45%; float: left; padding-left: 10px;">
-				[[[section2]]]
+			<h1>[[[page:headline()]]]</h1>
+			[[[element_flash:render()]]]
+			<div style="width: 100%;">
+				[[[page:body()]]]
 			</div>
 		</div>
 		<!-- end content -->
 		<!-- start sidebar -->
 		<div class="sidebar">
-			[[[plugin_sidebar]]]
+			[[[plugin_sidebar:render()]]]
 		</div>
 		<!-- end sidebar -->
 		<br style="clear: both;" />
 	</div>
 </div>
-<!-- end page -->
+<!-- end wrapper-inner -->
 <!-- start footer -->
 <div class="wrapper2">
 	<div class="footer">
-		[[[plugin_footer]]]
+		[[[plugin_footer:render()]]]
 	</div>
 	<p class="legal"> 
 		Nitrogen Web Framework &copy; <a href="http://rklophaus.com">Rusty Klophaus</a>, 
@@ -75,9 +72,7 @@ Description: A multi-column, fixed-width design for 800x600 resolutions.
 		Design - <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>
 </div>
 <!-- end footer -->
-
 </form>
-
 <script>
 [[[script]]]
 </script>

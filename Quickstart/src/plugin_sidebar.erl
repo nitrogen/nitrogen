@@ -1,8 +1,8 @@
 -module (plugin_sidebar).
 -include ("wf.inc").
--export ([render_in_template/1]).
+-export ([render/0]).
 
-render_in_template(_Rec) ->
+render() ->
 	[
 		code_info()
 	].

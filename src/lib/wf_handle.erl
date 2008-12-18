@@ -52,18 +52,15 @@ handle_get_request(Module) ->
 	% Render the page...
 	wf:state(validators, []),
 	put(current_path, [page]),
-	Body = Module:main(),
+	Body1 = Module:main(),
 
-	% Inject script into the response body, if necessary...
-	ContentType = get(wf_content_type),
-	Body1 = case ContentType of
-		"text/html" ->
-			Script = wf_script:get_script(),
-			wf_platform:inject_script(Body, Script);
-		_ -> 
-			Body
+	% Call render if it has not already been called.
+	Body2 = case wf:is_string(Body1) of
+		true -> Body1;
+		false -> wf:render(Body1)
 	end,
-	wf_platform:set_response_body(Body1),	
+
+	wf_platform:set_response_body(Body2),	
 	wf_platform:build_response().
 
 

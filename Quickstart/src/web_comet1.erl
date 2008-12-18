@@ -1,22 +1,24 @@
 -module (web_comet1).
 -include ("wf.inc").
--export ([main/0, event/1]).
+-compile(export_all).
 
-main() ->
-	Title = "Simple Comet Example",
-	Body = #template { file=onecolumn, title=Title, headline=Title,
-	section1=[
+main() -> #template { file="./templates/onecolumn.html" }.
+	
+title() -> "Simple Comet Example".
+headline() -> "Simple Comet Example".
+
+body() -> 
+	Body = [
 		#span { text="Counter updated via Comet: " },
 		#span { id=myCounter, text="-" }
-	]},
+  ],
 
-	% Start the comet process...
+	% Start the counter as a background process.
 	wf:comet(fun() -> background_update(myCounter, 1) end),
-
-	wf:render(Body).
 	
-event(_) -> ok.
+	wf:render(Body).
 
+event(_) -> ok.
 
 background_update(ControlID, Count) ->
 	% Sleep for a second, then update

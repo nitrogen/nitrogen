@@ -1,8 +1,8 @@
 -module (plugin_footer).
 -include ("wf.inc").
--export ([render_in_template/1]).
+-export ([render/0]).
 
-render_in_template(_Rec) ->
+render() ->
 	["
 		<div class=col>
 			<h3>About Nitrogen</h3>
