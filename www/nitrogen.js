@@ -46,13 +46,26 @@ function wf_sortblock(sortBlock, sortOptions, sortPostbackInfo) {
 	$(sortBlock).sortable(sortOptions);
 }
 
-function wf_serialize_forms() {
-	var forms = document.getElementsByTagName("form"); 
+function wf_serialize_page() {
+	var elements = wf_get_elements_to_serialize();
 	var s = "";
-	for (var i = 0; i<forms.length; i++) {
-		s += "&" + $(forms[i]).serialize();
+	for (var i = 0; i<elements.length; i++) {
+		s += "&" + $(elements[i]).serialize();
 	}
 	return s;
+}
+
+function wf_get_elements_to_serialize() {
+	var tagnames = ["input", "button", "select", "textarea", "checkbox"];
+	var a = new Array();
+	for (var i=0; i<tagnames.length; i++) {
+		var l = document.getElementsByTagName(tagnames[i]);
+		for (var j=0; j<l.length; j++) {
+			a = a.concat(l[j]);
+		}
+	}
+	
+  return a;	
 }
 
 function wf_ajax(params) {
@@ -139,13 +152,11 @@ function wf_do_postback(triggerID, postbackInfo, extraParams) {
 	// Check validatation...
 	var isValid = true;
 	
-	var forms = document.getElementsByTagName("form"); 
-	for (var i=0; i<forms.length; i++) {
-		for (var j=0; j<forms[i].elements.length; j++) {
-			element = forms[i].elements[j];
-			if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
-				isValid = false;
-			}
+	var elements = wf_get_elements_to_serialize();
+	for (var i=0; i<elements.length; i++) {
+		element = elements[i];
+		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
+			isValid = false;
 		}
 	}
 	
@@ -158,7 +169,7 @@ function wf_do_postback(triggerID, postbackInfo, extraParams) {
 	var params = 
 		"postbackInfo=" + postbackInfo + 
 		"&domState=" + wf_dom_state + 
-		"&" + wf_serialize_forms() + 
+		"&" + wf_serialize_page() + 
 		"&" + extraParams;
 		
 	// Go Ajax!

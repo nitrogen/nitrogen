@@ -12,15 +12,11 @@
 		</dict>
 		<dict>
 			<key>filename</key>
-			<string>DOCS.txt</string>
-			<key>lastUsed</key>
-			<date>2008-11-04T20:48:08Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
 			<date>2008-11-25T15:26:28Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -349,7 +345,7 @@
 									<key>filename</key>
 									<string>src/elements/layout/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-17T03:56:36Z</date>
+									<date>2008-12-18T04:00:06Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -454,7 +450,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_cache.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-16T15:02:56Z</date>
+							<date>2008-12-18T04:01:23Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -478,7 +474,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_init.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-17T02:50:10Z</date>
+							<date>2008-12-18T04:01:24Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -573,6 +569,8 @@
 					<string>Lib</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -592,6 +590,8 @@
 					<date>2008-12-09T22:31:59Z</date>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>Include</string>
 		</dict>
@@ -619,10 +619,10 @@
 					<date>2008-12-16T14:46:14Z</date>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>WWW</string>
-			<key>selected</key>
-			<true/>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -661,7 +661,29 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>treeState</key>
-	<dict/>
+	<dict>
+		<key>Include</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
+		<key>SRC</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
+		<key>WWW</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
+	</dict>
 	<key>windowFrame</key>
 	<string>{{394, 180}, {933, 761}}</string>
 </dict>

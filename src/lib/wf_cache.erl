@@ -76,7 +76,6 @@ return_cache_item(CacheItem) ->
 %%% WRITE TO THE CACHE TABLE %%%
 
 recache(Key, Function, Options) ->
-	?PRINT({recaching, Key}),
 	% Read the value. 
 	Value = Function(),
 		
