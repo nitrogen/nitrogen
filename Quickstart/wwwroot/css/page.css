@@ -1,12 +1,44 @@
+/*** API ***/
+
+.element_description {
+}
+
+.element_see_also_label {
+}
+
+.element_see_also_link {
+	padding-right: 8px;
+}
+
+.element_attribute_name,
+.element_event_name {
+	font-weight: bold;
+}
+
+.element_attribute_datatype {
+	font-size: 90%;
+}
+
+.element_attribute_datatype,
+.element_attribute_description,
+.element_event_description {
+	display: block;
+	padding-left: 20px;
+}
+
+/*** SAMPLES ***/
+
 .stats {
-	font-size: 120%;
+	color: #999;
+	font-size: 0.85em;
+	display: block;
 }
 
 .stats .count {
 	position: relative;
 	top: 2px;
 	font-weight: bold;
-	font-size: 250%;
+	font-size: 1.8em;
 	color: #777;
 }
 

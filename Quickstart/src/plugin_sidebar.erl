@@ -1,4 +1,4 @@
--module (plugin_sidebar).
+-module (sidebar).
 -include ("wf.inc").
 -export ([render/0]).
 
@@ -10,7 +10,7 @@ render() ->
 code_info() ->
 	CurrentModule = wf_platform:get_page_module(),
 	{_CurrentTotal, CurrentActive} = line_count(CurrentModule),
-	{_BareTotal, BareActive} = line_count(web_barebones),
+	{_BareTotal, BareActive} = line_count(web_samples_barebones),
   ActiveLines = CurrentActive - BareActive,
 	
 	Terms = [

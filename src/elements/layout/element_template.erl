@@ -18,8 +18,11 @@ render(_ControlID, Record) ->
 	
 	% Parse the template file, or read it from cache.
 	File = wf:to_list(Record#template.file),
-	Key = {template, File},
-	Template = wf_cache:cache(Key, fun() -> parse_template(File) end, [{ttl, 5}]),
+	Template = parse_template(File),
+	
+	% IN PROGRESS - Caching
+	% Key = {template, File},
+	% Template = wf_cache:cache(Key, fun() -> parse_template(File) end, [{ttl, 5}]),
 	
 	% Evaluate the template.
 	eval(Template, Record).
@@ -101,7 +104,11 @@ eval([H|T], Record) when is_tuple(H) ->
 
 	Data1 = case {Module, Function} of 
 		{script, render_in_template}   -> script;
-		{page, Function} -> erlang:apply(PageModule, Function, Args);
+		{page, Function} -> 
+			case erlang:function_exported(PageModule, Function, length(Args)) of
+				true -> erlang:apply(PageModule, Function, Args);
+				false -> []
+			end;
 		{Module, Function} -> erlang:apply(Module, Function, Args)
 	end,
 	

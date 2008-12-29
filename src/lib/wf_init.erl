@@ -3,7 +3,7 @@
 -export ([init/0, get_config/0]).
 
 init() -> 
-	wf_cache:init(),
+	% wf_cache:init(),
 	atomize_pages(),
 	ok.
 

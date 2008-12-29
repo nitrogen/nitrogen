@@ -6,7 +6,7 @@
 -include ("wf.inc").
 -export ([
 	f/1, f/2,
-	id/0, guid/0, short_guid/0,
+	guid/0, short_guid/0,
 	path_search/3,
 	encode/2, decode/2,
 	hex_encode/1, hex_decode/1,
@@ -29,9 +29,6 @@ f(S, Args) -> lists:flatten(io_lib:format(S, Args)).
 
 
 %%% IDS %%%
-
-% id/0 - Return the next digit in an incremental counter.
-id() -> mnesia:dirty_update_counter(counter, id, 1).
 
 % guid/0 - Return a guid like object.
 guid() ->
@@ -217,7 +214,7 @@ js_escape(<<>>, Acc) -> Acc.
 %%% MODULE PATH %%%
 
 %% path_to_module/1 - Convert a web path to a module.
-path_to_module(undefined) -> web_index;
+path_to_module(undefined) -> {web_index, ""};
 path_to_module(S) -> 
 	case lists:last(S) of
 		$/ -> 

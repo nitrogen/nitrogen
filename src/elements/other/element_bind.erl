@@ -24,10 +24,15 @@ render(_ControlID, Record) ->
 	Body = Record#bind.body,
 	
 	% Bind the data to the body template...
-	Body1 = bind(Body, Data, Map, Transform, AccInit),
-	
-	% Render the new body to html...
-	render_rows(Body1, 1).
+	case length(Data) > 0 of
+		true ->	
+			Body1 = bind(Body, Data, Map, Transform, AccInit),
+			% Render the new body to html...
+			render_rows(Body1, 1);
+		
+		_ ->
+			Record#bind.empty_body
+	end.
 
 render_rows([], _) -> [];
 render_rows([H|T], N) ->
@@ -47,7 +52,7 @@ bind(Body, [DataRow|Data], Map, Transform, Acc) ->
 	
 	% Map the data into the body...
 	RawBindings = extract_bindings(Map, DataRow1),
-	Bindings = normalize_bindings([RawBindings ++ [ExtraBindings]]),
+	Bindings = normalize_bindings([[RawBindings] ++ [ExtraBindings]]),
 	Body1 = apply_bindings(Bindings, Body),
 	
 	% Iterate.
@@ -89,7 +94,7 @@ apply_bindings(Bindings, Term) when is_tuple(Term) ->
 				replace_field(ChildField, Children1, Fields, Rec)
 		end
 	end,
-	lists:foldl(F2, Term1, [body, rows, cells]).	
+	lists:foldl(F2, Term1, [body, empty_body, rows, cells]).	
 	
 get_field(Key, Fields, Rec) -> 
 	case indexof(Key, Fields) of

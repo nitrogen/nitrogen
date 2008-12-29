@@ -24,3 +24,10 @@
 	{ outdir, "./ebin" },
 	debug_info
 ]}.
+
+{ './src/*/*', [
+	{ i, "./include" },
+	{ i, "../include" },
+	{ outdir, "./ebin" },
+	debug_info
+]}.

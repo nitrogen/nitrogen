@@ -13,10 +13,11 @@ render(ControlID, Record) ->
 		undefined -> ok;
 		Postback -> wf:wire(ControlID, #event { type=click, postback=Postback })
 	end,
-	wf:f("<a id='~s' href='~s' class='link ~s' style='~s'>~s</a>", [
+	wf:f("<a id='~s' href='~s' class='link ~s' style='~s'>~s~s</a>", [
 		ControlID,
 		Record#link.url,
 		Record#link.class,
 		Record#link.style,
-		wf:html_encode(Record#link.text, Record#link.html_encode)
+		wf:html_encode(Record#link.text, Record#link.html_encode),
+		wf:render(Record#link.body)
 	]).

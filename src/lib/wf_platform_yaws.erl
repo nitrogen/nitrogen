@@ -58,7 +58,7 @@ create_cookie(Key, Value, Path, MinutesToLive) ->
 	yaws_api:setcookie(Key, Value, Path, Expire).
 	
 to_cookie_expire(SecondsToLive) ->
-	Seconds = calendar:datetime_to_gregorian_seconds(calendar:universal_time()),
+	Seconds = calendar:datetime_to_gregorian_seconds(calendar:local_time()),
 	DateTime = calendar:gregorian_seconds_to_datetime(Seconds + SecondsToLive),
 	httpd_util:rfc1123_date(DateTime).
 

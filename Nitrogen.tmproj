@@ -9,14 +9,14 @@
 			<string>MIT-LICENSE</string>
 			<key>lastUsed</key>
 			<date>2008-11-03T21:04:37Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
 			<date>2008-11-25T15:26:28Z</date>
-			<key>selected</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -31,7 +31,7 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2008-12-16T15:43:39Z</date>
+					<date>2008-12-18T21:47:24Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -147,7 +147,7 @@
 							<key>filename</key>
 							<string>src/actions/action_event.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-12T00:24:11Z</date>
+							<date>2008-12-24T14:45:37Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -196,6 +196,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_link.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T21:57:43Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -204,6 +206,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_span.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T15:53:40Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -212,6 +216,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_literal.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T15:53:40Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -220,8 +226,24 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_value.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T15:59:20Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/elements/html/element_list.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T15:59:19Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/elements/html/element_listitem.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T15:59:19Z</date>
 								</dict>
 							</array>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>HTML</string>
 						</dict>
@@ -235,6 +257,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/table/element_tablecell.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T15:53:39Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -334,6 +358,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/layout/element_panel.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-18T15:50:32Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -345,7 +371,7 @@
 									<key>filename</key>
 									<string>src/elements/layout/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-18T04:00:06Z</date>
+									<date>2008-12-24T05:52:50Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -381,6 +407,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/other/element_droppable.erl</string>
+									<key>lastUsed</key>
+									<date>2008-12-19T17:51:37Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -398,13 +426,15 @@
 									<key>filename</key>
 									<string>src/elements/other/element_bind.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-15T04:38:33Z</date>
+									<date>2008-12-18T23:57:24Z</date>
 								</dict>
 							</array>
 							<key>name</key>
 							<string>Other</string>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Elements</string>
 				</dict>
@@ -450,13 +480,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_cache.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-18T04:01:23Z</date>
+							<date>2008-12-18T13:54:46Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_platform_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-13T14:38:35Z</date>
+							<date>2008-12-19T17:51:36Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -468,7 +498,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_handle.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-16T15:49:42Z</date>
+							<date>2008-12-24T14:45:37Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -480,7 +510,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-15T02:54:45Z</date>
+							<date>2008-12-24T05:52:50Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -528,13 +558,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-13T14:51:12Z</date>
+							<date>2008-12-19T17:51:35Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_platform_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-16T15:30:57Z</date>
+							<date>2008-12-19T17:51:36Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -581,7 +611,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2008-12-16T15:40:21Z</date>
+					<date>2008-12-19T17:51:36Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -607,16 +637,20 @@
 				<dict>
 					<key>filename</key>
 					<string>www/basic.css</string>
+					<key>lastUsed</key>
+					<date>2008-12-23T02:43:36Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>www/elements.css</string>
+					<key>lastUsed</key>
+					<date>2008-12-23T02:43:36Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2008-12-16T14:46:14Z</date>
+					<date>2008-12-24T14:45:38Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -674,7 +708,23 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict/>
+			<dict>
+				<key>Elements</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict>
+						<key>HTML</key>
+						<dict>
+							<key>isExpanded</key>
+							<true/>
+							<key>subItems</key>
+							<dict/>
+						</dict>
+					</dict>
+				</dict>
+			</dict>
 		</dict>
 		<key>WWW</key>
 		<dict>
@@ -685,6 +735,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{394, 180}, {933, 761}}</string>
+	<string>{{290, 17}, {933, 761}}</string>
 </dict>
 </plist>

@@ -11,7 +11,7 @@ reflect() -> record_info(fields, sortblock).
 render(ControlID, Record) -> 
 	% Get properties...
 	
-	PickledPostbackInfo = action_event:make_postback_info(Record#sortblock.postback, sort, ControlID, ControlID, ?MODULE),
+	PickledPostbackInfo = action_event:make_postback_info(Record#sortblock.tag, sort, ControlID, ControlID, ?MODULE),
 	Handle = case Record#sortblock.handle of
 		undefined -> "null";
 		Other -> wf:f("'.~s'", [Other])
@@ -31,14 +31,14 @@ render(ControlID, Record) ->
 	element_panel:render(ControlID, #panel {
 		class="sortblock " ++ GroupClasses ++ " " ++ wf:to_list(Record#sortblock.class),
 		style=Record#sortblock.style,
-		body=Record#sortblock.body
+		body=Record#sortblock.items
 	}).
 
-event(Postback) ->
+event(BlockTag) ->
 	[SortItems] = wf:q(sort_items),
 	SortTags = [wf:depickle(X) || X <- string:tokens(SortItems, ",")],
 	Module = wf_platform:get_page_module(),
-	Module:sort_event(Postback, SortTags).
+	Module:sort_event(BlockTag, SortTags).
 
 groups_to_classes([]) -> "";
 groups_to_classes(undefined) -> "";

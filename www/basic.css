@@ -74,49 +74,7 @@ ul {
 	padding-top: 7px;
 }
 
-/*** VALIDATION ***/
-.LV_validation_message {
-	display: inline;
-	line-height: 1.1em;
-	position: absolute;
-  font-weight:bold;
-	margin: 0px 0px 0px 0px;
-	padding: 5px 7px 5px 7px;
-	opacity: 0.8;
-	-moz-opacity: 0.8;
-	filter:alpha(opacity=80);
-}
 
-/*
-.LV_valid {
-	background-image: url(/nitrogen/checkmark.png);
-	margin: 2px 0px 5px 0px;
-	padding: 0px 20px 20px 0px;
-  color:#00CC00;
-}
-*/	
-	
-.LV_invalid {
-  color:#CC0000;
-	background-color: #FFFF99;
-	border: solid 2px #D0D0C0;
-}
-    
-/*.LV_valid_field,
-input.LV_valid_field:hover, 
-input.LV_valid_field:active,
-textarea.LV_valid_field:hover, 
-textarea.LV_valid_field:active {
-    border: 1px solid #00CC00;
-}
-    
-.LV_invalid_field, 
-input.LV_invalid_field:hover, 
-input.LV_invalid_field:active,
-textarea.LV_invalid_field:hover, 
-textarea.LV_invalid_field:active {
-    border: 1px solid #CC0000;
-}*/
 
 .description {
 	font-size: 0.8em;
