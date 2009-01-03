@@ -21,9 +21,15 @@
 			<array>
 				<dict>
 					<key>filename</key>
+					<string>src/nitrogen.erl</string>
+					<key>lastUsed</key>
+					<date>2009-01-03T15:10:21Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
 					<string>src/sync.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-02T03:52:45Z</date>
+					<date>2009-01-02T20:25:45Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -44,19 +50,21 @@
 							<key>filename</key>
 							<string>src/platforms/inets_helper.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-29T03:42:03Z</date>
+							<date>2009-01-03T15:10:21Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/mochiweb_helper.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-29T19:57:22Z</date>
+							<date>2009-01-03T15:10:20Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/yaws_helper.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-29T03:42:03Z</date>
+							<date>2009-01-03T15:10:21Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -77,6 +85,8 @@
 							<date>2008-12-16T15:03:09Z</date>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Platforms</string>
 				</dict>
@@ -508,13 +518,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_init.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-29T00:14:42Z</date>
+							<date>2009-01-03T14:47:31Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-30T18:24:16Z</date>
+							<date>2009-01-03T14:47:30Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -556,7 +566,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_session.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-02T03:25:46Z</date>
+							<date>2009-01-02T20:25:44Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -603,6 +613,8 @@
 					<string>Lib</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -860,6 +872,21 @@
 	<true/>
 	<key>treeState</key>
 	<dict>
+		<key>SRC</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict>
+				<key>Platforms</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
+		</dict>
 		<key>WWW</key>
 		<dict>
 			<key>isExpanded</key>

@@ -20,11 +20,8 @@ ln -s ../$NITROGEN_SRC/www wwwroot/nitrogen
 echo Starting Nitrogen on Yaws...
 exec erl \
 	-name nitrogen@localhost \
-	-pa $PWD/ebin $PWD/include \
+	-pa $PWD/apps $PWD/ebin $PWD/include \
 	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
 	-pa $YAWS_SRC/ebin $YAWS_SRC/include \
-	-sync_environment development \
 	-s make all \
-	-s yaws_helper
-
-
+	-eval "application:start(quickstart_yaws)"

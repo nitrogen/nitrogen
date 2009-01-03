@@ -20,11 +20,10 @@ ln -s ../$NITROGEN_SRC/www wwwroot/nitrogen
 echo Starting Nitrogen on Mochiweb...
 exec erl \
 	-name nitrogen@localhost \
-	-pa $PWD/ebin $PWD/include \
+	-pa $PWD/apps $PWD/ebin $PWD/include \
 	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
 	-pa $MOCHIWEB_SRC/ebin $MOCHIWEB_SRC/include \
-	-sync_environment development \
 	-s make all \
-	-s mochiweb_helper
+	-eval "application:start(quickstart_mochiweb)"
 
 

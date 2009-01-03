@@ -2,36 +2,21 @@
 % Copyright (c) 2008 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (mochiweb_helper).
--export([start/0, loop/2]).
+-module (nitrogen_mochiweb_app).
+-export([start/0, stop/0]).
+-export([loop/2]).
 
 start() ->
 	% Initialize Nitrogen.
 	wf:init(),
-	{Port, DocumentRoot} = wf_init:get_config(),
 
-	% Start crypto...
-	crypto:start(),
-
-	% Start mochiweb server...
-	Options = [
-		{ip, "0.0.0.0"},
-		{port, Port}
-	],
-
+	% Start the Mochiweb server.
+	Port = nitrogen:get_port(),
+	DocumentRoot = nitrogen:get_wwwroot(),
+	Options = [{ip, "0.0.0.0"}, {port, Port}],
 	Loop = fun (Req) -> ?MODULE:loop(Req, DocumentRoot) end,
+	mochiweb_http:start([{name, get_name()}, {loop, Loop} | Options]).
 	
-	F = fun() -> 
-		mochiweb_http:start([{name, ?MODULE}, {loop, Loop} | Options]),
-		receive after infinity -> ok end
-	end,
-	spawn(F),
-	
-	io:format("~n~n---~n"),
-	io:format("Nitrogen is now running, using mochiweb_http:start().~n"),
-	io:format("Open your browser to: http://localhost:8000~n"),
-	io:format("---~n~n").
-
 loop(Req, DocRoot) ->
 	"/" ++ Path = Req:get(path),
 	case Req:get(method) of
@@ -50,4 +35,15 @@ loop(Req, DocRoot) ->
 			end;
 		_ ->
 		Req:respond({501, [], []})
+	end.
+	
+stop() -> 
+	% Stop the mochiweb server.
+	mochiweb_http:stop(get_name()),
+	ok.
+	
+get_name() ->
+	case application:get_application() of
+		{ok, App} -> App;
+		undefined -> nitrogen
 	end.

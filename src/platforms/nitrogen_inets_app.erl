@@ -2,25 +2,29 @@
 % Copyright (c) 2008 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (inets_helper).
--export ([start/0]).
+-module (nitrogen_inets_app).
+-export ([start/0, stop/0]).
 
 start() ->
 	% Initialize Nitrogen.
 	wf:init(),
-	{Port, DocumentRoot} = wf_init:get_config(),
 	
+	% Start the Inets server.	
 	inets:start(),
-	inets:start(httpd, [
-		{port, Port},
-		{document_root, DocumentRoot},
+	{ok, Pid} = inets:start(httpd, [
+		{port, nitrogen:get_port()},
+		{document_root, nitrogen:get_wwwroot()},
 		{server_root, "."},
-		{bind_address, "localhost"},
+		{bind_address, any},
 		{server_name, "localhost"},
 		{modules, [wf_inets, mod_head, mod_get]},
 		{mime_types, [{"css", "text/css"}, {"js", "text/javascript"}, {"html", "text/html"}]}
 	]),
-	io:format("~n~n---~n"),
-	io:format("Nitrogen is now running, using inets:httpd().~n"),
-	io:format("Open your browser to: http://localhost:8000~n"),
-	io:format("---~n~n").
+	link(Pid),
+	{ok, Pid}.
+
+
+
+stop() -> 
+	httpd:stop_service({any, nitrogen:get_port()}),
+	ok.
