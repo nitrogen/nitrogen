@@ -11,6 +11,7 @@ erl \
 	-name nitrogen@localhost \
 	-pa $PWD/apps $PWD/ebin $PWD/include \
 	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
+	-env sync_environment development \
 	-s make all \
 	-eval "application:start(quickstart_inets)"
 

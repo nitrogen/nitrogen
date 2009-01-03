@@ -23,5 +23,6 @@ exec erl \
 	-pa $PWD/apps $PWD/ebin $PWD/include \
 	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
 	-pa $YAWS_SRC/ebin $YAWS_SRC/include \
+	-env sync_environment development \
 	-s make all \
 	-eval "application:start(quickstart_yaws)"

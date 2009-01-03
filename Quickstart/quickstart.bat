@@ -7,4 +7,4 @@ copy ..\www\* .\wwwroot\nitrogen
 
 echo Starting Nitrogen on Inets...
 erl -make
-erl -name nitrogen@localhost -pa apps ebin include -pa ..\ebin ..\include -eval "application:start(quickstart_inets)"
+erl -name nitrogen@localhost -pa apps ebin include -pa ..\ebin ..\include -env sync_environment development -eval "application:start(quickstart_inets)"

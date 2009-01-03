@@ -1,252 +1,296 @@
-% Nitrogen Web Framework for Erlang
-% Copyright (c) 2008 Rusty Klophaus
-% See MIT-LICENSE for licensing information.
-
--module (sync).
--behaviour (supervisor).
+-module(sync).
 -compile(export_all).
--export ([
-	%% Supervisor
-	go/0,
-	start/0,
-	start/2,
-	stop/1,
-	init/1,
-	start_pulse/1,
-	pulse/1,
 
-	%% Node Management
-	connect/0,
+% Sync helps you deploy Erlang applications to bare Erlang nodes. 
+% It is like a lite version of OTP releases, with some extra stuff thrown in.
+%
+%
+% To use:
+%  - Create an Emakefile to build your application.
+%  - Create a Mirrorfile.platform (see format below) to define how files should be mirrored.
+%  - Create a Startfile.platform (see format below) to define how applications should be started.
+%  - Run sync:go(Environment)
+%  - This will:
+%    - Re-compiles all modules locally with Emakefile.
+%    - Connects to all nodes
+%    - Syncs files specified by mirror to all nodes. (Ignoring the ignore list.)
+%    - Compiles code on all nodes with Emakefile.
+%    - Starts any applications that should be started.
+%    - Stops any other applications.
 
-	%% Code Synchronization
-	local/0,
-	force/0,
-	soft/0,
-	hard/0,
-	get_codefiles/0,
-	
-	%% Utils
-	get_environment/0,
-	distribute_tables/2,
-	is_running/2,
-	start_if_not_running/2
-]).
+% EXAMPLE Mirrorfile:
+%
+% [
+%		{nodes, [sync1@127.0.0.1, sync2@127.0.0.1]},
+%		
+% 	{mirror, [
+%			"./src",
+% 		"./priv", 
+% 		"./include", 
+% 		"./wwwroot"
+% 	]},
+%
+%		{ignore, [
+%     "./ebin"
+%		]}
+% ].
+%
+%
+%	EXAMPLE Startfile:
+%
+%	[
+%		{Nodes, application, Args}
+%		{Nodes, application, Args}
+%		{Nodes, application, Args}
+% ].
+%
+% Nodes = node or [node] or all
+% ApplicationDef = one or many of Application or {Application, Args}
 
-start() -> application:start(sync).
-start(_Type, _Arg) -> supervisor:start_link(?MODULE, []).
-stop(_State) -> ok.
+go() -> go(get_environment()).
+
+go(Environment) -> 
+	% Read configuration.
+	{Nodes, Mirror, Ignore} = read_mirrorfile(Environment),
+	{Applications} = read_startfile(Environment),
 	
-init(_Args) ->
-	% Return the supervisor configuration...	
-	{ok, {{one_for_one, 1, 60}, [
-		{sync_pulse, {sync, start_pulse, [10]}, permanent, brutal_kill, worker, [sync]}
-	]}}.
+	% Re-compile files locally.
+	make([node()]),
 	
-start_pulse(Seconds) -> 
-	Pid = spawn_link(fun() -> pulse(Seconds) end),
-	erlang:register(sync_pulse, Pid),
-	{ok, Pid}.
+	% Connect to all nodes.
+	connect_to_nodes(Nodes),
 	
-pulse(Seconds) ->
-	pulse_code(),
-	pulse_apps(),
+	% Send the sync module to all nodes.
+	c:nl(?MODULE), 
 	
-	case is_integer(Seconds) of
-		true ->
-			Timeout = Seconds * 1000,
-			receive after Timeout -> ok end,
-			pulse(Seconds);
-		false ->
-			ok
+	% Mirror files across all nodes.
+	mirror(Nodes, Mirror, Ignore),
+	
+	% Compile files across all nodes.
+	make(Nodes),
+	
+	% Start up applications.
+	start(Applications),
+	ok.
+
+
+
+%%% READ CONFIGURATION %%%
+
+read_mirrorfile(Environment) ->
+	S = atom_to_list(Environment),
+	case file:consult("Mirrorfile." ++ S) of
+		{ok, [Term]} -> 
+			{
+				proplists:get_value(nodes, Term), 
+				proplists:get_value(mirror, Term), 
+				proplists:get_value(ignore, Term)
+			};
+			
+		{ok, _Terms} -> throw("Only one term allowed in Mirrorfile." ++ S ++ "!");
+		{error, enoent} -> {[],[],[]};
+		{error, Reason} -> throw(Reason)
+	end.
+	
+read_startfile(Environment) ->
+	S = atom_to_list(Environment),
+	case file:consult("Startfile." ++ S) of
+		{ok, [Term]} -> {Term};
+		{ok, _Terms} -> throw("Only one term allowed in Startfile." ++ S ++ "!");
+		{error, enoent} -> {[]};
+		{error, Reason} -> throw(Reason)
 	end.
 
-pulse_code() ->
-	% Get a list of all nodes and share the db to them.
-	sync:connect(),
-	sync:soft(),
+	% Nodes = ['sync2@127.0.0.1', 'sync3@127.0.0.1'],
+	% Mirror = ["./*"],
+	% Ignore = ["./ebin", "./start.sh"],
+	% Apps = [
+	% 	{['sync2@127.0.0.1'], mnesia, []},
+	% 	{['sync2@127.0.0.1'], crypto, []}
+	% ],
+
+
+
+%%% CONNECT TO NODES %%%	
+
+% connect_to_nodes/1 - Given a list of nodes, ping each one and look for the pong.
+connect_to_nodes([]) -> 
+	case nodes() of
+		[] -> ignore;
+		_  -> io:format("Connected to nodes: ~p~n", [nodes()])
+	end,
+	ok;
+	
+connect_to_nodes([H|T]) -> 
+	pong = net_adm:ping(H),
+	connect_to_nodes(T).
+
+
+
+%%% MAKE %%%
+
+% make/0 - Run make:all across every node.
+make() -> make([node()|nodes()]).
+make(Nodes) -> 
+	F = fun() -> up_to_date = make:all([load]) end,
+	case rpc:multicall(Nodes, ?MODULE, remote, [F]) of
+		{_, []} -> ok;
+		{_, BadNodes} -> throw(BadNodes)
+	end,
+	ok.
+
+%%% COMPILE FILES %%%
+
+% compile_files/2 - Given a list of code wildcards and compile options,
+% compile all matching files.
+compile_files(Code, CompileOptions) ->
+	F = fun(File) -> 
+		io:format("Compiling: ~s~n", [File]),
+		{ok, _} = compile:file(File, CompileOptions)
+	end,
+	[F(X) || X <- get_files(Code)],
+	ok.
+
+%%% MIRRORING %%%
+
+% mirror/3 - Given a list of Nodes, a list of wildcards to mirror,
+% and a list of wildcards to ignore, make it so that the nodes all have
+% the same files as the local server.
+mirror([], _, _) -> ok;
+mirror(Nodes, Mirror, Ignore) ->
+	Files = get_files(Mirror) -- get_files(Ignore),
+	mirror_files(Nodes, Files),
+	delete_extra_files(Nodes, Files, Mirror, Ignore),
+	ok.
+
+
+% mirror_files/2 - Given a list of nodes and a list of files,
+% make sure that all of the nodes have the latest version of the files.
+% Does this by comparing MD5's of the file. 
+% This should probably not be used with huge files.
+mirror_files(Nodes, Files) ->
+	LocalMD5s = get_md5s(Files),
+	[mirror_files_on_node(X, Files, LocalMD5s) || X <- Nodes],
 	ok.
 	
-pulse_apps() ->
-	% Distribute the database...
-	mnesia:start(),
-	mnesia:change_config(extra_db_nodes, nodes()),
+% mirror_files_on_node/3 - Given a node, a list of files, and the corresponding
+% MD5s for the local files, compare the remote MD5, and if it doesn't
+% match than write the file to the remote machine.
+mirror_files_on_node(Node, Files, LocalMD5s) ->
+	% Get remote MD5s...
+	F1 = fun() -> get_md5s(Files) end,
+	RemoteMD5s = rpc:call(Node, ?MODULE, remote, [F1]),
+	
+	F2 = fun(N) ->
+		case [lists:nth(N, LocalMD5s), lists:nth(N, RemoteMD5s)] of			
+			[{_, MD5}, {_, MD5}] -> ok;
+			[{File, _LocalMD5}, {_, _RemoteMD5}]-> mirror_file_on_node(Node, File)
+		end
+	end,
+	[F2(X) || X <- lists:seq(1, length(Files))],
+	ok.	
 
-	% Start applications on all nodes...
-	Environment = get_environment(),
-	F = fun(NodeType) ->
-		io:format("Starting ~w nodes...~n", [NodeType]),
-		[sync_configuration:start_application(Environment, X, NodeType) || X <- sync_configuration:get_nodes(Environment, NodeType)]
-	end,		
-	[F(X) || X <- sync_configuration:get_node_types(Environment)],
+% mirror_file_on_node/2 - By this point, we've decided we should
+% copy the file to the remote machine. This function does that.
+mirror_file_on_node(Node, File) ->
+	io:format("Mirroring: ~s~n", [File]),
+	{ok, B} = file:read_file(File),
+	F = fun() -> 
+		ok = filelib:ensure_dir(File),
+		ok = file:write_file(File, B),
+		ok
+	end,
+	ok = rpc:call(Node, ?MODULE, remote, [F]),
 	ok.
 	
-go() -> pulse(once).
 
-%%% NODE MANAGEMENT %%%
+% delete_extra_files/4 - Given a list of nodes, a list of files, 
+% a list of wildcards to mirror, and a list of wildcards to ignore,
+% remove any extraneous files on the supplied nodes that are not found
+% in the list of files.
+delete_extra_files([], _, _, _) -> ok;
+delete_extra_files([Node|T], Files, Mirror, Ignore) ->
+	F = fun() ->
+		ExtraFiles = (get_files(Mirror) -- get_files(Ignore)) -- Files,
+		[file:delete(X) || X <- ExtraFiles],
+		ok
+	end,
+	ok = rpc:call(Node, ?MODULE, remote, [F]),
+	delete_extra_files(T, Files, Mirror, Ignore).
+	
+	
+	
+%%% START APPLICATIONS %%%
+
+start([]) -> ok;
+start([{Nodes, Application, Args}|Apps]) ->
+	F = fun() ->
+		io:format("Loading application: ~s~n", [Application]),
+		% Load the app.
+		case application:load(Application) of
+			ok -> ok;
+			{error, {already_loaded, _}} -> ok;
+			Other1 -> throw(Other1)
+		end,
+		
+		% Set properties.
+		[ok=application:set_env(Application, Key, Value) || {Key, Value} <- Args],
+		
+		% Start the app.
+		io:format("Starting application: ~s~n", [Application]),
+		case application:start(Application) of
+			ok -> ok;
+			{error, {already_started, _}} -> ok;
+			Other2 -> throw(Other2)
+		end,		
+		ok
+	end,
+	
+	case rpc:multicall(Nodes, ?MODULE, remote, [F]) of
+		{_, []} -> ok;
+		{_, BadNodes} -> throw(BadNodes)
+	end,
+	
+	start(Apps).
+
+
+	
+%%% PRIVATE FUNCTIONS %%%
 
 get_environment() ->
-	{ok, [[L]]} = init:get_argument(sync_environment),
-	list_to_atom(L).
-	
-connect() -> 
-  Environment = get_environment(),
-	F = fun(NodeType) -> [pong = net_adm:ping(X) || X <- sync_configuration:get_nodes(Environment, NodeType)] end,
-	[F(X) || X <- sync_configuration:get_node_types(Environment)],
-	nodes().
-
-%%% CODE SYNCHRONIZATION %%%
-
-compile(SrcFile) ->
-	Options = [verbose, debug_info, report_errors, report_warnings, {outdir, "./ebin/"}],
-	IncludePaths = [{i, "./src/include/"}] ++ [{i, X} || X <- code:get_path()],
-	io:format("Compiling: ~s~n", [SrcFile]),
-	{ok, ModuleName } = compile:file(SrcFile, Options ++ IncludePaths),
-	c:l(ModuleName).
-	
-
-%% force/0 - Reload and recompile all files locally.
-force() ->
-	CodeFiles = get_codefiles(),
-	% Compile and load the files locally...
-	[compile(X) || X <- CodeFiles],
-	io:format("Done with forced recompile!~n"),
-	ok.
-	
-	
-local() ->
-	% Get all files in the ./src directory that have changed...
-	ChangedFiles = get_changed_codefiles(),
-
-	% Compile and load the files locally...
-	[compile(X) || X <- ChangedFiles],
-	io:format("Done compiling locally!~n"),
-	ok.
-	
-%% soft/0 - Update modules on all nodes. Doesn't affect up-to-date modules.
-soft() ->
-	% Get a list of all files in ./src...
-	ok = local(),
-	F1 = fun(X, Acc) -> [get_modulename(X)|Acc] end,
-	AllModules = filelib:fold_files("./src", ".*.erl", true, F1, []),
-	
-	F2 = fun(Node, Module) ->
-		case is_module_old(Node, Module) of
-			true ->
-				io:format("Reloading ~w on ~w.~n", [Module, Node]),
-				{Module, Binary, Filename} = code:get_object_code(Module),
-				{module, _} = rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
-				ok;
-			false ->
-				ok
-		end
-	end,
-
-	[F2(N, M) || N <- nodes(), M <- AllModules],
-	io:format("Done with soft sync!~n"),
-	ok.
-	
-%% hard/0 - Restart nodes, then reload all modules on them.
-hard() ->
-	% Restart all nodes...
-	Nodes = nodes(),
-	F1 = fun(Node) -> rpc:cast(Node, init, restart, []) end,
-	[F1(X) || X <- Nodes],
-	io:format("Waiting 10 seconds for nodes to cycle...~n"),	
-	timer:sleep(10 * 1000),
-		
-	% Connect to the nodes...
-	reconnect_nodes(Nodes),
-	
-	% Get a list of all files in ./src...
-	ok = local(),
-	F = fun(X, Acc) -> [get_modulename(X)|Acc] end,
-	AllModules = filelib:fold_files("./src", ".*.erl", true, F, []),
-	
-	% Reload all modules...
-	[c:nl(X) || X <- AllModules],
-	io:format("Reloaded all modules on nodes: ~p~n", [nodes()]),
-	io:format("Done with hard sync!~n"),
-	ok.
-
-%% get_modulename/1 - Convert a source file path 
-%% into a module name.
-get_modulename(SrcFile) -> 
-	list_to_atom(filename:basename(filename:rootname(SrcFile))).
-
-%% get_codefiles/0 - Get a list of all
-%% code files on the current node.
-get_codefiles() ->
-	F = fun(SrcFile, Acc) -> [SrcFile|Acc] end,
-	filelib:fold_files("./src", ".*.erl", true, F, []).
-	
-%% get_priv_directories/0 - Get a list of all directories under priv. Look for includes in here.
-get_priv_directories() ->
-	{ok, L1} = file:list_dir("priv"),
-	L2 = [{X, file:read_file_info("priv/" ++ X)} || X <- L1],
-	[Path || {Path, {ok, Info}} <- L2, element(3, Info) == directory].
-
-%% get_changed_codefiles/0 - Get a list of all
-%% code files that have changed on the current node for
-%% local compilation.
-get_changed_codefiles() ->
-	F = fun(SrcFile, Acc) -> 
-		case has_code_changed(SrcFile) of 
-			true -> [SrcFile|Acc];
-			false -> Acc
-		end
-	end,
-	filelib:fold_files("./src", ".*.erl", true, F, []).
-
-%% has_code_changed/1 - Check if the code in SrcFile is newer
-%% than the module currently loaded.
-has_code_changed(SrcFile) ->
-	ModuleName = get_modulename(SrcFile),
-	ModuleTime = get_moduletime(node(), ModuleName),
-	SrcFileTime = filelib:last_modified(SrcFile),
-	(ModuleTime < SrcFileTime).
-	
-%% is_module_old/2 - Check if the specified Module on the local
-%% node is newer than the code on the specified Node.
-is_module_old(Node, Module) ->
-	(get_moduletime(Node, Module) < get_moduletime(node(), Module)).	
-	
-get_moduletime(Node, Module) ->
-	case rpc:call(Node, code, ensure_loaded, [Module]) of
-		{error, _} -> {{0, 0, 0}, {0, 0, 0}};
-		_ ->
-			ModuleInfo = rpc:call(Node, Module, module_info, [compile]),
-			{value, {time, {Year, Month, Day, Hour, Minute, Second}}} = lists:keysearch(time, 1, ModuleInfo),
-			calendar:universal_time_to_local_time({{Year, Month, Day}, {Hour, Minute, Second}})
+	case init:get_argument(sync_environment) of
+		{ok, [[L]]} -> list_to_atom(L);
+		_ -> development
 	end.
 
-reconnect_nodes(Nodes) -> reconnect_nodes(Nodes, 0).
-reconnect_nodes([], _) -> ok;
-reconnect_nodes([Node|Nodes], Count) ->
-	io:format("Connecting to ~w...~n", [Node]),
-	case net_adm:ping(Node) of
-		pong -> reconnect_nodes(Nodes, 0);
-		pang when Count =< 15 -> 
-			timer:sleep(1000),
-			reconnect_nodes([Node|Nodes], Count + 1);
-		pang ->
-			throw({node_down, Node})
-	end.	
-	
-distribute_tables(Node, Tables) ->
-	F = fun(Table) -> mnesia:add_table_copy(Table, Node, ram_copies) end,
-	[F(X) || X <- Tables],
-	ok.
 
-is_running(Node, Application) ->
-	Apps = rpc:call(Node, application, which_applications, []),
-	lists:keymember(Application, 1, Apps).
+% remote/1 - Execute the supplied function remotely.
+% Used as a helper for RPC calls.
+remote(Function) -> Function().
 	
-start_if_not_running(Node, Application) ->
-	ok = case is_running(Node, Application) of
-		true -> ok;
-		false -> 
-			case rpc:call(Node, application, start, [Application]) of
-				{error,_} -> Application:start();
-				_ -> ok
-			end
+	
+% get_files/1 - Given the specified wildcards, return a list of files.
+get_files([]) -> [];
+get_files([H|T]) ->
+	Files2 = get_files1(filelib:wildcard(H)),
+	Files2 ++ get_files(T).
+
+get_files1([]) -> [];
+get_files1([H|T]) ->
+	case filelib:is_dir(H) of
+		true -> 
+			Path = filename:join(H, "*"),
+			L = get_files1(filelib:wildcard(Path)),
+			L ++ get_files1(T);
+			
+		false ->
+			[H|get_files1(T)]
+	end.
+
+% get_md5s/1 - Given a list of files, return a list of {File, MD5} tuples.	
+get_md5s([]) -> [];
+get_md5s([H|T]) ->
+	case file:read_file(H) of
+		{ok, B} -> [{H, erlang:md5(B)}|get_md5s(T)];
+		_ -> [{H, undefined}|get_md5s(T)]
 	end.

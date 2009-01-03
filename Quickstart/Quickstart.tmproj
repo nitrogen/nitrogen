@@ -2,30 +2,65 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/quickstart.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>children</key>
 			<array>
 				<dict>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>apps</string>
 					<key>regexFolderFilter</key>
 					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-					<key>selected</key>
-					<true/>
 					<key>sourceDirectory</key>
 					<string>apps</string>
 				</dict>
 				<dict>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>src</string>
 					<key>regexFolderFilter</key>
 					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
 					<key>sourceDirectory</key>
 					<string>src</string>
+				</dict>
+				<dict>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>filename</key>
+							<string>quickstart.bat</string>
+							<key>lastUsed</key>
+							<date>2009-01-03T17:45:14Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>quickstart.sh</string>
+							<key>lastUsed</key>
+							<date>2009-01-03T17:45:14Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>quickstart_mochiweb.sh</string>
+							<key>lastUsed</key>
+							<date>2009-01-03T17:45:15Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>quickstart_yaws.sh</string>
+							<key>lastUsed</key>
+							<date>2009-01-03T17:45:15Z</date>
+							<key>selected</key>
+							<true/>
+						</dict>
+					</array>
+					<key>expanded</key>
+					<true/>
+					<key>name</key>
+					<string>Scripts</string>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -58,26 +93,7 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
-	<dict>
-		<key>src/quickstart.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>9</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/quickstart.erl</string>
-	</array>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>treeState</key>
@@ -87,7 +103,29 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict/>
+			<dict>
+				<key>Scripts</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+				<key>apps</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+				<key>src</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
 		</dict>
 		<key>Templates</key>
 		<dict>
@@ -98,6 +136,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{287, 90}, {775, 538}}</string>
+	<string>{{287, 91}, {775, 538}}</string>
 </dict>
 </plist>

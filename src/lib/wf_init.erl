@@ -1,6 +1,6 @@
 -module (wf_init).
 -include ("wf.inc").
--export ([init/0, get_config/0]).
+-export ([init/0]).
 
 init() -> 
 	% wf_cache:init(),
@@ -23,9 +23,3 @@ atomize_pages_in_path(Path) ->
 	% Get all of the .beam files in those directories, and make atoms.
 	BeamFiles = filelib:wildcard("*.beam", Path),
 	[list_to_atom(filename:rootname(X)) || X <- BeamFiles].
-
-get_config() ->	
-	{ok, [Config]} = file:consult("./nitrogen.config"),
-	Port = proplists:get_value(port, Config),
-	DocumentRoot = proplists:get_value(document_root, Config),
-	{wf:to_integer(Port), DocumentRoot}.

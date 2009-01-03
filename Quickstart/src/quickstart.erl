@@ -5,7 +5,6 @@
 
 %%% APPLICATION FUNCTIONS %%%
 
-start() -> application:start(quickstart_inets).
 start(_, _) -> supervisor:start_link(?MODULE, []).
 stop(_) -> nitrogen:stop().
 

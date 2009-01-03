@@ -24,7 +24,6 @@ start() ->
 	{ok, Pid}.
 
 
-
 stop() -> 
 	httpd:stop_service({any, nitrogen:get_port()}),
 	ok.
