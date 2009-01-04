@@ -1,0 +1,27 @@
+#!/usr/bin/env escript
+
+-export([main/1]).
+
+%% External API
+main(["create", Name]) ->
+    main(["create", Name, "inets"]);
+main(["create", Name, Type]) ->
+    ensure(),
+    DestDir = filename:absname(Name),
+    ok = nitrogen_skel:create_project(Name, DestDir, Type);
+
+main(_) ->
+    usage().
+
+%% Internal API
+
+ensure() ->
+    code:add_patha(filename:join(filename:dirname(escript:script_name()),
+                                 "../ebin")).
+
+usage() ->
+	io:format("Nitrogen Web Framework. ~nUsage: ~n"),
+    io:format("	nitrogen create [PROJECT_NAME] {inets|mochiweb|yaws}~n"),
+    io:format("	nitrogen page [URL]~n"),
+    halt(1).
+
