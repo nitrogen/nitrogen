@@ -1,3 +1,5 @@
+2009-01-04
+- Update sync module, add mirror module. These tools allow you to deploy and start applications on a bare remote node.
 
 2009-01-03 
 - Allow Nitrogen to be run as an OTP application. See Quickstart project for example.
