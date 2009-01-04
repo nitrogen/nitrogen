@@ -24,22 +24,22 @@ render(ControlID, Record) ->
 		L -> [create_option(X, Record#dropdown.html_encode) || X <- L]
 	end,
 
-	wf:f("<select id='~s' class='dropdown ~s' style='~s' name='~s'>~s</select>", [
-		ControlID, 
-		Record#dropdown.class,
-		Record#dropdown.style,
-		ControlID,
-		Options
+	wf_tags:emit_tag(select, Options, [
+		{id, ControlID},
+		{name, ControlID},
+		{class, [dropdown, Record#dropdown.class]},
+		{style, Record#dropdown.style}
 	]).
-	
+		
 create_option(X, HtmlEncode) ->
-	Selected = case X#option.selected of
-		true -> "selected=true";
-		_ -> ""
+	SelectedOrNot = case X#option.selected of
+		true -> selected;
+		_ -> not_selected
 	end,
 	
-	wf:f("<option value=\"~s\" ~s>~s</option>", [
-		wf:html_encode(X#option.value, HtmlEncode),
-		Selected,
-		wf:html_encode(X#option.text, HtmlEncode)
+	Content = wf:html_encode(X#option.text, HtmlEncode),
+	Value = wf:html_encode(X#option.value, HtmlEncode),
+	wf_tags:emit_tag(option, Content, [
+		{value, Value},
+		{SelectedOrNot, true}
 	]).

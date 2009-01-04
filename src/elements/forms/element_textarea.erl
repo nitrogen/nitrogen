@@ -9,11 +9,10 @@
 reflect() -> record_info(fields, textarea).
 
 render(ControlID, Record) -> 
-	wf:f("<textarea id='~s' class='textarea ~s' style='~s' name='~s'>~s</textarea>", [
-		ControlID, 
-		Record#textarea.class,
-		Record#textarea.style,
-		ControlID, 
-		wf:html_encode(Record#textarea.text, Record#textarea.html_encode)
+	Content = wf:html_encode(Record#textarea.text, Record#textarea.html_encode),
+	wf_tags:emit_tag(textarea, Content, [
+		{id, ControlID}, 
+		{name, ControlID}, 
+		{class, [textarea, Record#textarea.class]},
+		{style, Record#textarea.style}
 	]).
-	

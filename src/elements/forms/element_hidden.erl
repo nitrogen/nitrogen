@@ -9,9 +9,10 @@
 reflect() -> record_info(fields, hidden).
 
 render(ControlID, Record) -> 
-	wf:f("<input id='~s' type='hidden' name='~s' value=\"~s\" />", [
-		ControlID, 
-		ControlID, 
-		wf:html_encode(Record#hidden.text, Record#hidden.html_encode)
+	Value = wf:html_encode(Record#hidden.text, Record#hidden.html_encode),
+	wf_tags:emit_tag(input, [
+		{id, ControlID}, 
+		{name, ControlID}, 
+		{type, hidden},
+		{value, Value}
 	]).
-	

@@ -13,11 +13,15 @@ render(ControlID, Record) ->
 		undefined -> ok;
 		Postback -> wf:wire(ControlID, #event { type=click, postback=Postback })
 	end,
-	wf:f("<a id='~s' href='~s' class='link ~s' style='~s'>~s~s</a>", [
-		ControlID,
-		Record#link.url,
-		Record#link.class,
-		Record#link.style,
+	
+	Content = [
 		wf:html_encode(Record#link.text, Record#link.html_encode),
 		wf:render(Record#link.body)
+	],
+	
+	wf_tags:emit_tag(a, Content, [
+		{id, ControlID},
+		{href, Record#link.url},
+		{class, [link, Record#link.class]},
+		{style, Record#link.style}
 	]).

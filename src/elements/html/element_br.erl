@@ -9,8 +9,8 @@
 reflect() -> record_info(fields, br).
 
 render(ControlID, Record) -> 
-	wf:f("<br id='~s' class='p ~s' style='~s'>", [
-		ControlID, 
-		Record#br.class,
-		Record#br.style
+	wf_tags:emit_tag(br, [
+		{id, ControlID},
+		{class, [br, Record#br.class]}, 
+		{style, Record#br.style}
 	]).

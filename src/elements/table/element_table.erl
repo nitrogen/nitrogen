@@ -9,12 +9,13 @@
 reflect() -> record_info(fields, table).
 
 render(ControlID, Record) -> 
-	[
-		wf:f("<table border=0 cellpadding=0 cellspacing=0 id='~s' class='table ~s' style='~s'>", [
-			ControlID,
-			Record#table.class,
-			Record#table.style
-		]),
-		wf:render(Record#table.rows),
-		"</table>"
-	].
+	Content = wf:render(Record#table.rows),
+	
+	wf_tags:emit_tag(table, Content, [
+		{id, ControlID},
+		{border, 0},
+		{cellpadding, 0},
+		{cellspacing, 0},
+		{class, [table, Record#table.class]},
+		{style, Record#table.style}
+	]).

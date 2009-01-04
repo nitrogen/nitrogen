@@ -9,17 +9,17 @@
 reflect() -> record_info(fields, tablecell).
 
 render(ControlID, Record) -> 
-	[
-		wf:f("<td id='~s' class='tablecell ~s' style='~s' align='~s' valign='~s' colspan='~b' rowspan='~b'>", [
-			ControlID,
-			Record#tablecell.class,
-			Record#tablecell.style,
-			Record#tablecell.align,
-			Record#tablecell.valign,
-			Record#tablecell.colspan,
-			Record#tablecell.rowspan
-		]),
+	Content = [
 		wf:html_encode(Record#tablecell.text, Record#tablecell.html_encode),
-		wf:render(Record#tablecell.body),
-		"</td>"
-	].
+		wf:render(Record#tablecell.body)
+	],
+	
+	wf_tags:emit_tag(td, Content, [
+		{id, ControlID},
+		{class, [tablecell, Record#tablecell.class]},
+		{style, Record#tablecell.style},
+		{align, Record#tablecell.align},
+		{valign, Record#tablecell.valign},
+		{colspan, Record#tablecell.colspan},
+		{rowspan, Record#tablecell.rowspan}	
+	]).

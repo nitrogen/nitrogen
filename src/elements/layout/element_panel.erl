@@ -9,12 +9,9 @@
 reflect() -> record_info(fields, panel).
 
 render(ControlID, Record) -> 
-	[
-		wf:f("<div id='~s' class='panel ~s' style='~s'>", [
-			ControlID,
-			Record#panel.class,
-			Record#panel.style
-		]),
-		wf:render(Record#panel.body),
-		"</div>"
-	].
+	Content = wf:render(Record#panel.body),
+	wf_tags:emit_tag('div', Content, [
+	    {id, ControlID},
+	    {class, ["panel", Record#panel.class]},
+	    {style, Record#panel.style}
+	]).

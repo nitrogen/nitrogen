@@ -22,6 +22,10 @@
 	get_elementbase/1, get_actionbase/1, get_validatorbase/1
 ]).
 
+-define(COPY_TO_BASERECORD(Name, Size, Record),
+	list_to_tuple([Name | lists:sublist(tuple_to_list(Record), 2, Size-1)])).
+
+
 %%% FORMAT %%%
 
 f(S) -> f(S, []).
@@ -267,18 +271,14 @@ coalesce([[]|T]) -> coalesce(T);
 coalesce([H|_]) -> H.
 
 %%% IS STRING %%%
-is_string(Term) -> is_list(Term) andalso Term /= [] andalso is_integer(hd(Term)).
+is_string(Term) -> ?IS_STRING(Term). % calls macro in wf.inc
 
 %%% BASE RECORDS %%%
 
-get_actionbase(Term) -> copy_to_baserecord(#actionbase{}, Term).
-get_elementbase(Term) -> copy_to_baserecord(#elementbase{}, Term).
-get_validatorbase(Term) -> copy_to_baserecord(#validatorbase{}, Term).
+get_actionbase(Term) -> ?COPY_TO_BASERECORD(actionbase, size(#actionbase{}), Term).
+get_elementbase(Term) -> ?COPY_TO_BASERECORD(elementbase, size(#elementbase{}), Term).
+get_validatorbase(Term) -> ?COPY_TO_BASERECORD(validatorbase, size(#validatorbase{}), Term).
 
-copy_to_baserecord(BaseRec, SourceRec) ->
-	F = fun(N, Acc) -> setelement(N, Acc, element(N, SourceRec)) end,
-	lists:foldl(F, BaseRec, lists:seq(2, size(BaseRec))).
-	
 		
 %%% DEBUG %%%
 		

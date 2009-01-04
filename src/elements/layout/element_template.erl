@@ -6,6 +6,11 @@
 -include ("wf.inc").
 -compile(export_all).
 
+% TODO - Improve parsing logic in to_module_callback. This
+% will currently fail if we encounter something 
+% like [[[page:function("(Hello)")]]]
+
+
 reflect() -> record_info(fields, template).
 
 render(_ControlID, Record) ->
@@ -65,18 +70,19 @@ get_token(<<H, Rest/binary>>, Acc) -> get_token(Rest, <<Acc/binary, H>>).
 to_module_callback("script") -> script;
 to_module_callback(Tag) ->
 	% Get the module...
-	{ModuleString, Rest} = peel(Tag, $:),
+	{ModuleString, Rest1} = peel(Tag, $:),
 	Module = wf:to_atom(ModuleString),
 	
 	% Get the function...
-	{FunctionString, ArgString1} = peel(Rest, $(),
+	{FunctionString, Rest2} = peel(Rest1, $(),
 	Function = wf:to_atom(FunctionString),
 	
-	% Get the arg string...
-	ArgString2 = string:strip(ArgString1, both, $.),
-	ArgString3 = string:strip(ArgString2, both, $(),
-	ArgString4 = string:strip(ArgString3, both, $)),
-	{Module, Function, ArgString4}.
+	{ArgString, Rest3} = peel(Rest2, $)),
+	
+	case Rest3 of
+		[] -> [{Module, Function, ArgString}];
+		_ ->  [{Module, Function, ArgString}|to_module_callback(tl(Rest3))]
+	end.
 
 peel(S, Delim) -> peel(S, Delim, []).
 peel([], _Delim, Acc) -> {lists:reverse(Acc), []};
@@ -95,26 +101,39 @@ to_term(X, Bindings) ->
 %%% EVALUATE %%%
 
 eval([], _) -> [];
-eval([H|T], Record) when is_list(H) -> [H|eval(T, Record)];
 eval([script|T], Record) -> [wf_script:get_script()|eval(T, Record)];
-eval([H|T], Record) when is_tuple(H) ->
-	{Module, Function, ArgString} = H,
-	PageModule = wf_platform:get_page_module(),	
-	Args = to_term("[" ++ ArgString ++ "].", Record#template.bindings),
-
-	Data1 = case {Module, Function} of 
-		{script, render_in_template}   -> script;
-		{page, Function} -> 
-			case erlang:function_exported(PageModule, Function, length(Args)) of
-				true -> erlang:apply(PageModule, Function, Args);
-				false -> []
-			end;
-		{Module, Function} -> erlang:apply(Module, Function, Args)
-	end,
+eval([H|T], Record) when ?IS_STRING(H) -> [H|eval(T, Record)];
+eval([H|T], Record) -> [eval_callbacks(H, Record)|eval(T, Record)].
 	
-		% Call render if it has not already been called.
-	Data2 = case wf:is_string(Data1) orelse Data1 == script of
-		true -> Data1;
-		false -> wf:render(Data1)
+eval_callbacks([], _) -> [];
+eval_callbacks([H|T], Record) ->
+	{M, Function, ArgString} = H,
+	
+	% De-reference to page module...
+	Module = case M of 
+		page -> wf_platform:get_page_module();
+		_ -> M
 	end,
-	[Data2|eval(T, Record)].
+
+	% Convert args to term...
+	Args = to_term("[" ++ ArgString ++ "].", Record#template.bindings),
+	
+	case erlang:function_exported(Module, Function, length(Args)) of
+		false -> 
+			% Function is not defined, so try the next one.
+			eval_callbacks(T, Record);
+			
+		true ->
+			case erlang:apply(Module, Function, Args) of
+				undefined -> 
+					% Function returns undefined, so try the next one.
+					eval_callbacks(T, Record);
+
+				Data ->
+					% Got some data. Render it if necessary.
+					case wf:is_string(Data) of
+						true -> Data;
+						false -> wf:render(Data)
+					end
+			end
+	end.

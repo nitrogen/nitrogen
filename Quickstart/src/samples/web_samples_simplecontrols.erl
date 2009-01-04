@@ -26,11 +26,11 @@ body() -> [
 
 	#p{},
 	#label { text="TextBox" },
-	#textbox { text="" }, 
+	#textbox { text="This is a textbox." }, 
 
 	#p{},	
 	#label { text="TextArea" },
-	#textarea { text="" }, 
+	#textarea { text="This is a textarea." }, 
 
 	#p{},	
 	#label { text="Password Box" },

@@ -9,9 +9,9 @@
 reflect() -> record_info(fields, image).
 
 render(ControlID, Record) -> 
-	wf:f("<img id='~s' class='span ~s' style='~s' src='~s'>", [
-		ControlID,
-		Record#image.class,
-		Record#image.style,
-		Record#image.image
+	wf_tags:emit_tag(img, [
+		{id, ControlID},
+		{class, [image, Record#image.class]},
+		{style, Record#image.style},
+		{src, Record#image.image}
 	]).

@@ -9,9 +9,9 @@
 reflect() -> record_info(fields, value).
 
 render(ControlID, Record) -> 
-	wf:f("<span id='~s' class='value ~s' style='~s'>~s</span>", [
-		ControlID,
-		Record#value.class,
-		Record#value.style,
-		wf:html_encode(Record#value.text, Record#value.html_encode)
+	Content = wf:html_encode(Record#value.text, Record#value.html_encode),
+	wf_tags:emit_tag(span, Content, [
+		{id, ControlID},
+		{class, [value, Record#value.class]},
+		{style, Record#value.style}
 	]).

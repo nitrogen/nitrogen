@@ -10,17 +10,13 @@ reflect() -> record_info(fields, list).
 
 render(ControlID, Record) -> 
 	Tag = case Record#list.numbered of 
-		true -> "ol";
-		_ -> "ul"
+		true -> ol;
+		_ -> ul
 	end,
 
-	[
-		wf:f("<~s id='~s' class='list ~s' style='~s'>", [
-			Tag,
-			ControlID,
-			Record#list.class,
-			Record#list.style
-		]),
-		wf:render(Record#list.body),
-		wf:f("</~s>", [Tag])
-	].
+	Content = wf:render(Record#list.body),
+	wf_tags:emit_tag(Tag, Content, [
+		{id, ControlID},
+		{class, [list, Record#list.class]},
+		{style, Record#list.style}
+	]).

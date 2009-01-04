@@ -11,6 +11,10 @@
 -record(email, {from, to, subject, body}).
 
 
+%%% GUARDS %%%
+-define (IS_STRING(Term), (is_list(Term) andalso Term /= [] andalso is_integer(hd(Term)))).
+
+
 %%% FRAMEWORK %%%
 
 %%% Elements %%%

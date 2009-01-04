@@ -9,20 +9,29 @@
 reflect() -> record_info(fields, checkbox).
 
 render(ControlID, Record) -> 
-	CheckedString = case Record#checkbox.checked of
-		true -> "checked=true";
-		_ -> []
+	CheckedOrNot = case Record#checkbox.checked of
+		true -> checked;
+		_ -> not_checked
 	end,
 	case Record#checkbox.postback of
 		undefined -> ok;
 		Postback -> wf:wire(ControlID, #event { type=change, postback=Postback })
 	end,
-	wf:f("<input id='~s' class='checkbox ~s' style='~s' type='checkbox' name='~s' ~s><label for='~s'>~s</label>", [
-		ControlID, 
-		Record#checkbox.class,
-		Record#checkbox.style,
-		ControlID, 
-		CheckedString,
-		ControlID,
-		wf:html_encode(Record#checkbox.text, Record#checkbox.html_encode)
-	]).
+	
+	Content = wf:html_encode(Record#checkbox.text, Record#checkbox.html_encode),
+	[
+		% Checkbox...
+		wf_tags:emit_tag(input, [
+			{id, ControlID}, 
+			{name, ControlID},
+			{type, checkbox},
+			{class, [checkbox, Record#checkbox.class]},
+			{style, Record#checkbox.style},
+			{CheckedOrNot, true}
+		]),
+
+		% Label for Checkbox...
+		wf_tags:emit_tag(label, Content, [
+			{for, ControlID}
+		])
+	].

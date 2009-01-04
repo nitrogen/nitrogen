@@ -1,0 +1,9 @@
+
+
+
+2009-01-03 
+- Allow Nitrogen to be run as an OTP application. See Quickstart project for example.
+- Apply Tom McNulty's patch to create and implement wf_tags library. Emit html tags more cleanly.
+- Change templates to allow multiple callbacks, and use first one that is defined. Basic idea and starter code by Tom McNulty.
+- Apply Martin Scholl's patch to optimize copy_to_baserecord in wf_utils.
+

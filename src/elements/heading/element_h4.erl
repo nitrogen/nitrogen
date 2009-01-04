@@ -9,9 +9,9 @@
 reflect() -> record_info(fields, h4).
 
 render(ControlID, Record) -> 
-	wf:f("<h4 id='~s' class='h4 ~s' style='~s'>~s</h4>", [
-		ControlID,
-		Record#h4.class,
-		Record#h4.style,
-		Record#h4.text
+	Content = Record#h4.text,
+	wf_tags:emit_tag(h4, Content, [
+		{id, ControlID},
+		{class, [h4, Record#h4.class]},
+		{style, Record#h4.style}
 	]).

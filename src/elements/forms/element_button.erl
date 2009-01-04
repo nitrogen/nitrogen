@@ -13,10 +13,13 @@ render(ControlID, Record) ->
 		undefined -> ok;
 		Postback -> wf:wire(ControlID, #event { type=click, postback=Postback })
 	end,
-	wf:f("<input id='~s' class='button ~s' style='~s' type='button' name='~s' value='  ~s  '  />", [
-		ControlID, 
-		Record#button.class,
-		Record#button.style,
-		ControlID, 
-		wf:html_encode(Record#button.text, Record#button.html_encode)
+	
+	Value = ["  ", wf:html_encode(Record#button.text, Record#button.html_encode), "  "], 
+	wf_tags:emit_tag(input, [
+		{id, ControlID},
+		{name, ControlID},
+		{type, button},
+		{class, [button, Record#button.class]},
+		{style, Record#button.style},
+		{value, Value}
 	]).

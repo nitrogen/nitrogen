@@ -131,7 +131,7 @@ build_redirect(Url) ->
 		'POST' -> build_post_redirect(Url1)
 	end.
 
-build_get_redirect(Url) -> wf:f("<meta http-equiv='refresh' content='0;url=~s'>", [Url]).
+build_get_redirect(Url) -> wf:f("<meta http-equiv='refresh' content='0;url=~s' />", [Url]).
 build_post_redirect(Url) -> wf:f("document.location.href=\"~s\";", [wf_utils:js_escape(Url)]).
 
 %%% INJECT SCRIPT %%%

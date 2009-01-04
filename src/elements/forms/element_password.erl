@@ -17,10 +17,13 @@ render(ControlID, Record) ->
 		undefined -> ok;
 		Postback -> wf:wire(ControlID, #event { type=enterkey, postback=Postback })
 	end,
-	wf:f("<input id='~s' class='password ~s' style='~s' type='password' name='~s' value='~s' />", [
-		ControlID, 
-		Record#password.class,
-		Record#password.style,
-		ControlID, 
-		wf:html_encode(Record#password.text, Record#password.html_encode)
+
+	Value = wf:html_encode(Record#password.text, Record#password.html_encode),
+	wf_tags:emit_tag(input, [
+		{id, ControlID},
+		{name, ControlID},
+		{type, password},
+		{class, [password, Record#password.class]},
+		{style, Record#password.style},
+		{value, Value}
 	]).

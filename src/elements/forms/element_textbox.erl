@@ -17,11 +17,13 @@ render(ControlID, Record) ->
 		undefined -> ok;
 		Postback -> wf:wire(ControlID, #event { type=enterkey, postback=Postback })
 	end,
-	wf:f("<input id='~s' class='textbox ~s' style='~s' type='text' name='~s' value=\"~s\" />", [
-		ControlID, 
-		Record#textbox.class,
-		Record#textbox.style,
-		ControlID, 
-		wf:html_encode(Record#textbox.text, Record#textbox.html_encode)
-	]).
 	
+	Value = wf:html_encode(Record#textbox.text, Record#textbox.html_encode),
+	wf_tags:emit_tag(input, [
+		{id, ControlID}, 
+		{name, ControlID},
+		{type, text}, 
+		{class, [textbox, Record#textbox.class]},
+		{style, Record#textbox.style},
+		{value, Value}
+	]).
