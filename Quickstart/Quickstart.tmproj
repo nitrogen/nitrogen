@@ -8,59 +8,66 @@
 			<key>children</key>
 			<array>
 				<dict>
-					<key>expanded</key>
-					<true/>
-					<key>name</key>
-					<string>apps</string>
-					<key>regexFolderFilter</key>
-					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-					<key>sourceDirectory</key>
-					<string>apps</string>
+					<key>filename</key>
+					<string>apps/quickstart_yaws.app</string>
 				</dict>
 				<dict>
-					<key>expanded</key>
-					<true/>
+					<key>filename</key>
+					<string>apps/quickstart_inets.app</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>apps/quickstart_mochiweb.app</string>
+				</dict>
+			</array>
+			<key>expanded</key>
+			<true/>
+			<key>name</key>
+			<string>Apps</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>quickstart.bat</string>
+					<key>lastUsed</key>
+					<date>2009-01-04T23:17:00Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>quickstart.sh</string>
+					<key>lastUsed</key>
+					<date>2009-01-04T23:17:01Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>quickstart_mochiweb.sh</string>
+					<key>lastUsed</key>
+					<date>2009-01-04T23:17:00Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>quickstart_yaws.sh</string>
+					<key>lastUsed</key>
+					<date>2009-01-04T23:17:00Z</date>
+				</dict>
+			</array>
+			<key>expanded</key>
+			<true/>
+			<key>name</key>
+			<string>Scripts</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
 					<key>name</key>
 					<string>src</string>
 					<key>regexFolderFilter</key>
 					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
 					<key>sourceDirectory</key>
 					<string>src</string>
-				</dict>
-				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
-							<string>quickstart.bat</string>
-							<key>lastUsed</key>
-							<date>2009-01-03T17:45:14Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>quickstart.sh</string>
-							<key>lastUsed</key>
-							<date>2009-01-03T17:45:14Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>quickstart_mochiweb.sh</string>
-							<key>lastUsed</key>
-							<date>2009-01-03T17:45:15Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>quickstart_yaws.sh</string>
-							<key>lastUsed</key>
-							<date>2009-01-03T17:45:15Z</date>
-							<key>selected</key>
-							<true/>
-						</dict>
-					</array>
-					<key>expanded</key>
-					<true/>
-					<key>name</key>
-					<string>Scripts</string>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -75,7 +82,7 @@
 					<key>filename</key>
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
-					<date>2008-12-29T03:00:06Z</date>
+					<date>2009-01-04T23:17:00Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -98,34 +105,26 @@
 	<true/>
 	<key>treeState</key>
 	<dict>
+		<key>Apps</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
 		<key>Quickstart Inets</key>
 		<dict>
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict>
-				<key>Scripts</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-				<key>apps</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-				<key>src</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-			</dict>
+			<dict/>
+		</dict>
+		<key>Scripts</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
 		</dict>
 		<key>Templates</key>
 		<dict>
@@ -136,6 +135,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{287, 91}, {775, 538}}</string>
+	<string>{{250, 103}, {883, 577}}</string>
 </dict>
 </plist>

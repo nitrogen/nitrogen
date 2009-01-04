@@ -8,7 +8,9 @@
 			<key>filename</key>
 			<string>CHANGELOG</string>
 			<key>lastUsed</key>
-			<date>2009-01-03T21:35:14Z</date>
+			<date>2009-01-04T04:28:49Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -201,37 +203,37 @@
 									<key>filename</key>
 									<string>src/elements/html/element_image.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:35:13Z</date>
+									<date>2009-01-03T22:04:04Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_hr.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:35:13Z</date>
+									<date>2009-01-03T22:04:04Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_link.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:35:13Z</date>
+									<date>2009-01-03T22:04:04Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_label.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:36:03Z</date>
+									<date>2009-01-03T22:04:03Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_span.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:36:42Z</date>
+									<date>2009-01-03T22:16:50Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_p.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:36:41Z</date>
+									<date>2009-01-03T22:04:03Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -243,25 +245,25 @@
 									<key>filename</key>
 									<string>src/elements/html/element_br.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:37:50Z</date>
+									<date>2009-01-03T22:04:03Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_value.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:37:50Z</date>
+									<date>2009-01-03T22:05:54Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_list.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:40:32Z</date>
+									<date>2009-01-03T22:22:47Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/html/element_listitem.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:40:34Z</date>
+									<date>2009-01-03T22:22:48Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -278,25 +280,25 @@
 									<key>filename</key>
 									<string>src/elements/table/element_tablecell.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:44:56Z</date>
+									<date>2009-01-03T22:05:54Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/table/element_table.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:44:56Z</date>
+									<date>2009-01-03T22:05:54Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/table/element_tablerow.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:44:56Z</date>
+									<date>2009-01-03T22:05:54Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/table/element_tableheader.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:44:56Z</date>
+									<date>2009-01-03T22:05:54Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -309,25 +311,25 @@
 									<key>filename</key>
 									<string>src/elements/heading/element_h4.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:44:55Z</date>
+									<date>2009-01-03T22:05:53Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/heading/element_h3.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:44:55Z</date>
+									<date>2009-01-03T22:05:53Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/heading/element_h2.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:45:15Z</date>
+									<date>2009-01-03T22:05:55Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/heading/element_h1.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:45:26Z</date>
+									<date>2009-01-03T22:05:53Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -340,7 +342,7 @@
 									<key>filename</key>
 									<string>src/elements/forms/element_hidden.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T21:46:24Z</date>
+									<date>2009-01-03T22:05:53Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -350,19 +352,19 @@
 									<key>filename</key>
 									<string>src/elements/forms/element_password.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:00:40Z</date>
+									<date>2009-01-03T22:05:53Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/forms/element_checkbox.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:00:40Z</date>
+									<date>2009-01-03T22:05:52Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/forms/element_button.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:00:40Z</date>
+									<date>2009-01-03T22:05:52Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -372,13 +374,13 @@
 									<key>filename</key>
 									<string>src/elements/forms/element_textbox.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:00:39Z</date>
+									<date>2009-01-03T22:05:52Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/elements/forms/element_textarea.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:00:39Z</date>
+									<date>2009-01-03T22:05:52Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -405,7 +407,7 @@
 									<key>filename</key>
 									<string>src/elements/layout/element_panel.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:00:39Z</date>
+									<date>2009-01-03T22:16:49Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -417,7 +419,7 @@
 									<key>filename</key>
 									<string>src/elements/layout/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2008-12-29T00:14:42Z</date>
+									<date>2009-01-04T04:28:38Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -462,7 +464,7 @@
 									<key>filename</key>
 									<string>src/elements/other/element_dropdown.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:00:39Z</date>
+									<date>2009-01-03T22:05:52Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -566,7 +568,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-03T21:35:14Z</date>
+							<date>2009-01-04T04:28:37Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -656,7 +658,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_tags.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-03T22:00:38Z</date>
+							<date>2009-01-03T22:22:47Z</date>
 						</dict>
 					</array>
 					<key>expanded</key>
@@ -677,7 +679,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-01-03T21:35:14Z</date>
+					<date>2009-01-04T04:08:32Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -727,36 +729,6 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>include/wf.inc</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
-				<key>line</key>
-				<integer>14</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>9</integer>
-				<key>line</key>
-				<integer>14</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
-				<key>line</key>
-				<integer>14</integer>
-			</dict>
-		</dict>
 		<key>src/actions/action_event.erl</key>
 		<dict>
 			<key>caret</key>
@@ -787,19 +759,185 @@
 				<integer>38</integer>
 			</dict>
 		</dict>
+		<key>src/elements/forms/element_button.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+		</dict>
+		<key>src/elements/forms/element_checkbox.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>23</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>2</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>2</integer>
+				<key>line</key>
+				<integer>23</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>23</integer>
+			</dict>
+		</dict>
 		<key>src/elements/forms/element_hidden.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>17</integer>
 				<key>line</key>
 				<integer>12</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+		</dict>
+		<key>src/elements/forms/element_password.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+		</dict>
+		<key>src/elements/forms/element_textarea.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+		</dict>
+		<key>src/elements/forms/element_textbox.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
 		</dict>
 		<key>src/elements/heading/element_h1.erl</key>
 		<dict>
@@ -820,37 +958,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>19</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>15</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/heading/element_h3.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>19</integer>
-				<key>line</key>
-				<integer>15</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/heading/element_h4.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>4</integer>
-				<key>line</key>
-				<integer>16</integer>
+				<integer>12</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -861,16 +971,76 @@
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>line</key>
-				<integer>11</integer>
+				<integer>12</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>12</integer>
+			</dict>
+		</dict>
+		<key>src/elements/heading/element_h3.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+		</dict>
+		<key>src/elements/heading/element_h4.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
 			</dict>
 		</dict>
 		<key>src/elements/html/element_br.erl</key>
@@ -878,7 +1048,7 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>13</integer>
 				<key>line</key>
 				<integer>13</integer>
 			</dict>
@@ -892,23 +1062,39 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>11</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
 		</dict>
 		<key>src/elements/html/element_image.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
-				<key>line</key>
 				<integer>16</integer>
+				<key>line</key>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -920,9 +1106,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>11</integer>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -934,23 +1120,39 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>26</integer>
+				<integer>21</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
 		</dict>
 		<key>src/elements/html/element_list.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>18</integer>
+				<integer>17</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -962,37 +1164,69 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>31</integer>
+				<integer>17</integer>
 				<key>line</key>
 				<integer>16</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
 		</dict>
 		<key>src/elements/html/element_p.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>15</integer>
+				<integer>11</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
 		</dict>
 		<key>src/elements/html/element_span.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>14</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -1004,14 +1238,88 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>12</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+		</dict>
+		<key>src/elements/layout/element_panel.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>src/elements/layout/element_rounded_panel.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>6</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/elements/other/element_dropdown.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>41</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>8</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>41</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>41</integer>
+			</dict>
 		</dict>
 		<key>src/elements/other/element_flash.erl</key>
 		<dict>
@@ -1048,56 +1356,120 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>20</integer>
+				<integer>13</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
 		</dict>
 		<key>src/elements/table/element_tablecell.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>24</integer>
+				<integer>16</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
 		</dict>
 		<key>src/elements/table/element_tableheader.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>15</integer>
+				<integer>16</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
 		</dict>
 		<key>src/elements/table/element_tablerow.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>12</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
 		</dict>
 		<key>src/lib/wf_comet.erl</key>
 		<dict>
@@ -1201,6 +1573,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>src/lib/wf_platform.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>80</integer>
+				<key>line</key>
+				<integer>133</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>112</integer>
+		</dict>
 		<key>src/lib/wf_render.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1288,36 +1674,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>src/lib/wf_utils.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>9</integer>
-				<key>line</key>
-				<integer>269</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>259</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>269</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>9</integer>
-				<key>line</key>
-				<integer>269</integer>
-			</dict>
 		</dict>
 		<key>src/platforms/nitrogen_inets_app.erl</key>
 		<dict>

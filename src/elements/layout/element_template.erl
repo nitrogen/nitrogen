@@ -6,9 +6,11 @@
 -include ("wf.inc").
 -compile(export_all).
 
-% TODO - Improve parsing logic in to_module_callback. This
-% will currently fail if we encounter something 
-% like [[[page:function("(Hello)")]]]
+% TODO - Revisit parsing in the to_module_callback. This
+% will currently fail if we encounter a string like:
+% "String with ) will fail" 
+% or 
+% "String with ]]] will fail"
 
 
 reflect() -> record_info(fields, template).

@@ -1,6 +1,4 @@
 
-
-
 2009-01-03 
 - Allow Nitrogen to be run as an OTP application. See Quickstart project for example.
 - Apply Tom McNulty's patch to create and implement wf_tags library. Emit html tags more cleanly.
