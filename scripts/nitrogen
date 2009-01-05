@@ -7,8 +7,9 @@ main(["create", Name]) ->
     main(["create", Name, "inets"]);
 main(["create", Name, Type]) ->
     ensure(),
-    DestDir = filename:absname(Name),
-    ok = nitrogen_skel:create_project(Name, DestDir, Type);
+    LowerName = string:to_lower(Name),
+    DestDir = filename:absname(LowerName),
+    ok = nitrogen_skel:create_project(LowerName, DestDir, Type);
 
 main(_) ->
     usage().
@@ -20,8 +21,7 @@ ensure() ->
                                  "../ebin")).
 
 usage() ->
-	io:format("Nitrogen Web Framework. ~nUsage: ~n"),
-    io:format("	nitrogen create [PROJECT_NAME] {inets|mochiweb|yaws}~n"),
-    io:format("	nitrogen page [URL]~n"),
+    io:format("Nitrogen Web Framework. ~nUsage: ~n"),
+    io:format("	nitrogen create [PROJECT_NAME] ~n"),
     halt(1).
 
