@@ -49,8 +49,9 @@ copy_file(Src, DestPath, Name) ->
     {ok, Dest, _} = regexp:gsub(DestPath, "SKEL", Name),
     io:format("writing -> ~p~n", [Dest]),
     {ok, Mode} = file:read_file_info(Src),
-    {ok, B} = file:read_file(Src),
-    {ok, S, _} = regexp:gsub(binary_to_list(B), "SKEL", Name),
-    ok = file:write_file(Dest, list_to_binary(S)),
+    {ok, Bin} = file:read_file(Src),
+    Changes =  [{"SKEL", Name}],
+    Replaced = nitrogen_project:replace_content(Changes, binary_to_list(Bin)),
+    ok = file:write_file(Dest, list_to_binary(Replaced)),
     file:write_file_info(Dest, Mode).
 
