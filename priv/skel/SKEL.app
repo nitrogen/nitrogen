@@ -1,8 +1,8 @@
 {application, SKEL, [
-	{description,  "Nitrogen Quickstart Examples"},
-	{mod, {quickstart, []}},
+	{description,  "Nitrogen Website"},
+	{mod, {SKEL_app, []}},
 	{env, [
-		{platform, N_PLATFORM},
+		{platform, inets}, %% {inets|yaws|mochiweb}
 		{signkey, "b37ca07"},
 		{wwwroot, "./wwwroot"},
 		{port, 8000}

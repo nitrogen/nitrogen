@@ -6,9 +6,9 @@ main() ->
 	#template { file="./wwwroot/template.html"}.
 
 title() ->
-	"A New Webpage".
+	"Welcome to SKEL".
 	
 body() ->
-	#label{text="This is my body."}.
+	#label{text="Example Body."}.
 	
 event(_) -> ok.
