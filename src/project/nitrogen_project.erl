@@ -29,7 +29,7 @@ copy_nitrogen_www(DestDir) ->
 copy_template_files(Name, DestDir) ->
     Changes = [{"PROJECT", Name},{"PAGE", "web_index"}],
     FileList = [
-                { "priv/skel/makefile", filename:join(DestDir, "Makefile")},
+                { "priv/skel/Makefile", filename:join(DestDir, "Makefile")},
                 { "priv/skel/Emakefile", filename:join(DestDir, "Emakefile")},
                 { "priv/skel/wf_global.erl", filename:join(DestDir, "src/wf_global.erl")},
                 { "priv/skel/sync_configuration.erl", filename:join(DestDir, "src/sync_configuration.erl")},
