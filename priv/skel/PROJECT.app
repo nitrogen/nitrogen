@@ -1,6 +1,6 @@
-{application, SKEL, [
+{application, PROJECT, [
 	{description,  "Nitrogen Website"},
-	{mod, {SKEL_app, []}},
+	{mod, {PROJECT_app, []}},
 	{env, [
 		{platform, inets}, %% {inets|yaws|mochiweb}
 		{signkey, "b37ca07"},

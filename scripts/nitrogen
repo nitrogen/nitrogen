@@ -9,12 +9,12 @@ main(["create", Name]) ->
     ensure(),
     LowerName = string:to_lower(Name),
     DestDir = filename:absname(LowerName),
-    ok = nitrogen_skel:create_project(LowerName, DestDir, "inets");
+    ok = nitrogen_project:create_project(LowerName, DestDir);
 
 main(["page", Url]) ->
     ensure_in_project(),
     DestDir = filename:absname("src/pages"),
-    nitrogen_project:create_page(Url, DestDir);
+    nitrogen_file:create_page(Url, DestDir);
 
 main(_) ->
     usage().

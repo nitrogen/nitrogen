@@ -1,4 +1,4 @@
--module (SKEL_sup).
+-module (PROJECT_sup).
 -behaviour (supervisor).
 -export ([start_link/0, init/1]).
 
@@ -7,5 +7,5 @@ start_link() ->
 
 init(_Args) ->
 	Restart = {one_for_one, 1, 1},
-	ChildSpec = {SKEL, {nitrogen, start, []}, permanent, 10, worker, dynamic},
+	ChildSpec = {PROJECT, {nitrogen, start, []}, permanent, 10, worker, dynamic},
 	{ok,{Restart,[ChildSpec]}}.

@@ -7,4 +7,4 @@ erl \
 	-pa ./ebin -pa ./include \
 	-env sync_environment development \
 	-s make all \
-	-eval "application:start(SKEL)"
+	-eval "application:start(PROJECT)"
