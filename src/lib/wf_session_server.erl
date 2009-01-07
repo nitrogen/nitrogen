@@ -1,5 +1,5 @@
 % Nitrogen Web Framework for Erlang
-% Copyright (c) 2008 Rusty Klophaus
+% Copyright (c) 2008-2009 Rusty Klophaus
 % Contributions from Dave Peticolas
 % See MIT-LICENSE for licensing information.
 
