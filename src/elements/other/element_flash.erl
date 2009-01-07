@@ -8,7 +8,9 @@
 
 reflect() -> record_info(fields, flash).
 
-render() -> wf:render(#flash { }).
+render() -> 
+	wf:state(has_flash, true),
+	wf:render(#flash { }).
 	
 update() -> update(any).
 update(element_flash) -> ok;
