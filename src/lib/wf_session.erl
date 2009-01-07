@@ -1,15 +1,21 @@
 % Nitrogen Web Framework for Erlang
-% Copyright (c) 2008 Rusty Klophaus
+% Copyright (c) 2008-2009 Rusty Klophaus
+% Contributions from Dave Peticolas
 % See MIT-LICENSE for licensing information.
-
+	
 -module (wf_session).
 -include ("wf.inc").
 -export ([
 	ensure_session/0,
 	user/0, user/1, clear_user/0,
 	role/1, role/2, clear_roles/0,
-	session/1, session/2, clear_session/0
+	session/1, session/2, clear_session/0,
+	start_link/0
 ]).
+
+%% gen_server callbacks
+-export([init/1, handle_call/3, handle_cast/2, handle_info/2,
+		 terminate/2, code_change/3]).
 
 %%% USER %%%
 user() -> session(wf_user).
@@ -17,41 +23,32 @@ user(User) -> session(wf_user, User).
 clear_user() -> user(undefined).
 
 %%% ROLES %%%
-role(Role) ->       sets:is_element(Role, get_roles()).
+role(Role) ->	   sets:is_element(Role, get_roles()).
 role(Role, true) -> session(wf_roles, sets:add_element(Role, get_roles()));
-role(Role, _) ->    session(wf_roles, sets:del_element(Role, get_roles())).
-	
+role(Role, _) ->	session(wf_roles, sets:del_element(Role, get_roles())).
+
 get_roles() -> 
 	case session(wf_roles) of
 		undefined -> sets:new();
 		Roles -> Roles
 	end.
-	
+
 clear_roles() -> 
 	session(wf_roles, sets:new()).
-	
+
 %%% SESSION %%%
 
-session(Key) -> 
-	Pid = get_session_pid(),
-	Pid!{self(), get, Key},
-	receive 
-		{Pid, get_complete, Key, Value} -> Value 
-	end.
+session(Key) ->
+	{ok, Value} = gen_server:call(get_session_pid(), {get, Key}),
+	Value.
 
 session(Key, Value) -> 
-	Pid = get_session_pid(),
-	Pid!{self(), put, Key, Value},
-	receive
-		{Pid, put_complete} -> Value
-	end.
-	
+	ok = gen_server:call(get_session_pid(), {put, Key, Value}),
+	Value.
+
 clear_session() -> 
-	Pid = get_session_pid(),
-	Pid!{self(), clear},
-	receive
-		{Pid, clear_complete} -> ok
-	end.
+	ok = gen_server:call(get_session_pid(), clear).
+
 
 %%% ENSURE/CREATE SESSION %%%
 	
@@ -67,29 +64,27 @@ ensure_session() ->
 						create_session()
 				end
 		end.
-	
+
 ensure_session_is_alive(Pid, Unique) ->
-	case wf_utils:is_process_alive(Pid) of
-		true -> ensure_session_matches_unique(Pid, Unique);
-		false -> create_session()
+	case wf_session_server:get_session(Unique) of
+		{ok, Pid} ->
+			case ping(Pid) of
+				ok ->
+					put(wf_session, Pid),
+					drop_session_cookie(Pid, Unique);
+				timeout ->
+					create_session()
+			end;
+		_ ->
+			create_session()
 	end.
 
-ensure_session_matches_unique(Pid, Unique) ->
-	Pid!{self(), verify, Unique},
-	receive 
-		{Pid, verify_ok} -> 
-			put(wf_session, Pid),
-			drop_session_cookie(Pid, Unique);
-		_Other -> 
-			create_session()
-	end.	
-		
 create_session() -> 	
 	Unique = erlang:make_ref(),
-	Pid = erlang:spawn(fun() -> session_loop(Unique, []) end),
+	{ok, Pid} = wf_session_server:create_session(Unique),
 	put(wf_session, Pid),
 	drop_session_cookie(Pid, Unique).
-	
+
 drop_session_cookie(Pid, Unique) ->
 	Session = wf:pickle({Pid, Unique}),
 	Timeout = wf_global:session_timeout(),
@@ -97,39 +92,59 @@ drop_session_cookie(Pid, Unique) ->
 
 get_session_pid() -> get(wf_session).
 
-session_loop(Unique, Session) ->
-	Timeout = wf_global:session_timeout(),
-	receive
-		{Pid, verify, Unique} -> 
-			Pid!{self(), verify_ok},
-			session_loop(Unique, Session);
-			
-		{Pid, verify, _} ->      
-			Pid!{self(), verify_failed},
-			session_loop(Unique, Session);
-		
-		{Pid, put, Key, undefined} ->
-			Session1 = lists:keydelete(Key, 1, Session),
-			Pid!{self(), put_complete},
-			session_loop(Unique, Session1);
-		
-		{Pid, put, Key, Value} -> 
-			Session1 = lists:keystore(Key, 1, Session, {Key, Value}),
-			Pid!{self(), put_complete},
-			session_loop(Unique, Session1);
 
-		{Pid, get, Key} -> 
-			Value = case lists:keysearch(Key, 1, Session) of
+%%% gen_server callbacks %%%
+
+start_link() ->
+	gen_server:start_link(?MODULE, [], []).
+
+init([]) ->
+	{ok, [], timeout()}.
+
+
+handle_call(ping, _From, Session) ->
+	{reply, ok, Session, timeout()};
+
+handle_call({put, Key, undefined}, _From, Session) ->
+	{reply, ok, lists:keydelete(Key, 1, Session), timeout()};
+
+handle_call({put, Key, Value}, _From, Session) ->
+	{reply, ok, lists:keystore(Key, 1, Session, {Key, Value}), timeout()};
+
+handle_call({get, Key}, _From, Session) ->
+	Value = case lists:keysearch(Key, 1, Session) of
 				{value, {Key, V}} -> V;
 				false -> undefined
 			end,
-			Pid!{self(), get_complete, Key, Value},
-			session_loop(Unique, Session);
+	{reply, {ok, Value}, Session, timeout()};
 
-		{Pid, clear} -> 
-			Pid!{self(), clear_complete},
-			session_loop(Unique, [])
+handle_call(clear, _From, _Session) ->
+	{reply, ok, [], timeout()}.
 
-	after Timeout * 60 * 1000 -> stop
-	end.
+
+handle_cast(_Msg, State) ->
+	{noreply, State, timeout()}.
+
+handle_info(timeout, State) ->
+	{stop, normal, State};
+
+handle_info(_Info, State) ->
+	{noreply, State, timeout()}.
+
+terminate(_Reason, _State) ->
+	ok.
+
+code_change(_OldVsn, State, _Extra) ->
+	{ok, State}.
+
+
+timeout() ->
+	wf_global:session_timeout() * 60 * 1000.
 	
+ping(Pid) ->
+	try
+		ok = gen_server:call(Pid, ping)
+	catch
+		exit:{timeout, _} ->
+		timeout
+	end.

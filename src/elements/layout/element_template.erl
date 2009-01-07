@@ -1,5 +1,5 @@
 % Nitrogen Web Framework for Erlang
-% Copyright (c) 2008 Rusty Klophaus
+% Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
 -module (element_template).
@@ -120,6 +120,7 @@ eval_callbacks([H|T], Record) ->
 	% Convert args to term...
 	Args = to_term("[" ++ ArgString ++ "].", Record#template.bindings),
 	
+	code:ensure_loaded(Module),
 	case erlang:function_exported(Module, Function, length(Args)) of
 		false -> 
 			% Function is not defined, so try the next one.
