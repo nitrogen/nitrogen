@@ -37,8 +37,7 @@ copy_template_files(Name, DestDir) ->
                 { "priv/skel/start.sh", filename:join(DestDir, "start.sh")},
                 { "priv/skel/PAGE.erl", filename:join(DestDir, "src/pages/web_index.erl")},
                 { "priv/skel/PROJECT.app", filename:join(DestDir, "ebin/PROJECT.app")},
-                { "priv/skel/PROJECT_app.erl", filename:join(DestDir, "src/PROJECT_app.erl")},
-                { "priv/skel/PROJECT_sup.erl", filename:join(DestDir, "src/PROJECT_sup.erl")}
+                { "priv/skel/PROJECT_app.erl", filename:join(DestDir, "src/PROJECT_app.erl")}
                ],
     [ nitrogen_file:copy_file(src_path(Src), Dest, Changes) || {Src,Dest} <- FileList ].
 

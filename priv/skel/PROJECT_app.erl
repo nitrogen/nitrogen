@@ -3,7 +3,7 @@
 -behavior(application).
 
 start(_, _) -> 
-	PROJECT_sup:start_link().
+	nitrogen:start().
 
 stop(_) -> 
 	nitrogen:stop().
