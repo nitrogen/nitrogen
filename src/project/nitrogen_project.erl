@@ -1,3 +1,7 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% Module by Jon Gretar Borgthorsson
+% See MIT-LICENSE for licensing information.
 -module(nitrogen_project).
 -include_lib("kernel/include/file.hrl").
 -export([create_project/2, src_path/1]).

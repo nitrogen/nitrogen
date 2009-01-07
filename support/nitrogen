@@ -1,6 +1,10 @@
 #!/usr/bin/env escript
 %% -*- erlang -*-
 %%! -smp enable -sname nitrogenshell
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008 Rusty Klophaus
+% Module by Jon Gretar Borgthorsson
+% See MIT-LICENSE for licensing information.
 -export([main/1]).
 -include_lib("kernel/include/file.hrl").
 
