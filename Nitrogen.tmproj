@@ -29,7 +29,7 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-07T02:15:35Z</date>
+					<date>2009-01-08T14:19:39Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -47,15 +47,34 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-07T18:07:19Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2009-01-08T13:59:53Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/web_x.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-04T22:43:36Z</date>
+					<date>2009-01-08T02:58:53Z</date>
+				</dict>
+				<dict>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>filename</key>
+							<string>src/project/nitrogen_project.erl</string>
+							<key>lastUsed</key>
+							<date>2009-01-08T13:59:54Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>src/project/nitrogen_file.erl</string>
+							<key>lastUsed</key>
+							<date>2009-01-08T13:59:54Z</date>
+						</dict>
+					</array>
+					<key>expanded</key>
+					<true/>
+					<key>name</key>
+					<string>Project</string>
 				</dict>
 				<dict>
 					<key>children</key>
@@ -64,37 +83,39 @@
 							<key>filename</key>
 							<string>src/platforms/nitrogen_inets_app.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:53Z</date>
+							<date>2009-01-08T03:23:01Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/nitrogen_mochiweb_app.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:53Z</date>
+							<date>2009-01-08T03:07:02Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/nitrogen_yaws_app.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:54Z</date>
+							<date>2009-01-08T15:07:26Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:51Z</date>
+							<date>2009-01-08T14:19:40Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:51Z</date>
+							<date>2009-01-08T14:19:40Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:51Z</date>
+							<date>2009-01-08T15:07:26Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 					</array>
 					<key>expanded</key>
@@ -200,8 +221,6 @@
 							<string>src/actions/action_animate.erl</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Actions</string>
 				</dict>
@@ -278,8 +297,6 @@
 									<date>2009-01-03T22:22:48Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>HTML</string>
 						</dict>
@@ -315,8 +332,6 @@
 									<date>2009-01-03T22:05:54Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>Table</string>
 						</dict>
@@ -348,8 +363,6 @@
 									<date>2009-01-03T22:05:53Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>Heading</string>
 						</dict>
@@ -401,8 +414,6 @@
 									<date>2009-01-03T22:05:52Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>Forms</string>
 						</dict>
@@ -442,8 +453,6 @@
 									<date>2009-01-07T02:15:35Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>Layout</string>
 						</dict>
@@ -507,14 +516,10 @@
 									<date>2008-12-18T23:57:24Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>Other</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Elements</string>
 				</dict>
@@ -550,8 +555,6 @@
 							<string>src/validators/validator_is_email.erl</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Validators</string>
 				</dict>
@@ -580,13 +583,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:54Z</date>
+							<date>2009-01-08T14:24:41Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_handle.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-30T23:42:02Z</date>
+							<date>2009-01-08T14:19:39Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -598,7 +601,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_utils.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T18:07:18Z</date>
+							<date>2009-01-08T13:59:54Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -648,13 +651,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_session_server.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T02:19:36Z</date>
+							<date>2009-01-08T02:58:52Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_session.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T02:19:36Z</date>
+							<date>2009-01-08T02:58:52Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -666,7 +669,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-07T00:00:51Z</date>
+							<date>2009-01-08T03:07:03Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -703,8 +706,6 @@
 							<date>2009-01-06T23:58:28Z</date>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Lib</string>
 				</dict>
@@ -730,6 +731,8 @@
 					<date>2008-12-09T22:31:59Z</date>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>Include</string>
 		</dict>
@@ -740,7 +743,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.css</string>
 					<key>lastUsed</key>
-					<date>2008-12-29T03:42:45Z</date>
+					<date>2009-01-08T03:23:33Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -758,7 +761,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-01-07T18:07:19Z</date>
+					<date>2009-01-08T01:46:19Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -1182,6 +1185,48 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>22</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>4</integer>
+		</dict>
+		<key>src/lib/wf_platform.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>115</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>104</integer>
+		</dict>
+		<key>src/lib/wf_platform_inets.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>4</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/lib/wf_session.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
 				<integer>0</integer>
@@ -1189,83 +1234,154 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>102</integer>
+			<integer>60</integer>
+		</dict>
+		<key>src/lib/wf_session_server.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>28</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>7</integer>
+		</dict>
+		<key>src/nitrogen.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/platforms/nitrogen_inets_app.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>10</integer>
+				<key>line</key>
+				<integer>7</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/platforms/nitrogen_mochiweb_app.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>23</integer>
+				<key>line</key>
+				<integer>47</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>11</integer>
+		</dict>
+		<key>src/platforms/wf_inets.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>33</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/platforms/wf_mochiweb.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>33</integer>
+				<key>line</key>
+				<integer>9</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/web_x.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>5</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+		</dict>
+		<key>www/nitrogen.css</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>26</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>treeState</key>
 	<dict>
+		<key>Include</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
 		<key>SRC</key>
 		<dict>
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
 			<dict>
-				<key>Actions</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-				<key>Elements</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict>
-						<key>Forms</key>
-						<dict>
-							<key>isExpanded</key>
-							<true/>
-							<key>subItems</key>
-							<dict/>
-						</dict>
-						<key>HTML</key>
-						<dict>
-							<key>isExpanded</key>
-							<true/>
-							<key>subItems</key>
-							<dict/>
-						</dict>
-						<key>Heading</key>
-						<dict>
-							<key>isExpanded</key>
-							<true/>
-							<key>subItems</key>
-							<dict/>
-						</dict>
-						<key>Layout</key>
-						<dict>
-							<key>isExpanded</key>
-							<true/>
-							<key>subItems</key>
-							<dict/>
-						</dict>
-						<key>Other</key>
-						<dict>
-							<key>isExpanded</key>
-							<true/>
-							<key>subItems</key>
-							<dict/>
-						</dict>
-						<key>Table</key>
-						<dict>
-							<key>isExpanded</key>
-							<true/>
-							<key>subItems</key>
-							<dict/>
-						</dict>
-					</dict>
-				</dict>
-				<key>Lib</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
 				<key>Platforms</key>
 				<dict>
 					<key>isExpanded</key>
@@ -1273,7 +1389,7 @@
 					<key>subItems</key>
 					<dict/>
 				</dict>
-				<key>Validators</key>
+				<key>Project</key>
 				<dict>
 					<key>isExpanded</key>
 					<true/>
