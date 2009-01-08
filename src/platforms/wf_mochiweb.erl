@@ -7,7 +7,7 @@
 
 loop(Req) ->
 	Path = Req:get(path),
-	{Module, PathInfo} = wf:path_to_module(Path),
+	{Module, PathInfo} = wf_platform:route(Path),
 	loop(Req, Module, PathInfo).
 	
 loop(Req, Module) -> loop(Req, Module, "").

@@ -8,7 +8,7 @@
 -behaviour(gen_server).
 
 %% API
--export([start_link/0, create_session/1, get_session/1]).
+-export([start_link/0, sign_key/1, get_session/1]).
 
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -21,8 +21,8 @@ start_link() ->
 	gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 % For use by wf_session only.
-create_session(Unique) ->
-	gen_server:call(?SERVER, {create_session, Unique}).
+sign_key(Unique) ->
+	gen_server:call(?SERVER, {sign_key, Unique}).
 
 % For use by wf_session only.
 get_session(Unique) ->
@@ -35,7 +35,7 @@ init([]) ->
 	{ok, dict:new()}.
 
 
-handle_call({create_session, Unique}, _From, Map) ->
+handle_call({sign_key, Unique}, _From, Map) ->
 	{ok, Pid} = wf_session_sup:start_session(),
 	ServerPid = self(),
 	spawn_link(fun () -> session_monitor(ServerPid, Pid, Unique) end),

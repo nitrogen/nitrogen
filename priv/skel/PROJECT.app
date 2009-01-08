@@ -3,8 +3,9 @@
 	{mod, {PROJECT_app, []}},
 	{env, [
 		{platform, inets}, %% {inets|yaws|mochiweb}
-		{signkey, "b37ca07"},
-		{wwwroot, "./wwwroot"},
-		{port, 8000}
+		{port, 8000},
+		{session_timeout, 20},
+		{sign_key, "SIGN_KEY"},
+		{www_root, "./wwwroot"}
 	]}
 ]}.

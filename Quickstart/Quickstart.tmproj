@@ -10,14 +10,20 @@
 				<dict>
 					<key>filename</key>
 					<string>apps/quickstart_yaws.app</string>
+					<key>lastUsed</key>
+					<date>2009-01-08T03:09:10Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>apps/quickstart_inets.app</string>
+					<key>lastUsed</key>
+					<date>2009-01-08T03:09:11Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>apps/quickstart_mochiweb.app</string>
+					<key>lastUsed</key>
+					<date>2009-01-08T03:09:11Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -32,7 +38,7 @@
 					<key>filename</key>
 					<string>quickstart.bat</string>
 					<key>lastUsed</key>
-					<date>2009-01-04T23:26:13Z</date>
+					<date>2009-01-07T18:07:17Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -51,8 +57,6 @@
 					<string>quickstart_yaws.sh</string>
 					<key>lastUsed</key>
 					<date>2009-01-04T23:26:13Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -66,6 +70,10 @@
 				<dict>
 					<key>filename</key>
 					<string>src/quickstart.erl</string>
+					<key>lastUsed</key>
+					<date>2009-01-08T14:15:49Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -78,16 +86,12 @@
 				<dict>
 					<key>filename</key>
 					<string>src/web_index.erl</string>
+					<key>lastUsed</key>
+					<date>2009-01-07T18:07:17Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/footer.erl</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>src/wf_global.erl</string>
-					<key>lastUsed</key>
-					<date>2009-01-04T23:25:39Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -102,7 +106,7 @@
 					<key>filename</key>
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
-					<date>2009-01-04T23:17:00Z</date>
+					<date>2009-01-07T02:06:50Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>

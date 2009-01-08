@@ -9,7 +9,7 @@
 
 out(Arg) ->
 	Path = Arg#arg.server_path,
-	{Module, PathInfo} = wf:path_to_module(Path),
+	{Module, PathInfo} = wf_platform:route(Path),
 	out(Arg, Module, PathInfo).
 
 out(Arg, Module) -> out(Arg, Module, "").

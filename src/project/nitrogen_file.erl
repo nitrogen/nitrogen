@@ -13,14 +13,14 @@ create_page(Url, Dir) ->
     copy_file( SrcFile, DestFile, Changes ).
 
 copy_file(SrcFile, DestFile) ->
-    io:format("Copy Nitrogen Static: ~p~n", [DestFile]),
+    io:format("Copy Nitrogen Static: ~p~n", [filename:basename(DestFile)]),
     {ok, Mode} = file:read_file_info(SrcFile),
     file:copy(SrcFile, DestFile),
     file:write_file_info(DestFile, Mode).
 
 copy_file(SrcFile, DestFile, Changes) ->
     ParsedDestFile = replace_content(Changes, DestFile),
-    io:format("Creating file: ~p~n", [ParsedDestFile]),
+    io:format("Creating file: ~p~n", [filename:basename(ParsedDestFile)]),
     {ok, Mode} = file:read_file_info(SrcFile),
     {ok, Bin} = file:read_file(SrcFile),
     Contents = replace_content(Changes, binary_to_list(Bin)),

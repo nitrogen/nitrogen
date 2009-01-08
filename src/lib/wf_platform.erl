@@ -3,7 +3,6 @@
 % See MIT-LICENSE for licensing information.
 
 -module (wf_platform).
--include ("wf.inc").
 -export ([
 	init/2,
 	get_platform/0,
@@ -21,6 +20,7 @@
 	clear_redirect/0,
 	set_redirect/1,
 	set_header/2,
+	route/1, request/1,
 	set_response_code/1,
 	set_content_type/1,
 	set_response_body/1,
@@ -72,7 +72,7 @@ get_cookie(Key) ->
 	end.
 
 set_cookie(Key, Value) -> 
-	Timeout = wf_global:session_timeout(),
+	Timeout = nitrogen:get_session_timeout(),
 	set_cookie(Key, Value, "/", Timeout).
 	
 set_cookie(Key, Value, Path, MinutesToLive) ->
@@ -85,7 +85,7 @@ create_cookie(Key, Value, Path, MinutesToLive) ->
 	Value1 = wf:to_list(Value),
 	do(create_cookie, [Key1, Value1, Path, MinutesToLive]).
 	
-
+	
 
 %%% HEADERS %%%
 
@@ -96,7 +96,36 @@ set_header(Key, Value) ->
 	put(wf_headers, [Header|get(wf_headers)]),
 	ok.
 	
+
+
+%%% ROUTE AND REQUEST %%%
+
+route(Path) ->
+	AppModule = get_app_module(),
+	case erlang:function_exported(AppModule, route, 1) of
+		true -> 
+			case AppModule:route(Path) of
+				undefined -> nitrogen:route(Path);
+				{Module, PathInfo} -> {Module, PathInfo};
+				Module -> {Module, ""}
+			end;
+		false -> nitrogen:route(Path)
+	end.
 	
+request(Module) ->	
+	% Run the pre-request function, check if we
+	% should continue.
+	AppModule = get_app_module(),
+	case erlang:function_exported(AppModule, request, 1) of
+		true -> AppModule:request(Module);
+		false -> nitrogen:request(Module)
+	end.
+
+get_app_module() -> 
+	{ok, {Module, _}} = application:get_key(mod),
+	Module.
+
+
 	
 %%% RESPONSE %%%
 

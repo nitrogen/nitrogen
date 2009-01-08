@@ -47,7 +47,8 @@ debug() -> wf_utils:debug().
 break() -> wf_utils:break().
 
 %%% EXPOSE WF_PLATFORM %%%
-
+get_path_info() -> wf_platform:get_path_info().
+get_page_module() -> wf_platform:get_page_module().
 set_cookie(Key, Value) -> wf_platform:set_cookie(Key, Value).
 set_cookie(Key, Value, Path, MinutesToLive) -> wf_platform:set_cookie(Key, Value, Path, MinutesToLive).
 get_cookie(Key) -> wf_platform:get_cookie(Key).
