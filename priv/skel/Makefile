@@ -2,4 +2,4 @@ compile:
 	erl -make
 	
 clean:
-	rm -rf ./ebin/*.*
+	rm -rf ./ebin/*.beam
