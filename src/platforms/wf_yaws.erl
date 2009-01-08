@@ -16,4 +16,7 @@ out(Arg, Module) -> out(Arg, Module, "").
 
 out(Arg, Module, PathInfo) ->
 	wf_platform:init(wf_platform_yaws, Arg),
-	wf_handle:handle_request(Module, PathInfo).
+	try 
+		wf_handle:handle_request(Module, PathInfo)
+	catch _ : _ -> ?PRINT(erlang:get_stacktrace())
+	end.
