@@ -3,7 +3,7 @@ export NITROGEN_SRC=..
 cd `dirname $0`
 
 echo Creating link to nitrogen support files...
-rm -f wwwroot/nitrogen
+rm -rf wwwroot/nitrogen
 ln -s ../$NITROGEN_SRC/www wwwroot/nitrogen
 
 echo Starting Nitrogen on Inets...

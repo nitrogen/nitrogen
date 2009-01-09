@@ -1,0 +1,34 @@
+**** Nitrogen Web Framework ****
+
+Installation Steps
+==================
+
+1. Copy or check-out Nitrogen into a subfolder called nitrogen-master of 
+   $ERL_LIBS. So if $ERL_LIBS is /opt/erlang-libs/ then copy to 
+   /opt/erlang-libs/nitrogen-master. 
+
+2. Change to $ERL_LIBS/nitrogen-master and run 'make' to build Nitrogen.
+
+3. Create a symlink to the nitrogen script to a bin directory in your path:
+
+   sudo ln -s $ERL_LIBS/nitrogen-master/support/nitrogen \
+    /usr/local/bin/nitrogen
+
+4. Start a new project in a folder of your choosing with the command:
+
+    nitrogen create myfirstweb
+
+5. Visit http://nitrogenproject.com/ for documentation and help.
+
+
+Note On $ERL_LIBS
+=================
+
+If you do not have the $ERL_LIBS environment variable add the following line 
+to ~/.profile or ~/.bash_profile depending on your computer setup:
+
+    export ERL_LIBS=/opt/erlang-libs/
+
+Of course change the path to the location you wish to use. Install other 
+modules, such as mochiweb, yaws, erl-mysql and any other you may need, in a 
+subfolder of $ERL_LIBS as well.

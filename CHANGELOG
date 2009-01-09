@@ -1,3 +1,10 @@
+2009-01-08
+- Apply changes by Jon Gretar to support 'nitrogen create PROJECT' and 'nitrogen page /web/page' scripts.
+- Finish putting all properties into .app file. Put request/1 into application module file.
+- Add ability to route through route/1 in application module file.
+- Remove need for wf_global.erl
+- Start Yaws process underneath the main Nitrogen supervisor. (Used to be separate.)
+
 2009-01-06
 - Make Nitrogen a supervised OTP application, startable and stoppable via nitrogen:start() and nitrogen:stop().
 - Apply changes by Dave Peticolas to fix session bugs and turn sessions into supervised processes.

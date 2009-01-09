@@ -19,7 +19,7 @@ handle_request(Module, PathInfo) ->
 	wf_session:ensure_session(),
 	
 	% Check authorization...
-	case wf_global:request(Module) of
+	case wf_platform:request(Module) of
 		ok ->
 			% Process the request...
 			case wf_platform:request_method() of 

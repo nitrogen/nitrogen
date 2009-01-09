@@ -19,7 +19,7 @@ start() ->
 		{server_name, "localhost"},
 		{modules, [wf_inets, mod_head, mod_get]},
 		{mime_types, [{"css", "text/css"}, {"js", "text/javascript"}, {"html", "text/html"}]}
-	]),
+	], stand_alone),
 	link(Pid),
 	{ok, Pid}.
 

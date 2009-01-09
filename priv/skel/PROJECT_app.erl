@@ -1,11 +1,10 @@
--module (quickstart).
--compile(export_all).
-
-%%% APPLICATION FUNCTIONS %%%
+-module (PROJECT_app).
+-export ([start/2, stop/1, route/1, request/1]).
+-behavior(application).
 
 start(_, _) -> nitrogen:start().
 stop(_) -> nitrogen:stop().
-	
+
 %% route/1 lets you define new URL routes to your web pages, 
 %% or completely create a new routing scheme.
 %% The 'Path' argument specifies the request path. Your

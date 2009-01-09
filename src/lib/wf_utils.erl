@@ -25,7 +25,6 @@
 -define(COPY_TO_BASERECORD(Name, Size, Record),
 	list_to_tuple([Name | lists:sublist(tuple_to_list(Record), 2, Size-1)])).
 
-
 %%% FORMAT %%%
 
 f(S) -> f(S, []).
@@ -127,7 +126,7 @@ get_seconds() -> calendar:datetime_to_gregorian_seconds(calendar:universal_time(
 
 pickle(Data) ->
 	B = term_to_binary({get_seconds(), Data}, [compressed]),
-	<<Signature:4/binary, _/binary>> = erlang:md5([B, wf_global:sign_key()]),
+	<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
 	modified_base64_encode(<<Signature/binary, B/binary>>).
 	
 depickle(Data) -> 
@@ -137,7 +136,7 @@ depickle(Data) ->
 depickle(Data, SecondsToLive) ->
 	{CreatedOn, Term} = try
 		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(Data)),
-		<<Signature:4/binary, _/binary>> = erlang:md5([B, wf_global:sign_key()]),
+		<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
 		wf:assert(S == Signature, invalid_signature),
 		binary_to_term(B)
 	catch _Type : _Message ->
