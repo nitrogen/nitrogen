@@ -22,7 +22,7 @@ render(ControlID, Record) ->
 	
 	% Set up the events...
 	Controls = {ViewPanelID, LabelID, EditPanelID, TextBoxID},
-	OKEvent = #event { delegate=?MODULE, postback={ok, Controls, Tag}, controls=[TextBoxID] },
+	OKEvent = #event { delegate=?MODULE, postback={ok, Controls, Tag} },
 	CancelEvent = #event { delegate=?MODULE, postback={cancel, Controls, Tag, OriginalText} },
 	
 	% Create the view...

@@ -26,7 +26,7 @@ continue(Tag, Function, Interval, Timeout) ->
 	
 register(Pid, Interval) ->
 	TargetID = get(current_path),
-	wf:wire(#event { type=continuation, interval=Interval, target=TargetID, postback=Pid }).	
+	wf:wire(#event { type=continuation, delay=Interval, target=TargetID, postback=Pid }).	
 
 get_result(Pid) ->
 	case wf_utils:is_process_alive(Pid) of

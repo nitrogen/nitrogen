@@ -10,7 +10,10 @@
 	get_content/0
 ]).
 
+% If no content is found, waits this long to check again.
 -define(CONTENT_LOOP_INTERVAL, 300).
+
+% 
 -define(COMET_REQUEST_TIMEOUT, 20000).
 -define(INACTIVITY_TIMEOUT, 20000).
 
@@ -108,7 +111,6 @@ ensure_comet_loop(Timeout) ->
 %% comet_loop/2 - Spawned for each page with a #comet on it.
 %% Functions send content here, and it is saved in the mailbox
 %% until a get_content request comes along to read it.
-%% By default, it stops in 5 seconds.
 comet_loop(Timeout) ->
 	receive
 		{Pid, get_content} -> 
