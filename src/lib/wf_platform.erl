@@ -21,6 +21,7 @@
 	set_redirect/1,
 	set_header/2,
 	route/1, request/1,
+	get_prehandler_module/0,
 	set_response_code/1,
 	set_content_type/1,
 	set_response_body/1,
@@ -101,10 +102,10 @@ set_header(Key, Value) ->
 %%% ROUTE AND REQUEST %%%
 
 route(Path) ->
-	AppModule = get_app_module(),
-	case erlang:function_exported(AppModule, route, 1) of
+	PreModule = get_prehandler_module(),
+	case erlang:function_exported(PreModule, route, 1) of
 		true -> 
-			case AppModule:route(Path) of
+			case PreModule:route(Path) of
 				undefined -> nitrogen:route(Path);
 				{Module, PathInfo} -> {Module, PathInfo};
 				Module -> {Module, ""}
@@ -115,15 +116,20 @@ route(Path) ->
 request(Module) ->	
 	% Run the pre-request function, check if we
 	% should continue.
-	AppModule = get_app_module(),
-	case erlang:function_exported(AppModule, request, 1) of
-		true -> AppModule:request(Module);
+	PreModule = get_prehandler_module(),
+	case erlang:function_exported(PreModule, request, 1) of
+		true -> PreModule:request(Module);
 		false -> nitrogen:request(Module)
 	end.
 
-get_app_module() -> 
-	{ok, {Module, _}} = application:get_key(mod),
-	Module.
+get_prehandler_module() ->
+	case application:get_env(prehandler_module) of
+		{ok, Module} ->
+			Module;
+		undefined ->
+			{ok, {Module, _}} = application:get_key(mod),
+			Module
+	end.
 
 
 	

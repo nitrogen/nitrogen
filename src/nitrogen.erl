@@ -31,6 +31,9 @@ init(_Args) ->
 	{ok,{SupFlags,[NitrogenServer, SessionServer, SessionSup]}}.
 
 start_server() ->
+	PreModule = wf_platform:get_prehandler_module(),
+	code:ensure_loaded(PreModule),
+
 	Result = case get_platform() of
 		yaws     -> nitrogen_yaws_app:start();
 		mochiweb -> nitrogen_mochiweb_app:start();
