@@ -6,6 +6,7 @@
 -include ("wf.inc").
 -export ([
 	start/0,
+	start/1,
 	stop/0,
 	init/1,
 	start_server/0,
@@ -20,17 +21,22 @@
 	get_hooks_module/0
 ]).
 
-start() -> supervisor:start_link(?MODULE, []).
+start() -> 
+    start(undefined).
 
-init(_Args) ->
-	RestartStrategy = one_for_one,
-	MaxRestarts = 1000,
-	MaxSecondsBetweenRestarts = 3600,
-	SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
-	NitrogenServer = {quickstart_sup, {nitrogen, start_server, []}, permanent, 2000, worker, dynamic},
-	SessionServer  = {wf_session_server, {wf_session_server, start_link, []}, permanent, 2000, worker, [wf_session_server]},
-	SessionSup     = {wf_session_sup, {wf_session_sup, start_link, []}, permanent, 2000, supervisor, [wf_session_sup]},
-	{ok,{SupFlags,[NitrogenServer, SessionServer, SessionSup]}}.
+start(ServingApp) when is_atom(ServingApp) -> 
+    supervisor:start_link(?MODULE, [ServingApp]).
+
+init([ServingApp]) ->
+    application:set_env(nitrogen, serving_app, ServingApp),
+    RestartStrategy = one_for_one,
+    MaxRestarts = 1000,
+    MaxSecondsBetweenRestarts = 3600,
+    SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
+    NitrogenServer = {quickstart_sup, {nitrogen, start_server, []}, permanent, 2000, worker, dynamic},
+    SessionServer  = {wf_session_server, {wf_session_server, start_link, []}, permanent, 2000, worker, [wf_session_server]},
+    SessionSup     = {wf_session_sup, {wf_session_sup, start_link, []}, permanent, 2000, supervisor, [wf_session_sup]},
+    {ok,{SupFlags,[NitrogenServer, SessionServer, SessionSup]}}.
 
 start_server() ->
 	HooksModule = get_hooks_module(),
@@ -45,7 +51,7 @@ start_server() ->
 	io:format("~n~n---~n"),
 	io:format("Nitrogen is now running on ~s.~n", [get_platform()]),
 	io:format("Serving files from: ~s.~n", [get_wwwroot()]),
-	io:format("Open your browser to: http://localhost:~p~n", [get_port()]),
+	io:format("Open your browser to: http://~p:~p~n", [get_host(),get_port()]),
 	io:format("---~n~n"),
 
 	Result.
@@ -65,37 +71,37 @@ request(_) -> ok.
 %%% GET CONFIG SETTINGS %%%
 	
 get_platform() -> 
-	case application:get_env(platform) of
+	case application:get_env(serving_app(), platform) of
 		{ok, Val} -> Val;
 		_ -> inets
 	end.
 	
 get_session_timeout() ->
-	case application:get_env(session_timeout) of
+	case application:get_env(serving_app(), session_timeout) of
 		{ok, Val} -> Val;
 		_ -> 20
 	end.
 	
 get_host() -> 
-	case application:get_env(host) of 
-		{ok, Val} -> Val;
-		_ -> "localhost"
-	end.
+    case application:get_env(serving_app(), host) of 
+        {ok, Val} -> Val;
+        _         -> "localhost"
+    end.
 
 get_port() -> 
-	case application:get_env(port) of 
+	case application:get_env(serving_app(), port) of 
 		{ok, Val} -> Val;
 		_ -> 8000
 	end.
 
 get_wwwroot() -> 
-	case application:get_env(wwwroot) of
+	case application:get_env(serving_app(), wwwroot) of
 		{ok, Val} -> Val;
 		_ -> "./wwwroot"
 	end.
 	
 get_sign_key() -> 
-	case application:get_env(sign_key) of
+	case application:get_env(serving_app(), sign_key) of
 		{ok, Val} -> Val;
 		_ -> throw("You must declare a sign_key!")
 	end.
@@ -107,4 +113,10 @@ get_hooks_module() ->
 		undefined ->
 			{ok, {Module, _}} = application:get_key(mod),
 			Module
+	end.
+
+serving_app() -> 
+	case application:get_env(nitrogen, serving_app) of 
+		{ok, Val} -> Val;
+		_ -> undefined
 	end.
