@@ -16,7 +16,7 @@ start() ->
 		{document_root, nitrogen:get_wwwroot()},
 		{server_root, "."},
 		{bind_address, any},
-		{server_name, "localhost"},
+		{server_name, nitrogen:get_host()},
 		{modules, [wf_inets, mod_head, mod_get]},
 		{mime_types, [{"css", "text/css"}, {"js", "text/javascript"}, {"html", "text/html"}]}
 	], stand_alone),

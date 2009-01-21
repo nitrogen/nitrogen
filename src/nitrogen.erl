@@ -12,6 +12,7 @@
 	route/1,
 	request/1,
 	get_platform/0,
+	get_host/0,
 	get_port/0,
 	get_session_timeout/0,
 	get_sign_key/0,
@@ -75,6 +76,12 @@ get_session_timeout() ->
 		_ -> 20
 	end.
 	
+get_host() -> 
+	case application:get_env(host) of 
+		{ok, Val} -> Val;
+		_ -> "localhost"
+	end.
+
 get_port() -> 
 	case application:get_env(port) of 
 		{ok, Val} -> Val;
