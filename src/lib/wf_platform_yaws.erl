@@ -19,7 +19,9 @@
 	
 	create_header/2,
 	
-	build_response/0
+	build_response/0,
+
+        get_peername/0
 ]).
 
 get_platform() -> yaws.
@@ -88,3 +90,10 @@ build_response() ->
 		get(wf_headers),
 		{content, ContentType, Body}
 	]).
+
+
+%%% SOCKETS %%%
+
+get_peername() ->
+	Arg = wf_platform:get_request(),
+	inet:peername(Arg#arg.clisock).

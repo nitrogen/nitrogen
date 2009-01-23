@@ -20,6 +20,7 @@
 	clear_redirect/0,
 	set_redirect/1,
 	set_header/2,
+        get_peername/0,
 	route/1, request/1,
 	set_response_code/1,
 	set_content_type/1,
@@ -97,6 +98,9 @@ set_header(Key, Value) ->
 	ok.
 	
 
+%%% SOCKETS %%%
+
+get_peername() -> do(get_peername).
 
 %%% ROUTE AND REQUEST %%%
 
