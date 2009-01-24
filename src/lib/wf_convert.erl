@@ -47,6 +47,8 @@ html_encode(L, true) -> html_encode(wf:to_list(lists:flatten([L]))).
 html_encode([]) -> [];
 html_encode([H|T]) ->
 	case H of
+		$\s -> "&nbsp;" ++ html_encode(T);
+		$\t -> "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ++ html_encode(T);
 		$< -> "&lt;" ++ html_encode(T);
 		$> -> "&gt;" ++ html_encode(T);
 		$" -> "&quot;" ++ html_encode(T);

@@ -38,15 +38,28 @@
 
 
 -module(sync).
--compile(export_all).
+-export ([
+	go/0,
+	make/0, make/1,
+	deploy/2,
+	start/2,
+	mkdir/2,
+	add_path/2,
+	
+	% private
+	remote/1
+]).
+
+-include ("wf.inc").
 
 go() -> make(node()).
 
 deploy(Nodes, Apps) -> 
 	make(node()),
-	mirror:dir(Nodes, ".", ["./ebin", "./Mnesia", "./mnesia"]),
+	mirror:dir(Nodes, ".", ["./ebin", "./Mnesia", "./mnesia", ".git", ".svn"]),
 	mkdir(Nodes, "./ebin/"),
 	make(Nodes),
+	add_path(Nodes, "./ebin/"),
 	start(Nodes, Apps),
 	ok.	
 	
@@ -130,7 +143,19 @@ remote(Function) -> Function().
 	
 mkdir(Nodes, Dir) ->
 	Nodes1 = normalize_nodes(Nodes),
-	case rpc:multicall(Nodes1, filelib, ensure_dir, [Dir]) of
+	F = fun() -> ok = filelib:ensure_dir(Dir ++ "/") end,
+	case rpc:multicall(Nodes1, sync, remote, [F]) of
+		{_, []} -> ok;
+		{_, BadNodes} -> throw(BadNodes)
+	end,
+	ok.
+
+add_path(Nodes, Dir) ->
+	Nodes1 = normalize_nodes(Nodes),
+	?PRINT(Nodes1),
+	?PRINT(Dir),
+	F = fun() -> ok = filelib:ensure_dir(Dir ++ "/"), true = code:add_path(Dir) end,
+	case rpc:multicall(Nodes1, sync, remote, [F]) of
 		{_, []} -> ok;
 		{_, BadNodes} -> throw(BadNodes)
 	end,
