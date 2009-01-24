@@ -21,7 +21,6 @@
 	set_redirect/1,
 	set_header/2,
 	route/1, request/1,
-	get_prehandler_module/0,
 	set_response_code/1,
 	set_content_type/1,
 	set_response_body/1,
