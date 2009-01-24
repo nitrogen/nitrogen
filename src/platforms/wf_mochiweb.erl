@@ -6,6 +6,7 @@
 -export ([loop/1, loop/2]).
 
 loop(Req) ->
+	wf_platform:init(wf_platform_mochiweb, Req),
 	Path = Req:get(path),
 	{Module, PathInfo} = wf_platform:route(Path),
 	loop(Req, Module, PathInfo).

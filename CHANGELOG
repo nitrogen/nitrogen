@@ -1,3 +1,13 @@
+2009-01-24
+- Add code-level documentation around comet.
+- Fix bug where comet functions would continue running after a user left the page.
+- Apply patch by Tom McNulty to allow request object access within the route/1 function.
+- Apply patch by Tom McNulty to correctly bind binaries.
+- Apply patch by Tom McNulty for wf_tags library to correctly handle binaries.
+
+2009-01-16
+- Clean up code around timeout events. (Events that will start running after X seconds on the browser.)
+
 2009-01-08
 - Apply changes by Jon Gretar to support 'nitrogen create PROJECT' and 'nitrogen page /web/page' scripts.
 - Finish putting all properties into .app file. Put request/1 into application module file.

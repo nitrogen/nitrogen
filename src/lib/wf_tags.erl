@@ -47,16 +47,10 @@ display_property({_, []}) -> "";
 display_property({Prop, Value}) when is_integer(Value); is_atom(Value) ->
 	[" ", Prop, "='", wf:to_list(Value), "'"];
     
-display_property({Prop, Value}) when ?IS_STRING(Value) ->    
+display_property({Prop, Value}) when is_binary(Value); ?IS_STRING(Value) ->
 	[" ", Prop, "='", Value, "'"];
 
 display_property({Prop, Values}) ->
 	StrValues = [wf:to_list(X) || X <- Values],
 	[" ", Prop, "='", string:join(StrValues, " "), "'"].
     
-
-
-
-
-
-

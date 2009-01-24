@@ -8,6 +8,7 @@
 -export ([out/1, out/2]).
 
 out(Arg) ->
+	wf_platform:init(wf_platform_yaws, Arg),
 	Path = Arg#arg.server_path,
 	{Module, PathInfo} = wf_platform:route(Path),
 	out(Arg, Module, PathInfo).
@@ -16,7 +17,5 @@ out(Arg, Module) -> out(Arg, Module, "").
 
 out(Arg, Module, PathInfo) ->
 	wf_platform:init(wf_platform_yaws, Arg),
-	try 
-		wf_handle:handle_request(Module, PathInfo)
-	catch _ : _ -> ?PRINT(erlang:get_stacktrace())
-	end.
+	wf_handle:handle_request(Module, PathInfo).
+	
