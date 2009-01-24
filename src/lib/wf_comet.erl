@@ -30,7 +30,7 @@
 % How long should we wait for a browser to request comet content
 % before we say that the user has navigated away from the current
 % page? 
--define(COMET_REQUEST_TIMEOUT, 10000).
+-define(COMET_REQUEST_TIMEOUT, 20000).
 
 % How long should we wait (on the server side) between polls when
 % polling the comet function for new content?
