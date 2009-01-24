@@ -72,8 +72,6 @@
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
 					<date>2009-01-08T14:15:49Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -87,15 +85,13 @@
 					<key>filename</key>
 					<string>src/web_index.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-07T18:07:17Z</date>
+					<date>2009-01-24T15:07:34Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/footer.erl</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Code</string>
 		</dict>
@@ -130,13 +126,6 @@
 	<key>treeState</key>
 	<dict>
 		<key>Apps</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict/>
-		</dict>
-		<key>Code</key>
 		<dict>
 			<key>isExpanded</key>
 			<true/>

@@ -102,10 +102,10 @@ set_header(Key, Value) ->
 %%% ROUTE AND REQUEST %%%
 
 route(Path) ->
-	PreModule = get_prehandler_module(),
-	case erlang:function_exported(PreModule, route, 1) of
+	HooksModule = nitrogen:get_hooks_module(),
+	case erlang:function_exported(HooksModule, route, 1) of
 		true -> 
-			case PreModule:route(Path) of
+			case HooksModule:route(Path) of
 				undefined -> nitrogen:route(Path);
 				{Module, PathInfo} -> {Module, PathInfo};
 				Module -> {Module, ""}
@@ -113,25 +113,14 @@ route(Path) ->
 		false -> nitrogen:route(Path)
 	end.
 	
-request(Module) ->	
+request(Module) ->
 	% Run the pre-request function, check if we
 	% should continue.
-	PreModule = get_prehandler_module(),
-	case erlang:function_exported(PreModule, request, 1) of
-		true -> PreModule:request(Module);
+	HooksModule = nitrogen:get_hooks_module(),
+	case erlang:function_exported(HooksModule, request, 1) of
+		true -> HooksModule:request(Module);
 		false -> nitrogen:request(Module)
 	end.
-
-get_prehandler_module() ->
-	case application:get_env(prehandler_module) of
-		{ok, Module} ->
-			Module;
-		undefined ->
-			{ok, {Module, _}} = application:get_key(mod),
-			Module
-	end.
-
-
 	
 %%% RESPONSE %%%
 
