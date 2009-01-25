@@ -4,7 +4,7 @@
 
 {see_also, [base]},
 
-{usage, "#image { url=\"http://hostname.com/path/to/image.png\" }" },
+{usage, "#image { image=\"http://hostname.com/path/to/image.png\" }" },
 
 {description, "The image element produces an HTML image."},
 
