@@ -19,18 +19,23 @@
 </div>
 
 <div class=topmenu1>
-<ul>
-	<li><a href="/web/samples" class="selected">Samples</a></ul>
-</ul>
+[[[topmenu1:render(Group)]]]
 <div class=clear></div>
 </div>
 
 <div class=topmenu2>
+[[[topmenu2:render(Group, Item)]]]
 <div class=clear></div>
 </div>
 		
 <div class=content>
-	<div class=middlecolumn style="margin-left: 20%;">
+	<div class=leftcolumn>
+		&nbsp;
+		<div class=leftmenu>[[[leftmenu:render(Group, Item)]]]</div>
+		[[[page:left()]]]
+	</div>	
+
+	<div class=middlecolumn>
 		<div class=headline>[[[page:headline()]]]</div>
 		[[[element_flash:render()]]]
 		<div class=columns>

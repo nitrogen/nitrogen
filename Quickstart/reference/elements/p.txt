@@ -1,0 +1,11 @@
+[
+
+{title, "New Paragraph Element"},
+
+{see_also, [base]},
+
+{usage, "#p{}"},
+
+{description, "The p element produces a new HTML paragraph."}
+
+].

@@ -1,0 +1,22 @@
+[
+
+{title, "Checkbox Element"},
+
+{see_also, [base, button, link, textbox, password, textarea, dropdown, option]},
+
+{usage, "#checkbox { id=checkbox1, text=\"Check Me\", checked=true }"},
+
+{description, "The checkbox element produces an HTML checkbox."},
+
+{attributes, [
+
+	{"text", "string", "The checkbox's title."},
+	
+	{"html_encode", "boolean", "Set to true to safely html-encode the text."},
+	
+	{"postback", "Erlang term", "If set, clicking on the checkbox will initiate a Nitrogen postback with the supplied term." },
+
+	{"checked", "boolean", "True if the checkbox should be checked." }
+]}
+
+].

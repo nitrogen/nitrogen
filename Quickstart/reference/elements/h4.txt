@@ -1,0 +1,17 @@
+[
+
+{title, "H4 Element"},
+
+{see_also, [base, h1, h2, h3]},
+
+{usage, "#h4 { text=\"Headline 4\" }"},
+
+{description, "The H4 element produces an HTML heading 4."},
+
+{attributes, [
+
+	{"text", "string", "The text of the heading."}
+	
+]}
+
+].

@@ -1,0 +1,19 @@
+[
+
+{title, "Alert Action"},
+
+{see_also, [base, confirm]},
+
+{usage, "
+	wf:wire(#alert { text=\"Some alert text.\" })
+"},
+
+{description, "
+	This action tells Nitrogen to trigger a Javascript alert.
+"},
+
+{attributes, [
+	{"text", "string", "The text of the alert."}
+]}
+
+].
