@@ -66,7 +66,9 @@ body() -> [
 		#listitem { text="List Item 1" },
 		#listitem { text="List Item 2" },
 		#listitem { body=#checkbox { text="List Item 3" }}
-	]}
+	]},
+    #h4 { text="Gravatar Image"},
+    #gravatar{ email= <<"dan.bravender@gmail.com">> }
 ].
 	
 event(_) -> ok.
