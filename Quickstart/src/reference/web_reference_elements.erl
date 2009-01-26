@@ -59,7 +59,8 @@ column1() ->
 		{ "/web/reference/elements/draggable", "Draggable" },
 		{ "/web/reference/elements/droppable", "Droppable" },
 		{ "/web/reference/elements/sortblock", "Sort Block" },
-		{ "/web/reference/elements/sortitem", "Sort Item" }
+		{ "/web/reference/elements/sortitem", "Sort Item" },
+        { "/web/reference/elements/gravatar", "Gravatar"}
 	],
 	
 	[
