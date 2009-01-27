@@ -45,7 +45,9 @@ column2() -> [
 	#p{},
 	#link { text="Counter with Comet", url="/web/samples/comet1" }, #br{},
 	#link { text="Chatroom with Comet", url="/web/samples/comet2" }, #br{},
-	#link { text="Continuations", url="/web/samples/continuations" }
+	#link { text="Multiple Comets with Graceful Exit", url="/web/samples/comet3" }, #br{},
+	#link { text="Continuations", url="/web/samples/continuations" }, #br{},
+	#link { text="Set Content Type", url="/web/samples/contenttype" }	
 ].
 	
 event(go) ->

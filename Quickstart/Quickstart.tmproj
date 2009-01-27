@@ -72,10 +72,10 @@
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
 					<date>2009-01-08T14:15:49Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>samples</string>
 					<key>regexFolderFilter</key>
@@ -84,10 +84,44 @@
 					<string>src/samples</string>
 				</dict>
 				<dict>
+					<key>name</key>
+					<string>reference</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/reference</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/web_test.erl</string>
+					<key>lastUsed</key>
+					<date>2009-01-25T14:20:04Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
+				<dict>
 					<key>filename</key>
 					<string>src/web_index.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-07T18:07:17Z</date>
+					<date>2009-01-24T15:07:34Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/topmenu1.erl</string>
+					<key>lastUsed</key>
+					<date>2009-01-25T13:24:58Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/topmenu2.erl</string>
+					<key>lastUsed</key>
+					<date>2009-01-25T13:24:59Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/leftmenu.erl</string>
+					<key>lastUsed</key>
+					<date>2009-01-25T13:31:46Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -106,13 +140,13 @@
 					<key>filename</key>
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
-					<date>2009-01-07T02:06:50Z</date>
+					<date>2009-01-25T13:31:46Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>wwwroot/twocolumn.html</string>
 					<key>lastUsed</key>
-					<date>2008-12-29T03:00:06Z</date>
+					<date>2009-01-25T13:31:45Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -141,7 +175,15 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict/>
+			<dict>
+				<key>samples</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
 		</dict>
 		<key>Scripts</key>
 		<dict>
@@ -159,6 +201,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{250, 103}, {883, 577}}</string>
+	<string>{{289, 128}, {883, 577}}</string>
 </dict>
 </plist>

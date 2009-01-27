@@ -1,0 +1,17 @@
+[
+
+{title, "Image Element"},
+
+{see_also, [base]},
+
+{usage, "#image { image=\"http://hostname.com/path/to/image.png\" }" },
+
+{description, "The image element produces an HTML image."},
+
+{attributes, [
+
+	{"image", "string", "Set the src of the image."}
+	
+]}
+
+].

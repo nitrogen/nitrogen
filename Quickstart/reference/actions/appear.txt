@@ -1,0 +1,20 @@
+[
+
+{title, "Appear Action"},
+
+{see_also, [base, fade]},
+
+{usage, "
+	wf:wire(myDiv, #appear { speed=500 })
+"},
+
+
+{description, "
+	Call JQuery's <a href='http://docs.jquery.com/Effects/fadeIn'>fadeIn(speed)</a> on the target element.
+"},
+
+{attributes, [
+	{"speed", "integer", "Speed of the effect, in milliseconds."}
+]}
+
+].

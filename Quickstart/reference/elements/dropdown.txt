@@ -1,0 +1,31 @@
+[
+
+{title, "DropDown Element"},
+
+{see_also, [base, option, button, textbox, password, textarea, checkbox]}, 
+
+{usage, "
+#dropdown { id=dropdown1, value=\"2\", options=[
+	#option { text=\"Option 1\", value=\"1\" },
+	#option { text=\"Option 2\", value=\"2\" },
+	#option { text=\"Option 3\", value=\"3\" }
+]}
+"},
+
+{description, "The dropdown element produces an HTML dropdown."},
+
+{attributes, [
+
+	{"options", "list of option elements", "Set the available options for this dropdown."},
+	
+	{"html_encode", "boolean", "Set to true to safely html-encode the options' text."},
+	
+	{"postback", "Erlang term", "
+			If set, selecting an option will automatically
+      initiate a Nitrogen postback with the supplied term."},
+
+	{"value", "string", "If set, the option matching this value will be selected by default."}
+	
+]}
+
+].

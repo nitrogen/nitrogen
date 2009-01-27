@@ -1,0 +1,17 @@
+[
+
+{title, "Table Row Element"},
+
+{see_also, [base, table, tableheader, tablecell, singlerow]},
+
+{usage, "See table."}, 
+
+{description, "The table row element allows you to specify a row within a table element."},
+
+{attributes, [
+
+	{"cells", "One or more tableheader or tablecell elements.", "Set the header cells or content cells to be rendered within this row."}
+	
+]}
+
+].

@@ -10,15 +10,44 @@
 	get_content/0
 ]).
 
--define(CONTENT_LOOP_INTERVAL, 300).
+% Comet in Nitrogen has three moving parts:
+%
+% 1. A comet function (passed into comet/1) that will generate content 
+%    and send it to a middleman process. A page can have multiple comet 
+%    functions running at the same time.
+%
+% 2. A middleman process that buffers new content and sends it to the browser.
+%    A page only has one middleman process running at any given time. If the middleman
+%    doesn't see any action for COMET_REQUEST_TIMEOUT milliseconds, it will assume
+%    that the user has navigated away from the page and die, killing the comet function 
+%    above in the process.
+%    
+% 3. The process created when the browser opens a long-running http request. This 
+%    process will ask the middleman for data at a rate of CONTENT_LOOP_INTERVAL for up to
+%    INACTIVITY_TIMEOUT milliseconds, and deliver the content to the browser in the form
+%    of Javascript.
+
+% How long should we wait for a browser to request comet content
+% before we say that the user has navigated away from the current
+% page? 
 -define(COMET_REQUEST_TIMEOUT, 20000).
+
+% How long should we wait (on the server side) between polls when
+% polling the comet function for new content?
+-define(CONTENT_LOOP_INTERVAL, 300).
+
+% How long should we wait for the comet function to generate content
+% before just returning a blank string to the browser. When this timeout
+% is reached, the browser will stop the current open comet request
+% and start a new one.
 -define(INACTIVITY_TIMEOUT, 20000).
+
 
 comet(Function) -> comet(long_poll, Function).
 
 comet(Type, Function) ->
 	% Make sure the comet loop is running...
-	ensure_comet_loop(?COMET_REQUEST_TIMEOUT),
+	ensure_comet_loop(),
 	
 	CurrentState = get(),
 	F = fun() ->
@@ -28,7 +57,7 @@ comet(Type, Function) ->
 		
 		% HACK - We don't know if the page has flash or not,
 		% but assume it does, because if a comet function is
-		% writing to flash, then 99% of the time it will.
+		% present, then 99% of the time it will use flash.
 		wf:state(has_flash, true),
 		
 		% Link to wf_comet_pid so that we don't run if it's down...
@@ -92,7 +121,7 @@ get_content() ->
 %%% COMET LOOP %%%	
 	
 %% ensure_comet_loop/0 - Start the comet loop if it's not already started.
-ensure_comet_loop(Timeout) ->
+ensure_comet_loop() ->
 	CometPid = wf:state(wf_comet_pid),
 	IsCometPidAlive = CometPid /= undefined andalso wf_utils:is_process_alive(CometPid),
 	case IsCometPidAlive of
@@ -100,7 +129,7 @@ ensure_comet_loop(Timeout) ->
 			ok;
 		false ->
 			wf:wire(#comet_start {}),
-			Pid = spawn(fun() -> comet_loop(Timeout) end),
+			Pid = spawn(fun() -> comet_loop() end),
 			wf:state(wf_comet_pid, Pid)
 	end.
 
@@ -108,16 +137,20 @@ ensure_comet_loop(Timeout) ->
 %% comet_loop/2 - Spawned for each page with a #comet on it.
 %% Functions send content here, and it is saved in the mailbox
 %% until a get_content request comes along to read it.
-%% By default, it stops in 5 seconds.
-comet_loop(Timeout) ->
+%% If we do not get a get_content request after the Timeout, then
+%% assume the user has left.
+comet_loop() ->
 	receive
 		{Pid, get_content} -> 
 			Content = collect_content(),
 			Pid!{content, Content},
-			comet_loop(Timeout)
+			comet_loop()
 			
-	after 
-		Timeout -> stop
+	after ?COMET_REQUEST_TIMEOUT -> 
+			% Haven't seen any action in a while. Assume that the user
+			% has left the page. Exit to kill any comet functions running
+			% on the page.
+			exit(stop_comet)
 	end.
 
 %% collect_content/0 - Gather all content sent to this comet_loop.

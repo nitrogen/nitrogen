@@ -80,7 +80,7 @@ apply_bindings(Bindings, Term) when is_tuple(Term) ->
 		{{RepID, RepAttr}, Value} = Binding,
 		case RepID == ID of
 			true -> replace_field(RepAttr, Value, Fields, Rec);
-			false ->Rec
+			false -> Rec
 		end
 	end,
 	Term1 = lists:foldl(F1, Term, Bindings),
@@ -94,7 +94,10 @@ apply_bindings(Bindings, Term) when is_tuple(Term) ->
 				replace_field(ChildField, Children1, Fields, Rec)
 		end
 	end,
-	lists:foldl(F2, Term1, [body, empty_body, rows, cells]).	
+  lists:foldl(F2, Term1, [body, empty_body, rows, cells]);
+    
+apply_bindings(_, Term) -> Term.
+
 	
 get_field(Key, Fields, Rec) -> 
 	case indexof(Key, Fields) of

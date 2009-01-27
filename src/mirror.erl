@@ -19,7 +19,13 @@
 %
 
 -module(mirror).
--compile(export_all).
+-export ([
+	file/2,
+	dir/3,
+	
+	% Private
+	remote/1
+]).
 
 file(Nodes, File) -> 
 	mirror(Nodes, [File]),

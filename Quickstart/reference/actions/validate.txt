@@ -1,0 +1,24 @@
+[
+
+{title, "Validate Action"},
+
+{see_also, [base]},
+
+{usage, "
+wf:wire(myButton, myTextbox, #validate { validators=[<br>
+&nbsp;&nbsp;#is_required { text=\"Required.\" }<br>
+]})
+"},
+
+
+{description, "
+	This action tells Nitrogen to validate input fields during a postback or blur event.
+"},
+
+{attributes, [
+	{"on", "atom, submit by default", "Set to 'submit' to validate fields during a postback. Set to 'blur' to validate when the field loses focus."},
+	{"success_text", "String", "Text to display next to a field when the field passes validation."},
+	{"validators", "Validator, or List of Validators", "The validators to run on this field."},
+	{"attach_to", "atom", "Specify the id of a Nitrogen element to attach to. By default, the validator will attach to the target of the action."}
+]}
+].

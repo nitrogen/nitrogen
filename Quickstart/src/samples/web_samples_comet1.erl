@@ -30,7 +30,7 @@ background_update(ControlID, Count) ->
 	
 	% Update the control.
 	wf:update(ControlID, wf:to_list(Count)),
-
+	
 	% wf:comet_flush() is only needed because we are looping. Otherwise,
 	% we could just let the function complete.
 	wf:comet_flush(),

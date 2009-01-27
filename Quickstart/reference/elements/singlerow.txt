@@ -1,0 +1,26 @@
+[
+
+{title, "Single Row Element"},
+
+{see_also, [base, tableheader, tablecell]},
+
+{usage, "
+	#singlerow { cells=[
+		#tablecell { body=\"Cell Text\" },
+		#tablecell { body=#link { text=\"Link\" }
+	]}
+"},
+
+{description, "
+  The single row element is a shortcut for a table with one row.
+  <p>
+  Commonly used by CSS anti-purists to get simple layouts to work in cross-browser scenarious.
+  See <a href='http://giveupandusetables.com'>this site</a> for more information."},
+
+{attributes, [
+
+	{"cells", "One or more tablecell elements.", "Set the table cells to be rendered within this row."}
+
+]}
+
+].

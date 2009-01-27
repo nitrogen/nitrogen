@@ -15,7 +15,8 @@
 	get_port/0,
 	get_session_timeout/0,
 	get_sign_key/0,
-	get_wwwroot/0
+	get_wwwroot/0,
+	get_hooks_module/0
 ]).
 
 start() -> supervisor:start_link(?MODULE, []).
@@ -31,6 +32,9 @@ init(_Args) ->
 	{ok,{SupFlags,[NitrogenServer, SessionServer, SessionSup]}}.
 
 start_server() ->
+	HooksModule = get_hooks_module(),
+	code:ensure_loaded(HooksModule),
+	
 	Result = case get_platform() of
 		yaws     -> nitrogen_yaws_app:start();
 		mochiweb -> nitrogen_mochiweb_app:start();
@@ -87,4 +91,13 @@ get_sign_key() ->
 	case application:get_env(sign_key) of
 		{ok, Val} -> Val;
 		_ -> throw("You must declare a sign_key!")
+	end.
+
+get_hooks_module() ->
+	case application:get_env(hooks_module) of
+		{ok, Module} ->
+			Module;
+		undefined ->
+			{ok, {Module, _}} = application:get_key(mod),
+			Module
 	end.

@@ -19,8 +19,8 @@ render_action(TriggerPath, TargetPath, Record) ->
 				wf:f("});\r\n")
 			];
 		
-		_ when EventType == interval orelse EventType == continuation ->
-			wf:f("setTimeout(\"~s ~s\", ~p);", [wf_utils:js_escape(Postback), wf_utils:js_escape(Actions), Record#event.interval]);
+		_ when EventType == timer orelse EventType == continuation ->
+			wf:f("setTimeout(\"~s ~s\", ~p);", [wf_utils:js_escape(Postback), wf_utils:js_escape(Actions), Record#event.delay]);
 			
 		_ ->
 			[

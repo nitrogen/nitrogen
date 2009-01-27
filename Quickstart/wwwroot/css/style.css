@@ -16,7 +16,7 @@ a:hover { color: #E35; text-decoration: underline; }
 .leftcolumn, .rightcolumn { width: 18%; }
 .middlecolumn { width: 50%; }
 .leftcolumn, .middlecolumn, .rightcolumn { float: left; padding: 0% 2%; } 
-.leftcolumn { text-align: right; border-right: solid 1px #ddd; }
+.leftcolumn { text-align: right; }
 .rightcolumn { text-align: left; border-left: solid 1px #DDD; }
 
 /*** TOP MENU1 ***/

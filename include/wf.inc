@@ -63,6 +63,7 @@
 -record(sortitem, {?ELEMENT_BASE(element_sortitem), tag, body=[] }).
 -record(draggable, {?ELEMENT_BASE(element_draggable), tag, body=[], group, handle, clone=true, revert=true}).
 -record(droppable, {?ELEMENT_BASE(element_droppable), tag, body=[], accept_groups=all, active_class=active, hover_class=hover}).
+-record(gravatar, {?ELEMENT_BASE(element_gravatar), email="", size="80", rating="g", default=""}).
 
 %%% Controls %%%
 -define(CONTROL_BASE(Module), ?ELEMENT_BASE(Module), tag).
@@ -72,14 +73,14 @@
 %%% Actions %%%
 -define(ACTION_BASE(Module), module=Module, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
--record(event, {?ACTION_BASE(action_event), type=click, interval=1, postback, delegate, controls=[]}).
+-record(event, {?ACTION_BASE(action_event), type=click, delay=1, postback, delegate}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
 -record(validation_error, {?ACTION_BASE(action_validation_error), text="" }).
 -record(alert, {?ACTION_BASE(action_alert), text=""}).
 -record(confirm, {?ACTION_BASE(action_confirm), text="", postback}).
 -record(script, {?ACTION_BASE(action_script), script}).
 -record(disable_selection, {?ACTION_BASE(action_disable_selection)}).
--record(jquery_effect, {?ACTION_BASE(action_jquery_effect), type, effect, speed, options=[], class, style, easing}).
+-record(jquery_effect, {?ACTION_BASE(action_jquery_effect), type, effect, speed, options=[], class, easing}).
 -record(show, {?ACTION_BASE(action_show), effect=none, options=[], speed=500}).
 -record(hide, {?ACTION_BASE(action_hide), effect=none, options=[], speed=500}).
 -record(appear, {?ACTION_BASE(action_appear), speed=500}).
@@ -91,7 +92,6 @@
 -record(animate, {?ACTION_BASE(action_animate), options=[], speed=500, easing=swing}).
 -record(buttonize, {?ACTION_BASE(action_buttonize)}).
 -record(comet_start, {?ACTION_BASE(action_comet_start)}).
--record(comet_stop, {?ACTION_BASE(action_comet_stop)}).
 
 %%% Validators %%%
 -define(VALIDATOR_BASE(Module), module=Module, text="Failed.").

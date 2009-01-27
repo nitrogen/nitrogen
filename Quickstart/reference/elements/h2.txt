@@ -1,0 +1,17 @@
+[
+
+{title, "H2 Element"},
+
+{see_also, [base, h1, h3, h4]},
+
+{usage, "#h2 { text=\"Headline 2\" }"},
+
+{description, "The H2 element produces an HTML heading 2."},
+
+{attributes, [
+
+	{"text", "string", "The text of the heading."}
+	
+]}
+
+].

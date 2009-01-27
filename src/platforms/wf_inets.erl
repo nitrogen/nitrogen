@@ -7,6 +7,7 @@
 -export ([do/1]).
 	
 do(Info) ->
+	wf_platform:init(wf_platform_inets, Info),
 	{Path, _QueryString} = httpd_util:split_path(Info#mod.request_uri),
 	{Module, PathInfo} = wf_platform:route(Path),
 	case Path of

@@ -1,0 +1,24 @@
+[
+
+{title, "Rounded Panel Element"},
+
+{see_also, [base, panel, span]},
+
+{usage, "
+#rounded_panel { color=white, body=[
+	#h3 { text=\"Title\" },
+	\"This is a rounded panel.\"
+]}
+"},
+
+{description, "The rounded panel element produces a Web 2.0 style rounded panel on the page."},
+
+{attributes, [
+
+	{"body", "Nitrogen element or list of elements.", "Set the element or elements that will be rendered within this panel."},
+	
+	{"color", "An atom, either 'white', 'black', or 'gray'", "Set the background color of the panel."}
+	
+]}
+
+].

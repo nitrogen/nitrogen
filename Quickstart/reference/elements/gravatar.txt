@@ -1,0 +1,27 @@
+[
+
+{title, "Gravatar Element"},
+
+{see_also, [image]},
+
+{usage, "
+#gravatar { email=\"email@address.com\"
+            size=\"80\", 
+            rating=\"g\", 
+            default=\"identicon\" }
+"},
+
+{description, "
+  The gravatar element displays an avatar that is associated with an email address. 
+  <p>
+  To use, create a gravatar element on your Nitrogen page, and set
+  the email, size and rating attributes."},
+
+{attributes, [
+    {"email", "string", "Email of the user whose icon will be displayed."},
+    {"size", "string", "Size of the gravatar image that is displayed."}, 
+    {"rating", "string", "g, pg, r, x." }, 
+    {"default", "string", "monsterid, wavatar or identicon."}
+]}
+
+].

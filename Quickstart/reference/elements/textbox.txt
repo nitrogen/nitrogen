@@ -1,0 +1,29 @@
+[
+
+{title, "Textbox Element"},
+
+{see_also, [base, button, password, textarea, checkbox, dropdown, option]},
+
+{usage, "
+	#textbox { id=textbox1, text=\"Some text.\", next=textbox2 }
+"},
+
+{description, "The textbox element produces an HTML textbox."},
+
+{attributes, [
+
+	{"text", "string", "Set the textbox's contents."},
+	
+	{"html_encode", "boolean", "Set to true to safely html-encode the text."},
+	
+	{"next", "atom", "
+      If set with a valid control ID, pressing the enter key in the 
+      textbox will automatically move focus to the specified control."},
+
+	{"postback", "Erlang term", "
+      If set, pressing the enter key in the textbox will automatically
+      initiate a Nitrogen postback with the supplied term."}
+
+]}
+
+].
