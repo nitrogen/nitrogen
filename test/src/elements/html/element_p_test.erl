@@ -9,18 +9,18 @@
 
 new_p_1() ->
   Rec_p = #p{},
-  ps:flatten(element_p:render("123123",Rec_p)).
+  lists:flatten(element_p:render("123123",Rec_p)).
 
 new_p_2() ->
   Rec_p = #p{class='t_p'},
-  ps:flatten(element_p:render("123125",Rec_p)).
+  lists:flatten(element_p:render("123125",Rec_p)).
 
 new_p_3() ->
   Rec_p = #p{class='t_p', style='color: cyan;'},
-  ps:flatten(element_p:render("123125",Rec_p)).
+  lists:flatten(element_p:render("123125",Rec_p)).
 
 basic_test_() ->
-    [?_assertEqual("<p size='1' id='123123' class='p'/>",new_p_1()),
-     ?_assertEqual("<p size='1' id='123125' class='p t_p'/>",new_p_2()),
-     ?_assertEqual("<p size='1' id='123125' class='p t_p' style='color: cyan;'/>",new_p_3())
+    [?_assertEqual("<p id='123123' class='p'/>",new_p_1()),
+     ?_assertEqual("<p id='123125' class='p t_p'/>",new_p_2()),
+     ?_assertEqual("<p id='123125' class='p t_p' style='color: cyan;'/>",new_p_3())
     ].
