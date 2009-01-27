@@ -1,9 +1,0 @@
-title: H4 Element
-see_also:   base, h1, h2, h3
-
-description: >
-  The H1 element produces an HTML heading 4.
-
-attributes:
-  - name: text
-    description: The text of the heading.

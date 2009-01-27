@@ -74,8 +74,6 @@
 					<date>2009-01-08T14:15:49Z</date>
 				</dict>
 				<dict>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>samples</string>
 					<key>regexFolderFilter</key>
@@ -93,17 +91,9 @@
 				</dict>
 				<dict>
 					<key>filename</key>
-					<string>src/web_test.erl</string>
-					<key>lastUsed</key>
-					<date>2009-01-25T14:20:04Z</date>
-					<key>selected</key>
-					<true/>
-				</dict>
-				<dict>
-					<key>filename</key>
 					<string>src/web_index.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-24T15:07:34Z</date>
+					<date>2009-01-26T00:28:12Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -128,8 +118,6 @@
 					<string>src/footer.erl</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Code</string>
 		</dict>
@@ -170,21 +158,6 @@
 			<key>subItems</key>
 			<dict/>
 		</dict>
-		<key>Code</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict>
-				<key>samples</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-			</dict>
-		</dict>
 		<key>Scripts</key>
 		<dict>
 			<key>isExpanded</key>
@@ -201,6 +174,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{289, 128}, {883, 577}}</string>
+	<string>{{210, 0}, {1013, 778}}</string>
 </dict>
 </plist>

@@ -8,7 +8,9 @@
 			<key>filename</key>
 			<string>CHANGELOG</string>
 			<key>lastUsed</key>
-			<date>2009-01-24T14:59:34Z</date>
+			<date>2009-01-27T03:38:26Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -42,8 +44,6 @@
 					<string>src/mirror.erl</string>
 					<key>lastUsed</key>
 					<date>2009-01-18T16:12:20Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -246,7 +246,7 @@
 									<key>filename</key>
 									<string>src/elements/html/element_link.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:04:04Z</date>
+									<date>2009-01-27T17:51:37Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -776,6 +776,20 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
+		<key>include/wf.inc</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>65</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>52</integer>
+		</dict>
 		<key>src/actions/action_event.erl</key>
 		<dict>
 			<key>caret</key>
@@ -959,20 +973,6 @@
 			<integer>0</integer>
 		</dict>
 		<key>src/elements/html/element_label.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_link.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -1196,6 +1196,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>src/lib/wf_redirect.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>23</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>src/lib/wf_session.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1251,6 +1265,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>11</integer>
+		</dict>
+		<key>src/platforms/wf_inets.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>src/web_x.erl</key>
 		<dict>
