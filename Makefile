@@ -1,4 +1,8 @@
+all: compile test
+
 compile: 
+	mkdir -p ebin
+	mkdir -p test/ebin
 	erl -make
 
 clean:
