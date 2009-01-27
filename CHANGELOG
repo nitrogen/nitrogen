@@ -1,3 +1,6 @@
+2006-01-26
+- Added Gravatar support by Dan Bravender.
+
 2009-01-24
 - Add code-level documentation around comet.
 - Fix bug where comet functions would continue running after a user left the page.
