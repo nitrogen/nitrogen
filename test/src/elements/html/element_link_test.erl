@@ -12,11 +12,11 @@ new_link_1() ->
   lists:flatten(element_link:render("123121",Rec_link)).
 
 new_link_2() ->
-  Rec_link = #link{postback='undefined'},
+  Rec_link = #link{postback="undefined"},
   lists:flatten(element_link:render("123122",Rec_link)).
 
 new_link_3() ->
-  Rec_link = #link{postback='Postback'},
+  Rec_link = #link{postback="Postback"},
   lists:flatten(element_link:render("123123",Rec_link)).
 
 new_link_4() ->

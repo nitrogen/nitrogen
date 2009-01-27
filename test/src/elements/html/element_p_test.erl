@@ -12,11 +12,11 @@ new_p_1() ->
   lists:flatten(element_p:render("123123",Rec_p)).
 
 new_p_2() ->
-  Rec_p = #p{class='t_p'},
+  Rec_p = #p{class="t_p"},
   lists:flatten(element_p:render("123125",Rec_p)).
 
 new_p_3() ->
-  Rec_p = #p{class='t_p', style='color: cyan;'},
+  Rec_p = #p{class="t_p", style="color: cyan;"},
   lists:flatten(element_p:render("123125",Rec_p)).
 
 basic_test_() ->

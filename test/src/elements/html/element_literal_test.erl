@@ -9,18 +9,18 @@
 
 new_literal_1() ->
   Rec_literal = #literal{},
-  (element_literal:render("123123",Rec_literal)).
+  (element_literal:render("123123",Rec_literal)).  % the value does nothing
 
 new_literal_2() ->
-  Rec_literal = #literal{class='t_literal'},
+  Rec_literal = #literal{class="t_literal"},
   (element_literal:render("123125",Rec_literal)).
 
 new_literal_3() ->
-  Rec_literal = #literal{class='t_literal', style='color: cyan;', text='http://an_literal.com/sample/literal.jpg'},
+  Rec_literal = #literal{class="t_literal", style="color: cyan;", text="http://an_literal.com/sample/literal.jpg"},
   (element_literal:render("123125",Rec_literal)).
 
 basic_test_() ->
-    [?_assertEqual("<literal id='123123' class='literal'/>",new_literal_1()),
-     ?_assertEqual("<literal id='123125' class='literal t_literal'/>",new_literal_2()),
-     ?_assertEqual("<literal id='123125' class='literal t_literal' style='color: cyan;'/>",new_literal_3())
+    [?_assertEqual("",new_literal_1()),
+     ?_assertEqual("",new_literal_2()),
+     ?_assertEqual("http://an_literal.com/sample/literal.jpg",new_literal_3())
     ].
