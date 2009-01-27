@@ -20,7 +20,7 @@ new_list_3() ->
   lists:flatten(element_list:render("123125",Rec_list)).
 
 basic_test_() ->
-    [?_assertEqual("<list size='1' id='123123' class='list'/>",new_list_1()),
-     ?_assertEqual("<list size='1' id='123125' class='list t_list'/>",new_list_2()),
-     ?_assertEqual("<list size='1' id='123125' class='list t_list' style='color: cyan;'/>",new_list_3())
+    [?_assertEqual("<list id='123123' class='list'/>",new_list_1()),
+     ?_assertEqual("<list id='123125' class='list t_list'/>",new_list_2()),
+     ?_assertEqual("<list id='123125' class='list t_list' style='color: cyan;'/>",new_list_3())
     ].

@@ -20,7 +20,7 @@ new_label_3() ->
   lists:flatten(element_label:render("123125",Rec_label)).
 
 basic_test_() ->
-    [?_assertEqual("<label size='1' id='123123' class='label'/>",new_label_1()),
-     ?_assertEqual("<label size='1' id='123125' class='label t_label'/>",new_label_2()),
-     ?_assertEqual("<label size='1' id='123125' class='label t_label' style='color: cyan;'/>",new_label_3())
+    [?_assertEqual("<label id='123123' class='label'/>",new_label_1()),
+     ?_assertEqual("<label id='123125' class='label t_label'/>",new_label_2()),
+     ?_assertEqual("<label id='123125' class='label t_label' style='color: cyan;'/>",new_label_3())
     ].

@@ -20,7 +20,7 @@ new_image_3() ->
   lists:flatten(element_image:render("123125",Rec_image)).
 
 basic_test_() ->
-    [?_assertEqual("<image size='1' id='123123' class='image'/>",new_image_1()),
-     ?_assertEqual("<image size='1' id='123125' class='image t_image'/>",new_image_2()),
-     ?_assertEqual("<image size='1' id='123125' class='image t_image' style='color: cyan;'/>",new_image_3())
+    [?_assertEqual("<image id='123123' class='image'/>",new_image_1()),
+     ?_assertEqual("<image id='123125' class='image t_image'/>",new_image_2()),
+     ?_assertEqual("<image id='123125' class='image t_image' style='color: cyan;'/>",new_image_3())
     ].
