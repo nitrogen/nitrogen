@@ -30,12 +30,13 @@ new_list_5() ->
 new_list_6() ->
   Rec_list = #list{class="t_list", style="color: cyan;", numbered=true, body="SOME BODY"},
   lists:flatten(element_list:render("6",Rec_list)).
+
 basic_test_() ->
-    [
-     ?_assertEqual("<ul id='1' class='list'></ul>",new_list_1()),
-     ?_assertEqual("<ul id='2' class='list t_list'></ul>",new_list_2()),
-     ?_assertEqual("<ul id='3' class='list t_list' style='color: cyan;'>SOME BODY</ul>",new_list_3()),
-     ?_assertEqual("<ol id='4' class='list'></ol>",new_list_4()),
-     ?_assertEqual("<ol id='5' class='list t_list'></ol>",new_list_5()),
-     ?_assertEqual("<ol id='6' class='list t_list' style='color: cyan;'>SOME BODY</ol>",new_list_6())
-    ].
+  [
+   ?_assertEqual("<ul id='1' class='list'></ul>",new_list_1()),
+   ?_assertEqual("<ul id='2' class='list t_list'></ul>",new_list_2()),
+   ?_assertEqual("<ul id='3' class='list t_list' style='color: cyan;'>SOME BODY</ul>",new_list_3()),
+   ?_assertEqual("<ol id='4' class='list'></ol>",new_list_4()),
+   ?_assertEqual("<ol id='5' class='list t_list'></ol>",new_list_5()),
+   ?_assertEqual("<ol id='6' class='list t_list' style='color: cyan;'>SOME BODY</ol>",new_list_6())
+  ].
