@@ -32,5 +32,5 @@ basic_test_() ->
      ?_assertEqual("<a id='123122' href='javascript:' class='link'></a>", new_link_2()),
      ?_assertEqual("<a id='123123' href='javascript:' class='link'></a>", new_link_3()),
      ?_assertEqual("<a id='123124' href='javascript:' class='link'>A LINK BODY</a>", new_link_4()),
-     ?_assertEqual("<a id='123124' href='not_javascript' class='link'>LINK TEXTA LINK BODY</a>", new_link_5())
+     ?_assertEqual("<a id='123124' href='not_javascript' class='link'>LINK&nbsp;TEXTA LINK BODY</a>", new_link_5())
     ].
