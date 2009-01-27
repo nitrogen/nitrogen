@@ -12,11 +12,11 @@ new_br_1() ->
   lists:flatten(element_br:render("123123",Rec_br)).
 
 new_br_2() ->
-  Rec_br = #br{class='t_br'},
+  Rec_br = #br{class="t_br"},
   lists:flatten(element_br:render("123125",Rec_br)).
 
 new_br_with_style() ->
-  Rec_br = #br{class='t_br', style='color: cyan;'},
+  Rec_br = #br{class="t_br", style="color: cyan;"},
   lists:flatten(element_br:render("123125",Rec_br)).
 
 basic_test_() ->

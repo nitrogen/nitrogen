@@ -12,15 +12,15 @@ new_span_1() ->
   lists:flatten(element_span:render("123123",Rec_span)).
 
 new_span_2() ->
-  Rec_span = #span{class='t_span'},
+  Rec_span = #span{class="t_span"},
   lists:flatten(element_span:render("123125",Rec_span)).
 
 new_span_3() ->
-  Rec_span = #span{class='t_span', style='color: cyan;', text='Some Text'},
+  Rec_span = #span{class="t_span", style="color: cyan;", text="Some Text"},
   lists:flatten(element_span:render("123125",Rec_span)).
 
 basic_test_() ->
     [?_assertEqual("<span id='123123'></span>",new_span_1()),
      ?_assertEqual("<span id='123125' class='t_span'></span>",new_span_2()),
-     ?_assertEqual("<span id='123125' class='t_span' style='color: cyan;'></span>", new_span_3())
+     ?_assertEqual("<span id='123125' class='t_span' style='color: cyan;'>Some&nbsp;Text</span>", new_span_3())
     ].

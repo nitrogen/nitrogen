@@ -12,15 +12,15 @@ new_listitem_1() ->
   lists:flatten(element_listitem:render("123123",Rec_listitem)).
 
 new_listitem_2() ->
-  Rec_listitem = #listitem{class='t_listitem'},
+  Rec_listitem = #listitem{class="t_listitem"},
   lists:flatten(element_listitem:render("123125",Rec_listitem)).
 
 new_listitem_3() ->
-  Rec_listitem = #listitem{class='t_listitem', style='color: cyan;', text='http://an_listitem.com/sample/listitem.jpg'},
+  Rec_listitem = #listitem{class="t_listitem", style="color: cyan;", text="http://an_listitem.com/sample/listitem.jpg"},
   lists:flatten(element_listitem:render("123125",Rec_listitem)).
 
 basic_test_() ->
     [?_assertEqual("<li id='123123' class='listitem'></li>",new_listitem_1()),
      ?_assertEqual("<li id='123125' class='listitem t_listitem'></li>",new_listitem_2()),
-     ?_assertEqual("<li id='123125' class='listitem t_listitem' style='color: cyan;'></li>",new_listitem_3())
+     ?_assertEqual("<li id='123125' class='listitem t_listitem' style='color: cyan;'>http://an_listitem.com/sample/listitem.jpg</li>",new_listitem_3())
     ].
