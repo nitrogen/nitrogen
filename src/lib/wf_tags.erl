@@ -52,11 +52,4 @@ display_property({Prop, Value}) when ?IS_STRING(Value) ->
 
 display_property({Prop, Values}) ->
 	StrValues = [wf:to_list(X) || X <- Values],
-	[" ", Prop, "='", string:join(StrValues, " "), "'"].
-    
-
-
-
-
-
-
+	[" ", Prop, "='", string:strip(string:join(StrValues, " ")), "'"].
