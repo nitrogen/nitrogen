@@ -22,5 +22,7 @@ new_label_3() ->
 basic_test_() ->
   [?_assertEqual("<span id='1' class='label'></span>",new_label_1()),
    ?_assertEqual("<span id='2' class='label t_label'></span>",new_label_2()),
-   ?_assertEqual("<span id='3' class='label t_label' style='color: cyan;'>Username:</span>",new_label_3())
+   ?_assertEqual("<span id='3' class='label t_label' style='color: cyan;'>Username:</span>",new_label_3()),
+   ?_assertEqual([module,id,actions,show_if,class,style,text,html_encode],
+	 element_label:reflect())
   ].

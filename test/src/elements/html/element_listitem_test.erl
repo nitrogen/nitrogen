@@ -22,5 +22,7 @@ new_listitem_3() ->
 basic_test_() ->
   [?_assertEqual("<li id='1' class='listitem'></li>",new_listitem_1()),
    ?_assertEqual("<li id='2' class='listitem t_listitem'></li>",new_listitem_2()),
-   ?_assertEqual("<li id='3' class='listitem t_listitem' style='color: cyan;'>http://an_listitem.com/sample/listitem.jpg</li>",new_listitem_3())
+   ?_assertEqual("<li id='3' class='listitem t_listitem' style='color: cyan;'>http://an_listitem.com/sample/listitem.jpg</li>",new_listitem_3()),
+   ?_assertEqual([module,id,actions,show_if,class,style,body,text,html_encode],
+	 element_listitem:reflect())
   ].

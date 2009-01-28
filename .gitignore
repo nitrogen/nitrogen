@@ -2,3 +2,5 @@
 .DS_Store
 http_servers
 test/ebin
+coverage
+
