@@ -1,31 +1,31 @@
 % Compile Nitrogen Files.
-{ './src/*', [
+{ './src/*', [ debug_info,
 	{ i, "./include" },
 	{ outdir, "./ebin" }
 ]}.
 
-{ './src/*/*', [
+{ './src/*/*', [ debug_info,
 	{ i, "./include" },
 	{ outdir, "./ebin" }
 ]}.
 
-{ './src/*/*/*', [
+{ './src/*/*/*', [ debug_info,
 	{ i, "./include" },
 	{ outdir, "./ebin" }
 ]}.
 
 % Compile the Nitrogen test files
-{ './test/src/*', [
+{ './test/src/*', [ debug_info,
 	{ i, "./include" },
 	{ outdir, "./test/ebin" }
 ]}.
 
-{ './test/src/*/*', [
+{ './test/src/*/*', [ debug_info,
 	{ i, "./include" },
 	{ outdir, "./test/ebin" }
 ]}.
 
-{ './test/src/*/*/*', [
+{ './test/src/*/*/*', [ debug_info,
 	{ i, "./include" },
 	{ outdir, "./test/ebin" }
 ]}.
