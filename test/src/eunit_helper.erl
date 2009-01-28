@@ -23,9 +23,6 @@ regexpMatch(Pattern, Actual) ->
 run_cover() ->
    %% TODO: Make this list dynamic
   SourceDirs = [
-    "./Quickstart/src",
-    "./Quickstart/src/reference",
-    "./Quickstart/src/samples",
     "./src",
     "./src/actions",
     "./src/elements/forms",
