@@ -1,6 +1,6 @@
 all: compile test
 
-compile: 
+compile:
 	mkdir -p ebin
 	mkdir -p test/ebin
 	erl -make
@@ -11,7 +11,7 @@ clean:
 	rm -rf ./test/ebin/*.*
 
 test: compile
-	erl -noshell -pa ebin -pa test/ebin -s init stop
+	erl -noshell -pa ebin -pa test/ebin -s test_suite test -s init stop
 
 coverage: compile
 	mkdir -p coverage
