@@ -36,6 +36,7 @@ run_cover() ->
     "./src/project",
     "./src/validators"
     "./test/src",
+    "./test/src/actions",
     "./test/src/elements/html"
   ],
 
