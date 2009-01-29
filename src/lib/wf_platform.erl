@@ -15,6 +15,9 @@
 	request_method/0,
 	parse_get_args/0,
 	parse_post_args/0,
+
+        get_headers/0,
+        get_header/1,
 	
 	get_cookie/1, set_cookie/2, set_cookie/4,
 	clear_redirect/0,
@@ -55,11 +58,16 @@ set_path_info(PathInfo) -> put(wf_path_info, PathInfo).
 get_raw_path() -> do(get_raw_path).
 get_querystring() -> do(get_querystring).
 
+
 %%% METHOD AND ARGS %%%
 
 request_method() -> do(request_method).
 parse_get_args() -> do(parse_get_args).
 parse_post_args() -> do(parse_post_args).
+
+get_headers()      -> do(get_headers).
+get_header(Header) -> do(get_header, [Header]).
+    
 	
 %%% COOKIES %%%
 	

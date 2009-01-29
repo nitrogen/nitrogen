@@ -10,7 +10,10 @@
 	get_raw_path/0,
 	get_querystring/0,
 	request_method/0,
-	
+
+        get_headers/0,
+        get_header/1,
+
 	parse_get_args/0,
 	parse_post_args/0,
 	
@@ -53,6 +56,17 @@ parse_post_args() ->
 	[{Key, Value} || {Key, Value} <- Query, Key /= []].
 
 
+%%% HEADERS
+
+get_headers() ->
+	Info = wf_platform:get_request(),
+	Info#mod.parsed_header.
+
+get_header(Header) ->
+        Info = wf_platform:get_request(),
+        {value, {_, Value}} = lists:keysearch(Header, 1, Info#mod.parsed_header),
+        Value.
+    
 	
 %%% COOKIES %%%
 	
