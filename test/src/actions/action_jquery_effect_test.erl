@@ -14,14 +14,23 @@ new_jquery_effect_1(EffectName) ->
   TargetPath="_target_path",
   lists:flatten(action_jquery_effect:render_action(TriggerPath,TargetPath, Record)).
 
+new_jquery_effect_2(EffectName) ->
+  % The effect  in a jquery_effect is a jquery_ui effect name
+  Record = #jquery_effect{ type=EffectName, effect="Pulsate", speed="a_speed", options=[{"Key1","Value1"},{'Key2','Value2'}], class="a_class", easing="some_easing"},
+  TriggerPath="_trigger_path",
+  TargetPath="_target_path",
+  lists:flatten(action_jquery_effect:render_action(TriggerPath,TargetPath, Record)).
+
 basic_test_() ->
   [
-  ?_assertEqual("wf_current_path=''; $(obj('_target_path')).show();", 
+  ?_assertEqual("wf_current_path=''; $(obj('_target_path')).show();",
                 new_jquery_effect_1('show')),
-  ?_assertEqual("wf_current_path=''; $(obj('_target_path')).show();", 
-                new_jquery_effect_1('show')),
+  ?_assertEqual("wf_current_path=''; $(obj('_target_path')).show('Pulsate', { Key1: 'Value1',Key2: 'Value2' }, \"a_speed\");",
+                new_jquery_effect_2('show')),  % With an Effect
   ?_assertEqual("wf_current_path=''; $(obj('_target_path')).hide();",
                 new_jquery_effect_1('hide')),
+  ?_assertEqual("wf_current_path=''; $(obj('_target_path')).hide('Pulsate', { Key1: 'Value1',Key2: 'Value2' }, \"a_speed\");",
+                new_jquery_effect_2('hide')),  % With an Effect
   ?_assertEqual("wf_current_path=''; $(obj('_target_path')).fadeIn(\"a_speed\");",
                 new_jquery_effect_1('appear')),
   ?_assertEqual("wf_current_path=''; $(obj('_target_path')).fadeOut(\"a_speed\");",
@@ -46,4 +55,4 @@ to_js_test_() ->
    ?_assertEqual("{ akey: 'anatom' }", action_jquery_effect:to_js([{akey,'anatom'}])),
    ?_assertEqual("{ akey: 'something else' }", action_jquery_effect:to_js([{akey,["something else"]}])),
    ?_assertEqual("{ akey: 152 }", action_jquery_effect:to_js([{akey,152}]))
-  ]. 
+  ].
