@@ -15,5 +15,11 @@ all_test_() ->
    {module, element_literal_test},
    {module, element_p_test},
    {module, element_span_test},
-   {module, element_value_test}
+   {module, element_value_test},
+
+   {module, action_add_class_test},
+   {module, action_alert_test},
+   {module, action_jquery_effect_test},
+   {module, action_animate_test}
+   
   ].
