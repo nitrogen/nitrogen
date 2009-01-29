@@ -11,7 +11,7 @@
 
 %% @doc
 %%
-%% This module makes use of 3 callback functions which is assumed
+%% This module makes use of 3 callback functions which are assumed
 %% to be available in the provided CallbackMod module.
 %%
 %% In order to use it, just call wf_http_basic_auth:run(Module, ?MODULE)
