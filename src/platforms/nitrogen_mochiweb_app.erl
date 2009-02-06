@@ -15,8 +15,15 @@ start() ->
 	Port = nitrogen:get_port(),
 	DocumentRoot = nitrogen:get_wwwroot(),
 	Options = [{ip, "0.0.0.0"}, {port, Port}],
-	Loop = fun (Req) -> ?MODULE:loop(Req, DocumentRoot) end,
+	HooksModule = nitrogen:get_hooks_module(),
+	case erlang:function_exported(HooksModule, loop, 2) of
+	    true ->
+		Loop = fun(Req) -> HooksModule:loop(Req, DocumentRoot) end;
+	    false ->
+		Loop = fun(Req) -> ?MODULE:loop(Req, DocumentRoot) end
+	end,
 	mochiweb_http:start([{name, get_name()}, {loop, Loop} | Options]).
+
 	
 loop(Req, DocRoot) ->
 	"/" ++ Path = Req:get(path),
