@@ -17,6 +17,7 @@
 	create_cookie/4,
 	
 	create_header/2,
+
 	get_headers/0,
 	get_header/1,
 	
@@ -95,7 +96,6 @@ get_headers() ->
 get_header(Header) ->
 	Req = wf_platform:get_request(),
 	Req:get_header_value(Header).
-
 	
 %%% RESPONSE %%%
 
