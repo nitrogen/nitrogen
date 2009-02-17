@@ -17,6 +17,8 @@
 	create_cookie/4,
 	
 	create_header/2,
+        get_headers/0,
+        get_header/1,
 	
 	build_response/0
 ]).
@@ -65,6 +67,13 @@ create_cookie(Key, Value, Path, MinutesToLive) ->
 create_header(Key, Value) ->
 	{Key, Value}.
 
+get_headers() ->
+    Req = wf_platform:get_request(),
+    Req:get(headers).
+
+get_header(Hdr) ->
+    Req = wf_platform:get_request(),
+    Req:get_header_value(Hdr).
 
 	
 %%% RESPONSE %%%
