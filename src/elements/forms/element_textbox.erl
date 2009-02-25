@@ -20,10 +20,11 @@ render(ControlID, Record) ->
 	
 	Value = wf:html_encode(Record#textbox.text, Record#textbox.html_encode),
 	wf_tags:emit_tag(input, [
-		{id, ControlID}, 
-		{name, ControlID},
-		{type, text}, 
-		{class, [textbox, Record#textbox.class]},
-		{style, Record#textbox.style},
-		{value, Value}
-	]).
+				 {id, ControlID}, 
+				 {name, ControlID},
+				 {type, text}, 
+				 {class, [textbox, Record#textbox.class]},
+				 {style, Record#textbox.style},
+				 {value, Value},
+				 {onfocus, Record#textbox.onfocus}
+				]).

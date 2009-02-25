@@ -9,10 +9,13 @@
 reflect() -> record_info(fields, textarea).
 
 render(ControlID, Record) -> 
-	Content = wf:html_encode(Record#textarea.text, Record#textarea.html_encode),
-	wf_tags:emit_tag(textarea, Content, [
-		{id, ControlID}, 
-		{name, ControlID}, 
-		{class, [textarea, Record#textarea.class]},
-		{style, Record#textarea.style}
-	]).
+    Content = wf:html_encode(Record#textarea.text, Record#textarea.html_encode),
+    wf_tags:emit_tag(textarea, Content, [
+					 {id, ControlID}, 
+					 {name, ControlID}, 
+					 {rows, Record#textarea.rows},
+					 {cols, Record#textarea.cols},
+					 {class, [textarea, Record#textarea.class]},
+					 {style, Record#textarea.style}
+					]).
+

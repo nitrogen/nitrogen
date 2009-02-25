@@ -38,12 +38,13 @@
 -record(span, {?ELEMENT_BASE(element_span), text="", html_encode=true}).
 -record(button, {?ELEMENT_BASE(element_button), text="Button", html_encode=true, postback}).
 -record(literal, {?ELEMENT_BASE(element_literal), text="", html_encode=true}).
--record(textbox, {?ELEMENT_BASE(element_textbox), text="", html_encode=true, next, postback}).
+-record(textbox, {?ELEMENT_BASE(element_textbox), text="", html_encode=true, onfocus="", next, postback}).
 -record(hidden, {?ELEMENT_BASE(element_hidden), text="", html_encode=true}).
--record(textarea, {?ELEMENT_BASE(element_textarea), text="", html_encode=true}).
+-record(textarea, {?ELEMENT_BASE(element_textarea), text="", html_encode=true, rows="5", cols="10"}).
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, value}).
 -record(option, { text="", value="", selected=false }).
 -record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback}).
+-record(radio, {?ELEMENT_BASE(element_radio), text="", html_encode=true, value, name, checked=false, postback}).
 -record(password, {?ELEMENT_BASE(element_password), text="", html_encode=true, next, postback}).
 -record(panel, {?ELEMENT_BASE(element_panel), body=""}).
 -record(spinner, {?ELEMENT_BASE(element_spinner), image="/nitrogen/spinner.gif"}).
