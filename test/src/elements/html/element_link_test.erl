@@ -3,7 +3,7 @@
 
 -author("michael@mullistechnologies.com").
 
--include_lib("eunit.hrl").
+-include_lib("eunit/include/eunit.hrl").
 
 -include("wf.inc").
 
