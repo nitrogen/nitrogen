@@ -47,7 +47,7 @@
 -record(password, {?ELEMENT_BASE(element_password), text="", html_encode=true, next, postback}).
 -record(panel, {?ELEMENT_BASE(element_panel), body=""}).
 -record(spinner, {?ELEMENT_BASE(element_spinner), image="/nitrogen/spinner.gif"}).
--record(image, {?ELEMENT_BASE(element_image), image=""}).
+-record(image, {?ELEMENT_BASE(element_image), image="", alt}).
 -record(rounded_panel, {?ELEMENT_BASE(element_rounded_panel), body="", color=gray}).
 -record(lightbox, {?ELEMENT_BASE(element_lightbox), body="" }).
 -record(table, {?ELEMENT_BASE(element_table), rows}).
