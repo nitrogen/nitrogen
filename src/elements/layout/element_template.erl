@@ -35,7 +35,9 @@ render(_ControlID, Record) ->
 	eval(Template, Record).
 
 
-parse_template(File) ->
+parse_template(File1) ->
+    File = filename:join(nitrogen:get_templateroot(), File1),
+    
 	case file:read_file(File) of
 		{ok, B} -> parse_template1(B);
 		_ -> 

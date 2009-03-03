@@ -16,6 +16,7 @@
 	get_session_timeout/0,
 	get_sign_key/0,
 	get_wwwroot/0,
+	get_templateroot/0,
 	get_hooks_module/0
 ]).
 
@@ -43,7 +44,8 @@ start_server() ->
 
 	io:format("~n~n---~n"),
 	io:format("Nitrogen is now running on ~s.~n", [get_platform()]),
-	io:format("Serving files from: ~s.~n", [get_wwwroot()]),
+	io:format("Serving files from: ~s~n", [get_wwwroot()]),
+	io:format("Template root is at: ~s~n", [get_templateroot()]),
 	io:format("Open your browser to: http://localhost:~p~n", [get_port()]),
 	io:format("---~n~n"),
 
@@ -86,6 +88,12 @@ get_wwwroot() ->
 		{ok, Val} -> Val;
 		_ -> "./wwwroot"
 	end.
+
+get_templateroot() ->
+    case application:get_env(templateroot) of
+        {ok, Val} -> Val;
+        _ -> "./wwwroot"
+    end.	
 	
 get_sign_key() -> 
 	case application:get_env(sign_key) of
