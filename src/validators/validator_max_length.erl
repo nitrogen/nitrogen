@@ -1,7 +1,7 @@
 % Nitrogen Web Framework for Erlang
 % Copyright (c) 2008-2009 Rusty Klophaus
+% Contributions from Torbjorn Tornkvist (tobbe@tornkvist.org)
 % See MIT-LICENSE for licensing information.
-% Created: 2009-01-23 by tobbe@tornkvist.org
 
 -module (validator_max_length).
 -include ("wf.inc").
