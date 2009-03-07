@@ -39,7 +39,7 @@ cycle_and_update(Speed, ControlID, List) ->
 			exit(done)
 	after 0 -> continue
 	end,
-
+	
 	% Sleep for a second, then update
 	timer:sleep(Speed),
 	

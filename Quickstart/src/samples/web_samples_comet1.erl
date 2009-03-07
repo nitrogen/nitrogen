@@ -34,7 +34,7 @@ background_update(ControlID, Count) ->
 	% wf:comet_flush() is only needed because we are looping. Otherwise,
 	% we could just let the function complete.
 	wf:comet_flush(),
-
+	
 	% Loop. This process will automatically be killed
 	% once the page stops requesting the output that
 	% it generates.

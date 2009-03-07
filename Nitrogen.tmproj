@@ -8,9 +8,7 @@
 			<key>filename</key>
 			<string>CHANGELOG</string>
 			<key>lastUsed</key>
-			<date>2009-01-27T03:38:26Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2009-02-01T17:34:05Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -49,7 +47,7 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-17T15:11:43Z</date>
+					<date>2009-03-04T04:03:12Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -85,37 +83,39 @@
 							<key>filename</key>
 							<string>src/platforms/nitrogen_inets_app.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-08T03:23:01Z</date>
+							<date>2009-02-20T21:58:08Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/nitrogen_mochiweb_app.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-08T03:07:02Z</date>
+							<date>2009-02-20T21:58:07Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/nitrogen_yaws_app.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-08T15:07:26Z</date>
+							<date>2009-02-20T21:58:08Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-24T14:52:35Z</date>
+							<date>2009-02-20T21:58:08Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-24T14:52:35Z</date>
+							<date>2009-02-20T21:58:07Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-24T14:52:35Z</date>
+							<date>2009-02-20T21:58:07Z</date>
 						</dict>
 					</array>
 					<key>expanded</key>
@@ -188,7 +188,7 @@
 							<key>filename</key>
 							<string>src/actions/action_event.erl</string>
 							<key>lastUsed</key>
-							<date>2008-12-30T23:42:02Z</date>
+							<date>2009-02-24T16:37:59Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -378,6 +378,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/forms/element_inplace_textbox.erl</string>
+									<key>lastUsed</key>
+									<date>2009-02-24T16:37:58Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -400,6 +402,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/forms/element_wizard.erl</string>
+									<key>lastUsed</key>
+									<date>2009-02-24T16:37:58Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -450,7 +454,7 @@
 									<key>filename</key>
 									<string>src/elements/layout/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-07T02:15:35Z</date>
+									<date>2009-03-03T04:02:53Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -607,7 +611,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_render.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-05T15:21:48Z</date>
+							<date>2009-02-26T22:15:17Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -619,7 +623,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_comet.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-24T16:12:21Z</date>
+							<date>2009-01-31T15:16:03Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -724,7 +728,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-01-04T04:08:32Z</date>
+					<date>2009-02-24T16:37:58Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -763,7 +767,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-01-08T01:46:19Z</date>
+					<date>2009-02-24T16:37:59Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -776,34 +780,6 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>include/wf.inc</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>65</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>52</integer>
-		</dict>
-		<key>src/actions/action_event.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>10</integer>
-		</dict>
 		<key>src/elements/forms/element_button.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1238,48 +1214,6 @@
 			<key>firstVisibleLine</key>
 			<integer>7</integer>
 		</dict>
-		<key>src/platforms/nitrogen_inets_app.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>10</integer>
-				<key>line</key>
-				<integer>7</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/platforms/nitrogen_mochiweb_app.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>23</integer>
-				<key>line</key>
-				<integer>47</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>11</integer>
-		</dict>
-		<key>src/platforms/wf_inets.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>21</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>src/web_x.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1374,6 +1308,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{290, 0}, {907, 778}}</string>
+	<string>{{312, 0}, {907, 778}}</string>
 </dict>
 </plist>
