@@ -22,21 +22,22 @@
 ]).
 
 start() -> 
-    start(undefined).
+	{ok, ServingApp} = application:get_application(),
+	start(ServingApp).
 
 start(ServingApp) when is_atom(ServingApp) -> 
-    supervisor:start_link(?MODULE, [ServingApp]).
+	supervisor:start_link(?MODULE, [ServingApp]).
 
 init([ServingApp]) ->
-    application:set_env(nitrogen, serving_app, ServingApp),
-    RestartStrategy = one_for_one,
-    MaxRestarts = 1000,
-    MaxSecondsBetweenRestarts = 3600,
-    SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
-    NitrogenServer = {quickstart_sup, {nitrogen, start_server, []}, permanent, 2000, worker, dynamic},
-    SessionServer  = {wf_session_server, {wf_session_server, start_link, []}, permanent, 2000, worker, [wf_session_server]},
-    SessionSup     = {wf_session_sup, {wf_session_sup, start_link, []}, permanent, 2000, supervisor, [wf_session_sup]},
-    {ok,{SupFlags,[NitrogenServer, SessionServer, SessionSup]}}.
+	application:set_env(nitrogen, serving_app, ServingApp),
+	RestartStrategy = one_for_one,
+	MaxRestarts = 1000,
+	MaxSecondsBetweenRestarts = 3600,
+	SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
+	NitrogenServer = {quickstart_sup, {nitrogen, start_server, []}, permanent, 2000, worker, dynamic},
+	SessionServer  = {wf_session_server, {wf_session_server, start_link, []}, permanent, 2000, worker, [wf_session_server]},
+	SessionSup     = {wf_session_sup, {wf_session_sup, start_link, []}, permanent, 2000, supervisor, [wf_session_sup]},
+	{ok,{SupFlags,[NitrogenServer, SessionServer, SessionSup]}}.
 
 start_server() ->
 	HooksModule = get_hooks_module(),
@@ -51,7 +52,7 @@ start_server() ->
 	io:format("~n~n---~n"),
 	io:format("Nitrogen is now running on ~s.~n", [get_platform()]),
 	io:format("Serving files from: ~s.~n", [get_wwwroot()]),
-	io:format("Open your browser to: http://~p:~p~n", [get_host(),get_port()]),
+	io:format("Open your browser to: http://~s:~p~n", [get_host(),get_port()]),
 	io:format("---~n~n"),
 
 	Result.
