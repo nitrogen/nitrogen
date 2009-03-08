@@ -4,6 +4,7 @@
 - Created initial VERSIONS file.
 - Added code from Tom McNulty to expose Mochiweb loop.
 - Added coverage code from Michael Mullis, including lib/coverize submodule.
+- Added wf_platform:get_peername/0 code from Marius A. Eriksen.
 
 2009-03-07
 - Added code by Torbjorn Tornkvist: Basic Authentication, Hostname settings, access to HTTP Headers, and a Max Length validator.
