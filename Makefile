@@ -18,6 +18,8 @@ test: compile
 		-s init stop
 
 coverage: compile
+	git submodule init lib/coverize
+	git submodule update lib/coverize
 	make -C lib/coverize
 	mkdir -p coverage
 	erl -noshell \
