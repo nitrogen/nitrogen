@@ -41,6 +41,9 @@
 -record(textbox, {?ELEMENT_BASE(element_textbox), text="", html_encode=true, next, postback}).
 -record(hidden, {?ELEMENT_BASE(element_hidden), text="", html_encode=true}).
 -record(textarea, {?ELEMENT_BASE(element_textarea), text="", html_encode=true}).
+-record(datepicker_textbox, {?ELEMENT_BASE(element_datepicker_textbox), text="", next, html_encode=true, validators=[], options = "{dateFormat:'yy-mm-dd'}"}).
+
+
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, value}).
 -record(option, { text="", value="", selected=false }).
 -record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback}).

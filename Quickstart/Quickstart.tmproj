@@ -17,13 +17,13 @@
 					<key>filename</key>
 					<string>apps/quickstart_inets.app</string>
 					<key>lastUsed</key>
-					<date>2009-01-08T03:09:11Z</date>
+					<date>2009-03-08T00:39:01Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>apps/quickstart_mochiweb.app</string>
 					<key>lastUsed</key>
-					<date>2009-01-08T03:09:11Z</date>
+					<date>2009-03-08T00:39:00Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -71,7 +71,7 @@
 					<key>filename</key>
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-08T14:15:49Z</date>
+					<date>2009-03-08T00:48:36Z</date>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -135,8 +135,6 @@
 					<string>wwwroot/twocolumn.html</string>
 					<key>lastUsed</key>
 					<date>2009-01-27T19:29:50Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -176,6 +174,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{208, 0}, {1013, 778}}</string>
+	<string>{{206, 0}, {1013, 778}}</string>
 </dict>
 </plist>

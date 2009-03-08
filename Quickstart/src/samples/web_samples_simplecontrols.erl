@@ -28,6 +28,10 @@ body() -> [
 	#label { text="TextBox" },
 	#textbox { text="This is a textbox." }, 
 
+	#p{},
+	#label { text="DatePicker Textbox" },
+	#datepicker_textbox {  }, 
+
 	#p{},	
 	#label { text="TextArea" },
 	#textarea { text="This is a textarea." }, 
