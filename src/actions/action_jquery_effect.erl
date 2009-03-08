@@ -29,7 +29,8 @@ render_action(_TriggerPath, TargetPath, Record) ->
 
 	JSID = wf:to_js_id(TargetPath),
 	[wf:me_var(), wf:f("$(obj('~s')).~s", [JSID, Script])].
-	
+
+%% Options is a list of {Key,Value} tuples	
 to_js(Options) ->
 	F = fun({Key, Value}) ->
 		if 
