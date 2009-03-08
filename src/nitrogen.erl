@@ -21,9 +21,7 @@
 	get_hooks_module/0
 ]).
 
-start() -> 
-	{ok, ServingApp} = application:get_application(),
-	start(ServingApp).
+start() -> start(undefined).
 
 start(ServingApp) when is_atom(ServingApp) -> 
 	supervisor:start_link(?MODULE, [ServingApp]).
@@ -72,52 +70,60 @@ request(_) -> ok.
 %%% GET CONFIG SETTINGS %%%
 	
 get_platform() -> 
-	case application:get_env(serving_app(), platform) of
+	case get_env(serving_app(), platform) of
 		{ok, Val} -> Val;
 		_ -> inets
 	end.
 	
 get_session_timeout() ->
-	case application:get_env(serving_app(), session_timeout) of
+	case get_env(serving_app(), session_timeout) of
 		{ok, Val} -> Val;
 		_ -> 20
 	end.
 	
 get_host() -> 
-    case application:get_env(serving_app(), host) of 
-        {ok, Val} -> Val;
-        _         -> "localhost"
-    end.
+	case get_env(serving_app(), host) of 
+		{ok, Val} -> Val;
+		_ -> "localhost"
+	end.
 
 get_port() -> 
-	case application:get_env(serving_app(), port) of 
+	case get_env(serving_app(), port) of 
 		{ok, Val} -> Val;
 		_ -> 8000
 	end.
 
 get_wwwroot() -> 
-	case application:get_env(serving_app(), wwwroot) of
+	case get_env(serving_app(), wwwroot) of
 		{ok, Val} -> Val;
 		_ -> "./wwwroot"
 	end.
 	
 get_sign_key() -> 
-	case application:get_env(serving_app(), sign_key) of
+	case get_env(serving_app(), sign_key) of
 		{ok, Val} -> Val;
 		_ -> throw("You must declare a sign_key!")
 	end.
 
 get_hooks_module() ->
-	case application:get_env(hooks_module) of
+	case get_env(serving_app(), hooks_module) of
 		{ok, Module} ->
 			Module;
-		undefined ->
+		_ ->
 			{ok, {Module, _}} = application:get_key(mod),
 			Module
 	end.
 
 serving_app() -> 
-	case application:get_env(nitrogen, serving_app) of 
+	case get_env(nitrogen, serving_app) of 
 		{ok, Val} -> Val;
 		_ -> undefined
 	end.
+	
+get_env(undefined, Key) -> 
+	Value = application:get_env(Key),
+	Value;
+	
+get_env(App, Key) -> 
+	Value = application:get_env(App, Key),
+	Value.

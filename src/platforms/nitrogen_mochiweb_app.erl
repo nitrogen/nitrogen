@@ -4,6 +4,7 @@
 
 -module (nitrogen_mochiweb_app).
 -export([start/0, stop/0]).
+-include ("wf.inc").
 -export([loop/2]).
 
 start() ->

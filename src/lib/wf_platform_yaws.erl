@@ -18,6 +18,8 @@
 	create_cookie/4,
 	
 	create_header/2,
+	get_headers/0,
+	get_header/1,
 	
 	build_response/0
 ]).
@@ -73,7 +75,34 @@ to_cookie_expire(SecondsToLive) ->
 create_header(Key, Value) ->
 	{header, {Key, Value}}.
 	
-	
+get_headers() ->
+	Arg = wf_platform:get_request(),
+	Headers = Arg#arg.headers,
+	[
+		{connection, Headers#headers.connection},
+		{accept, Headers#headers.accept},
+		{host, Headers#headers.host},
+		{if_modified_since, Headers#headers.if_modified_since},
+		{if_match, Headers#headers.if_match},
+    {if_none_match, Headers#headers.if_range},
+    {if_unmodified_since, Headers#headers.if_unmodified_since},
+    {range, Headers#headers.range},
+		{referer, Headers#headers.referer},
+    {user_agent, Headers#headers.user_agent},
+    {accept_ranges, Headers#headers.accept_ranges},
+    {cookie, Headers#headers.cookie},
+    {keep_alive, Headers#headers.keep_alive},
+    {location, Headers#headers.location},
+    {content_length, Headers#headers.content_length},
+    {content_type, Headers#headers.content_type},
+    {content_encoding, Headers#headers.content_encoding},
+    {authorization, Headers#headers.authorization},
+    {transfer_encoding, Headers#headers.transfer_encoding}
+	].
+
+get_header(Header) ->
+	Headers = get_headers(),
+	proplists:get_value(Header, Headers).
 	
 %%% RESPONSE %%%
 

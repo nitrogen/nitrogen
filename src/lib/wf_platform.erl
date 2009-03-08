@@ -16,8 +16,8 @@
 	parse_get_args/0,
 	parse_post_args/0,
 
-        get_headers/0,
-        get_header/1,
+	get_headers/0,
+	get_header/1,
 	
 	get_cookie/1, set_cookie/2, set_cookie/4,
 	clear_redirect/0,
@@ -65,8 +65,8 @@ request_method() -> do(request_method).
 parse_get_args() -> do(parse_get_args).
 parse_post_args() -> do(parse_post_args).
 
-get_headers()      -> do(get_headers).
-get_header(Header) -> do(get_header, [Header]).
+get_headers() -> do(get_headers, []).
+get_header(Header) -> do(get_header, [wf:to_atom(Header)]).
     
 	
 %%% COOKIES %%%

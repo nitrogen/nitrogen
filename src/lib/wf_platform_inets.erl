@@ -11,8 +11,8 @@
 	get_querystring/0,
 	request_method/0,
 
-        get_headers/0,
-        get_header/1,
+	get_headers/0,
+	get_header/1,
 
 	parse_get_args/0,
 	parse_post_args/0,
@@ -60,13 +60,39 @@ parse_post_args() ->
 
 get_headers() ->
 	Info = wf_platform:get_request(),
-	Info#mod.parsed_header.
+	Headers = [{wf:to_atom(Key), Value} || {Key, Value} <- Info#mod.parsed_header],
+	F = fun(Header) -> proplists:get_value(Header, Headers) end,
+	F(connection),
+	[
+		{connection, F(connection)},
+		{accept, F(accept)},
+		{host, F(host)},
+		{if_modified_since, F(if_modified_since)},
+		{if_match, F(if_match)},
+    {if_none_match, F(if_range)},
+    {if_unmodified_since, F(if_unmodified_since)},
+    {range, F(range)},
+		{referer, F(referer)},
+    {user_agent, F(user_agent)},
+    {accept_ranges, F(accept_ranges)},
+    {cookie, F(cookie)},
+    {keep_alive, F(keep_alive)},
+    {location, F(location)},
+    {content_length, F(content_length)},
+    {content_type, F(content_type)},
+    {content_encoding, F(content_encoding)},
+    {authorization, F(authorization)},
+    {transfer_encoding, F(transfer_encoding)}
+	].
 
-get_header(Header) ->
-        Info = wf_platform:get_request(),
-        {value, {_, Value}} = lists:keysearch(Header, 1, Info#mod.parsed_header),
-        Value.
-    
+get_header(Header) -> 
+	io:format("1~n"),
+	Info = wf_platform:get_request(),
+	io:format("2~n"),
+	Headers = [{wf:to_atom(Key), Value} || {Key, Value} <- Info#mod.parsed_header],
+	io:format("3~n"),
+	proplists:get_value(Header, Headers).
+  
 	
 %%% COOKIES %%%
 	
