@@ -22,7 +22,9 @@
 	
 	create_header/2,
 	
-	build_response/0
+	build_response/0,
+
+        get_peername/0
 ]).
 
 get_platform() -> inets.
@@ -154,3 +156,9 @@ build_response() ->
 		{mime_type, ContentType} | Info#mod.data
 	]}.
 
+
+%%% SOCKETS %%%
+
+get_peername() ->
+    Info = wf_platform:get_request(),
+    inet:peername(Info#mod.socket).
