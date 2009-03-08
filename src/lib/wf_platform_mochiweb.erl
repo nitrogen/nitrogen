@@ -23,7 +23,7 @@
 	
 	build_response/0,
 
-        get_peername/0
+	get_peername/0
 ]).
 
 get_platform() -> mochiweb.
@@ -118,5 +118,5 @@ build_response() ->
 %%% SOCKETS %%%
 
 get_peername() ->
-    Req = wf_platform:get_request(),
-    inet:peername(Req:get(socket)).
+	Req = wf_platform:get_request(),
+	inet:peername(Req:get(socket)).

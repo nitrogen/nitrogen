@@ -23,7 +23,7 @@
 	
 	build_response/0,
 
-        get_peername/0
+	get_peername/0
 ]).
 
 get_platform() -> yaws.

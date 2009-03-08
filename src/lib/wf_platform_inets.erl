@@ -24,7 +24,7 @@
 	
 	build_response/0,
 
-        get_peername/0
+	get_peername/0
 ]).
 
 get_platform() -> inets.
@@ -160,5 +160,5 @@ build_response() ->
 %%% SOCKETS %%%
 
 get_peername() ->
-    Info = wf_platform:get_request(),
-    inet:peername(Info#mod.socket).
+	Info = wf_platform:get_request(),
+	inet:peername(Info#mod.socket).
