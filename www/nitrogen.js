@@ -1,65 +1,259 @@
-/*** JQUERY SPECIFIC CODE ***/
+/*
+Usage:
+	var n = new Nitrogen({
+		url : "http://nitrogenserver/web/module",
+		div : enclosingDiv
+	});
+	
+	n.IFrame(div, url);
+	n.Inline(div, url);
+	n.Windex(div, url);
 
-function wf_observe_event(el, type, func) {
-	$(el).bind(type, func);
-}
+*/
 
-function wf_update(el, html) {
-	$(el).html(html);
-}
-
-function wf_insert_top(el, html) {
-	$(el).prepend(html);
-}
-
-function wf_insert_bottom(el, html) {
-	$(el).append(html);
-}
-
-function wf_draggable(dragObj, dragOptions, dragTag) {
-	dragObj.wf_drag_tag = dragTag;
-	$(dragObj).draggable(dragOptions);	
-}
-
-function wf_droppable(dropObj, dropOptions, dropPostbackInfo) {
-	dropOptions.drop = function(ev, ui) {
-		var dragItem = ui.draggable[0].wf_drag_tag;
-		wf_queue_postback(this.id, dropPostbackInfo, "drag_item=" + dragItem);
+function Nitrogen(o) {
+	// Set the id, and associate with the global Nitrogen object...
+	if (o.id) {
+		this.id = o.id
+	} else {
+		this.id = "o" + Math.floor(Math.random()*999999999);
 	}
-	$(dropObj).droppable(dropOptions);
+	eval(Nitrogen.$NString + "." + this.id + " = this;");
+
+	// Set the originating URL...
+	if (o.url) {
+		this.$url = o.url;
+	} else {
+		this.$url = document.location.href;
+	}
+
+	// Set some initial properties.
+	if (o.div) {
+		this.$div = o.div;
+	} else {
+		this.$div = document;
+	}
+	
+	// Clear the dom_state...
+	this.$dom_state = "";
+	this.$comet_is_running = false;
 }
 
-function wf_sortitem(sortItem, sortTag) {
-	sortItem.wf_sort_tag = sortTag;
+var N = Nitrogen;
+N.$NString = "Nitrogen";
+N.$current_id = "";
+N.$current_path = "";
+N.$event_queue = new Array();
+N.$event_is_running = false;
+
+/*** PUBLIC METHODS ***/
+
+function obj(path) {
+	return Nitrogen.obj(path);
 }
 
-function wf_sortblock(sortBlock, sortOptions, sortPostbackInfo) {
-	sortOptions.update = function() {
-		var sortItems = "";
-		for (var i=0; i<this.childNodes.length; i++) {
-			var n = this.childNodes[i];
-			if (sortItems != "") sortItems += ",";
-			if (n.wf_sort_tag) sortItems += n.wf_sort_tag;
-		}
-		wf_queue_postback(this.id, sortPostbackInfo, "sort_items=" + sortItems);
-	};
-	$(sortBlock).sortable(sortOptions);
+N.Page = function(o) {
+	var n = new Nitrogen(o);
+	n.$do_event = n.$do_xhr_event;
+	n.$do_comet = n.$do_xhr_comet;
+	return n;
 }
 
-function wf_serialize_page() {
-	var elements = wf_get_elements_to_serialize();
+N.Inline = function(o) {
+	var n = new Nitrogen(o);
+	if (o.windex) {
+		n.$do_event = n.$do_windex_event;
+		n.$do_comet = n.$do_windex_comet;
+	} else {
+		n.$do_event = n.$do_xhr_event;
+		n.$do_comet = n.$do_xhr_comet;
+	}
+	jQuery.getScript(o.url + "?javascript_mode=true&object_id=" + n.id);
+	return n;
+}
+
+
+/*** PRIVATE METHODS ***/
+
+N.$lookup = function(id) {
+	return eval(Nitrogen.$NString + "." + id + ";");
+}
+
+N.$set_dom_state = function(s) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	n.$set_dom_state(s);
+}
+
+N.prototype.$set_dom_state = function(s) {
+	this.$dom_state = s;
+}
+
+
+
+/*** EVENT QUEUE ***/
+
+N.$queue_event = function(triggerID, postbackInfo, extraParams) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	n.$queue_event(triggerID, postbackInfo, extraParams);
+}
+
+N.prototype.$queue_event = function(triggerID, postbackInfo, extraParams) {
+	// Put an event on the event_queue.
+	Nitrogen.$event_queue.push({
+		n : this,
+		triggerID    : this.obj(triggerID).id,
+		postbackInfo : postbackInfo,
+		extraParams  : extraParams
+	});
+}
+
+
+N.$event_loop = function() {
+	// Make it loop.
+	setTimeout(Nitrogen.$NString + ".$event_loop();", 1);
+	
+	// If something is running, or the queue is empty, then just return.
+	if (Nitrogen.$event_is_running) return;
+	if (Nitrogen.$event_queue.length == 0) return;
+	
+	// Get and exect the event.
+	var o = Nitrogen.$event_queue.shift();
+	o.n.$do_event(o.triggerID, o.postbackInfo, o.extraParams);
+}
+
+/*** VALIDATE AND SERIALIZE ***/
+
+N.prototype.$validate_and_serialize = function() {
+	// Check validatation and build params...
 	var s = "";
-	for (var i = 0; i<elements.length; i++) {
-		s += "&" + $(elements[i]).serialize();
+	var is_valid = true;
+	var elements = this.$get_elements_to_serialize();
+	for (var i=0; i<elements.length; i++) {
+		element = elements[i];
+		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
+			is_valid = false;
+		} else {
+			s += "&" + jQuery(element).serialize();
+		}
 	}
-	return s;
+	
+	// Return the params if valid. Otherwise, return null.
+	if (is_valid) {
+		return s;
+	} else {
+		return null;
+	}
 }
 
-function wf_get_elements_to_serialize() {
+/*** AJAX METHODS ***/
+
+N.prototype.$do_xhr_event = function(triggerID, postbackInfo, extraParams) {
+	// Flag to prevent firing multiple postbacks at the same time...
+	Nitrogen.$event_is_running = true;
+
+	// Run validation...
+	var s = this.$validate_and_serialize();	
+	if (s == null) {
+		Nitrogen.$event_is_running = false;
+		return;
+	}
+	
+	// Build params...
+	var params = 
+		"domState=" + this.$dom_state + 
+		"&postbackInfo=" + postbackInfo + 
+		"&" + s + 
+		"&" + extraParams;
+		
+	jQuery.ajax({ 
+		url: this.$url,
+		type:'post',
+		data: params,
+		dataType: 'text',
+		success: function(data, textStatus) {
+			Nitrogen.$event_is_running = false;
+			eval(data);
+		},
+		error: function(xmlHttpRequest, textStatus, errorThrown) {
+			Nitrogen.$event_is_running = false;
+		}
+	});			
+}
+
+N.$comet_start = function(postbackInfo) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	n.$comet_start(postbackInfo);
+}
+
+N.prototype.$comet_start = function(postbackInfo) {
+	this.$do_comet(postbackInfo);
+}
+
+N.prototype.$do_xhr_comet = function(postbackInfo) { 
+	if (this.$comet_is_running) return;
+	this.$comet_is_running = true;
+
+	// Get params...
+  var params = 
+	  "postbackInfo=" + postbackInfo + 
+	  "&domState=" + this.$dom_state;
+	
+	var n = this;
+
+	$.ajax({ 
+		url: this.$url,
+		type:'post',
+		data: params,
+		dataType: 'text',
+		success: function(data, textStatus) {
+			eval(data);
+			n.$comet_is_running = false;
+			setTimeout("Nitrogen." + n.id + ".$comet_start('" + postbackInfo + "');", 0);
+		},
+		error: function(xmlHttpRequest, textStatus, errorThrown) {
+			n.$comet_is_running = false;
+			setTimeout("Nitrogen." + n.id + ".$comet_start('" + postbackInfo + "');", 5000);
+		}
+	});                     
+}
+
+
+
+/*** WINDEX METHODS ***/
+
+N.prototype.$do_windex_event = function(triggerID, postbackInfo, extraParams) { 
+	// Run validation...
+	var s = this.$validate_and_serialize();	
+	if (s == null) {
+		return;
+	}
+	
+	// Build params...
+	var url =
+	 	this.$url + "?" + 
+		"windex=true" + 
+		"&domState=" + this.$dom_state + 
+		"&postbackInfo=" + postbackInfo + 
+		"&" + s + 
+		"&" + extraParams;
+
+	jQuery.getScript(url);
+}
+
+
+N.prototype.$do_windex_comet = function(postbackInfo) { 
+	alert("Comet is not yet supported via Windex.");
+}
+
+
+
+/*** SERIALIZATION ***/
+
+N.prototype.$get_elements_to_serialize = function() {
 	var tagnames = ["input", "button", "select", "textarea", "checkbox"];
 	var a = new Array();
 	for (var i=0; i<tagnames.length; i++) {
-		var l = document.getElementsByTagName(tagnames[i]);
+		var l = this.$div.getElementsByTagName(tagnames[i]);
 		for (var j=0; j<l.length; j++) {
 			a = a.concat(l[j]);
 		}
@@ -68,129 +262,39 @@ function wf_get_elements_to_serialize() {
   return a;	
 }
 
-function wf_ajax(params) {
-	wf_start_spinner();	
-	$.ajax({ 
-		url: document.location.href,
-		type:'post',
-		data: params,
-		dataType: 'text',
-		success: function(data, textStatus) {
-			wf_stop_spinner();
-			try {
-				//alert("SUCCESS: " + transport.responseText);
-				eval(data);
-			} catch (E) {
-				alert("JAVASCRIPT ERROR: " + data);
-				alert(E);
-			}
-			wf_is_in_postback = false;
-		},
-		error: function(xmlHttpRequest, textStatus, errorThrown) {
-			alert("FAIL: " + textStatus);
-			wf_is_in_postback = false;
-		}
-	});			
-}
-
-function wf_comet_start(postbackInfo) {
-	if (!wf_comet_is_running) {
-		wf_comet(postbackInfo);
-		wf_comet_is_running = true;
-	}
-}
-
-function wf_comet(postbackInfo) {
-	// Get params...
-	var params = 
-		"postbackInfo=" + postbackInfo + 
-		"&domState=" + wf_dom_state;
-	
-	$.ajax({ 
-		url: document.location.href,
-		type:'post',
-		data: params,
-		dataType: 'text',
-		success: function(data, textStatus) {
-			try {
-				//alert("SUCCESS: " + data);
-				eval(data);
-			} catch (E) {
-				alert("JAVASCRIPT ERROR: " + data);
-				alert(E);
-			}
-			setTimeout("wf_comet('" + postbackInfo + "');", 0);
-		},
-		error: function(xmlHttpRequest, textStatus, errorThrown) {
-			setTimeout("wf_comet('" + postbackInfo + "');", 5000);
-		}
-	});			
-}
-
-/*** POSTBACK LOOP ***/
-
-function wf_postback_loop() {
-	setTimeout("wf_postback_loop()", 1);
-	if (wf_postbacks.length == 0) return;
-	if (wf_is_in_postback) return;
-	var o = wf_postbacks.shift();
-	wf_do_postback(o.triggerID, o.postbackInfo, o.extraParams);
-}
-
-function wf_queue_postback(triggerID, postbackInfo, extraParams) {
-	var o = new Object();
-	o.triggerID = obj(triggerID).id;
-	o.postbackInfo = postbackInfo;
-	o.extraParams = extraParams;
-	wf_postbacks.push(o);
-}
-
-function wf_do_postback(triggerID, postbackInfo, extraParams) {
-	// Flag to stop firing multiple postbacks at the same time...
-	wf_is_in_postback = true;
-
-	// Check validatation...
-	var isValid = true;
-	
-	var elements = wf_get_elements_to_serialize();
-	for (var i=0; i<elements.length; i++) {
-		element = elements[i];
-		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
-			isValid = false;
-		}
-	}
-	
-	if (!isValid) {
-		wf_is_in_postback = false;
-		return;
-	}
-	
-	// Get params...
-	var params = 
-		"postbackInfo=" + postbackInfo + 
-		"&domState=" + wf_dom_state + 
-		"&" + wf_serialize_page() + 
-		"&" + extraParams;
-		
-	// Go Ajax!
-	wf_ajax(params);
-}
-
 /*** PATH LOOKUPS ***/
 
+N.obj = function(path) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	return n.obj(path);
+}
 
-function obj(path) {
-	path = wf_normalize_partial_path(path);
+N.prototype.obj = function(path) {
+	path = N.$normalize_partial_path(path);
 	
 	// Try the easy option...
 	var el = document.getElementById(path);
 	if (el) return el;
 	
 	// Not found, so scan recursively...
-	return wf_scan_elements(path, document.childNodes);
+	return Nitrogen.$scan_elements(path, this.$div.childNodes);
 }
 
-function wf_scan_elements(path, elements) {
+N.$normalize_partial_path = function(path) {
+	var oldparts = Nitrogen.$current_path.split(".");
+	var newparts = path.split(".");
+	var a = new Array();
+	for (var i=0; i<newparts.length; i++) {
+		var part = newparts[i];
+		if (part == "me") a = oldparts;
+		else if (part == "parent") a.pop();
+		else a.push(part);
+	}
+	
+	return a.join("__");
+}
+
+N.$scan_elements = function(path, elements) {
 	if (!elements) return;
 	
 	for (var i=0; i<elements.length; i++) {
@@ -204,79 +308,121 @@ function wf_scan_elements(path, elements) {
 	}
 	
 	for (var i=0; i<elements.length; i++) {
-		var el = wf_scan_elements(path, elements[i].childNodes)
+		var el = Nitrogen.$scan_elements(path, elements[i].childNodes)
 		if (el) return el;
 	}
 
 	return null;
 }
 
-function wf_normalize_partial_path(path) {
-	var oldparts = wf_current_path.split(".");
-	var newparts = path.split(".");
-	var a = new Array();
-	for (var i=0; i<newparts.length; i++) {
-		var part = newparts[i];
-		if (part == "me") a = oldparts;
-		else if (part == "parent") a.pop();
-		else a.push(part);
-	}
-	
-	return a.join("__");
+
+/*** EVENT WIRING ***/
+
+N.$observe_event = function(el, type, func) {
+	jQuery(el).bind(type, func);
 }
 
-/*** SPINNER ***/
 
-function wf_start_spinner() {
-	var spinner = obj('spinner');
-	if (spinner) new Effect.Fade(spinner, { duration: 1.0 });
+
+/*** DYNAMIC UPDATING ***/
+
+N.$update = function(el, html) {
+	jQuery(el).html(html);
 }
 
-function wf_stop_spinner() {
-	var spinner = obj('spinner');
-	if (spinner) spinner.show();
+N.prototype.$update = function(html) {
+	jQuery(this.$div).html(html);
+}
+
+N.$insert_top = function(el, html) {
+	jQuery(el).prepend(html);
+}
+
+N.$insert_bottom = function(el, html) {
+	jQuery(el).append(html);
 }
 
 
 /*** MISC ***/
 
-function wf_return_false(value, args) { 
+N.$return_false = function(value, args) { 
 	return false; 
 }
 
-function wf_is_enter_key(event) {
+N.$is_enter_key = function(event) {
 	return (event && event.keyCode == 13);
 }
 
-function wf_go_next(controlID) {
-	var o = obj(controlID);
+N.$go_next = function(controlID) {
+	var o = Nitrogen.obj(controlID);
 	if (o.focus) o.focus();
 	if (o.select) o.select();
 	if (o.click) o.click();
 }
 
-function wf_disable_selection(element) {
-    element.onselectstart = function() {
-        return false;
-    };
-    element.unselectable = "on";
-    element.style.MozUserSelect = "none";
-    element.style.cursor = "default";
+N.$disable_selection = function(element) {
+	element.onselectstart = function() {
+	    return false;
+	};
+	element.unselectable = "on";
+	element.style.MozUserSelect = "none";
+	element.style.cursor = "default";
 }
 
-function wf_set_value(element, value) {
+N.$set_value = function(element, value) {
 	if (!element.id) element = obj(element);
 	if (element.value != undefined) element.value = value;
 	else if (element.checked != undefined) element.checked = value;
-	else wf_update(element, value);
+	else this.$update(element, value);
 }
 
-/*** INITIALIZE VARS ***/
 
-var	wf_comet_is_running = false;
-var wf_is_in_postback = false;
-var wf_dom_state = "";
-var wf_postbacks = new Array();
-var wf_current_path = "";
-wf_postback_loop(); // Start the postback loop.
 
+/*** DATE PICKER ***/
+
+N.$datepicker = function(pickerObj, pickerOptions) {
+	jQuery(pickerObj).datepicker(pickerOptions);
+}
+
+
+/*** DRAG AND DROP ***/
+
+N.$draggable = function(dragObj, dragOptions, dragTag) {
+	dragObj.$drag_tag = dragTag;
+	jQuery(dragObj).draggable(dragOptions);	
+}
+
+N.$droppable = function(dropObj, dropOptions, dropPostbackInfo) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	dropOptions.drop = function(ev, ui) {
+		var dragItem = ui.draggable[0].$drag_tag;
+		n.$queue_event(this.id, dropPostbackInfo, "drag_item=" + dragItem);
+	}
+	jQuery(dropObj).droppable(dropOptions);
+}
+
+
+
+/*** SORTING ***/
+
+N.$sortitem = function(sortItem, sortTag) {
+	sortItem.$sort_tag = sortTag;
+}
+
+N.$sortblock = function(sortBlock, sortOptions, sortPostbackInfo) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	sortOptions.update = function() {
+		var sortItems = "";
+		for (var i=0; i<this.childNodes.length; i++) {
+			var childNode = this.childNodes[i];
+			if (sortItems != "") sortItems += ",";
+			if (childNode.$sort_tag) sortItems += childNode.$sort_tag;
+		}
+		n.$queue_event(this.id, sortPostbackInfo, "sort_items=" + sortItems);
+	};
+	jQuery(sortBlock).sortable(sortOptions);
+}
+
+
+Nitrogen.$event_loop();
+Nitrogen.Page({ id : 'page' });

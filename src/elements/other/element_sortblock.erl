@@ -10,7 +10,6 @@ reflect() -> record_info(fields, sortblock).
 
 render(ControlID, Record) -> 
 	% Get properties...
-	
 	PickledPostbackInfo = action_event:make_postback_info(Record#sortblock.tag, sort, ControlID, ControlID, ?MODULE),
 	Handle = case Record#sortblock.handle of
 		undefined -> "null";
@@ -20,7 +19,7 @@ render(ControlID, Record) ->
 	GroupClasses = groups_to_classes(Record#sortblock.group),
 		
 	% Emit the javascript...
-	Script = wf:f("wf_sortblock(obj('~s'), { handle: ~s, connectWith: [~s] }, '~s');", [
+	Script = wf:f("Nitrogen.$sortblock(obj('~s'), { handle: ~s, connectWith: [~s] }, '~s');", [
 		ControlID, 
 		Handle, 
 		ConnectWithGroups,

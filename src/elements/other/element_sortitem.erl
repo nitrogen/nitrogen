@@ -10,7 +10,7 @@ reflect() -> record_info(fields, sortitem).
 
 render(ControlID, Record) -> 
 	PickledTag = wf_utils:pickle(Record#sortitem.tag),
-	Script = wf:f("wf_sortitem(obj('~s'), '~s');", [
+	Script = wf:f("Nitrogen.$sortitem(obj('~s'), '~s');", [
 		ControlID, 
 		PickledTag
 	]),

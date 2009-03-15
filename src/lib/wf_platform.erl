@@ -28,9 +28,7 @@
 	set_response_code/1,
 	set_content_type/1,
 	set_response_body/1,
-	build_response/0,
-	
-	inject_script/2
+	build_response/0
 ]).
 
 
@@ -168,14 +166,3 @@ build_redirect(Url) ->
 
 build_get_redirect(Url) -> wf:f("<meta http-equiv='refresh' content='0;url=~s' />", [Url]).
 build_post_redirect(Url) -> wf:f("document.location.href=\"~s\";", [wf_utils:js_escape(Url)]).
-
-%%% INJECT SCRIPT %%%
-
-inject_script(undefined, _) -> undefined;
-inject_script([script|Rest], Script) -> [Script, Rest];
-inject_script([Other|Rest], Script) -> [Other|inject_script(Rest, Script)];
-inject_script([], _Script) -> [].
-
-
-%%% CHUNKED RESPONSE %%%
-

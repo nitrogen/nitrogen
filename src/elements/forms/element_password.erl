@@ -11,7 +11,7 @@ reflect() -> record_info(fields, password).
 render(ControlID, Record) -> 
 	case Record#password.next of
 		undefined -> ok;
-		Next -> wf:wire(ControlID, #event { type=enterkey, actions=wf:f("wf_go_next('~s');", [Next]) })
+		Next -> wf:wire(ControlID, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next]) })
 	end,
 	case Record#password.postback of
 		undefined -> ok;
