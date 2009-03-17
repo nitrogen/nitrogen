@@ -14,6 +14,7 @@
 	request/1,
 	get_platform/0,
 	get_host/0,
+	get_ip/0,
 	get_port/0,
 	get_session_timeout/0,
 	get_sign_key/0,
@@ -47,10 +48,16 @@ start_server() ->
 		inets    -> nitrogen_inets_app:start()
 	end,
 
+	Host = case get_ip() of
+		{0,0,0,0} -> "localhost";
+		{127,0,0,1} -> "localhost";
+		{W,X,Y,Z} -> wf:f("~B.~B.~B.~B", [W, X, Y, Z])
+	end,
+
 	io:format("~n~n---~n"),
 	io:format("Nitrogen is now running on ~s.~n", [get_platform()]),
 	io:format("Serving files from: ~s.~n", [get_wwwroot()]),
-	io:format("Open your browser to: http://~s:~p~n", [get_host(),get_port()]),
+	io:format("Open your browser to: http://~s:~p~n", [Host, get_port()]),
 	io:format("---~n~n"),
 
 	Result.
@@ -85,6 +92,19 @@ get_host() ->
 	case get_env(serving_app(), host) of 
 		{ok, Val} -> Val;
 		_ -> "localhost"
+	end.
+
+get_ip() ->
+	case get_env(serving_app(), ip) of
+		{ok, Val} when is_tuple(Val) -> 
+			Val;
+		{ok, Val} ->
+			case inet_parse:address(Val) of
+				{ok, Ip} -> Ip;
+				_ -> throw("Invalid ip configuration string")	
+			end;
+		_ -> 
+			{0,0,0,0}
 	end.
 
 get_port() -> 

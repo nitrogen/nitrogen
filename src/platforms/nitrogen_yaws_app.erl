@@ -19,7 +19,7 @@ start() ->
 		docroot = nitrogen:get_wwwroot(),
 		port=nitrogen:get_port(),
 		appmods = [{"/web", wf_yaws}],
-		listen = {0, 0, 0, 0}		
+		listen = nitrogen:get_ip()
 	},
 	DefaultGC = yaws_config:make_default_gconf(false, Id),
 	GC = DefaultGC#gconf {
