@@ -41,6 +41,9 @@
 -record(textbox, {?ELEMENT_BASE(element_textbox), text="", html_encode=true, next, postback}).
 -record(hidden, {?ELEMENT_BASE(element_hidden), text="", html_encode=true}).
 -record(textarea, {?ELEMENT_BASE(element_textarea), text="", html_encode=true}).
+-record(datepicker_textbox, {?ELEMENT_BASE(element_datepicker_textbox), text="", next, html_encode=true, validators=[], options = "{dateFormat:'yy-mm-dd'}"}).
+
+
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, value}).
 -record(option, { text="", value="", selected=false }).
 -record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback}).
@@ -100,6 +103,7 @@
 -record(is_email, {?VALIDATOR_BASE(validator_is_email)}).
 -record(is_integer, {?VALIDATOR_BASE(validator_is_integer)}).
 -record(min_length, {?VALIDATOR_BASE(validator_min_length), length}).
+-record(max_length, {?VALIDATOR_BASE(validator_max_length), length}).
 -record(confirm_password, {?VALIDATOR_BASE(validator_confirm_password), password}).
 -record(custom, {?VALIDATOR_BASE(validator_custom), function, tag }).
 -record(js_custom, {?VALIDATOR_BASE(validator_js_custom), function, args="{}" }).

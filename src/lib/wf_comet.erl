@@ -87,7 +87,7 @@ comet_flush() ->
 	IsRedirect = RedirectUrl /= [] andalso RedirectUrl /= undefined,
 
 	% Get the content to send back...
-  Content1 =case IsRedirect of 
+  Content1 = case IsRedirect of 
 		true -> wf_handle:build_post_redirect(RedirectUrl);
 		false -> Content
 	end,

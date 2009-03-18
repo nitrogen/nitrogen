@@ -1,4 +1,5 @@
 -module (quickstart).
+-include ("wf.inc").
 -compile(export_all).
 
 %%% APPLICATION FUNCTIONS %%%
@@ -35,4 +36,18 @@ route(Path) -> nitrogen:route(Path).
 %% of a page. Alternatively, you can use the wf:redirect* functions to 
 %% issue a client-side redirect to a new page.
 
-request(Module) -> nitrogen:request(Module).
+request(Module) -> 
+	nitrogen:request(Module).
+
+
+% Code for testing basic authentication:
+%
+% request(Module) -> 
+% 	wf_http_basic_auth:run(Module, ?MODULE).
+% 	
+% realm() -> "nitrogen".
+% 
+% is_authenticated(Module, _) -> false.
+% 
+% authenticate(Module, User, Password) ->
+% 	User == "Rusty" andalso Password == "password".

@@ -6,12 +6,15 @@
 -include ("wf.inc").
 -export ([
 	start/0,
+	start/1,
 	stop/0,
 	init/1,
 	start_server/0,
 	route/1,
 	request/1,
 	get_platform/0,
+	get_host/0,
+	get_ip/0,
 	get_port/0,
 	get_session_timeout/0,
 	get_sign_key/0,
@@ -20,9 +23,13 @@
 	get_hooks_module/0
 ]).
 
-start() -> supervisor:start_link(?MODULE, []).
+start() -> start(undefined).
 
-init(_Args) ->
+start(ServingApp) when is_atom(ServingApp) -> 
+	supervisor:start_link(?MODULE, [ServingApp]).
+
+init([ServingApp]) ->
+	application:set_env(nitrogen, serving_app, ServingApp),
 	RestartStrategy = one_for_one,
 	MaxRestarts = 1000,
 	MaxSecondsBetweenRestarts = 3600,
@@ -42,11 +49,17 @@ start_server() ->
 		inets    -> nitrogen_inets_app:start()
 	end,
 
+	Host = case get_ip() of
+		{0,0,0,0} -> "localhost";
+		{127,0,0,1} -> "localhost";
+		{W,X,Y,Z} -> wf:f("~B.~B.~B.~B", [W, X, Y, Z])
+	end,
+
 	io:format("~n~n---~n"),
 	io:format("Nitrogen is now running on ~s.~n", [get_platform()]),
 	io:format("Serving files from: ~s~n", [get_wwwroot()]),
 	io:format("Template root is at: ~s~n", [get_templateroot()]),
-	io:format("Open your browser to: http://localhost:~p~n", [get_port()]),
+	io:format("Open your browser to: http://~s:~p~n", [Host, get_port()]),
 	io:format("---~n~n"),
 
 	Result.
@@ -66,25 +79,44 @@ request(_) -> ok.
 %%% GET CONFIG SETTINGS %%%
 	
 get_platform() -> 
-	case application:get_env(platform) of
+	case get_env(serving_app(), platform) of
 		{ok, Val} -> Val;
 		_ -> inets
 	end.
 	
 get_session_timeout() ->
-	case application:get_env(session_timeout) of
+	case get_env(serving_app(), session_timeout) of
 		{ok, Val} -> Val;
 		_ -> 20
 	end.
 	
+get_host() -> 
+	case get_env(serving_app(), host) of 
+		{ok, Val} -> Val;
+		_ -> "localhost"
+	end.
+
+get_ip() ->
+	case get_env(serving_app(), ip) of
+		{ok, Val} when is_tuple(Val) -> 
+			Val;
+		{ok, Val} ->
+			case inet_parse:address(Val) of
+				{ok, Ip} -> Ip;
+				_ -> throw("Invalid ip configuration string")	
+			end;
+		_ -> 
+			{0,0,0,0}
+	end.
+
 get_port() -> 
-	case application:get_env(port) of 
+	case get_env(serving_app(), port) of 
 		{ok, Val} -> Val;
 		_ -> 8000
 	end.
 
 get_wwwroot() -> 
-	case application:get_env(wwwroot) of
+	case get_env(serving_app(), wwwroot) of
 		{ok, Val} -> Val;
 		_ -> "./wwwroot"
 	end.
@@ -96,16 +128,30 @@ get_templateroot() ->
     end.	
 	
 get_sign_key() -> 
-	case application:get_env(sign_key) of
+	case get_env(serving_app(), sign_key) of
 		{ok, Val} -> Val;
 		_ -> throw("You must declare a sign_key!")
 	end.
 
 get_hooks_module() ->
-	case application:get_env(hooks_module) of
+	case get_env(serving_app(), hooks_module) of
 		{ok, Module} ->
 			Module;
-		undefined ->
+		_ ->
 			{ok, {Module, _}} = application:get_key(mod),
 			Module
 	end.
+
+serving_app() -> 
+	case get_env(nitrogen, serving_app) of 
+		{ok, Val} -> Val;
+		_ -> undefined
+	end.
+	
+get_env(undefined, Key) -> 
+	Value = application:get_env(Key),
+	Value;
+	
+get_env(App, Key) -> 
+	Value = application:get_env(App, Key),
+	Value.
