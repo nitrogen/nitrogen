@@ -30,7 +30,7 @@
 -record(listitem, {?ELEMENT_BASE(element_listitem), body=[], text="", html_encode=true}).
 -record(br, {?ELEMENT_BASE(element_br) }).
 -record(hr, {?ELEMENT_BASE(element_hr) }).
--record(p, {?ELEMENT_BASE(element_p) }).
+-record(p, {?ELEMENT_BASE(element_p), body=""}).
 -record(label, {?ELEMENT_BASE(element_label), text="", html_encode=true}).
 -record(value, {?ELEMENT_BASE(element_value), text="", html_encode=true}).
 -record(link, {?ELEMENT_BASE(element_link), text="", body="", html_encode=true, url="javascript:", postback}).
