@@ -26,9 +26,14 @@ create_tree(Dir) ->
     [ file:make_dir(filename:join(Dir,X)) || X <- Tree].
 
 copy_nitrogen_www(DestDir) ->
-    SrcDir = src_path("www"),
-    {ok, FileList} = file:list_dir(SrcDir),
-    [ nitrogen_file:copy_file(src_path("www/"++X), filename:join(DestDir, X)) || X <- FileList ].
+    SrcDir = src_path("www") ++ "/",
+    filelib:fold_files(SrcDir, ".*", true,
+                       fun(SrcFile, _) ->
+                               DestFile = filename:join(DestDir, SrcFile--SrcDir),
+                               filelib:ensure_dir(DestFile),
+                               nitrogen_file:copy_file(SrcFile, DestFile)
+                       end,
+                       []).
 
 copy_template_files(Name, DestDir) ->
     Changes = [{"PROJECT", Name},{"PAGE", "web_index"}],
