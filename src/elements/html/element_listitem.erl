@@ -13,7 +13,7 @@ render(ControlID, Record) ->
 		wf:html_encode(Record#listitem.text, Record#listitem.html_encode),
 		wf:render(Record#listitem.body)
 	],
-	
+
 	wf_tags:emit_tag(li, Content, [
 		{id, ControlID},
 		{class, [listitem, Record#listitem.class]},

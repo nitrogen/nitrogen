@@ -20,7 +20,14 @@ emit_tag(TagName, Props) ->
 	].
 	
 %%% Tags with child content %%%
-    
+
+% empty text and body
+emit_tag(TagName, [[], []], Props) ->
+    emit_tag(TagName, Props);
+
+emit_tag(TagName, [], Props) when TagName =/= 'div' ->
+    emit_tag(TagName, Props);
+
 emit_tag(TagName, Content, Props) ->
 	STagName = wf:to_list(TagName),
 	[
