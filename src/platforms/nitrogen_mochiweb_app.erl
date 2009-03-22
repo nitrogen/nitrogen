@@ -12,9 +12,10 @@ start() ->
 	wf:init(),
 
 	% Start the Mochiweb server.
+	Ip = nitrogen:get_ip(),
 	Port = nitrogen:get_port(),
 	DocumentRoot = nitrogen:get_wwwroot(),
-	Options = [{ip, "0.0.0.0"}, {port, Port}],
+	Options = [{ip, Ip}, {port, Port}],
 	HooksModule = nitrogen:get_hooks_module(),
 	case erlang:function_exported(HooksModule, loop, 2) of
 	    true ->

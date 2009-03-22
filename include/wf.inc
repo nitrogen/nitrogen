@@ -31,7 +31,7 @@
 -record(listitem, {?ELEMENT_BASE(element_listitem), body=[], text="", html_encode=true}).
 -record(br, {?ELEMENT_BASE(element_br) }).
 -record(hr, {?ELEMENT_BASE(element_hr) }).
--record(p, {?ELEMENT_BASE(element_p) }).
+-record(p, {?ELEMENT_BASE(element_p), body=""}).
 -record(label, {?ELEMENT_BASE(element_label), text="", html_encode=true}).
 -record(value, {?ELEMENT_BASE(element_value), text="", html_encode=true}).
 -record(link, {?ELEMENT_BASE(element_link), text="", body="", html_encode=true, url="javascript:", postback}).
@@ -43,15 +43,15 @@
 -record(hidden, {?ELEMENT_BASE(element_hidden), text="", html_encode=true}).
 -record(textarea, {?ELEMENT_BASE(element_textarea), text="", html_encode=true}).
 -record(datepicker_textbox, {?ELEMENT_BASE(element_datepicker_textbox), text="", next, html_encode=true, validators=[], options = [{dateFormat, "yy-mm-dd"}] }).
-
-
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, value}).
 -record(option, { text="", value="", selected=false }).
 -record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback}).
+-record(radiogroup, {?ELEMENT_BASE(element_radiogroup), body=[]}).
+-record(radio, {?ELEMENT_BASE(element_radio), text="", html_encode=true, value, name, checked=false, postback}).
 -record(password, {?ELEMENT_BASE(element_password), text="", html_encode=true, next, postback}).
 -record(panel, {?ELEMENT_BASE(element_panel), body=""}).
 -record(spinner, {?ELEMENT_BASE(element_spinner), image="/nitrogen/spinner.gif"}).
--record(image, {?ELEMENT_BASE(element_image), image=""}).
+-record(image, {?ELEMENT_BASE(element_image), image="", alt}).
 -record(rounded_panel, {?ELEMENT_BASE(element_rounded_panel), body="", color=gray}).
 -record(lightbox, {?ELEMENT_BASE(element_lightbox), body="" }).
 -record(table, {?ELEMENT_BASE(element_table), rows}).

@@ -23,6 +23,6 @@ basic_test_() ->
   [?_assertEqual("<p id='1' class='p'/>",new_p_1()),
    ?_assertEqual("<p id='2' class='p t_p'/>",new_p_2()),
    ?_assertEqual("<p id='3' class='p t_p' style='color: cyan;'/>",new_p_3()),
-   ?_assertEqual([module,id,actions,show_if,class,style],
+   ?_assertEqual([module,id,actions,show_if,class,style,body],
 	 element_p:reflect())
   ].

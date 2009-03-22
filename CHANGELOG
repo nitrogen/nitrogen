@@ -1,3 +1,11 @@
+2009-03-22 
+- Added alt text support to #image elements by Robert Schonberger.
+- Fixed bug, 'nitrogen create (PROJECT)' now does a recursive copy of the Nitrogen support files, by Jay Doane.
+- Added radio button support courtesy of Benjamin Nortier and Tom McNulty.
+
+2009-03-16
+- Added .app configuration setting to bind Nitrogen to a specific IP address, by Tom McNulty.
+
 2009-03-08
 - Added DatePicker element by Torbjorn Tornkvist.
 - Upgrade to JQuery 1.3.2 and JQuery UI 1.7.

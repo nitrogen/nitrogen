@@ -136,6 +136,10 @@ N.prototype.$validate_and_serialize = function() {
 		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
 			is_valid = false;
 		} else {
+			if (element.type == "radio") {
+				s += "&" + element.id + "=" + element.checked;
+			}
+
 			s += "&" + jQuery(element).serialize();
 		}
 	}
