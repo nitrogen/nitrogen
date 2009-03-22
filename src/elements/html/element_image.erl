@@ -9,13 +9,16 @@
 reflect() -> record_info(fields, image).
 
 render(ControlID, Record) ->
-        Attributes = [
+	Attributes = [
 		{id, ControlID},
 		{class, [image, Record#image.class]},
 		{style, Record#image.style},
 		{src, Record#image.image}
 	],
-        FinalAttributes = case Record#image.alt of
-             		undefined -> Attributes;
-			ImageAlt -> [{alt, ImageAlt}|Attributes] end,
+
+	FinalAttributes = case Record#image.alt of
+		undefined -> Attributes;
+		ImageAlt -> [{alt, ImageAlt}|Attributes] 
+	end,
+
 	wf_tags:emit_tag(img, FinalAttributes).
