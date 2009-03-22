@@ -50,6 +50,15 @@ body() -> [
 	]},
 	
 	#p{},
+	#label { text="Radio Buttons" },
+	#radio { id=myRadio, body=[
+		#radioitem { id=myRadio1, name=radioGroup, text="Option 1", value="1", checked=true }, #p{},
+		#radioitem { id=myRadio2, name=radioGroup, text="Option 2", value="2" }, #p{},
+		#radioitem { id=myRadio3, name=radioGroup, text="Option 3", value="3" }, #p{},
+		#radioitem { id=myRadio4, name=radioGroup, text="Option 4", value="4" }
+	]},
+	
+	#p{},
 	#label { text="Checkbox" },
 	#checkbox { text="Checkbox", checked=true },
 
