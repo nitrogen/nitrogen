@@ -17,7 +17,7 @@ body() -> [
 	#p{},
 	#label { text="Radio Buttons" },
 	#radio { id=myRadio, body=[
-		#radioitem { id=myRadio1, name=radioGroup, text="Option 1", value="1", postback={checked, 1} }, #p{},
+		#radioitem { id=myRadio1, name=radioGroup, text="Option 1", value="1", postback={checked, 1}, checked=true }, #p{},
 		#radioitem { id=myRadio2, name=radioGroup, text="Option 2", value="2", postback={checked, 2} }, #p{},
 		#radioitem { id=myRadio3, name=radioGroup, text="Option 3", value="3", postback={checked, 3} }, #p{},
 		#radioitem { id=myRadio4, name=radioGroup, text="Option 4", value="4", postback={checked, 4} }
