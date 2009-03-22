@@ -1,5 +1,6 @@
 2009-03-22 
 - Added alt text support to #image elements by Robert Schonberger.
+- Fixed bug, 'nitrogen create (PROJECT)' now does a recursive copy of the Nitrogen support files, by Jay Doane.
 
 2009-03-16
 - Added .app configuration setting to bind Nitrogen to a specific IP address, by Tom McNulty.
