@@ -50,6 +50,10 @@ function wf_serialize_page() {
 	var elements = wf_get_elements_to_serialize();
 	var s = "";
 	for (var i = 0; i<elements.length; i++) {
+		var element = $(elements[i])[0];
+		if (element.type == "radio") {
+			s += "&" + element.id + "=" + element.checked;
+		}
 		s += "&" + $(elements[i]).serialize();
 	}
 	return s;

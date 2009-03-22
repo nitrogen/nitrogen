@@ -9,29 +9,19 @@
 reflect() -> record_info(fields, radio).
 
 render(ControlID, Record) -> 
-    CheckedOrNot = case Record#radio.checked of
-	true -> checked;
-	_ -> not_checked
-    end,
-    case Record#radio.postback of
-	undefined -> ok;
-	Postback -> wf:wire(ControlID, #event { type=change, postback=Postback })
-    end,
-    Content = wf:html_encode(Record#radio.text, Record#radio.html_encode),
-    [
-	%% Checkbox...
-	wf_tags:emit_tag(input, [
-		{id, ControlID}, 
-		{name, Record#radio.name},
-		{value, Record#radio.value},
-		{type, radio},
-		{class, [radio, Record#radio.class]},
-		{style, Record#radio.style},
-		{CheckedOrNot, true}
-	    ]),
+	% Set the group to the current ControlID...
 
-	%% Label for Radio...
-	wf_tags:emit_tag(label, Content, [
-		{for, ControlID}
-	    ])
-    ].
+	F = fun(X) ->
+		case is_record(X, radioitem) of
+			true -> X#radioitem { name=ControlID };
+			false -> X
+		end
+	end,
+	Body = [F(X) || X <- Record#radio.body],
+	
+	% Render the record...
+	element_panel:render(ControlID, #panel {
+		class="radio " ++ wf:to_list(Record#radio.class),
+		style=Record#radio.style,
+		body=Body
+	}).

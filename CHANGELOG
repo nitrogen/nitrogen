@@ -1,3 +1,6 @@
+2009-03-22
+- Added radio button support courtesy of Benjamin Nortier and Tom McNulty.
+
 2009-03-16
 - Added .app configuration setting to bind Nitrogen to a specific IP address, by Tom McNulty.
 
