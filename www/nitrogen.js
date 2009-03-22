@@ -64,11 +64,14 @@ N.Inline = function(o) {
 	if (o.windex) {
 		n.$do_event = n.$do_windex_event;
 		n.$do_comet = n.$do_windex_comet;
+		n.$url = Nitrogen.$add_param(n.$url, "windex", "true");
 	} else {
 		n.$do_event = n.$do_xhr_event;
 		n.$do_comet = n.$do_xhr_comet;
 	}
-	jQuery.getScript(o.url + "?javascript_mode=true&object_id=" + n.id);
+	
+	var url = Nitrogen.$add_param(n.$url, "object_id", n.id);
+	Nitrogen.$load_script(url);
 	return n;
 }
 
@@ -229,15 +232,12 @@ N.prototype.$do_windex_event = function(triggerID, postbackInfo, extraParams) {
 	}
 	
 	// Build params...
-	var url =
-	 	this.$url + "?" + 
-		"windex=true" + 
-		"&domState=" + this.$dom_state + 
-		"&postbackInfo=" + postbackInfo + 
-		"&" + s + 
-		"&" + extraParams;
-
-	jQuery.getScript(url);
+	var url = this.$url;
+	url = Nitrogen.$add_param(url, "domState", this.$dom_state);
+	url = Nitrogen.$add_param(url, "postbackInfo", postbackInfo);
+	url = Nitrogen.$add_param(url, s);
+	url = Nitrogen.$add_param(url, extraParams);
+	Nitrogen.$load_script(url);
 }
 
 
@@ -376,7 +376,26 @@ N.$set_value = function(element, value) {
 	else this.$update(element, value);
 }
 
+N.$add_param = function(url, key, value) {
+	// Create the key=value line to add.
+	// Sometimes, the user will pass a bunch of params in the key field.
+	var s = "";
+	if (key) { s = key; }
+	if (key && value) { s = key + "=" + value; }
+	
+	// Return the updated url...
+	var parts = url.split("?");
+	if (parts.length == 1) { return url + "?" + s; }
+	if (parts.length > 1) { return url + "&" + s; }
+}
 
+N.$load_script = function(url) {
+	var head = document.getElementsByTagName('head')[0];
+  var script = document.createElement('script');
+  script.type= 'text/javascript';
+  script.src= url;
+  head.appendChild(script);
+}
 
 /*** DATE PICKER ***/
 

@@ -30,10 +30,7 @@ check_request_method(Module) ->
 	wf_query:prepare_request_query_paths(Query),
 
 	% Check if this is the first request or a postback...
-	IsFirstRequest = 
-		wf_platform:request_method() == 'GET' andalso
-		wf:q(windex) /= ["true"],
-
+	IsFirstRequest = wf_platform:request_method() == 'GET' andalso wf:q(postbackInfo) == [],
 	case IsFirstRequest of 
 		true  -> wf_handle_firstrequest:handle_request(Module);
 		false -> wf_handle_postback:handle_request(Module) 

@@ -20,17 +20,8 @@ handle_request(Module) ->
 	% Run the request and get the response body...
 	Body = run_module_main(Module),
 	
-	IsJavascriptMode = wf:q(javascript_mode) == ["true"],
-	Body1 = case IsJavascriptMode of
-		true ->	[
-			wf:f("Nitrogen.$lookup('~s').$update(\"~s\");", [get(current_id), wf_utils:js_escape(Body)]),
-			wf_script:get_script()
-		];
-		false -> Body
-	end,
-	
 	% Finish by setting the response body, and sending the response.
-	wf_platform:set_response_body(Body1),
+	wf_platform:set_response_body(Body),
 	wf_platform:build_response().
 
 
