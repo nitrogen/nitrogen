@@ -51,11 +51,11 @@ body() -> [
 	
 	#p{},
 	#label { text="Radio Buttons" },
-	#radio { id=myRadio, body=[
-		#radioitem { id=myRadio1, name=radioGroup, text="Option 1", value="1", checked=true }, #p{},
-		#radioitem { id=myRadio2, name=radioGroup, text="Option 2", value="2" }, #p{},
-		#radioitem { id=myRadio3, name=radioGroup, text="Option 3", value="3" }, #p{},
-		#radioitem { id=myRadio4, name=radioGroup, text="Option 4", value="4" }
+	#radiogroup { body=[
+		#radio { id=myRadio1, text="Option 1", value="1", checked=true }, #p{},
+		#radio { id=myRadio2, text="Option 2", value="2" }, #p{},
+		#radio { id=myRadio3, text="Option 3", value="3" }, #p{},
+		#radio { id=myRadio4, text="Option 4", value="4" }
 	]},
 	
 	#p{},
