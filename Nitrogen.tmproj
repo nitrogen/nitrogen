@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>www/nitrogen.js</string>
+	<string>src/lib/wf_handle_postback_multipart.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -37,7 +37,7 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-03-19T01:07:02Z</date>
+					<date>2009-03-24T01:16:12Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -55,7 +55,7 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-03-19T01:07:02Z</date>
+					<date>2009-03-24T03:26:30Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -109,13 +109,13 @@
 							<key>filename</key>
 							<string>src/platforms/wf_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2009-02-20T21:58:08Z</date>
+							<date>2009-03-24T03:10:04Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/platforms/wf_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2009-02-20T21:58:07Z</date>
+							<date>2009-03-24T02:41:00Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -196,7 +196,7 @@
 							<key>filename</key>
 							<string>src/actions/action_event.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-16T03:02:46Z</date>
+							<date>2009-03-24T02:04:32Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -215,6 +215,8 @@
 						<dict>
 							<key>filename</key>
 							<string>src/actions/action_confirm.erl</string>
+							<key>lastUsed</key>
+							<date>2009-03-24T02:04:31Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -370,7 +372,7 @@
 									<key>filename</key>
 									<string>src/elements/heading/element_h1.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-21T12:19:39Z</date>
+									<date>2009-03-24T01:16:11Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -439,6 +441,12 @@
 									<key>lastUsed</key>
 									<date>2009-01-03T22:05:52Z</date>
 								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/elements/forms/element_upload.erl</string>
+									<key>lastUsed</key>
+									<date>2009-03-24T02:46:57Z</date>
+								</dict>
 							</array>
 							<key>expanded</key>
 							<true/>
@@ -478,9 +486,15 @@
 									<key>filename</key>
 									<string>src/elements/layout/element_template.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-17T02:53:21Z</date>
+									<date>2009-03-24T01:16:11Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/elements/layout/element_windex.erl</string>
 								</dict>
 							</array>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>Layout</string>
 						</dict>
@@ -617,19 +631,19 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform_yaws.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-08T17:15:01Z</date>
+							<date>2009-03-24T03:11:39Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_platform.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-19T00:40:03Z</date>
+							<date>2009-03-24T03:11:38Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_handle.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-18T03:16:06Z</date>
+							<date>2009-03-24T03:17:40Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -641,7 +655,13 @@
 							<key>filename</key>
 							<string>src/lib/wf_handle_postback.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-17T01:30:15Z</date>
+							<date>2009-03-24T03:17:26Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>src/lib/wf_handle_postback_multipart.erl</string>
+							<key>lastUsed</key>
+							<date>2009-03-24T03:26:30Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -659,7 +679,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_render.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-15T14:52:32Z</date>
+							<date>2009-03-24T02:04:31Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -683,7 +703,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_path.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-15T14:52:34Z</date>
+							<date>2009-03-24T01:50:49Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -719,13 +739,15 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform_mochiweb.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-08T17:15:02Z</date>
+							<date>2009-03-24T03:11:39Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/lib/wf_platform_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-17T01:30:17Z</date>
+							<date>2009-03-24T03:11:39Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -747,7 +769,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_state.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-16T03:02:46Z</date>
+							<date>2009-03-24T02:04:30Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -790,7 +812,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-03-19T01:08:05Z</date>
+					<date>2009-03-24T01:16:11Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -829,9 +851,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-03-21T12:19:39Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2009-03-24T02:04:30Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -844,36 +864,6 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>include/wf.inc</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>44</integer>
-				<key>line</key>
-				<integer>24</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>7</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>40</integer>
-				<key>line</key>
-				<integer>24</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>44</integer>
-				<key>line</key>
-				<integer>24</integer>
-			</dict>
-		</dict>
 		<key>src/elements/forms/element_button.erl</key>
 		<dict>
 			<key>caret</key>
@@ -903,20 +893,6 @@
 			<integer>0</integer>
 		</dict>
 		<key>src/elements/forms/element_textarea.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/heading/element_h1.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -1212,6 +1188,34 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>src/lib/wf_handle.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>10</integer>
+		</dict>
+		<key>src/lib/wf_handle_postback_multipart.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>1</integer>
+		</dict>
 		<key>src/lib/wf_redirect.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1253,20 +1257,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>7</integer>
-		</dict>
-		<key>src/nitrogen.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>6</integer>
 		</dict>
 		<key>src/platforms/nitrogen_inets_app.erl</key>
 		<dict>
@@ -1386,20 +1376,6 @@
 				<integer>13</integer>
 			</dict>
 		</dict>
-		<key>src/wf.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>6</integer>
-				<key>line</key>
-				<integer>153</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>www/nitrogen.css</key>
 		<dict>
 			<key>caret</key>
@@ -1414,28 +1390,11 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>www/nitrogen.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
-				<key>line</key>
-				<integer>233</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>216</integer>
-		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>src/nitrogen.erl</string>
-		<string>src/wf.erl</string>
-		<string>include/wf.inc</string>
-		<string>src/elements/heading/element_h1.erl</string>
-		<string>www/nitrogen.js</string>
+		<string>src/lib/wf_handle_postback_multipart.erl</string>
+		<string>src/lib/wf_handle.erl</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
@@ -1468,6 +1427,13 @@
 					<key>subItems</key>
 					<dict>
 						<key>Forms</key>
+						<dict>
+							<key>isExpanded</key>
+							<true/>
+							<key>subItems</key>
+							<dict/>
+						</dict>
+						<key>Layout</key>
 						<dict>
 							<key>isExpanded</key>
 							<true/>
@@ -1515,6 +1481,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{312, 0}, {907, 778}}</string>
+	<string>{{310, 0}, {907, 778}}</string>
 </dict>
 </plist>

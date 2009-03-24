@@ -67,7 +67,6 @@ parse_post_args() -> do(parse_post_args).
 get_headers() -> do(get_headers, []).
 get_header(Header) -> do(get_header, [wf:to_atom(Header)]).
     
-	
 %%% COOKIES %%%
 	
 get_cookie(Key) ->

@@ -13,11 +13,19 @@ handle_request(Module, PathInfo) ->
 check_request_authorization(Module) ->
 	case wf_platform:request(Module) of
 		ok ->
-			check_request_method(Module);
+			check_multipart_postback(Module);
 		Response -> 
 			% Something else happened, so return the given response.
 			wf_platform:set_response_body(Response),
 			wf_platform:build_response()
+	end.
+	
+check_multipart_postback(Module) ->
+	case wf_platform:get_header(content_type) of
+		"multipart/form-data" ++ _ ->
+			wf_handle_postback_multipart:handle_request(Module);
+		_ -> 
+			check_request_method(Module)
 	end.
 
 check_request_method(Module) ->

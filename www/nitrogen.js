@@ -249,7 +249,12 @@ N.prototype.$do_windex_comet = function(postbackInfo) {
 	alert("Comet is not yet supported via Windex.");
 }
 
-
+/*** FILE UPLOAD ***/
+N.$upload = function(form) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	form.domState.value = n.$dom_state;
+	form.submit();	
+}
 
 /*** SERIALIZATION ***/
 
