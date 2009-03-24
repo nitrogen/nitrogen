@@ -422,6 +422,8 @@
 									<date>2009-01-03T22:05:52Z</date>
 								</dict>
 							</array>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>Forms</string>
 						</dict>
@@ -528,6 +530,8 @@
 							<string>Other</string>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Elements</string>
 				</dict>
@@ -723,7 +727,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_tags.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-24T14:45:29Z</date>
+							<date>2009-03-24T00:23:00Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -1266,6 +1270,20 @@
 			<key>firstVisibleLine</key>
 			<integer>95</integer>
 		</dict>
+		<key>src/platforms/nitrogen_inets_app.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>22</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>src/platforms/nitrogen_mochiweb_app.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1437,6 +1455,21 @@
 					<key>subItems</key>
 					<dict/>
 				</dict>
+				<key>Elements</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict>
+						<key>Forms</key>
+						<dict>
+							<key>isExpanded</key>
+							<true/>
+							<key>subItems</key>
+							<dict/>
+						</dict>
+					</dict>
+				</dict>
 				<key>Lib</key>
 				<dict>
 					<key>isExpanded</key>
@@ -1476,6 +1509,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{312, 0}, {907, 778}}</string>
+	<string>{{310, 0}, {907, 778}}</string>
 </dict>
 </plist>

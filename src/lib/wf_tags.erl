@@ -25,7 +25,10 @@ emit_tag(TagName, Props) ->
 emit_tag(TagName, [[], []], Props) ->
     emit_tag(TagName, Props);
 
-emit_tag(TagName, [], Props) when TagName =/= 'div' ->
+emit_tag(TagName, [], Props) when 
+	TagName =/= 'div', 
+	TagName =/= 'textarea'
+	->
     emit_tag(TagName, Props);
 
 emit_tag(TagName, Content, Props) ->
