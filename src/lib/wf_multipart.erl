@@ -22,6 +22,7 @@
 
 parse_upload() -> 
 	ScratchDir = nitrogen:get_scratch_directory(),
+	file:make_dir(ScratchDir),
 	TempFileName = wf:to_list(wf_utils:pickle(erlang:now())),
 	LocalFileData = filename:join(ScratchDir, TempFileName),
  	State = #state { localfiledata=LocalFileData },
