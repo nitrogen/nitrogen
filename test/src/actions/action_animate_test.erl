@@ -14,7 +14,7 @@ new_animate_1() ->
   lists:flatten(action_animate:render_action(TriggerPath,TargetPath, Record)).
 
 basic_test_() ->
-  [?_assertEqual("wf_current_path=''; $(obj('_target_path')).animate({ key: 'value' }, \"a_speed\", 'some_easing');", 
+  [?_assertEqual("Nitrogen.$current_id='';Nitrogen.$current_path='';jQuery(obj('_target_path')).animate({ key: 'value' }, \"a_speed\", 'some_easing');", 
                  new_animate_1())
   ].
 

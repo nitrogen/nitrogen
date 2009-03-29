@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/lib/wf_tags.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -190,7 +188,7 @@
 							<key>filename</key>
 							<string>src/actions/action_jquery_effect.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-28T22:08:22Z</date>
+							<date>2009-03-29T12:22:58Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -609,7 +607,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_multipart.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-29T00:21:11Z</date>
+							<date>2009-03-29T12:18:23Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -677,7 +675,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_render.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-28T22:08:17Z</date>
+							<date>2009-03-29T12:22:58Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -781,7 +779,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_tags.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-29T00:30:46Z</date>
+							<date>2009-03-29T12:18:24Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -1226,20 +1224,6 @@
 			<key>firstVisibleLine</key>
 			<integer>7</integer>
 		</dict>
-		<key>src/lib/wf_tags.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>27</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>32</integer>
-		</dict>
 		<key>src/platforms/nitrogen_mochiweb_app.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1329,10 +1313,6 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/lib/wf_tags.erl</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>treeState</key>

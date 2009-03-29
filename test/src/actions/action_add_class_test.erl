@@ -14,7 +14,7 @@ new_add_class_1() ->
   lists:flatten(action_add_class:render_action(TriggerPath, TargetPath, Record)).
 
 basic_test_() ->
-  [?_assertEqual("wf_current_path=''; $(obj('target_path')).addClass('a_class', \"a_speed\");",
+  [?_assertEqual("Nitrogen.$current_id='';Nitrogen.$current_path='';jQuery(obj('target_path')).addClass('a_class', \"a_speed\");",
                  new_add_class_1())
   ].
 

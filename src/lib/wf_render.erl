@@ -18,10 +18,13 @@
 ]).
 
 me_var() -> 
-	ID = get(current_id),
+	ID = case get(current_id) of
+		undefined -> "";
+		Other -> Other
+	end,
 	Path = get(current_path),
 	Path1 = wf_path:to_js_id(Path),
-	wf:f("Nitrogen.$current_id='~s'; Nitrogen.$current_path='~s';", [ID, Path1]).
+	wf:f("Nitrogen.$current_id='~s';Nitrogen.$current_path='~s';", [ID, Path1]).
 
 render(undefined) -> "";
 render(Term) when is_binary(Term) -> Term;
