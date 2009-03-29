@@ -253,7 +253,8 @@ N.prototype.$do_windex_comet = function(postbackInfo) {
 N.$upload = function(form) {
 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
 	form.domState.value = n.$dom_state;
-	form.submit();	
+	form.submit();
+	form.reset();
 }
 
 /*** SERIALIZATION ***/
@@ -264,7 +265,10 @@ N.prototype.$get_elements_to_serialize = function() {
 	for (var i=0; i<tagnames.length; i++) {
 		var l = this.$div.getElementsByTagName(tagnames[i]);
 		for (var j=0; j<l.length; j++) {
-			a = a.concat(l[j]);
+			var elementName = l[j].name;
+			if (elementName != "domState" && elementName != "postbackInfo") {
+				a = a.concat(l[j]);
+			}
 		}
 	}
 	

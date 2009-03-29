@@ -3,12 +3,14 @@
 % See MIT-LICENSE for licensing information.
 
 -module (wf_platform_mochiweb).
+-include ("wf.inc").
 -export ([
 	get_platform/0,
 	
 	get_raw_path/0,
 	get_querystring/0,
-	request_method/0,
+	get_request_method/0,
+	get_request_body/0,
 	
 	parse_get_args/0,
 	parse_post_args/0,
@@ -23,7 +25,8 @@
 	
 	build_response/0,
 
-	get_peername/0
+	get_socket/0,
+	recv_from_socket/2
 ]).
 
 get_platform() -> mochiweb.
@@ -40,9 +43,12 @@ get_querystring() ->
 	{_, QueryString, _} = mochiweb_util:urlsplit_path(RawPath),
 	QueryString.
 	
-request_method() ->
+get_request_method() ->
 	Req = wf_platform:get_request(),
 	Req:get(method).
+	
+get_request_body() ->
+	undefined.
 
 parse_get_args() ->
 	Req = wf_platform:get_request(),
@@ -117,6 +123,16 @@ build_response() ->
 
 %%% SOCKETS %%%
 
-get_peername() ->
+get_socket() ->
 	Req = wf_platform:get_request(),
-	inet:peername(Req:get(socket)).
+	Req:get(socket).
+
+recv_from_socket(Length, Timeout) -> 
+	Socket = get_socket(),
+	case gen_tcp:recv(Socket, Length, Timeout) of
+		{ok, Data} -> 
+			put(mochiweb_request_recv, true),
+			Data;
+		_Other -> 
+			exit(normal)
+	end.

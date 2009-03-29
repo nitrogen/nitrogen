@@ -73,7 +73,7 @@
 -define(CONTROL_BASE(Module), ?ELEMENT_BASE(Module), tag).
 -record(inplace_textbox, {?CONTROL_BASE(element_inplace_textbox), text="", html_encode=true, start_mode=view, validators=[]}).
 -record(wizard, {?CONTROL_BASE(element_wizard), titles, steps }).
--record(upload, {?CONTROL_BASE(element_upload)}).
+-record(upload, {?CONTROL_BASE(element_upload), show_button=true, button_text="Upload" }).
 
 %%% Actions %%%
 -define(ACTION_BASE(Module), module=Module, trigger, target, actions, show_if=true).

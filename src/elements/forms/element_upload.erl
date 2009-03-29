@@ -15,13 +15,17 @@ reflect() -> record_info(fields, upload).
 % - Does document.parentNode always work in an iframe?
 
 render(ControlID, Record) ->
+	ShowButton = Record#upload.show_button,
+	ButtonText = Record#upload.button_text,
 	FormID = wf:temp_id(),
 	IFrameID = wf:temp_id(),
 	SubmitJS = wf:f("Nitrogen.$upload(obj('~s'));", [FormID]),
-	% wf:wire(ControlID, #event { type=change, actions=SubmitJS }),
-
 	PostbackInfo = action_event:make_postback_info(Record#upload.tag, upload, ControlID, ControlID, ?MODULE),
-
+	
+	% If the button is invisible, then start uploading when the user selects a file.
+	wf:wire(ControlID, #event { show_if=(not ShowButton), type=change, actions=SubmitJS }),
+	
+	% Render the controls and hidden iframe...
 	FormContent = [
 		wf_tags:emit_tag(input, [
 			{id, ControlID},
@@ -41,7 +45,7 @@ render(ControlID, Record) ->
 			{value, ""}
 		]),
 		
-		wf:render(#button { text="Upload", actions=#event { type=click, actions=SubmitJS } })
+		wf:render(#button { show_if=ShowButton, text=ButtonText, actions=#event { type=click, actions=SubmitJS } })
 	],
 	
 	[
@@ -56,10 +60,11 @@ render(ControlID, Record) ->
 		wf_tags:emit_tag(iframe, [], [
 			{id, IFrameID},
 			{name, IFrameID},
-			{style, "width: 300px; height: 100px;"}
+			{style, "display: none; width: 300px; height: 100px;"}
 		])
 	].
 	
-event(Tag) -> 
-	?PRINT(Tag),
+event({upload, Tag, Filename, LocalFileData}) -> 
+	Delegate = wf_platform:get_page_module(),
+	Delegate:upload_event(Tag, Filename, LocalFileData),
 	ok.

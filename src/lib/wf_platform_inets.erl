@@ -9,7 +9,8 @@
 
 	get_raw_path/0,
 	get_querystring/0,
-	request_method/0,
+	get_request_method/0,
+	get_request_body/0,
 
 	get_headers/0,
 	get_header/1,
@@ -24,7 +25,8 @@
 	
 	build_response/0,
 
-	get_peername/0
+	get_socket/0,
+	recv_from_socket/2
 ]).
 
 get_platform() -> inets.
@@ -43,9 +45,13 @@ get_querystring() ->
 		_ -> tl(QueryString) 
 	end.
 
-request_method() ->
+get_request_method() ->
 	Info = wf_platform:get_request(),
 	wf:to_atom(Info#mod.method).
+	
+get_request_body() ->
+	Req = wf_platform:get_request(),
+	Req#mod.entity_body.
 
 parse_get_args() ->
 	QueryString = get_querystring(),
@@ -153,6 +159,13 @@ build_response() ->
 
 %%% SOCKETS %%%
 
-get_peername() ->
+get_socket() ->
 	Info = wf_platform:get_request(),
-	inet:peername(Info#mod.socket).
+	Info#mod.socket.
+
+recv_from_socket(Length, Timeout) -> 
+	Socket = get_socket(),
+	case gen_tcp:recv(Socket, Length, Timeout) of
+		{ok, Data} -> Data;
+		_ -> exit(normal)
+	end.

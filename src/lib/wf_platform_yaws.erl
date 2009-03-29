@@ -9,7 +9,8 @@
 	
 	get_raw_path/0,
 	get_querystring/0,
-	request_method/0,
+	get_request_method/0,
+	get_request_body/0,
 	
 	parse_get_args/0,
 	parse_post_args/0,
@@ -23,7 +24,8 @@
 	
 	build_response/0,
 
-	get_peername/0
+	get_socket/0,
+	recv_from_socket/2
 ]).
 
 get_platform() -> yaws.
@@ -38,9 +40,16 @@ get_querystring() ->
 	Arg = wf_platform:get_request(),
 	Arg#arg.querydata.
 
-request_method() ->
+get_request_method() ->
 	Arg = wf_platform:get_request(),
 	(Arg#arg.req)#http_request.method.
+	
+get_request_body() ->
+	Arg = wf_platform:get_request(),
+	case Arg#arg.clidata of
+		{partial, Data} -> Data;
+		Data -> Data
+	end.
 	
 parse_get_args() ->
 	Arg = wf_platform:get_request(),
@@ -123,6 +132,13 @@ build_response() ->
 
 %%% SOCKETS %%%
 
-get_peername() ->
+get_socket() ->
 	Arg = wf_platform:get_request(),
-	inet:peername(Arg#arg.clisock).
+	Arg#arg.clisock.
+
+recv_from_socket(Length, Timeout) -> 
+	Socket = get_socket(),
+	case gen_tcp:recv(Socket, Length, Timeout) of
+		{ok, Data} -> Data;
+		_ -> exit(normal)
+	end.

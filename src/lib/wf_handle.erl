@@ -30,7 +30,7 @@ check_multipart_postback(Module) ->
 
 check_request_method(Module) ->
 	% Get the query...
-	Query = case wf_platform:request_method() of
+	Query = case wf_platform:get_request_method() of
 		'GET' -> wf_platform:parse_get_args();
 		'POST' -> wf_platform:parse_post_args()
 	end,
@@ -38,7 +38,7 @@ check_request_method(Module) ->
 	wf_query:prepare_request_query_paths(Query),
 
 	% Check if this is the first request or a postback...
-	IsFirstRequest = wf_platform:request_method() == 'GET' andalso wf:q(postbackInfo) == [],
+	IsFirstRequest = wf_platform:get_request_method() == 'GET' andalso wf:q(postbackInfo) == [],
 	case IsFirstRequest of 
 		true  -> wf_handle_firstrequest:handle_request(Module);
 		false -> wf_handle_postback:handle_request(Module) 

@@ -12,7 +12,8 @@
 
 	get_raw_path/0,
 	get_querystring/0,
-	request_method/0,
+	get_request_method/0,
+	get_request_body/0,
 	parse_get_args/0,
 	parse_post_args/0,
 
@@ -24,6 +25,8 @@
 	set_redirect/1,
 	set_header/2,
 	get_peername/0,
+	get_socket/0,
+	recv_from_socket/2,
 	route/1, request/1,
 	set_response_code/1,
 	set_content_type/1,
@@ -49,6 +52,7 @@ do(Method, Args) ->
 
 get_platform() -> do(get_platform).
 get_request() -> get(wf_request).
+get_request_body() -> do(get_request_body).
 get_page_module() -> get(wf_page_module).
 set_page_module(Module) -> put(wf_page_module, Module).
 get_path_info() -> get(wf_path_info).
@@ -60,7 +64,7 @@ get_querystring() -> do(get_querystring).
 
 %%% METHOD AND ARGS %%%
 
-request_method() -> do(request_method).
+get_request_method() -> do(get_request_method).
 parse_get_args() -> do(parse_get_args).
 parse_post_args() -> do(parse_post_args).
 
@@ -104,8 +108,10 @@ set_header(Key, Value) ->
 	
 
 %%% SOCKETS %%%
+get_socket() -> do(get_socket).
+get_peername() -> inet:peername(get_socket).
+recv_from_socket(Length, Timeout) -> do(recv_from_socket, [Length, Timeout]).
 
-get_peername() -> do(get_peername).
 
 %%% ROUTE AND REQUEST %%%
 
@@ -158,7 +164,7 @@ handle_redirects() ->
 
 build_redirect(Url) ->
 	Url1 = wf:to_list(Url),
-	case request_method() of
+	case get_request_method() of
 		'GET' -> build_get_redirect(Url1);
 		'POST' -> build_post_redirect(Url1)
 	end.

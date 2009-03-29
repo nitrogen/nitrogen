@@ -20,14 +20,6 @@ restore_state() ->
 			put(wf_state, wf:depickle(DomState))
 	end.
 
-% restore_state_from_post(Query) ->
-% 	{value, {_, DomState}} = lists:keysearch("domState", 1, Query),
-% 	case DomState of 
-% 		undefined -> ignore;
-% 		_ ->
-% 			put(wf_state, wf:depickle(DomState))
-% 	end.
-	
 %%% STATE %%%
 
 %state/1 - Get the value for Key.
