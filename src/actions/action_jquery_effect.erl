@@ -9,7 +9,7 @@
 render_action(_TriggerPath, TargetPath, Record) ->
 	Effect = Record#jquery_effect.effect,
 	Speed = Record#jquery_effect.speed, 
-	Options = to_js(Record#jquery_effect.options),
+	Options = options_to_js(Record#jquery_effect.options),
 	Class = Record#jquery_effect.class,
 	Easing = Record#jquery_effect.easing,
 	
@@ -28,10 +28,10 @@ render_action(_TriggerPath, TargetPath, Record) ->
 	end,
 
 	JSID = wf:to_js_id(TargetPath),
-	[wf:me_var(), wf:f("$(obj('~s')).~s", [JSID, Script])].
+	[wf:me_var(), wf:f("jQuery(obj('~s')).~s", [JSID, Script])].
 
 %% Options is a list of {Key,Value} tuples	
-to_js(Options) ->
+options_to_js(Options) ->
 	F = fun({Key, Value}) ->
 		if 
 			is_list(Value) -> 

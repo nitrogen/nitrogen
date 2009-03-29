@@ -27,8 +27,8 @@ emit_tag(TagName, [[], []], Props) ->
 
 emit_tag(TagName, [], Props) when 
 	TagName =/= 'div', 
-	TagName =/= 'textarea'
-	->
+	TagName =/= 'textarea',
+	TagName =/= 'iframe' ->
     emit_tag(TagName, Props);
 
 emit_tag(TagName, Content, Props) ->

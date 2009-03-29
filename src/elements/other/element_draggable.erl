@@ -32,7 +32,7 @@ render(ControlID, Record) ->
 	end,
 
 	% Write out the script to make this element draggable...
-	Script = wf:f("wf_draggable(obj('~s'), { handle: ~s, helper: '~s', revert: ~s }, '~s');", [
+	Script = wf:f("Nitrogen.$draggable(obj('~s'), { handle: ~s, helper: '~s', revert: ~s }, '~s');", [
 		ControlID, 
 		Handle, 
 		Helper, 

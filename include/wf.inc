@@ -21,6 +21,7 @@
 -define(ELEMENT_BASE(Module), module=Module, id, actions, show_if=true, class="", style="").
 -record(elementbase, {?ELEMENT_BASE(undefined)}).
 -record(template, {?ELEMENT_BASE(element_template), file, bindings=[] }).
+-record(windex, {?ELEMENT_BASE(element_windex) }).
 -record(body, {?ELEMENT_BASE(element_body), title="", body=[]}).
 -record(h1, {?ELEMENT_BASE(element_h1), text="", html_encode=true}).
 -record(h2, {?ELEMENT_BASE(element_h2), text="", html_encode=true}).
@@ -41,7 +42,7 @@
 -record(textbox, {?ELEMENT_BASE(element_textbox), text="", html_encode=true, next, postback}).
 -record(hidden, {?ELEMENT_BASE(element_hidden), text="", html_encode=true}).
 -record(textarea, {?ELEMENT_BASE(element_textarea), text="", html_encode=true}).
--record(datepicker_textbox, {?ELEMENT_BASE(element_datepicker_textbox), text="", next, html_encode=true, validators=[], options = "{dateFormat:'yy-mm-dd'}"}).
+-record(datepicker_textbox, {?ELEMENT_BASE(element_datepicker_textbox), text="", next, html_encode=true, validators=[], options = [{dateFormat, "yy-mm-dd"}] }).
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, value}).
 -record(option, { text="", value="", selected=false }).
 -record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback}).
@@ -72,6 +73,7 @@
 -define(CONTROL_BASE(Module), ?ELEMENT_BASE(Module), tag).
 -record(inplace_textbox, {?CONTROL_BASE(element_inplace_textbox), text="", html_encode=true, start_mode=view, validators=[]}).
 -record(wizard, {?CONTROL_BASE(element_wizard), titles, steps }).
+-record(upload, {?CONTROL_BASE(element_upload), show_button=true, button_text="Upload" }).
 
 %%% Actions %%%
 -define(ACTION_BASE(Module), module=Module, trigger, target, actions, show_if=true).

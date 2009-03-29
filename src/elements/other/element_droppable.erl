@@ -16,7 +16,7 @@ render(ControlID, Record) ->
 	AcceptGroups = groups_to_accept(Record#droppable.accept_groups),
 
 	% Write out the script to make this element droppable...
-	Script = wf:f("wf_droppable(obj('~s'), { activeClass: '~s', hoverClass: '~s', accept: '~s' }, '~s');", [
+	Script = wf:f("Nitrogen.$droppable(obj('~s'), { activeClass: '~s', hoverClass: '~s', accept: '~s' }, '~s');", [
 		ControlID, 
 		ActiveClass, 
 		HoverClass, 

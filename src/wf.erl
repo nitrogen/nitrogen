@@ -56,7 +56,6 @@ set_response_code(Code) -> wf_platform:set_response_code(Code).
 set_content_type(ContentType) -> wf_platform:set_content_type(ContentType).
 get_headers() -> wf_platform:get_headers().
 get_header(Hdr) -> wf_platform:get_header(Hdr).
-    
 
 
 
