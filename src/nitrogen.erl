@@ -20,7 +20,8 @@
 	get_sign_key/0,
 	get_wwwroot/0,
 	get_templateroot/0,
-	get_hooks_module/0
+	get_hooks_module/0,
+	get_scratch_directory/0
 ]).
 
 start() -> start(undefined).
@@ -140,6 +141,12 @@ get_hooks_module() ->
 		_ ->
 			{ok, {Module, _}} = application:get_key(mod),
 			Module
+	end.
+	
+get_scratch_directory() ->
+	case get_env(serving_app(), scratch_directory) of
+		{ok, Val} -> Val;
+		_ -> "./scratch"
 	end.
 
 serving_app() -> 

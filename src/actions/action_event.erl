@@ -14,8 +14,8 @@ render_action(TriggerPath, TargetPath, Record) ->
 	case EventType of
 		enterkey ->
 			[
-				wf:f("wf_observe_event(obj('~s'), 'keypress', function anonymous(event) {", [wf:to_js_id(TriggerPath)]),
-				wf:f("if (wf_is_enter_key(event)) { ~s ~s; return false; }", [Postback, Actions]),
+				wf:f("Nitrogen.$observe_event(obj('~s'), 'keypress', function anonymous(event) {", [wf:to_js_id(TriggerPath)]),
+				wf:f("if (Nitrogen.$is_enter_key(event)) { ~s ~s; return false; }", [Postback, Actions]),
 				wf:f("});\r\n")
 			];
 		
@@ -24,16 +24,17 @@ render_action(TriggerPath, TargetPath, Record) ->
 			
 		_ ->
 			[
-				wf:f("wf_observe_event(obj('~s'), '~s', function anonymous(event) { ~s ~s });\r\n", [wf:to_js_id(TriggerPath), EventType, Postback, Actions])
+				wf:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) { ~s ~s });\r\n", [wf:to_js_id(TriggerPath), EventType, Postback, Actions])
 			]
 	end.
 	
 make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate) ->
+	ObjectID = get(current_id),
 	Delegate1 = case Delegate of
 		undefined -> wf_platform:get_page_module();
 		_ -> Delegate
 	end,
-	PostbackInfo = {EventType, TriggerPath, TargetPath, Tag, Delegate1},
+	PostbackInfo = {ObjectID, Tag, EventType, TriggerPath, TargetPath, Delegate1},
 	wf_utils:pickle(PostbackInfo).
 	
 make_postback(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
@@ -41,5 +42,5 @@ make_postback(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
 		undefined -> [];
 		Tag ->
 			PickledPostbackInfo = make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate),
-			wf:f("wf_queue_postback('~s', '~s');", [wf:to_js_id(TriggerPath), PickledPostbackInfo])
+			wf:f("Nitrogen.$queue_event('~s', '~s');", [wf:to_js_id(TriggerPath), PickledPostbackInfo])
 	end.

@@ -128,13 +128,15 @@
 					<key>filename</key>
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
-					<date>2009-01-27T19:29:49Z</date>
+					<date>2009-03-29T12:18:20Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>wwwroot/twocolumn.html</string>
 					<key>lastUsed</key>
-					<date>2009-01-27T19:29:50Z</date>
+					<date>2009-03-08T15:47:30Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -174,6 +176,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{206, 0}, {1013, 778}}</string>
+	<string>{{204, 0}, {1013, 778}}</string>
 </dict>
 </plist>

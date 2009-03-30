@@ -5,21 +5,21 @@
 -module (wf_state).
 -include ("wf.inc").
 -export ([
-	restore_state_from_post/1,
+	restore_state/0,
 	get_state_script/0, 
 	state/1, state/2, clear_state/0
 ]).
 
 %%% RESTORE STATE %%%
 
-restore_state_from_post(Query) ->
-	{value, {_, DomState}} = lists:keysearch("domState", 1, Query),
+restore_state() ->
+	[DomState] = wf:q(domState),
 	case DomState of 
 		undefined -> ignore;
 		_ ->
 			put(wf_state, wf:depickle(DomState))
 	end.
-	
+
 %%% STATE %%%
 
 %state/1 - Get the value for Key.
@@ -47,4 +47,7 @@ clear_state() ->
 	
 get_state_script() ->
 	DomState = get(wf_state),
-	wf:f("wf_dom_state = \"~s\";~n", [wf_utils:pickle(DomState)]).
+	[
+		wf:me_var(), 
+		wf:f("Nitrogen.$set_dom_state(\"~s\");~n", [wf_utils:pickle(DomState)])
+	].

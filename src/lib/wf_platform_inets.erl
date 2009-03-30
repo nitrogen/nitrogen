@@ -9,7 +9,8 @@
 
 	get_raw_path/0,
 	get_querystring/0,
-	request_method/0,
+	get_request_method/0,
+	get_request_body/0,
 
 	get_headers/0,
 	get_header/1,
@@ -24,7 +25,8 @@
 	
 	build_response/0,
 
-	get_peername/0
+	get_socket/0,
+	recv_from_socket/2
 ]).
 
 get_platform() -> inets.
@@ -43,9 +45,13 @@ get_querystring() ->
 		_ -> tl(QueryString) 
 	end.
 
-request_method() ->
+get_request_method() ->
 	Info = wf_platform:get_request(),
 	wf:to_atom(Info#mod.method).
+	
+get_request_body() ->
+	Req = wf_platform:get_request(),
+	Req#mod.entity_body.
 
 parse_get_args() ->
 	QueryString = get_querystring(),
@@ -62,39 +68,33 @@ parse_post_args() ->
 
 get_headers() ->
 	Info = wf_platform:get_request(),
-	Headers = [{wf:to_atom(Key), Value} || {Key, Value} <- Info#mod.parsed_header],
+	Headers = Info#mod.parsed_header,
 	F = fun(Header) -> proplists:get_value(Header, Headers) end,
-	F(connection),
 	[
-		{connection, F(connection)},
-		{accept, F(accept)},
-		{host, F(host)},
-		{if_modified_since, F(if_modified_since)},
-		{if_match, F(if_match)},
-    {if_none_match, F(if_range)},
-    {if_unmodified_since, F(if_unmodified_since)},
-    {range, F(range)},
-		{referer, F(referer)},
-    {user_agent, F(user_agent)},
-    {accept_ranges, F(accept_ranges)},
-    {cookie, F(cookie)},
-    {keep_alive, F(keep_alive)},
-    {location, F(location)},
-    {content_length, F(content_length)},
-    {content_type, F(content_type)},
-    {content_encoding, F(content_encoding)},
-    {authorization, F(authorization)},
-    {transfer_encoding, F(transfer_encoding)}
+		{connection, F("connection")},
+		{accept, F("accept")},
+		{host, F("host")},
+		{if_modified_since, F("if-modified-since")},
+		{if_match, F("if-match")},
+    {if_none_match, F("if-range")},
+    {if_unmodified_since, F("if-unmodified-since")},
+    {range, F("range")},
+		{referer, F("referer")},
+    {user_agent, F("user-agent")},
+    {accept_ranges, F("accept-ranges")},
+    {cookie, F("cookie")},
+    {keep_alive, F("keep-alive")},
+    {location, F("location")},
+    {content_length, F("content-length")},
+    {content_type, F("content-type")},
+    {content_encoding, F("content-encoding")},
+    {authorization, F("authorization")},
+    {transfer_encoding, F("transfer-encoding")}
 	].
 
 get_header(Header) -> 
-	io:format("1~n"),
-	Info = wf_platform:get_request(),
-	io:format("2~n"),
-	Headers = [{wf:to_atom(Key), Value} || {Key, Value} <- Info#mod.parsed_header],
-	io:format("3~n"),
-	proplists:get_value(Header, Headers).
-  
+	Headers = get_headers(),
+	proplists:get_value(Header, Headers).	
 	
 %%% COOKIES %%%
 	
@@ -159,6 +159,13 @@ build_response() ->
 
 %%% SOCKETS %%%
 
-get_peername() ->
+get_socket() ->
 	Info = wf_platform:get_request(),
-	inet:peername(Info#mod.socket).
+	Info#mod.socket.
+
+recv_from_socket(Length, Timeout) -> 
+	Socket = get_socket(),
+	case gen_tcp:recv(Socket, Length, Timeout) of
+		{ok, Data} -> Data;
+		_ -> exit(normal)
+	end.

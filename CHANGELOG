@@ -1,3 +1,11 @@
+2009-03-28
+- Added file upload support.
+
+2009-03-22 
+- Added alt text support to #image elements by Robert Schonberger.
+- Fixed bug, 'nitrogen create (PROJECT)' now does a recursive copy of the Nitrogen support files, by Jay Doane.
+- Added radio button support courtesy of Benjamin Nortier and Tom McNulty.
+
 2009-03-16
 - Added .app configuration setting to bind Nitrogen to a specific IP address, by Tom McNulty.
 

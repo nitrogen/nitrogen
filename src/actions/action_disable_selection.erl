@@ -9,5 +9,5 @@
 render_action(_TriggerPath, TargetPath, _Record) -> 
 	[
 		wf:me_var(), 
-		wf:f("wf_disable_selection(obj('~s'));", [wf:to_js_id(TargetPath)])	
+		wf:f("Nitrogen.$disable_selection(obj('~s'));", [wf:to_js_id(TargetPath)])	
 	].

@@ -2,10 +2,11 @@
 -include ("wf.inc").
 -compile(export_all).
 
-main() -> #template { file="./wwwroot/onecolumn.html", bindings=[
-	{'Group', learn},
-	{'Item', samples}
-]}.
+main() -> 
+	#template { file="./wwwroot/onecolumn.html", bindings=[
+		{'Group', learn},
+		{'Item', samples}
+	]}.
 
 title() -> "Postbacks".
 headline() -> "Postbacks".
@@ -13,7 +14,7 @@ right() -> linecount:render().
 
 body() -> [	
 	#p{},
-	#button { text="Press Me", postback=button_pressed },
+	#button { id=test, text="Press Me", postback=button_pressed },
 
 	#p{},
 	#link { text="Click Me", postback=link_clicked },

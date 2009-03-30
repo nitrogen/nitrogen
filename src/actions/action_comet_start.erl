@@ -8,4 +8,4 @@
 
 render_action(_TriggerPath, _TargetPath, _Record) -> 
 	PostbackInfo = action_event:make_postback_info(undefined, comet, undefined, undefined, undefined),
-	wf:f("wf_comet_start('~s');", [PostbackInfo]).
+	wf:f("Nitrogen.$comet_start('~s');", [PostbackInfo]).

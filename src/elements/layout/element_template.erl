@@ -32,7 +32,15 @@ render(_ControlID, Record) ->
 	% Template = wf_cache:cache(Key, fun() -> parse_template(File) end, [{ttl, 5}]),
 	
 	% Evaluate the template.
-	eval(Template, Record).
+	Body = eval(Template, Record),
+	
+	IsWindexMode = wf:q(windex) == ["true"],
+	case IsWindexMode of
+		true ->	[
+			wf:f("Nitrogen.$lookup('~s').$update(\"~s\");", [get(current_id), wf_utils:js_escape(Body)])
+		];
+		false -> Body
+	end.
 
 
 parse_template(File1) ->

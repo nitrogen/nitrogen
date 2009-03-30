@@ -18,8 +18,13 @@
 ]).
 
 me_var() -> 
+	ID = case get(current_id) of
+		undefined -> "";
+		Other -> Other
+	end,
 	Path = get(current_path),
-	["wf_current_path='", wf_path:to_js_id(Path), "'; "].
+	Path1 = wf_path:to_js_id(Path),
+	wf:f("Nitrogen.$current_id='~s';Nitrogen.$current_path='~s';", [ID, Path1]).
 
 render(undefined) -> "";
 render(Term) when is_binary(Term) -> Term;
@@ -98,9 +103,9 @@ render_actions(TriggerPath, TargetPath, Term) when is_tuple(Term) ->
 	
 %%% AJAX UPDATES %%%
 	
-update(TargetPath, Terms) -> update(TargetPath, Terms, "wf_update(obj('me'), \"~s\");").
-insert_top(TargetPath, Terms) -> update(TargetPath, Terms, "wf_insert_top(obj('me'), \"~s\");").
-insert_bottom(TargetPath, Terms) -> update(TargetPath, Terms, "wf_insert_bottom(obj('me'), \"~s\");").
+update(TargetPath, Terms) -> update(TargetPath, Terms, "Nitrogen.$update(obj('me'), \"~s\");").
+insert_top(TargetPath, Terms) -> update(TargetPath, Terms, "Nitrogen.$insert_top(obj('me'), \"~s\");").
+insert_bottom(TargetPath, Terms) -> update(TargetPath, Terms, "Nitrogen.$insert_bottom(obj('me'), \"~s\");").
 
 update(TargetPath, Terms, JSFormatString) ->
 	UpdateQueue = get(wf_update_queue),
