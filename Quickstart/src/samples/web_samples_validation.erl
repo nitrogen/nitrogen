@@ -62,7 +62,7 @@ body() ->
 	
 event(continue) ->
 	[Name] = wf:q(nameTextBox),
-	Message = wf:f("Welcome ~s! Thank you for signing up.", [Name]),
+	Message = wf:f("Welcome ~s! Your information is valid.", [Name]),
 	wf:flash(Message),
 	ok;
 	

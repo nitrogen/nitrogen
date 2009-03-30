@@ -126,7 +126,7 @@ N.$event_loop = function() {
 
 /*** VALIDATE AND SERIALIZE ***/
 
-N.prototype.$validate_and_serialize = function() {
+N.prototype.$validate_and_serialize = function(triggerID) {
 	// Check validatation and build params...
 	var s = "";
 	var is_valid = true;
@@ -159,7 +159,7 @@ N.prototype.$do_xhr_event = function(triggerID, postbackInfo, extraParams) {
 	Nitrogen.$event_is_running = true;
 
 	// Run validation...
-	var s = this.$validate_and_serialize();	
+	var s = this.$validate_and_serialize(triggerID);	
 	if (s == null) {
 		Nitrogen.$event_is_running = false;
 		return;
@@ -230,7 +230,7 @@ N.prototype.$do_xhr_comet = function(postbackInfo) {
 
 N.prototype.$do_windex_event = function(triggerID, postbackInfo, extraParams) { 
 	// Run validation...
-	var s = this.$validate_and_serialize();	
+	var s = this.$validate_and_serialize(triggerID);	
 	if (s == null) {
 		return;
 	}
