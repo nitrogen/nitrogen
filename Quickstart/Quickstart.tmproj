@@ -129,8 +129,6 @@
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
 					<date>2009-03-29T12:18:20Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -144,6 +142,23 @@
 			<key>name</key>
 			<string>Templates</string>
 		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>wwwroot/windex.html</string>
+					<key>lastUsed</key>
+					<date>2009-04-04T13:53:13Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
+			</array>
+			<key>expanded</key>
+			<true/>
+			<key>name</key>
+			<string>Other</string>
+		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
@@ -154,6 +169,13 @@
 	<key>treeState</key>
 	<dict>
 		<key>Apps</key>
+		<dict>
+			<key>isExpanded</key>
+			<true/>
+			<key>subItems</key>
+			<dict/>
+		</dict>
+		<key>Other</key>
 		<dict>
 			<key>isExpanded</key>
 			<true/>
