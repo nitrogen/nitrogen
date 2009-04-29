@@ -186,6 +186,8 @@ quote_plus(Atom) when is_atom(Atom) ->
     quote_plus(atom_to_list(Atom));
 quote_plus(Int) when is_integer(Int) ->
     quote_plus(integer_to_list(Int));
+quote_plus(Bin) when is_binary(Bin) -> 
+    quote_plus(binary_to_list(Bin));
 quote_plus(String) ->
     quote_plus(String, []).
 
