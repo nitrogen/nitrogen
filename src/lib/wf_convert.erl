@@ -56,6 +56,7 @@ html_encode([H|T]) ->
 		$< -> "&lt;" ++ html_encode(T);
 		$> -> "&gt;" ++ html_encode(T);
 		$" -> "&quot;" ++ html_encode(T);
+		$' -> "&#39;" ++ html_encode(T);
 		$& -> "&amp;" ++ html_encode(T);
 		$\n -> "<br>" ++ html_encode(T);
 		_ -> [H|html_encode(T)]
