@@ -1,1 +1,1 @@
-*.tmproj binary
+*.tmproj -crlf -diff -merge

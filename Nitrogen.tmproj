@@ -192,7 +192,7 @@
 							<key>filename</key>
 							<string>src/actions/action_jquery_effect.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-29T12:22:58Z</date>
+							<date>2009-05-03T14:20:47Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -489,6 +489,8 @@
 								<dict>
 									<key>filename</key>
 									<string>src/elements/layout/element_windex.erl</string>
+									<key>lastUsed</key>
+									<date>2009-05-03T14:13:19Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -1406,6 +1408,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{289, 0}, {928, 778}}</string>
+	<string>{{287, 0}, {928, 778}}</string>
 </dict>
 </plist>
