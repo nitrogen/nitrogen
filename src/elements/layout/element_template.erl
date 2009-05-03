@@ -43,14 +43,13 @@ render(_ControlID, Record) ->
 	end.
 
 
-parse_template(File1) ->
-    File = filename:join(nitrogen:get_templateroot(), File1),
-    
-	case file:read_file(File) of
+parse_template(File) ->
+	File1 = filename:join(nitrogen:get_templateroot(), File),
+	case file:read_file(File1) of
 		{ok, B} -> parse_template1(B);
 		_ -> 
-			?LOG("Error reading file: ~s~n", [File]),
-			wf:f("File not found: ~s.", [File])
+			?LOG("Error reading file: ~s~n", [File1]),
+			wf:f("File not found: ~s.", [File1])
 	end.
 
 parse_template1(B) ->

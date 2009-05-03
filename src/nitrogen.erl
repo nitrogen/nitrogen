@@ -125,7 +125,7 @@ get_wwwroot() ->
 get_templateroot() ->
     case application:get_env(templateroot) of
         {ok, Val} -> Val;
-        _ -> "./wwwroot"
+        _ -> "./"
     end.	
 	
 get_sign_key() -> 
