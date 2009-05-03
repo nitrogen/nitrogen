@@ -23,7 +23,7 @@ validate(TriggerPath) ->
 			false -> 
 			  false
 		end
-	end,	
+	end,
 	Validators = lists:filter(F1, wf:state(validators)),
 	
 	

@@ -44,7 +44,6 @@ handle_call({sign_key, Unique}, _From, Map) ->
 handle_call({get_session, Unique}, _From, Map) ->
 	{reply, dict:find(Unique, Map), Map}.
 
-
 handle_cast({remove_session, Unique}, Map) ->
 	{noreply, dict:erase(Unique, Map)};
 
@@ -59,7 +58,6 @@ terminate(_Reason, _State) ->
 
 code_change(_OldVsn, State, _Extra) ->
 	{ok, State}.
-
 
 session_monitor(ServerPid, SessionPid, Unique) ->
 	Ref = erlang:monitor(process, SessionPid),
