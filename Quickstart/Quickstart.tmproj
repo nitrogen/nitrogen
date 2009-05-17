@@ -17,7 +17,9 @@
 					<key>filename</key>
 					<string>apps/quickstart_inets.app</string>
 					<key>lastUsed</key>
-					<date>2009-03-08T00:39:01Z</date>
+					<date>2009-05-16T04:08:56Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -71,7 +73,7 @@
 					<key>filename</key>
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
-					<date>2009-03-08T00:48:36Z</date>
+					<date>2009-05-16T04:08:55Z</date>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -93,13 +95,13 @@
 					<key>filename</key>
 					<string>src/web_index.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-26T00:28:12Z</date>
+					<date>2009-05-16T04:08:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/topmenu1.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-25T13:24:58Z</date>
+					<date>2009-05-16T04:08:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -128,7 +130,7 @@
 					<key>filename</key>
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
-					<date>2009-03-29T12:18:20Z</date>
+					<date>2009-05-16T04:08:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -150,8 +152,6 @@
 					<string>wwwroot/windex.html</string>
 					<key>lastUsed</key>
 					<date>2009-04-04T13:53:13Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -166,37 +166,6 @@
 	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
-	<key>treeState</key>
-	<dict>
-		<key>Apps</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict/>
-		</dict>
-		<key>Other</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict/>
-		</dict>
-		<key>Scripts</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict/>
-		</dict>
-		<key>Templates</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict/>
-		</dict>
-	</dict>
 	<key>windowFrame</key>
 	<string>{{203, 0}, {1002, 778}}</string>
 </dict>

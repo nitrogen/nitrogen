@@ -1,3 +1,6 @@
 [submodule "lib/coverize"]
 	path = lib/coverize
 	url = git://github.com/mmullis/coverize.git
+[submodule "lib/simple_bridge"]
+	path = lib/simple_bridge
+	url = git@github.com:rklophaus/SimpleBridge.git

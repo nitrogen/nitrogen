@@ -20,13 +20,13 @@
 			<key>filename</key>
 			<string>MIT-LICENSE</string>
 			<key>lastUsed</key>
-			<date>2008-11-03T21:04:37Z</date>
+			<date>2009-05-16T14:24:49Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
-			<date>2009-03-08T17:13:51Z</date>
+			<date>2009-05-16T14:24:48Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -108,8 +108,6 @@
 							<string>src/platforms/wf_inets.erl</string>
 							<key>lastUsed</key>
 							<date>2009-04-02T00:17:08Z</date>
-							<key>selected</key>
-							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -198,7 +196,7 @@
 							<key>filename</key>
 							<string>src/actions/action_event.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-29T00:21:12Z</date>
+							<date>2009-05-10T23:59:34Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -218,7 +216,7 @@
 							<key>filename</key>
 							<string>src/actions/action_confirm.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-24T02:04:31Z</date>
+							<date>2009-05-10T23:59:33Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -445,7 +443,7 @@
 									<key>filename</key>
 									<string>src/elements/forms/element_upload.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-29T00:21:12Z</date>
+									<date>2009-05-10T23:59:33Z</date>
 								</dict>
 							</array>
 							<key>name</key>
@@ -525,7 +523,7 @@
 									<key>filename</key>
 									<string>src/elements/other/element_sortblock.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-16T03:02:46Z</date>
+									<date>2009-05-10T23:59:33Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -655,7 +653,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_handle_postback.erl</string>
 							<key>lastUsed</key>
-							<date>2009-04-02T01:31:45Z</date>
+							<date>2009-05-10T23:59:33Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -679,7 +677,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_render.erl</string>
 							<key>lastUsed</key>
-							<date>2009-04-04T13:00:45Z</date>
+							<date>2009-05-10T23:59:32Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -703,7 +701,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_path.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-24T01:50:49Z</date>
+							<date>2009-05-10T23:59:32Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -745,7 +743,7 @@
 							<key>filename</key>
 							<string>src/lib/wf_platform_inets.erl</string>
 							<key>lastUsed</key>
-							<date>2009-03-28T19:15:20Z</date>
+							<date>2009-05-16T14:24:50Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -792,8 +790,6 @@
 							<date>2009-03-08T00:58:43Z</date>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Lib</string>
 				</dict>
@@ -849,7 +845,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-03-30T00:53:30Z</date>
+					<date>2009-05-11T02:04:29Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -1344,69 +1340,9 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>www/nitrogen.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>135</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>225</integer>
-		</dict>
 	</dict>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
-	<key>treeState</key>
-	<dict>
-		<key>Include</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict/>
-		</dict>
-		<key>SRC</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict>
-				<key>Lib</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-				<key>Platforms</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-				<key>Project</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-			</dict>
-		</dict>
-		<key>WWW</key>
-		<dict>
-			<key>isExpanded</key>
-			<true/>
-			<key>subItems</key>
-			<dict/>
-		</dict>
-	</dict>
 	<key>windowFrame</key>
 	<string>{{287, 0}, {928, 778}}</string>
 </dict>

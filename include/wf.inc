@@ -1,19 +1,33 @@
 -ifndef(wf_inc).
 -define(wf_inc, ok).
 
+%%% CONTEXT %%%
+-record(context, {
+	% Request Info
+	name=page,    % 'page' by default. Could get renamed by Inline Apps.
+	page_module,  % The requested page module
+	path_info,    % Any extra info passed with the request
+	request,      % Request Bridge (see SimpleBridge)
+
+	% Response
+	updates,
+	actions,
+	metadata, % Headers, Cookies, CSS, etc.
+	
+	% Storage Areas (use storage_area behaviour)
+	cookie_area,
+	cache_area,
+	page_area,
+	session_area
+}).
+
 %%% LOGGING %%%
 -define(PRINT(Var), error_logger:info_msg("DEBUG: ~p:~p - ~p: ~p~n", [?MODULE, ?LINE, ??Var, Var])).
 -define(LOG(Msg, Args), error_logger:info_msg(Msg, Args)).
 -define(DEBUG, error_logger:info_msg("DEBUG: ~p:~p~n", [?MODULE, ?LINE])).
 
-
-%%% EMAIL %%%
--record(email, {from, to, subject, body}).
-
-
 %%% GUARDS %%%
 -define (IS_STRING(Term), (is_list(Term) andalso Term /= [] andalso is_integer(hd(Term)))).
-
 
 %%% FRAMEWORK %%%
 
