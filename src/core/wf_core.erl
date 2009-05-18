@@ -1,6 +1,8 @@
 -module (wf_core).
+-include ("wf.inc").
+-include ("simplebridge.hrl").
 -export ([
-	run/2,
+	run/1,
 	default_includes/0
 ]).
 
@@ -14,13 +16,11 @@ run(Context) ->
 	PageModule = Context#context.page_module, 
 	
 	case is_first_request(Context#context.request) of
-		true -> 
-			nitrogen_core_firstrequest:run(Module, Context);			
-		_ ->
-			nitrogen_core_postback:run(Module, Context);						
+		true -> nitrogen_core_firstrequest:run(PageModule, Context);			
+		_ -> nitrogen_core_postback:run(PageModule, Context)
 	end.
 
-is_first_request(Context) -> true.
+is_first_request(_Context) -> true.
 	
 default_includes() ->
 	[

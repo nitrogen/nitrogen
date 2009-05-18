@@ -1,9 +1,9 @@
 all: compile test
 
 compile:
-	mkdir -p ebin
-	mkdir -p test/ebin
-	erl -make
+	erl \
+		-pa ebin \
+		-make
 
 clean:
 	rm -rf ./coverage/*.*

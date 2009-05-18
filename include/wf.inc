@@ -4,7 +4,7 @@
 %%% CONTEXT %%%
 -record(context, {
 	% Request Info
-	name=page,    % 'page' by default. Could get renamed by Inline Apps.
+	name=page,    % 'page' by default. Can be renamed by Inline Apps.
 	page_module,  % The requested page module
 	path_info,    % Any extra info passed with the request
 	request,      % Request Bridge (see SimpleBridge)
@@ -12,13 +12,13 @@
 	% Response
 	updates,
 	actions,
-	metadata, % Headers, Cookies, CSS, etc.
 	
-	% Storage Areas (use storage_area behaviour)
-	cookie_area,
-	cache_area,
-	page_area,
-	session_area
+	page_state_bridge,     % Conforms to keyvalue_bridge behaviour
+	session_state_bridge,  % Conforms to keyvalue_bridge behaviour
+	cookie_bridge,         % Conforms to cookie_bridge behaviour
+	cache_bridge,          % Conforms to cache_bridge behaviour
+	security_bridge,       % Conforms to security_bridge behaviour
+	log_bridge             % Conforms to log_bridge behaviour
 }).
 
 %%% LOGGING %%%

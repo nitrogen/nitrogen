@@ -1,6 +1,6 @@
 -module (nitrogen_core_firstrequest).
 -include ("simplebridge.hrl").
--export ([run/3]).
+-export ([run/2]).
 
 % run/4 
 % Responds with { HTML, NewContext }

@@ -4,7 +4,7 @@
 
 -module (wf).
 -include ("wf.inc").
--include ("simplebridge.inc").
+-include ("simplebridge.hrl").
 -compile (export_all).
 
 %%% EXPOSE WF_UTILS %%%
@@ -45,12 +45,12 @@ get_page_module(Context) -> Context#context.page_module.
 set_cookie(Key, Value, Context) -> set_cookie(Key, Value, "/", 20, Context).
 
 set_cookie(Key, Value, Path, MinutesToLive, Context) -> 
-	Area = Context#context.cookie_area,
+	Area = Context#context.cookie_bridge,
 	Area1 = Area:put(Key, Value, Path, MinutesToLive),
-	Context#context { cookie_area = Area1 }.
+	Context#context { cookie_bridge = Area1 }.
 
 get_cookie(Key, Context) -> 
-	Area = Context#context.cookie_area,
+	Area = Context#context.cookie_bridge,
 	Area:get(Key).
 
 %%% EXPOSE WF_BIND %%%
