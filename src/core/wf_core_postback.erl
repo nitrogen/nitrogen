@@ -2,7 +2,7 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (nitrogen_core_postback).
+-module (wf_core_postback).
 -include ("wf.inc").
 -export ([run/3]).
 
@@ -10,7 +10,7 @@
 % 	Responds with:
 %   { Javascript, Context }
 
-run(Name, Module, Context) ->
+run(_Name, Module, _Context) ->
 
 	% Restore Nitrogen state...
 	wf_state:restore_state(),

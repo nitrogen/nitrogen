@@ -2,34 +2,34 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (cache_bridge).
+-module (cache_handler).
 -export ([
 	behaviour_info/1
 ]).
 
 behaviour_info(callbacks) -> [
-	% init(Context) -> ParameterizedModule
+	% init(Context) -> {ok, NewContext, NewState}
 	% Called at the start of the request.
 	{init, 1},      
 
-	% render(Context) -> NewContext
+	% finish(Context, State) -> {ok, NewContext, NewState}
 	% Called at the end of the request, before sending
 	% a response back to the browser.
-	{render, 1},
+	{finish, 2},
 	
-	% get_set(Key, Function, TTL) -> {ok, Value, ParameterizedModule}
+	% get_set(Context, State, Key, Function, TTL) -> {ok, NewContext, NewState, Value}
 	% Return the cache value associated with Key. If it is not found,
 	% then run the Function, store the resulting value in cache under
 	% Key, and return the value.
-	{get_set, 3}, 
+	{get_set, 5}, 
 	
-	% clear(Key) -> ParameterizedModule
+	% clear(Context, State, Key) -> {ok, NewContext, NewState}
 	% Remove a value from cache.
-	{clear, 1},
+	{clear, 3},
 	
-	% clear_all() -> ParameterizedModule
+	% clear_all(Context, State) -> {ok, NewContext, NewState}
 	% Clear all values from cache.
-	{clear_all, 0}
+	{clear_all, 2}
 ];
 
 behaviour_info(_) -> undefined.

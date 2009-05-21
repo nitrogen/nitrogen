@@ -13,7 +13,6 @@
 	pickle/1, depickle/1, depickle/2,
 	url_encode/1,
 	js_escape/1,
-	path_to_module/1,
 	replace/3,
 	coalesce/1,
 	is_process_alive/1,
@@ -216,40 +215,6 @@ js_escape(<<"script>", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "scr
 js_escape(<<C, Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, C>>);
 js_escape(<<>>, Acc) -> Acc.
 
-%%% MODULE PATH %%%
-
-%% path_to_module/1 - Convert a web path to a module.
-path_to_module(undefined) -> {web_index, ""};
-path_to_module(S) -> 
-	case lists:last(S) of
-		$/ -> 
-			S1 = S ++ "index",
-			tokens_to_module(string:tokens(S1, "/"), [], true);
-		_ -> 
-			tokens_to_module(string:tokens(S, "/"), [], false)
-	end.
-	
-tokens_to_module([], PathInfoAcc, AddedIndex) -> {web_404, to_path_info(PathInfoAcc, AddedIndex)};
-tokens_to_module(Tokens, PathInfoAcc, AddedIndex) ->
-	try
-		% Try to get the name of a module.
-		ModuleString = string:join(Tokens, "_"),
-		Module = list_to_existing_atom(ModuleString),
-		
-		% Moke sure the module is loaded.
-		code:ensure_loaded(Module),
-		{Module, to_path_info(PathInfoAcc, AddedIndex)}
-	catch _ : _ -> 
-		% Strip off the last token, and try again.
-		LastToken = lists:last(Tokens),
-		Tokens1 = lists:reverse(tl(lists:reverse(Tokens))),
-		tokens_to_module(Tokens1, [LastToken|PathInfoAcc], AddedIndex)
-	end.	
-	
-chop_last_element(L) -> lists:reverse(tl(lists:reverse(L))).
-to_path_info([], _) -> "";
-to_path_info(PathInfoAcc, true)  -> string:join(chop_last_element(PathInfoAcc), "/");
-to_path_info(PathInfoAcc, false) -> string:join(PathInfoAcc, "/").
 
 %%% STRING REPLACE %%%
 

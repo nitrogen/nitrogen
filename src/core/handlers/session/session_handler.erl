@@ -2,36 +2,36 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (keyvalue_bridge).
+-module (session_handler).
 -export ([
 	behaviour_info/1
 ]).
 
 behaviour_info(callbacks) -> [
-	% init(Context) -> ParameterizedModule
+	% init(Context) -> {ok, NewContext, NewState}.
 	% Called at the start of the request.
 	{init, 1},      
 
-	% render(Context) -> NewContext
+	% finish(Context, State) -> {ok, NewContext, NewState}.
 	% Called at the end of the request, before sending
 	% a response back to the browser.
-	{render, 1},
+	{finish, 2},
 	
-	% get(Key, DefaultValue) -> Value
+	% get(Context, State, Key, DefaultValue) -> {ok, NewContext, NewState, Value}.
 	% Retrieve a value from the storage area.
-	{get, 2},       
+	{get, 4},       
 	
-	% put(Key, Value) -> ParameterizedModule
+	% put(Context, State, Key, Value) -> {ok, NewContext, NewState}.
 	% Put a value into the storage area.
-	{put, 2},
+	{put, 4},
 	
-	% clear(Key) -> ParameterizedModule
+	% clear(Context, State, Key) -> {ok, NewContext, NewState}.
 	% Remove a value from the storage area.
-	{clear, 1},
+	{clear, 3},
 	
-	% clear_all() -> ParameterizedModule
+	% clear_all(Context, State) -> {ok, NewContext, NewState}.
 	% Clear all values from the storage area.
-	{clear_all, 0}
+	{clear_all, 2}
 ];
 
 behaviour_info(_) -> undefined.

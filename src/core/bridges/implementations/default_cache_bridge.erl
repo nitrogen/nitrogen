@@ -1,1 +1,0 @@
--module (default_cache_bridge).

@@ -3,22 +3,25 @@
 
 %%% CONTEXT %%%
 -record(context, {
-	% Request Info
-	name=page,    % 'page' by default. Can be renamed by Inline Apps.
+	% Request and Response
+	request,      % Request Bridge (see SimpleBridge)
+	response,     % Response Bridge (see SimpleBridge)
+
+  % These should be set during routing.
 	page_module,  % The requested page module
 	path_info,    % Any extra info passed with the request
-	request,      % Request Bridge (see SimpleBridge)
+	name=page,    % 'page' by default. Can be renamed by Inline Apps.
 
-	% Response
-	updates,
+	% Here's where we gather up the response, before
+	% we turn it into HTML and Javascript and send
+	% it back to the client.
+	elements,
 	actions,
-	
-	page_state_bridge,     % Conforms to keyvalue_bridge behaviour
-	session_state_bridge,  % Conforms to keyvalue_bridge behaviour
-	cookie_bridge,         % Conforms to cookie_bridge behaviour
-	cache_bridge,          % Conforms to cache_bridge behaviour
-	security_bridge,       % Conforms to security_bridge behaviour
-	log_bridge             % Conforms to log_bridge behaviour
+
+	% Handlers are used to encapsulate Nitrogen's behaviour, and
+	% to allow other frameworks to substitute their own behaviour.
+	% These are set in wf_context:make_context/1
+	handlers
 }).
 
 %%% LOGGING %%%

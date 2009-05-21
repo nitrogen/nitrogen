@@ -1,10 +1,9 @@
--module (nitrogen_core_firstrequest).
--include ("simplebridge.hrl").
--export ([run/2]).
+-module (wf_core_firstrequest).
+-include ("wf.inc").
+-export ([run/1]).
 
-% run/4 
-% Responds with { HTML, NewContext }
-
-run(Module, Context) ->
-	% Run the request and get the response body...
-	Module:event(load, Context).
+run(Context) ->
+	% Run the request. This returns a new context.
+	PageModule = Context#context.page_module,
+	?PRINT(PageModule),
+	PageModule:main(Context).

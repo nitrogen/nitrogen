@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>src/core/wf_core.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,7 +28,7 @@
 			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
-			<date>2009-05-16T14:24:48Z</date>
+			<date>2009-05-17T17:30:05Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -35,31 +37,13 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-04-05T13:02:44Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>src/sync.erl</string>
-					<key>lastUsed</key>
-					<date>2009-03-07T16:43:17Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>src/mirror.erl</string>
-					<key>lastUsed</key>
-					<date>2009-01-18T16:12:20Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>src/wf.erl</string>
-					<key>lastUsed</key>
-					<date>2009-03-24T03:26:30Z</date>
+					<date>2009-05-19T00:34:26Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/web_x.erl</string>
 					<key>lastUsed</key>
-					<date>2009-01-08T02:58:53Z</date>
+					<date>2009-05-16T15:09:12Z</date>
 				</dict>
 				<dict>
 					<key>children</key>
@@ -77,8 +61,6 @@
 							<date>2009-01-08T13:59:54Z</date>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Project</string>
 				</dict>
@@ -87,152 +69,81 @@
 					<array>
 						<dict>
 							<key>filename</key>
-							<string>src/platforms/nitrogen_inets_app.erl</string>
+							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-04-01T23:59:46Z</date>
+							<date>2009-05-21T02:27:47Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
-							<string>src/platforms/nitrogen_mochiweb_app.erl</string>
+							<string>src/core/wf_core_firstrequest.erl</string>
 							<key>lastUsed</key>
-							<date>2009-04-02T00:17:08Z</date>
+							<date>2009-05-18T22:44:31Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
-							<string>src/platforms/nitrogen_yaws_app.erl</string>
+							<string>src/core/wf_core_postback.erl</string>
 							<key>lastUsed</key>
-							<date>2009-04-01T23:59:45Z</date>
+							<date>2009-05-21T02:06:29Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
-							<string>src/platforms/wf_inets.erl</string>
+							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-04-02T00:17:08Z</date>
+							<date>2009-05-21T02:06:29Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
-							<string>src/platforms/wf_mochiweb.erl</string>
+							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-04-02T00:17:07Z</date>
+							<date>2009-05-21T02:06:30Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
-							<key>filename</key>
-							<string>src/platforms/wf_yaws.erl</string>
-							<key>lastUsed</key>
-							<date>2009-04-02T00:17:07Z</date>
+							<key>name</key>
+							<string>lib</string>
+							<key>regexFolderFilter</key>
+							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+							<key>sourceDirectory</key>
+							<string>src/core/lib</string>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>handlers</string>
+							<key>regexFolderFilter</key>
+							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+							<key>sourceDirectory</key>
+							<string>src/core/handlers</string>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>actions</string>
+							<key>regexFolderFilter</key>
+							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+							<key>sourceDirectory</key>
+							<string>src/core/actions</string>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>validators</string>
+							<key>regexFolderFilter</key>
+							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+							<key>sourceDirectory</key>
+							<string>src/core/validators</string>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>elements</string>
+							<key>regexFolderFilter</key>
+							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+							<key>sourceDirectory</key>
+							<string>src/core/elements</string>
 						</dict>
 					</array>
 					<key>expanded</key>
 					<true/>
 					<key>name</key>
-					<string>Platforms</string>
-				</dict>
-				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_comet_start.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-16T03:02:46Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_remove_class.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-07T15:10:03Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_validation_error.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-14T20:34:06Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_hide.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_show.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_validate.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-30T00:53:30Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_script.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-05T23:09:07Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_fade.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_toggle.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-07T15:10:03Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_add_class.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_appear.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_jquery_effect.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-03T14:20:47Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_event.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-10T23:59:34Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_alert.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_disable_selection.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-14T20:47:40Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_effect.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_confirm.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-10T23:59:33Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_buttonize.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-07T14:53:14Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/actions/action_animate.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-17T15:18:31Z</date>
-						</dict>
-					</array>
-					<key>name</key>
-					<string>Actions</string>
+					<string>Core</string>
 				</dict>
 				<dict>
 					<key>children</key>
@@ -242,556 +153,156 @@
 							<array>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/html/element_image.erl</string>
+									<string>src/platforms/nitrogen_inets_app.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:04:04Z</date>
+									<date>2009-05-19T00:34:27Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/html/element_hr.erl</string>
+									<string>src/platforms/nitrogen_mochiweb_app.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:04:04Z</date>
+									<date>2009-04-02T00:17:08Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/html/element_link.erl</string>
+									<string>src/platforms/nitrogen_yaws_app.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-27T17:51:37Z</date>
+									<date>2009-04-01T23:59:45Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/html/element_label.erl</string>
+									<string>src/platforms/wf_inets.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:04:03Z</date>
+									<date>2009-05-19T00:34:26Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/html/element_span.erl</string>
+									<string>src/platforms/wf_mochiweb.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:16:50Z</date>
+									<date>2009-04-02T00:17:07Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/html/element_p.erl</string>
+									<string>src/platforms/wf_yaws.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:04:03Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/html/element_literal.erl</string>
-									<key>lastUsed</key>
-									<date>2008-12-18T15:53:40Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/html/element_br.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:04:03Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/html/element_value.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:05:54Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/html/element_list.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:22:47Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/html/element_listitem.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:22:48Z</date>
+									<date>2009-04-02T00:17:07Z</date>
 								</dict>
 							</array>
 							<key>name</key>
-							<string>HTML</string>
+							<string>Platforms</string>
 						</dict>
 						<dict>
 							<key>children</key>
 							<array>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/table/element_singlerow.erl</string>
+									<string>src/lib/wf_multipart.erl</string>
+									<key>lastUsed</key>
+									<date>2009-03-29T12:18:23Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/table/element_tablecell.erl</string>
+									<string>src/lib/wf_cache.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:05:54Z</date>
+									<date>2009-03-28T17:33:58Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/table/element_table.erl</string>
+									<string>src/lib/wf_cache_server.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:05:54Z</date>
+									<date>2009-01-07T00:00:52Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/table/element_tablerow.erl</string>
+									<string>src/lib/wf_platform_yaws.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-03T22:05:54Z</date>
+									<date>2009-03-28T19:59:23Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
-									<string>src/elements/table/element_tableheader.erl</string>
+									<string>src/lib/wf_platform.erl.txt</string>
 									<key>lastUsed</key>
-									<date>2009-03-07T16:20:11Z</date>
+									<date>2009-05-17T17:30:07Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_handle.erl</string>
+									<key>lastUsed</key>
+									<date>2009-05-16T19:29:47Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_handle_firstrequest.erl</string>
+									<key>lastUsed</key>
+									<date>2009-05-16T15:15:26Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_handle_postback.erl</string>
+									<key>lastUsed</key>
+									<date>2009-05-21T02:06:29Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_handle_postback_multipart.erl</string>
+									<key>lastUsed</key>
+									<date>2009-03-29T00:21:11Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_init.erl</string>
+									<key>lastUsed</key>
+									<date>2009-01-07T00:00:52Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_utils.erl</string>
+									<key>lastUsed</key>
+									<date>2009-04-02T00:17:05Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_session_sup.erl</string>
+									<key>lastUsed</key>
+									<date>2009-01-07T02:19:36Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_session_server.erl</string>
+									<key>lastUsed</key>
+									<date>2009-01-08T02:58:52Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_session.erl</string>
+									<key>lastUsed</key>
+									<date>2009-01-08T02:58:52Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_platform_mochiweb.erl</string>
+									<key>lastUsed</key>
+									<date>2009-04-02T00:17:04Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_platform_inets.erl</string>
+									<key>lastUsed</key>
+									<date>2009-05-16T14:24:50Z</date>
+								</dict>
+								<dict>
+									<key>filename</key>
+									<string>src/lib/wf_http_basic_auth.erl</string>
+									<key>lastUsed</key>
+									<date>2009-03-08T00:58:43Z</date>
 								</dict>
 							</array>
 							<key>name</key>
-							<string>Table</string>
-						</dict>
-						<dict>
-							<key>children</key>
-							<array>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/heading/element_h4.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:05:53Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/heading/element_h3.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:05:53Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/heading/element_h2.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:05:55Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/heading/element_h1.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-24T01:16:11Z</date>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>Heading</string>
-						</dict>
-						<dict>
-							<key>children</key>
-							<array>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_radio.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-08T21:20:30Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_datepicker_textbox.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-15T13:24:52Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_hidden.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:05:53Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_inplace_textbox.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-15T20:29:41Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_password.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-14T20:47:39Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_checkbox.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-17T16:56:27Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_button.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:05:52Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_wizard.erl</string>
-									<key>lastUsed</key>
-									<date>2009-04-04T13:00:47Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_textbox.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-14T20:47:39Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_textarea.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:05:52Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/forms/element_upload.erl</string>
-									<key>lastUsed</key>
-									<date>2009-05-10T23:59:33Z</date>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>Forms</string>
-						</dict>
-						<dict>
-							<key>children</key>
-							<array>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/layout/element_lightbox.erl</string>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/layout/element_rounded_panel.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:00:39Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/layout/element_placeholder.erl</string>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/layout/element_panel.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-03T22:16:49Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/layout/element_body.erl</string>
-									<key>lastUsed</key>
-									<date>2008-12-16T15:44:45Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/layout/element_template.erl</string>
-									<key>lastUsed</key>
-									<date>2009-04-05T13:02:44Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/layout/element_windex.erl</string>
-									<key>lastUsed</key>
-									<date>2009-05-03T14:13:19Z</date>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>Layout</string>
-						</dict>
-						<dict>
-							<key>children</key>
-							<array>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_google_chart.erl</string>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_flash.erl</string>
-									<key>lastUsed</key>
-									<date>2009-04-04T13:00:46Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_file.erl</string>
-									<key>lastUsed</key>
-									<date>2008-12-16T15:58:38Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_sortitem.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-14T20:47:39Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_sortblock.erl</string>
-									<key>lastUsed</key>
-									<date>2009-05-10T23:59:33Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_droppable.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-14T20:47:38Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_dropdown.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-15T13:25:34Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_draggable.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-15T13:25:34Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_spinner.erl</string>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/elements/other/element_bind.erl</string>
-									<key>lastUsed</key>
-									<date>2009-03-07T23:55:56Z</date>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>Other</string>
+							<string>Lib</string>
 						</dict>
 					</array>
 					<key>name</key>
-					<string>Elements</string>
-				</dict>
-				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_min_length.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-07T15:29:39Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_max_length.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-08T15:44:01Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_is_required.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_is_integer.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_confirm_password.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_custom.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_js_custom.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/validators/validator_is_email.erl</string>
-						</dict>
-					</array>
-					<key>name</key>
-					<string>Validators</string>
-				</dict>
-				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_multipart.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-29T12:18:23Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_cache.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-28T17:33:58Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_cache_server.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-07T00:00:52Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_platform_yaws.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-28T19:59:23Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_platform.erl</string>
-							<key>lastUsed</key>
-							<date>2009-04-02T00:17:05Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_handle.erl</string>
-							<key>lastUsed</key>
-							<date>2009-04-02T00:17:07Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_handle_firstrequest.erl</string>
-							<key>lastUsed</key>
-							<date>2009-04-02T00:17:06Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_handle_postback.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-10T23:59:33Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_handle_postback_multipart.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-29T00:21:11Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_init.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-07T00:00:52Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_utils.erl</string>
-							<key>lastUsed</key>
-							<date>2009-04-02T00:17:05Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_render.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-10T23:59:32Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_bind.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-14T20:47:38Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_comet.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-31T15:16:03Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_continuation.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-15T14:52:32Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_path.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-10T23:59:32Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_query.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-15T22:03:08Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_counter.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-07T02:15:36Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_session_sup.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-07T02:19:36Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_session_server.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-08T02:58:52Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_session.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-08T02:58:52Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_platform_mochiweb.erl</string>
-							<key>lastUsed</key>
-							<date>2009-04-02T00:17:04Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_platform_inets.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-16T14:24:50Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_convert.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-15T04:48:37Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_email.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_script.erl</string>
-							<key>lastUsed</key>
-							<date>2009-04-04T13:00:47Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_state.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-28T20:53:00Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_redirect.erl</string>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_validation.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-13T02:34:35Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_tags.erl</string>
-							<key>lastUsed</key>
-							<date>2009-05-03T14:39:43Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/lib/wf_http_basic_auth.erl</string>
-							<key>lastUsed</key>
-							<date>2009-03-08T00:58:43Z</date>
-						</dict>
-					</array>
-					<key>name</key>
-					<string>Lib</string>
+					<string>Mantle</string>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -806,7 +317,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-04-04T13:00:45Z</date>
+					<date>2009-05-21T01:37:41Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -848,8 +359,6 @@
 					<date>2009-05-11T02:04:29Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>WWW</string>
 		</dict>
@@ -858,373 +367,33 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>src/actions/action_validate.erl</key>
+		<key>src/core/lib/wf_context.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>67</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>17</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>57</integer>
-				<key>line</key>
-				<integer>17</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>67</integer>
-				<key>line</key>
-				<integer>17</integer>
-			</dict>
-		</dict>
-		<key>src/elements/forms/element_button.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
+				<integer>5</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>src/elements/forms/element_hidden.erl</key>
+		<key>src/core/wf_core.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>42</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/forms/element_textarea.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/heading/element_h2.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/heading/element_h3.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/heading/element_h4.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_br.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_hr.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_image.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_label.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_list.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_listitem.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_p.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_span.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/html/element_value.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/layout/element_panel.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/layout/element_rounded_panel.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/other/element_bind.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>16</integer>
-				<key>line</key>
-				<integer>169</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>151</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>6</integer>
-				<key>line</key>
-				<integer>169</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>16</integer>
-				<key>line</key>
-				<integer>169</integer>
-			</dict>
-		</dict>
-		<key>src/elements/table/element_table.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/table/element_tablecell.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/table/element_tableheader.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>35</integer>
-				<key>line</key>
-				<integer>12</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/elements/table/element_tablerow.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/lib/wf_redirect.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>23</integer>
-				<key>line</key>
-				<integer>8</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>16</integer>
 		</dict>
 		<key>src/lib/wf_session.erl</key>
 		<dict>
@@ -1254,20 +423,6 @@
 			<key>firstVisibleLine</key>
 			<integer>7</integer>
 		</dict>
-		<key>src/platforms/nitrogen_inets_app.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>10</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>src/platforms/nitrogen_yaws_app.erl</key>
 		<dict>
 			<key>caret</key>
@@ -1281,50 +436,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>5</integer>
-		</dict>
-		<key>src/sync.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>26</integer>
-				<key>line</key>
-				<integer>153</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>127</integer>
-		</dict>
-		<key>src/web_x.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>13</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>5</integer>
-				<key>line</key>
-				<integer>13</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>13</integer>
-			</dict>
 		</dict>
 		<key>www/nitrogen.css</key>
 		<dict>
@@ -1341,9 +452,14 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>src/core/lib/wf_context.erl</string>
+		<string>src/core/wf_core.erl</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{287, 0}, {928, 778}}</string>
+	<string>{{289, 0}, {926, 778}}</string>
 </dict>
 </plist>

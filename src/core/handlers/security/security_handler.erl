@@ -2,44 +2,44 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (security_bridge).
+-module (security_handler).
 -export ([
 	behaviour_info/1
 ]).
 
 behaviour_info(callbacks) -> [
-	% init(Context) -> ParameterizedModule
+	% init(Context) -> {ok, NewContext, NewState}.
 	% Called at the start of the request.
 	{init, 1},      
 
-	% render(Context) -> NewContext
+	% finish(Context, State) -> {ok, NewContext, NewState}.
 	% Called at the end of the request, before sending
 	% a response back to the browser.
-	{render, 1},
+	{finish, 2},
 	
-	% user() -> User
+	% user(Context, State) -> {ok, NewContext, NewState, User}.
 	% Retrieve an Erlang term representing the current user.
-	{user, 0},
+	{get_user, 2},
 	
-	% user(Term) -> ParameterizedModule
+	% user(Context, State, User) -> {ok, NewContext, NewState}.
 	% Set an Erlang term representing the current user.
-	{user, 1},
+	{set_user, 3},
 	
-	% role(Role) -> true | false
+	% role(Context, State, Role) -> {ok, NewContext, NewState, Boolean}.
 	% Returns true or false depending on whether the user is in the specified role.
-	{role, 1},
+	{get_has_role, 3},
 	
-	% role(Role, IsInRole) -> ParameterizedModule
+	% role(Context, State, Role, IsInRole) -> {ok, NewContext, NewState}.
 	% Set whether the user is in the specified role.
-	{role, 2},
+	{set_has_role, 4},
 	
-	% roles() -> [Roles]
+	% roles(Context, State) -> {ok, NewContext, NewState, [Roles]}
 	% Return a list of roles held by the current user
-	{roles, 0},
+	{get_roles, 2},
 	
-	% logout() -> ParameterizedModule
+	% logout(Context, State) -> {ok, NewContext, NewState}.
 	% Set the user to undefined, and clear all roles.
-	{logout, 0}	
+	{logout, 2}	
 ];
 
 behaviour_info(_) -> undefined.

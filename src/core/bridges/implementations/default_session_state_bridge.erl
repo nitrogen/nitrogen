@@ -1,1 +1,0 @@
--module (default_session_state_bridge).

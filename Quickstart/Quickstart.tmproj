@@ -18,8 +18,6 @@
 					<string>apps/quickstart_inets.app</string>
 					<key>lastUsed</key>
 					<date>2009-05-16T04:08:56Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -73,7 +71,9 @@
 					<key>filename</key>
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
-					<date>2009-05-16T04:08:55Z</date>
+					<date>2009-05-19T00:35:03Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -120,6 +120,8 @@
 					<string>src/footer.erl</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>Code</string>
 		</dict>
