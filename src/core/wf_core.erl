@@ -12,32 +12,37 @@
 % Erlang Web, ErlyWeb, etc.
 
 run(Context) ->
-	?DEBUG,
+	try
+		inner_run(Context)
+	catch Type : Message -> 
+		?LOG("~p~n", [{error, Type, Message, erlang:get_stacktrace()}])
+	end.
+
+inner_run(Context) ->
 	% Call init/2 on handlers.
-	Context1 = init_handlers(Context),
-	?DEBUG,
+	{ok, Context1} = init_handlers(Context),
 
 	% Route the request.
-	Context2 = wf_route:route(Context1),
-	?DEBUG,
-	
-	% Check if this is the first request.
-	IsFirstRequest = is_first_request(Context2),
-	?DEBUG,
-	Context3 = case IsFirstRequest of
-		true -> wf_core_firstrequest:run(Context2);			
+	{ok, Context2} = route_handler:route(Context1),
+
+	% Process the request...
+	IsFirstRequest = Context2#context.is_first_request,
+	{ok, Context3} = case IsFirstRequest of
+		true -> wf_core_firstrequest:run(Context2);
 		_    -> wf_core_postback:run(Context2)
 	end,
 	
-	% Call finish/2 on handlers.
-	?DEBUG,
-	Context4 = finish_handlers(Context3),
-	?DEBUG,
+	% Render the request...
+	Elements = Context3#context.data,
+	Actions = Context3#context.queued_actions,
+	Context4 = Context3#context { data=[], queued_actions=[] },
+	{ok, Html, Javascript, Context5} = render_handler:render(Elements, Actions, Context4),
 	
-	% Send the response.
-	ResponseBridge = Context4#context.response,
-	?DEBUG,
-	ResponseBridge:build_response().
+	% Call finish/2 on handlers.
+	{ok, Context6} = finish_handlers(Context5),
+	
+	% Build and send the response.
+	output_handler:build_response(Html, Javascript, Context6).
 	
 	
 % init_handlers/1 - 
@@ -45,16 +50,12 @@ run(Context) ->
 % is important, as some handlers may depend on others being initialize. For example, 
 % the session handler may use the cookie handler to get or set the session cookie.
 init_handlers(Context) ->
-	?DEBUG,
 	Handlers = Context#context.handlers,
 	F = fun({HandlerName, Module, _State}, Cx) -> 
-		?PRINT(HandlerName),
-		?PRINT(Module),
 		{ok, NewContext, NewState} = Module:init(Cx),
-		?PRINT({ok, NewContext, NewState}),
 		wf_context:set_handler(HandlerName, Module, NewState, NewContext)
 	end,
-	lists:foldl(F, Context, Handlers).
+	{ok, lists:foldl(F, Context, Handlers)}.
 
 % finish_handlers/1 - 
 % Handlers are finished in the order that they exist in #context.handlers. The order
@@ -67,9 +68,4 @@ finish_handlers(Context) ->
 		{ok, NewContext, NewState} = Module:finish(Cx, State),
 		wf_context:set_handler(HandlerName, Module, NewState, NewContext)
 	end,
-	lists:foldl(F, Context, Handlers).
-
-
-% is_first_request/1 - 
-% Return true if this is the first request.
-is_first_request(_Context) -> true.
+	{ok, lists:foldl(F, Context, Handlers)}.

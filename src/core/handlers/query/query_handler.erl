@@ -2,15 +2,15 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (route_handler).
+-module (query_handler).
 -export ([
-	behaviour_info/1,
-	route/1
+	behaviour_info/1
 ]).
 
 behaviour_info(callbacks) -> [
-	% init(Context) -> {ok, NewContext, State}.
-	% Called at the start of the request.
+	% init(Context) -> {ok, NewContext, NewState}.
+	% Called at the start of the request. This should 
+	% examine the query parameters and update the context.
 	{init, 1},      
 
 	% finish(Context, State) -> {ok, NewContext, NewState}.
@@ -18,13 +18,8 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 	
-	% route(Context, State) -> {ok, NewContext, NewState}.
-	% Route the request by setting the page_module and path_info 
-	% attributes of Context#context.
-	{route, 2}
+	% get_value(Key, Context, State) -> {ok, Value, NewContext, NewState}.
+	{get_value, 3}
 ];
 
 behaviour_info(_) -> undefined.
-
-route(Context) ->
-	wf_context:apply(route, route, Context).

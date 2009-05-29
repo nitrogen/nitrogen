@@ -28,18 +28,18 @@ finish(Context, State) ->
 	% NewContext.
 	{ok, Context, State}.
 	
-get(Context, State, Key, DefaultValue) -> 
+get(Key, DefaultValue, Context, State) -> 
 	Value = proplists:get_value(Key, State, DefaultValue),
-	{ok, Context, State, Value}.
+	{ok, Value, Context, State}.
 
-put(Context, State, Key, Value) ->
+put(Key, Value, Context, State) ->
 	State1 = proplists:delete(Key, State),
 	State2 = [{Key, Value}|State1],
 	{ok, Context, State2}.
 	
-clear(Context, State, Key) ->
+clear(Key, Context, State) ->
 	State1 = proplists:delete(Key, State),
 	{ok, Context, State1}.
 
-clear_all(Context, State) ->
+clear_all(Context, _State) ->
 	init(Context).

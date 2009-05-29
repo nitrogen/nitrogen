@@ -19,22 +19,21 @@
 % depickle(Data) -> wff:depickle(Data).
 % depickle(Data, SecondsToLive) -> wff:depickle(Data, SecondsToLive).
 % 
-% is_string(Term) -> wff:is_string(Term).
 % 
 % debug() -> wff:debug().
 % break() -> wff:break().
 % 
 % 
 % 
-% %%% EXPOSE WF_CONVERT %%%
-% 
-% to_list(T) -> wff:to_list(T).
-% to_atom(T) -> wff:to_atom(T).
-% to_binary(T) -> wff:to_binary(T).
-% to_integer(T) -> wff:to_integer(T).
-% clean_lower(S) -> wff:clean_lower(S).
-% html_encode(S) -> wff:html_encode(S).
-% html_encode(S, Encode) -> wff:html_encode(S, Encode).
+%%% EXPOSE WF_CONVERT %%%
+
+to_list(T) -> wff:to_list(T).
+to_atom(T) -> wff:to_atom(T).
+to_binary(T) -> wff:to_binary(T).
+to_integer(T) -> wff:to_integer(T).
+clean_lower(S) -> wff:clean_lower(S).
+html_encode(S) -> wff:html_encode(S).
+html_encode(S, Encode) -> wff:html_encode(S, Encode).
 % 
 % 
 % 
@@ -61,8 +60,11 @@
 % 
 % 
 % %%% EXPOSE WF_RENDER %%%
-% 
-% render(Terms) -> wff:render(Terms).
+
+% render(Terms) -> 
+% 	{ok, NewContext, Html} = wff:render(Context, Terms),
+% 	Html.
+	
 % 
 % update(Element, Terms) -> wff:update(Element, Terms).
 % insert_top(Element, Terms) -> wff:insert_top(Element, Terms).
@@ -125,8 +127,7 @@
 % 
 % %%% WF_PATH %%%
 % 
-% me_var() -> wff:me_var().
-% temp_id() -> wff:temp_id().
+temp_id() -> wff:temp_id().
 % to_js_id(Path) -> wff:to_js_id(Path).
 % 
 % 

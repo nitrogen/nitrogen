@@ -17,13 +17,13 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 	
-	% get_set(Context, State, Key, Function, TTL) -> {ok, NewContext, NewState, Value}
+	% get_set(Key, Function, TTL, Context, State) -> {ok, Value, NewContext, NewState}
 	% Return the cache value associated with Key. If it is not found,
 	% then run the Function, store the resulting value in cache under
 	% Key, and return the value.
 	{get_set, 5}, 
 	
-	% clear(Context, State, Key) -> {ok, NewContext, NewState}
+	% clear(Key, Context, State) -> {ok, NewContext, NewState}
 	% Remove a value from cache.
 	{clear, 3},
 	

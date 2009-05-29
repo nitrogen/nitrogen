@@ -18,14 +18,14 @@ init(Context) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 
-info(Context, State, S) -> 
-	error_logger:info_msg(S),
+info(S, Context, State) -> 
+	error_logger:info_msg([S, "\n"]),
 	{ok, Context, State}.
 
-warning(Context, State, S) -> 
-	error_logger:warning_msg(S),
+warning(S, Context, State) -> 
+	error_logger:warning_msg([S, "\n"]),
 	{ok, Context, State}.
 
-error(Context, State, S) -> 
-	error_logger:error_msg(S),
+error(S, Context, State) -> 
+	error_logger:error_msg([S, "\n"]),
 	{ok, Context, State}.

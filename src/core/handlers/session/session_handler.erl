@@ -17,15 +17,15 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 	
-	% get(Context, State, Key, DefaultValue) -> {ok, NewContext, NewState, Value}.
+	% get(Key, DefaultValue, Context, State, Key, DefaultValue) -> {ok, Value, NewContext, NewState}.
 	% Retrieve a value from the storage area.
 	{get, 4},       
 	
-	% put(Context, State, Key, Value) -> {ok, NewContext, NewState}.
+	% put(Key, Value, Context, State) -> {ok, NewContext, NewState}.
 	% Put a value into the storage area.
 	{put, 4},
 	
-	% clear(Context, State, Key) -> {ok, NewContext, NewState}.
+	% clear(Key, Context, State) -> {ok, NewContext, NewState}.
 	% Remove a value from the storage area.
 	{clear, 3},
 	

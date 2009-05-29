@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>src/core/wf_core.erl</string>
+	<string>src/core/handlers/render/render_handler.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -37,7 +37,7 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-05-19T00:34:26Z</date>
+					<date>2009-05-21T02:56:48Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -71,33 +71,31 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-21T02:27:47Z</date>
+							<date>2009-05-27T02:31:22Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf_core_firstrequest.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-18T22:44:31Z</date>
+							<date>2009-05-26T01:59:48Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf_core_postback.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-21T02:06:29Z</date>
+							<date>2009-05-25T19:37:55Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-21T02:06:29Z</date>
+							<date>2009-05-27T23:30:14Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-21T02:06:30Z</date>
-							<key>selected</key>
-							<true/>
+							<date>2009-05-28T00:30:17Z</date>
 						</dict>
 						<dict>
 							<key>name</key>
@@ -140,8 +138,6 @@
 							<string>src/core/elements</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Core</string>
 				</dict>
@@ -228,13 +224,13 @@
 									<key>filename</key>
 									<string>src/lib/wf_handle.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-16T19:29:47Z</date>
+									<date>2009-05-25T19:04:28Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle_firstrequest.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-16T15:15:26Z</date>
+									<date>2009-05-25T19:04:03Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -258,7 +254,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_utils.erl</string>
 									<key>lastUsed</key>
-									<date>2009-04-02T00:17:05Z</date>
+									<date>2009-05-27T23:36:24Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -305,8 +301,6 @@
 					<string>Mantle</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -317,7 +311,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-05-21T01:37:41Z</date>
+					<date>2009-05-28T00:32:54Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -367,33 +361,91 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>src/core/lib/wf_context.erl</key>
+		<key>include/wf.inc</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>39</integer>
 				<key>line</key>
-				<integer>5</integer>
+				<integer>110</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>92</integer>
+		</dict>
+		<key>src/core/actions/internal_action_update.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>17</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>src/core/wf_core.erl</key>
+		<key>src/core/handlers/render/page_render_handler.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>64</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>30</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>16</integer>
+			<integer>10</integer>
+		</dict>
+		<key>src/core/handlers/render/render_handler.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>46</integer>
+				<key>line</key>
+				<integer>34</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>7</integer>
+		</dict>
+		<key>src/core/handlers/render/render_handler_utils.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>37</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>37</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
 		</dict>
 		<key>src/lib/wf_session.erl</key>
 		<dict>
@@ -454,8 +506,11 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>src/core/lib/wf_context.erl</string>
-		<string>src/core/wf_core.erl</string>
+		<string>src/core/actions/internal_action_update.erl</string>
+		<string>src/core/handlers/render/render_handler.erl</string>
+		<string>src/core/handlers/render/page_render_handler.erl</string>
+		<string>src/core/handlers/render/render_handler_utils.erl</string>
+		<string>include/wf.inc</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

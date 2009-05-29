@@ -17,7 +17,6 @@
 	coalesce/1,
 	is_process_alive/1,
 	debug/0, break/0,
-	is_string/1,	
 	get_elementbase/1, get_actionbase/1, get_validatorbase/1
 ]).
 
@@ -235,9 +234,6 @@ coalesce([H]) -> H;
 coalesce([undefined|T]) -> coalesce(T);
 coalesce([[]|T]) -> coalesce(T);
 coalesce([H|_]) -> H.
-
-%%% IS STRING %%%
-is_string(Term) -> ?IS_STRING(Term). % calls macro in wf.inc
 
 %%% BASE RECORDS %%%
 

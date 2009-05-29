@@ -5,5 +5,5 @@
 run(Context) ->
 	% Run the request. This returns a new context.
 	PageModule = Context#context.page_module,
-	?PRINT(PageModule),
-	PageModule:main(Context).
+	{ok, Data, NewContext} = PageModule:main(Context),
+	{ok, NewContext#context { data=Data}}.

@@ -26,7 +26,7 @@ q(Partial) when is_atom(Partial) ->
 	
 q(Partial) when is_list(Partial) ->	
 	% Get the matching paths.
-	Partial1 = case wf:is_string(Partial) of
+	Partial1 = case ?IS_STRING(Partial) of
 		true -> [Partial];
 		false -> Partial
 	end,

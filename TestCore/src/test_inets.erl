@@ -1,6 +1,6 @@
 -module (test_inets).
 -include ("simplebridge.hrl").
--include ("wf.inc").
+-include ("../include/httpd.hrl").
 -export ([
 	start/0,
 	do/1
@@ -21,7 +21,13 @@ start() ->
 	
 do(Info) ->
 	RequestBridge = request_bridge:make(inets_request_bridge, Info),
+	case RequestBridge:path() of
+		"/web" ++ _ -> do_nitrogen(Info);
+		_ -> {proceed, Info#mod.data}
+	end.
+
+do_nitrogen(Info) ->
+	RequestBridge = request_bridge:make(inets_request_bridge, Info),
 	ResponseBridge = response_bridge:make(inets_response_bridge),
 	Context = wf_context:make_context(RequestBridge, ResponseBridge),
-	?PRINT(Context),
 	wf_core:run(Context).

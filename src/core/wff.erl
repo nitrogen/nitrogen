@@ -2,22 +2,22 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (wf).
+-module (wff).
 -include ("wf.inc").
 -include ("simplebridge.hrl").
 -compile (export_all).
 
 %%% EXPOSE WF_UTILS %%%
 
-% f(S) -> wf_utils:f(S).
-% f(S, Args) -> wf_utils:f(S, Args).
-% coalesce(L) -> wf_utils:coalesce(L).
+f(S) -> wf_utils:f(S).
+f(S, Args) -> wf_utils:f(S, Args).
+coalesce(L) -> wf_utils:coalesce(L).
+
 % 
 % pickle(Data) -> wf_utils:pickle(Data).
 % depickle(Data) -> wf_utils:depickle(Data).
 % depickle(Data, SecondsToLive) -> wf_utils:depickle(Data, SecondsToLive).
 % 
-% is_string(Term) -> wf_utils:is_string(Term).
 % 
 % debug() -> wf_utils:debug().
 % break() -> wf_utils:break().
@@ -26,13 +26,13 @@
 
 %%% EXPOSE WF_CONVERT %%%
 
-% to_list(T) -> wf_convert:to_list(T).
-% to_atom(T) -> wf_convert:to_atom(T).
-% to_binary(T) -> wf_convert:to_binary(T).
-% to_integer(T) -> wf_convert:to_integer(T).
-% clean_lower(S) -> wf_convert:clean_lower(S).
-% html_encode(S) -> wf_convert:html_encode(S).
-% html_encode(S, Encode) -> wf_convert:html_encode(S, Encode).
+to_list(T) -> wf_convert:to_list(T).
+to_atom(T) -> wf_convert:to_atom(T).
+to_binary(T) -> wf_convert:to_binary(T).
+to_integer(T) -> wf_convert:to_integer(T).
+clean_lower(S) -> wf_convert:clean_lower(S).
+html_encode(S) -> wf_convert:html_encode(S).
+html_encode(S, Encode) -> wf_convert:html_encode(S, Encode).
 
 
 
@@ -62,17 +62,29 @@
 % reverse_bind(BindingTuple, Record) -> wf_bind:reverse_bind(BindingTuple, Record).
 
 
-%%% EXPOSE WF_RENDER %%%
+%%% EXPOSE RENDER_HANDLER %%%
 
+render(Elements, Context) -> 
+	{ok, _NewElements, _NewContext} = render_handler:render(Elements, Context).
+	
+%%% EXPOSE LOG_HANDLER %%%
 
-% render(Terms, Context) -> wf_render:render(Terms, Context).
-% update(Element, Terms, Context) -> wf_render:update(Element, Terms, Context).
-% insert_top(Element, Terms, Context) -> wf_render:insert_top(Element, Terms, Context).
-% insert_bottom(Element, Terms, Context) -> wf_render:insert_bottom(Element, Terms, Context).
-% 
-% wire(Actions, Context) -> wf_render:wire(Actions, Context).
-% wire(TargetID, Actions, Context) -> wf_render:wire(TargetID, Actions, Context).
-% wire(TriggerID, TargetID, Actions, Context) -> wf_render:wire(TriggerID, TargetID, Actions, Context).
+info(String, Args, Context) -> log_handler:info(String, Args, Context).
+info(String, Context) -> log_handler:info(String, Context).
+
+warning(String, Args, Context) -> log_handler:warning(String, Args, Context).
+warning(String, Context) -> log_handler:warning(String, Context).
+	
+error(String, Args, Context) -> log_handler:error(String, Args, Context).
+error(String, Context) -> log_handler:error(String, Context).
+
+update(TargetID, Elements, Context) -> render_handler:update(TargetID, Elements, Context).
+insert_top(TargetID, Elements, Context) -> render_handler:insert_top(TargetID, Elements, Context).
+insert_bottom(TargetID, Elements, Context) -> render_handler:insert_bottom(TargetID, Elements, Context).
+
+wire(Actions, Context) -> render_handler:wire(undefined, undefined, Actions, Context).
+wire(TargetID, Actions, Context) -> render_handler:wire(TargetID, TargetID, Actions, Context).
+wire(TriggerID, TargetID, Actions, Context) -> render_handler:wire(TriggerID, TargetID, Actions, Context).
 
 
 %%% WF_CONTINUE %%%
@@ -127,9 +139,8 @@
 
 %%% WF_PATH %%%
 
-% me_var() -> wf_render:me_var().
-% temp_id() -> wf_path:temp_id().
-% to_js_id(Path) -> wf_path:to_js_id(Path).
+temp_id() -> wf_path:temp_id().
+to_js_id(Path) -> wf_path:to_js_id(Path).
 
 
 %%% OTHER %%%

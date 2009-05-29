@@ -17,11 +17,11 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 	
-	% user(Context, State) -> {ok, NewContext, NewState, User}.
+	% user(Context, State) -> {ok, User, NewContext, NewState}.
 	% Retrieve an Erlang term representing the current user.
 	{get_user, 2},
 	
-	% user(Context, State, User) -> {ok, NewContext, NewState}.
+	% user(User, Context, State) -> {ok, NewContext, NewState}.
 	% Set an Erlang term representing the current user.
 	{set_user, 3},
 	

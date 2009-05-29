@@ -25,7 +25,7 @@ pop_path() -> put(current_path, tl(get(current_path))).
 % An atompath is of the form 'root.parentcontrol.control.childcontrol' or 'me.control.childcontrol'
 
 to_path(P) when is_list(P) ->
-	case wf:is_string(P) of
+	case ?IS_STRING(P) of
 		true -> to_absolute_path(split_path(P));
 		false -> P
 	end;

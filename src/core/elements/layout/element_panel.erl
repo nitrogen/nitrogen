@@ -15,3 +15,11 @@ render(ControlID, Record) ->
 	    {class, ["panel", Record#panel.class]},
 	    {style, Record#panel.style}
 	]).
+
+render_element(ControlID, Record, Context) -> 
+	Elements = wf_tags:emit_tag('div', Record#panel.body, [
+	    {id, ControlID},
+	    {class, ["panel", Record#panel.class]},
+	    {style, Record#panel.style}
+	]),
+	{ok, Elements, Context}.

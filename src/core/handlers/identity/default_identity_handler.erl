@@ -19,9 +19,9 @@ finish(Context, State) ->
 	{ok, Context, State}.
 
 get_user(Context, State) -> 
-	{ok, Context, State, undefined}.
+	{ok, undefined, Context, State}.
 
-set_user(Context, State, _User) -> 
+set_user(_User, Context, State) -> 
 	{ok, Context, State}.
 
 logout(Context, State) -> 

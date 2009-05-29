@@ -17,3 +17,12 @@ render(ControlID, Record) ->
         {class, Record#span.class}, 
         {style, Record#span.style}
     ]).
+
+render_element(ControlID, Record, Context) -> 
+  Text = wf:html_encode(Record#span.text, Record#span.html_encode),
+	Html = wf_tags:emit_tag(span, Text, [
+        {id, ControlID},
+        {class, Record#span.class}, 
+        {style, Record#span.style}
+  ]),
+	{ok, Html, Context}.

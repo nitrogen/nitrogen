@@ -4,24 +4,34 @@
 %%% CONTEXT %%%
 -record(context, {
 	% Request and Response
-	request,      % Request Bridge (see SimpleBridge)
-	response,     % Response Bridge (see SimpleBridge)
+	request,          % Request Bridge (see SimpleBridge)
+	response,         % Response Bridge (see SimpleBridge)
 
-  % These should be set during routing.
-	page_module,  % The requested page module
-	path_info,    % Any extra info passed with the request
-	name=page,    % 'page' by default. Can be renamed by Inline Apps.
+  % Page Request Information
+	page_module,      % The requested page module
+	path_info,        % Any extra info passed with the request
+	name=page,        % 'page' by default. Can be renamed by Inline Apps.
+	
+	% Event Information
+	is_first_request, % True if first request, false if postback 
+	event_module,     % The module that should handle the event
+  event_tag,        % An Erlang term that is passed along with the event
+  event_type,       % The type of event postback, comet, continuation, upload
+  event_trigger,    % The element id that triggered the event
+  event_target,     % The element id that "receives" the event
 
-	% Here's where we gather up the response, before
-	% we turn it into HTML and Javascript and send
-	% it back to the client.
-	elements,
-	actions,
+	% Path
+	current_path=[],
 
+	% Page Response Data
+	data=[],             % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
+	queued_actions=[],   % List of actions queued in main/1, event/2, or when rendering elements.
+
+	% Handlers
 	% Handlers are used to encapsulate Nitrogen's behaviour, and
 	% to allow other frameworks to substitute their own behaviour.
 	% These are set in wf_context:make_context/1
-	handlers
+	handlers=[]
 }).
 
 %%% LOGGING %%%
@@ -95,6 +105,9 @@
 %%% Actions %%%
 -define(ACTION_BASE(Module), module=Module, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
+-record(wire, {?ACTION_BASE(internal_action_wire)}).
+-record(update, {?ACTION_BASE(internal_action_update), type=update, elements=[]}).
+-record(var_me, {?ACTION_BASE(internal_action_var_me)}).
 -record(event, {?ACTION_BASE(action_event), type=click, delay=1, postback, delegate}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
 -record(validation_error, {?ACTION_BASE(action_validation_error), text="" }).

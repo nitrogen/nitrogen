@@ -22,21 +22,21 @@ route(Context, State) ->
 	% Get the path.
 	Bridge = Context#context.request,
 	Path = Bridge:path(),
-	?PRINT(Path),
 	
 	% Turn the path into a module and pathinfo.
 	{Module, PathInfo} = path_to_module(Path),
-	?PRINT({Module, PathInfo}),
-	
-	% Update the context and return.
-	NewContext = Context#context {
-		page_module=Module,
-		path_info=PathInfo
-	},
+	{ok, NewContext} = update_context(Module, PathInfo, Context),
 	{ok, NewContext, State}.
 	
 
 %%% PRIVATE FUNCTIONS %%%
+
+update_context(Module, PathInfo, Context) ->
+	Context1 = Context#context {
+		page_module=Module,
+		path_info=PathInfo
+	},
+	{ok, Context1}.
 
 %% path_to_module/1 - Convert a web path to a module.
 path_to_module(undefined) -> {web_index, ""};
@@ -49,7 +49,9 @@ path_to_module(S) ->
 			tokens_to_module(string:tokens(S, "/"), [], false)
 	end.
 	
-tokens_to_module([], PathInfoAcc, AddedIndex) -> {web_404, to_path_info(PathInfoAcc, AddedIndex)};
+tokens_to_module([], PathInfoAcc, AddedIndex) -> 
+	{file_not_found_page, to_path_info(PathInfoAcc, AddedIndex)};
+	
 tokens_to_module(Tokens, PathInfoAcc, AddedIndex) ->
 	try
 		% Try to get the name of a module.
@@ -57,7 +59,7 @@ tokens_to_module(Tokens, PathInfoAcc, AddedIndex) ->
 		Module = list_to_existing_atom(ModuleString),
 		
 		% Moke sure the module is loaded.
-		code:ensure_loaded(Module),
+		{module, Module} = code:ensure_loaded(Module),
 		{Module, to_path_info(PathInfoAcc, AddedIndex)}
 	catch _ : _ -> 
 		% Strip off the last token, and try again.

@@ -19,14 +19,14 @@ init(Context) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 
-get_has_role(Context, State, _Role) -> 
-	{ok, Context, State, false}.
+get_has_role(State, _Role, Context) -> 
+	{ok, false, Context, State}.
 
-set_has_role(Context, State, _Role, _IsInRole) -> 
+set_has_role(_Role, _IsInRole, Context, State) -> 
 	{ok, Context, State}.
 
 get_roles(Context, State) -> 
-	{ok, Context, State, []}.
+	{ok, [], Context, State}.
 
 logout(Context, State) -> 
 	{ok, Context, State}.

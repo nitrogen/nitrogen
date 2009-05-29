@@ -19,13 +19,13 @@ init(Context) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 	
-get(Context, State, _Key, DefaultValue) -> 
-	{ok, Context, State, DefaultValue}.
+get(_Key, DefaultValue, Context, State) -> 
+	{ok, DefaultValue, Context, State}.
 	
-put(Context, State, _Key, _Value) -> 
+put(_Key, _Value, Context, State) -> 
 	{ok, Context, State}.
 	
-clear(Context, State, _Key) ->
+clear(_Key, Context, State) ->
 	{ok, Context, State}.
 
 clear_all(Context, State) -> 

@@ -17,15 +17,15 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 	
-	% role(Context, State, Role) -> {ok, NewContext, NewState, Boolean}.
+	% role(Role, Context, State) -> {ok, IsInRole, NewContext, NewState}.
 	% Returns true or false depending on whether the user is in the specified role.
 	{get_has_role, 3},
 	
-	% role(Context, State, Role, IsInRole) -> {ok, NewContext, NewState}.
+	% role(Role, IsInRole, Context, State) -> {ok, NewContext, NewState}.
 	% Set whether the user is in the specified role.
 	{set_has_role, 4},
 	
-	% roles(Context, State) -> {ok, NewContext, NewState, [Roles]}
+	% roles(Context, State) -> {ok, [Roles], NewContext, NewState}
 	% Return a list of roles held by the current user
 	{get_roles, 2},
 	

@@ -17,7 +17,7 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 	
-	% cookie(Context, State, Key, Value, Path, MinutesToLive) -> {ok, NewContext, NewState}
+	% cookie(Key, Value, Path, MinutesToLive, Context, State) -> {ok, NewContext, NewState}
 	% Set the specified cookie.
 	{cookie, 6}
 ];

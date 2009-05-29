@@ -64,7 +64,7 @@ bind(Body, [DataRow|Data], Map, Transform, Acc) ->
 %% apply_bindings/2 - Given a list of terms and a list
 %% of replacements, update the terms with values from replacements.
 apply_bindings(Bindings, Term) when is_list(Term) ->
-	case Term == [] orelse wf:is_string(Term) of
+	case Term == [] orelse ?IS_STRING(Term) of
 		true -> Term;
 		false -> [apply_bindings(Bindings, X) || X <- Term]
 	end;

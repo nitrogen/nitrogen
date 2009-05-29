@@ -18,10 +18,10 @@ init(Context) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 
-get_set(Context, State, _Key, Function, _TTL) -> 
-	{ok, Context, State, Function()}.
+get_set(_Key, Function, _TTL, Context, State) -> 
+	{ok, Function(), Context, State}.
 
-clear(Context, State, _Key) -> 
+clear(_Key, Context, State) -> 
 	{ok, Context, State}.
 
 clear_all(Context, State) -> 

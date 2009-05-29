@@ -16,5 +16,5 @@ init(Context) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 
-cookie(Context, State, _Key, _Value, _Path, _MinutesToLive) -> 
+cookie(_Key, _Value, _Path, _MinutesToLive, Context, State) -> 
 	{ok, Context, State}.
