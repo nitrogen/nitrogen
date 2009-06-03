@@ -25,7 +25,7 @@
 
 	% Page Response Data
 	data=[],             % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
-	queued_actions=[],   % List of actions queued in main/1, event/2, or when rendering elements.
+	queued_actions=[],   % List of actions queued in main/1, event/2, or when rendering elements.	
 
 	% Handlers
 	% Handlers are used to encapsulate Nitrogen's behaviour, and
@@ -106,6 +106,7 @@
 -define(ACTION_BASE(Module), module=Module, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
 -record(wire, {?ACTION_BASE(internal_action_wire)}).
+-record(redirect, {?ACTION_BASE(action_redirect), url}).
 -record(update, {?ACTION_BASE(internal_action_update), type=update, elements=[]}).
 -record(var_me, {?ACTION_BASE(internal_action_var_me)}).
 -record(event, {?ACTION_BASE(action_event), type=click, delay=1, postback, delegate}).

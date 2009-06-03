@@ -14,9 +14,8 @@ f(S, Args) -> wf_utils:f(S, Args).
 coalesce(L) -> wf_utils:coalesce(L).
 
 % 
-% pickle(Data) -> wf_utils:pickle(Data).
-% depickle(Data) -> wf_utils:depickle(Data).
-% depickle(Data, SecondsToLive) -> wf_utils:depickle(Data, SecondsToLive).
+pickle(Data, Context) -> pickle_handler:pickle(Data, Context).
+depickle(Data, Context) -> pickle_handler:depickle(Data, Context).
 % 
 % 
 % debug() -> wf_utils:debug().
@@ -102,7 +101,7 @@ wire(TriggerID, TargetID, Actions, Context) -> render_handler:wire(TriggerID, Ta
 
 %%% WF_REDIRECT %%%
 
-% redirect(Url) -> wf_redirect:redirect(Url).
+redirect(Url, Context) -> wf_redirect:redirect(Url, Context).
 % redirect_to_login(Url) -> wf_redirect:redirect_to_login(Url).
 % redirect_from_login(DefaultUrl) -> wf_redirect:redirect_from_login(DefaultUrl).
 
@@ -134,7 +133,7 @@ wire(TriggerID, TargetID, Actions, Context) -> render_handler:wire(TriggerID, Ta
 
 %%% WF_QUERY %%%
 
-% q(Q) -> wf_query:q(Q).
+q(Q, Context) -> query_handler:get_value(Q, Context).
 
 
 %%% WF_PATH %%%

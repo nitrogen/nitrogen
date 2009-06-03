@@ -18,7 +18,13 @@ init(Context) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 
-build_response(Html, Script, Context, _State) ->
+build_response(Html, Script, Context, State) ->
+	case Context#context.is_first_request of
+		true -> build_first_response(Html, Script, Context, State);
+		_    -> build_postback_response(Html, Script, Context, State)
+	end.
+	
+build_first_response(Html, Script, Context, _State) ->
 	SimpleBody = [
 	"<html>\n",
 	"<head>\n",
@@ -36,16 +42,20 @@ build_response(Html, Script, Context, _State) ->
 	"</script>\n",
 	"</html>"
 	],
-	
-	?PRINT(SimpleBody),
 	SimpleBody1 = replace(body, Html, SimpleBody),
-	?PRINT(SimpleBody1),
 	SimpleBody2 = replace(script, Script, SimpleBody1),
-	?PRINT(SimpleBody2),
+
 	% Update the response bridge and return.
 	Bridge = Context#context.response,
 	Bridge1 = Bridge:data(lists:flatten(SimpleBody2)),
 	Bridge1:build_response().
+	
+build_postback_response(_Html, Script, Context, _State) ->
+	% Update the response bridge and return.
+	Bridge = Context#context.response,
+	Bridge1 = Bridge:data(lists:flatten(Script)),
+	Bridge1:build_response().
+	
 	
 replace(Old, New, [Old|T]) -> [New|T];
 replace(Old, New, [H|T]) -> [H|replace(Old, New, T)];

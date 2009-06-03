@@ -17,6 +17,7 @@ make_context(RequestBridge, ResponseBridge) ->
 			{cookie, default_cookie_handler, []},
 			{'query', default_query_handler, []},
 			{session, default_session_handler, []},
+			{pickle, default_pickle_handler, []},
 			{identity, default_identity_handler, []},
 			{role, default_role_handler, []},
 			{route, default_route_handler, []},

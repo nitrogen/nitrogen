@@ -10,7 +10,6 @@
 	path_search/3,
 	encode/2, decode/2,
 	hex_encode/1, hex_decode/1,
-	pickle/1, depickle/1, depickle/2,
 	url_encode/1,
 	js_escape/1,
 	replace/3,
@@ -122,47 +121,27 @@ inner_decode(Data, Base) when is_list(Data) ->
 
 get_seconds() -> calendar:datetime_to_gregorian_seconds(calendar:universal_time()).
 
-pickle(Data) ->
-	B = term_to_binary({get_seconds(), Data}, [compressed]),
-	<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
-	modified_base64_encode(<<Signature/binary, B/binary>>).
-	
-depickle(Data) -> 
-	{_IsExpired, Term} = depickle(Data, 24 * 365 * 60 * 60),
-	Term.
-	
-depickle(Data, SecondsToLive) ->
-	{CreatedOn, Term} = try
-		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(Data)),
-		<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
-		wf:assert(S == Signature, invalid_signature),
-		binary_to_term(B)
-	catch _Type : _Message ->
-		{0, undefined}
-	end,
-	IsExpired = (CreatedOn + SecondsToLive) < get_seconds(),
-	{not IsExpired, Term}.
-	
-% modified_base64_encode/1 
-%	- Replace '+' and '/' with '-' and '_', respectively. 
-% - Strip '='.
-modified_base64_encode(B) -> m_b64_e(base64:encode(B), <<>>).
-m_b64_e(<<>>, Acc) -> Acc;
-m_b64_e(<<$+, Rest/binary>>, Acc) -> m_b64_e(Rest, <<Acc/binary, $->>);
-m_b64_e(<<$/, Rest/binary>>, Acc) -> m_b64_e(Rest, <<Acc/binary, $_>>);
-m_b64_e(<<$=, Rest/binary>>, Acc) -> m_b64_e(Rest, Acc);
-m_b64_e(<<H,  Rest/binary>>, Acc) -> m_b64_e(Rest, <<Acc/binary, H>>).
+% pickle(Data) ->
+% 	B = term_to_binary({get_seconds(), Data}, [compressed]),
+% 	<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
+% 	modified_base64_encode(<<Signature/binary, B/binary>>).
+% 	
+% depickle(Data) -> 
+% 	{_IsExpired, Term} = depickle(Data, 24 * 365 * 60 * 60),
+% 	Term.
+% 	
+% depickle(Data, SecondsToLive) ->
+% 	{CreatedOn, Term} = try
+% 		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(Data)),
+% 		<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
+% 		wf:assert(S == Signature, invalid_signature),
+% 		binary_to_term(B)
+% 	catch _Type : _Message ->
+% 		{0, undefined}
+% 	end,
+% 	IsExpired = (CreatedOn + SecondsToLive) < get_seconds(),
+% 	{not IsExpired, Term}.
 		
-% modified_base64_decode/1 
-% - Replace '-' and '_' with '+' and '/', respectively. 
-% - Pad with '=' to a multiple of 4 chars.
-modified_base64_decode(B) -> base64:decode(m_b64_d(B, <<>>)).
-m_b64_d(<<>>, Acc) when size(Acc) rem 4 == 0 -> Acc;
-m_b64_d(<<>>, Acc) when size(Acc) rem 4 /= 0 -> m_b64_d(<<>>, <<Acc/binary, $=>>);
-m_b64_d(<<$-, Rest/binary>>, Acc) -> m_b64_d(Rest, <<Acc/binary, $+>>);
-m_b64_d(<<$_, Rest/binary>>, Acc) -> m_b64_d(Rest, <<Acc/binary, $/>>);
-m_b64_d(<<H,  Rest/binary>>, Acc) -> m_b64_d(Rest, <<Acc/binary, H>>).
-	
 %%% URL ENCODE %%%
 
 url_encode(S) -> quote_plus(S).

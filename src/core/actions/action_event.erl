@@ -6,41 +6,48 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(TriggerPath, TargetPath, Record) -> 
+render_action(Record, Context) -> 
+	TriggerPath = Record#event.trigger,
+	TargetPath = Record#event.target,
 	EventType = Record#event.type, 
-	Postback = make_postback(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate),
-	Actions = [wf_render:render_actions(TriggerPath, TargetPath, Record#event.actions)],
+	{ok, Postback, Context1} = make_postback(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate, Context),
+	Actions = #wire { trigger=TriggerPath, target=TargetPath, actions=Record#event.actions },
 
-	case EventType of
+	Script = case EventType of
 		enterkey ->
 			[
-				wf:f("Nitrogen.$observe_event(obj('~s'), 'keypress', function anonymous(event) {", [wf:to_js_id(TriggerPath)]),
-				wf:f("if (Nitrogen.$is_enter_key(event)) { ~s ~s; return false; }", [Postback, Actions]),
-				wf:f("});\r\n")
+				wff:f("Nitrogen.$observe_event(obj('~s'), 'keypress', function anonymous(event) {", [wff:to_js_id(TriggerPath)]),
+				"if (Nitrogen.$is_enter_key(event)) {", Postback, " ", Actions, "return false; }",
+				"});\r\n"
 			];
 		
 		_ when EventType == timer orelse EventType == continuation ->
-			wf:f("setTimeout(\"~s ~s\", ~p);", [wf_utils:js_escape(Postback), wf_utils:js_escape(Actions), Record#event.delay]);
+			TempID = wff:temp_id(),
+			[
+				wff:f("document.~s = function() {", [TempID]), Actions, "};\r\n",
+				wff:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, Record#event.delay, TempID])
+			];
 			
 		_ ->
 			[
-				wf:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) { ~s ~s });\r\n", [wf:to_js_id(TriggerPath), EventType, Postback, Actions])
+				wff:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {", [wff:to_js_id(TriggerPath), EventType]), 
+				Postback, " ", Actions, 
+				"});\r\n"
 			]
-	end.
-	
-make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate) ->
-	ObjectID = get(current_id),
-	Delegate1 = case Delegate of
-		undefined -> wf_platform:get_page_module();
-		_ -> Delegate
 	end,
-	PostbackInfo = {ObjectID, Tag, EventType, TriggerPath, TargetPath, Delegate1},
-	wf_utils:pickle(PostbackInfo).
+	{ok, Script, Context1}.
 	
-make_postback(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
+make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate, Context) ->
+	PageName = Context#context.name,
+	Delegate1 = wff:coalesce([Delegate, Context#context.page_module]),
+	PostbackInfo = {PageName, Tag, EventType, TriggerPath, TargetPath, Delegate1},
+	wff:pickle(PostbackInfo, Context).
+	
+make_postback(Postback, EventType, TriggerPath, TargetPath, Delegate, Context) ->
 	case Postback of
 		undefined -> [];
 		Tag ->
-			PickledPostbackInfo = make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate),
-			wf:f("Nitrogen.$queue_event('~s', '~s');", [wf:to_js_id(TriggerPath), PickledPostbackInfo])
+			{ok, PickledPostbackInfo, Context1} = make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate, Context),
+			PostbackScript = wff:f("Nitrogen.$queue_event('~s', '~s');", [wff:to_js_id(TriggerPath), PickledPostbackInfo]),
+			{ok, PostbackScript, Context1}
 	end.

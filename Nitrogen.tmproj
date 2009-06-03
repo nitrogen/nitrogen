@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/core/handlers/render/render_handler.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -71,31 +69,31 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-27T02:31:22Z</date>
+							<date>2009-06-03T00:29:09Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf_core_firstrequest.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-26T01:59:48Z</date>
+							<date>2009-06-03T00:29:08Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf_core_postback.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-25T19:37:55Z</date>
+							<date>2009-06-03T00:16:27Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-27T23:30:14Z</date>
+							<date>2009-06-01T23:48:31Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-05-28T00:30:17Z</date>
+							<date>2009-06-02T23:57:27Z</date>
 						</dict>
 						<dict>
 							<key>name</key>
@@ -106,6 +104,8 @@
 							<string>src/core/lib</string>
 						</dict>
 						<dict>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>handlers</string>
 							<key>regexFolderFilter</key>
@@ -138,6 +138,8 @@
 							<string>src/core/elements</string>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Core</string>
 				</dict>
@@ -151,7 +153,7 @@
 									<key>filename</key>
 									<string>src/platforms/nitrogen_inets_app.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-19T00:34:27Z</date>
+									<date>2009-05-29T01:46:14Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -169,7 +171,7 @@
 									<key>filename</key>
 									<string>src/platforms/wf_inets.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-19T00:34:26Z</date>
+									<date>2009-05-29T01:46:14Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -218,7 +220,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_platform.erl.txt</string>
 									<key>lastUsed</key>
-									<date>2009-05-17T17:30:07Z</date>
+									<date>2009-06-01T23:55:16Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -230,13 +232,13 @@
 									<key>filename</key>
 									<string>src/lib/wf_handle_firstrequest.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-25T19:04:03Z</date>
+									<date>2009-06-03T00:04:42Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle_postback.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-21T02:06:29Z</date>
+									<date>2009-06-02T23:51:17Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -254,7 +256,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_utils.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-27T23:36:24Z</date>
+									<date>2009-06-02T23:18:34Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -272,7 +274,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_session.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-08T02:58:52Z</date>
+									<date>2009-06-02T03:51:16Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -301,6 +303,8 @@
 					<string>Mantle</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -311,7 +315,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-05-28T00:32:54Z</date>
+					<date>2009-06-03T00:14:29Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -350,7 +354,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-05-11T02:04:29Z</date>
+					<date>2009-06-03T00:29:08Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -361,106 +365,6 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>include/wf.inc</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>39</integer>
-				<key>line</key>
-				<integer>110</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>92</integer>
-		</dict>
-		<key>src/core/actions/internal_action_update.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>17</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/core/handlers/render/page_render_handler.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>64</integer>
-				<key>line</key>
-				<integer>30</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>10</integer>
-		</dict>
-		<key>src/core/handlers/render/render_handler.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>46</integer>
-				<key>line</key>
-				<integer>34</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>7</integer>
-		</dict>
-		<key>src/core/handlers/render/render_handler_utils.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>37</integer>
-				<key>line</key>
-				<integer>10</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>10</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>37</integer>
-				<key>line</key>
-				<integer>10</integer>
-			</dict>
-		</dict>
-		<key>src/lib/wf_session.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>60</integer>
-		</dict>
 		<key>src/lib/wf_session_server.erl</key>
 		<dict>
 			<key>caret</key>
@@ -504,17 +408,9 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/core/actions/internal_action_update.erl</string>
-		<string>src/core/handlers/render/render_handler.erl</string>
-		<string>src/core/handlers/render/page_render_handler.erl</string>
-		<string>src/core/handlers/render/render_handler_utils.erl</string>
-		<string>include/wf.inc</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{289, 0}, {926, 778}}</string>
+	<string>{{287, 0}, {926, 778}}</string>
 </dict>
 </plist>

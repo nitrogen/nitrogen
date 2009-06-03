@@ -19,13 +19,15 @@ set_paths(_DefaultTrigger, _DefaultTarget, []) ->
 set_paths(DefaultTrigger, DefaultTarget, [H|T]) ->
 	[set_paths(DefaultTrigger, DefaultTarget, H)|set_paths(DefaultTarget, DefaultTarget, T)];
 	
-set_paths(DefaultTrigger, DefaultTarget, Action) ->
+set_paths(DefaultTrigger, DefaultTarget, Action) when is_tuple(Action) ->
 	% If the action doesn't have a target
 	Trigger = wff:coalesce([get_trigger(Action), DefaultTrigger]),
 	Action1 = set_trigger(Action, Trigger),
 	
 	Target = wff:coalesce([get_target(Action1), DefaultTarget]),
-	_Action2 = set_target(Action1, Target).
+	_Action2 = set_target(Action1, Target);
+	
+set_paths(_, _, Other) -> Other.
 
 get_trigger(Action) -> element(3, Action).
 set_trigger(Action, Trigger) -> setelement(3, Action, Trigger).
