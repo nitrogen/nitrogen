@@ -11,32 +11,32 @@
 ]).
 
 init(Context) -> 
-	% Get and decode the eventInfo...
-	{ok, PostbackInfo, Context1} = wff:q(postbackInfo, Context),
-	?PRINT(PostbackInfo),
-	{ok, Result, Context2}  = wff:depickle(PostbackInfo, Context1),
-	?PRINT(Result),
-	Context3 = case Result of 
+	% Decode the eventInfo...
+	PostbackInfo = wff:q(postbackInfo, Context),
+	Result = wff:depickle(PostbackInfo, Context),
+	Context1 = case Result of 
 		{ObjectID, Tag, EventType, TriggerID, TargetID, Delegate} ->
 			% We were able to find and parse postbackInfo. Update the context.
-			Context2#context {
+			Context#context {
 				is_first_request = false,
 				name = ObjectID,
 				event_module = Delegate,
 				event_type = EventType,
 				event_tag = Tag,
 				event_trigger = TriggerID,
-				event_target = TargetID
+				event_target = TargetID,
+				current_path = ["page"]
 			};
 			
 		_ -> 
-			Context2#context {
+			Context#context {
 				is_first_request = true,
 				name = page,
-				event_module = Context#context.page_module
+				event_module = Context#context.page_module,
+				current_path = ["page"]
 			}
-	end,
-	{ok, Context3, []}.
+	end,	
+	{ok, Context1, []}.
 	
 finish(Context, State) -> 
 	{ok, Context, State}.

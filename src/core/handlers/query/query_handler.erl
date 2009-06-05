@@ -30,5 +30,5 @@ behaviour_info(callbacks) -> [
 behaviour_info(_) -> undefined.
 
 get_value(Key, Context) ->
-	wf_context:apply('query', get_value, [Key], Context).
+	wf_context:apply_return_raw('query', get_value, [Key], Context).
 

@@ -19,13 +19,12 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 
-	% pickle(Data, Context, State) -> {ok, PickledData, NewContext, NewState}.
+	% pickle(Data, Context, State) -> PickledData
 	% Turn Data, which could be any valid erlang term, into something that only
 	% uses 0-9, A-Z, and a-z.
 	{pickle, 3},
 
-	% depickle(PickledData, Context, State) -> {ok, Data, NewContext, NewState}.
-	% depickle(PickledData, Context, State) -> {ok, undefined, NewContext, NewState}.
+	% depickle(PickledData, Context, State) -> Data or 'undefined'
 	% Turn pickled data back into raw data. Undefined if it could not be depickled.
 	{depickle, 3}
 ];
@@ -33,7 +32,7 @@ behaviour_info(callbacks) -> [
 behaviour_info(_) -> undefined.
 
 pickle(Data, Context) ->
-	wf_context:apply(pickle, pickle, [Data], Context).
+	wf_context:apply_return_raw(pickle, pickle, [Data], Context).
 
 depickle(PickledData, Context) ->
-	wf_context:apply(pickle, depickle, [PickledData], Context).
+	wf_context:apply_return_raw(pickle, depickle, [PickledData], Context).

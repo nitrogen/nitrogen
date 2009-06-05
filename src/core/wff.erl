@@ -88,9 +88,9 @@ wire(TriggerID, TargetID, Actions, Context) -> render_handler:wire(TriggerID, Ta
 
 %%% WF_CONTINUE %%%
 
-% continue(Tag, Function) -> wf_continuation:continue(Tag, Function).
-% continue(Tag, Function, Interval) -> wf_continuation:continue(Tag, Function, Interval).
-% continue(Tag, Function, Interval, Timeout) -> wf_continuation:continue(Tag, Function, Interval, Timeout).
+continue(Tag, Function, Context) -> {ok, _Pid, _Context1} = wf_continuation:continue(Tag, Function, Context).
+continue(Tag, Function, Interval, Context) -> {ok, _Pid, _Context1} = wf_continuation:continue(Tag, Function, Interval, Context).
+continue(Tag, Function, Interval, Timeout, Context) -> {ok, _Pid, _Context1} = wf_continuation:continue(Tag, Function, Interval, Timeout, Context).
 
 
 %%% WF_COMET %%%

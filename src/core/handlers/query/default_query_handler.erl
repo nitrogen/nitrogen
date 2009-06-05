@@ -25,7 +25,7 @@ init(Context) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 
-get_value(Path, Context, State) ->
+get_value(Path, _Context, State) ->
 	% Convert Key to a fuzzy string
 	NPath = normalize(Path),
 	NPathSize = length(NPath),
@@ -37,12 +37,11 @@ get_value(Path, Context, State) ->
 	
 	% Filter and return the result. There should only be one.
 	Results = lists:filter(F, State),	
-	Value = case Results of 
+	_Value = case Results of 
 		[] -> undefined;
 		[{_X, Y}] -> Y;
 		_ -> throw({too_many_matching_parameters, Path})
-	end,
-	{ok, Value, Context, State}.
+	end.
 
 %%% PRIVATE FUNCTIONS %%%
 	

@@ -42,29 +42,33 @@ render_element(Element, Context) when is_tuple(Element) ->
 	Base = wf_utils:get_elementbase(Element),
 	Module = Base#elementbase.module, 
 
-	% Create the ID...
-	ID = case Base#elementbase.id of
-		undefined -> wf:temp_id();
-		Other -> Other
+	% Create the element ID...
+	CurrentPath = case Base#elementbase.id of
+		undefined -> [wf:temp_id()];
+		Other -> [wf:to_list(Other)|Context#context.current_path]
 	end,
-	case {Base#elementbase.show_if, wf_path:is_temp_element(ID)} of
+	HtmlID = wf_path:to_html_id(CurrentPath),
+	
+	% Push the new ID onto the context...
+	DomPaths = Context#context.dom_paths,
+	Context1 = Context#context { dom_paths=[CurrentPath|DomPaths] },
+
+	case {Base#elementbase.show_if, wf_path:is_temp_element(CurrentPath)} of
 		{true, true} -> 			
-			HtmlID = wf_path:to_html_id(ID),
-		 	{ok, _Html, _Context1} = call_element_render(Module, HtmlID, Element, Context);
+			% Render the element...
+		 	{ok, _Html, _Context2} = call_element_render(Module, HtmlID, Element, Context1);
 
 		{true, false} -> 
 			% Update the current path...
 			OldPath = Context#context.current_path,
-			CurrentPath = [ID|OldPath],
-			Context1 = Context#context { current_path=CurrentPath },
-			HtmlID = wf_path:to_html_id(CurrentPath),
-			
+			Context2 = Context1#context { current_path=CurrentPath },
+	
 			% Render the element...
-			{ok, Html, Context2} = call_element_render(Module, HtmlID, Element, Context1),
+			{ok, Html, Context3} = call_element_render(Module, HtmlID, Element, Context2),
 					
 			% Restore the old path...
-			Context3 = Context2#context { current_path=OldPath },
-			{ok, Html, Context3};
+			Context4 = Context3#context { current_path=OldPath },
+			{ok, Html, Context4};
 			
 		{_, _} -> 
 			{ok, [], Context}
@@ -119,17 +123,29 @@ render_action(Action, Context) when is_tuple(Action) ->
 
 	case Base#actionbase.show_if of 
 		true -> 
-			% Update the current path...
-			TargetPath = Base#actionbase.target,
+			% Save the current path...
 			OldPath = Context#context.current_path,
-			Context1 = Context#context { current_path=TargetPath },
+
+			% Get the trigger and target...
+			TargetPath = wff:coalesce([Base#actionbase.target, OldPath]),
+			TriggerPath = wff:coalesce([Base#actionbase.trigger, TargetPath, OldPath]),
+
+			% Normalize the trigger and target...
+			Base1 = Base#actionbase {
+				trigger = normalize_path(TriggerPath, Context),
+				target = TargetPath1 = normalize_path(TargetPath, Context)
+			},
+			Action1 = wf_utils:replace_with_base(Base1, Action),
+
+			% Update to a new current path...
+			Context1 = Context#context { current_path=TargetPath1 },
 			
 			% If the target path has changed since last time, then 
 			% add some Javascript to set the target path on the client.
 			% The #var_me {} action does this.
-			{ok, MeScript, Context2} = case (TargetPath /= OldPath) of
+			{ok, MeScript, Context2} = case (TargetPath1 /= OldPath) of
 				true -> 
-					MeAction = #var_me { target=TargetPath }, 
+					MeAction = #var_me { target=TargetPath1 }, 
 					render_action(MeAction, Context1);
 			
 				false -> 
@@ -137,7 +153,7 @@ render_action(Action, Context) when is_tuple(Action) ->
 			end,
 			
 			% Render the action...
-			{ok, Script, Context2} = call_action_render(Module, Action, Context1),
+			{ok, Script, Context2} = call_action_render(Module, Action1, Context1),
 			
 			% Restore the old path...
 			Context3 = Context2#context { current_path=OldPath },
@@ -153,3 +169,75 @@ call_action_render(Module, Action, Context) ->
 	{module, Module} = code:ensure_loaded(Module),
 	{ok, NewActions, Context1} = erlang:apply(Module, render_action, [Action, Context]),
 	{ok, _Script, _Context2} = render_actions(NewActions, [], Context1).
+	
+	
+% normalize_path/2 -
+% When path is an atom or string, then look for something like this:
+%   - me.elementA.elementB
+%   - me.parent.elementC
+%   - elementA.elementB
+% And convert to a path in reverse:
+%   - ["elementB", "elementA", "currentelement", "page"]
+%   - ["elementC", "parent", "currentelement", "page"]
+%   - ["elementB", "elementA"]
+normalize_path(Path, Context) when is_atom(Path) orelse ?IS_STRING(Path) ->
+	CurrentPath = Context#context.current_path,
+	
+	% Convert to reverse sorted list of strings
+  % that includes the CurrentPath if possible...
+	Path1 = string:tokens(wff:to_list(Path), "."),
+	Path2 = case hd(Path1) of
+		me -> lists:reverse(tl(Path1)) ++ CurrentPath;
+		parent -> lists:reverse(Path1) ++ CurrentPath;
+		_ -> lists:reverse(Path1)
+	end,
+	
+	% Account for any 'parent' tokens.
+	Path3 = strip_parents(Path2),
+	
+	% Path is now a list, so skip to the next clause.
+	normalize_path(Path3, Context);
+	
+% normalize_path/2 - 
+% When path is already a list of paths, just pass along to inner_normalize_path/2.
+normalize_path(Path, Context) when is_list(Path) ->
+	DomPaths = Context#context.dom_paths,
+	
+	% Find the one matching dom path.
+	case find_matching_dom_path(Path, DomPaths) of
+		[] -> throw({no_matching_dom_paths, Path, DomPaths});
+		[Match] ->
+			% ?PRINT({found_match, Match}),
+			Match;
+		Matches -> throw({too_many_matching_dom_paths, Path, Matches})
+	end.
+
+
+% strip_parents/1 -
+% Path is a reverse sorted list of path strings. 
+% Look for any instances of 'parent', and remove the next element
+% in the list.
+strip_parents([]) -> []; 
+strip_parents(["parent", _|T]) -> T;
+strip_parents([H|T]) -> [H|strip_parents(T)].
+	
+% find_matching_dom_path/2 - 
+% Path is a reverse sorted list of path strings. Find the one
+% path in DomPaths that starts with Path, accounting for
+find_matching_dom_path(Path, DomPaths) ->
+	% Filter out any paths that are too short...
+	Length = length(Path),
+	F = fun(X) -> Length =< length(X) end,
+	DomPaths1 = lists:filter(F, DomPaths),
+	find_matching_dom_path(Path, DomPaths1, 1).
+	
+find_matching_dom_path([], _, _) -> [];
+find_matching_dom_path(_Path, [], _Pos) -> [];
+find_matching_dom_path(Path, DomPaths, Pos) when Pos > length(Path) -> DomPaths; 
+find_matching_dom_path(Path, DomPaths, Pos) ->
+	Part = lists:nth(Pos, Path),
+	F = fun(X) -> Part == lists:nth(Pos, X) end,
+	DomPaths1 = lists:filter(F, DomPaths),
+	find_matching_dom_path(Path, DomPaths1, Pos + 1).
+	
+	

@@ -11,5 +11,5 @@
 render_action(Record, Context) -> 
 	CurrentID = Context#context.name,
 	CurrentPath = wff:to_js_id(Record#var_me.target),
-	Script = wff:f("Nitrogen.$current_id='~s';Nitrogen.$current_path='~s';", [CurrentID, CurrentPath]),
+	Script = wff:f("Nitrogen.$current_id='~s';Nitrogen.$current_path='~s';", [CurrentID, wff:to_js_id(CurrentPath)]),
 	{ok, Script, Context}.

@@ -16,7 +16,7 @@
 	coalesce/1,
 	is_process_alive/1,
 	debug/0, break/0,
-	get_elementbase/1, get_actionbase/1, get_validatorbase/1
+	get_elementbase/1, get_actionbase/1, get_validatorbase/1, replace_with_base/2
 ]).
 
 -define(COPY_TO_BASERECORD(Name, Size, Record),
@@ -119,7 +119,7 @@ inner_decode(Data, Base) when is_list(Data) ->
 	
 %%% PICKLE / UNPICKLE %%%
 
-get_seconds() -> calendar:datetime_to_gregorian_seconds(calendar:universal_time()).
+% get_seconds() -> calendar:datetime_to_gregorian_seconds(calendar:universal_time()).
 
 % pickle(Data) ->
 % 	B = term_to_binary({get_seconds(), Data}, [compressed]),
@@ -220,6 +220,13 @@ get_actionbase(Term) -> ?COPY_TO_BASERECORD(actionbase, size(#actionbase{}), Ter
 get_elementbase(Term) -> ?COPY_TO_BASERECORD(elementbase, size(#elementbase{}), Term).
 get_validatorbase(Term) -> ?COPY_TO_BASERECORD(validatorbase, size(#validatorbase{}), Term).
 
+replace_with_base(Base, Record) -> 
+	RecordType = element(1, Record),
+	BaseMiddle = tl(tuple_to_list(Base)),
+	Start = size(Base) + 1,
+	Len = size(Record) - Start + 1,
+	RecordEnd = lists:sublist(tuple_to_list(Record), Start, Len),
+	list_to_tuple([RecordType] ++ BaseMiddle ++ RecordEnd).
 		
 %%% DEBUG %%%
 		

@@ -11,9 +11,49 @@
 %   { Javascript, Context }
 
 run(Context) ->
-	Delegate = Context#context.event_module,
+	Type = Context#context.event_type,
+	case Type of 
+		continuation -> handle_continuation_postback(Context);
+		% comet -> handle_comet_postback(Context);
+		_ -> handle_normal_postback(Context)
+	end.
+	
+
+
+%%% CONTINUATION POSTBACK %%%
+
+handle_continuation_postback(Context) ->
+	% Check if the continuation is still running, or if it finished.
+	% If it is still running, then re-register the callback.
+	% If it is finished, then call continue with the result.
+	Module = Context#context.event_module,
+	Pid = Context#context.event_tag,
+	case wf_continuation:get_result(Pid) of
+		{running, Interval} -> 
+			{ok, _Context1} = internal_action_continue:register(Module, Pid, Interval, Context);
+
+		{done, InnerTag, Result} -> 
+			run_module_continue(Module, InnerTag, Result, Context)
+	end.
+	
+	
+run_module_continue(Module, InnerTag, Result, Context) ->
+	try
+		{ok, Context1} = Module:continue(InnerTag, Result, Context),
+		% TODO element_flash:update(Module),
+		{ok, Context1}
+	catch Type : Msg -> 
+		?LOG("ERROR: ~p~n~p~n~p", [Type, Msg, erlang:get_stacktrace()]),
+		wff:wire("alert('An error has occurred. Please refresh this page and try again.');", Context)
+	end.
+
+
+%%% NORMAL POSTBACK %%%	
+
+handle_normal_postback(Context) ->
+	Module = Context#context.event_module,
 	Tag = Context#context.event_tag,
-	{ok, _Context1} = Delegate:event(Tag, Context).
+	{ok, _Context1} = Module:event(Tag, Context).
 
 	% % Do the event...
 	% case EventType of

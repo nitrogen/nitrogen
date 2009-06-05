@@ -127,27 +127,37 @@ N.$event_loop = function() {
 /*** VALIDATE AND SERIALIZE ***/
 
 N.prototype.$validate_and_serialize = function(triggerID) {
-	// Check validatation and build params...
-	var s = "";
+	// Check validatation, build list of params...
 	var is_valid = true;
-	var elements = this.$get_elements_to_serialize();
-
+	var elements = this.$get_form_elements();
+	var params=new Array();
 	for (var i=0; i<elements.length; i++) {
-		element = elements[i];
+		var element = elements[i];
 		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
+			// Don't short circuit here, because we want to update all of the validator UI.
 			is_valid = false;
 		} else {
 			if (element.type == "radio") {
-				s += "&" + element.id + "=" + element.checked;
+				params.push(element.id + "=" + element.checked);
+			} else {
+				params.push(jQuery(element).serialize());
 			}
-
-			s += "&" + jQuery(element).serialize();
+		}
+	}
+	
+	// Build list of paths...
+	var paths=new Array();
+	var elements = this.$div.getElementsByTagName('*');
+	for (var i=0; i<elements.length; i++) {
+		var element=elements[i];
+		if (element.id) {
+			paths.push(elements[i].id);
 		}
 	}
 	
 	// Return the params if valid. Otherwise, return null.
 	if (is_valid) {
-		return s;
+		return params.join("&") + "&domPaths=" + paths.join(",");
 	} else {
 		return null;
 	}
@@ -261,16 +271,13 @@ N.$upload = function(form) {
 
 /*** SERIALIZATION ***/
 
-N.prototype.$get_elements_to_serialize = function() {
+N.prototype.$get_form_elements = function() {
 	var tagnames = ["input", "button", "select", "textarea", "checkbox"];
 	var a = new Array();
 	for (var i=0; i<tagnames.length; i++) {
 		var l = this.$div.getElementsByTagName(tagnames[i]);
 		for (var j=0; j<l.length; j++) {
-			var elementName = l[j].name;
-			if (elementName != "domState" && elementName != "postbackInfo") {
-				a = a.concat(l[j]);
-			}
+			a = a.concat(l[j]);
 		}
 	}
 	
@@ -285,7 +292,11 @@ N.obj = function(path) {
 }
 
 N.prototype.obj = function(path) {
+	// Clean the path...
 	path = N.$normalize_partial_path(path);
+
+	// Special case for the 'page' element, which is the entire document.
+	if (path == "page") return document;	
 	
 	// Try the easy option...
 	var el = document.getElementById(path);

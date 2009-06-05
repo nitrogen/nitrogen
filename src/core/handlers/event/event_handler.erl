@@ -11,7 +11,7 @@ behaviour_info(callbacks) -> [
 	% init(Context) -> {ok, NewContext, NewState}.
 	% Called at the start of the request. This should 
 	% examine the query parameters and update the context.
-	{init, 1},      
+	{init, 1},
 
 	% finish(Context, State) -> {ok, NewContext, NewState}.
 	% Called at the end of the request, before sending

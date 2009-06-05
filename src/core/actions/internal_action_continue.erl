@@ -2,31 +2,32 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (wf_continuation).
+-module (internal_action_continue).
 -include ("wf.inc").
--export ([
-	continue/3, 
-	continue/4, 
-	continue/5, 
-	register/3, 
-	wait/1, 
-	get_result/1
-]).
+-compile(export_all).
 
-continue(Tag, Function, Context) ->
-	continue(Tag, Function, 100, Context).
-	
-continue(Tag, Function, Interval, Context) ->
-	continue(Tag, Function, Interval, 20000, Context).
-
-continue(Tag, Function, Interval, Timeout, Context) ->
+% This action is used internally by Nitrogen.
+render_action(Record, Context) ->
+	% Start up the continuation function...
+	Tag = Record#continue.tag,
+	Function = Record#continue.function,
+	Interval = Record#continue.interval,
+	Timeout = Record#continue.timeout,
 	Pid = spawn(fun() -> start_continuation_wrapper(Tag, Function, Interval, Timeout) end),
-	{ok, Context1} = ?MODULE:register(Pid, Interval, Context),
-	{ok, Pid, Context1}.
+
+	% Create the postback event...
+	Delegate = Record#continue.delegate,
+	ContinuationEvent = create_continuation_event(Delegate, Pid, Interval),
+	{ok, ContinuationEvent, Context}.
+
 	
-register(Pid, Interval, Context) ->
-	{ok, Context1} = wff:wire(#event { type=continuation, delay=Interval, postback=Pid }, Context),
+register(Delegate, Pid, Interval, Context) ->
+	ContinuationEvent = create_continuation_event(Delegate, Pid, Interval),
+	{ok, Context1} = wff:wire(ContinuationEvent, Context),
 	{ok, Context1}.
+	
+create_continuation_event(Delegate, Pid, Interval) ->
+	#event { type=continuation, delegate=Delegate, delay=Interval, postback=Pid }.
 
 get_result(Pid) ->
 	case wf_utils:is_process_alive(Pid) of

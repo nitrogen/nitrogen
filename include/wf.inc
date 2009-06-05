@@ -19,6 +19,7 @@
   event_type,       % The type of event postback, comet, continuation, upload
   event_trigger,    % The element id that triggered the event
   event_target,     % The element id that "receives" the event
+	dom_paths,        % A list of dom paths corresponding to elements in the browser. Used during the wire process.
 
 	% Path
 	current_path=[],
@@ -106,9 +107,10 @@
 -define(ACTION_BASE(Module), module=Module, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
 -record(wire, {?ACTION_BASE(internal_action_wire)}).
--record(redirect, {?ACTION_BASE(action_redirect), url}).
+-record(continue, {?ACTION_BASE(internal_action_continue), function, delegate, tag, interval=100, timeout=20000}).
 -record(update, {?ACTION_BASE(internal_action_update), type=update, elements=[]}).
 -record(var_me, {?ACTION_BASE(internal_action_var_me)}).
+-record(redirect, {?ACTION_BASE(action_redirect), url}).
 -record(event, {?ACTION_BASE(action_event), type=click, delay=1, postback, delegate}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
 -record(validation_error, {?ACTION_BASE(action_validation_error), text="" }).
