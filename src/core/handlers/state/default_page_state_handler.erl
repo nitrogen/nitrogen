@@ -2,7 +2,7 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (default_state_handler).
+-module (default_page_state_handler).
 -behaviour (state_handler).
 -include ("simplebridge.hrl").
 -include ("wf.inc").
@@ -16,9 +16,11 @@
 ]).
 
 init(Context) -> 
+	% Deserialize the state from domState.	
 	{ok, Context, []}.
 
 finish(Context, State) ->
+	% Serialize the state to domState.
 	% % Pickle the state...
 	% PickledState = wff:pickle(State),
 	% JS = wff:f("Nitrogen.~s.$set_dom_state=\"~s\";~n", [PickledState]),

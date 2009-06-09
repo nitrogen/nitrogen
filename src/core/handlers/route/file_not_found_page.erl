@@ -3,7 +3,9 @@
 -export ([main/1]).
 
 main(Context) ->
-	{ok, Context1} = wff:info("File not found: ~p", [Context#context.path_info], Context),
+	Page = Context#context.page_context,
+	PathInfo = Page#page_context.path_info,
+	{ok, Context1} = wff:info("File not found: ~p", [PathInfo], Context),
 	
 	Elements = [
 		#h1 { text="Page not found." },

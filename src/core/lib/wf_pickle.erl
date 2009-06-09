@@ -2,29 +2,20 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (default_pickle_handler).
--behaviour (pickle_handler).
+-module (wf_pickle).
 -include ("wf.inc").
 -define (SIGNKEY, "Gabagaba").
 -export ([
-	init/1, 
-	finish/2,
-	pickle/3,
-	depickle/3
+	pickle/1,
+	depickle/1
 ]).
 
-init(Context) -> 
-	{ok, Context, []}.
-	
-finish(Context, State) -> 
-	{ok, Context, State}.
-
-pickle(Data, _Context, _State) ->
+pickle(Data) ->
 	B = term_to_binary(Data, [compressed]),
 	<<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
 	_PickledData = modified_base64_encode(<<Signature/binary, B/binary>>).
 	
-depickle(PickledData, _Context, _State) ->
+depickle(PickledData) ->
 	try
 		<<S:4/binary, B/binary>> = modified_base64_decode(wff:to_binary(PickledData)),
 		<<S:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),

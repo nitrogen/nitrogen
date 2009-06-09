@@ -2,41 +2,56 @@
 -define(wf_inc, ok).
 
 %%% CONTEXT %%%
+
+% Page Request Information.
+-record(page_context, {
+	name=page,  % 'page' by default. Can be renamed by Inline Apps.
+	series_id,  % A unique ID assigned to the first request which stays constant on repeated requests.
+	module,     % The requested page module
+	path_info   % Any extra info passed with the request
+}).
+
+% Event Information. A serialized version of this record
+% is sent by the browser when an event is called.
+-record(event_context, {
+	is_first_request, % True if first request, false if postback 
+	module,     % The module that should handle the event
+  tag,        % An Erlang term that is passed along with the event
+  type,       % The type of event postback, comet, continuation, upload
+  trigger,    % The element id that triggered the event
+  target      % The element id that "receives" the event
+}).
+
+% Handlers Context-
+% Handlers are used to encapsulate Nitrogen's behaviour, and
+% to allow other frameworks to substitute their own behaviour.
+% These are set in wf_context:make_context/1
+-record(handler_context, {
+	name,    % The name of a handler. See wf_context for a list.
+	module,     % A module that provides the logic for a handler. This can be substituted by your app.
+	state       % An Erlang Struct that holds the state of a module.
+}).
+
 -record(context, {
 	% Request and Response
-	request,          % Request Bridge (see SimpleBridge)
-	response,         % Response Bridge (see SimpleBridge)
+	request,           % Request Bridge (see SimpleBridge)
+	response,          % Response Bridge (see SimpleBridge)
 
-  % Page Request Information
-	page_module,      % The requested page module
-	path_info,        % Any extra info passed with the request
-	name=page,        % 'page' by default. Can be renamed by Inline Apps.
-	
-	% Event Information
-	is_first_request, % True if first request, false if postback 
-	event_module,     % The module that should handle the event
-  event_tag,        % An Erlang term that is passed along with the event
-  event_type,       % The type of event postback, comet, continuation, upload
-  event_trigger,    % The element id that triggered the event
-  event_target,     % The element id that "receives" the event
-	dom_paths,        % A list of dom paths corresponding to elements in the browser. Used during the wire process.
+	% Transient Information
+	dom_paths,         % A list of dom paths corresponding to elements in the browser. Used during the wire process.
+	current_path=[],   % Used during rendering to hold the path of whatever is currently getting rendered. 
+	data=[],           % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
+	queued_actions=[], % List of actions queued in main/1, event/2, or when rendering elements.	
 
-	% Path
-	current_path=[],
-
-	% Page Response Data
-	data=[],             % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
-	queued_actions=[],   % List of actions queued in main/1, event/2, or when rendering elements.	
-
-	% Handlers
-	% Handlers are used to encapsulate Nitrogen's behaviour, and
-	% to allow other frameworks to substitute their own behaviour.
-	% These are set in wf_context:make_context/1
-	handlers=[]
+	% These are all serialized, sent to the browser
+	% and de-serialized on each request.
+	page_context,
+	event_context,
+	handler_list
 }).
 
 %%% LOGGING %%%
--define(PRINT(Var), error_logger:info_msg("DEBUG: ~p:~p - ~p: ~p~n", [?MODULE, ?LINE, ??Var, Var])).
+-define(PRINT(Var), error_logger:info_msg("DEBUG: ~p:~p~n~p~n  ~p~n", [?MODULE, ?LINE, ??Var, Var])).
 -define(LOG(Msg, Args), error_logger:info_msg(Msg, Args)).
 -define(DEBUG, error_logger:info_msg("DEBUG: ~p:~p~n", [?MODULE, ?LINE])).
 
@@ -46,7 +61,7 @@
 %%% FRAMEWORK %%%
 
 %%% Elements %%%
--define(ELEMENT_BASE(Module), module=Module, id, actions, show_if=true, class="", style="").
+-define(ELEMENT_BASE(Module), is_element=is_element, module=Module, id, actions, show_if=true, class="", style="").
 -record(elementbase, {?ELEMENT_BASE(undefined)}).
 -record(template, {?ELEMENT_BASE(element_template), file, bindings=[] }).
 -record(windex, {?ELEMENT_BASE(element_windex) }).
@@ -104,12 +119,13 @@
 -record(upload, {?CONTROL_BASE(element_upload), show_button=true, button_text="Upload" }).
 
 %%% Actions %%%
--define(ACTION_BASE(Module), module=Module, trigger, target, actions, show_if=true).
+-define(ACTION_BASE(Module), is_action=is_action, module=Module, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
--record(wire, {?ACTION_BASE(internal_action_wire)}).
--record(continue, {?ACTION_BASE(internal_action_continue), function, delegate, tag, interval=100, timeout=20000}).
--record(update, {?ACTION_BASE(internal_action_update), type=update, elements=[]}).
--record(var_me, {?ACTION_BASE(internal_action_var_me)}).
+-record(wire, {?ACTION_BASE(action_wire)}).
+-record(continue, {?ACTION_BASE(action_continue), function, delegate, tag, interval=100, timeout=20000}).
+-record(update, {?ACTION_BASE(action_update), type=update, elements=[]}).
+-record(async, {?ACTION_BASE(action_async), pool=default, scope=local, function, dying_message}).
+
 -record(redirect, {?ACTION_BASE(action_redirect), url}).
 -record(event, {?ACTION_BASE(action_event), type=click, delay=1, postback, delegate}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
@@ -132,7 +148,7 @@
 -record(comet_start, {?ACTION_BASE(action_comet_start)}).
 
 %%% Validators %%%
--define(VALIDATOR_BASE(Module), module=Module, text="Failed.").
+-define(VALIDATOR_BASE(Module), is_validator=is_validator, module=Module, text="Failed.").
 -record(validatorbase, {?VALIDATOR_BASE(undefined)}).
 -record(is_required, {?VALIDATOR_BASE(validator_is_required)}).
 -record(is_email, {?VALIDATOR_BASE(validator_is_email)}).

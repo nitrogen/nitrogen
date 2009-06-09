@@ -10,3 +10,6 @@ render_action(Record, Context) ->
 	DestinationUrl = Record#redirect.url,
 	Script = wff:f("window.location=\"~s\";", [wf_utils:js_escape(DestinationUrl)]),
 	{ok, Script, Context}.
+	
+redirect(Url, Context) -> 
+	wff:wire(#redirect { url=Url }, Context).

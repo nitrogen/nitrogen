@@ -19,7 +19,8 @@ finish(Context, State) ->
 	{ok, Context, State}.
 
 build_response(Html, Script, Context, State) ->
-	case Context#context.is_first_request of
+	Event = Context#context.event_context,
+	case Event#event_context.is_first_request of
 		true -> build_first_response(Html, Script, Context, State);
 		_    -> build_postback_response(Html, Script, Context, State)
 	end.

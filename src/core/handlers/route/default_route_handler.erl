@@ -32,11 +32,12 @@ route(Context, State) ->
 %%% PRIVATE FUNCTIONS %%%
 
 update_context(Module, PathInfo, Context) ->
-	Context1 = Context#context {
-		page_module=Module,
+	Page = Context#context.page_context,
+	Page1 = Page#page_context {
+		module=Module,
 		path_info=PathInfo
 	},
-	{ok, Context1}.
+	{ok, Context#context { page_context=Page1 }}.
 
 %% path_to_module/1 - Convert a web path to a module.
 path_to_module(undefined) -> {web_index, ""};

@@ -10,7 +10,7 @@ render_action(Record, Context) ->
 	TriggerPath = Record#event.trigger,
 	TargetPath = Record#event.target,
 	EventType = Record#event.type, 
-	Postback = make_postback(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate, Context),
+	Postback = wf_event:generate_postback_script(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate, Context),
 	Actions = #wire { trigger=TriggerPath, target=TargetPath, actions=Record#event.actions },
 
 	Script = case EventType of
@@ -21,7 +21,12 @@ render_action(Record, Context) ->
 				"});\r\n"
 			];
 		
-		_ when EventType == timer orelse EventType == continuation ->
+		immediate ->
+			[
+				Postback, Actions
+			];
+		
+		timer ->
 			TempID = wff:temp_id(),
 			[
 				wff:f("document.~s = function() {\r\n", [TempID]), Postback, Actions, "};\r\n",
@@ -36,17 +41,3 @@ render_action(Record, Context) ->
 			]
 	end,
 	{ok, Script, Context}.
-	
-make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate, Context) ->
-	PageName = Context#context.name,
-	Delegate1 = wff:coalesce([Delegate, Context#context.page_module]),
-	PostbackInfo = {PageName, Tag, EventType, TriggerPath, TargetPath, Delegate1},
-	wff:pickle(PostbackInfo, Context).
-	
-make_postback(Postback, EventType, TriggerPath, TargetPath, Delegate, Context) ->
-	case Postback of
-		undefined -> [];
-		Tag ->
-			PickledPostbackInfo = make_postback_info(Tag, EventType, TriggerPath, TargetPath, Delegate, Context),
-			_PostbackScript = wff:f("Nitrogen.$queue_event('~s', '~s');", [wff:to_js_id(TriggerPath), PickledPostbackInfo])
-	end.

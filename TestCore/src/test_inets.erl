@@ -21,13 +21,12 @@ start() ->
 	
 do(Info) ->
 	RequestBridge = request_bridge:make(inets_request_bridge, Info),
+	ResponseBridge = response_bridge:make(inets_response_bridge),
 	case RequestBridge:path() of
-		"/web" ++ _ -> do_nitrogen(Info);
+		"/web" ++ _ -> do_nitrogen(RequestBridge, ResponseBridge);
 		_ -> {proceed, Info#mod.data}
 	end.
 
-do_nitrogen(Info) ->
-	RequestBridge = request_bridge:make(inets_request_bridge, Info),
-	ResponseBridge = response_bridge:make(inets_response_bridge),
+do_nitrogen(RequestBridge, ResponseBridge) ->
 	Context = wf_context:make_context(RequestBridge, ResponseBridge),
 	wf_core:run(Context).

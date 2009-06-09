@@ -10,8 +10,7 @@
 
 behaviour_info(callbacks) -> [
 	% init(Context) -> {ok, NewContext, NewState}.
-	% Called at the start of the request. This should 
-	% examine the query parameters and update the context.
+	% Called at the start of the request.
 	{init, 1},      
 
 	% finish(Context, State) -> {ok, NewContext, NewState}.
@@ -19,16 +18,12 @@ behaviour_info(callbacks) -> [
 	% a response back to the browser.
 	{finish, 2},
 	
-	% get_value(Path, Context, State) -> {ok, Value, NewContext, NewState}.
-	% Path allows for fuzzy matching of query values. For example,
-	% a textbox could have an id of "page_element1_element2_element3_mytextbox"
-	% we would want to be able to reference it as 'mytextbox', or 
-	% 'element3.mytextbox', etc.
+	% get_value(Path, Context, State) -> Value.
+	% Given a path, return the parameter value.
 	{get_value, 3}
 ];
 
 behaviour_info(_) -> undefined.
 
-get_value(Key, Context) ->
-	wf_context:apply_return_raw('query', get_value, [Key], Context).
-
+get_value(Path, Context) ->
+	wf_context:apply_return_raw('query', get_value, [Path], Context).

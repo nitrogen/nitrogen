@@ -22,8 +22,9 @@ init(Context) ->
 	NewState = QueryParams ++ PostParams,
 	{ok, Context, NewState}.
 	
-finish(Context, State) -> 
-	{ok, Context, State}.
+finish(Context, _State) -> 
+	% Clear out the state.
+	{ok, Context, []}.
 
 get_value(Path, _Context, State) ->
 	% Convert Key to a fuzzy string

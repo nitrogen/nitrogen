@@ -35,7 +35,7 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-05-21T02:56:48Z</date>
+					<date>2009-06-09T01:00:12Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -69,31 +69,19 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-03T00:29:09Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/core/wf_core_firstrequest.erl</string>
-							<key>lastUsed</key>
-							<date>2009-06-03T00:29:08Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/core/wf_core_postback.erl</string>
-							<key>lastUsed</key>
-							<date>2009-06-03T00:16:27Z</date>
+							<date>2009-06-09T15:14:07Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-01T23:48:31Z</date>
+							<date>2009-06-09T02:57:23Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-02T23:57:27Z</date>
+							<date>2009-06-09T02:57:24Z</date>
 						</dict>
 						<dict>
 							<key>name</key>
@@ -104,8 +92,6 @@
 							<string>src/core/lib</string>
 						</dict>
 						<dict>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>handlers</string>
 							<key>regexFolderFilter</key>
@@ -138,8 +124,6 @@
 							<string>src/core/elements</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Core</string>
 				</dict>
@@ -226,19 +210,19 @@
 									<key>filename</key>
 									<string>src/lib/wf_handle.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-25T19:04:28Z</date>
+									<date>2009-06-09T15:14:08Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle_firstrequest.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-03T00:04:42Z</date>
+									<date>2009-06-09T01:00:12Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle_postback.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-02T23:51:17Z</date>
+									<date>2009-06-09T15:14:08Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -256,7 +240,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_utils.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-02T23:18:34Z</date>
+									<date>2009-06-04T02:37:42Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -303,8 +287,6 @@
 					<string>Mantle</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -315,7 +297,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-06-03T00:14:29Z</date>
+					<date>2009-06-09T03:36:33Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -348,13 +330,13 @@
 					<key>filename</key>
 					<string>www/elements.css</string>
 					<key>lastUsed</key>
-					<date>2008-12-29T03:42:45Z</date>
+					<date>2009-06-09T02:13:13Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-06-03T00:29:08Z</date>
+					<date>2009-06-09T15:14:08Z</date>
 				</dict>
 			</array>
 			<key>name</key>

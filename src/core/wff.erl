@@ -14,8 +14,8 @@ f(S, Args) -> wf_utils:f(S, Args).
 coalesce(L) -> wf_utils:coalesce(L).
 
 % 
-pickle(Data, Context) -> pickle_handler:pickle(Data, Context).
-depickle(Data, Context) -> pickle_handler:depickle(Data, Context).
+pickle(Data) -> wf_pickle:pickle(Data).
+depickle(Data) -> wf_pickle:depickle(Data).
 % 
 % 
 % debug() -> wf_utils:debug().
@@ -64,7 +64,7 @@ html_encode(S, Encode) -> wf_convert:html_encode(S, Encode).
 %%% EXPOSE RENDER_HANDLER %%%
 
 render(Elements, Context) -> 
-	{ok, _NewElements, _NewContext} = render_handler:render(Elements, Context).
+	{ok, _NewElements, _NewContext} = wf_render:render(Elements, Context).
 	
 %%% EXPOSE LOG_HANDLER %%%
 
@@ -77,13 +77,13 @@ warning(String, Context) -> log_handler:warning(String, Context).
 error(String, Args, Context) -> log_handler:error(String, Args, Context).
 error(String, Context) -> log_handler:error(String, Context).
 
-update(TargetID, Elements, Context) -> render_handler:update(TargetID, Elements, Context).
-insert_top(TargetID, Elements, Context) -> render_handler:insert_top(TargetID, Elements, Context).
-insert_bottom(TargetID, Elements, Context) -> render_handler:insert_bottom(TargetID, Elements, Context).
+update(TargetID, Elements, Context) -> action_update:update(TargetID, Elements, Context).
+insert_top(TargetID, Elements, Context) -> action_update:insert_top(TargetID, Elements, Context).
+insert_bottom(TargetID, Elements, Context) -> action_update:insert_bottom(TargetID, Elements, Context).
 
-wire(Actions, Context) -> render_handler:wire(undefined, undefined, Actions, Context).
-wire(TargetID, Actions, Context) -> render_handler:wire(TargetID, TargetID, Actions, Context).
-wire(TriggerID, TargetID, Actions, Context) -> render_handler:wire(TriggerID, TargetID, Actions, Context).
+wire(Actions, Context) -> action_wire:wire(undefined, undefined, Actions, Context).
+wire(TargetID, Actions, Context) -> action_wire:wire(TargetID, TargetID, Actions, Context).
+wire(TriggerID, TargetID, Actions, Context) -> action_wire:wire(TriggerID, TargetID, Actions, Context).
 
 
 %%% WF_CONTINUE %%%
@@ -133,13 +133,13 @@ redirect(Url, Context) -> wf_redirect:redirect(Url, Context).
 
 %%% WF_QUERY %%%
 
-q(Q, Context) -> query_handler:get_value(Q, Context).
+q(Key, Context) -> query_handler:get_value(Key, Context).
 
 
 %%% WF_PATH %%%
 
-temp_id() -> wf_path:temp_id().
-to_js_id(Path) -> wf_path:to_js_id(Path).
+temp_id() -> wf_render_elements:temp_id().
+to_js_id(Path) -> wf_render_actions:to_js_id(Path).
 
 
 %%% OTHER %%%

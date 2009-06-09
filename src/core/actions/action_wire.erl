@@ -2,7 +2,7 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (internal_action_wire).
+-module (action_wire).
 -include ("wf.inc").
 -compile(export_all).
 
@@ -29,8 +29,19 @@ set_paths(DefaultTrigger, DefaultTarget, Action) when is_tuple(Action) ->
 	
 set_paths(_, _, Other) -> Other.
 
-get_trigger(Action) -> element(3, Action).
-set_trigger(Action, Trigger) -> setelement(3, Action, Trigger).
-get_target(Action) -> element(4, Action).
-set_target(Action, Target) -> setelement(4, Action, Target).
+get_trigger(Action) -> element(4, Action).
+set_trigger(Action, Trigger) -> setelement(4, Action, Trigger).
+get_target(Action) -> element(5, Action).
+set_target(Action, Target) -> setelement(5, Action, Target).
+
+wire(TriggerID, TargetID, Actions, Context) ->
+	CurrentPath = Context#context.current_path,
+	Action = #wire {
+		trigger=wff:coalesce([TriggerID, CurrentPath]),
+		target=wff:coalesce([TargetID, CurrentPath]),
+		actions=Actions
+	},
+	QueuedActions = [Action|Context#context.queued_actions],
+	{ok, Context#context { queued_actions = QueuedActions }}.
+
 

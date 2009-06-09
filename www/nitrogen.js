@@ -35,6 +35,7 @@ function Nitrogen(o) {
 	}
 	
 	// Clear the dom_state...
+	this.$params = new Object();
 	this.$dom_state = "";
 	this.$comet_is_running = false;
 }
@@ -64,19 +65,24 @@ N.Inline = function(o) {
 	if (o.windex) {
 		n.$do_event = n.$do_windex_event;
 		n.$do_comet = n.$do_windex_comet;
-		n.$url = Nitrogen.$add_param(n.$url, "windex", "true");
+		n.$url = Nitrogen.$add_param_to_url(n.$url, "windex", "true");
 	} else {
 		n.$do_event = n.$do_xhr_event;
 		n.$do_comet = n.$do_xhr_comet;
 	}
 	
-	var url = Nitrogen.$add_param(n.$url, "object_id", n.id);
+	var url = Nitrogen.$add_param_to_url(n.$url, "object_id", n.id);
 	Nitrogen.$load_script(url);
 	return n;
 }
 
 
 /*** PRIVATE METHODS ***/
+
+N.$scope = function(id, path) {
+	N.$current_id = id;
+	N.$current_path = path;
+}
 
 N.$lookup = function(id) {
 	return eval(Nitrogen.$NString + "." + id + ";");
@@ -91,21 +97,28 @@ N.prototype.$set_dom_state = function(s) {
 	this.$dom_state = s;
 }
 
+N.$set_param = function(key, value) {
+	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+	n.$set_param(key, value);	
+}
 
+N.prototype.$set_param = function(key, value) {
+	this.$params[key] = value;
+}
 
 /*** EVENT QUEUE ***/
 
-N.$queue_event = function(triggerID, postbackInfo, extraParams) {
+N.$queue_event = function(triggerID, eventContext, extraParams) {
 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$queue_event(triggerID, postbackInfo, extraParams);
+	n.$queue_event(triggerID, eventContext, extraParams);
 }
 
-N.prototype.$queue_event = function(triggerID, postbackInfo, extraParams) {
+N.prototype.$queue_event = function(triggerID, eventContext, extraParams) {
 	// Put an event on the event_queue.
 	Nitrogen.$event_queue.push({
 		n : this,
 		triggerID    : this.obj(triggerID).id,
-		postbackInfo : postbackInfo,
+		eventContext : eventContext,
 		extraParams  : extraParams
 	});
 }
@@ -121,7 +134,7 @@ N.$event_loop = function() {
 	
 	// Get and exect the event.
 	var o = Nitrogen.$event_queue.shift();
-	o.n.$do_event(o.triggerID, o.postbackInfo, o.extraParams);
+	o.n.$do_event(o.triggerID, o.eventContext, o.extraParams);
 }
 
 /*** VALIDATE AND SERIALIZE ***/
@@ -165,9 +178,11 @@ N.prototype.$validate_and_serialize = function(triggerID) {
 
 /*** AJAX METHODS ***/
 
-N.prototype.$do_xhr_event = function(triggerID, postbackInfo, extraParams) {
+N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
 	// Flag to prevent firing multiple postbacks at the same time...
 	Nitrogen.$event_is_running = true;
+
+	if (!extraParams) extraParams="";
 
 	// Run validation...
 	var s = this.$validate_and_serialize(triggerID);	
@@ -176,15 +191,17 @@ N.prototype.$do_xhr_event = function(triggerID, postbackInfo, extraParams) {
 		return;
 	}
 	
+	// Assemble other parameters... 
+	var url = this.$url;
+	for (var key in this.$params) {
+		url = Nitrogen.$add_param_to_url(url, key, this.$params[key]);
+	}
+
 	// Build params...
-	var params = 
-		"domState=" + this.$dom_state + 
-		"&postbackInfo=" + postbackInfo + 
-		"&" + s + 
-		"&" + extraParams;
-		
+	var params = "eventContext=" + eventContext  + "&" + s + "&" + extraParams;
+	
 	jQuery.ajax({ 
-		url: this.$url,
+		url: url,
 		type:'post',
 		data: params,
 		dataType: 'text',
@@ -198,22 +215,22 @@ N.prototype.$do_xhr_event = function(triggerID, postbackInfo, extraParams) {
 	});			
 }
 
-N.$comet_start = function(postbackInfo) {
+N.$comet_start = function(eventContext) {
 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$comet_start(postbackInfo);
+	n.$comet_start(eventContext);
 }
 
-N.prototype.$comet_start = function(postbackInfo) {
-	this.$do_comet(postbackInfo);
+N.prototype.$comet_start = function(eventContext) {
+	this.$do_comet(eventContext);
 }
 
-N.prototype.$do_xhr_comet = function(postbackInfo) { 
+N.prototype.$do_xhr_comet = function(eventContext) { 
 	if (this.$comet_is_running) return;
 	this.$comet_is_running = true;
 
 	// Get params...
   var params = 
-	  "postbackInfo=" + postbackInfo + 
+	  "eventContext=" + eventContext + 
 	  "&domState=" + this.$dom_state;
 	
 	var n = this;
@@ -226,11 +243,11 @@ N.prototype.$do_xhr_comet = function(postbackInfo) {
 		success: function(data, textStatus) {
 			eval(data);
 			n.$comet_is_running = false;
-			setTimeout("Nitrogen." + n.id + ".$comet_start('" + postbackInfo + "');", 0);
+			setTimeout("Nitrogen." + n.id + ".$comet_start('" + eventContext + "');", 0);
 		},
 		error: function(xmlHttpRequest, textStatus, errorThrown) {
 			n.$comet_is_running = false;
-			setTimeout("Nitrogen." + n.id + ".$comet_start('" + postbackInfo + "');", 5000);
+			setTimeout("Nitrogen." + n.id + ".$comet_start('" + eventContext + "');", 5000);
 		}
 	});                     
 }
@@ -239,7 +256,7 @@ N.prototype.$do_xhr_comet = function(postbackInfo) {
 
 /*** WINDEX METHODS ***/
 
-N.prototype.$do_windex_event = function(triggerID, postbackInfo, extraParams) { 
+N.prototype.$do_windex_event = function(triggerID, eventContext, extraParams) { 
 	// Run validation...
 	var s = this.$validate_and_serialize(triggerID);	
 	if (s == null) {
@@ -248,15 +265,15 @@ N.prototype.$do_windex_event = function(triggerID, postbackInfo, extraParams) {
 	
 	// Build params...
 	var url = this.$url;
-	url = Nitrogen.$add_param(url, "domState", this.$dom_state);
-	url = Nitrogen.$add_param(url, "postbackInfo", postbackInfo);
-	url = Nitrogen.$add_param(url, s);
-	url = Nitrogen.$add_param(url, extraParams);
+	url = Nitrogen.$add_param_to_url(url, "domState", this.$dom_state);
+	url = Nitrogen.$add_param_to_url(url, "eventContext", eventContext);
+	url = Nitrogen.$add_param_to_url(url, s);
+	url = Nitrogen.$add_param_to_url(url, extraParams);
 	Nitrogen.$load_script(url);
 }
 
 
-N.prototype.$do_windex_comet = function(postbackInfo) { 
+N.prototype.$do_windex_comet = function(eventContext) { 
 	alert("Comet is not yet supported via Windex.");
 }
 
@@ -402,7 +419,7 @@ N.$set_value = function(element, value) {
 	else this.$update(element, value);
 }
 
-N.$add_param = function(url, key, value) {
+N.$add_param_to_url = function(url, key, value) {
 	// Create the key=value line to add.
 	// Sometimes, the user will pass a bunch of params in the key field.
 	var s = "";

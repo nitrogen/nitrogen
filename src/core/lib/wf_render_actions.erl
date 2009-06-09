@@ -1,96 +1,23 @@
--module (render_handler_utils).
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008-2009 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
+-module (wf_render_actions).
 -include ("wf.inc").
 -export ([
-	render_elements/2,
-	render_actions/2	
+	render_actions/2,
+	to_js_id/1,
+	generate_scope_script/1
 ]).
-
-
-% render_elements(Elements, Context) - {ok, NewContext, Html, Script}
-% Render the elements in Context#context.elements
-% Return the new context and the html and javascript that were produced.
-render_elements(Elements, Context) ->
-	{ok, HtmlAcc, NewContext} = render_elements(Elements, [], Context),
-	{ok, HtmlAcc, NewContext}.
-
-% render_elements(Elements, HtmlAcc, Context) -> {ok, Html, NewContext}.
-render_elements(S, HtmlAcc, Context) when S == undefined orelse S == []  ->
-	{ok, HtmlAcc, Context};
-	
-render_elements(S, HtmlAcc, Context) when is_binary(S) orelse ?IS_STRING(S) ->
-	{ok, [S|HtmlAcc], Context};
-
-render_elements(Elements, HtmlAcc, Context) when is_list(Elements) ->
-	F = fun(X, {ok, HAcc, Cx}) ->
-		render_elements(X, HAcc, Cx)
-	end,
-	{ok, Html, NewContext} = lists:foldl(F, {ok, [], Context}, Elements),
-	HtmlAcc1 = [lists:reverse(Html)|HtmlAcc],
-	{ok, HtmlAcc1, NewContext};
-	
-render_elements(Element, HtmlAcc, Context) when is_tuple(Element) ->
-	{ok, Html, NewContext} = render_element(Element, Context),
-	HtmlAcc1 = [Html|HtmlAcc],
-	{ok, HtmlAcc1, NewContext};
-	
-render_elements(Unknown, _HtmlAcc, _Context) ->
-	throw({unanticipated_case_in_render_elements, Unknown}).
-	
-% This is a Nitrogen element, so render it.
-render_element(Element, Context) when is_tuple(Element) ->
-	% Get the element's backing module...
-	Base = wf_utils:get_elementbase(Element),
-	Module = Base#elementbase.module, 
-
-	% Create the element ID...
-	CurrentPath = case Base#elementbase.id of
-		undefined -> [wf:temp_id()];
-		Other -> [wf:to_list(Other)|Context#context.current_path]
-	end,
-	HtmlID = wf_path:to_html_id(CurrentPath),
-	
-	% Push the new ID onto the context...
-	DomPaths = Context#context.dom_paths,
-	Context1 = Context#context { dom_paths=[CurrentPath|DomPaths] },
-
-	case {Base#elementbase.show_if, wf_path:is_temp_element(CurrentPath)} of
-		{true, true} -> 			
-			% Render the element...
-		 	{ok, _Html, _Context2} = call_element_render(Module, HtmlID, Element, Context1);
-
-		{true, false} -> 
-			% Update the current path...
-			OldPath = Context#context.current_path,
-			Context2 = Context1#context { current_path=CurrentPath },
-	
-			% Render the element...
-			{ok, Html, Context3} = call_element_render(Module, HtmlID, Element, Context2),
-					
-			% Restore the old path...
-			Context4 = Context3#context { current_path=OldPath },
-			{ok, Html, Context4};
-			
-		{_, _} -> 
-			{ok, [], Context}
-	end.
-	
-% call_element_render(Module, Context, HtmlID, Element) -> {ok, Html, NewContext}.
-% Calls the render_element/3 function of an element to turn an element record into
-% HTML.
-call_element_render(Module, HtmlID, Element, Context) ->
-	{module, Module} = code:ensure_loaded(Module),
-	{ok, NewElements, Context1} = erlang:apply(Module, render_element, [HtmlID, Element, Context]),
-
-	% Render the new elements into HTML, this could produce even more actions.
-	{ok, _Html, _Context2} = render_elements(NewElements, [], Context1).
-
-
 
 %%% RENDER ACTIONS %%%
 
 % render_actions(Actions, Context) -> {ok, Script, NewContext}.
 render_actions(Actions, Context) ->
+	% Render all actions...
 	{ok, ScriptAcc, NewContext} = render_actions(Actions, [], Context),
+	
+	% Return.
 	{ok, ScriptAcc, NewContext}.
 
 % render_actions(Actions, ScriptAcc, Context) -> {ok, Script, NewContext}.
@@ -120,7 +47,14 @@ render_actions(Unknown, _ScriptAcc, _Context) ->
 render_action(Action, Context) when is_tuple(Action) ->
 	Base = wf_utils:get_actionbase(Action),
 	Module = Base#actionbase.module, 
+	
+	% Verify that this is an action...
+	case Base#actionbase.is_action == is_action of
+		true -> ok;
+		false -> throw({not_an_action, Action})
+	end,
 
+	% Render...
 	case Base#actionbase.show_if of 
 		true -> 
 			% Save the current path...
@@ -140,25 +74,19 @@ render_action(Action, Context) when is_tuple(Action) ->
 			% Update to a new current path...
 			Context1 = Context#context { current_path=TargetPath1 },
 			
-			% If the target path has changed since last time, then 
-			% add some Javascript to set the target path on the client.
-			% The #var_me {} action does this.
-			{ok, MeScript, Context2} = case (TargetPath1 /= OldPath) of
-				true -> 
-					MeAction = #var_me { target=TargetPath1 }, 
-					render_action(MeAction, Context1);
-			
-				false -> 
-					{ok, [], Context1}
-			end,
+			% Add some Javascript to set the target path on the client.
+			ScopeScript = generate_scope_script(Context1),
 			
 			% Render the action...
 			{ok, Script, Context2} = call_action_render(Module, Action1, Context1),
 			
 			% Restore the old path...
 			Context3 = Context2#context { current_path=OldPath },
-			{ok, [MeScript, Script], Context3};
 
+			case Script /= undefined andalso Script/=[] of
+				true  -> {ok, [ScopeScript, Script], Context3};
+				false -> {ok, [], Context3}
+			end;
 		_ -> 
 			{ok, [], Context}
 	end.
@@ -169,7 +97,6 @@ call_action_render(Module, Action, Context) ->
 	{module, Module} = code:ensure_loaded(Module),
 	{ok, NewActions, Context1} = erlang:apply(Module, render_action, [Action, Context]),
 	{ok, _Script, _Context2} = render_actions(NewActions, [], Context1).
-	
 	
 % normalize_path/2 -
 % When path is an atom or string, then look for something like this:
@@ -197,6 +124,7 @@ normalize_path(Path, Context) when is_atom(Path) orelse ?IS_STRING(Path) ->
 	
 	% Path is now a list, so skip to the next clause.
 	normalize_path(Path3, Context);
+
 	
 % normalize_path/2 - 
 % When path is already a list of paths, just pass along to inner_normalize_path/2.
@@ -230,7 +158,7 @@ find_matching_dom_path(Path, DomPaths) ->
 	F = fun(X) -> Length =< length(X) end,
 	DomPaths1 = lists:filter(F, DomPaths),
 	find_matching_dom_path(Path, DomPaths1, 1).
-	
+
 find_matching_dom_path([], _, _) -> [];
 find_matching_dom_path(_Path, [], _Pos) -> [];
 find_matching_dom_path(Path, DomPaths, Pos) when Pos > length(Path) -> DomPaths; 
@@ -239,5 +167,14 @@ find_matching_dom_path(Path, DomPaths, Pos) ->
 	F = fun(X) -> Part == lists:nth(Pos, X) end,
 	DomPaths1 = lists:filter(F, DomPaths),
 	find_matching_dom_path(Path, DomPaths1, Pos + 1).
-	
-	
+
+to_js_id(P) ->
+	P1 = lists:reverse(P),
+	string:join(P1, ".").
+
+
+generate_scope_script(Context) ->
+	Page = Context#context.page_context,
+	CurrentID = Page#page_context.name,
+	CurrentPath = Context#context.current_path,
+	wff:f("Nitrogen.$scope('~s', '~s');~n", [CurrentID, wff:to_js_id(CurrentPath)]).
