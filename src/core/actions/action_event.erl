@@ -17,27 +17,28 @@ render_action(Record, Context) ->
 		enterkey ->
 			[
 				wff:f("Nitrogen.$observe_event(obj('~s'), 'keypress', function anonymous(event) {\r\n", [wff:to_js_id(TriggerPath)]),
-				"if (Nitrogen.$is_enter_key(event)) {\r\n", Postback, " ", Actions, "return false; }",
-				"});\r\n"
+				"if (Nitrogen.$is_enter_key(event)) {\r\n", Postback, " ", Actions, "return false; }\r\n",
+				"});"
 			];
 		
 		immediate ->
+			ImmediatePostback = wf_event:generate_immediate_postback_script(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate, Context),
 			[
-				Postback, Actions
+				ImmediatePostback, Actions
 			];
 		
 		timer ->
 			TempID = wff:temp_id(),
 			[
 				wff:f("document.~s = function() {\r\n", [TempID]), Postback, Actions, "};\r\n",
-				wff:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);\r\n", [TempID, TempID, Record#event.delay])
+				wff:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, TempID, Record#event.delay])
 			];
 			
 		_ ->
 			[
 				wff:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {\r\n", [wff:to_js_id(TriggerPath), EventType]), 
 				Postback, " ", Actions, 
-				"});\r\n"
+				"});"
 			]
 	end,
 	{ok, Script, Context}.

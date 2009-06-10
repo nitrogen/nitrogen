@@ -11,7 +11,7 @@ render_action(Record, Context) ->
 	DefaultTrigger = Record#wire.trigger,
 	DefaultTarget = Record#wire.target,
 	Actions = set_paths(DefaultTrigger, DefaultTarget, Record#wire.actions),
-	{ok, [Actions, "\n"], Context}.
+	{ok, [Actions], Context}.
 	
 set_paths(_DefaultTrigger, _DefaultTarget, []) -> 
 	[];

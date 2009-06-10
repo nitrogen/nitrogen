@@ -34,10 +34,7 @@ function Nitrogen(o) {
 		this.$div = document;
 	}
 	
-	// Clear the dom_state...
 	this.$params = new Object();
-	this.$dom_state = "";
-	this.$comet_is_running = false;
 }
 
 var N = Nitrogen;
@@ -56,7 +53,7 @@ function obj(path) {
 N.Page = function(o) {
 	var n = new Nitrogen(o);
 	n.$do_event = n.$do_xhr_event;
-	n.$do_comet = n.$do_xhr_comet;
+	n.$do_immediate_event = n.$do_xhr_immediate_event;
 	return n;
 }
 
@@ -64,11 +61,11 @@ N.Inline = function(o) {
 	var n = new Nitrogen(o);
 	if (o.windex) {
 		n.$do_event = n.$do_windex_event;
-		n.$do_comet = n.$do_windex_comet;
+		n.$do_immediate_event = n.$do_windex_immediate_event;
 		n.$url = Nitrogen.$add_param_to_url(n.$url, "windex", "true");
 	} else {
 		n.$do_event = n.$do_xhr_event;
-		n.$do_comet = n.$do_xhr_comet;
+		n.$do_immediate_event = n.$do_xhr_immediate_event;
 	}
 	
 	var url = Nitrogen.$add_param_to_url(n.$url, "object_id", n.id);
@@ -86,15 +83,6 @@ N.$scope = function(id, path) {
 
 N.$lookup = function(id) {
 	return eval(Nitrogen.$NString + "." + id + ";");
-}
-
-N.$set_dom_state = function(s) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$set_dom_state(s);
-}
-
-N.prototype.$set_dom_state = function(s) {
-	this.$dom_state = s;
 }
 
 N.$set_param = function(key, value) {
@@ -157,7 +145,16 @@ N.prototype.$validate_and_serialize = function(triggerID) {
 			}
 		}
 	}
-	
+		
+	// Return the params if valid. Otherwise, return null.
+	if (is_valid) {
+		return params.join("&");
+	} else {
+		return null;
+	}
+}
+
+N.prototype.$get_dom_paths = function() {
 	// Build list of paths...
 	var paths=new Array();
 	var elements = this.$div.getElementsByTagName('*');
@@ -168,12 +165,7 @@ N.prototype.$validate_and_serialize = function(triggerID) {
 		}
 	}
 	
-	// Return the params if valid. Otherwise, return null.
-	if (is_valid) {
-		return params.join("&") + "&domPaths=" + paths.join(",");
-	} else {
-		return null;
-	}
+	return paths.join(",");
 }
 
 /*** AJAX METHODS ***/
@@ -191,6 +183,9 @@ N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
 		return;
 	}
 	
+	// Get dom paths...
+	var domPaths = this.$get_dom_paths();
+	
 	// Assemble other parameters... 
 	var url = this.$url;
 	for (var key in this.$params) {
@@ -198,7 +193,10 @@ N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
 	}
 
 	// Build params...
-	var params = "eventContext=" + eventContext  + "&" + s + "&" + extraParams;
+	var params = 
+		"eventContext=" + eventContext + "&" + 
+		"domPaths=" + domPaths + "&" + 
+		s + "&" + extraParams;
 	
 	jQuery.ajax({ 
 		url: url,
@@ -215,76 +213,73 @@ N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
 	});			
 }
 
-N.$comet_start = function(eventContext) {
+/*** IMMEDIATE EVENTS (FOR ASYNC) ***/
+
+N.$do_immediate_event = function(eventContext) {
 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$comet_start(eventContext);
+	n.$do_immediate_event(eventContext);
 }
 
-N.prototype.$comet_start = function(eventContext) {
-	this.$do_comet(eventContext);
-}
+N.prototype.$do_xhr_immediate_event = function(eventContext) { 
+	// Assemble parameters... 
+	var url = this.$url;
+	for (var key in this.$params) {
+		url = Nitrogen.$add_param_to_url(url, key, this.$params[key]);
+	}
 
-N.prototype.$do_xhr_comet = function(eventContext) { 
-	if (this.$comet_is_running) return;
-	this.$comet_is_running = true;
-
-	// Get params...
-  var params = 
-	  "eventContext=" + eventContext + 
-	  "&domState=" + this.$dom_state;
+	// Get dom paths...
+	var domPaths = this.$get_dom_paths();
 	
+	// Build params...
+	var params = "eventContext=" + eventContext + "&domPaths=" + domPaths;
+
 	var n = this;
 
 	$.ajax({ 
-		url: this.$url,
+		url: url,
 		type:'post',
 		data: params,
 		dataType: 'text',
 		success: function(data, textStatus) {
 			eval(data);
-			n.$comet_is_running = false;
-			setTimeout("Nitrogen." + n.id + ".$comet_start('" + eventContext + "');", 0);
 		},
 		error: function(xmlHttpRequest, textStatus, errorThrown) {
-			n.$comet_is_running = false;
-			setTimeout("Nitrogen." + n.id + ".$comet_start('" + eventContext + "');", 5000);
 		}
 	});                     
 }
 
 
-
 /*** WINDEX METHODS ***/
 
-N.prototype.$do_windex_event = function(triggerID, eventContext, extraParams) { 
-	// Run validation...
-	var s = this.$validate_and_serialize(triggerID);	
-	if (s == null) {
-		return;
-	}
-	
-	// Build params...
-	var url = this.$url;
-	url = Nitrogen.$add_param_to_url(url, "domState", this.$dom_state);
-	url = Nitrogen.$add_param_to_url(url, "eventContext", eventContext);
-	url = Nitrogen.$add_param_to_url(url, s);
-	url = Nitrogen.$add_param_to_url(url, extraParams);
-	Nitrogen.$load_script(url);
-}
-
-
-N.prototype.$do_windex_comet = function(eventContext) { 
-	alert("Comet is not yet supported via Windex.");
-}
+// N.prototype.$do_windex_event = function(triggerID, eventContext, extraParams) { 
+// 	// Run validation...
+// 	var s = this.$validate_and_serialize(triggerID);	
+// 	if (s == null) {
+// 		return;
+// 	}
+// 	
+// 	// Build params...
+// 	var url = this.$url;
+// 	url = Nitrogen.$add_param_to_url(url, "domState", this.$dom_state);
+// 	url = Nitrogen.$add_param_to_url(url, "eventContext", eventContext);
+// 	url = Nitrogen.$add_param_to_url(url, s);
+// 	url = Nitrogen.$add_param_to_url(url, extraParams);
+// 	Nitrogen.$load_script(url);
+// }
+// 
+// 
+// N.prototype.$do_windex_immediate_event = function(eventContext) { 
+// 	alert("Async is not yet supported via Windex.");
+// }
 
 /*** FILE UPLOAD ***/
-N.$upload = function(form) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	form.domState.value = n.$dom_state;
-	form.action = n.$url;
-	form.submit();
-	form.reset();
-}
+// N.$upload = function(form) {
+// 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+// 	form.domState.value = n.$dom_state;
+// 	form.action = n.$url;
+// 	form.submit();
+// 	form.reset();
+// }
 
 /*** SERIALIZATION ***/
 

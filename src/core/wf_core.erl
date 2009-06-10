@@ -62,7 +62,7 @@ run_finish(Html, Javascript, Context) ->
 	{ok, Context1} = call_finish_on_handlers(Context),
 	
 	% Create Javascript to set the state...
-	State = serialize_context_state(Context),
+	State = serialize_context_state(Context1),
 	run_output(Html, [State, Javascript], Context1).
 	
 run_output(Html, Javascript, Context) ->

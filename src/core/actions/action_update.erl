@@ -21,7 +21,7 @@ render_action(Record, Context) ->
 	
 	% Turn the HTML into a Javascript statement that will update the right element.
 	ScriptifiedHtml = wff:f(FormatString, [wf_utils:js_escape(Html)]),
-	{ok, [ScriptifiedHtml, Script, "\n"], Context1}.
+	{ok, [ScriptifiedHtml, Script], Context1}.
 	
 update(TargetID, Elements, Context) -> 
 	update(update, TargetID, Elements, Context).

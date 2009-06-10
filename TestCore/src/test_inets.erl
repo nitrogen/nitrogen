@@ -7,6 +7,7 @@
 ]).
 
 start() ->
+	ets:new(process_cabinet, [set, public, named_table]),
 	inets:stop(),
 	inets:start(),
 	inets:start(httpd, [

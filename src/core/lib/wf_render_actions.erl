@@ -84,7 +84,7 @@ render_action(Action, Context) when is_tuple(Action) ->
 			Context3 = Context2#context { current_path=OldPath },
 
 			case Script /= undefined andalso Script/=[] of
-				true  -> {ok, [ScopeScript, Script], Context3};
+				true  -> {ok, [ScopeScript, Script, "\n"], Context3};
 				false -> {ok, [], Context3}
 			end;
 		_ -> 
