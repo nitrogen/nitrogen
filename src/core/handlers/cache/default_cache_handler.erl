@@ -7,7 +7,7 @@
 -export ([
 	init/2, 
 	finish/2,
-	get_set/5,
+	get_cached/5,
 	clear/3, 
 	clear_all/2
 ]).
@@ -18,7 +18,7 @@ init(Context, State) ->
 finish(Context, State) -> 
 	{ok, Context, State}.
 
-get_set(_Key, Function, _TTL, Context, State) -> 
+get_cached(_Key, Function, _TTL, Context, State) -> 
 	{ok, Function(), Context, State}.
 
 clear(_Key, Context, State) -> 

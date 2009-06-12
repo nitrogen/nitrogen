@@ -4,17 +4,17 @@
 
 -module (cache_handler).
 -export ([
-	behaviour_info/1, get_set/4, clear/2, clear_all/1
+	behaviour_info/1, get_cached/4, clear/2, clear_all/1
 ]).
 
 
 
-% get_set(Key, Function, TTL, Context, State) -> {ok, Value, NewContext, NewState}
+% get_cached(Key, Function, TTL, Context, State) -> {ok, Value, NewContext, NewState}
 % Return the cache value associated with Key. If it is not found,
 % then run the Function, store the resulting value in cache under
 % Key, and return the value.
-get_set(Key, Function, TTL, Context) -> 
-	{ok, _Value, _NewContext} = wf_context:apply(cache, get_set, [Key, Function, TTL], Context).
+get_cached(Key, Function, TTL, Context) -> 
+	{ok, _Value, _NewContext} = wf_context:apply(cache, get_cached, [Key, Function, TTL], Context).
 
 % clear(Key, Context, State) -> {ok, NewContext, NewState}
 % Remove a value from cache.
@@ -31,7 +31,7 @@ clear_all(Context) ->
 behaviour_info(callbacks) -> [
 	{init, 2},      
 	{finish, 2},
-	{get_set, 5}, 
+	{get_cached, 5}, 
 	{clear, 3},
 	{clear_all, 2}
 ];

@@ -9,8 +9,8 @@
 -export ([
 	init/2, 
 	finish/2,
-	get/3,
-	get_set/4
+	get_pid/3,
+	get_pid/4
 ]).
 
 -define (TABLE, process_cabinet).
@@ -27,15 +27,15 @@ init(Context, State) ->
 finish(Context, State) ->
 	{ok, Context, State}.
 	
-get(Key, Context, State) -> 
+get_pid(Key, Context, State) -> 
 	Pid = case ets:lookup(?TABLE, Key) of
 		[] -> undefined;
 		[{Key, Value}] -> Value
 	end,
 	{ok, Pid, Context, State}.
 
-get_set(Key, Function, Context, State) ->
-	{ok, Pid, Context1, State1} = get(Key, Context, State),
+get_pid(Key, Function, Context, State) ->
+	{ok, Pid, Context1, State1} = get_pid(Key, Context, State),
 	Pid1 = case Pid /= undefined andalso is_pid(Pid) andalso is_process_alive(Pid) of
 		true  -> Pid;
 		false -> 

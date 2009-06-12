@@ -19,9 +19,7 @@ get_cookie(Key, Context) ->
 % set_cookie(Key, Value, Path, MinutesToLive, Context, State) -> {ok, NewContext, NewState}.
 % Send a cookie to the browser.
 set_cookie(Key, Value, Path, MinutesToLive, Context) -> 
-	{ok, _NewContext} = wf_context:apply_return_raw(cookie, set_cookie, [Key, Value, Path, MinutesToLive], Context).
-
-
+	{ok, _NewContext} = wf_context:apply(cookie, set_cookie, [Key, Value, Path, MinutesToLive], Context).
 
 behaviour_info(callbacks) -> [
 	{init, 2},      

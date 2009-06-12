@@ -35,7 +35,7 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-06-09T01:00:12Z</date>
+					<date>2009-06-11T02:32:59Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -50,7 +50,7 @@
 							<key>filename</key>
 							<string>src/project/nitrogen_project.erl</string>
 							<key>lastUsed</key>
-							<date>2009-01-08T13:59:54Z</date>
+							<date>2009-06-11T23:16:08Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -69,19 +69,19 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-09T15:14:07Z</date>
+							<date>2009-06-12T02:26:20Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-09T02:57:23Z</date>
+							<date>2009-06-12T02:44:34Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-09T02:57:24Z</date>
+							<date>2009-06-12T02:44:35Z</date>
 						</dict>
 						<dict>
 							<key>name</key>
@@ -92,6 +92,8 @@
 							<string>src/core/lib</string>
 						</dict>
 						<dict>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>handlers</string>
 							<key>regexFolderFilter</key>
@@ -124,6 +126,8 @@
 							<string>src/core/elements</string>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Core</string>
 				</dict>
@@ -180,55 +184,57 @@
 									<key>filename</key>
 									<string>src/lib/wf_multipart.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-29T12:18:23Z</date>
+									<date>2009-06-11T23:16:07Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_cache.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-28T17:33:58Z</date>
+									<date>2009-06-12T02:47:17Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_cache_server.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-07T00:00:52Z</date>
+									<date>2009-06-12T02:47:17Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_platform_yaws.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-28T19:59:23Z</date>
+									<date>2009-06-12T02:47:17Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_platform.erl.txt</string>
 									<key>lastUsed</key>
-									<date>2009-06-01T23:55:16Z</date>
+									<date>2009-06-12T02:47:16Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-09T15:14:08Z</date>
+									<date>2009-06-12T02:48:22Z</date>
+									<key>selected</key>
+									<true/>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle_firstrequest.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-09T01:00:12Z</date>
+									<date>2009-06-10T11:42:41Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle_postback.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-09T15:14:08Z</date>
+									<date>2009-06-11T01:51:54Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_handle_postback_multipart.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-29T00:21:11Z</date>
+									<date>2009-06-12T02:48:21Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -240,7 +246,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_utils.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-04T02:37:42Z</date>
+									<date>2009-06-10T23:43:38Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -252,13 +258,13 @@
 									<key>filename</key>
 									<string>src/lib/wf_session_server.erl</string>
 									<key>lastUsed</key>
-									<date>2009-01-08T02:58:52Z</date>
+									<date>2009-06-11T02:32:59Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/lib/wf_session.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-02T03:51:16Z</date>
+									<date>2009-06-12T00:07:01Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -279,14 +285,20 @@
 									<date>2009-03-08T00:58:43Z</date>
 								</dict>
 							</array>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>Lib</string>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Mantle</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -297,7 +309,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-06-09T03:36:33Z</date>
+					<date>2009-06-11T23:16:09Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -336,7 +348,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-06-09T15:14:08Z</date>
+					<date>2009-06-11T03:19:52Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -347,20 +359,6 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>src/lib/wf_session_server.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
-				<key>line</key>
-				<integer>28</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>7</integer>
-		</dict>
 		<key>src/platforms/nitrogen_yaws_app.erl</key>
 		<dict>
 			<key>caret</key>
@@ -393,6 +391,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{287, 0}, {926, 778}}</string>
+	<string>{{286, 0}, {926, 778}}</string>
 </dict>
 </plist>

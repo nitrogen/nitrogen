@@ -123,13 +123,13 @@ temp_id() ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% EXPOSE COOKIE HANDLER %%%
-get_cookie(Key, Context) -> 
+cookie(Key, Context) -> 
 	_Value = cookie_handler:get_cookie(Key, Context).
 	
-set_cookie(Key, Value, Context) -> 
-	{ok, _NewContext} = set_cookie(Key, Value, "/", 20, Context).
+cookie(Key, Value, Context) -> 
+	{ok, _NewContext} = cookie(Key, Value, "/", 20, Context).
 	
-set_cookie(Key, Value, Path, MinutesToLive, Context) -> 
+cookie(Key, Value, Path, MinutesToLive, Context) -> 
 	{ok, _NewContext} = cookie_handler:set_cookie(Key, Value, Path, MinutesToLive, Context).
 
 

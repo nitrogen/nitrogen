@@ -4,7 +4,7 @@
 
 main() ->
 	wf:switch_to_comet(),
-	
+	wf:cookie("cookiename", "cookievalue"),
 	Elements = [
 		#textbox { id=textbox },
 		#button { id=button, text="Click Me", postback=click },
@@ -19,6 +19,7 @@ main() ->
 	Elements.
 	
 event(_Tag) ->
+	?PRINT(wf:cookie("cookiename")),
 	wf:send_global(count, increment).
 	
 background(Count) ->

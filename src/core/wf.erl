@@ -128,14 +128,14 @@ temp_id() ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% EXPOSE COOKIE HANDLER %%%
-get_cookie(Key) -> 
-	?PRE, _Value = wff:get_cookie(Key, Context).
+cookie(Key) -> 
+	?PRE, _Value = wff:cookie(Key, Context).
 	
-set_cookie(Key, Value) -> 
-	?PRE, {ok, NewContext} = wff:set_cookie(Key, Value, Context), ?POST, ok.
+cookie(Key, Value) -> 
+	?PRE, {ok, NewContext} = wff:cookie(Key, Value, Context), ?POST, ok.
 	
-set_cookie(Key, Value, Path, MinutesToLive) -> 
-	?PRE, {ok, NewContext} = wff:set_cookie(Key, Value, Path, MinutesToLive, Context), ?POST, ok.
+cookie(Key, Value, Path, MinutesToLive) -> 
+	?PRE, {ok, NewContext} = wff:cookie(Key, Value, Path, MinutesToLive, Context), ?POST, ok.
 
 
 	
