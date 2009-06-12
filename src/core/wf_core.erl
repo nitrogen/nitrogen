@@ -41,31 +41,7 @@ run_execute(Context) ->
 		false -> run_execute_postback(Context2)
 	end,
 	run_render(Context3).
-	
-run_execute_first_request(Context) ->
-	% Some values...
-	Event = Context#context.event_context,
-	Module = Event#event_context.module,
-	
-	% Call Module:main/1
-	{ok, Data, Context1} = Module:main(Context),
-	{ok, Context1#context { data=Data}}.
-
-run_execute_postback(Context) ->
-	% Some values...
-	Event = Context#context.event_context,
-	Module = Event#event_context.module,
-	Tag = Event#event_context.tag,
-	
-	% Validate...
-	{ok, IsValid, Context1} = wf_validation:validate(Context),
-	
-	% Call the event...
-	case IsValid of
-		true -> Module:event(Tag, Context1);
-		false -> {ok, Context1}
-	end.
-	
+		
 run_render(Context) ->
 	Elements = Context#context.data,
 	Actions = Context#context.queued_actions,
@@ -85,6 +61,22 @@ run_output(Html, Javascript, Context) ->
 	% Output the results to the browser...
 	output_handler:build_response(Html, Javascript, Context).
 
+
+
+%%% SERIALIZE AND DESERIALIZE STATE %%%
+
+% serialize_context_state/1 -
+% Serialize part of Context and send it to the browser
+% as Javascript variables.
+serialize_context_state(Context) ->
+	Page = Context#context.page_context,
+	Handlers = Context#context.handler_list,
+	SerializedContextState = wff:pickle([Page, Handlers]),
+	[
+		wf_render_actions:generate_scope_script(Context),
+		wff:f("Nitrogen.$set_param('contextState', '~s');", [SerializedContextState])
+	].
+
 % deserialize_context_state/1 -
 % Updates the context with values that were stored
 % in the browser by serialize_context_state/1.
@@ -103,18 +95,9 @@ deserialize_context_state(Context) ->
 	% Update the context and return.
 	{ok, Context#context { page_context = Page, handler_list=Handlers }}.
 	
-% serialize_context_state/1 -
-% Serialize part of Context and send it to the browser
-% as Javascript variables.
-serialize_context_state(Context) ->
-	Page = Context#context.page_context,
-	Handlers = Context#context.handler_list,
-	SerializedContextState = wff:pickle([Page, Handlers]),
-	[
-		wf_render_actions:generate_scope_script(Context),
-		wff:f("Nitrogen.$set_param('contextState', '~s');", [SerializedContextState])
-	].
 	
+	
+%%% SET UP AND TEAR DOWN HANDLERS %%%
 	
 % init_handlers/1 - 
 % Handlers are initialized in the order that they exist in #context.handlers. The order
@@ -140,3 +123,65 @@ call_finish_on_handlers(Context) ->
 		wf_context:set_handler(Name, Module, NewState, NewContext)
 	end,
 	{ok, lists:foldl(F, Context, Handlers)}.
+	
+	
+	
+%%% FIRST REQUEST %%%
+
+run_execute_first_request(Context) ->
+	% Some values...
+	Event = Context#context.event_context,
+	Module = Event#event_context.module,
+	% Call Module:main/1
+	{ok, Data, Context1} = call_module_main(Module, Context),
+	{ok, Context1#context { data=Data}}.
+
+call_module_main(Module, Context) ->
+	case erlang:function_exported(Module, main, 1) of 
+		true -> call_module_main_with_context(Module, Context);
+		false -> call_module_main_without_context(Module, Context)
+	end.
+	
+call_module_main_with_context(Module, Context) ->		
+	Module:main(Context).
+
+call_module_main_without_context(Module, Context) ->
+	put(context, Context),
+	Data = Module:main(),
+	Context1 = get(context),
+	{ok, Data, Context1}.
+
+
+
+%%% POSTBACK REQUEST %%%
+
+run_execute_postback(Context) ->
+	% Some values...
+	Event = Context#context.event_context,
+	Module = Event#event_context.module,
+	Tag = Event#event_context.tag,
+	
+	% Validate...
+	{ok, IsValid, Context1} = wf_validation:validate(Context),
+	
+	% Call the event...
+	case IsValid of
+		true -> call_module_event(Module, Tag, Context1);
+		false -> {ok, Context1}
+	end.
+	
+call_module_event(Module, Tag, Context) ->
+	case erlang:function_exported(Module, event, 2) of
+		true -> call_module_event_with_context(Module, Tag, Context);
+		false -> call_module_event_without_context(Module, Tag, Context)
+	end.
+	
+call_module_event_with_context(Module, Tag, Context) ->
+	{ok, _Context1} = Module:event(Tag, Context).
+	
+call_module_event_without_context(Module, Tag, Context) ->
+	put(context, Context),
+	Module:event(Tag),
+	Context1 = get(context),
+	{ok, Context1}.
+

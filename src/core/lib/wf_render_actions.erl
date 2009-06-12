@@ -102,7 +102,21 @@ render_action(Action, Context) when is_tuple(Action) ->
 % Calls the render_action/4 function of an action to turn an action record into Javascript.
 call_action_render(Module, Action, Context) ->
 	{module, Module} = code:ensure_loaded(Module),
+	case erlang:function_exported(Module, render_action, 2) of
+		true  -> call_action_render_with_context(Module, Action, Context);
+		false -> call_action_render_without_context(Module, Action, Context)
+	end.
+	
+% Call render_action in functional style, explicitly passing in the context.
+call_action_render_with_context(Module, Action, Context) ->
 	{ok, NewActions, Context1} = erlang:apply(Module, render_action, [Action, Context]),
+	{ok, _Script, _Context2} = render_actions(NewActions, [], Context1).
+	
+% Call render_action in the old style, storing context in process dictionary.
+call_action_render_without_context(Module, Action, Context) ->
+	put(context, Context),
+	NewActions = erlang:apply(Module, render_action, [Action]),
+	Context1 = get(context),
 	{ok, _Script, _Context2} = render_actions(NewActions, [], Context1).
 	
 % normalize_path/2 -

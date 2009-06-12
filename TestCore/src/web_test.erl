@@ -2,14 +2,9 @@
 -include ("wf.inc").
 -compile(export_all).
 
-main(Context) ->
-	% Switch to comet mode.
-	Page = Context#context.page_context,
-	Context1 = Context#context { 
-		%page_context=Page#page_context { async_mode={poll, 1000} }
-		page_context=Page#page_context { async_mode=comet }
-	},
-
+main() ->
+	wf:switch_to_comet(),
+	
 	Elements = [
 		#textbox { id=textbox },
 		#button { id=button, text="Click Me", postback=click },
@@ -20,19 +15,19 @@ main(Context) ->
 		]}
 	],
 	
-	{ok, Context2} = wff:wire(#async { pool=count, scope=global, function=fun(Cx) -> background(1, Cx) end }, Context1),
-	{ok, Elements, Context2}.
+	wf:wire(#async { pool=count, scope=global, function=fun() -> background(1) end }),
+	Elements.
 	
-event(_Tag, Context) ->
-	action_async:send_global(count, increment, Context).
+event(_Tag) ->
+	wf:send_global(count, increment).
 	
-background(Count, Context) ->
+background(Count) ->
 	receive 
 		increment -> 
-			{ok, Context1} = wff:update(mypanel, wff:to_list(Count), Context),
-			{ok, Context2} = action_async:flush(Context1),
-			background(Count + 1, Context2);
+			wf:update(mypanel, wf:to_list(Count)),
+			wf:flush(),
+			background(Count + 1);
 		_Other -> 
-			background(Count, Context)
+			background(Count)
 	end.
 	

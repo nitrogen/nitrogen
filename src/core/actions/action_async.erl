@@ -85,7 +85,7 @@ event({spawn_async_function, Record}, Context) ->
 	
 	% Create a process for the AsyncFunction...
 	AsyncFunction = Record#async.function,
-	FunctionPid = erlang:spawn(fun() -> AsyncFunction(Context2) end),
+	FunctionPid = spawn_function_with_context(AsyncFunction, Context2),
 	
 	% Create a process for the AsyncGuardian...
 	DyingMessage = Record#async.dying_message,
@@ -96,6 +96,16 @@ event({spawn_async_function, Record}, Context) ->
 	PoolPid!{add_process, FunctionPid},
 
 	{ok, _Context3} = wff:wire(start_async_event(), Context2).
+
+spawn_function_with_context(AsyncFunction, Context) ->
+	% The async function can either take the Context as an argument,
+	% or it can expect that the context is stuffed into the process
+	% dictionary. Look at the Arity and do one or the other.
+	F = case erlang:fun_info(AsyncFunction, arity) of
+		{arity, 0} ->  fun() -> put(context, Context), AsyncFunction() end;
+		{arity, 1} ->  fun() -> AsyncFunction(Context) end
+	end,	
+ erlang:spawn(F).
 
 
 accumulator_loop(Guardians, Actions, Waiting) ->

@@ -7,6 +7,10 @@
 -include ("simplebridge.hrl").
 -compile (export_all).
 
+% wff.erl is the functional version of wf.erl. Almost every function
+% takes a Context argument, and almost every function returns {ok, ..., Context}.
+% Using wff is a proper but tedious way of writing applications in Nitrogen.
+
 %%% EXPOSE WIRE, UPDATE, FLASH %%%
 wire(Actions, Context) -> 
 	{ok, _NewContext} = wire(undefined, undefined, Actions, Context).
@@ -212,6 +216,32 @@ clear_state(Key, Context) ->
 clear_state(Context) -> 
 	{ok, _NewContext} = state_handler:clear_all(Context).
 
+
+
+%%% EXPOSE ACTION_ASYNC %%%
+send(Pool, Message, Context) ->
+	{ok, _NewContext} = action_async:send(Pool, Message, Context).
+
+send_global(Pool, Message, Context) ->
+	{ok, _NewContext} = action_async:send_global(Pool, Message, Context).
+
+flush(Context) ->
+	{ok, _NewContext} = action_async:flush(Context).
+
+switch_to_comet(Context) ->
+	Page = Context#context.page_context,
+	Context1 = Context#context { 
+		%page_context=Page#page_context { async_mode={poll, 1000} }
+		page_context=Page#page_context { async_mode=comet }
+	},
+	{ok, Context1}.
+	
+switch_to_polling(IntervalInMS, Context) ->
+	Page = Context#context.page_context,
+	Context1 = Context#context { 
+		page_context=Page#page_context { async_mode={poll, IntervalInMS} }
+	},
+	{ok, Context1}.
 
 
 %%% DEBUGGING %%%
