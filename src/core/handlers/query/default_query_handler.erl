@@ -6,12 +6,12 @@
 -behaviour (query_handler).
 -include ("wf.inc").
 -export ([
-	init/1, 
+	init/2, 
 	finish/2,
 	get_value/3
 ]).
 
-init(Context) -> 
+init(Context, _State) -> 
 	% Get query params and post params
 	% from the request bridge...
 	Bridge = Context#context.request,

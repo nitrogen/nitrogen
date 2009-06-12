@@ -6,7 +6,8 @@
 -include ("wf.inc").
 -export ([
 	render_elements/2,
-	temp_id/0
+	temp_id/0,
+	to_html_id/1
 ]).
 
 % render_elements(Elements, Context) - {ok, Html, NewContext}

@@ -5,27 +5,27 @@
 -module (default_session_handler).
 -behaviour (session_handler).
 -export ([
-	init/1, 
+	init/2, 
 	finish/2,
-	get/4, 
-	put/4, 
-	clear/3, 
+	get_value/4, 
+	set_value/4, 
+	clear_value/3, 
 	clear_all/2
 ]).
 
-init(Context) -> 
-	{ok, Context, []}.
+init(Context, State) -> 
+	{ok, Context, State}.
 
 finish(Context, State) -> 
 	{ok, Context, State}.
 	
-get(_Key, DefaultValue, Context, State) -> 
+get_value(_Key, DefaultValue, Context, State) -> 
 	{ok, DefaultValue, Context, State}.
 	
-put(_Key, _Value, Context, State) -> 
+set_value(_Key, _Value, Context, State) -> 
 	{ok, Context, State}.
 	
-clear(_Key, Context, State) ->
+clear_value(_Key, Context, State) ->
 	{ok, Context, State}.
 
 clear_all(Context, State) -> 

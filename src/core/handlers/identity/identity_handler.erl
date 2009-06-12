@@ -4,30 +4,33 @@
 
 -module (identity_handler).
 -export ([
-	behaviour_info/1
+	behaviour_info/1, get_user/1, set_user/2, clear/1
 ]).
 
+
+
+% get_user(Context, State) -> User.
+% Retrieve an Erlang term representing the current user.
+get_user(Context) ->
+	_User = wf_context:apply_return_raw(user, get_user, Context).
+	
+% set_user(User, Context, State) -> {ok, NewContext, NewState}.
+% Set an Erlang term representing the current user.
+set_user(User, Context) ->
+	{ok, _NewContext} = wf_context:apply(user, set_user, [User], Context).
+	
+% clear(Context, State) -> {ok, NewContext, NewState}.
+% Set the user to undefined.
+clear(Context) ->
+	{ok, _NewContext} = wf_context:apply(user, clear, Context).
+
+
+
 behaviour_info(callbacks) -> [
-	% init(Context) -> {ok, NewContext, NewState}.
-	% Called at the start of the request.
-	{init, 1},      
-
-	% finish(Context, State) -> {ok, NewContext, NewState}.
-	% Called at the end of the request, before sending
-	% a response back to the browser.
+	{init, 2},      
 	{finish, 2},
-	
-	% user(Context, State) -> {ok, User, NewContext, NewState}.
-	% Retrieve an Erlang term representing the current user.
-	{get_user, 2},
-	
-	% user(User, Context, State) -> {ok, NewContext, NewState}.
-	% Set an Erlang term representing the current user.
+	{get_user, 2},	
 	{set_user, 3},
-	
-	% logout(Context, State) -> {ok, NewContext, NewState}.
-	% Set the user to undefined.
-	{logout, 2}	
+	{clear, 2}	
 ];
-
 behaviour_info(_) -> undefined.

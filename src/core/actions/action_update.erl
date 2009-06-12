@@ -35,10 +35,13 @@ insert_bottom(TargetID, Elements, Context) ->
 %%% PRIVATE FUNCTIONS %%%
 
 update(Type, TargetID, Elements, Context) ->
-	Action = #update {
-		type=Type,
-		target=TargetID,
-		elements=Elements		
-	},
+	CurrentPath = Context#context.current_path,
+	Action = #wire { target=CurrentPath, actions=[
+		#update {
+			type=Type,
+			target=TargetID,
+			elements=Elements		
+		}
+	]},
 	QueuedActions = [Action|Context#context.queued_actions],
 	{ok, Context#context { queued_actions = QueuedActions }}.

@@ -6,13 +6,17 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(TriggerPath, TargetPath, Record) -> 
+render_action(Record, Context) -> 
+	TriggerPath = Record#validation_error.trigger,
+	TargetPath = Record#validation_error.target,
 	Text = wf_utils:js_escape(Record#validation_error.text),
 	Script = [
 		"var v = new LiveValidation(obj('me'), { onlyOnSubmit: true });",
-		wf:f("v.add(Validate.Custom, { against: Nitrogen.$return_false, failureMessage: \"~s\" });", [Text]),
+		wff:f("v.add(Validate.Custom, { against: Nitrogen.$return_false, failureMessage: \"~s\", displayMessageWhenEmpty: true });", [Text]),
 		"v.validate();"
 	],
-	action_script:render_action(TriggerPath, TargetPath, #script { script=Script }).
+	
+	Action = #script { trigger=TriggerPath, target=TargetPath, script=Script },
+	{ok, Action, Context}.
 		
 	

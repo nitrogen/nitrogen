@@ -4,33 +4,45 @@
 
 -module (state_handler).
 -export ([
-	behaviour_info/1
+	behaviour_info/1,
+	get_state/2, get_state/3, set_state/3, clear/2, clear_all/1
 ]).
 
-behaviour_info(callbacks) -> [
-	% init(Context) -> {ok, NewContext, NewState}.
-	% Called at the start of the request.
-	{init, 1},      
 
-	% finish(Context, State) -> {ok, NewContext, NewState}.
-	% Called at the end of the request, before sending
-	% a response back to the browser.
+
+% get_state(Key, DefaultValue, Context, State) -> Value.
+% Retrieve a value from the storage area.
+get_state(Key, Context) -> 
+	_Value = get_state(Key, undefined, Context).
+	
+% get_state(Key, DefaultValue, Context, State) -> Value.
+% Retrieve a value from the storage area.
+get_state(Key, DefaultValue, Context) ->
+	_Value = wf_context:apply_return_raw(state, get_state, [Key, DefaultValue], Context).
+
+% set_state(Key, Value, Context, State) -> {ok, NewContext, NewState}.
+% Put a value into the storage area.
+set_state(Key, Value, Context) ->
+	{ok, _NewContext} = wf_context:apply(state, set_state, [Key, Value], Context).
+
+% clear(Key, Context, State) -> {ok, NewContext, NewState}.
+% Remove a value from the storage area.
+clear(Key, Context) ->
+	{ok, _NewContext} = wf_context:apply(state, clear, [Key], Context).
+	
+% clear_all(Context, State) -> {ok, NewContext, NewState}.
+% Clear all values from the storage area.
+clear_all(Context) ->
+	{ok, _NewContext} = wf_context:apply(state, clear_all, Context).
+
+
+
+behaviour_info(callbacks) -> [
+	{init, 2},      
 	{finish, 2},
-	
-	% get(Key, DefaultValue, Context, State) -> {ok, Value, NewContext, NewState}.
-	% Retrieve a value from the storage area.
-	{get, 4},       
-	
-	% put(Key, Value, Context, State) -> {ok, NewContext, NewState}.
-	% Put a value into the storage area.
-	{put, 4},
-	
-	% clear(Key, Context, State) -> {ok, NewContext, NewState}.
-	% Remove a value from the storage area.
+	{get_state, 4},       
+	{set_state, 4},	
 	{clear, 3},
-	
-	% clear_all(Context, State) -> {ok, NewContext, NewState}.
-	% Clear all values from the storage area.
 	{clear_all, 2}
 ];
 

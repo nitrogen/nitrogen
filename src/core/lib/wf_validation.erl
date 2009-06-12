@@ -6,44 +6,48 @@
 -include ("wf.inc").
 -export ([validate/1]).
 
-validate(TriggerPath) ->
-	TriggerPath1 = wf_path:to_path(TriggerPath),
-	
+validate(Context) ->
+	% Some values...
+	Event = Context#context.event_context,
+	TriggerPath = Event#event_context.trigger,
+	Validators = state_handler:get_state(validators, [], Context),
+
 	% Get all validators that match the trigger path.
 	% TriggerPath is the full path of the Nitrogen element.
 	% The Validator's path will only have a partial path.
 	% ie: TriggerPath      = [nameTextBox, div1, page]
 	%     Validator's path = [nameTextBox, div1]
 	F1 = fun({P, _, _}) ->
-		P1 = wf_path:to_path(P),
-		case length(TriggerPath1) >= length(P1) of
+		case length(TriggerPath) >= length(P) of
 			true -> 
-				{Pre, _} = lists:split(length(P1), TriggerPath1),
-				Pre == P1;
+				{Pre, _} = lists:split(length(P), TriggerPath),
+				Pre == P;
 			false -> 
 			  false
 		end
 	end,
-	Validators = lists:filter(F1, wf:state(validators)),
-	
+	Validators1 = lists:filter(F1, Validators),
+
 	
 	% Now, run through each matching validator.
 	% Stop validating a TargetPath when it has failed.
-	F2 = fun({_, TargetPath, Record}, FailedPaths) ->
+	F2 = fun({_, TargetPath, Record}, {FailedPaths, Cx}) ->
 		case lists:member(TargetPath, FailedPaths) of
 			true -> FailedPaths;
 			false ->
 				Function = Record#custom.function,
 				Text = Record#custom.text,
-				[Value] = wf:q(wf_path:to_path(TargetPath)),
+				HtmlID = wff:to_html_id(TargetPath),
+				Value = wff:q(HtmlID, Context),
 				
 				case Function(Record#custom.tag, Value) of
-					true -> FailedPaths;
+					true -> 
+						{FailedPaths, Cx};
 					false ->
-						wf:wire(TargetPath, #validation_error { text=Text }),
-						FailedPaths ++ [TargetPath]
+						{ok, Cx1} = wff:wire(TargetPath, #validation_error { text=Text }, Cx),
+						{FailedPaths ++ [TargetPath], Cx1}
 				end
 		end
 	end,
- 	lists:foldl(F2, [], Validators) == [].
-
+	{FailedPaths, Context1} = lists:foldl(F2, {[], Context}, Validators1),
+	{ok, FailedPaths == [], Context1}.

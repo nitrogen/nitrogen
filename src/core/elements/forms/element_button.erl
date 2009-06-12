@@ -8,10 +8,10 @@
 
 reflect() -> record_info(fields, button).
 
-render_element(ControlID, Record, Context) -> 
+render_element(ControlID, Record, Context) ->
 	{ok, Context1} = case Record#button.postback of
 		undefined -> {ok, Context};
-		Postback -> wff:wire(ControlID, #event { type=click, postback=Postback }, Context)
+		Postback -> wff:wire(me, #event { type=click, postback=Postback }, Context)
 	end,
 	
 	Value = ["  ", wf:html_encode(Record#button.text, Record#button.html_encode), "  "], 

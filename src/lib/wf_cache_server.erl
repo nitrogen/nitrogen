@@ -7,7 +7,7 @@
 % 
 % -export([start_link/0]).
 % -export([read/1, write/1, delete/1]).
-% -export([init/1, handle_call/3, handle_cast/2]).
+% -export([init/2, handle_call/3, handle_cast/2]).
 % 
 % %%% CACHE_SERVER FUNCTIONS %%%
 % 

@@ -8,13 +8,7 @@
 ]).
 
 behaviour_info(callbacks) -> [
-	% init(Context) -> {ok, NewContext, NewState}.
-	% Called at the start of the request.
-	{init, 1},      
-
-	% finish(Context, State) -> {ok, NewContext, NewState}.
-	% Called at the end of the request, before sending
-	% a response back to the browser.
+	{init, 2},      
 	{finish, 2}
 ];
 

@@ -4,34 +4,39 @@
 
 -module (role_handler).
 -export ([
-	behaviour_info/1
+	behaviour_info/1, get_has_role/2, set_has_role/3, get_roles/1, clear_all/1
 ]).
 
+
+
+% get_has_role(Role, Context, State) -> {ok, IsInRole, NewContext, NewState}.
+% Returns true or false depending on whether the user is in the specified role.
+get_has_role(Role, Context) ->
+	_Boolean = wf_context:apply_return_raw(role, get_has_role, [Role], Context).
+
+% set_has_role(Role, IsInRole, Context, State) -> {ok, NewContext, NewState}.
+% Set whether the user is in the specified role.
+set_has_role(Role, IsInRole, Context) ->
+	{ok, _NewContext} = wf_context:apply(role, set_has_role, [Role, IsInRole], Context).
+	
+% roles(Context, State) -> {ok, [Roles], NewContext, NewState}
+% Return a list of roles held by the current user
+get_roles(Context) ->
+	_Roles = wf_context:apply_return_raw(role, roles, Context).
+	
+% clear_all(Context, State) -> {ok, NewContext, NewState}.
+% Clear all roles.
+clear_all(Context) ->
+	{ok, _NewContext} = wf_context:apply(role, clear_all, Context).
+
+
+
 behaviour_info(callbacks) -> [
-	% init(Context) -> {ok, NewContext, NewState}.
-	% Called at the start of the request.
-	{init, 1},      
-
-	% finish(Context, State) -> {ok, NewContext, NewState}.
-	% Called at the end of the request, before sending
-	% a response back to the browser.
+	{init, 2},      
 	{finish, 2},
-	
-	% role(Role, Context, State) -> {ok, IsInRole, NewContext, NewState}.
-	% Returns true or false depending on whether the user is in the specified role.
 	{get_has_role, 3},
-	
-	% role(Role, IsInRole, Context, State) -> {ok, NewContext, NewState}.
-	% Set whether the user is in the specified role.
 	{set_has_role, 4},
-	
-	% roles(Context, State) -> {ok, [Roles], NewContext, NewState}
-	% Return a list of roles held by the current user
 	{get_roles, 2},
-	
-	% logout(Context, State) -> {ok, NewContext, NewState}.
-	% Clear all roles.
-	{logout, 2}	
+	{clear_all, 2}	
 ];
-
 behaviour_info(_) -> undefined.

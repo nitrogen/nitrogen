@@ -7,13 +7,13 @@
 -include ("wf.inc").
 -include ("simplebridge.hrl").
 -export ([
-	init/1, 
+	init/2, 
 	finish/2,
 	build_response/4
 ]).
 
-init(Context) -> 
-	{ok, Context, []}.
+init(Context, State) -> 
+	{ok, Context, State}.
 	
 finish(Context, State) -> 
 	{ok, Context, State}.
@@ -40,7 +40,7 @@ build_first_response(Html, Script, Context, _State) ->
 	body,
 	"<script>\n",
 	script,
-	"</script>\n",
+	"\n</script>\n",
 	"</html>"
 	],
 	SimpleBody1 = replace(body, Html, SimpleBody),

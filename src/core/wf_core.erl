@@ -24,31 +24,47 @@ run_bootstrap(Context) ->
 	
 	% Initialize all handlers...
 	{ok, Context2} = call_init_on_handlers(Context1),
-	run_main(Context2).
+	run_execute(Context2).
 	 
-run_main(Context) ->
+run_execute(Context) ->
 	% Route the request...
 	{ok, Context1} = route_handler:route(Context),
 	
 	% Check the event...
 	{ok, Context2} = wf_event:update_context_with_event(Context1),
  
-	% Get event information...
+	% Call the module...
 	Event = Context2#context.event_context,
 	IsFirstRequest = Event#event_context.is_first_request,
+	{ok, Context3} = case IsFirstRequest of
+		true  -> run_execute_first_request(Context2);
+		false -> run_execute_postback(Context2)
+	end,
+	run_render(Context3).
+	
+run_execute_first_request(Context) ->
+	% Some values...
+	Event = Context#context.event_context,
+	Module = Event#event_context.module,
+	
+	% Call Module:main/1
+	{ok, Data, Context1} = Module:main(Context),
+	{ok, Context1#context { data=Data}}.
+
+run_execute_postback(Context) ->
+	% Some values...
+	Event = Context#context.event_context,
 	Module = Event#event_context.module,
 	Tag = Event#event_context.tag,
-
-	% Call the module...
-	{ok, Context4} = case IsFirstRequest of
-		true -> 
-			{ok, Data, Context3} = Module:main(Context2),
-			{ok, Context3#context { data=Data}};
-
-		_    -> 
-			Module:event(Tag, Context2)
-	end,
-	run_render(Context4).
+	
+	% Validate...
+	{ok, IsValid, Context1} = wf_validation:validate(Context),
+	
+	% Call the event...
+	case IsValid of
+		true -> Module:event(Tag, Context1);
+		false -> {ok, Context1}
+	end.
 	
 run_render(Context) ->
 	Elements = Context#context.data,
@@ -73,20 +89,18 @@ run_output(Html, Javascript, Context) ->
 % Updates the context with values that were stored
 % in the browser by serialize_context_state/1.
 deserialize_context_state(Context) ->	
-	% Quick and dirty function to read a query parameter.
+	% Get the contextState parameter.
 	Request = Context#context.request,
 	Params = Request:query_params(),
-	GetParam = fun(Param, Default) ->
-		case proplists:get_value(Param, Params) of
-			undefined -> Default;
-			Other -> wff:depickle(Other)
-		end		
+	SerializedContextState = proplists:get_value("contextState", Params),
+	
+	% Deserialize if possible, using the existing state as default.
+	[Page, Handlers] = case SerializedContextState of
+		undefined -> [Context#context.page_context, Context#context.handler_list];
+		Other -> wff:depickle(Other)
 	end,
-
-	% Get the pageContext and handlerList if they exist, and
-	% stuff them into the context...
-	Page = GetParam("pageContext", Context#context.page_context),
-	Handlers = GetParam("handlerList", Context#context.handler_list),
+	
+	% Update the context and return.
 	{ok, Context#context { page_context = Page, handler_list=Handlers }}.
 	
 % serialize_context_state/1 -
@@ -94,13 +108,11 @@ deserialize_context_state(Context) ->
 % as Javascript variables.
 serialize_context_state(Context) ->
 	Page = Context#context.page_context,
-	SerializedPage = wff:pickle(Page),
 	Handlers = Context#context.handler_list,
-	SerializedHandlers = wff:pickle(Handlers),
+	SerializedContextState = wff:pickle([Page, Handlers]),
 	[
 		wf_render_actions:generate_scope_script(Context),
-		wff:f("Nitrogen.$set_param('pageContext', '~s');\r\n", [SerializedPage]),
-		wff:f("Nitrogen.$set_param('handlerList', '~s');\r\n", [SerializedHandlers])
+		wff:f("Nitrogen.$set_param('contextState', '~s');", [SerializedContextState])
 	].
 	
 	
@@ -110,8 +122,8 @@ serialize_context_state(Context) ->
 % the session handler may use the cookie handler to get or set the session cookie.
 call_init_on_handlers(Context) ->
 	Handlers = Context#context.handler_list,
-	F = fun(#handler_context { name=Name, module=Module }, Cx) -> 
-		{ok, NewContext, NewState} = Module:init(Cx),
+	F = fun(#handler_context { name=Name, module=Module, state=State }, Cx) -> 
+		{ok, NewContext, NewState} = Module:init(Cx, State),
 		wf_context:set_handler(Name, Module, NewState, NewContext)
 	end,
 	{ok, lists:foldl(F, Context, Handlers)}.

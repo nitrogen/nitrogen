@@ -7,13 +7,13 @@
 -include ("wf.inc").
 -include ("simplebridge.hrl").
 -export ([
-	init/1, 
+	init/2, 
 	finish/2,
 	route/2
 ]).
 
-init(Context) -> 
-	{ok, Context, []}.
+init(Context, State) -> 
+	{ok, Context, State}.
 	
 finish(Context, State) -> 
 	{ok, Context, State}.

@@ -74,20 +74,6 @@ html_encode(S, Encode) -> wff:html_encode(S, Encode).
 % wire(TargetID, Actions) -> wff:wire(TargetID, Actions).
 % wire(TriggerID, TargetID, Actions) -> wff:wire(TriggerID, TargetID, Actions).
 % 
-% 
-% %%% WF_CONTINUE %%%
-% 
-% continue(Tag, Function) -> wff:continue(Tag, Function).
-% continue(Tag, Function, Interval) -> wff:continue(Tag, Function, Interval).
-% continue(Tag, Function, Interval, Timeout) -> wff:continue(Tag, Function, Interval, Timeout).
-% 
-% 
-% %%% WF_COMET %%%
-% 
-% comet(Function) -> wff:comet(Function).
-% comet_flush() -> wff:comet_flush().
-% 
-% 
 % %%% WF_REDIRECT %%%
 % 
 % redirect(Url) -> wff:redirect(Url).

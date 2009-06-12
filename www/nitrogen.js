@@ -53,7 +53,7 @@ function obj(path) {
 N.Page = function(o) {
 	var n = new Nitrogen(o);
 	n.$do_event = n.$do_xhr_event;
-	n.$do_immediate_event = n.$do_xhr_immediate_event;
+	n.$do_system_event = n.$do_xhr_system_event;
 	return n;
 }
 
@@ -61,11 +61,11 @@ N.Inline = function(o) {
 	var n = new Nitrogen(o);
 	if (o.windex) {
 		n.$do_event = n.$do_windex_event;
-		n.$do_immediate_event = n.$do_windex_immediate_event;
+		n.$do_system_event = n.$do_windex_system_event;
 		n.$url = Nitrogen.$add_param_to_url(n.$url, "windex", "true");
 	} else {
 		n.$do_event = n.$do_xhr_event;
-		n.$do_immediate_event = n.$do_xhr_immediate_event;
+		n.$do_system_event = n.$do_xhr_system_event;
 	}
 	
 	var url = Nitrogen.$add_param_to_url(n.$url, "object_id", n.id);
@@ -213,14 +213,14 @@ N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
 	});			
 }
 
-/*** IMMEDIATE EVENTS (FOR ASYNC) ***/
+/*** SYSTEM EVENTS (FOR ASYNC) ***/
 
-N.$do_immediate_event = function(eventContext) {
+N.$do_system_event = function(eventContext) {
 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$do_immediate_event(eventContext);
+	n.$do_system_event(eventContext);
 }
 
-N.prototype.$do_xhr_immediate_event = function(eventContext) { 
+N.prototype.$do_xhr_system_event = function(eventContext) { 
 	// Assemble parameters... 
 	var url = this.$url;
 	for (var key in this.$params) {
@@ -268,7 +268,7 @@ N.prototype.$do_xhr_immediate_event = function(eventContext) {
 // }
 // 
 // 
-// N.prototype.$do_windex_immediate_event = function(eventContext) { 
+// N.prototype.$do_windex_system_event = function(eventContext) { 
 // 	alert("Async is not yet supported via Windex.");
 // }
 

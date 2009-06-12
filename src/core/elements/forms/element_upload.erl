@@ -8,12 +8,6 @@
 
 reflect() -> record_info(fields, upload).
 
-% TODO 
-% - Figure out how to access the parent document.
-% - Issue a postback on the parent document with the identifier of the file.
-% - Handle the postback and call an event on the page module.
-% - Does document.parentNode always work in an iframe?
-
 render(ControlID, Record) ->
 	ShowButton = Record#upload.show_button,
 	ButtonText = Record#upload.button_text,

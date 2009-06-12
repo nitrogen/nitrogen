@@ -8,23 +8,20 @@
 	route/1
 ]).
 
-behaviour_info(callbacks) -> [
-	% init(Context) -> {ok, NewContext, State}.
-	% Called at the start of the request.
-	{init, 1},      
 
-	% finish(Context, State) -> {ok, NewContext, NewState}.
-	% Called at the end of the request, before sending
-	% a response back to the browser.
+
+% route(Context, State) -> {ok, NewContext, NewState}.
+% Route the request by setting the module and path_info 
+% attributes of Context#context.page_context.
+route(Context) ->
+	wf_context:apply(route, route, Context).
+
+
+
+behaviour_info(callbacks) -> [
+	{init, 2},      
 	{finish, 2},
-	
-	% route(Context, State) -> {ok, NewContext, NewState}.
-	% Route the request by setting the page_module and path_info 
-	% attributes of Context#context.
 	{route, 2}
 ];
 
 behaviour_info(_) -> undefined.
-
-route(Context) ->
-	wf_context:apply(route, route, Context).

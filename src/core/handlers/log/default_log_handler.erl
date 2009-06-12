@@ -5,15 +5,15 @@
 -module (default_log_handler).
 -behaviour (log_handler).
 -export ([
-	init/1, 
+	init/2, 
 	finish/2,
 	info/3, 
 	warning/3, 
 	error/3
 ]).
 
-init(Context) -> 
-	{ok, Context, []}.
+init(Context, State) -> 
+	{ok, Context, State}.
 	
 finish(Context, State) -> 
 	{ok, Context, State}.

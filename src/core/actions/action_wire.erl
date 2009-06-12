@@ -36,11 +36,13 @@ set_target(Action, Target) -> setelement(5, Action, Target).
 
 wire(TriggerID, TargetID, Actions, Context) ->
 	CurrentPath = Context#context.current_path,
-	Action = #wire {
-		trigger=wff:coalesce([TriggerID, CurrentPath]),
-		target=wff:coalesce([TargetID, CurrentPath]),
-		actions=Actions
-	},
+	Action = #wire { trigger=CurrentPath, target=CurrentPath, actions=[
+		#wire { 
+			trigger=wff:coalesce([TriggerID, CurrentPath]),
+			target=wff:coalesce([TargetID, CurrentPath]),
+			actions=Actions
+		}
+	]},
 	QueuedActions = [Action|Context#context.queued_actions],
 	{ok, Context#context { queued_actions = QueuedActions }}.
 

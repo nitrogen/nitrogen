@@ -4,32 +4,35 @@
 
 -module (cache_handler).
 -export ([
-	behaviour_info/1
+	behaviour_info/1, get_set/4, clear/2, clear_all/1
 ]).
 
-behaviour_info(callbacks) -> [
-	% init(Context) -> {ok, NewContext, NewState}
-	% Called at the start of the request.
-	{init, 1},      
 
-	% finish(Context, State) -> {ok, NewContext, NewState}
-	% Called at the end of the request, before sending
-	% a response back to the browser.
+
+% get_set(Key, Function, TTL, Context, State) -> {ok, Value, NewContext, NewState}
+% Return the cache value associated with Key. If it is not found,
+% then run the Function, store the resulting value in cache under
+% Key, and return the value.
+get_set(Key, Function, TTL, Context) -> 
+	{ok, _Value, _NewContext} = wf_context:apply(cache, get_set, [Key, Function, TTL], Context).
+
+% clear(Key, Context, State) -> {ok, NewContext, NewState}
+% Remove a value from cache.
+clear(Key, Context) ->	
+	{ok, _NewContext} = wf_context:apply(cache, clear, [Key], Context).
+	
+% clear_all(Context, State) -> {ok, NewContext, NewState}
+% Clear all values from cache.
+clear_all(Context) -> 
+	{ok, _NewContext} = wf_context:apply(cache, clear_all, Context).
+
+
+
+behaviour_info(callbacks) -> [
+	{init, 2},      
 	{finish, 2},
-	
-	% get_set(Key, Function, TTL, Context, State) -> {ok, Value, NewContext, NewState}
-	% Return the cache value associated with Key. If it is not found,
-	% then run the Function, store the resulting value in cache under
-	% Key, and return the value.
 	{get_set, 5}, 
-	
-	% clear(Key, Context, State) -> {ok, NewContext, NewState}
-	% Remove a value from cache.
 	{clear, 3},
-	
-	% clear_all(Context, State) -> {ok, NewContext, NewState}
-	% Clear all values from cache.
 	{clear_all, 2}
 ];
-
 behaviour_info(_) -> undefined.

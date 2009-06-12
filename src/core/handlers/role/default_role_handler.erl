@@ -5,16 +5,16 @@
 -module (default_role_handler).
 -behaviour (role_handler).
 -export ([
-	init/1, 
+	init/2, 
 	finish/2,
 	get_has_role/3, 
 	set_has_role/4, 
 	get_roles/2,
-	logout/2
+	clear_all/2
 ]).
 
-init(Context) -> 
-	{ok, Context, []}.
+init(Context, State) -> 
+	{ok, Context, State}.
 
 finish(Context, State) -> 
 	{ok, Context, State}.
@@ -28,5 +28,5 @@ set_has_role(_Role, _IsInRole, Context, State) ->
 get_roles(Context, State) -> 
 	{ok, [], Context, State}.
 
-logout(Context, State) -> 
+clear_all(Context, State) -> 
 	{ok, Context, State}.

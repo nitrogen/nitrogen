@@ -6,27 +6,35 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(TriggerPath, TargetPath, Record) -> 
-	% Initialize a validator for the Target...
+render_action(Record, Context) -> 
+	% Some values...
+	TriggerPath = Record#validate.trigger,
+	TargetPath = Record#validate.target,
 	ValidMessage = wf_utils:js_escape(Record#validate.success_text),
 	OnlyOnBlur = (Record#validate.on == blur),
 	OnlyOnSubmit = (Record#validate.on == submit),	
 	InsertAfterNode = case Record#validate.attach_to of
 		undefined -> "";
-		Node -> wf:f(", insertAfterWhatNode : obj(\"~s\")", [Node])
+		Node -> wff:f(", insertAfterWhatNode : obj(\"~s\")", [Node])
 	end,
-	ConstructorJS = wf:f("var v = obj('me').validator = new LiveValidation(obj('me'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [wf_utils:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
-	TriggerJS = wf:f("v.trigger = obj('~s');", [wf:to_js_id(TriggerPath)]),
+
+	% Create the validator Javascript...
+	ConstructorJS = wff:f("var v = obj('me').validator = new LiveValidation(obj('me'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [wf_utils:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
+	TriggerJS = wff:f("v.trigger = obj('~s');", [wff:to_js_id(TriggerPath)]),
 	
-	% Render the validation javascript...
+	% Update all child validators with TriggerPath and TargetPath...
 	F = fun(X) ->
 			Base = wf_utils:get_validatorbase(X),
-			TypeModule = Base#validatorbase.module,
-			TypeModule:render_validator(TriggerPath, TargetPath, X)
+			Base1 = Base#validatorbase { trigger = TriggerPath, target = TargetPath },
+			wf_utils:replace_with_base(Base1, X)
 	end,
-	ValidatorsJS = [F(X) || X <- lists:flatten([Record#validate.validators])],
+	Validators = lists:flatten([Record#validate.validators]),
+	Validators1 = [F(X) || X <- Validators],
 
   % Use #script element to create the final javascript to send to the browser...
-	action_script:render_action(TriggerPath, TargetPath, #script { script=[ConstructorJS,	TriggerJS, ValidatorsJS] }).
+	Actions = [
+		ConstructorJS, TriggerJS, Validators1
+	],
+	{ok, Actions, Context}.
 	
 

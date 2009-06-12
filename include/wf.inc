@@ -128,7 +128,7 @@
 -record(async, {?ACTION_BASE(action_async), pool=default, scope=local, function, dying_message}).
 
 -record(redirect, {?ACTION_BASE(action_redirect), url}).
--record(event, {?ACTION_BASE(action_event), type=click, delay=1, postback, delegate}).
+-record(event, {?ACTION_BASE(action_event), type=click, delay=0, postback, delegate}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
 -record(validation_error, {?ACTION_BASE(action_validation_error), text="" }).
 -record(alert, {?ACTION_BASE(action_alert), text=""}).
@@ -149,7 +149,7 @@
 -record(comet_start, {?ACTION_BASE(action_comet_start)}).
 
 %%% Validators %%%
--define(VALIDATOR_BASE(Module), is_validator=is_validator, module=Module, text="Failed.").
+-define(VALIDATOR_BASE(Module), ?ACTION_BASE(Module), text="Failed.").
 -record(validatorbase, {?VALIDATOR_BASE(undefined)}).
 -record(is_required, {?VALIDATOR_BASE(validator_is_required)}).
 -record(is_email, {?VALIDATOR_BASE(validator_is_email)}).

@@ -37,7 +37,8 @@
 render_action(Record, Context) -> 
 	% This will immediately trigger a postback to event/1 below.
 	Actions = #event {
-		type=immediate,
+		type=system,
+		delay=0,
 		delegate=?MODULE,
 		postback={spawn_async_function, Record}
 	},
@@ -195,7 +196,6 @@ get_actions(Context) ->
 	Page = Context#context.page_context,
 	SeriesID = Page#page_context.series_id,
 	{ok, AccumulatorPid, Context1} = process_cabinet_handler:get_set(SeriesID, fun() -> accumulator_loop([], [], none) end, Context),
-	?PRINT(AccumulatorPid),
 	Actions = case is_pid(AccumulatorPid) andalso is_process_alive(AccumulatorPid) of
 		true -> 
 			AccumulatorPid!{get_actions, self()},
@@ -234,10 +234,10 @@ get_actions_blocking(Context, Timeout) ->
 	{ok, Actions, Context1}.
 
 start_async_event() ->
-	#event { type=immediate, delegate=?MODULE, postback=start_async }.
+	#event { type=system, delay=0, delegate=?MODULE, postback=start_async }.
 	
 start_async_event(Interval) ->
-	#event { type=timer, delay=(Interval), delegate=?MODULE, postback=start_async }.
+	#event { type=system, delay=Interval, delegate=?MODULE, postback=start_async }.
 	
 % Get the PoolPid. This can either be local or global. By registering an async function
 % with a global pool, any messages sent to that pool are sent to all processes in the pool.

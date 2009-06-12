@@ -74,8 +74,15 @@ render_action(Action, Context) when is_tuple(Action) ->
 			% Update to a new current path...
 			Context1 = Context#context { current_path=TargetPath1 },
 			
-			% Add some Javascript to set the target path on the client.
-			ScopeScript = generate_scope_script(Context1),
+			% Add some Javascript to set the target path on the client,
+			% but only if this is not a container event. This
+			% is kind of a hack to reduce the number of spurious
+			% javascript calls to Nitrogen.$scope(...).
+			ContainerActions = [action_wire, action_async],
+			ScopeScript = case not lists:member(Module, ContainerActions) of
+				true -> generate_scope_script(Context1);
+				false -> []
+			end,
 			
 			% Render the action...
 			{ok, Script, Context2} = call_action_render(Module, Action1, Context1),
@@ -84,7 +91,7 @@ render_action(Action, Context) when is_tuple(Action) ->
 			Context3 = Context2#context { current_path=OldPath },
 
 			case Script /= undefined andalso Script/=[] of
-				true  -> {ok, [ScopeScript, Script, "\n"], Context3};
+				true  -> {ok, [ScopeScript, Script], Context3};
 				false -> {ok, [], Context3}
 			end;
 		_ -> 
@@ -114,8 +121,8 @@ normalize_path(Path, Context) when is_atom(Path) orelse ?IS_STRING(Path) ->
   % that includes the CurrentPath if possible...
 	Path1 = string:tokens(wff:to_list(Path), "."),
 	Path2 = case hd(Path1) of
-		me -> lists:reverse(tl(Path1)) ++ CurrentPath;
-		parent -> lists:reverse(Path1) ++ CurrentPath;
+		"me" -> lists:reverse(tl(Path1)) ++ CurrentPath;
+		"parent" -> lists:reverse(Path1) ++ CurrentPath;
 		_ -> lists:reverse(Path1)
 	end,
 	
@@ -177,4 +184,4 @@ generate_scope_script(Context) ->
 	Page = Context#context.page_context,
 	CurrentID = Page#page_context.name,
 	CurrentPath = Context#context.current_path,
-	wff:f("Nitrogen.$scope('~s', '~s');~n", [CurrentID, wff:to_js_id(CurrentPath)]).
+	wff:f("~nNitrogen.$scope('~s', '~s'); ", [CurrentID, wff:to_js_id(CurrentPath)]).

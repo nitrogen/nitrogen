@@ -15,6 +15,7 @@ make_context(RequestBridge, ResponseBridge) ->
 		page_context = #page_context { series_id = wff:temp_id() },
 		event_context = #event_context {},
 		handler_list = [
+			make_handler(cookie, default_cookie_handler),
 			make_handler('query', default_query_handler),
 			make_handler(process_cabinet, default_process_cabinet_handler),
 			make_handler(log, default_log_handler),
@@ -24,8 +25,7 @@ make_context(RequestBridge, ResponseBridge) ->
 			make_handler(route, default_route_handler), 
 			make_handler(security, default_security_handler), 
 			make_handler(cache, default_cache_handler), 
-			make_handler(request_state, default_request_state_handler), 
-			make_handler(page_state, default_page_state_handler), 
+			make_handler(state, default_state_handler), 
 			make_handler(output, page_output_handler)
 		]
 	}.
@@ -84,7 +84,7 @@ get_handler(Name, Context) ->
 		{value, Handler} when is_record(Handler, handler_context) -> 
 			Handler;
 		false -> 
-			throw({handlers_not_found_in_context, Name, Context#context.handler_list})
+			throw({handler_not_found_in_context, Name, Context#context.handler_list})
 	end.
 			
 % set_handler/4 -

@@ -11,34 +11,50 @@ render_action(Record, Context) ->
 	TargetPath = Record#event.target,
 	EventType = Record#event.type, 
 	Postback = wf_event:generate_postback_script(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate, Context),
+	SystemPostback = wf_event:generate_system_postback_script(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate, Context),
 	Actions = #wire { trigger=TriggerPath, target=TargetPath, actions=Record#event.actions },
 
 	Script = case EventType of
-		enterkey ->
+		
+		%%% SYSTEM EVENTS %%%
+		% Trigger a system postback immediately...
+		system when Record#event.delay == 0 ->
 			[
-				wff:f("Nitrogen.$observe_event(obj('~s'), 'keypress', function anonymous(event) {\r\n", [wff:to_js_id(TriggerPath)]),
-				"if (Nitrogen.$is_enter_key(event)) {\r\n", Postback, " ", Actions, "return false; }\r\n",
-				"});"
+				SystemPostback, Actions
 			];
 		
-		immediate ->
-			ImmediatePostback = wf_event:generate_immediate_postback_script(Record#event.postback, EventType, TriggerPath, TargetPath, Record#event.delegate, Context),
-			[
-				ImmediatePostback, Actions
-			];
-		
-		timer ->
+		% Trigger a system postback after some delay...
+		system ->
 			TempID = wff:temp_id(),
 			[
-				wff:f("document.~s = function() {\r\n", [TempID]), Postback, Actions, "};\r\n",
+				wff:f("document.~s = function() {", [TempID]), SystemPostback, Actions, "};",
 				wff:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, TempID, Record#event.delay])
 			];
 			
+		%%% USER EVENTS %%%
+		% Run the event when an enter key is hit, such as in an input textbox
+		enterkey ->
+			[
+				wff:f("Nitrogen.$observe_event(obj('~s'), 'keypress', function anonymous(event) {", [wff:to_js_id(TriggerPath)]),
+				"if (Nitrogen.$is_enter_key(event)) {", Postback, " ", Actions, "return false; }",
+				"});"
+			];
+		
+		% Run the event after a specified amount of time
+		timer ->
+			TempID = wff:temp_id(),
+			[
+				wff:f("document.~s = function() {", [TempID]), Postback, Actions, "};",
+				wff:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, TempID, Record#event.delay])
+			];
+		
+		% Run some other Javascript event (click, mouseover, mouseout, etc.)
 		_ ->
 			[
-				wff:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {\r\n", [wff:to_js_id(TriggerPath), EventType]), 
+				wff:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {", [wff:to_js_id(TriggerPath), EventType]), 
 				Postback, " ", Actions, 
 				"});"
 			]
+			
 	end,
 	{ok, Script, Context}.

@@ -7,7 +7,7 @@
 -export ([
 	update_context_with_event/1,
 	generate_postback_script/6,
-	generate_immediate_postback_script/6,
+	generate_system_postback_script/6,
 	serialize_event_context/6
 ]).
 
@@ -59,12 +59,12 @@ generate_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate,
 		wff:f("Nitrogen.$queue_event('~s', '~s');", [wff:to_js_id(TriggerPath), PickledPostbackInfo])
 	].
 
-generate_immediate_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate, _Context) -> [];
-generate_immediate_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate, Context) ->
+generate_system_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate, _Context) -> [];
+generate_system_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate, Context) ->
 	PickledPostbackInfo = serialize_event_context(Postback, EventType, TriggerPath, TargetPath, Delegate, Context),
 	[
 		wf_render_actions:generate_scope_script(Context),
-		wff:f("Nitrogen.$do_immediate_event('~s');", [PickledPostbackInfo])
+		wff:f("Nitrogen.$do_system_event('~s');", [PickledPostbackInfo])
 	].
 	
 serialize_event_context(Tag, EventType, TriggerPath, TargetPath, Delegate, Context) ->
