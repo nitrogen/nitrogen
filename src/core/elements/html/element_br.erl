@@ -8,9 +8,10 @@
 
 reflect() -> record_info(fields, br).
 
-render(ControlID, Record) -> 
-	wf_tags:emit_tag(br, [
+render_element(ControlID, Record, Context) -> 
+	Elements = wf_tags:emit_tag(br, [
 		{id, ControlID},
 		{class, [br, Record#br.class]}, 
 		{style, Record#br.style}
-	]).
+	]),
+	{ok, Elements, Context}.

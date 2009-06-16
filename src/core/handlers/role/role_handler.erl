@@ -12,22 +12,22 @@
 % get_has_role(Role, Context, State) -> {ok, IsInRole, NewContext, NewState}.
 % Returns true or false depending on whether the user is in the specified role.
 get_has_role(Role, Context) ->
-	_Boolean = wf_context:apply_return_raw(role, get_has_role, [Role], Context).
+	_Boolean = wf_context:apply_return_raw(role_handler, get_has_role, [Role], Context).
 
 % set_has_role(Role, IsInRole, Context, State) -> {ok, NewContext, NewState}.
 % Set whether the user is in the specified role.
 set_has_role(Role, IsInRole, Context) ->
-	{ok, _NewContext} = wf_context:apply(role, set_has_role, [Role, IsInRole], Context).
+	{ok, _NewContext} = wf_context:apply(role_handler, set_has_role, [Role, IsInRole], Context).
 	
 % roles(Context, State) -> {ok, [Roles], NewContext, NewState}
 % Return a list of roles held by the current user
 get_roles(Context) ->
-	_Roles = wf_context:apply_return_raw(role, roles, Context).
+	_Roles = wf_context:apply_return_raw(role_handler, roles, Context).
 	
 % clear_all(Context, State) -> {ok, NewContext, NewState}.
 % Clear all roles.
 clear_all(Context) ->
-	{ok, _NewContext} = wf_context:apply(role, clear_all, Context).
+	{ok, _NewContext} = wf_context:apply(role_handler, clear_all, Context).
 
 
 

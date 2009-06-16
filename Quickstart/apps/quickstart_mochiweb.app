@@ -1,11 +1,9 @@
 {application, quickstart_mochiweb, [
 	{description,  "Nitrogen Quickstart Examples"},
-	{mod, {quickstart, []}},
+	{mod, {quickstart_mochiweb_app, []}},
 	{env, [
-		{platform, mochiweb},
+		{ip, {0,0,0,0}},
 		{port, 8000},
-		{session_timeout, 20},
-		{sign_key, "b37ca07"},
 		{wwwroot, "./wwwroot"}
 	]}
 ]}.

@@ -35,7 +35,7 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-06-11T02:32:59Z</date>
+					<date>2009-06-13T19:01:16Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -69,7 +69,7 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-12T02:26:20Z</date>
+							<date>2009-06-13T18:57:35Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -147,33 +147,37 @@
 									<key>filename</key>
 									<string>src/platforms/nitrogen_mochiweb_app.erl</string>
 									<key>lastUsed</key>
-									<date>2009-04-02T00:17:08Z</date>
+									<date>2009-06-13T19:31:11Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/platforms/nitrogen_yaws_app.erl</string>
 									<key>lastUsed</key>
-									<date>2009-04-01T23:59:45Z</date>
+									<date>2009-06-13T19:31:11Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/platforms/wf_inets.erl</string>
 									<key>lastUsed</key>
-									<date>2009-05-29T01:46:14Z</date>
+									<date>2009-06-13T19:31:11Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/platforms/wf_mochiweb.erl</string>
 									<key>lastUsed</key>
-									<date>2009-04-02T00:17:07Z</date>
+									<date>2009-06-13T19:31:12Z</date>
+									<key>selected</key>
+									<true/>
 								</dict>
 								<dict>
 									<key>filename</key>
 									<string>src/platforms/wf_yaws.erl</string>
 									<key>lastUsed</key>
-									<date>2009-04-02T00:17:07Z</date>
+									<date>2009-06-13T19:31:11Z</date>
 								</dict>
 							</array>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>Platforms</string>
 						</dict>
@@ -184,7 +188,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_multipart.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-11T23:16:07Z</date>
+									<date>2009-06-13T22:22:30Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -215,8 +219,6 @@
 									<string>src/lib/wf_handle.erl</string>
 									<key>lastUsed</key>
 									<date>2009-06-12T02:48:22Z</date>
-									<key>selected</key>
-									<true/>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -246,7 +248,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_utils.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-10T23:43:38Z</date>
+									<date>2009-06-13T16:49:46Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -270,7 +272,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_platform_mochiweb.erl</string>
 									<key>lastUsed</key>
-									<date>2009-04-02T00:17:04Z</date>
+									<date>2009-06-13T22:22:29Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -282,11 +284,9 @@
 									<key>filename</key>
 									<string>src/lib/wf_http_basic_auth.erl</string>
 									<key>lastUsed</key>
-									<date>2009-03-08T00:58:43Z</date>
+									<date>2009-06-13T18:57:35Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>Lib</string>
 						</dict>
@@ -309,7 +309,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-06-11T23:16:09Z</date>
+					<date>2009-06-13T19:01:15Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -359,20 +359,6 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>src/platforms/nitrogen_yaws_app.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>22</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>5</integer>
-		</dict>
 		<key>www/nitrogen.css</key>
 		<dict>
 			<key>caret</key>

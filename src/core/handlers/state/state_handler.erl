@@ -18,22 +18,22 @@ get_state(Key, Context) ->
 % get_state(Key, DefaultValue, Context, State) -> Value.
 % Retrieve a value from the storage area.
 get_state(Key, DefaultValue, Context) ->
-	_Value = wf_context:apply_return_raw(state, get_state, [Key, DefaultValue], Context).
+	_Value = wf_context:apply_return_raw(state_handler, get_state, [Key, DefaultValue], Context).
 
 % set_state(Key, Value, Context, State) -> {ok, NewContext, NewState}.
 % Put a value into the storage area.
 set_state(Key, Value, Context) ->
-	{ok, _NewContext} = wf_context:apply(state, set_state, [Key, Value], Context).
+	{ok, _NewContext} = wf_context:apply(state_handler, set_state, [Key, Value], Context).
 
 % clear(Key, Context, State) -> {ok, NewContext, NewState}.
 % Remove a value from the storage area.
 clear(Key, Context) ->
-	{ok, _NewContext} = wf_context:apply(state, clear, [Key], Context).
+	{ok, _NewContext} = wf_context:apply(state_handler, clear, [Key], Context).
 	
 % clear_all(Context, State) -> {ok, NewContext, NewState}.
 % Clear all values from the storage area.
 clear_all(Context) ->
-	{ok, _NewContext} = wf_context:apply(state, clear_all, Context).
+	{ok, _NewContext} = wf_context:apply(state_handler, clear_all, Context).
 
 
 

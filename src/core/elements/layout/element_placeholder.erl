@@ -8,4 +8,5 @@
 
 reflect() -> record_info(fields, placeholder).
 
-render(_ControlID, Record) -> wf:render(Record#placeholder.body).
+render_element(_ControlID, Record, Context) -> 
+	{ok, Record#placeholder.body, Context}.

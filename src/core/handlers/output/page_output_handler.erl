@@ -26,29 +26,32 @@ build_response(Html, Script, Context, State) ->
 	end.
 	
 build_first_response(Html, Script, Context, _State) ->
-	SimpleBody = [
-	"<html>\n",
-	"<head>\n",
-	"<script src='/nitrogen/jquery.js' type='text/javascript' charset='utf-8'></script>\n",
-	"<script src='/nitrogen/jquery-ui.js' type='text/javascript' charset='utf-8'></script>\n",
-	"<script src='/nitrogen/livevalidation.js' type='text/javascript' charset='utf-8'></script>\n",
-	"<script src='/nitrogen/nitrogen.js' type='text/javascript' charset='utf-8'></script>\n",
-	"<link rel='stylesheet' href='/nitrogen/jquery-ui/jquery-ui.css' type='text/css' media='screen' charset='utf-8'>\n",
-	"<link rel='stylesheet' href='/nitrogen/elements.css' type='text/css' media='screen' charset='utf-8'>\n",
-	"</head>\n",
-	"<body>\n",
-	body,
-	"<script>\n",
-	script,
-	"\n</script>\n",
-	"</html>"
-	],
-	SimpleBody1 = replace(body, Html, SimpleBody),
-	SimpleBody2 = replace(script, Script, SimpleBody1),
+	% SimpleBody = [
+	% "<html>\n",
+	% "<head>\n",
+	% "<script src='/nitrogen/jquery.js' type='text/javascript' charset='utf-8'></script>\n",
+	% "<script src='/nitrogen/jquery-ui.js' type='text/javascript' charset='utf-8'></script>\n",
+	% "<script src='/nitrogen/livevalidation.js' type='text/javascript' charset='utf-8'></script>\n",
+	% "<script src='/nitrogen/nitrogen.js' type='text/javascript' charset='utf-8'></script>\n",
+	% "<link rel='stylesheet' href='/nitrogen/jquery-ui/jquery-ui.css' type='text/css' media='screen' charset='utf-8'>\n",
+	% "<link rel='stylesheet' href='/nitrogen/elements.css' type='text/css' media='screen' charset='utf-8'>\n",
+	% "</head>\n",
+	% "<body>\n",
+	% body,
+	% "<script>\n",
+	% script,
+	% "\n</script>\n",
+	% "</html>"
+	% ],
+	% SimpleBody1 = replace(body, Html, SimpleBody),
+	% SimpleBody2 = replace(script, Script, SimpleBody1),
+	
+	% Update the output with any script...
+	Html1 = replace(script, Script, Html),
 
 	% Update the response bridge and return.
 	Bridge = Context#context.response,
-	Bridge1 = Bridge:data(lists:flatten(SimpleBody2)),
+	Bridge1 = Bridge:data(Html1),
 	Bridge1:build_response().
 	
 build_postback_response(_Html, Script, Context, _State) ->
@@ -56,8 +59,8 @@ build_postback_response(_Html, Script, Context, _State) ->
 	Bridge = Context#context.response,
 	Bridge1 = Bridge:data(lists:flatten(Script)),
 	Bridge1:build_response().
-	
-	
+		
+replace(_, _, S) when ?IS_STRING(S) -> S;
 replace(Old, New, [Old|T]) -> [New|T];
-replace(Old, New, [H|T]) -> [H|replace(Old, New, T)];
-replace(_, _, []) -> [].
+replace(Old, New, [H|T]) -> [replace(Old, New, H)|replace(Old, New, T)];
+replace(_, _, Other) -> Other.

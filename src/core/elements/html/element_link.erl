@@ -8,20 +8,22 @@
 
 reflect() -> record_info(fields, link).
 
-render(ControlID, Record) -> 
-	case Record#link.postback of
-		undefined -> ok;
-		Postback -> wf:wire(ControlID, #event { type=click, postback=Postback })
+render_element(ControlID, Record, Context) -> 
+	{ok, Context1} = case Record#link.postback of
+		undefined -> {ok, Context};
+		Postback -> wff:wire(Record#link.id, #event { type=click, postback=Postback })
 	end,
 	
-	Content = [
+	Body = [
 		wf:html_encode(Record#link.text, Record#link.html_encode),
-		wf:render(Record#link.body)
+		Record#link.body
 	],
 	
-	wf_tags:emit_tag(a, Content, [
+	Elements = wf_tags:emit_tag(a, Body, [
 		{id, ControlID},
 		{href, Record#link.url},
 		{class, [link, Record#link.class]},
 		{style, Record#link.style}
-	]).
+	]),
+	
+	{ok, Elements, Context1}.

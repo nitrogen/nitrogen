@@ -13,7 +13,7 @@
 % get_value(Path, Context, State) -> Value.
 % Given a path, return the parameter value.
 get_value(Path, Context) ->
-	_Value = wf_context:apply_return_raw('query', get_value, [Path], Context).
+	_Value = wf_context:apply_return_raw(query_handler, get_value, [Path], Context).
 		
 		
 

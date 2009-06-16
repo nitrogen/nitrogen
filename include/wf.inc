@@ -34,6 +34,9 @@
 }).
 
 -record(context, {
+	% Nitrogen Config
+	config=[],         % Key value configuration pairs
+	
 	% Request and Response
 	request,           % Request Bridge (see SimpleBridge)
 	response,          % Response Bridge (see SimpleBridge)
@@ -65,6 +68,7 @@
 -define(ELEMENT_BASE(Module), is_element=is_element, module=Module, id, actions, show_if=true, class="", style="").
 -record(elementbase, {?ELEMENT_BASE(undefined)}).
 -record(template, {?ELEMENT_BASE(element_template), file, bindings=[] }).
+-record(function, {?ELEMENT_BASE(element_function), function=fun() -> [] end}).
 -record(windex, {?ELEMENT_BASE(element_windex) }).
 -record(body, {?ELEMENT_BASE(element_body), title="", body=[]}).
 -record(h1, {?ELEMENT_BASE(element_h1), text="", html_encode=true}).
@@ -112,12 +116,9 @@
 -record(draggable, {?ELEMENT_BASE(element_draggable), tag, body=[], group, handle, clone=true, revert=true}).
 -record(droppable, {?ELEMENT_BASE(element_droppable), tag, body=[], accept_groups=all, active_class=active, hover_class=hover}).
 -record(gravatar, {?ELEMENT_BASE(element_gravatar), email="", size="80", rating="g", default=""}).
-
-%%% Controls %%%
--define(CONTROL_BASE(Module), ?ELEMENT_BASE(Module), tag).
--record(inplace_textbox, {?CONTROL_BASE(element_inplace_textbox), text="", html_encode=true, start_mode=view, validators=[]}).
--record(wizard, {?CONTROL_BASE(element_wizard), titles, steps }).
--record(upload, {?CONTROL_BASE(element_upload), show_button=true, button_text="Upload" }).
+-record(inplace_textbox, {?ELEMENT_BASE(element_inplace_textbox), tag, text="", html_encode=true, start_mode=view, validators=[]}).
+-record(wizard, {?ELEMENT_BASE(element_wizard), tag, titles, steps }).
+-record(upload, {?ELEMENT_BASE(element_upload), tag, show_button=true, button_text="Upload" }).
 
 %%% Actions %%%
 -define(ACTION_BASE(Module), is_action=is_action, module=Module, trigger, target, actions, show_if=true).

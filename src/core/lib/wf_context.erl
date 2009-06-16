@@ -4,7 +4,7 @@
 	make_context/2, 
 	apply/3, apply/4,
 	apply_return_raw/3, apply_return_raw/4,
-	set_handler/4
+	set_handler/3, set_handler/4
 ]).
 
 make_context(RequestBridge, ResponseBridge) ->
@@ -15,18 +15,25 @@ make_context(RequestBridge, ResponseBridge) ->
 		page_context = #page_context { series_id = wff:temp_id() },
 		event_context = #event_context {},
 		handler_list = [
-			make_handler(cookie, default_cookie_handler),
-			make_handler('query', default_query_handler),
-			make_handler(process_cabinet, default_process_cabinet_handler),
-			make_handler(log, default_log_handler),
-			make_handler(session, default_session_handler), 
-			make_handler(identity, default_identity_handler), 
-			make_handler(role, default_role_handler), 
-			make_handler(route, default_route_handler), 
-			make_handler(security, default_security_handler), 
-			make_handler(cache, default_cache_handler), 
-			make_handler(state, default_state_handler), 
-			make_handler(output, page_output_handler)
+			% Core handlers...
+			make_handler(log_handler, default_log_handler),
+			make_handler(process_cabinet_handler, default_process_cabinet_handler),
+			make_handler(cache_handler, default_cache_handler), 
+			make_handler(query_handler, default_query_handler),
+			make_handler(cookie_handler, default_cookie_handler),
+			
+			% Stateful handlers...
+			make_handler(session_handler, simple_session_handler), 
+			make_handler(state_handler, default_state_handler), 
+			make_handler(identity_handler, default_identity_handler), 
+			make_handler(role_handler, default_role_handler), 
+			
+			% Handlers that possibly redirect...
+			make_handler(route_handler, default_route_handler), 
+			make_handler(security_handler, default_security_handler), 
+			
+			% Output handler...
+			make_handler(output_handler, page_output_handler)
 		]
 	}.
 	
@@ -89,7 +96,19 @@ get_handler(Name, Context) ->
 			
 % set_handler/4 -
 % Set a handler in a context. Returns the new context.
+set_handler(Module, State, Context) ->
+	{module, Module} = code:ensure_loaded(Module),
+	
+	% Get the module's behavior...
+	L = Module:module_info(attributes),
+	Name = case proplists:get_value(behaviour, L) of
+		[N] -> N;
+		_      -> throw({must_define_a_nitrogen_behaviour, Module})
+	end,
+	set_handler(Name, Module, State, Context).
+		
 set_handler(Name, Module, State, Context) ->
+	{module, Module} = code:ensure_loaded(Module),
 	Handlers = Context#context.handler_list,
 	NewHandler = #handler_context { name=Name, module=Module, state=State },
 	NewHandlers = lists:keyreplace(Name, 2, Handlers, NewHandler),

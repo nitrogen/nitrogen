@@ -10,7 +10,7 @@ reflect() -> record_info(fields, flash).
 
 render() -> 
 	wf:state(has_flash, true),
-	wf:render(#flash { }).
+	#flash { }.
 	
 update() -> update(any).
 update(element_flash) -> ok;
@@ -20,14 +20,16 @@ update(_Module) ->
 	  _ -> ignore
 	end.
 
-render(_ControlID, _Record) -> 
-	Terms = #panel { 
-		id=flash,
-		class=flash_container,
-		body=get_flashes()
-	},
-	wf:state(has_flash, true),
-	wf:render(Terms).
+render_element(_ControlID, _Record) -> 
+  % TODO -
+	% Terms = #panel { 
+	% 	id=flash,
+	% 	class=flash_container,
+	% 	body=get_flashes()
+	% },
+	% wf:state(has_flash, true),
+	% wf:render(Terms).
+	[].
 	
 add_flash(Term) ->
 	Flashes = case wf:session(flashes) of

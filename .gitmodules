@@ -4,3 +4,6 @@
 [submodule "lib/simple_bridge"]
 	path = lib/simple_bridge
 	url = git@github.com:rklophaus/SimpleBridge.git
+[submodule "lib/mochiweb"]
+	path = lib/mochiweb
+	url = git://github.com/rklophaus/mochiweb.git

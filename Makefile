@@ -1,4 +1,4 @@
-all: compile test
+# all: compile test
 
 compile:
 	erl \

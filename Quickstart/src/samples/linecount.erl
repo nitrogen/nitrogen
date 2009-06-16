@@ -8,13 +8,12 @@ render() ->
 	{_BareTotal, BareActive} = line_count(web_samples_barebones),
   ActiveLines = CurrentActive - BareActive,
 	
-	Terms = [
+	[
 		#p{},
 		#span { class=stats, text=wf:f("This page clocks in at <span class=count>~p</span> lines of Nitrogen code.", [ActiveLines]), html_encode=false },
 		#p{},
 		#link { text="View source.", url=wf:f("/web/samples/viewsource?module=~s", [CurrentModule]) }
-	],
-	wf:render(Terms).
+	].
 	
 line_count(Module) ->
 	CompileInfo = Module:module_info(compile),

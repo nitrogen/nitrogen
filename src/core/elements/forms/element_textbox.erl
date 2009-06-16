@@ -11,7 +11,7 @@ reflect() -> record_info(fields, textbox).
 render_element(ControlID, Record, Context) -> 
 	{ok, Context1} = case Record#textbox.next of
 		undefined -> {ok, Context};
-		Next -> wff:wire(ControlID, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next]) }, Context)
+		Next -> wff:wire(Record#textbox.id, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next]) }, Context)
 	end,
 
 	{ok, Context2} = case Record#textbox.postback of

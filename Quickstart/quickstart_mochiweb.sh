@@ -1,28 +1,29 @@
 #!/bin/sh
-export NITROGEN_SRC=..
-export MOCHIWEB_SRC=../http_servers/mochiweb
+export NITROGEN_HOME=..
+export MOCHIWEB_HOME=../lib/mochiweb
+export SIMPLEBRIDGE_HOME=../lib/simple_bridge
 cd `dirname $0`
-
-if [[ -d $MOCHIWEB_SRC ]]; then
-	echo "Using Mochiweb in directory $MOCHIWEB_SRC."
-else
-	echo
-	echo "Update \$MOCHIWEB_SRC to point to your Mochiweb directory."
-	echo "Exiting..."
-	echo 
-	exit 1
-fi
 
 echo Creating link to Nitrogen support files...
 rm -rf wwwroot/nitrogen
-ln -s ../$NITROGEN_SRC/www wwwroot/nitrogen
+ln -s ../$NITROGEN_HOME/www wwwroot/nitrogen
+
+echo Compile Nitrogen...
+make -C $NITROGEN_HOME
+
+echo Compile Mochiweb...
+make -C $MOCHIWEB_HOME
+
+echo Compile Simple Bridge...
+make -C $SIMPLEBRIDGE_HOME
 
 echo Starting Nitrogen on Mochiweb...
 exec erl \
-	-name nitrogen@127.0.0.1 \
+	-name nitrogen_mochiweb@127.0.0.1 \
 	-pa $PWD/apps $PWD/ebin $PWD/include \
-	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
-	-pa $MOCHIWEB_SRC/ebin $MOCHIWEB_SRC/include \
+	-pa $NITROGEN_HOME/ebin $NITROGEN_HOME/include \
+	-pa $SIMPLEBRIDGE_HOME/ebin $SIMPLEBRIDGE_HOME/include \
+	-pa $MOCHIWEB_HOME/ebin $MOCHIWEB_HOME/include \
 	-s make all \
 	-eval "application:start(quickstart_mochiweb)"
 

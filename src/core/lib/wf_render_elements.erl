@@ -37,6 +37,10 @@ render_elements(Element, HtmlAcc, Context) when is_tuple(Element) ->
 	HtmlAcc1 = [Html|HtmlAcc],
 	{ok, HtmlAcc1, NewContext};
 	
+render_elements(script, HtmlAcc, Context) ->
+	HtmlAcc1 = [script|HtmlAcc],
+	{ok, HtmlAcc1, Context};
+	
 render_elements(Unknown, _HtmlAcc, _Context) ->
 	throw({unanticipated_case_in_render_elements, Unknown}).
 	
@@ -46,39 +50,47 @@ render_element(Element, Context) when is_tuple(Element) ->
 	Base = wf_utils:get_elementbase(Element),
 	Module = Base#elementbase.module, 
 	
-	% Verify that this is an action...
+	% Verify that this is an element...
 	case Base#elementbase.is_element == is_element of
 		true -> ok;
 		false -> throw({not_an_element, Element})
 	end,
 
-	% Create the element ID...
-	CurrentPath = case Base#elementbase.id of
-		undefined -> [wf:temp_id()];
-		Other -> [wf:to_list(Other)|Context#context.current_path]
+	% Set the element ID if it is not already set...
+	ID = case Base#elementbase.id of
+		undefined -> wf:temp_id();
+		Other -> wf:to_list(Other)
 	end,
-	HtmlID = to_html_id(CurrentPath),
+	CurrentPath = [wf:to_list(ID)|Context#context.current_path],
+	HtmlID = to_html_id([ID|Context#context.current_path]),
 	
-	% Push the new ID onto the context...
+	% Update the base element with the new id...
+	Base1 = Base#elementbase {id = ID},
+	Element1 = wf_utils:replace_with_base(Base1, Element),
+		
+	% Push the new path into our list of dom_paths...
 	DomPaths = Context#context.dom_paths,
 	Context1 = Context#context { dom_paths=[CurrentPath|DomPaths] },
-
-	case {Base#elementbase.show_if, is_temp_element(CurrentPath)} of
+	
+	case {Base1#elementbase.show_if, is_temp_element(ID)} of
 		{true, true} -> 			
-			% Render the element...
-		 	{ok, _Html, _Context2} = call_element_render(Module, HtmlID, Element, Context1);
+			% This is a temp element. Don't update the current path, it should use the parent path.
+			% Wire the actions, render the element...
+			{ok, Context2} = wff:wire(ID, Base1#elementbase.actions, Context1),
+		 	{ok, _Html, _Context3} = call_element_render(Module, HtmlID, Element1, Context2);
 
 		{true, false} -> 
-			% Update the current path...
+			% This is a named element. Update the current path.
 			OldPath = Context#context.current_path,
 			Context2 = Context1#context { current_path=CurrentPath },
 	
-			% Render the element...
-			{ok, Html, Context3} = call_element_render(Module, HtmlID, Element, Context2),
+			% Wire the actions, render the element...
+			{ok, Context3} = wff:wire(me, Base1#elementbase.actions, Context2),
+			{ok, Html, Context4} = call_element_render(Module, HtmlID, Element1, Context3),
 					
 			% Restore the old path...
-			Context4 = Context3#context { current_path=OldPath },
-			{ok, Html, Context4};
+			Context5 = Context4#context { current_path=OldPath },
+			{ok, Html, Context5};
 			
 		{_, _} -> 
 			{ok, [], Context}

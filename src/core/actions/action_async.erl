@@ -181,7 +181,7 @@ guardian_loop(FunctionPid, AccumulatorPid, PoolPid, DyingMessage) ->
 flush(Context) ->
 	Page = Context#context.page_context,
 	SeriesID = Page#page_context.series_id,
-	{ok, AccumulatorPid, Context1} = process_cabinet_handler:get_pid(SeriesID, fun() -> accumulator_loop([], [], none) end, Context),
+	{ok, AccumulatorPid, Context1} = get_accumulator_pid(SeriesID, Context),
 	AccumulatorPid!{add_actions, Context1#context.queued_actions},
 	{ok, Context1#context { queued_actions=[] }}.
 	
@@ -205,17 +205,11 @@ inner_send(Pool, Scope, Message, Context) ->
 get_actions(Context) ->
 	Page = Context#context.page_context,
 	SeriesID = Page#page_context.series_id,
-	{ok, AccumulatorPid, Context1} = process_cabinet_handler:get_pid(SeriesID, fun() -> accumulator_loop([], [], none) end, Context),
-	Actions = case is_pid(AccumulatorPid) andalso is_process_alive(AccumulatorPid) of
-		true -> 
-			AccumulatorPid!{get_actions, self()},
-			receive
-				{actions, X} -> 
-					X;
-				Other -> 
-					?PRINT({unhandled_event, Other})
-			end;
-		false -> []
+	{ok, AccumulatorPid, Context1} = get_accumulator_pid(SeriesID, Context),
+	AccumulatorPid!{get_actions, self()},
+	Actions = receive
+		{actions, X} -> X;
+		Other -> ?PRINT({unhandled_event, Other}), []
 	end,
 	{ok, Actions, Context1}.
 	
@@ -226,20 +220,12 @@ get_actions(Context) ->
 get_actions_blocking(Context, Timeout) ->
 	Page = Context#context.page_context,
 	SeriesID = Page#page_context.series_id,
-	{ok, AccumulatorPid, Context1} = process_cabinet_handler:get_pid(SeriesID, fun() -> accumulator_loop([], [], none) end, Context),
-	Actions = case is_pid(AccumulatorPid) andalso is_process_alive(AccumulatorPid) of
-		true -> 
-			TimerRef = erlang:send_after(Timeout, AccumulatorPid, {add_actions, []}),
-			AccumulatorPid!{get_actions_blocking, self()},
-			receive 
-				{actions, X} -> 
-					erlang:cancel_timer(TimerRef),
-					X;
-					
-				Other ->
-					?PRINT({unhandled_event, Other})
-			end;
-		false -> []
+	{ok, AccumulatorPid, Context1} = get_accumulator_pid(SeriesID, Context),
+	TimerRef = erlang:send_after(Timeout, AccumulatorPid, {add_actions, []}),
+	AccumulatorPid!{get_actions_blocking, self()},
+	Actions = receive 
+		{actions, X} -> erlang:cancel_timer(TimerRef), X;			
+		Other -> ?PRINT({unhandled_event, Other}), []
 	end,
 	{ok, Actions, Context1}.
 
@@ -248,7 +234,7 @@ start_async_event() ->
 	
 start_async_event(Interval) ->
 	#event { type=system, delay=Interval, delegate=?MODULE, postback=start_async }.
-	
+		
 % Get the PoolPid. This can either be local or global. By registering an async function
 % with a global pool, any messages sent to that pool are sent to all processes in the pool.
 % This is useful for multi-user applications.
@@ -257,9 +243,9 @@ get_pool_pid(SeriesID, Pool, Scope, Context) ->
 		local  -> {Pool, SeriesID};
 		global -> {Pool, global}
 	end,
-	{ok, _Pid, _Context1} = process_cabinet_handler:get_pid(PoolID, fun() -> pool_loop([]) end, Context).
+	{ok, _Pid, _Context1} = process_cabinet_handler:get_pid({async_pool, PoolID}, fun() -> pool_loop([]) end, Context).
 
 % Get the AccumulatorPid. The accumulator stores actions until an async
 % postback fetches them and renders them to the page.
 get_accumulator_pid(SeriesID, Context) ->
-	{ok, _Pid, _Context1} = process_cabinet_handler:get_pid(SeriesID, fun() -> accumulator_loop([], [], none) end, Context).
+	{ok, _Pid, _Context1} = process_cabinet_handler:get_pid({async_accumulator, SeriesID}, fun() -> accumulator_loop([], [], none) end, Context).

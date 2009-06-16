@@ -15,16 +15,16 @@
 
 reflect() -> record_info(fields, template).
 
-render(_ControlID, Record) ->
-	% Prevent loops.
-	case wf:state(template_was_called) of
-		true -> throw("Calling a template from a template.");
-		_ -> ignore
-	end,
-	wf:state(template_was_called, true),
+render_element(_ControlID, Record, Context) ->
+	% % Prevent loops.
+	% case wf:state(template_was_called) of
+	% 	true -> throw("Calling a template from a template.");
+	% 	_ -> ignore
+	% end,
+	% wf:state(template_was_called, true),
 	
-	% Parse the template file, or read it from cache.
-	File = wf:to_list(Record#template.file),
+	% Parse the template file...
+	File = wff:to_list(Record#template.file),
 	Template = parse_template(File),
 	
 	% IN PROGRESS - Caching
@@ -32,30 +32,34 @@ render(_ControlID, Record) ->
 	% Template = wf_cache:cache(Key, fun() -> parse_template(File) end, [{ttl, 5}]),
 	
 	% Evaluate the template.
-	Body = eval(Template, Record),
+	Body = eval(Template, Record, Context),
 	
-	IsWindexMode = wf:q(windex) == ["true"],
-	case IsWindexMode of
-		true ->	[
-			wf:f("Nitrogen.$lookup('~s').$update(\"~s\");", [get(current_id), wf_utils:js_escape(Body)])
-		];
-		false -> Body
-	end.
+	% TODO - Windex mode.
+	% IsWindexMode = wf:q(windex) == ["true"],
+	% case IsWindexMode of
+	% 	true ->	[
+	% 		wf:f("Nitrogen.$lookup('~s').$update(\"~s\");", [get(current_id), wf_utils:js_escape(Body)])
+	% 	];
+	% 	false -> Body
+	% end.
+	{ok, Body, Context}.
 
 
 parse_template(File) ->
-	File1 = filename:join(nitrogen:get_templateroot(), File),
+	% TODO - Templateroot
+	% File1 = filename:join(nitrogen:get_templateroot(), File),
+	File1 = File,
 	case file:read_file(File1) of
 		{ok, B} -> parse_template1(B);
 		_ -> 
 			?LOG("Error reading file: ~s~n", [File1]),
-			wf:f("File not found: ~s.", [File1])
+			wff:f("File not found: ~s.", [File1])
 	end.
 
 parse_template1(B) ->
 	F = fun(Tag) -> 
 		try 
-			Tag1 = wf:to_list(Tag),
+			Tag1 = wff:to_list(Tag),
 			to_module_callback(Tag1) 
 		catch _ : _ ->
 			?LOG("Invalid template tag: ~s~n", [Tag])
@@ -82,11 +86,11 @@ to_module_callback("script") -> script;
 to_module_callback(Tag) ->
 	% Get the module...
 	{ModuleString, Rest1} = peel(Tag, $:),
-	Module = wf:to_atom(ModuleString),
+	Module = wff:to_atom(ModuleString),
 	
 	% Get the function...
 	{FunctionString, Rest2} = peel(Rest1, $(),
-	Function = wf:to_atom(FunctionString),
+	Function = wff:to_atom(FunctionString),
 	
 	{ArgString, Rest3} = peel(Rest2, $)),
 	
@@ -101,7 +105,7 @@ peel([Delim|T], Delim, Acc) -> {lists:reverse(Acc), T};
 peel([H|T], Delim, Acc) -> peel(T, Delim, [H|Acc]).
 
 to_term(X, Bindings) ->
-	S = wf:to_list(X),
+	S = wff:to_list(X),
 	{ok, Tokens, 1} = erl_scan:string(S),
 	{ok, Exprs} = erl_parse:parse_exprs(Tokens),
 	{value, Value, _} = erl_eval:exprs(Exprs, Bindings),
@@ -111,41 +115,66 @@ to_term(X, Bindings) ->
 
 %%% EVALUATE %%%
 
-eval([], _) -> [];
-eval([script|T], Record) -> [wf_script:get_script()|eval(T, Record)];
-eval([H|T], Record) when ?IS_STRING(H) -> [H|eval(T, Record)];
-eval([H|T], Record) -> [eval_callbacks(H, Record)|eval(T, Record)].
+eval([], _, _) -> [];
+eval([script|T], Record, Context) -> [script|eval(T, Record, Context)];
+eval([H|T], Record, Context) when ?IS_STRING(H) -> [H|eval(T, Record, Context)];
+eval([H|T], Record, Context) -> [replace_callbacks(H, Record, Context)|eval(T, Record, Context)].
+
+% Turn callbacks into a reference to #function {}.
+replace_callbacks(CallbackTuples, Record, Context) ->
+	Bindings = Record#template.bindings,
+	Functions = [convert_callback_tuple_to_function(M, F, ArgString, Bindings, Context) || {M, F, ArgString} <- CallbackTuples],
+	#function { function=Functions }.
 	
-eval_callbacks([], _) -> [];
-eval_callbacks([H|T], Record) ->
-	{M, Function, ArgString} = H,
-	
+% TODO - This is a hack. Not sure of the best way to do this.
+% The idea is that we want to allow a user to either: 
+% 
+% 1) Specify a function that DOES take a Context parameter, signaling 
+%    to Nitrogen that they will be coding in "Functional Mode" Nitrogen 
+%    using wff.erl, or 
+% 2) Specify a function that DOES NOT take a Context parameter, signaling
+%    to Nitrogen that they will be coding in "Process Dictionary Mode",
+%    using wf.erl which expects the context to be available via get(context).
+%
+% Let the hackery commence!
+convert_callback_tuple_to_function(Module, Function, ArgString, Bindings, Context) ->
 	% De-reference to page module...
-	Module = case M of 
-		page -> wf_platform:get_page_module();
-		_ -> M
+	Module1 = case Module of 
+		page -> wff:get_page_module(Context);
+		_ -> Module
 	end,
-
-	% Convert args to term...
-	Args = to_term("[" ++ ArgString ++ "].", Record#template.bindings),
 	
-	code:ensure_loaded(Module),
-	case erlang:function_exported(Module, Function, length(Args)) of
-		false -> 
-			% Function is not defined, so try the next one.
-			eval_callbacks(T, Record);
-			
-		true ->
-			case erlang:apply(Module, Function, Args) of
-				undefined -> 
-					% Function returns undefined, so try the next one.
-					eval_callbacks(T, Record);
+	% Wrap 	
+	case string:str(ArgString, "Context") of
+		1 -> wrap_with_context(Module1, Function, ArgString, Bindings);
+		0 -> wrap_without_context(Module1, Function, ArgString, Bindings)
+	end.
 
-				Data ->
-					% Got some data. Render it if necessary.
-					case wf:is_string(Data) of
-						true -> Data;
-						false -> wf:render(Data)
-					end
-			end
+wrap_with_context(Module, Function, ArgString, Bindings) ->
+	fun(Context) ->
+		% Convert args to term...
+		Bindings1 = lists:sort([{'Context', Context}|Bindings]),
+		Args = to_term("[" ++ ArgString ++ "].", Bindings1),
+		
+		% If the function in exported, then call it. 
+		% Otherwise return undefined...
+		{module, Module} = code:ensure_loaded(Module),
+		case erlang:function_exported(Module, Function, length(Args)) of
+			true -> {ok, _Elements, _NewContext} = erlang:apply(Module, Function, Args);
+			false -> {ok, undefined, Context}
+		end
+	end.
+
+wrap_without_context(Module, Function, ArgString, Bindings) ->
+	fun() ->
+		% Convert args to term...
+		Args = to_term("[" ++ ArgString ++ "].", Bindings),
+		
+		% If the function in exported, then call it. 
+		% Otherwise return undefined...
+		{module, Module} = code:ensure_loaded(Module),
+		case erlang:function_exported(Module, Function, length(Args)) of
+			true -> _Elements = erlang:apply(Module, Function, Args);
+			false -> undefined
+		end
 	end.

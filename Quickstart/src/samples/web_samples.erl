@@ -2,11 +2,14 @@
 -include ("wf.inc").
 -compile(export_all).
 
-main() ->	#template { file="./wwwroot/twocolumn.html", bindings=[
-	{'Group', learn},
-	{'Item', samples}
-]}.
-title() -> "Nitrogen Samples".
+main() ->	
+	?DEBUG,
+	#template { file="./wwwroot/twocolumn.html", bindings=[
+		{'Group', learn},
+		{'Item', samples}
+	]}.
+
+title(Context) -> {ok, "Nitrogen Samples", Context}.
 headline() -> "Nitrogen Samples".
 right() -> linecount:render().
 

@@ -8,17 +8,16 @@
 -include ("simplebridge.hrl").
 -export ([
 	init/2, 
-	finish/2,
-	route/2
+	finish/2
 ]).
 
-init(Context, State) -> 
-	{ok, Context, State}.
-	
-finish(Context, State) -> 
-	{ok, Context, State}.
+% TODO 
+% This code exposes Nitrogen to a vulnerability where
+% someone can hit the server with a bunch of different URLs,
+% creating too many atoms and causing Erlang to run out of
+% memory.
 
-route(Context, State) -> 
+init(Context, State) -> 
 	% Get the path.
 	Bridge = Context#context.request,
 	Path = Bridge:path(),
@@ -28,6 +27,8 @@ route(Context, State) ->
 	{ok, NewContext} = update_context(Module, PathInfo, Context),
 	{ok, NewContext, State}.
 	
+finish(Context, State) -> 
+	{ok, Context, State}.
 
 %%% PRIVATE FUNCTIONS %%%
 
@@ -55,9 +56,10 @@ tokens_to_module([], PathInfoAcc, AddedIndex) ->
 	
 tokens_to_module(Tokens, PathInfoAcc, AddedIndex) ->
 	try
-		% Try to get the name of a module.
+		% Try to get the name of a module. 
+		% TODO - Somehow change this to list_to_existing_atom
 		ModuleString = string:join(Tokens, "_"),
-		Module = list_to_existing_atom(ModuleString),
+		Module = list_to_atom(ModuleString),
 		
 		% Moke sure the module is loaded.
 		{module, Module} = code:ensure_loaded(Module),

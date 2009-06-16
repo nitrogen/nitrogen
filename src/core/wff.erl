@@ -32,8 +32,6 @@ insert_bottom(TargetID, Elements, Context) ->
 
 % flash(Terms) -> element_flash:add_flash(Terms).
 
-
-
 %%% EXPOSE WF_UTILS %%%
 f(S) -> 
 	_String = wf_utils:f(S).
@@ -163,7 +161,7 @@ error(String, Context) ->
 
 %%% EXPOSE SESSION_HANDLER %%% 
 session(Key, Context) -> 
-	{ok, _NewContext} = session_handler:get_value(Key, Context).
+	_Value = session_handler:get_value(Key, Context).
 
 session(Key, Value, Context) -> 
 	{ok, _NewContext} = session_handler:set_value(Key, Value, Context).

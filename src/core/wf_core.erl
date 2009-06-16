@@ -27,20 +27,19 @@ run_bootstrap(Context) ->
 	run_execute(Context2).
 	 
 run_execute(Context) ->
-	% Route the request...
-	{ok, Context1} = route_handler:route(Context),
-	
 	% Check the event...
-	{ok, Context2} = wf_event:update_context_with_event(Context1),
+	{ok, Context1} = wf_event:update_context_with_event(Context),
+	
+	% TODO - Check for access
  
 	% Call the module...
-	Event = Context2#context.event_context,
+	Event = Context1#context.event_context,
 	IsFirstRequest = Event#event_context.is_first_request,
-	{ok, Context3} = case IsFirstRequest of
-		true  -> run_execute_first_request(Context2);
-		false -> run_execute_postback(Context2)
+	{ok, Context2} = case IsFirstRequest of
+		true  -> run_execute_first_request(Context1);
+		false -> run_execute_postback(Context1)
 	end,
-	run_render(Context3).
+	run_render(Context2).
 		
 run_render(Context) ->
 	Elements = Context#context.data,
@@ -137,13 +136,14 @@ run_execute_first_request(Context) ->
 	{ok, Context1#context { data=Data}}.
 
 call_module_main(Module, Context) ->
+	{module, Module} = code:ensure_loaded(Module),
 	case erlang:function_exported(Module, main, 1) of 
 		true -> call_module_main_with_context(Module, Context);
 		false -> call_module_main_without_context(Module, Context)
 	end.
 	
 call_module_main_with_context(Module, Context) ->		
-	Module:main(Context).
+	{ok, _Data, _Context1} = Module:main(Context).
 
 call_module_main_without_context(Module, Context) ->
 	put(context, Context),

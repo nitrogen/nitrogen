@@ -8,15 +8,15 @@
 
 reflect() -> record_info(fields, list).
 
-render(ControlID, Record) -> 
+render_element(ControlID, Record, Context) -> 
 	Tag = case Record#list.numbered of 
 		true -> ol;
 		_ -> ul
 	end,
 
-	Content = wf:render(Record#list.body),
-	wf_tags:emit_tag(Tag, Content, [
+	Elements = wf_tags:emit_tag(Tag, Record#list.body, [
 		{id, ControlID},
 		{class, [list, Record#list.class]},
 		{style, Record#list.style}
-	]).
+	]),
+	{ok, Elements, Context}.

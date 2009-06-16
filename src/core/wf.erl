@@ -168,7 +168,7 @@ error(String) ->
 
 %%% EXPOSE SESSION_HANDLER %%% 
 session(Key) -> 
-	?PRE, {ok, NewContext} = wff:session(Key, Context), ?POST, ok.
+	?PRE, _Value = wff:session(Key, Context).
 
 session(Key, Value) -> 
 	?PRE, {ok, NewContext} = wff:session(Key, Value, Context), ?POST, ok.

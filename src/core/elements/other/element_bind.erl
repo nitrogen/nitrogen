@@ -12,7 +12,7 @@
 
 reflect() -> record_info(fields, bind).
 
-render(_ControlID, Record) -> 
+render_element(_ControlID, Record, Context) -> 
 	% Get attributes.
 	Data = Record#bind.data,
 	Map = Record#bind.map,
@@ -24,7 +24,7 @@ render(_ControlID, Record) ->
 	Body = Record#bind.body,
 	
 	% Bind the data to the body template...
-	case length(Data) > 0 of
+	Elements = case length(Data) > 0 of
 		true ->	
 			Body1 = bind(Body, Data, Map, Transform, AccInit),
 			% Render the new body to html...
@@ -32,13 +32,14 @@ render(_ControlID, Record) ->
 		
 		_ ->
 			Record#bind.empty_body
-	end.
+	end,
+	{ok, Elements, Context}.
 
 render_rows([], _) -> [];
 render_rows([H|T], N) ->
 	ID = "row" ++ wf:to_list(N),
 	Placeholder = #placeholder { id=ID, body=H },
-	[wf:render(Placeholder)|render_rows(T, N + 1)].
+	[Placeholder|render_rows(T, N + 1)].
 		
 
 %% bind/5 - 
