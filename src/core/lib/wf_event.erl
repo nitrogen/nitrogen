@@ -23,7 +23,6 @@ update_context_with_event(Context) ->
 	SerializedEvent = wff:q(eventContext, Context),
 	Event = wff:depickle(SerializedEvent),
 
-	?PRINT(Event),
 	% Update the Context...
 	IsPostback = is_record(Event, event_context),
 	case IsPostback of

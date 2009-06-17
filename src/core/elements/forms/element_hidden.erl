@@ -12,7 +12,7 @@ render_element(HtmlID, Record, Context) ->
 	Value = wf:html_encode(Record#hidden.text, Record#hidden.html_encode),
 	Elements = wf_tags:emit_tag(input, [
 		{id, HtmlID}, 
-		{id, HtmlID}, 
+		{name, HtmlID}, 
 		{type, hidden},
 		{value, Value}
 	]), 

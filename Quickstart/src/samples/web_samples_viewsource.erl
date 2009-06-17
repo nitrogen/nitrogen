@@ -3,7 +3,7 @@
 -compile(export_all).
 
 main() ->
-	[Module] = wf:q(module),
+	Module = wf:q(module),
 	
 	{Module1, _} = case Module of
 		"web_samples" ++ _ -> wf_utils:path_to_module(Module);

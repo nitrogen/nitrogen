@@ -140,9 +140,8 @@ N.prototype.$validate_and_serialize = function(triggerID) {
 		} else {
 			if (element.type == "radio") {
 				params.push(element.id + "=" + element.checked);
-			} else {
-				params.push(jQuery(element).serialize());
 			}
+			params.push(jQuery(element).serialize());
 		}
 	}
 		

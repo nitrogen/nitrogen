@@ -114,7 +114,5 @@ generate_scope_script(Context) ->
 	Page = Context#context.page_context,
 	CurrentID = Page#page_context.name,
 	CurrentPath = Context#context.current_path,
-	?PRINT(CurrentID),
-	?PRINT(CurrentPath),
 	Script = wff:f("~nNitrogen.$scope('~s', '~s'); ", [CurrentID, wff:to_js_id(CurrentPath)]),
 	Script.

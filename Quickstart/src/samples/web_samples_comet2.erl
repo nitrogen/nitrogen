@@ -42,8 +42,8 @@ body() ->
 	
 
 event(chat) ->
-	[UserName] = wf:q(userNameTextBox),
-	[Message] = wf:q(messageTextBox),
+	UserName = wf:q(userNameTextBox),
+	Message = wf:q(messageTextBox),
 	chatroom!{message, UserName, Message},
 	wf:wire("obj('messageTextBox').focus(); obj('messageTextBox').select();");
 	

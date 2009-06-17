@@ -7,6 +7,7 @@
 ]).
 
 start(_, _) ->
+	default_process_cabinet_handler:start(),
 	{ok, IP} = application:get_env(ip),
 	{ok, Port} = application:get_env(port),	
 	Options = [{ip, IP}, {port, Port}],

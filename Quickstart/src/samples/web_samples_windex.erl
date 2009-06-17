@@ -12,7 +12,7 @@ body() -> [
 ].	
 
 event(_) ->
-	[Text] = wf:q(myTextbox),
+	Text = wf:q(myTextbox),
 	?LOG("The user entered text: ~s", [Text]),
 	{Year, Month, Day} = date(),
 	{Hour, Minute, Second} = time(),

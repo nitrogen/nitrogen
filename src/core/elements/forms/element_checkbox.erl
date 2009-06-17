@@ -23,7 +23,7 @@ render_element(HtmlID, Record, Context) ->
 		% Checkbox...
 		wf_tags:emit_tag(input, [
 			{id, HtmlID}, 
-			{id, HtmlID},
+			{name, HtmlID},
 			{type, checkbox},
 			{class, [checkbox, Record#checkbox.class]},
 			{style, Record#checkbox.style},

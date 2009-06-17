@@ -7,6 +7,7 @@
 -include ("simplebridge.hrl").
 -include ("wf.inc").
 -export ([
+	start/0,
 	init/2, 
 	finish/2,
 	get_pid/3,
@@ -15,13 +16,19 @@
 
 -define (TABLE, process_cabinet).
 
+start() ->
+	% TODO - this needs to be way more robust.
+	F = fun() ->
+		case lists:member(?TABLE, ets:all()) of
+			true -> ok;
+			false -> 
+				ets:new(?TABLE, [set, public, named_table]), 
+				timer:sleep(infinity) 
+		end
+	end,
+	erlang:spawn(F).
+
 init(Context, State) -> 
-	% case lists:member(?TABLE, ets:all()) of
-	% 	true -> ok;
-	% 	false -> 
-	% 		F = fun() -> ?TABLE = ets:new(process_cabinet, [set, public, named_table]), timer:sleep() end,
-	% 		erlang:spawn(F)
-	% end,
 	{ok, Context, State}.
 
 finish(Context, State) ->

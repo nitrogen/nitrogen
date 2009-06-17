@@ -61,7 +61,7 @@ body() ->
 	wf:render(Body).
 	
 event(continue) ->
-	[Name] = wf:q(nameTextBox),
+	Name = wf:q(nameTextBox),
 	Message = wf:f("Welcome ~s! Your information is valid.", [Name]),
 	wf:flash(Message),
 	ok;

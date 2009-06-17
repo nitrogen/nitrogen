@@ -17,7 +17,7 @@ render_element(HtmlID, Record, Context) ->
 	Value = ["  ", wf:html_encode(Record#button.text, Record#button.html_encode), "  "], 
 	Elements = wf_tags:emit_tag(input, [
 		{id, HtmlID},
-		{name, {id, HtmlID}},
+		{name, HtmlID},
 		{type, button},
 		{class, [button, Record#button.class]},
 		{style, Record#button.style},

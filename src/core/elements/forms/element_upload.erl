@@ -24,7 +24,7 @@ render_element(HtmlID, Record, Context) ->
 	FormContent = [
 		wf_tags:emit_tag(input, [
 			{id, HtmlID},
-			{id, HtmlID},
+			{name, HtmlID},
 			{type, file}
 		]),	
 	

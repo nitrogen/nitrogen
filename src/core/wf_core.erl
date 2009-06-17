@@ -21,7 +21,6 @@ run(Context) ->
 run_bootstrap(Context) ->
 	% Get the handlers from querystring, if they exist...
 	{ok, Context1} = deserialize_context(Context),
-	?PRINT(Context1),
 	
 	% Initialize all handlers...
 	{ok, Context2} = call_init_on_handlers(Context1),
@@ -40,7 +39,11 @@ run_execute(Context) ->
 		true  -> run_execute_first_request(Context1);
 		false -> run_execute_postback(Context1)
 	end,
-	run_render(Context2).
+	
+	% Update flash...
+	{ok, Context3} = element_flash:update(Context2),
+	
+	run_render(Context3).
 		
 run_render(Context) ->
 	Elements = Context#context.data,
@@ -147,7 +150,6 @@ run_execute_first_request(Context) ->
 	{ok, Context1#context { data=Data}}.
 
 call_module_main(Module, Context) ->
-	?PRINT(Module),
 	{module, Module} = code:ensure_loaded(Module),
 	{ok, _Data, _NewContext} = wf_context:call_with_context(Module, main, [], Context, true).
 

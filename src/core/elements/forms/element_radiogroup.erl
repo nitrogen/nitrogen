@@ -14,6 +14,7 @@ render_element(HtmlID, Record, Context) ->
 	
 	% Render the record...
 	element_panel:render_element(HtmlID, #panel {
+		id=Record#radiogroup.id,
 		class="radiogroup " ++ wf:to_list(Record#radiogroup.class),
 		style=Record#radiogroup.style,
 		body=Body

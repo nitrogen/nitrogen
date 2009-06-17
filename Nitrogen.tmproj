@@ -81,13 +81,13 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-16T23:07:19Z</date>
+							<date>2009-06-17T02:16:47Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-16T23:19:34Z</date>
+							<date>2009-06-17T02:08:00Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -112,8 +112,6 @@
 							<string>src/core/handlers</string>
 						</dict>
 						<dict>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>actions</string>
 							<key>regexFolderFilter</key>
@@ -130,8 +128,6 @@
 							<string>src/core/validators</string>
 						</dict>
 						<dict>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>elements</string>
 							<key>regexFolderFilter</key>
@@ -140,8 +136,6 @@
 							<string>src/core/elements</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Core</string>
 				</dict>
@@ -258,7 +252,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_utils.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-13T16:49:46Z</date>
+									<date>2009-06-17T02:07:58Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -305,8 +299,6 @@
 					<string>Mantle</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -317,7 +309,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-06-16T02:16:26Z</date>
+					<date>2009-06-17T01:57:31Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -356,7 +348,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-06-16T23:28:27Z</date>
+					<date>2009-06-17T02:16:48Z</date>
 				</dict>
 			</array>
 			<key>name</key>

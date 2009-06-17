@@ -11,7 +11,7 @@ reflect() -> record_info(fields, dropdown).
 render_element(HtmlID, Record, Context) -> 
 	{ok, Context1} = case Record#dropdown.postback of
 		undefined -> {ok, Context};
-		Postback -> wff:wire(Record#dropdown.id, #event { type=change, postback=Postback })
+		Postback -> wff:wire(Record#dropdown.id, #event { type=change, postback=Postback }, Context)
 	end,
 
 	% TODO -
@@ -27,7 +27,7 @@ render_element(HtmlID, Record, Context) ->
 
 	Elements = wf_tags:emit_tag(select, Options, [
 		{id, HtmlID},
-		{id, HtmlID},
+		{name, HtmlID},
 		{class, [dropdown, Record#dropdown.class]},
 		{style, Record#dropdown.style}
 	]),

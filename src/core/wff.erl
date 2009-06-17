@@ -30,6 +30,9 @@ insert_top(TargetID, Elements, Context) ->
 insert_bottom(TargetID, Elements, Context) -> 
 	{ok, _NewContext} = action_update:insert_bottom(TargetID, Elements, Context).
 
+flash(Elements, Context) ->
+	{ok, _NewContext} = element_flash:add_flash(Elements, Context).
+
 % flash(Terms) -> element_flash:add_flash(Terms).
 
 %%% EXPOSE WF_UTILS %%%

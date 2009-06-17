@@ -30,6 +30,10 @@ emit_tag(TagName, [], Props) when
 	TagName =/= 'span',
 	TagName =/= 'label',
 	TagName =/= 'textarea',
+	TagName =/= 'table',
+	TagName =/= 'tr',
+	TagName =/= 'th',
+	TagName =/= 'td',
 	TagName =/= 'iframe' ->
     emit_tag(TagName, Props);
 

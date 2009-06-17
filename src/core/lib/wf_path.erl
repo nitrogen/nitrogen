@@ -51,7 +51,7 @@ normalize_path(Path, Context) when is_atom(Path) orelse ?IS_STRING(Path) ->
 % When path is already a list of paths, just pass along to inner_normalize_path/2.
 normalize_path(Path, Context) when is_list(Path) ->
 	DomPaths = Context#context.dom_paths,
-	?PRINT({Path, DomPaths}),
+
 	% Find the one matching dom path.
 	case find_matching_dom_path(Path, DomPaths) of
 		[] -> throw({no_matching_dom_paths, Path, DomPaths});

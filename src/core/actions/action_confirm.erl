@@ -9,10 +9,10 @@
 render_action(Record, Context) -> 
 	TriggerPath = Record#confirm.trigger,
 	TargetPath = Record#confirm.target,
-	Postback = action_event:make_postback(Record#confirm.postback, confirm, TriggerPath, TargetPath, undefined),
+	Postback = wf_event:generate_postback_script(Record#confirm.postback, confirm, TriggerPath, TargetPath, undefined, Context),
 	Actions = [
 		wf:f("if (confirm(\"~s\")) {", [wf_utils:js_escape(Record#confirm.text)]),
-		Postback, Record#confirm.actions,
+			Postback, Record#confirm.actions,
 		"}"
 	],
 	{ok, Actions, Context}.

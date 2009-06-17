@@ -37,7 +37,8 @@ insert_top(TargetID, Elements) ->
 insert_bottom(TargetID, Elements) -> 
 	?PRE, {ok, NewContext} = wff:insert_bottom(TargetID, Elements, Context), ?POST, ok.
 
-% flash(Terms) -> element_flash:add_flash(Terms).
+flash(Elements) -> 
+	?PRE, {ok, NewContext} = wff:flash(Elements, Context), ?POST, ok.
 
 
 

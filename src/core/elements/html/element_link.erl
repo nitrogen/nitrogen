@@ -11,7 +11,7 @@ reflect() -> record_info(fields, link).
 render_element(HtmlID, Record, Context) -> 
 	{ok, Context1} = case Record#link.postback of
 		undefined -> {ok, Context};
-		Postback -> wff:wire(Record#link.id, #event { type=click, postback=Postback })
+		Postback -> wff:wire(Record#link.id, #event { type=click, postback=Postback }, Context)
 	end,
 	
 	Body = [
