@@ -8,9 +8,9 @@
 
 reflect() -> record_info(fields, panel).
 
-render_element(ControlID, Record, Context) -> 
+render_element(HtmlID, Record, Context) -> 
 	Elements = wf_tags:emit_tag('div', Record#panel.body, [
-	    {id, ControlID},
+	    {id, HtmlID},
 	    {class, ["panel", Record#panel.class]},
 	    {style, Record#panel.style}
 	]),

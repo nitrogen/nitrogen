@@ -101,23 +101,9 @@ render_element(Element, Context) when is_tuple(Element) ->
 % HTML.
 call_element_render(Module, HtmlID, Element, Context) ->
 	{module, Module} = code:ensure_loaded(Module),
-	case erlang:function_exported(Module, render_element, 3) of
-		true  -> call_element_render_with_context(Module, HtmlID, Element, Context);
-		false -> call_element_render_without_context(Module, HtmlID, Element, Context)
-	end.
+	{ok, NewElements, Context1} = wf_context:call_with_context(Module, render_element, [HtmlID, Element], Context, true),
+	{ok, _Html, _Context2} = render_elements(NewElements, [], Context1).
 
-% Call render_element in functional style, explicitly passing in the context.	
-call_element_render_with_context(Module, HtmlID, Element, Context) ->
-	% Render the new elements into HTML, this could produce even more actions.
-	{ok, NewElements, Context1} = erlang:apply(Module, render_element, [HtmlID, Element, Context]),
-	{ok, _Html, _Context2} = render_elements(NewElements, [], Context1).
-	
-% Call render_element in the old style, storing context in process dictionary.
-call_element_render_without_context(Module, HtmlID, Element, Context) ->
-	put(context, Context),
-	NewElements = erlang:apply(Module, render_element, [HtmlID, Element]),
-	Context1 = get(context),
-	{ok, _Html, _Context2} = render_elements(NewElements, [], Context1).
 
 to_html_id(P) ->
 	P1 = lists:reverse(P),

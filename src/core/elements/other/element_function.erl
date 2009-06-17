@@ -21,7 +21,7 @@
 
 reflect() -> record_info(fields, function).
 
-render_element(_ControlID, Record, Context) ->
+render_element(_HtmlID, Record, Context) ->
 	Functions = lists:flatten([Record#function.function]),
 	call_next_function(Functions, Context).
 	
@@ -48,7 +48,10 @@ call_next_function([F|Functions], Context) ->
 % has been loaded into the process dictionary.
 wrap_function(Function) ->
 	fun(Context) ->
+		OldContext = get(context),
 		put(context, Context),
 		Elements = Function(),
-		{ok, Elements, get(context)}
+		NewContext=get(context), 
+		put(context, OldContext),
+		{ok, Elements, NewContext}
 	end.

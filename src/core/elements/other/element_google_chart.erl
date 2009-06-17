@@ -9,7 +9,7 @@
 
 reflect() -> record_info(fields, google_chart).
 
-render(ControlID, Record) -> 
+render_element(HtmlID, Record, Context) -> 
 	% Path...
 	Path = "http://chart.apis.google.com/chart?",
 
@@ -122,7 +122,7 @@ render(ControlID, Record) ->
 		style = Record#google_chart.style,
 		image = lists:flatten([Path, Type, Title, TitleStyle, Size, Grid, BGColors, LegendLocation, BarSize, Axes, Data])
 	},
-	element_image:render(ControlID, Image).
+	element_image:render_element(HtmlID, Image, Context).
 	
 process_axis(N, Axis) ->
 	Position = case Axis#chart_axis.position of

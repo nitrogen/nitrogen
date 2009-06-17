@@ -8,20 +8,10 @@
 
 reflect() -> record_info(fields, span).
 
-%%% CODE %%%
-
-render(ControlID, Record) -> 
-  Contents = wf:html_encode(Record#span.text, Record#span.html_encode),
-	wf_tags:emit_tag(span, Contents, [
-        {id, ControlID},
-        {class, Record#span.class}, 
-        {style, Record#span.style}
-    ]).
-
-render_element(ControlID, Record, Context) -> 
+render_element(HtmlID, Record, Context) -> 
   Text = wf:html_encode(Record#span.text, Record#span.html_encode),
 	Html = wf_tags:emit_tag(span, Text, [
-        {id, ControlID},
+        {id, HtmlID},
         {class, Record#span.class}, 
         {style, Record#span.style}
   ]),

@@ -8,8 +8,6 @@
 
 render_action(Record, Context) ->
 	Effect = #jquery_effect {
-		trigger=Record#effect.trigger,
-		target=Record#effect.target,
 		type=effect,
 		effect = Record#effect.effect,
 		options = Record#effect.options,

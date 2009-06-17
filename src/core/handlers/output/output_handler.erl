@@ -15,7 +15,7 @@
 % module from the SimpleBridge project), and calls Bridge:build_response(), which
 % sends a response appropriate to whatever web server is being used.
 build_response(Html, Script, Context) ->
-	_Response = wf_context:apply_return_raw(output_handler, build_response, [Html, Script], Context).
+	_Response = wf_context:call_handler_function_readonly(output_handler, build_response, [Html, Script], Context).
 
 
 

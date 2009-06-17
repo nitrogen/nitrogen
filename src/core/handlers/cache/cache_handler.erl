@@ -14,17 +14,17 @@
 % then run the Function, store the resulting value in cache under
 % Key, and return the value.
 get_cached(Key, Function, TTL, Context) -> 
-	{ok, _Value, _NewContext} = wf_context:apply(cache_handler, get_cached, [Key, Function, TTL], Context).
+	{ok, _Value, _NewContext} = wf_context:call_handler_function(cache_handler, get_cached, [Key, Function, TTL], Context).
 
 % clear(Key, Context, State) -> {ok, NewContext, NewState}
 % Remove a value from cache.
 clear(Key, Context) ->	
-	{ok, _NewContext} = wf_context:apply(cache_handler, clear, [Key], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(cache_handler, clear, [Key], Context).
 	
 % clear_all(Context, State) -> {ok, NewContext, NewState}
 % Clear all values from cache.
 clear_all(Context) -> 
-	{ok, _NewContext} = wf_context:apply(cache_handler, clear_all, Context).
+	{ok, _NewContext} = wf_context:call_handler_function(cache_handler, clear_all, Context).
 
 
 

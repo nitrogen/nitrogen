@@ -8,9 +8,9 @@
 
 reflect() -> record_info(fields, draggable).
 
-render(ControlID, Record) -> 
+render_element(HtmlID, Record, Context) -> 
 	% Get properties...
-	PickledTag = wf_utils:pickle(Record#draggable.tag),
+	PickledTag = wff:pickle(Record#draggable.tag),
 	
 	GroupClasses = groups_to_classes(Record#draggable.group),
 
@@ -32,21 +32,17 @@ render(ControlID, Record) ->
 	end,
 
 	% Write out the script to make this element draggable...
-	Script = wf:f("Nitrogen.$draggable(obj('~s'), { handle: ~s, helper: '~s', revert: ~s }, '~s');", [
-		ControlID, 
-		Handle, 
-		Helper, 
-		Revert, 
-		PickledTag
-	]),
-	wf:wire(Script),
+	Script = #script {
+		script=wf:f("Nitrogen.$draggable(obj('me'), { handle: ~s, helper: '~s', revert: ~s }, '~s');", [Handle, Helper, Revert, PickledTag])
+	},
+	{ok, Context1} = wff:wire(Record#draggable.id, Script, Context),
 
 	% Render as a panel...
-	element_panel:render(ControlID, #panel {
+	element_panel:render_element(HtmlID, #panel {
 		class="draggable " ++ GroupClasses ++ " " ++ wf:to_list(Record#draggable.class),
 		style=Record#draggable.style,
 		body=Record#draggable.body
-	}).
+	}, Context1).
 	
 groups_to_classes([]) -> "";
 groups_to_classes(undefined) -> "";

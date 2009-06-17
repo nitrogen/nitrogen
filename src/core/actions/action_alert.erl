@@ -6,6 +6,7 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(_TriggerPath, _TargetPath, Record) -> 
-	wf:f("alert(\"~s\");", [wf_utils:js_escape(Record#alert.text)]).
+render_action(Record, Context) -> 
+	Script = wf:f("alert(\"~s\");", [wf_utils:js_escape(Record#alert.text)]),
+	{ok, Script, Context}.
 	

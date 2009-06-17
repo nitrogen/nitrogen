@@ -8,12 +8,12 @@
 
 reflect() -> record_info(fields, singlerow).
 
-render(ControlID, Record) -> 
-	Terms = #table {
+render_element(HtmlID, Record, Context) -> 
+	Table = #table {
 		class = "singlerow " ++ wf:to_list(Record#singlerow.class),
 		style = Record#singlerow.style,
 		rows = #tablerow {
 			cells = Record#singlerow.cells
 		}
 	},
-	element_table:render(ControlID, Terms).
+	element_table:render_element(HtmlID, Table, Context).

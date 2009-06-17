@@ -9,33 +9,6 @@
 ]).
 
 render(Elements, Actions, Context) ->
-	{ok, Context1} = update_context_with_dom_paths(Context),
-	{ok, _Html, _Script, _Context2} = render2(Elements, Actions, Context1).
-
-update_context_with_dom_paths(Context) when Context#context.dom_paths /= undefined ->
-	{ok, Context};
-	
-update_context_with_dom_paths(Context) when Context#context.dom_paths == undefined ->
-	% Store the list of paths...
-	DomPaths = wff:q(domPaths, Context),
-	Page = Context#context.page_context,
-	BasePath = [wff:to_list(Page#page_context.name)],
-	Context1 = case DomPaths of
-		undefined -> 
-			Context#context {
-				dom_paths=[BasePath]
-			};
-
-		_ -> 
-			DomPathList = string:tokens(DomPaths, ","),
-			DomPathList1 = [lists:reverse(string:tokens(X, "__")) || X <- DomPathList],
-			Context#context {
-				dom_paths=[BasePath|DomPathList1]
-			}
-	end,
-	{ok, Context1}.
-
-render2(Elements, Actions, Context) ->
 	% Save any queued actions...
 	OldQueuedActions = Context#context.queued_actions,
 	Context1 = Context#context { queued_actions=[] },

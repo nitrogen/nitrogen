@@ -8,18 +8,20 @@
 
 reflect() -> record_info(fields, tableheader).
 
-render(ControlID, Record) -> 
-	Content = [
+render_element(HtmlID, Record, Context) -> 
+	Body = [
 		wf:html_encode(Record#tableheader.text, Record#tableheader.html_encode),
-		wf:render(Record#tableheader.body)
+		Record#tableheader.body
 	],
 	
-	wf_tags:emit_tag(th, Content, [
-		{id, ControlID},
+	Elements = wf_tags:emit_tag(th, Body, [
+		{id, HtmlID},
 		{class, [tableheader, Record#tableheader.class]},
 		{style, Record#tableheader.style},
 		{align, Record#tableheader.align},
 		{valign, Record#tableheader.valign},
 		{colspan, Record#tableheader.colspan},
 		{rowspan, Record#tableheader.rowspan}
-	]).
+	]),
+	
+	{ok, Elements, Context}.

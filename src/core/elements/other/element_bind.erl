@@ -12,7 +12,7 @@
 
 reflect() -> record_info(fields, bind).
 
-render_element(_ControlID, Record, Context) -> 
+render_element(_HtmlID, Record, Context) -> 
 	% Get attributes.
 	Data = Record#bind.data,
 	Map = Record#bind.map,

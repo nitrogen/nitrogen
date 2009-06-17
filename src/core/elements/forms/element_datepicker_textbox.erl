@@ -8,19 +8,19 @@
 
 reflect() -> record_info(fields, datepicker_textbox).
 
-render(ControlID, Record) -> 
+render_element(HtmlID, Record, Context) -> 
 	Class   = Record#datepicker_textbox.class,
 	Options = action_jquery_effect:options_to_js(Record#datepicker_textbox.options),
 
-	Term = #textbox {
-	 id          = ControlID,
+	Textbox = #textbox {
+	 id          = Record#datepicker_textbox.id,
 	 class       = "datepicker_textbox "  ++ wf:to_list(Class),
 	 style       = Record#datepicker_textbox.style,
 	 text        = Record#datepicker_textbox.text,
 	 html_encode = Record#datepicker_textbox.html_encode
 	},
 
-	Script = wf:f("Nitrogen.$datepicker(obj('~s'), ~s);", [ControlID, Options]),
-	wf:wire(Script),
+	Script = wf:f("Nitrogen.$datepicker(obj('me'), ~s);", [Options]),
+	{ok, Context1} = wff:wire(Record#datepicker_textbox.id, #script { script=Script }, Context),
 
-	element_textbox:render(ControlID, Term).
+	element_textbox:render_element(HtmlID, Textbox, Context1).

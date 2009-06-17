@@ -8,9 +8,10 @@
 
 reflect() -> record_info(fields, sortblock).
 
-render(ControlID, Record) -> 
+render_element(HtmlID, Record, Context) -> 
 	% Get properties...
-	PickledPostbackInfo = action_event:make_postback_info(Record#sortblock.tag, sort, ControlID, ControlID, ?MODULE),
+	Tag = Record#sortblock.tag,
+	PostbackInfo = wf_event:serialize_event_context(Tag, sort, Record#sortblock.id, Record#sortblock.id, ?MODULE, Context),
 	Handle = case Record#sortblock.handle of
 		undefined -> "null";
 		Other -> wf:f("'.~s'", [Other])
@@ -19,25 +20,22 @@ render(ControlID, Record) ->
 	GroupClasses = groups_to_classes(Record#sortblock.group),
 		
 	% Emit the javascript...
-	Script = wf:f("Nitrogen.$sortblock(obj('~s'), { handle: ~s, connectWith: [~s] }, '~s');", [
-		ControlID, 
-		Handle, 
-		ConnectWithGroups,
-		PickledPostbackInfo
-	]),
-	wf:wire(Script),
+	Script = #script { 
+		script=wf:f("Nitrogen.$sortblock(obj('me'), { handle: ~s, connectWith: [~s] }, '~s');", [Handle, ConnectWithGroups, PostbackInfo])
+	},
+	{ok, Context1} = wff:wire(Record#sortblock.id, Script, Context),
 
-	element_panel:render(ControlID, #panel {
+	element_panel:render_element(HtmlID, #panel {
 		class="sortblock " ++ GroupClasses ++ " " ++ wf:to_list(Record#sortblock.class),
 		style=Record#sortblock.style,
 		body=Record#sortblock.items
-	}).
+	}, Context1).
 
-event(BlockTag) ->
-	[SortItems] = wf:q(sort_items),
+event(BlockTag, Context) ->
+	SortItems = wff:q(sort_items, Context),
 	SortTags = [wf:depickle(X) || X <- string:tokens(SortItems, ",")],
-	Module = wf_platform:get_page_module(),
-	Module:sort_event(BlockTag, SortTags).
+	Module = wff:get_page_module(Context),
+	wf_context:call_with_context(Module, sort_event, [BlockTag, SortTags], Context, false).
 
 groups_to_classes([]) -> "";
 groups_to_classes(undefined) -> "";

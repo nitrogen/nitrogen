@@ -6,8 +6,14 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(TriggerPath, TargetPath, Record) -> 
+render_action(Record, Context) -> 
+	TriggerPath = Record#confirm.trigger,
+	TargetPath = Record#confirm.target,
 	Postback = action_event:make_postback(Record#confirm.postback, confirm, TriggerPath, TargetPath, undefined),
-	Actions = [wf_render:render_actions(TriggerPath, TargetPath, Record#confirm.actions)],
-	wf:f("if (confirm(\"~s\")) { ~s ~s }", [wf_utils:js_escape(Record#confirm.text), Postback, Actions]).
+	Actions = [
+		wf:f("if (confirm(\"~s\")) {", [wf_utils:js_escape(Record#confirm.text)]),
+		Postback, Record#confirm.actions,
+		"}"
+	],
+	{ok, Actions, Context}.
 	

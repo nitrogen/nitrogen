@@ -8,17 +8,18 @@
 
 reflect() -> record_info(fields, sortitem).
 
-render(ControlID, Record) -> 
-	PickledTag = wf_utils:pickle(Record#sortitem.tag),
-	Script = wf:f("Nitrogen.$sortitem(obj('~s'), '~s');", [
-		ControlID, 
-		PickledTag
-	]),
-	wf:wire(Script),
+render_element(HtmlID, Record, Context) -> 
+	PickledTag = wff:pickle(Record#sortitem.tag),
+	Script = #script { 
+		script=wf:f("Nitrogen.$sortitem(obj('me'), '~s');", [PickledTag])
+	},
+	{ok, Context1} = wff:wire(Record#sortitem.id, Script, Context),
 	
-	element_panel:render(ControlID, #panel {
+	Panel = #panel {
 		class="sortitem " ++ wf:to_list(Record#sortitem.class),
 		style=Record#sortitem.style,
 		body=Record#sortitem.body
-	}).
+	},
+
+	element_panel:render_element(HtmlID, Panel, Context1).
 	

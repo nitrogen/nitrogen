@@ -20,18 +20,19 @@ run(Context) ->
 
 run_bootstrap(Context) ->
 	% Get the handlers from querystring, if they exist...
-	{ok, Context1} = deserialize_context_state(Context),
+	{ok, Context1} = deserialize_context(Context),
+	?PRINT(Context1),
 	
 	% Initialize all handlers...
 	{ok, Context2} = call_init_on_handlers(Context1),
 	run_execute(Context2).
 	 
 run_execute(Context) ->
-	% Check the event...
+	% Deserialize the event if available...
 	{ok, Context1} = wf_event:update_context_with_event(Context),
-	
+
 	% TODO - Check for access
- 
+
 	% Call the module...
 	Event = Context1#context.event_context,
 	IsFirstRequest = Event#event_context.is_first_request,
@@ -53,7 +54,7 @@ run_finish(Html, Javascript, Context) ->
 	{ok, Context1} = call_finish_on_handlers(Context),
 	
 	% Create Javascript to set the state...
-	State = serialize_context_state(Context1),
+	State = serialize_context(Context1),
 	run_output(Html, [State, Javascript], Context1).
 	
 run_output(Html, Javascript, Context) ->
@@ -67,32 +68,42 @@ run_output(Html, Javascript, Context) ->
 % serialize_context_state/1 -
 % Serialize part of Context and send it to the browser
 % as Javascript variables.
-serialize_context_state(Context) ->
+serialize_context(Context) ->
 	Page = Context#context.page_context,
 	Handlers = Context#context.handler_list,
 	SerializedContextState = wff:pickle([Page, Handlers]),
 	[
 		wf_render_actions:generate_scope_script(Context),
-		wff:f("Nitrogen.$set_param('contextState', '~s');", [SerializedContextState])
+		wff:f("Nitrogen.$set_param('pageContext', '~s');", [SerializedContextState])
 	].
 
 % deserialize_context_state/1 -
 % Updates the context with values that were stored
 % in the browser by serialize_context_state/1.
-deserialize_context_state(Context) ->	
-	% Get the contextState parameter.
+deserialize_context(Context) ->	
 	Request = Context#context.request,
 	Params = Request:query_params(),
-	SerializedContextState = proplists:get_value("contextState", Params),
 	
-	% Deserialize if possible, using the existing state as default.
-	[Page, Handlers] = case SerializedContextState of
+	% Deserialize page_context and handler_list if available...
+	SerializedPageContext = proplists:get_value("pageContext", Params),
+	[Page, Handlers] = case SerializedPageContext of
 		undefined -> [Context#context.page_context, Context#context.handler_list];
 		Other -> wff:depickle(Other)
-	end,
+	end,	
 	
-	% Update the context and return.
-	{ok, Context#context { page_context = Page, handler_list=Handlers }}.
+	% Deserialize dom_paths if available...
+	DomPathList = proplists:get_value("domPaths", Params),
+	DomPaths = wf_path:split_dom_paths(Page#page_context.name, DomPathList),
+	
+	% Create a new context...
+	Context1 = Context#context { 
+		page_context = Page, 
+		handler_list=Handlers, 
+		dom_paths=DomPaths 
+	},
+
+	% Return the new context...
+	{ok, Context1}.
 	
 	
 	
@@ -136,21 +147,9 @@ run_execute_first_request(Context) ->
 	{ok, Context1#context { data=Data}}.
 
 call_module_main(Module, Context) ->
+	?PRINT(Module),
 	{module, Module} = code:ensure_loaded(Module),
-	case erlang:function_exported(Module, main, 1) of 
-		true -> call_module_main_with_context(Module, Context);
-		false -> call_module_main_without_context(Module, Context)
-	end.
-	
-call_module_main_with_context(Module, Context) ->		
-	{ok, _Data, _Context1} = Module:main(Context).
-
-call_module_main_without_context(Module, Context) ->
-	put(context, Context),
-	Data = Module:main(),
-	Context1 = get(context),
-	{ok, Data, Context1}.
-
+	{ok, _Data, _NewContext} = wf_context:call_with_context(Module, main, [], Context, true).
 
 
 %%% POSTBACK REQUEST %%%
@@ -171,17 +170,4 @@ run_execute_postback(Context) ->
 	end.
 	
 call_module_event(Module, Tag, Context) ->
-	case erlang:function_exported(Module, event, 2) of
-		true -> call_module_event_with_context(Module, Tag, Context);
-		false -> call_module_event_without_context(Module, Tag, Context)
-	end.
-	
-call_module_event_with_context(Module, Tag, Context) ->
-	{ok, _Context1} = Module:event(Tag, Context).
-	
-call_module_event_without_context(Module, Tag, Context) ->
-	put(context, Context),
-	Module:event(Tag),
-	Context1 = get(context),
-	{ok, Context1}.
-
+	{ok, _NewContext} = wf_context:call_with_context(Module, event, [Tag], Context, false).

@@ -14,12 +14,12 @@
 % get_cookie(Key, Context, State) -> Value.
 % Read a cookie from the browser.
 get_cookie(Key, Context) -> 
-	_Value = wf_context:apply_return_raw(cookie_handler, get_cookie, [Key], Context).
+	_Value = wf_context:call_handler_function_readonly(cookie_handler, get_cookie, [Key], Context).
 	
 % set_cookie(Key, Value, Path, MinutesToLive, Context, State) -> {ok, NewContext, NewState}.
 % Send a cookie to the browser.
 set_cookie(Key, Value, Path, MinutesToLive, Context) -> 
-	{ok, _NewContext} = wf_context:apply(cookie_handler, set_cookie, [Key, Value, Path, MinutesToLive], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(cookie_handler, set_cookie, [Key, Value, Path, MinutesToLive], Context).
 
 behaviour_info(callbacks) -> [
 	{init, 2},      

@@ -35,7 +35,13 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-06-13T19:01:16Z</date>
+					<date>2009-06-14T22:01:52Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/nitrogen.erl.old</string>
+					<key>lastUsed</key>
+					<date>2009-06-16T02:16:26Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -67,21 +73,27 @@
 					<array>
 						<dict>
 							<key>filename</key>
+							<string>src/core/sync.erl</string>
+							<key>lastUsed</key>
+							<date>2009-06-16T02:16:24Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-13T18:57:35Z</date>
+							<date>2009-06-16T23:07:19Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-12T02:44:34Z</date>
+							<date>2009-06-16T23:19:34Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-12T02:44:35Z</date>
+							<date>2009-06-16T23:19:34Z</date>
 						</dict>
 						<dict>
 							<key>name</key>
@@ -92,8 +104,6 @@
 							<string>src/core/lib</string>
 						</dict>
 						<dict>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>handlers</string>
 							<key>regexFolderFilter</key>
@@ -102,6 +112,8 @@
 							<string>src/core/handlers</string>
 						</dict>
 						<dict>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>actions</string>
 							<key>regexFolderFilter</key>
@@ -118,6 +130,8 @@
 							<string>src/core/validators</string>
 						</dict>
 						<dict>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>elements</string>
 							<key>regexFolderFilter</key>
@@ -147,7 +161,7 @@
 									<key>filename</key>
 									<string>src/platforms/nitrogen_mochiweb_app.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-13T19:31:11Z</date>
+									<date>2009-06-14T15:12:56Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -165,9 +179,7 @@
 									<key>filename</key>
 									<string>src/platforms/wf_mochiweb.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-13T19:31:12Z</date>
-									<key>selected</key>
-									<true/>
+									<date>2009-06-14T15:12:56Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -176,8 +188,6 @@
 									<date>2009-06-13T19:31:11Z</date>
 								</dict>
 							</array>
-							<key>expanded</key>
-							<true/>
 							<key>name</key>
 							<string>Platforms</string>
 						</dict>
@@ -188,7 +198,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_multipart.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-13T22:22:30Z</date>
+									<date>2009-06-16T22:36:42Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -272,7 +282,7 @@
 									<key>filename</key>
 									<string>src/lib/wf_platform_mochiweb.erl</string>
 									<key>lastUsed</key>
-									<date>2009-06-13T22:22:29Z</date>
+									<date>2009-06-14T15:12:56Z</date>
 								</dict>
 								<dict>
 									<key>filename</key>
@@ -291,8 +301,6 @@
 							<string>Lib</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>Mantle</string>
 				</dict>
@@ -309,7 +317,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-06-13T19:01:15Z</date>
+					<date>2009-06-16T02:16:26Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -348,7 +356,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-06-11T03:19:52Z</date>
+					<date>2009-06-16T23:28:27Z</date>
 				</dict>
 			</array>
 			<key>name</key>

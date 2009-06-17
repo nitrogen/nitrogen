@@ -8,28 +8,30 @@
 
 reflect() -> record_info(fields, dropdown).
 
-render(ControlID, Record) -> 
-	case Record#dropdown.postback of
-		undefined -> ok;
-		Postback -> wf:wire(ControlID, #event { type=change, postback=Postback })
+render_element(HtmlID, Record, Context) -> 
+	{ok, Context1} = case Record#dropdown.postback of
+		undefined -> {ok, Context};
+		Postback -> wff:wire(Record#dropdown.id, #event { type=change, postback=Postback })
 	end,
-	
-	case Record#dropdown.value of 
-		undefined -> ok;
-		Value -> wf:set(ControlID, Value)
-	end,
+
+	% TODO -
+	% case Record#dropdown.value of 
+	% 	undefined -> ok;
+	% 	Value -> wff:set(HtmlID, Value)
+	% end,
 	
 	Options=case Record#dropdown.options of
 		undefined -> "";
 		L -> [create_option(X, Record#dropdown.html_encode) || X <- L]
 	end,
 
-	wf_tags:emit_tag(select, Options, [
-		{id, ControlID},
-		{name, ControlID},
+	Elements = wf_tags:emit_tag(select, Options, [
+		{id, HtmlID},
+		{id, HtmlID},
 		{class, [dropdown, Record#dropdown.class]},
 		{style, Record#dropdown.style}
-	]).
+	]),
+	{ok, Elements, Context1}.
 		
 create_option(X, HtmlEncode) ->
 	SelectedOrNot = case X#option.selected of

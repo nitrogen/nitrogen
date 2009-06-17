@@ -2,8 +2,9 @@
 -include ("wf.inc").
 -export ([
 	make_context/2, 
-	apply/3, apply/4,
-	apply_return_raw/3, apply_return_raw/4,
+	call_with_context/5,
+	call_handler_function/3, call_handler_function/4,
+	call_handler_function_readonly/3, call_handler_function_readonly/4,
 	set_handler/3, set_handler/4
 ]).
 
@@ -44,16 +45,46 @@ make_handler(Name, Module) ->
 		state=[]
 	}.
 	
+% call_with_context/3
+call_with_context(Module, Function, Args, Context, HasReturn) ->
+	ExportedWithContext = erlang:function_exported(Module, Function, length(Args) + 1),
+	ExportedWithoutContext = erlang:function_exported(Module, Function, length(Args)),
+	case {ExportedWithContext, ExportedWithoutContext} of
+		{false, false} -> 
+			throw({function_not_found, Module, Function});
+			
+		{true, _} -> 
+			Response = erlang:apply(Module, Function, Args ++ [Context]),
+			case HasReturn of
+				true -> {ok, _Value, _NewContext} = Response;
+				false -> {ok, _NewContext} = Response
+			end;				
+			
+		{_, true} -> 
+			% Stuff context, call the function, load context, and return.
+			OldContext = get(context),
+			put(context, Context),
+			Value = erlang:apply(Module, Function, Args),
+			NewContext = get(context), 
+			put(context, OldContext),
+			case HasReturn of
+				true -> {ok, Value, NewContext};
+				false -> {ok, NewContext}
+			end
+	end.
+			
+	
+	
 % apply/3 - 
 % Helper function to call a function within a handler.
 % Returns {ok, NewContext} or {ok, Value, NewContext}.
-apply(Name, FunctionName, Context) ->
-	apply(Name, FunctionName, [], Context).
+call_handler_function(Name, FunctionName, Context) ->
+	call_handler_function(Name, FunctionName, [], Context).
 	
 % apply/4 - 
 % Helper function to call a function within a handler.
 % Returns {ok, NewContext} or {ok, Value, NewContext}.
-apply(Name, FunctionName, Args, Context) ->
+call_handler_function(Name, FunctionName, Args, Context) ->
 	% Get the handler and state from the context. Then, call
 	% the function, passing in the Args with Context and State prepended.
  	#handler_context { module=Module, state=State } = get_handler(Name, Context),
@@ -75,10 +106,10 @@ apply(Name, FunctionName, Args, Context) ->
 			{ok, Value1, Value2, NewContext1}
 	end.
 
-apply_return_raw(Name, FunctionName, Context) ->
-	apply_return_raw(Name, FunctionName, [], Context).
+call_handler_function_readonly(Name, FunctionName, Context) ->
+	call_handler_function_readonly(Name, FunctionName, [], Context).
 	
-apply_return_raw(Name, FunctionName, Args, Context) ->
+call_handler_function_readonly(Name, FunctionName, Args, Context) ->
 	% Get the handler and state from the context. Then, call
 	% the function, passing in the Args with Context and State prepended.
 	#handler_context { module=Module, state=State } = get_handler(Name, Context),

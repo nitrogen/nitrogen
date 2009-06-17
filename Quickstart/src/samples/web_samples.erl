@@ -9,7 +9,7 @@ main() ->
 		{'Item', samples}
 	]}.
 
-title(Context) -> {ok, "Nitrogen Samples", Context}.
+title() -> "Nitrogen Samples".
 headline() -> "Nitrogen Samples".
 right() -> linecount:render().
 

@@ -8,19 +8,19 @@
 
 reflect() -> record_info(fields, button).
 
-render_element(ControlID, Record, Context) ->
+render_element(HtmlID, Record, Context) ->
 	{ok, Context1} = case Record#button.postback of
 		undefined -> {ok, Context};
 		Postback -> wff:wire(Record#button.id, #event { type=click, postback=Postback }, Context)
 	end,
 	
 	Value = ["  ", wf:html_encode(Record#button.text, Record#button.html_encode), "  "], 
-	Html = wf_tags:emit_tag(input, [
-		{id, ControlID},
-		{name, ControlID},
+	Elements = wf_tags:emit_tag(input, [
+		{id, HtmlID},
+		{name, {id, HtmlID}},
 		{type, button},
 		{class, [button, Record#button.class]},
 		{style, Record#button.style},
 		{value, Value}
 	]),
-	{ok, Html, Context1}.
+	{ok, Elements, Context1}.

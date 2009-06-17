@@ -8,5 +8,6 @@
 
 reflect() -> record_info(fields, literal).
 
-render(_ControlID, Record) -> 
-	wf:html_encode(Record#literal.text, Record#literal.html_encode).
+render_context(_HtmlID, Record, Context) -> 
+	Elements = wf:html_encode(Record#literal.text, Record#literal.html_encode),
+	{ok, Elements, Context}.

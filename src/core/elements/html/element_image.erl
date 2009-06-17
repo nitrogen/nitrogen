@@ -8,9 +8,9 @@
 
 reflect() -> record_info(fields, image).
 
-render(ControlID, Record) ->
+render_element(HtmlID, Record, Context) ->
 	Attributes = [
-		{id, ControlID},
+		{id, HtmlID},
 		{class, [image, Record#image.class]},
 		{style, Record#image.style},
 		{src, Record#image.image}
@@ -21,4 +21,5 @@ render(ControlID, Record) ->
 		ImageAlt -> [{alt, ImageAlt}|Attributes] 
 	end,
 
-	wf_tags:emit_tag(img, FinalAttributes).
+	Elements = wf_tags:emit_tag(img, FinalAttributes),
+	{ok, Elements, Context}.

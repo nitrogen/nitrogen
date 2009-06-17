@@ -15,7 +15,7 @@
 
 reflect() -> record_info(fields, template).
 
-render_element(_ControlID, Record, Context) ->
+render_element(_HtmlID, Record, Context) ->
 	% % Prevent loops.
 	% case wf:state(template_was_called) of
 	% 	true -> throw("Calling a template from a template.");

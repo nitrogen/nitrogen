@@ -8,16 +8,16 @@
 
 reflect() -> record_info(fields, radiogroup).
 
-render(ControlID, Record) -> 
-	% Set the group to the current ControlID...
-	Body = apply_name(ControlID, Record#radiogroup.body),
+render_element(HtmlID, Record, Context) -> 
+	% Set the group to the current HtmlID...
+	Body = apply_name(HtmlID, Record#radiogroup.body),
 	
 	% Render the record...
-	element_panel:render(ControlID, #panel {
+	element_panel:render_element(HtmlID, #panel {
 		class="radiogroup " ++ wf:to_list(Record#radiogroup.class),
 		style=Record#radiogroup.style,
 		body=Body
-	}).
+	}, Context).
 
 apply_name(Name, Terms) ->
     [do_apply(Name, X) || X <- Terms].

@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, inplace_textbox).
 
-render(ControlID, Record) -> 
+render_element(HtmlID, Record, Context) -> 
 	% Get vars...
 	OKButtonID = wf:temp_id(),
 	CancelButtonID = wf:temp_id(),
@@ -53,31 +53,32 @@ render(ControlID, Record) ->
 		]
 	},
 	
-	case Record#inplace_textbox.start_mode of
-		view -> wf:wire(EditPanelID, #hide{});
+	{ok, Context2} = case Record#inplace_textbox.start_mode of
+		view -> wff:wire(EditPanelID, #hide{}, Context);
 		edit -> 
-			wf:wire(ViewPanelID, #hide{}),
-			wf:wire(TextBoxID, "obj('me').focus(); obj('me').select();")
+			{ok, Context1} = wff:wire(ViewPanelID, #hide{}, Context),
+			Script = #script { script="obj('me').focus(); obj('me').select();" },
+			{ok, _Context2} = wff:wire(TextBoxID, Script, Context1)
 	end,
 	
-	wf:wire(OKButtonID, TextBoxID, #validate { attach_to=CancelButtonID, validators=Record#inplace_textbox.validators }),
+	{ok, Context3} = wff:wire(OKButtonID, TextBoxID, #validate { attach_to=CancelButtonID, validators=Record#inplace_textbox.validators }, Context2),
 	
-	element_panel:render(ControlID, Terms).
+	element_panel:render_element(HtmlID, Terms, Context3).
 
-event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}) -> 
-	[Value] = wf:q(TextBoxID),
-	Delegate = wf_platform:get_page_module(),
+event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}, Context) -> 
+	Value = wff:q(TextBoxID, Context),
+	Delegate = wff:get_page_module(Context),
 	Value1 = Delegate:inplace_textbox_event(Tag, Value),
 	wf:update(LabelID, Value1),
-	wf:set(TextBoxID, Value1),
-	wf:wire(EditPanelID, #hide {}),
-	wf:wire(ViewPanelID, #show {}),
-	ok;
+	%TODO - wf:set(TextBoxID, Value1),
+	{ok, Context1} = wff:wire(EditPanelID, #hide {}, Context),
+	{ok, Context2} = wff:wire(ViewPanelID, #show {}, Context1),
+	{ok, Context2};
 
-event({cancel, {ViewPanelID, _LabelID, EditPanelID, TextBoxID}, _Tag, OriginalText}) ->
-	wf:set(TextBoxID, OriginalText),
-	wf:wire(EditPanelID, #hide {}),
-	wf:wire(ViewPanelID, #show {}),
-	ok;	
+event({cancel, {ViewPanelID, _LabelID, EditPanelID, _TextBoxID}, _Tag, _OriginalText}, Context) ->
+	% TODO - wf:set(TextBoxID, OriginalText),
+	{ok, Context1} = wff:wire(EditPanelID, #hide {}, Context),
+	{ok, Context2} = wff:wire(ViewPanelID, #show {}, Context1),
+	{ok, Context2}.
 
 event(_Tag) -> ok.

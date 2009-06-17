@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, spinner).
 
-render(_ControlID, Record) -> 
+render(_HtmlID, Record) -> 
 	wf:wire(spinner, #hide{}),
 	Terms = #panel {
 		id=spinner,

@@ -8,10 +8,12 @@
 
 reflect() -> record_info(fields, tablerow).
 
-render(ControlID, Record) -> 
-	Content = wf:render(Record#tablerow.cells),
-	wf_tags:emit_tag(tr, Content, [
-		{id, ControlID},
+render_element(HtmlID, Record, Context) -> 
+	Cells = wf:render(Record#tablerow.cells),
+	Elements = wf_tags:emit_tag(tr, Cells, [
+		{id, HtmlID},
 		{class, [tablerow, Record#tablerow.class]},
 		{style, Record#tablerow.style}
-	]).
+	]),
+	
+	{ok, Elements, Context}.

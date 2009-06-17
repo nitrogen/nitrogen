@@ -8,14 +8,14 @@
 
 reflect() -> record_info(fields, rounded_panel).
 
-render(ControlID, Record) -> 
+render_element(HtmlID, Record, Context) -> 
 	Color = wf:to_list(Record#rounded_panel.color),
 	TL = wf:f("<img src='/nitrogen/~s_tl.png' style='vertical-align: top;'>", [Color]),
 	TR = wf:f("<img src='/nitrogen/~s_tr.png' style='vertical-align: top;'>", [Color]),
 	BL = wf:f("<img src='/nitrogen/~s_bl.png' style='vertical-align: bottom;'>", [Color]),
 	BR = wf:f("<img src='/nitrogen/~s_br.png' style='vertical-align: bottom;'>", [Color]),
 	
-	Terms = #table {
+	Table = #table {
 		class="rounded_panel " ++ Color ++ Record#rounded_panel.class,
 		style=Record#rounded_panel.style,
 		rows=[
@@ -32,4 +32,4 @@ render(ControlID, Record) ->
 			]}
 		]
 	},
-	element_table:render(ControlID, Terms).
+	element_table:render_element(HtmlID, Table, Context).

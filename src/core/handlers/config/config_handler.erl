@@ -5,7 +5,7 @@
 -module (config_handler).
 -export ([
 	behaviour_info/1,
-	get_config/2, get_config/3, set_config/3
+	get_config/2, get_config/3, set_config/3, set_config/2
 ]).
 
 % get_config(Application, Module, Key, DefaultValue, Context, State) -> Value.
@@ -14,13 +14,13 @@ get_config(Key, Context) ->
 	_Value = get_config(Key, undefined, Context).
 
 get_config(Key, DefaultValue, Context) -> 
-	_Value = wf_context:apply_return_raw(config_handler, get_config, [Key, DefaultValue], Context).
+	_Value = wf_context:call_handler_function_readonly(config_handler, get_config, [Key, DefaultValue], Context).
 
 set_config(Key, Value, Context) ->
-	{ok, _NewContext} = wf_context:apply(config_handler, set_config, [Key, Value], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(config_handler, set_config, [Key, Value], Context).
 	
 set_config(PropList, Context) ->
-	{ok, _NewContext} = wf_context:apply(config_handler, set_config, [PropList], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(config_handler, set_config, [PropList], Context).
 
 behaviour_info(callbacks) -> [
 	{init, 2},      

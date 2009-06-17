@@ -8,8 +8,8 @@
 
 reflect() -> record_info(fields, lightbox).
 
-render(ControlID, Record) -> 
-	Terms = #panel {
+render_element(HtmlID, Record, Context) -> 
+	Panel = #panel {
 		class=lightbox,
 		style="position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px;",
 		body=[
@@ -25,4 +25,4 @@ render(ControlID, Record) ->
 			}
 		]
 	},
-	element_panel:render(ControlID, Terms).
+	element_panel:render_element(HtmlID, Panel, Context).

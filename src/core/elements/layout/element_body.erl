@@ -8,8 +8,8 @@
 
 reflect() -> record_info(fields, body).
 
-render(_ControlID, Record) ->
-	["
+render_element(_HtmlID, Record, Context) ->
+	Elements = ["
 	<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\">
 	<html>
 	<head>
@@ -29,8 +29,6 @@ render(_ControlID, Record) ->
 	</script>
 	</body>
 	</html>
-	"].
-									
-								
-		
-				
+	"],
+	
+	{ok, Elements, Context}.

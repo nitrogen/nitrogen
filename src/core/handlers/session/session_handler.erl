@@ -28,22 +28,22 @@ get_value(Key, Context) ->
 % get(Key, DefaultValue, Context, State, Key, DefaultValue) -> {ok, Value, NewContext, NewState}.
 % Retrieve a value from the storage area.
 get_value(Key, DefaultValue, Context) ->
-	_Value = wf_context:apply_return_raw(session_handler, get_value, [Key, DefaultValue], Context).
+	_Value = wf_context:call_handler_function_readonly(session_handler, get_value, [Key, DefaultValue], Context).
 	
 % set_value(Key, Value, Context, State) -> {ok, NewContext, NewState}.
 % Put a value into the storage area.
 set_value(Key, Value, Context) ->
-	{ok, _NewContext} = wf_context:apply(session_handler, set_value, [Key, Value], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(session_handler, set_value, [Key, Value], Context).
 
 % clear_value(Key, Context, State) -> {ok, NewContext, NewState}.
 % Remove a value from the storage area.
 clear_value(Key, Context) ->
-	{ok, _NewContext} = wf_context:apply(session_handler, clear_value, [Key], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(session_handler, clear_value, [Key], Context).
 
 % clear_all(Context, State) -> {ok, NewContext, NewState}.
 % Clear all values from the storage area.
 clear_all(Context) ->
-	{ok, _NewContext} = wf_context:apply(session_handler, clear_all, Context).
+	{ok, _NewContext} = wf_context:call_handler_function(session_handler, clear_all, Context).
 
 
 

@@ -183,19 +183,17 @@ N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
 		return;
 	}
 	
-	// Get dom paths...
-	var domPaths = this.$get_dom_paths();
 	
 	// Assemble other parameters... 
 	var url = this.$url;
 	for (var key in this.$params) {
 		url = Nitrogen.$add_param_to_url(url, key, this.$params[key]);
 	}
+	url = Nitrogen.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
 
 	// Build params...
 	var params = 
 		"eventContext=" + eventContext + "&" + 
-		"domPaths=" + domPaths + "&" + 
 		s + "&" + extraParams;
 	
 	jQuery.ajax({ 
@@ -226,12 +224,10 @@ N.prototype.$do_xhr_system_event = function(eventContext) {
 	for (var key in this.$params) {
 		url = Nitrogen.$add_param_to_url(url, key, this.$params[key]);
 	}
-
-	// Get dom paths...
-	var domPaths = this.$get_dom_paths();
+	url = Nitrogen.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
 	
 	// Build params...
-	var params = "eventContext=" + eventContext + "&domPaths=" + domPaths;
+	var params = "eventContext=" + eventContext;
 
 	var n = this;
 

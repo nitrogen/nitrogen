@@ -20,7 +20,7 @@ update(_Module) ->
 	  _ -> ignore
 	end.
 
-render_element(_ControlID, _Record) -> 
+render_element(_HtmlID, _Record, Context) -> 
   % TODO -
 	% Terms = #panel { 
 	% 	id=flash,
@@ -29,7 +29,7 @@ render_element(_ControlID, _Record) ->
 	% },
 	% wf:state(has_flash, true),
 	% wf:render(Terms).
-	[].
+	{ok, [], Context}.
 	
 add_flash(Term) ->
 	Flashes = case wf:session(flashes) of

@@ -6,10 +6,10 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(TriggerPath, TargetPath, Record) ->
+render_action(Record, Context) ->
 	Effect = #jquery_effect {
 		type=remove_class,
 		class = Record#remove_class.class,
 		speed = Record#remove_class.speed
 	},
-	action_jquery_effect:render_action(TriggerPath, TargetPath, Effect).
+	{ok, Effect, Context}.

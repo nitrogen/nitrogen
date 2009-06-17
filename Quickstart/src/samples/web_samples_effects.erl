@@ -13,7 +13,7 @@ right() -> linecount:render().
 
 column1() ->
 	Event = #event { target=theDiv, type=click },
-	Column1 = [
+	[
 		#link { text="Show", actions=Event#event { 
 			actions=#show{} 
 		}}, 
@@ -82,8 +82,7 @@ column1() ->
 		#link { text="Animate - Small Border", actions=Event#event { 
 			actions=#animate { options=[{borderWidth, "1px"}] }
 		}}
-	],
-	wf:render(Column1).
+	].
 	
 column2() -> 
 	#panel { class=effects_target, id=theDiv, body=[

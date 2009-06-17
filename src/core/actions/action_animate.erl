@@ -6,11 +6,11 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(TriggerPath, TargetPath, Record) ->
+render_action(Record, Context) ->
 	Effect = #jquery_effect {
 		type=animate,
 		options = Record#animate.options,
 		speed = Record#animate.speed,
 		easing = Record#animate.easing
 	},
-	action_jquery_effect:render_action(TriggerPath, TargetPath, Effect).
+	{ok, Effect, Context}.

@@ -18,7 +18,7 @@ info(String, Args, Context) ->
 	{ok, _NewContext} = info(wff:f(String, Args), Context).
 	
 info(String, Context) -> 
-	{ok, _NewContext} = wf_context:apply(log_handler, info, [String], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(log_handler, info, [String], Context).
 	
 % warning(String, Context, State) -> {ok, NewContext, NewState}.
 % Log a warning-level message. If something is not corrected, then
@@ -27,7 +27,7 @@ warning(String, Args, Context) ->
 	{ok, _NewContext} = warning(wff:f(String, Args), Context).
 	
 warning(String, Context) -> 
-	{ok, _NewContext} = wf_context:apply(log_handler, warning, [String], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(log_handler, warning, [String], Context).
 
 % error(String, Context, State) -> {ok, NewContext, NewState}.
 % Log an error-level message. Service has been interrupted in some way.
@@ -35,7 +35,7 @@ error(String, Args, Context) ->
 	{ok, _NewContext} = error(wff:f(String, Args), Context).
 	
 error(String, Context) -> 
-	{ok, _NewContext} = wf_context:apply(log_handler, error, [String], Context).
+	{ok, _NewContext} = wf_context:call_handler_function(log_handler, error, [String], Context).
 
 
 

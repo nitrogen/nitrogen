@@ -18,11 +18,12 @@
 % If not found, then it creates #event_context and #page_context records with
 % values for a first request.
 
+
 update_context_with_event(Context) ->
-	% Decode the event_context...
 	SerializedEvent = wff:q(eventContext, Context),
 	Event = wff:depickle(SerializedEvent),
-	
+
+	?PRINT(Event),
 	% Update the Context...
 	IsPostback = is_record(Event, event_context),
 	case IsPostback of
@@ -45,11 +46,15 @@ update_context_for_first_request(Context) ->
 	{ok, Context1}.
 
 update_context_for_postback_request(Event, Context) ->
-	Context1 = Context#context { 
-		event_context = Event,
-		current_path = Event#event_context.target
+	TriggerPath = wf_path:normalize_path(Event#event_context.trigger, Context),
+	TargetPath = wf_path:normalize_path(Event#event_context.target, Context),
+	Context1 = Context#context { current_path = TargetPath },
+	Event1 = Event#event_context {
+		trigger = TriggerPath,
+		target = TargetPath
 	},
-	{ok, Context1}.
+	Context2 = Context1#context { event_context = Event1 },	
+	{ok, Context2}.
 
 generate_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate, _Context) -> [];
 generate_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate, Context) ->

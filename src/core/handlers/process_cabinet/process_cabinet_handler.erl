@@ -25,13 +25,13 @@
 % get_pid(Key, Context, State) -> {ok, Pid, NewContext, NewState}.
 % Get the process associated with this Key.
 get_pid(Key, Context) ->
-	_Pid = wf_context:apply_return_raw(process_cabinet_handler, get_pid, [Key], Context).
+	_Pid = wf_context:call_handler_function_readonly(process_cabinet_handler, get_pid, [Key], Context).
 
 % get_pid(Key, Function, Context, State) -> {ok, Pid, NewContext, NewState}.	
 % Return the process associated with Key. If that process does not
 % exist, then create a new process and associate it with Key.
 get_pid(Key, Function, Context) ->
-	{ok, _Pid, _NewContext} = wf_context:apply(process_cabinet_handler, get_pid, [Key, Function], Context).
+	{ok, _Pid, _NewContext} = wf_context:call_handler_function(process_cabinet_handler, get_pid, [Key, Function], Context).
 
 		
 

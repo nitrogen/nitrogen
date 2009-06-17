@@ -23,7 +23,7 @@ get_map() -> [titleLabel@text, authorLabel@text, descriptionLabel@text, myButton
 column1() -> 
 	Data = get_data(),
 	Map = get_map(),
-	Column1 = [
+	[
 		#h3 { text="Div Binding" },
 		#bind { id=simpleBinding, data=Data, map=Map, body=[
 			#hr{},
@@ -32,13 +32,12 @@ column1() ->
 			#label { class=tiny, id=descriptionLabel },
 			#button { class=tiny, id=myButton, text="Button" }
 		]}
-	],
-	wf:render(Column1).
+	].
 
 column2() ->	
 	Data = get_data(),
 	Map = get_map(),
-	Column2 = [
+	[
 		#h3 { text="Table Binding" },
 		#table { class=tiny, rows=[
 			#tablerow { cells=[
@@ -54,8 +53,7 @@ column2() ->
 				#tablecell { body=#button { id=myButton, text="Button" } }
 			]}}
 		]}
-	],
-	wf:render(Column2).
+	].
 	
 event({data, Data}) ->
 	Message = "Clicked On Data: " ++ wf:to_list(Data),

@@ -6,5 +6,6 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(_TriggerPath, TargetPath, _Record) -> 
-	wff:f("Nitrogen.$disable_selection(obj('~s'));", [wf:to_js_id(TargetPath)]).
+render_action(_Record, Context) -> 
+	Script = "Nitrogen.$disable_selection(obj(me));",
+	{ok, Script, Context}.

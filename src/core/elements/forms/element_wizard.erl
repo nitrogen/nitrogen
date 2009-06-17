@@ -6,9 +6,11 @@
 -include ("wf.inc").
 -compile(export_all).
 
+% TODO - this is totally broken.
+
 reflect() -> record_info(fields, wizard).
 
-render(ControlID, Record) -> 
+render_element(HtmlID, Record, Context) -> 
 	% Set up callbacks...
 	Tag = Record#wizard.tag,
 
@@ -60,7 +62,7 @@ render(ControlID, Record) ->
 	wf:wire(hd(FullIDs), #show{}),	
 	
 	% Render.
-	element_panel:render(ControlID, Terms).
+	element_panel:render_element(HtmlID, Terms, Context).
 	
 event({back, N, StepIDs}) -> 
 	wf:wire(lists:nth(N, StepIDs), #hide {}),

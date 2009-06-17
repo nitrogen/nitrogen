@@ -42,10 +42,10 @@
 	response,          % Response Bridge (see SimpleBridge)
 
 	% Transient Information
-	dom_paths,         % A list of dom paths corresponding to elements in the browser. Used during the wire process.
-	current_path=[],   % Used during rendering to hold the path of whatever is currently getting rendered. 
-	data=[],           % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
-	queued_actions=[], % List of actions queued in main/1, event/2, or when rendering elements.	
+	dom_paths=undefined, % A list of dom paths corresponding to elements in the browser. Used during the wire process.
+	current_path=[],     % Used during rendering to hold the path of whatever is currently getting rendered. 
+	data=[],             % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
+	queued_actions=[],   % List of actions queued in main/1, event/2, or when rendering elements.	
 
 	% These are all serialized, sent to the browser
 	% and de-serialized on each request.
