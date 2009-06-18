@@ -127,7 +127,7 @@
 -record(continue, {?ACTION_BASE(action_continue), function, delegate, tag, interval=100, timeout=20000}).
 -record(update, {?ACTION_BASE(action_update), type=update, elements=[]}).
 -record(async, {?ACTION_BASE(action_async), pool=default, scope=local, function, dying_message}).
-
+-record(set, {?ACTION_BASE(action_set), value}).
 -record(redirect, {?ACTION_BASE(action_redirect), url}).
 -record(event, {?ACTION_BASE(action_event), type=click, delay=0, postback, delegate}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).

@@ -50,7 +50,7 @@
 					<key>filename</key>
 					<string>quickstart_mochiweb.sh</string>
 					<key>lastUsed</key>
-					<date>2009-01-04T23:26:13Z</date>
+					<date>2009-06-17T12:25:18Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -71,9 +71,15 @@
 					<key>filename</key>
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
-					<date>2009-06-13T15:33:30Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2009-06-17T12:25:18Z</date>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>platforms</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/platforms</string>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -119,6 +125,20 @@
 					<key>filename</key>
 					<string>src/footer.erl</string>
 				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/taskdata.erl</string>
+					<key>lastUsed</key>
+					<date>2009-06-17T16:22:41Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/web_tasklist.erl</string>
+					<key>lastUsed</key>
+					<date>2009-06-18T00:59:20Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
 			</array>
 			<key>expanded</key>
 			<true/>
@@ -130,9 +150,15 @@
 			<array>
 				<dict>
 					<key>filename</key>
+					<string>wwwroot/tasklist.html</string>
+					<key>lastUsed</key>
+					<date>2009-06-17T16:22:41Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
-					<date>2009-05-16T04:08:55Z</date>
+					<date>2009-06-17T12:25:19Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>

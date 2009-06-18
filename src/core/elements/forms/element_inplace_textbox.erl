@@ -68,17 +68,17 @@ render_element(HtmlID, Record, Context) ->
 event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}, Context) -> 
 	Value = wff:q(TextBoxID, Context),
 	Delegate = wff:get_page_module(Context),
-	Value1 = Delegate:inplace_textbox_event(Tag, Value),
-	wf:update(LabelID, Value1),
-	%TODO - wf:set(TextBoxID, Value1),
-	{ok, Context1} = wff:wire(EditPanelID, #hide {}, Context),
-	{ok, Context2} = wff:wire(ViewPanelID, #show {}, Context1),
-	{ok, Context2};
+	{ok, Value1, Context1} = wf_context:call_with_context(Delegate, inplace_textbox_event, [Tag, Value], Context, true),
+	{ok, Context2} = wff:update(LabelID, Value1, Context1),
+	{ok, Context3} = wff:set(TextBoxID, Value1, Context2),
+	{ok, Context4} = wff:wire(EditPanelID, #hide {}, Context3),
+	{ok, Context5} = wff:wire(ViewPanelID, #show {}, Context4),
+	{ok, Context5};
 
-event({cancel, {ViewPanelID, _LabelID, EditPanelID, _TextBoxID}, _Tag, _OriginalText}, Context) ->
-	% TODO - wf:set(TextBoxID, OriginalText),
-	{ok, Context1} = wff:wire(EditPanelID, #hide {}, Context),
-	{ok, Context2} = wff:wire(ViewPanelID, #show {}, Context1),
-	{ok, Context2}.
+event({cancel, {ViewPanelID, _LabelID, EditPanelID, TextBoxID}, _Tag, OriginalText}, Context) ->
+	{ok, Context1} = wff:set(TextBoxID, OriginalText, Context),
+	{ok, Context2} = wff:wire(EditPanelID, #hide {}, Context1),
+	{ok, Context3} = wff:wire(ViewPanelID, #show {}, Context2),
+	{ok, Context3}.
 
 event(_Tag) -> ok.

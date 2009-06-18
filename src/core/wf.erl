@@ -107,7 +107,9 @@ get_page_module() ->
 
 %%% EXPOSE WF_BIND %%%
 % TODO
-% set(Element, Value) -> wf_bind:set(Element, Value).
+set(Element, Value) -> 
+	?PRE, {ok, NewContext} = wff:set(Element, Value, Context), ?POST, ok.
+	
 % bind(BindingTuple, Record) -> wf_bind:bind(BindingTuple, Record).
 % reverse_bind(BindingTuple) -> wf_bind:reverse_bind(BindingTuple).
 % reverse_bind(BindingTuple, Record) -> wf_bind:reverse_bind(BindingTuple, Record).

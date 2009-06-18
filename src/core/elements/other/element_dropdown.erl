@@ -14,11 +14,10 @@ render_element(HtmlID, Record, Context) ->
 		Postback -> wff:wire(Record#dropdown.id, #event { type=change, postback=Postback }, Context)
 	end,
 
-	% TODO -
-	% case Record#dropdown.value of 
-	% 	undefined -> ok;
-	% 	Value -> wff:set(HtmlID, Value)
-	% end,
+	case Record#dropdown.value of 
+		undefined -> ok;
+		Value -> wff:set(HtmlID, Value)
+	end,
 	
 	Options=case Record#dropdown.options of
 		undefined -> "";

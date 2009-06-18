@@ -81,19 +81,19 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-17T02:16:47Z</date>
+							<date>2009-06-18T01:59:10Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-17T02:08:00Z</date>
+							<date>2009-06-17T16:28:03Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-16T23:19:34Z</date>
+							<date>2009-06-17T16:28:03Z</date>
 						</dict>
 						<dict>
 							<key>name</key>
@@ -309,7 +309,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-06-17T01:57:31Z</date>
+					<date>2009-06-17T16:12:53Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -348,7 +348,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-06-17T02:16:48Z</date>
+					<date>2009-06-17T02:56:06Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -377,6 +377,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{286, 0}, {926, 778}}</string>
+	<string>{{287, 0}, {926, 778}}</string>
 </dict>
 </plist>

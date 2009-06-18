@@ -16,8 +16,8 @@ body() -> [
 	#p{},
 	#textbox { id=theMessage, text="This is a message...", next=theButton },
 	#button { id=theButton, text="Go", postback=click },
-	% 
 	#p{},	
+	
 	% Create a table with three columns...
 	#table { style="width: 100%;", rows=[
 		#tablerow { cells=[

@@ -34,6 +34,9 @@ set_trigger(Action, Trigger) -> setelement(4, Action, Trigger).
 get_target(Action) -> element(5, Action).
 set_target(Action, Target) -> setelement(5, Action, Target).
 
+wire(TriggerID, TargetID, Script, Context) when ?IS_STRING(Script) ->
+	wire(TriggerID, TargetID, #script { script=Script }, Context);
+	
 wire(TriggerID, TargetID, Actions, Context) ->
 	CurrentPath = Context#context.current_path,
 	Action = #wire { trigger=CurrentPath, target=CurrentPath, actions=[

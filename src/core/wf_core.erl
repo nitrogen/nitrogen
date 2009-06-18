@@ -47,7 +47,7 @@ run_execute(Context) ->
 		
 run_render(Context) ->
 	Elements = Context#context.data,
-	Actions = Context#context.queued_actions,
+	Actions = lists:reverse(Context#context.queued_actions),
 	Context1 = Context#context { data=[], queued_actions=[] },
 	{ok, Html, Javascript, Context2} = wf_render:render(Elements, Actions, Context1),
 	run_finish(Html, Javascript, Context2).
