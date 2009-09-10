@@ -111,7 +111,6 @@ to_js_id(P) ->
 
 
 generate_scope_script() ->
-	CurrentID = wf_context:page_name(),
 	CurrentPath = wf_context:current_path(),
-	Script = wf:f("~nNitrogen.$scope('~s', '~s'); ", [CurrentID, wf:to_js_id(CurrentPath)]),
+	Script = wf:f("~nNitrogen.$scope('~s'); ", [wf:to_js_id(CurrentPath)]),
 	Script.

@@ -1,103 +1,32 @@
-/*
-Usage:
-	var n = new Nitrogen({
-		url : "http://nitrogenserver/web/module",
-		div : enclosingDiv
-	});
-	
-	n.IFrame(div, url);
-	n.Inline(div, url);
-	n.Windex(div, url);
+// The idea is to have one high level
+// Nitrogen object, created from NitrogenClass, that 
+// encapsulates everything in order to prevent collisions.
 
-*/
-
-function Nitrogen(o) {
-	// Set the id, and associate with the global Nitrogen object...
-	if (o.id) {
-		this.id = o.id
-	} else {
-		this.id = "o" + Math.floor(Math.random()*999999999);
-	}
-	eval(Nitrogen.$NString + "." + this.id + " = this;");
-
-	// Set the originating URL...
-	if (o.url) {
-		this.$url = o.url;
-	} else {
-		this.$url = document.location.href;
-	}
-
-	// Set some initial properties.
-	if (o.div) {
-		this.$div = o.div;
-	} else {
-		this.$div = document;
-	}
-	
+function NitrogenClass(o) {
+	this.$url = document.location.href;
+	this.$div = document;
 	this.$params = new Object();
+	this.$current_path = "";
+	this.$event_queue = new Array();
+	this.$event_is_running = false;
+	return this;
 }
-
-var N = Nitrogen;
-N.$NString = "Nitrogen";
-N.$current_id = "";
-N.$current_path = "";
-N.$event_queue = new Array();
-N.$event_is_running = false;
-
-/*** PUBLIC METHODS ***/
-
-function obj(path) {
-	return Nitrogen.obj(path);
-}
-
-N.Page = function(o) {
-	var n = new Nitrogen(o);
-	n.$do_event = n.$do_xhr_event;
-	n.$do_system_event = n.$do_xhr_system_event;
-	return n;
-}
-
-N.Inline = function(o) {
-	var n = new Nitrogen(o);
-	n.$do_event = n.$do_xhr_event;
-	n.$do_system_event = n.$do_xhr_system_event;	
-	var url = Nitrogen.$add_param_to_url(n.$url, "object_id", n.id);
-	Nitrogen.$load_script(url);
-	return n;
-}
-
 
 /*** PRIVATE METHODS ***/
 
-N.$scope = function(id, path) {
-	N.$current_id = id;
-	N.$current_path = path;
+NitrogenClass.prototype.$scope = function(path) {
+	this.$current_path = path;
 }
 
-N.$lookup = function(id) {
-	return eval(Nitrogen.$NString + "." + id + ";");
-}
-
-N.$set_param = function(key, value) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$set_param(key, value);	
-}
-
-N.prototype.$set_param = function(key, value) {
+NitrogenClass.prototype.$set_param = function(key, value) {
 	this.$params[key] = value;
 }
 
 /*** EVENT QUEUE ***/
 
-N.$queue_event = function(triggerID, eventContext, extraParams) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$queue_event(triggerID, eventContext, extraParams);
-}
-
-N.prototype.$queue_event = function(triggerID, eventContext, extraParams) {
+NitrogenClass.prototype.$queue_event = function(triggerID, eventContext, extraParams) {
 	// Put an event on the event_queue.
-	Nitrogen.$event_queue.push({
-		n : this,
+	this.$event_queue.push({
 		triggerID    : this.obj(triggerID).id,
 		eventContext : eventContext,
 		extraParams  : extraParams
@@ -105,22 +34,22 @@ N.prototype.$queue_event = function(triggerID, eventContext, extraParams) {
 }
 
 
-N.$event_loop = function() {
+NitrogenClass.prototype.$event_loop = function() {
 	// Make it loop.
-	setTimeout(Nitrogen.$NString + ".$event_loop();", 1);
+	setTimeout("Nitrogen.$event_loop();", 1);
 	
 	// If something is running, or the queue is empty, then just return.
-	if (Nitrogen.$event_is_running) return;
-	if (Nitrogen.$event_queue.length == 0) return;
+	if (this.$event_is_running) return;
+	if (this.$event_queue.length == 0) return;
 	
 	// Get and exect the event.
-	var o = Nitrogen.$event_queue.shift();
-	o.n.$do_event(o.triggerID, o.eventContext, o.extraParams);
+	var o = this.$event_queue.shift();
+	this.$do_event(o.triggerID, o.eventContext, o.extraParams);
 }
 
 /*** VALIDATE AND SERIALIZE ***/
 
-N.prototype.$validate_and_serialize = function(triggerID) {
+NitrogenClass.prototype.$validate_and_serialize = function(triggerID) {
 	// Check validatation, build list of params...
 	var is_valid = true;
 	var elements = this.$get_form_elements();
@@ -146,7 +75,7 @@ N.prototype.$validate_and_serialize = function(triggerID) {
 	}
 }
 
-N.prototype.$get_dom_paths = function() {
+NitrogenClass.prototype.$get_dom_paths = function() {
 	// Build list of paths...
 	var paths=new Array();
 	var elements = this.$div.getElementsByTagName('*');
@@ -162,16 +91,16 @@ N.prototype.$get_dom_paths = function() {
 
 /*** AJAX METHODS ***/
 
-N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
+NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParams) {
 	// Flag to prevent firing multiple postbacks at the same time...
-	Nitrogen.$event_is_running = true;
+	this.$event_is_running = true;
 
 	if (!extraParams) extraParams="";
 
 	// Run validation...
 	var s = this.$validate_and_serialize(triggerID);	
 	if (s == null) {
-		Nitrogen.$event_is_running = false;
+		this.$event_is_running = false;
 		return;
 	}
 	
@@ -179,44 +108,41 @@ N.prototype.$do_xhr_event = function(triggerID, eventContext, extraParams) {
 	// Assemble other parameters... 
 	var url = this.$url;
 	for (var key in this.$params) {
-		url = Nitrogen.$add_param_to_url(url, key, this.$params[key]);
+		url = this.$add_param_to_url(url, key, this.$params[key]);
 	}
-	url = Nitrogen.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
+	url = this.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
 
 	// Build params...
 	var params = 
 		"eventContext=" + eventContext + "&" + 
 		s + "&" + extraParams;
-	
+
+	var n = this;
+
 	jQuery.ajax({ 
 		url: url,
 		type:'post',
 		data: params,
 		dataType: 'text',
 		success: function(data, textStatus) {
-			Nitrogen.$event_is_running = false;
+			n.$event_is_running = false;
 			eval(data);
 		},
 		error: function(xmlHttpRequest, textStatus, errorThrown) {
-			Nitrogen.$event_is_running = false;
+			n.$event_is_running = false;
 		}
 	});			
 }
 
 /*** SYSTEM EVENTS (FOR ASYNC) ***/
 
-N.$do_system_event = function(eventContext) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	n.$do_system_event(eventContext);
-}
-
-N.prototype.$do_xhr_system_event = function(eventContext) { 
+NitrogenClass.prototype.$do_system_event = function(eventContext) { 
 	// Assemble parameters... 
 	var url = this.$url;
 	for (var key in this.$params) {
-		url = Nitrogen.$add_param_to_url(url, key, this.$params[key]);
+		url = this.$add_param_to_url(url, key, this.$params[key]);
 	}
-	url = Nitrogen.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
+	url = this.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
 	
 	// Build params...
 	var params = "eventContext=" + eventContext;
@@ -237,17 +163,16 @@ N.prototype.$do_xhr_system_event = function(eventContext) {
 }
 
 /*** FILE UPLOAD ***/
-// N.$upload = function(form) {
-// 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-// 	form.domState.value = n.$dom_state;
-// 	form.action = n.$url;
-// 	form.submit();
-// 	form.reset();
-// }
+NitrogenClass.prototype.$upload = function(form) {
+	form.domState.value = this.$dom_state;
+	form.action = this.$url;
+	form.submit();
+	form.reset();
+}
 
 /*** SERIALIZATION ***/
 
-N.prototype.$get_form_elements = function() {
+NitrogenClass.prototype.$get_form_elements = function() {
 	var tagnames = ["input", "button", "select", "textarea", "checkbox"];
 	var a = new Array();
 	for (var i=0; i<tagnames.length; i++) {
@@ -262,14 +187,9 @@ N.prototype.$get_form_elements = function() {
 
 /*** PATH LOOKUPS ***/
 
-N.obj = function(path) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
-	return n.obj(path);
-}
-
-N.prototype.obj = function(path) {
+NitrogenClass.prototype.obj = function(path) {
 	// Clean the path...
-	path = N.$normalize_partial_path(path);
+	path = this.$normalize_partial_path(path);
 
 	// Special case for the 'page' element, which is the entire document.
 	if (path == "page") return document;	
@@ -279,11 +199,11 @@ N.prototype.obj = function(path) {
 	if (el) return el;
 	
 	// Not found, so scan recursively...
-	return Nitrogen.$scan_elements(path, this.$div.childNodes);
+	return this.$scan_elements(path, this.$div.childNodes);
 }
 
-N.$normalize_partial_path = function(path) {
-	var oldparts = Nitrogen.$current_path.split(".");
+NitrogenClass.prototype.$normalize_partial_path = function(path) {
+	var oldparts = this.$current_path.split(".");
 	var newparts = path.split(".");
 	var a = new Array();
 	for (var i=0; i<newparts.length; i++) {
@@ -296,7 +216,7 @@ N.$normalize_partial_path = function(path) {
 	return a.join("__");
 }
 
-N.$scan_elements = function(path, elements) {
+NitrogenClass.prototype.$scan_elements = function(path, elements) {
 	if (!elements) return;
 	
 	for (var i=0; i<elements.length; i++) {
@@ -310,7 +230,7 @@ N.$scan_elements = function(path, elements) {
 	}
 	
 	for (var i=0; i<elements.length; i++) {
-		var el = Nitrogen.$scan_elements(path, elements[i].childNodes)
+		var el = this.$scan_elements(path, elements[i].childNodes)
 		if (el) return el;
 	}
 
@@ -320,7 +240,7 @@ N.$scan_elements = function(path, elements) {
 
 /*** EVENT WIRING ***/
 
-N.$observe_event = function(el, type, func) {
+NitrogenClass.prototype.$observe_event = function(el, type, func) {
 	jQuery(el).bind(type, func);
 }
 
@@ -328,41 +248,41 @@ N.$observe_event = function(el, type, func) {
 
 /*** DYNAMIC UPDATING ***/
 
-N.$update = function(el, html) {
+NitrogenClass.prototype.$update = function(el, html) {
 	jQuery(el).html(html);
 }
 
-N.prototype.$update = function(html) {
+NitrogenClass.prototype.$update = function(html) {
 	jQuery(this.$div).html(html);
 }
 
-N.$insert_top = function(el, html) {
+NitrogenClass.prototype.$insert_top = function(el, html) {
 	jQuery(el).prepend(html);
 }
 
-N.$insert_bottom = function(el, html) {
+NitrogenClass.prototype.$insert_bottom = function(el, html) {
 	jQuery(el).append(html);
 }
 
 
 /*** MISC ***/
 
-N.$return_false = function(value, args) { 
+NitrogenClass.prototype.$return_false = function(value, args) { 
 	return false; 
 }
 
-N.$is_enter_key = function(event) {
+NitrogenClass.prototype.$is_enter_key = function(event) {
 	return (event && event.keyCode == 13);
 }
 
-N.$go_next = function(controlID) {
-	var o = Nitrogen.obj(controlID);
+NitrogenClass.prototype.$go_next = function(controlID) {
+	var o = this.obj(controlID);
 	if (o.focus) o.focus();
 	if (o.select) o.select();
 	if (o.click) o.click();
 }
 
-N.$disable_selection = function(element) {
+NitrogenClass.prototype.$disable_selection = function(element) {
 	element.onselectstart = function() {
 	    return false;
 	};
@@ -371,14 +291,14 @@ N.$disable_selection = function(element) {
 	element.style.cursor = "default";
 }
 
-N.$set_value = function(element, value) {
+NitrogenClass.prototype.$set_value = function(element, value) {
 	if (!element.id) element = obj(element);
 	if (element.value != undefined) element.value = value;
 	else if (element.checked != undefined) element.checked = value;
 	else this.$update(element, value);
 }
 
-N.$add_param_to_url = function(url, key, value) {
+NitrogenClass.prototype.$add_param_to_url = function(url, key, value) {
 	// Create the key=value line to add.
 	// Sometimes, the user will pass a bunch of params in the key field.
 	var s = "";
@@ -391,30 +311,22 @@ N.$add_param_to_url = function(url, key, value) {
 	if (parts.length > 1) { return url + "&" + s; }
 }
 
-N.$load_script = function(url) {
-	var head = document.getElementsByTagName('head')[0];
-  var script = document.createElement('script');
-  script.type= 'text/javascript';
-  script.src= url;
-  head.appendChild(script);
-}
-
 /*** DATE PICKER ***/
 
-N.$datepicker = function(pickerObj, pickerOptions) {
+NitrogenClass.prototype.$datepicker = function(pickerObj, pickerOptions) {
 	jQuery(pickerObj).datepicker(pickerOptions);
 }
 
 
 /*** DRAG AND DROP ***/
 
-N.$draggable = function(dragObj, dragOptions, dragTag) {
+NitrogenClass.prototype.$draggable = function(dragObj, dragOptions, dragTag) {
 	dragObj.$drag_tag = dragTag;
 	jQuery(dragObj).draggable(dragOptions);	
 }
 
-N.$droppable = function(dropObj, dropOptions, dropPostbackInfo) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+NitrogenClass.prototype.$droppable = function(dropObj, dropOptions, dropPostbackInfo) {
+	var n = this;
 	dropOptions.drop = function(ev, ui) {
 		var dragItem = ui.draggable[0].$drag_tag;
 		n.$queue_event(this.id, dropPostbackInfo, "drag_item=" + dragItem);
@@ -426,13 +338,13 @@ N.$droppable = function(dropObj, dropOptions, dropPostbackInfo) {
 
 /*** SORTING ***/
 
-N.$sortitem = function(sortItem, sortTag) {
+NitrogenClass.prototype.$sortitem = function(sortItem, sortTag) {
 	sortItem.$sort_tag = sortTag;
 	sortItem.$drag_tag = sortTag;
 }
 
-N.$sortblock = function(sortBlock, sortOptions, sortPostbackInfo) {
-	var n = Nitrogen.$lookup(Nitrogen.$current_id);
+NitrogenClass.prototype.$sortblock = function(sortBlock, sortOptions, sortPostbackInfo) {
+	var n = this;
 	sortOptions.update = function() {
 		var sortItems = "";
 		for (var i=0; i<this.childNodes.length; i++) {
@@ -446,5 +358,9 @@ N.$sortblock = function(sortBlock, sortOptions, sortPostbackInfo) {
 }
 
 
+function obj(path) {
+	return Nitrogen.obj(path);
+}
+
+var Nitrogen = new NitrogenClass();
 Nitrogen.$event_loop();
-Nitrogen.Page({ id : 'page' });

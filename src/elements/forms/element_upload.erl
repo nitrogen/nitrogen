@@ -40,7 +40,7 @@ render_element(HtmlID, Record) ->
 			{value, ""}
 		]),
 		
-		wf:render(#button { show_if=ShowButton, text=ButtonText, actions=#event { type=click, actions=SubmitJS } })
+		#button { show_if=ShowButton, text=ButtonText, actions=#event { type=click, actions=SubmitJS } }
 	],
 	
 	[

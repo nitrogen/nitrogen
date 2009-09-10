@@ -2,6 +2,11 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
+% Though this is defined as a handler, it is unlikely
+% that anyone would want to override the default behaviour. 
+% It is defined as a handler simply because it fit well 
+% into the existing handler pattern.
+
 -module (default_cookie_handler).
 -behaviour (cookie_handler).
 -include ("wf.inc").
@@ -21,7 +26,7 @@ init(_State) ->
 	% Load into state...
 	{ok, [Cookies, []]}.
 	
-finish([_Cookies, NewCookies]) -> 
+finish([_Cookies, _NewCookies]) -> 
   % Get the response...
   % TODO
 	% Response = wf_context:response_bridge(),

@@ -89,14 +89,6 @@ page_context(PageContext) ->
 	Context = context(),
 	context(Context#context { page_context = PageContext }).
 
-page_name() ->
-	Page = page_context(),
-	Page#page_context.name.
-
-page_name(Name) ->
-	Page = page_context(),
-	page_context(Page#page_context { name = Name }).
-
 series_id() ->
 	Page = page_context(),
 	Page#page_context.series_id.

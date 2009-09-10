@@ -5,19 +5,20 @@
 -module (wf_path).
 -include ("wf.inc").
 -export ([
-	split_dom_paths/2,
+	split_dom_paths/1,
 	normalize_path/1
 ]).
 
+-define (BASEPATH, "page").
 
-split_dom_paths(PageName, undefined) ->
-	[[wf:to_list(PageName)]];
 
-split_dom_paths(PageName, DomPaths) ->
-	BasePath = [wf:to_list(PageName)],
+split_dom_paths(undefined) ->
+	[[?BASEPATH]];
+
+split_dom_paths(DomPaths) ->
 	DomPathList = string:tokens(DomPaths, ","),
 	DomPathList1 = [lists:reverse(string:tokens(X, "__")) || X <- DomPathList],
-	[BasePath|DomPathList1].
+	[[?BASEPATH]|DomPathList1].
 
 
 % normalize_path/1 -

@@ -100,7 +100,7 @@ deserialize_context() ->
 	
 	% Deserialize dom_paths if available...
 	DomPathList = proplists:get_value("domPaths", Params),
-	DomPaths = wf_path:split_dom_paths(wf_context:page_name(), DomPathList),
+	DomPaths = wf_path:split_dom_paths(DomPathList),
 	
 	% Create a new context...
 	wf_context:page_context(Page),
