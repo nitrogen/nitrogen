@@ -28,10 +28,7 @@ init(Routes) ->
 	% a module.
 	% Otherwise, look through all routes for
 	% the first matching route.
-	{Module, PathInfo} = case Routes of
-		[] -> route_using_extension(Path);
-		_ -> route(Path, Routes)
-	end,
+	{Module, PathInfo} = route(Path, Routes),
 	
 	% TODO - Allow users to supply their own custom 404 module.
 	{Module1, PathInfo1} = check_for_404(Module, PathInfo, Path),
@@ -41,15 +38,15 @@ init(Routes) ->
 
 	{ok, Routes}.
 	
-finish(State) -> 
-	{ok, State}.
+finish(_State) -> 
+	{ok, []}.
 
 %%% PRIVATE FUNCTIONS %%%
 
 % If there is no extension, convert to
 % a module name. Otherwise, assume
 % it's a static file.
-route_using_extension(Path) ->
+route(Path, Routes) when Routes == []; Routes == undefined ->
 	case filename:extension(Path) of
 		[] ->
 			% No extension, it's a module. 
@@ -61,20 +58,28 @@ route_using_extension(Path) ->
 		_ ->
 			% Serve this up as a static file.
 			{static_file, Path}
-	end.
+	end;
 	
 % Look through all routes for a route that matches
 % the specified path. If none are found, then 
-% this is a static file.	
-route(Path, []) -> 
-	{static_file, Path};
-	
-route(Path, [{Prefix, Module}|Routes]) ->
-	case string:str(Path, Prefix) of
-		1 -> 
-			{Module, string:substr(length(Prefix), Path)};
-		_ -> 
-			route(Path, Routes)
+% this is a static file. If more than one are
+% found, takes the longest.
+route(Path, Routes) ->
+	% Returns {SizeOfMatch, Prefix, Module}
+	F = fun(Prefix, Module) ->
+		case string:str(Path, Prefix) of
+			1 -> {length(Prefix), Prefix, Module};
+			_ -> not_found
+		end
+	end,
+	Matches = [F(Prefix, Module) || {Prefix, Module} <- Routes],
+	Matches1 = lists:reverse(lists:sort([X || X <- Matches, X /= not_found])),
+
+	case Matches1 of
+		[] -> 
+			{static_file, Path};
+		[{_, Prefix, Module}|_] ->
+			{Module, string:substr(Path, length(Prefix))}
 	end.
 
 
@@ -82,6 +87,8 @@ check_for_404(static_file, _PathInfo, Path) ->
 	{static_file, Path};
 		
 check_for_404(Module, PathInfo, Path) ->
+	?PRINT(Module),
+	?PRINT(code:ensure_loaded(Module)),
 	case code:ensure_loaded(Module) of
 		{module, Module} -> {Module, PathInfo};
 		_ -> {file_not_found_page, Path}
