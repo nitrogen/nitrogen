@@ -6,10 +6,10 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(Record, Context) ->
+render_action(Record) ->
 	DestinationUrl = Record#redirect.url,
-	Script = wff:f("window.location=\"~s\";", [wf_utils:js_escape(DestinationUrl)]),
-	{ok, Script, Context}.
+	wf:f("window.location=\"~s\";", [wf:js_escape(DestinationUrl)]).
 	
-redirect(Url, Context) -> 
-	wff:wire(#redirect { url=Url }, Context).
+	
+redirect(Url) -> 
+	wf:wire(#redirect { url=Url }).

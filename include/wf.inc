@@ -15,7 +15,6 @@
 % Event Information. A serialized version of this record
 % is sent by the browser when an event is called.
 -record(event_context, {
-	is_first_request, % True if first request, false if postback 
 	module,     % The module that should handle the event
   tag,        % An Erlang term that is passed along with the event
   type,       % The type of event postback, comet, continuation, upload
@@ -34,14 +33,10 @@
 }).
 
 -record(context, {
-	% Nitrogen Config
-	config=[],         % Key value configuration pairs
-	
-	% Request and Response
-	request,           % Request Bridge (see SimpleBridge)
-	response,          % Response Bridge (see SimpleBridge)
-
 	% Transient Information
+	type,                % Either first_request, postback_request, or static_file
+	request_bridge,      % Holds the simple_bridge request object
+	response_bridge,     % Holds the simple_bridge response object
 	dom_paths=undefined, % A list of dom paths corresponding to elements in the browser. Used during the wire process.
 	current_path=[],     % Used during rendering to hold the path of whatever is currently getting rendered. 
 	data=[],             % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
@@ -69,7 +64,6 @@
 -record(elementbase, {?ELEMENT_BASE(undefined)}).
 -record(template, {?ELEMENT_BASE(element_template), file, bindings=[] }).
 -record(function, {?ELEMENT_BASE(element_function), function=fun() -> [] end}).
--record(windex, {?ELEMENT_BASE(element_windex) }).
 -record(body, {?ELEMENT_BASE(element_body), title="", body=[]}).
 -record(h1, {?ELEMENT_BASE(element_h1), text="", html_encode=true}).
 -record(h2, {?ELEMENT_BASE(element_h2), text="", html_encode=true}).

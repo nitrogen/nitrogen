@@ -6,14 +6,16 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_validator(TriggerPath, TargetPath, Record)  ->
-	Text = wf_utils:js_escape(Record#confirm_password.text),
-	PasswordElement = wf:to_js_id(Record#confirm_password.password),
+render_action(Record)  ->
+	TriggerPath= Record#confirm_password.trigger,
+	TargetPath = Record#confirm_password.target,
+	Text = wf:js_escape(Record#confirm_password.text),
+	PasswordElement = wf:to_js_id(wf_path:normalize_path(Record#confirm_password.password)),
 
-	validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, tag=Record }),
+	validator_custom:render_action(#custom { trigger=TriggerPath, target=TargetPath, function=fun validate/2, text = Text, tag=Record }),
 
 	JSFunction = wf:f("function(value, args) { return (value == obj('~s').value); }", [PasswordElement]),
-	validator_js_custom:render_validator(TriggerPath, TargetPath, #js_custom { function=JSFunction, text=Text }).
+	validator_js_custom:render_action(#js_custom { trigger=TriggerPath, target=TargetPath, function=JSFunction, text=Text }).
 
 validate(Record, Value) ->
 	[Password] = wf:q(Record#confirm_password.password),

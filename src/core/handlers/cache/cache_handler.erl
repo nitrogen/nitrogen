@@ -4,35 +4,35 @@
 
 -module (cache_handler).
 -export ([
-	behaviour_info/1, get_cached/4, clear/2, clear_all/1
+	behaviour_info/1, get_cached/3, clear/1, clear_all/0
 ]).
 
 
 
-% get_cached(Key, Function, TTL, Context, State) -> {ok, Value, NewContext, NewState}
+% get_cached(Key, Function, TTL, State) -> {ok, Value, NewState}
 % Return the cache value associated with Key. If it is not found,
 % then run the Function, store the resulting value in cache under
 % Key, and return the value.
-get_cached(Key, Function, TTL, Context) -> 
-	{ok, _Value, _NewContext} = wf_context:call_handler_function(cache_handler, get_cached, [Key, Function, TTL], Context).
+get_cached(Key, Function, TTL) -> 
+	{ok, _Value} = wf_handler:call(cache_handler, get_cached, [Key, Function, TTL]).
 
-% clear(Key, Context, State) -> {ok, NewContext, NewState}
+% clear(Key, State) -> {ok, NewState}
 % Remove a value from cache.
-clear(Key, Context) ->	
-	{ok, _NewContext} = wf_context:call_handler_function(cache_handler, clear, [Key], Context).
+clear(Key) ->	
+	ok = wf_handler:call(cache_handler, clear, [Key]).
 	
-% clear_all(Context, State) -> {ok, NewContext, NewState}
+% clear_all(State) -> {ok, NewState}
 % Clear all values from cache.
-clear_all(Context) -> 
-	{ok, _NewContext} = wf_context:call_handler_function(cache_handler, clear_all, Context).
+clear_all() -> 
+	ok = wf_handler:call(cache_handler, clear_all).
 
 
 
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2},
-	{get_cached, 5}, 
-	{clear, 3},
-	{clear_all, 2}
+	{init, 1},      
+	{finish, 1},
+	{get_cached, 4}, 
+	{clear, 2},
+	{clear_all, 1}
 ];
 behaviour_info(_) -> undefined.

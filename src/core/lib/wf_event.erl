@@ -5,10 +5,10 @@
 -module (wf_event).
 -include ("wf.inc").
 -export ([
-	update_context_with_event/1,
-	generate_postback_script/6,
-	generate_system_postback_script/6,
-	serialize_event_context/6
+	update_context_with_event/0,
+	generate_postback_script/5,
+	generate_system_postback_script/5,
+	serialize_event_context/5
 ]).
 
 % This module looks at the incoming requets for 'eventContext' and 'pageContext' params. 
@@ -19,67 +19,64 @@
 % values for a first request.
 
 
-update_context_with_event(Context) ->
-	SerializedEvent = wff:q(eventContext, Context),
-	Event = wff:depickle(SerializedEvent),
+update_context_with_event() ->
+	SerializedEvent = wf:q(eventContext),
+	Event = wf:depickle(SerializedEvent),
 
 	% Update the Context...
+	PageModule = wf_context:page_module(),
 	IsPostback = is_record(Event, event_context),
-	case IsPostback of
-		false -> update_context_for_first_request(Context);
-		true  -> update_context_for_postback_request(Event, Context)
+	case {PageModule, IsPostback} of
+		{static_file, _} -> update_context_for_static_file();
+		{_, false}       -> update_context_for_first_request();
+		{_, true}        -> update_context_for_postback_request(Event)
 	end.
 	
-update_context_for_first_request(Context) ->
-	Page = Context#context.page_context,
-	Module = Page#page_context.module,	
-	Event = Context#context.event_context,
-	Event1 = Event#event_context {
-		module=Module,
-		is_first_request = true
-	},
-	Context1 = Context#context { 
-		event_context = Event1,
-		current_path=["page"]
-	},
-	{ok, Context1}.
+update_context_for_static_file() ->
+	wf_context:type(static_file),
+	ok.
+	
+update_context_for_first_request() ->
+	Module = wf_context:page_module(),
+	wf_context:event_module(Module),
+	wf_context:type(first_request),
+	wf_context:current_path(["page"]),
+	ok.
 
-update_context_for_postback_request(Event, Context) ->
-	TriggerPath = wf_path:normalize_path(Event#event_context.trigger, Context),
-	TargetPath = wf_path:normalize_path(Event#event_context.target, Context),
-	Context1 = Context#context { current_path = TargetPath },
-	Event1 = Event#event_context {
-		trigger = TriggerPath,
-		target = TargetPath
-	},
-	Context2 = Context1#context { event_context = Event1 },	
-	{ok, Context2}.
-
-generate_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate, _Context) -> [];
-generate_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate, Context) ->
-	PickledPostbackInfo = serialize_event_context(Postback, EventType, TriggerPath, TargetPath, Delegate, Context),
+update_context_for_postback_request(Event) ->
+	TriggerPath = wf_path:normalize_path(Event#event_context.trigger),
+	TargetPath = wf_path:normalize_path(Event#event_context.target),
+	wf_context:type(postback_request),
+	wf_context:event_context(Event),
+	wf_context:current_path(TargetPath),
+	wf_context:event_trigger(TriggerPath),
+	wf_context:event_target(TargetPath),
+	ok.
+	
+generate_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate) -> [];
+generate_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
+	PickledPostbackInfo = serialize_event_context(Postback, EventType, TriggerPath, TargetPath, Delegate),
 	[
-		wf_render_actions:generate_scope_script(Context),
-		wff:f("Nitrogen.$queue_event('~s', '~s');", [wff:to_js_id(TriggerPath), PickledPostbackInfo])
+		wf_render_actions:generate_scope_script(),
+		wf:f("Nitrogen.$queue_event('~s', '~s');", [wf:to_js_id(TriggerPath), PickledPostbackInfo])
 	].
 
-generate_system_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate, _Context) -> [];
-generate_system_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate, Context) ->
-	PickledPostbackInfo = serialize_event_context(Postback, EventType, TriggerPath, TargetPath, Delegate, Context),
+generate_system_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate) -> [];
+generate_system_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
+	PickledPostbackInfo = serialize_event_context(Postback, EventType, TriggerPath, TargetPath, Delegate),
 	[
-		wf_render_actions:generate_scope_script(Context),
-		wff:f("Nitrogen.$do_system_event('~s');", [PickledPostbackInfo])
+		wf_render_actions:generate_scope_script(),
+		wf:f("Nitrogen.$do_system_event('~s');", [PickledPostbackInfo])
 	].
 	
-serialize_event_context(Tag, EventType, TriggerPath, TargetPath, Delegate, Context) ->
-	Page = Context#context.page_context,
-	Module = wff:coalesce([Delegate, Page#page_context.module]),
+serialize_event_context(Tag, EventType, TriggerPath, TargetPath, Delegate) ->
+	PageModule = wf_context:page_module(),
+	EventModule = wf:coalesce([Delegate, PageModule]),
 	Event = #event_context {
-		is_first_request = false,
-		module = Module,
+		module = EventModule,
 		tag = Tag,
 		type = EventType,
 		trigger = TriggerPath,
 		target = TargetPath
 	},
-	wff:pickle(Event).
+	wf:pickle(Event).

@@ -6,27 +6,27 @@
 -behaviour (query_handler).
 -include ("wf.inc").
 -export ([
-	init/2, 
-	finish/2,
-	get_value/3
+	init/1, 
+	finish/1,
+	get_value/2
 ]).
 
-init(Context, _State) -> 
+init(_State) -> 
 	% Get query params and post params
 	% from the request bridge...
-	Bridge = Context#context.request,
-	QueryParams = Bridge:query_params(),
-	PostParams = Bridge:post_params(),
+	RequestBridge = wf_context:request_bridge(),
+	QueryParams = RequestBridge:query_params(),
+	PostParams = RequestBridge:post_params(),
 
 	% Load into state...
 	NewState = QueryParams ++ PostParams,
-	{ok, Context, NewState}.
+	{ok, NewState}.
 	
-finish(Context, _State) -> 
+finish(_State) -> 
 	% Clear out the state.
-	{ok, Context, []}.
+	{ok, []}.
 
-get_value(Path, _Context, State) ->
+get_value(Path, State) ->
 	% Convert Key to a fuzzy string
 	NPath = normalize(Path),
 	NPathSize = length(NPath),
@@ -48,7 +48,7 @@ get_value(Path, _Context, State) ->
 	
 normalize(Path) ->
 	% Convert to a string and replace periods (.) with underscores (_).
-	S = wff:to_list(Path),
+	S = wf:to_list(Path),
 	_S1 = replace($., $_, S).
 	
 replace(Old, New, [Old|T]) -> [New|T];

@@ -6,37 +6,39 @@
 -behaviour (cookie_handler).
 -include ("wf.inc").
 -export ([
-	init/2, 
-	finish/2,
-	get_cookie/3,
-	set_cookie/6
+	init/1, 
+	finish/1,
+	get_cookie/2,
+	set_cookie/5
 ]).
 
-init(Context, _State) -> 
+init(_State) -> 
 	% Get cookies from the request bridge...
-	Bridge = Context#context.request,
-	Cookies = Bridge:cookies(),
-
+	% Request = wf_context:request_bridge(),
+	% TODO - Cookies = Request:cookies(),
+	Cookies = [],
+	
 	% Load into state...
-	{ok, Context, [Cookies, []]}.
+	{ok, [Cookies, []]}.
 	
-finish(Context, [_Cookies, NewCookies]) -> 
+finish([_Cookies, NewCookies]) -> 
   % Get the response...
-	Response = Context#context.response,
-	
-	% Fold over each new cookie, adding it to the response...
-	F = fun({Key, Value, Path, MinutesToLive}, Rsp) ->
-		Rsp:cookie(Key, Value, Path, MinutesToLive)
-	end,
-	Response1 = lists:foldl(F, Response, NewCookies),
-	
-	% Return a context with the new response...
-	Context1 = Context#context { response = Response1 },
-	{ok, Context1, []}.
+  % TODO
+	% Response = wf_context:response_bridge(),
+	% 
+	% % Fold over each new cookie, adding it to the response...
+	% F = fun({Key, Value, Path, MinutesToLive}, Rsp) ->
+	% 	Rsp:cookie(Key, Value, Path, MinutesToLive)
+	% end,
+	% Response1 = lists:foldl(F, Response, NewCookies),
+	% 
+	% % Return a context with the new response...
+	% wf_context:response_bridge(Response1),
+	{ok, []}.
 
-get_cookie(Key, _Context, [Cookies, _NewCookies]) -> 
+get_cookie(Key, [Cookies, _NewCookies]) -> 
 	proplists:get_value(Key, Cookies, undefined).
 	
-set_cookie(Key, Value, Path, MinutesToLive, Context, [Cookies, NewCookies]) -> 
+set_cookie(Key, Value, Path, MinutesToLive, [Cookies, NewCookies]) -> 
 	NewCookie = {Key, Value, Path, MinutesToLive},
-	{ok, Context, [Cookies, [NewCookie|NewCookies]]}.
+	{ok, [Cookies, [NewCookie|NewCookies]]}.

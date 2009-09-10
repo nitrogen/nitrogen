@@ -8,14 +8,14 @@
 
 reflect() -> record_info(fields, upload).
 
-render_element(HtmlID, Record, Context) ->
+render_element(HtmlID, Record) ->
 	ShowButton = Record#upload.show_button,
 	ButtonText = Record#upload.button_text,
 	Tag = Record#upload.tag,
 	FormID = wf:temp_id(),
 	IFrameID = wf:temp_id(),
 	SubmitJS = wf:f("Nitrogen.$upload(obj('~s'));", [FormID]),
-	PostbackInfo = wf_event:serialize_event_context(Tag, upload, Record#upload.id, Record#upload.id, ?MODULE, Context),
+	PostbackInfo = wf_event:serialize_event_context(Tag, upload, Record#upload.id, Record#upload.id, ?MODULE),
 	
 	% If the button is invisible, then start uploading when the user selects a file.
 	wf:wire(Record#upload.id, #event { show_if=(not ShowButton), type=change, actions=SubmitJS }),

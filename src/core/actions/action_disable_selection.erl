@@ -6,6 +6,5 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(_Record, Context) -> 
-	Script = "Nitrogen.$disable_selection(obj(me));",
-	{ok, Script, Context}.
+render_action(_Record) -> 
+	"Nitrogen.$disable_selection(obj(me));".

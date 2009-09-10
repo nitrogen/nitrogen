@@ -38,7 +38,7 @@ body() ->
 	Pid = wf:comet(fun() -> listen_for_messages() end),
 	chatroom!{join, Pid},
 
-	wf:render(Body).
+	Body.
 	
 
 event(chat) ->

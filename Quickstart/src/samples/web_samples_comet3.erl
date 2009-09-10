@@ -24,7 +24,7 @@ body() ->
 	wf:comet(fun() -> cycle_and_update(1000, colorLabel, ["Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"]) end),
 	wf:comet(fun() -> cycle_and_update(2000, directionLabel, ["North", "East", "South", "West"]) end),
 
-	wf:render(Body).
+	Body.
 
 event(_) -> ok.
 

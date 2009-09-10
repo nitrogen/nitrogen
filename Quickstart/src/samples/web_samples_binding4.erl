@@ -38,7 +38,7 @@ column1() ->
 			#button { class=tiny, id=myButton, text="Button" }
 		]}
 	],
-	wf:render(Column1).
+	Column1.
 
 column2() -> 
 	Data = get_data(),
@@ -63,7 +63,7 @@ column2() ->
 			]}}
 		]}
 	],
-	wf:render(Column2).
+	Column2.
 	
 event({data, Data}) ->
 	Message = "Clicked On Data: " ++ wf:to_list(Data),

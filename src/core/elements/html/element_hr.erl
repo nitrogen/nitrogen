@@ -8,11 +8,10 @@
 
 reflect() -> record_info(fields, hr).
 
-render_element(HtmlID, Record, Context) -> 
-	Elements = wf_tags:emit_tag(hr, [
+render_element(HtmlID, Record) -> 
+	wf_tags:emit_tag(hr, [
 		{size, 1},
 		{id, HtmlID},
 		{class, [hr, Record#hr.class]},
 		{style, Record#hr.style}
-	]),
-	{ok, Elements, Context}.
+	]).

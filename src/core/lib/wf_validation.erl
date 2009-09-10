@@ -4,13 +4,12 @@
 
 -module (wf_validation).
 -include ("wf.inc").
--export ([validate/1]).
+-export ([validate/0]).
 
-validate(Context) ->
+validate() ->
 	% Some values...
-	Event = Context#context.event_context,
-	TriggerPath = Event#event_context.trigger,
-	Validators = state_handler:get_state(validators, [], Context),
+	TriggerPath = wf_context:event_trigger(),
+	Validators = state_handler:get_state(validators, []),
 
 	% Get all validators that match the trigger path.
 	% TriggerPath is the full path of the Nitrogen element.
@@ -31,23 +30,25 @@ validate(Context) ->
 	
 	% Now, run through each matching validator.
 	% Stop validating a TargetPath when it has failed.
-	F2 = fun({_, TargetPath, Record}, {FailedPaths, Cx}) ->
+	F2 = fun({_, TargetPath, Record}, FailedPaths) ->
 		case lists:member(TargetPath, FailedPaths) of
-			true -> FailedPaths;
+			true -> 
+				FailedPaths;
 			false ->
 				Function = Record#custom.function,
 				Text = Record#custom.text,
-				HtmlID = wff:to_html_id(TargetPath),
-				Value = wff:q(HtmlID, Context),
+				HtmlID = wf:to_html_id(TargetPath),
+				Value = wf:q(HtmlID),
 				
 				case Function(Record#custom.tag, Value) of
 					true -> 
-						{FailedPaths, Cx};
+						FailedPaths;
 					false ->
-						{ok, Cx1} = wff:wire(TargetPath, #validation_error { text=Text }, Cx),
-						{FailedPaths ++ [TargetPath], Cx1}
+						wf:wire(TargetPath, #validation_error { text=Text }),
+						FailedPaths ++ [TargetPath]
 				end
 		end
 	end,
-	{FailedPaths, Context1} = lists:foldl(F2, {[], Context}, Validators1),
-	{ok, FailedPaths == [], Context1}.
+
+	FailedPaths1 = lists:foldl(F2, [], Validators1),
+	{ok, FailedPaths1 == []}.

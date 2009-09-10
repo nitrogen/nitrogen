@@ -47,18 +47,18 @@ body() ->
 		#is_required { text="Required." },
 		#is_email { text="Enter a valid email address." }
 	]}),
-
+	
 	wf:wire(continueButton, passwordTextBox, #validate { validators=[
 		#is_required { text="Required." },
 		#min_length { length=6, text="Password must be at least 6 characters long." }
 	]}),
-
+	
 	wf:wire(continueButton, confirmTextBox, #validate { validators=[
 		#is_required { text="Required." },
 		#confirm_password { password=passwordTextBox, text="Passwords must match." }
 	]}),	
 		
-	wf:render(Body).
+	Body.
 	
 event(continue) ->
 	Name = wf:q(nameTextBox),

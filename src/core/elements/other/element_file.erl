@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, file).
 
-render_element(HtmlID, Record, Context) -> 
+render_element(HtmlID, Record) -> 
 	FileName = Record#file.file,
 	FilePath = io_lib:format(FileName),
 	FileContents = case file:read_file(FilePath) of
@@ -23,4 +23,4 @@ render_element(HtmlID, Record, Context) ->
 		body=FileContents
 	},
 	
-	element_panel:render_element(HtmlID, Panel, Context).
+	element_panel:render_element(HtmlID, Panel).

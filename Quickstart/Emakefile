@@ -1,42 +1,42 @@
 % Compile Nitrogen files.
 { '../src/*', [
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "../ebin" },
 	debug_info
 ]}.
 
 { '../src/*/*', [
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "../ebin" },
 	debug_info
 ]}.
 
 { '../src/*/*/*', [
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "../ebin" },
 	debug_info
 ]}.
 
 { '../src/*/*/*/*', [
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "../ebin" },
 	debug_info
 ]}.
 
 { '../src/*/*/*/*/*', [
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "../ebin" },
 	debug_info
 ]}.
 
 { '../src/*/*/*/*/*/*', [
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "../ebin" },
 	debug_info
 ]}.
@@ -46,7 +46,7 @@
 { './src/*', [
 	{ i, "./include" },
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "./ebin" },
 	debug_info
 ]}.
@@ -54,7 +54,7 @@
 { './src/*/*', [
 	{ i, "./include" },
 	{ i, "../include" },
-	{ i, "../lib/simple_bridge/include" },
+	{ i, "../deps/simple_bridge/include" },
 	{ outdir, "./ebin" },
 	debug_info
 ]}.

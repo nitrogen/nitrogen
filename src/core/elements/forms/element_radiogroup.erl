@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, radiogroup).
 
-render_element(HtmlID, Record, Context) -> 
+render_element(HtmlID, Record) -> 
 	% Set the group to the current HtmlID...
 	Body = apply_name(HtmlID, Record#radiogroup.body),
 	
@@ -18,7 +18,7 @@ render_element(HtmlID, Record, Context) ->
 		class="radiogroup " ++ wf:to_list(Record#radiogroup.class),
 		style=Record#radiogroup.style,
 		body=Body
-	}, Context).
+	}).
 
 apply_name(Name, Terms) ->
     [do_apply(Name, X) || X <- Terms].

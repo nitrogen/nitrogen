@@ -8,13 +8,13 @@
 
 reflect() -> record_info(fields, tableheader).
 
-render_element(HtmlID, Record, Context) -> 
+render_element(HtmlID, Record) -> 
 	Body = [
 		wf:html_encode(Record#tableheader.text, Record#tableheader.html_encode),
 		Record#tableheader.body
 	],
 	
-	Elements = wf_tags:emit_tag(th, Body, [
+	wf_tags:emit_tag(th, Body, [
 		{id, HtmlID},
 		{class, [tableheader, Record#tableheader.class]},
 		{style, Record#tableheader.style},
@@ -22,6 +22,4 @@ render_element(HtmlID, Record, Context) ->
 		{valign, Record#tableheader.valign},
 		{colspan, Record#tableheader.colspan},
 		{rowspan, Record#tableheader.rowspan}
-	]),
-	
-	{ok, Elements, Context}.
+	]).

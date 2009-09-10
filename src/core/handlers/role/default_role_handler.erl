@@ -5,28 +5,28 @@
 -module (default_role_handler).
 -behaviour (role_handler).
 -export ([
-	init/2, 
-	finish/2,
-	get_has_role/3, 
-	set_has_role/4, 
-	get_roles/2,
-	clear_all/2
+	init/1, 
+	finish/1,
+	get_has_role/2, 
+	set_has_role/3, 
+	get_roles/1,
+	clear_all/1
 ]).
 
-init(Context, State) -> 
-	{ok, Context, State}.
+init(State) -> 
+	{ok, State}.
 
-finish(Context, State) -> 
-	{ok, Context, State}.
+finish(State) -> 
+	{ok, State}.
 
-get_has_role(State, _Role, Context) -> 
-	{ok, false, Context, State}.
+get_has_role(State, _Role) -> 
+	{ok, false, State}.
 
-set_has_role(_Role, _IsInRole, Context, State) -> 
-	{ok, Context, State}.
+set_has_role(_Role, _IsInRole, State) -> 
+	{ok, State}.
 
-get_roles(Context, State) -> 
-	{ok, [], Context, State}.
+get_roles(State) -> 
+	{ok, [], State}.
 
-clear_all(Context, State) -> 
-	{ok, Context, State}.
+clear_all(State) -> 
+	{ok, State}.

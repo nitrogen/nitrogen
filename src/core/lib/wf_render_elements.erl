@@ -5,47 +5,46 @@
 -module (wf_render_elements).
 -include ("wf.inc").
 -export ([
-	render_elements/2,
+	render_elements/1,
 	temp_id/0,
 	to_html_id/1
 ]).
 
-% render_elements(Elements, Context) - {ok, Html, NewContext}
-% Render the elements in Context#context.elements
-% Return the HTML that was produced, and the new context holding actions.
-render_elements(Elements, Context) ->
-	{ok, HtmlAcc, NewContext} = render_elements(Elements, [], Context),
-	{ok, HtmlAcc, NewContext}.
+% render_elements(Elements) - {ok, Html}
+% Render elements and return the HTML that was produced.
+% Puts any new actions into the current context.
+render_elements(Elements) ->
+	{ok, _HtmlAcc} = render_elements(Elements, []).
 
-% render_elements(Elements, HtmlAcc, Context) -> {ok, Html, NewContext}.
-render_elements(S, HtmlAcc, Context) when S == undefined orelse S == []  ->
-	{ok, HtmlAcc, Context};
+% render_elements(Elements, HtmlAcc) -> {ok, Html}.
+render_elements(S, HtmlAcc) when S == undefined orelse S == []  ->
+	{ok, HtmlAcc};
 	
-render_elements(S, HtmlAcc, Context) when is_binary(S) orelse ?IS_STRING(S) ->
-	{ok, [S|HtmlAcc], Context};
+render_elements(S, HtmlAcc) when is_binary(S) orelse ?IS_STRING(S) ->
+	{ok, [S|HtmlAcc]};
 
-render_elements(Elements, HtmlAcc, Context) when is_list(Elements) ->
-	F = fun(X, {ok, HAcc, Cx}) ->
-		render_elements(X, HAcc, Cx)
+render_elements(Elements, HtmlAcc) when is_list(Elements) ->
+	F = fun(X, {ok, HAcc}) ->
+		render_elements(X, HAcc)
 	end,
-	{ok, Html, NewContext} = lists:foldl(F, {ok, [], Context}, Elements),
+	{ok, Html} = lists:foldl(F, {ok, []}, Elements),
 	HtmlAcc1 = [lists:reverse(Html)|HtmlAcc],
-	{ok, HtmlAcc1, NewContext};
+	{ok, HtmlAcc1};
 	
-render_elements(Element, HtmlAcc, Context) when is_tuple(Element) ->
-	{ok, Html, NewContext} = render_element(Element, Context),
+render_elements(Element, HtmlAcc) when is_tuple(Element) ->
+	{ok, Html} = render_element(Element),
 	HtmlAcc1 = [Html|HtmlAcc],
-	{ok, HtmlAcc1, NewContext};
+	{ok, HtmlAcc1};
 	
-render_elements(script, HtmlAcc, Context) ->
+render_elements(script, HtmlAcc) ->
 	HtmlAcc1 = [script|HtmlAcc],
-	{ok, HtmlAcc1, Context};
+	{ok, HtmlAcc1};
 	
-render_elements(Unknown, _HtmlAcc, _Context) ->
+render_elements(Unknown, _HtmlAcc) ->
 	throw({unanticipated_case_in_render_elements, Unknown}).
 	
 % This is a Nitrogen element, so render it.
-render_element(Element, Context) when is_tuple(Element) ->
+render_element(Element) when is_tuple(Element) ->
 	% Get the element's backing module...
 	Base = wf_utils:get_elementbase(Element),
 	Module = Base#elementbase.module, 
@@ -61,48 +60,48 @@ render_element(Element, Context) when is_tuple(Element) ->
 		undefined -> wf:temp_id();
 		Other -> wf:to_list(Other)
 	end,
-	CurrentPath = [wf:to_list(ID)|Context#context.current_path],
-	HtmlID = to_html_id([ID|Context#context.current_path]),
+	
+	NewPath = [wf:to_list(ID)|wf_context:current_path()],
+	HtmlID = to_html_id(NewPath),
 	
 	% Update the base element with the new id...
 	Base1 = Base#elementbase {id = ID},
 	Element1 = wf_utils:replace_with_base(Base1, Element),
 		
 	% Push the new path into our list of dom_paths...
-	DomPaths = Context#context.dom_paths,
-	Context1 = Context#context { dom_paths=[CurrentPath|DomPaths] },
+	wf_context:add_dom_path(NewPath),
 	
 	case {Base1#elementbase.show_if, is_temp_element(ID)} of
 		{true, true} -> 			
 			% This is a temp element. Don't update the current path, it should use the parent path.
 			% Wire the actions, render the element...
-			{ok, Context2} = wff:wire(ID, Base1#elementbase.actions, Context1),
-		 	{ok, _Html, _Context3} = call_element_render(Module, HtmlID, Element1, Context2);
+			wf:wire(ID, Base1#elementbase.actions),
+		 	{ok, _Html} = call_element_render(Module, HtmlID, Element1);
 
 		{true, false} -> 
 			% This is a named element. Update the current path.
-			OldPath = Context#context.current_path,
-			Context2 = Context1#context { current_path=CurrentPath },
+			OldPath = wf_context:current_path(),
+			wf_context:current_path(NewPath),
 	
 			% Wire the actions, render the element...
-			{ok, Context3} = wff:wire(me, Base1#elementbase.actions, Context2),
-			{ok, Html, Context4} = call_element_render(Module, HtmlID, Element1, Context3),
+			wf:wire(me, Base1#elementbase.actions),
+			{ok, Html} = call_element_render(Module, HtmlID, Element1),
 					
 			% Restore the old path...
-			Context5 = Context4#context { current_path=OldPath },
-			{ok, Html, Context5};
+			wf_context:current_path(OldPath),
+			{ok, Html};
 			
 		{_, _} -> 
-			{ok, [], Context}
+			{ok, []}
 	end.
 	
-% call_element_render(Module, Context, HtmlID, Element) -> {ok, Html, NewContext}.
+% call_element_render(Module, HtmlID, Element) -> {ok, Html}.
 % Calls the render_element/3 function of an element to turn an element record into
 % HTML.
-call_element_render(Module, HtmlID, Element, Context) ->
+call_element_render(Module, HtmlID, Element) ->
 	{module, Module} = code:ensure_loaded(Module),
-	{ok, NewElements, Context1} = wf_context:call_with_context(Module, render_element, [HtmlID, Element], Context, true),
-	{ok, _Html, _Context2} = render_elements(NewElements, [], Context1).
+	NewElements = Module:render_element(HtmlID, Element),
+	{ok, _Html} = render_elements(NewElements, []).
 
 
 to_html_id(P) ->

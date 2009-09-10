@@ -7,7 +7,7 @@
 -compile(export_all).
 
 render_validator(TriggerPath, TargetPath, Record) -> 
-	Text = wf_utils:js_escape(Record#is_integer.text),
+	Text = wf:js_escape(Record#is_integer.text),
 	validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, tag=Record }),
 	wf:f("v.add(Validate.Numericality, { notAnIntegerMessage: \"~s\", onlyInteger: true });", [Text]).
 

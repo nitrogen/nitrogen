@@ -5,45 +5,45 @@
 -module (state_handler).
 -export ([
 	behaviour_info/1,
-	get_state/2, get_state/3, set_state/3, clear/2, clear_all/1
+	get_state/1, get_state/2, set_state/2, clear/1, clear_all/0
 ]).
 
 
 
-% get_state(Key, DefaultValue, Context, State) -> Value.
+% get_state(Key, State) -> Value.
 % Retrieve a value from the storage area.
-get_state(Key, Context) -> 
-	_Value = get_state(Key, undefined, Context).
+get_state(Key) -> 
+	_Value = get_state(Key, undefined).
 	
-% get_state(Key, DefaultValue, Context, State) -> Value.
+% get_state(Key, DefaultValue, State) -> Value.
 % Retrieve a value from the storage area.
-get_state(Key, DefaultValue, Context) ->
-	_Value = wf_context:call_handler_function_readonly(state_handler, get_state, [Key, DefaultValue], Context).
+get_state(Key, DefaultValue) ->
+	_Value = wf_handler:call_readonly(state_handler, get_state, [Key, DefaultValue]).
 
-% set_state(Key, Value, Context, State) -> {ok, NewContext, NewState}.
+% set_state(Key, Value, State) -> {ok, NewState}.
 % Put a value into the storage area.
-set_state(Key, Value, Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(state_handler, set_state, [Key, Value], Context).
+set_state(Key, Value) ->
+	ok = wf_handler:call(state_handler, set_state, [Key, Value]).
 
-% clear(Key, Context, State) -> {ok, NewContext, NewState}.
+% clear(Key, State) -> {ok, NewState}.
 % Remove a value from the storage area.
-clear(Key, Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(state_handler, clear, [Key], Context).
+clear(Key) ->
+	ok = wf_handler:call(state_handler, clear, [Key]).
 	
-% clear_all(Context, State) -> {ok, NewContext, NewState}.
+% clear_all(State) -> {ok, NewState}.
 % Clear all values from the storage area.
-clear_all(Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(state_handler, clear_all, Context).
+clear_all() ->
+	ok = wf_handler:call(state_handler, clear_all).
 
 
 
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2},
-	{get_state, 4},       
-	{set_state, 4},	
-	{clear, 3},
-	{clear_all, 2}
+	{init, 1},      
+	{finish, 1},
+	{get_state, 3},       
+	{set_state, 3},	
+	{clear, 2},
+	{clear_all, 1}
 ];
 
 behaviour_info(_) -> undefined.

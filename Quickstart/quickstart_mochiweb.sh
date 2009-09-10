@@ -1,7 +1,7 @@
 #!/bin/sh
 export NITROGEN_HOME=..
 export MOCHIWEB_HOME=../lib/mochiweb
-export SIMPLEBRIDGE_HOME=../lib/simple_bridge
+export SIMPLEBRIDGE_HOME=../deps/simple_bridge
 cd `dirname $0`
 
 echo Creating link to Nitrogen support files...

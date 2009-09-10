@@ -6,53 +6,51 @@
 % The session_handler provides a place to store values on the server
 % between requests.
 %
-% Next Steps
-% ----------
-% - Create an session_handler using Yaws native sessions.
-% - Create an session_handler using Memcached
-%
-
+% An application can define a custom session handler to control
+% how Nitrogen manages session values.
 
 -module (session_handler).
 -export ([
-	behaviour_info/1, get_value/2, get_value/3, set_value/3, clear_value/2, clear_all/1
+	behaviour_info/1, 
+	get_value/1, 
+	get_value/2, 
+	set_value/2, 
+	clear_value/1, 
+	clear_all/0
 ]).
 
-
-
-% get(Key, DefaultValue, Context, State, Key, DefaultValue) -> {ok, Value, NewContext, NewState}.
-% Retrieve a value from the storage area.
-get_value(Key, Context) ->
-	_Value = get_value(Key, undefined, Context).
-	
-% get(Key, DefaultValue, Context, State, Key, DefaultValue) -> {ok, Value, NewContext, NewState}.
-% Retrieve a value from the storage area.
-get_value(Key, DefaultValue, Context) ->
-	_Value = wf_context:call_handler_function_readonly(session_handler, get_value, [Key, DefaultValue], Context).
-	
-% set_value(Key, Value, Context, State) -> {ok, NewContext, NewState}.
-% Put a value into the storage area.
-set_value(Key, Value, Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(session_handler, set_value, [Key, Value], Context).
-
-% clear_value(Key, Context, State) -> {ok, NewContext, NewState}.
-% Remove a value from the storage area.
-clear_value(Key, Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(session_handler, clear_value, [Key], Context).
-
-% clear_all(Context, State) -> {ok, NewContext, NewState}.
-% Clear all values from the storage area.
-clear_all(Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(session_handler, clear_all, Context).
-
-
-
+% Example Session Handler Interface
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2},
-	{get_value, 4},       
-	{set_value, 4},
-	{clear_value, 3},
-	{clear_all, 2}
+	{init, 1},      
+	{finish, 1},
+	{get_value, 3},       
+	{set_value, 3},
+	{clear_value, 2},
+	{clear_all, 1}
 ];
 behaviour_info(_) -> undefined.
+
+% get(Key, DefaultValue, State, Key, DefaultValue) -> {ok, Value, NewState}.
+% Retrieve a value from the storage area.
+get_value(Key) ->
+	_Value = get_value(Key, undefined).
+	
+% get(Key, DefaultValue, State, Key, DefaultValue) -> {ok, Value, NewState}.
+% Retrieve a value from the storage area.
+get_value(Key, DefaultValue) ->
+	_Value = wf_handler:call_readonly(session_handler, get_value, [Key, DefaultValue]).
+	
+% set_value(Key, Value, State) -> {ok, NewState}.
+% Put a value into the storage area.
+set_value(Key, Value) ->
+	ok = wf_handler:call(session_handler, set_value, [Key, Value]).
+
+% clear_value(Key, State) -> {ok, NewState}.
+% Remove a value from the storage area.
+clear_value(Key) ->
+	ok = wf_handler:call(session_handler, clear_value, [Key]).
+
+% clear_all(State) -> {ok, NewState}.
+% Clear all values from the storage area.
+clear_all() ->
+	ok = wf_handler:call(session_handler, clear_all).

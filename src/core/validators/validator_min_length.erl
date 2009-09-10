@@ -6,10 +6,12 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_validator(TriggerPath, TargetPath, Record)  ->
-	Text = wf_utils:js_escape(Record#min_length.text),
+render_action(Record)  ->
+	TriggerPath= Record#min_length.trigger,
+	TargetPath = Record#min_length.target,
+	Text = wf:js_escape(Record#min_length.text),
 	Length = Record#min_length.length,
-	validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, tag=Record }),
+	validator_custom:render_action(#custom { trigger=TriggerPath, target=TargetPath, function=fun validate/2, text = Text, tag=Record }),
 	wf:f("v.add(Validate.Length, { minimum: ~p, tooShortMessage: \"~s\" });", [Length, Text]).
 
 validate(Record, Value) ->

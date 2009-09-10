@@ -7,32 +7,27 @@
 -include ("simplebridge.hrl").
 -include ("wf.inc").
 -export ([
-	init/2, 
-	finish/2,
-	get_state/4, 
-	set_state/4, 
-	clear/3, 
-	clear_all/2
+	init/1, finish/1, get_state/3, set_state/3, clear/2, clear_all/1
 ]).
 
-init(Context, State) -> 
+init(State) -> 
 	% Deserialize the state from domState.	
-	{ok, Context, State}.
+	{ok, State}.
 
-finish(Context, State) ->
-	{ok, Context, State}.
+finish(State) ->
+	{ok, State}.
 	
-get_state(Key, DefaultValue, _Context, State) -> 
+get_state(Key, DefaultValue, State) -> 
 	_Value = proplists:get_value(Key, State, DefaultValue).
 
-set_state(Key, Value, Context, State) ->
+set_state(Key, Value, State) ->
 	State1 = proplists:delete(Key, State),
 	State2 = [{Key, Value}|State1],
-	{ok, Context, State2}.
+	{ok, State2}.
 	
-clear(Key, Context, State) ->
+clear(Key, State) ->
 	State1 = proplists:delete(Key, State),
-	{ok, Context, State1}.
+	{ok, State1}.
 
-clear_all(Context, _State) ->
-	init(Context, []).
+clear_all(_State) ->
+	init([]).

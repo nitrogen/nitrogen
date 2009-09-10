@@ -6,10 +6,9 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(Record, Context) ->
-	Effect = #jquery_effect {
+render_action(Record) ->
+	#jquery_effect {
 		type=add_class,
 		class = Record#add_class.class,
 		speed = Record#add_class.speed
-	},
-	{ok, Effect, Context}.
+	}.

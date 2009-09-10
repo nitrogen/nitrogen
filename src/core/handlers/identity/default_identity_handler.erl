@@ -5,24 +5,24 @@
 -module (default_identity_handler).
 -behaviour (identity_handler).
 -export ([
-	init/2, 
-	finish/2,
-	get_user/2, 
-	set_user/3,
-	clear/2
+	init/1, 
+	finish/1,
+	get_user/1, 
+	set_user/2,
+	clear/1
 ]).
 
-init(Context, State) -> 
-	{ok, Context, State}.
+init(State) -> 
+	{ok, State}.
 
-finish(Context, State) -> 
-	{ok, Context, State}.
+finish(State) -> 
+	{ok, State}.
 
-get_user(_Context, _State) -> 
+get_user(_State) -> 
 	undefined.
 
-set_user(_User, Context, State) -> 
-	{ok, Context, State}.
+set_user(_User, State) -> 
+	{ok, State}.
 
-clear(Context, State) -> 
-	{ok, Context, State}.
+clear(State) -> 
+	{ok, State}.

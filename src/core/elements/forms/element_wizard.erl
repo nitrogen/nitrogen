@@ -10,7 +10,7 @@
 
 reflect() -> record_info(fields, wizard).
 
-render_element(HtmlID, Record, Context) -> 
+render_element(HtmlID, Record) -> 
 	% Set up callbacks...
 	Tag = Record#wizard.tag,
 
@@ -62,7 +62,7 @@ render_element(HtmlID, Record, Context) ->
 	wf:wire(hd(FullIDs), #show{}),	
 	
 	% Render.
-	element_panel:render_element(HtmlID, Terms, Context).
+	element_panel:render_element(HtmlID, Terms).
 	
 event({back, N, StepIDs}) -> 
 	wf:wire(lists:nth(N, StepIDs), #hide {}),

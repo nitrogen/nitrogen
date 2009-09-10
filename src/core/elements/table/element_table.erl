@@ -8,16 +8,14 @@
 
 reflect() -> record_info(fields, table).
 
-render_element(HtmlID, Record, Context) -> 
+render_element(HtmlID, Record) -> 
 	Rows = Record#table.rows,
 	
-	Elements = wf_tags:emit_tag(table, Rows, [
+	wf_tags:emit_tag(table, Rows, [
 		{id, HtmlID},
 		{border, 0},
 		{cellpadding, 0},
 		{cellspacing, 0},
 		{class, [table, Record#table.class]},
 		{style, Record#table.style}
-	]),
-	
-	{ok, Elements, Context}.
+	]).

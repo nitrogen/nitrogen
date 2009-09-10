@@ -12,30 +12,30 @@
 -include ("wf.inc").
 -behaviour (session_handler).
 -export ([
-	init/2, 
-	finish/2,
-	get_value/4, 
-	set_value/4, 
-	clear_value/3, 
-	clear_all/2
+	init/1, 
+	finish/1,
+	get_value/3, 
+	set_value/3, 
+	clear_value/2, 
+	clear_all/1
 ]).
 
 -define(TIMEOUT, 20000).
 
-init(Context, _State) -> 
+init(_State) -> 
 	% Check if a session exists for the user. If not, start one.
-	Unique = case wff:depickle(wff:cookie("wf", Context)) of
+	Unique = case wf:depickle(wf:cookie("wf")) of
 		undefined -> erlang:md5(term_to_binary({now(), erlang:make_ref()}));
 		Other -> Other
 	end,
-	{ok, Context1} = wff:cookie("wf", wff:pickle(Unique), Context),
-	{ok, Context1, {session, Unique}}.
+	ok = wf:cookie("wf", wf:pickle(Unique)),
+	{ok, {session, Unique}}.
 
-finish(Context, _State) -> 
-	{ok, Context, []}.
+finish(_State) -> 
+	{ok, []}.
 	
-get_value(Key, DefaultValue, Context, SessionName) -> 
-	{ok, Pid, _Context1} = get_session_pid(SessionName, Context),
+get_value(Key, DefaultValue, SessionName) -> 
+	{ok, Pid} = get_session_pid(SessionName),
 	Pid!{get_value, Key, self()},
 	Value = receive 
 		{ok, undefined} -> DefaultValue;
@@ -43,26 +43,26 @@ get_value(Key, DefaultValue, Context, SessionName) ->
 	end,
 	Value.
 	
-set_value(Key, Value, Context, SessionName) -> 
-	{ok, Pid, Context1} = get_session_pid(SessionName, Context),
+set_value(Key, Value, SessionName) -> 
+	{ok, Pid} = get_session_pid(SessionName),
 	Pid!{set_value, Key, Value, self()},
 	receive ok -> ok end,	
-	{ok, Context1, SessionName}.
+	{ok, SessionName}.
 	
-clear_value(Key, Context, SessionName) ->
-	{ok, Pid, Context1} = get_session_pid(SessionName, Context),
+clear_value(Key, SessionName) ->
+	{ok, Pid} = get_session_pid(SessionName),
 	Pid!{clear_value, Key, self()},
 	receive ok -> ok end,	
-	{ok, Context1, SessionName}.
+	{ok, SessionName}.
 
-clear_all(Context, SessionName) -> 
-	{ok, Pid, Context1} = get_session_pid(SessionName, Context),
+clear_all(SessionName) -> 
+	{ok, Pid} = get_session_pid(SessionName),
 	Pid!{clear_all, self()},
 	receive ok -> ok end,	
-	{ok, Context1, SessionName}.
+	{ok, SessionName}.
 	
-get_session_pid(SessionName, Context) ->
-	{ok, _Pid, _Context1} = process_cabinet_handler:get_pid(SessionName, fun() -> session_loop([]) end, Context).
+get_session_pid(SessionName) ->
+	{ok, _Pid} = process_cabinet_handler:get_pid(SessionName, fun() -> session_loop([]) end).
 
 session_loop(Session) ->
 	receive

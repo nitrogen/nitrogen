@@ -4,33 +4,33 @@
 
 -module (identity_handler).
 -export ([
-	behaviour_info/1, get_user/1, set_user/2, clear/1
+	behaviour_info/1, get_user/0, set_user/1, clear/0
 ]).
 
 
 
-% get_user(Context, State) -> User.
+% get_user(State) -> User.
 % Retrieve an Erlang term representing the current user.
-get_user(Context) ->
-	_User = wf_context:call_handler_function_readonly(user_handler, get_user, Context).
+get_user() ->
+	_User = wf_handler:call_readonly(user_handler, get_user).
 	
-% set_user(User, Context, State) -> {ok, NewContext, NewState}.
+% set_user(User, State) -> {ok, NewState}.
 % Set an Erlang term representing the current user.
-set_user(User, Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(user_handler, set_user, [User], Context).
+set_user(User) ->
+	ok = wf_handler:call(user_handler, set_user, [User]).
 	
-% clear(Context, State) -> {ok, NewContext, NewState}.
+% clear(State) -> {ok, NewState}.
 % Set the user to undefined.
-clear(Context) ->
-	{ok, _NewContext} = wf_context:call_handler_function(user_handler, clear, Context).
+clear() ->
+	ok = wf_handler:call(user_handler, clear).
 
 
 
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2},
-	{get_user, 2},	
-	{set_user, 3},
-	{clear, 2}	
+	{init, 1},      
+	{finish, 1},
+	{get_user, 1},	
+	{set_user, 2},
+	{clear, 1}	
 ];
 behaviour_info(_) -> undefined.

@@ -7,40 +7,33 @@
 -include ("simplebridge.hrl").
 -compile (export_all).
 
-% wff.erl is the non-functional version of wf.erl. Almost every function
-% pulls Context out of the process dictionary, does stuff on it, and puts
-% it back into the process dictionary.
-% Using wf is the improper but fun way of writing applications in Nitrogen.
+%%% EXPOSE PAGE CONTEXT %%%
 
-
-% Each statement that changes a context is wrapped with ?PRE and ?POST.
-% Thes take care of getting and putting the Context.
--define (PRE, Context = get(context)).
--define (POST, put(context, NewContext)).
+get_page_module() -> wf_context:page_module().
 
 %%% EXPOSE WIRE, UPDATE, FLASH %%%
 wire(Actions) -> 
-	?PRE, {ok, NewContext} = wff:wire(Actions, Context), ?POST, ok.
+	ok = wire(undefined, undefined, Actions).
 	
 wire(TargetID, Actions) -> 
-	?PRE, {ok, NewContext} = wff:wire(TargetID, TargetID, Actions, Context), ?POST, ok.
+	ok = wire(TargetID, TargetID, Actions).
 	
 wire(TriggerID, TargetID, Actions) -> 
-	?PRE, {ok, NewContext} = wff:wire(TriggerID, TargetID, Actions, Context), ?POST, ok.
+	ok = action_wire:wire(TriggerID, TargetID, Actions).
 
 update(TargetID, Elements) -> 
-	?PRE, {ok, NewContext} = wff:update(TargetID, Elements, Context), ?POST, ok.
+	ok = action_update:update(TargetID, Elements).
 	
 insert_top(TargetID, Elements) -> 
-	?PRE, {ok, NewContext} = wff:insert_top(TargetID, Elements, Context), ?POST, ok.
+	ok = action_update:insert_top(TargetID, Elements).
 	
 insert_bottom(TargetID, Elements) -> 
-	?PRE, {ok, NewContext} = wff:insert_bottom(TargetID, Elements, Context), ?POST, ok.
+	ok = action_update:insert_bottom(TargetID, Elements).
 
-flash(Elements) -> 
-	?PRE, {ok, NewContext} = wff:flash(Elements, Context), ?POST, ok.
+flash(Elements) ->
+	ok = element_flash:add_flash(Elements).
 
-
+% flash(Terms) -> element_flash:add_flash(Terms).
 
 %%% EXPOSE WF_UTILS %%%
 f(S) -> 
@@ -56,7 +49,7 @@ coalesce(L) ->
 	
 %%% WF_REDIRECT %%%
 redirect(Url) -> 
-	?PRE, {ok, NewContext} = wff:redirect(Url, Context), ?POST, ok.
+	action_redirect:redirect(Url).
 
 % redirect_to_login(Url) -> wf_redirect:redirect_to_login(Url).
 % redirect_from_login(DefaultUrl) -> wf_redirect:redirect_from_login(DefaultUrl).
@@ -65,50 +58,40 @@ redirect(Url) ->
 
 %%% EXPOSE WF_PICKLE %%%
 pickle(Data) -> 
-	_SerializedData = wff:pickle(Data).
+	_SerializedData = wf_pickle:pickle(Data).
 	
 depickle(SerializedData) -> 
-	_Data = wff:depickle(SerializedData).
+	_Data = wf_pickle:depickle(SerializedData).
 
 
 
 %%% EXPOSE WF_CONVERT %%%
 to_list(T) -> 
-	_String = wff:to_list(T).
+	_String = wf_convert:to_list(T).
 	
 to_atom(T) -> 
-	_Atom = wff:to_atom(T).
+	_Atom = wf_convert:to_atom(T).
 	
 to_binary(T) -> 
-	_Binary = wff:to_binary(T).
+	_Binary = wf_convert:to_binary(T).
 	
 to_integer(T) -> 
-	_Integer = wff:to_integer(T).
+	_Integer = wf_convert:to_integer(T).
 	
 clean_lower(S) -> 
-	_String = wff:clean_lower(S).
+	_String = wf_convert:clean_lower(S).
 	
 html_encode(S) -> 
-	_String = wff:html_encode(S).
+	_String = wf_convert:html_encode(S).
 	
 html_encode(S, Encode) -> 
-	_String = wff:html_encode(S, Encode).
-
-
-
-%%% EXPOSE PAGE CONTEXT %%%
-get_path_info() -> 
-	?PRE, _String = wff:get_path_info(Context).
-
-get_page_module() -> 
-	?PRE, _String = wff:get_page_module(Context).
-
+	_String = wf_convert:html_encode(S, Encode).
 
 
 %%% EXPOSE WF_BIND %%%
 % TODO
 set(Element, Value) -> 
-	?PRE, {ok, NewContext} = wff:set(Element, Value, Context), ?POST, ok.
+	ok = action_set:set(Element, Value).
 	
 % bind(BindingTuple, Record) -> wf_bind:bind(BindingTuple, Record).
 % reverse_bind(BindingTuple) -> wf_bind:reverse_bind(BindingTuple).
@@ -118,133 +101,134 @@ set(Element, Value) ->
 
 %%% OTHER %%%
 % TODO
-% logout(Context) -> clear_user(), clear_roles(), clear_state(), clear_session().
+% logout() -> clear_user(), clear_roles(), clear_state(), clear_session().
 to_js_id(Path) -> 
-	_String = wff:to_js_id(Path).
+	_String = wf_render_actions:to_js_id(Path).
+	
+js_escape(String) -> 
+	_String = wf_utils:js_escape(String).
 	
 to_html_id(Path) -> 
-	_String = wff:to_html_id(Path).
+	_String = wf_render_elements:to_html_id(Path).
 	
 temp_id() -> 
-	_String = wff:temp_id().
+	_String = wf_render_elements:temp_id().
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% EXPOSE COOKIE HANDLER %%%
 cookie(Key) -> 
-	?PRE, _Value = wff:cookie(Key, Context).
+	_Value = cookie_handler:get_cookie(Key).
 	
 cookie(Key, Value) -> 
-	?PRE, {ok, NewContext} = wff:cookie(Key, Value, Context), ?POST, ok.
+	ok = cookie(Key, Value, "/", 20).
 	
 cookie(Key, Value, Path, MinutesToLive) -> 
-	?PRE, {ok, NewContext} = wff:cookie(Key, Value, Path, MinutesToLive, Context), ?POST, ok.
+	ok = cookie_handler:set_cookie(Key, Value, Path, MinutesToLive).
 
 
 	
 %%% EXPOSE QUERY_HANDLER %%%
 q(Key) -> 
-	?PRE, _String = wff:q(Key, Context).
+	_String = query_handler:get_value(Key).
 
 
 
 %%% EXPOSE LOG_HANDLER %%%
 info(String, Args) -> 
-	?PRE, {ok, NewContext} = wff:info(String, Args, Context), ?POST, ok.
+	ok = log_handler:info(String, Args).
 	
 info(String) -> 
-	?PRE, {ok, NewContext} = wff:info(String, Context), ?POST, ok.
+	ok = log_handler:info(String).
 
 warning(String, Args) -> 
-	?PRE, {ok, NewContext} = wff:warning(String, Args, Context), ?POST, ok.
+	ok = log_handler:warning(String, Args).
 
 warning(String) -> 
-	?PRE, {ok, NewContext} = wff:warning(String, Context), ?POST, ok.
+	ok = log_handler:warning(String).
 
 error(String, Args) -> 
-	?PRE, {ok, NewContext} = wff:error(String, Args, Context), ?POST, ok.
+	ok = log_handler:error(String, Args).
 
 error(String) -> 
-	?PRE, {ok, NewContext} = wff:error(String, Context), ?POST, ok.
+	ok = log_handler:error(String).
 
 
 
 %%% EXPOSE SESSION_HANDLER %%% 
 session(Key) -> 
-	?PRE, _Value = wff:session(Key, Context).
+	_Value = session_handler:get_value(Key).
 
 session(Key, Value) -> 
-	?PRE, {ok, NewContext} = wff:session(Key, Value, Context), ?POST, ok.
+	ok = session_handler:set_value(Key, Value).
 
 clear_session(Key) ->
-	?PRE, {ok, NewContext} = wff:clear_session(Key, Context), ?POST, ok.
+	ok = session_handler:clear(Key).
 
 clear_session() -> 
-	?PRE, {ok, NewContext} = wff:clear_session(Context), ?POST, ok.
+	ok = session_handler:clear_all().
 
 
 
 %%% EXPOSE IDENTITY_HANDLER %%%
 user() -> 
-	?PRE, _User = wff:user(Context).	
+	_User = identity_handler:get_user().	
 
 user(User) -> 
-	?PRE, {ok, NewContext} = wff:user(User, Context), ?POST, ok.
+	ok = identity_handler:set_user(User).
 
-clear_user(Context) -> 
-	?PRE, {ok, NewContext} = wff:clear_user(Context), ?POST, ok.
+clear_user() -> 
+	ok = identity_handler:clear().
 
 
 
 %%% EXPOSE ROLE_HANDLER %%%
 role(Role) -> 
-	?PRE, _Boolean = wff:role(Role, Context).
+	_Boolean = role_handler:get_has_role(Role).
 
 role(Role, IsInRole) -> 
-	?PRE, {ok, NewContext} = wff:role(Role, IsInRole, Context), ?POST, ok.
+	ok = role_handler:set_has_role(Role, IsInRole).
 
 roles() ->
-	?PRE, _Roles = wff:roles(Context).
+	_Roles = role_handler:roles().
 
 clear_roles() -> 
-	?PRE, {ok, NewContext} = wff:clear_roles(Context), ?POST, ok.
+	ok = role_handler:clear_all().
 
 
 
 %%% EXPOSE STATE_HANDLER %%%
 state(Key) -> 
-	?PRE, _Value = wff:state(Key, Context).
+	_Value = state_handler:get_state(Key).
 
 state(Key, Value) -> 
-	?PRE, {ok, NewContext} = wff:state(Key, Value, Context), ?POST, ok.
+	ok = state_handler:set_state(Key, Value).
 
 clear_state(Key) ->
-	?PRE, {ok, NewContext} = wff:clear_state(Key, Context), ?POST, ok.
+	ok = state_handler:clear(Key).
 	
 clear_state() -> 
-	?PRE, {ok, NewContext} = wff:clear_state(Context), ?POST, ok.
+	ok = state_handler:clear_all().
 
 
 
 %%% EXPOSE ACTION_ASYNC %%%
 send(Pool, Message) ->
-	?PRE, {ok, NewContext} = wff:send(Pool, Message, Context), ?POST, ok.
+	ok = action_async:send(Pool, Message).
 
 send_global(Pool, Message) ->
-	?PRE, {ok, NewContext} = wff:send_global(Pool, Message, Context), ?POST, ok.
+	ok = action_async:send_global(Pool, Message).
 
 flush() ->
-	?PRE, {ok, NewContext} = wff:flush(Context), ?POST, ok.
+	ok = action_async:flush().
 
-switch_to_comet() ->
-	?PRE, {ok, NewContext} = wff:switch_to_comet(Context), ?POST, ok.
-
-switch_to_polling(IntervalInMS) ->
-	?PRE, {ok, NewContext} = wff:switch_to_polling(IntervalInMS, Context), ?POST, ok.
-
-
+get_async_mode() -> wf_context:async_mode().
+set_async_mode(AsyncMode) -> wf_context:async_mode(AsyncMode).
+switch_to_comet() -> set_async_mode(comet).
+switch_to_polling(IntervalInMS) -> set_async_mode({poll, IntervalInMS}).
 
 %%% DEBUGGING %%%
-debug() -> wff:debug().
-break() -> wff:break().
-assert(Result, ErrorMessage) -> wff:assert(Result, ErrorMessage).
+debug() -> wf_utils:debug().
+break() -> wf_utils:break().
+assert(true, _) -> ok;
+assert(false, Error) -> erlang:error(Error).

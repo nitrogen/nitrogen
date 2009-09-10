@@ -6,9 +6,15 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_validator(TriggerPath, TargetPath, Record)  ->
-	Text = wf_utils:js_escape(Record#is_email.text),
-	validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, tag=Record }),
+render_action(Record)  ->
+	TriggerPath= Record#is_email.trigger,
+	TargetPath = Record#is_email.target,
+	Text = wf:js_escape(Record#is_email.text),
+	validator_custom:render_action(#custom { 
+		trigger=TriggerPath, 
+		target=TargetPath, 
+		function=fun validate/2, text = Text, tag=Record 
+	}),
 	wf:f("v.add(Validate.Email, { failureMessage: \"~s\" });", [Text]).
 
 validate(_, Value) ->

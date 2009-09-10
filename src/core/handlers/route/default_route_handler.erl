@@ -7,8 +7,8 @@
 -include ("wf.inc").
 -include ("simplebridge.hrl").
 -export ([
-	init/2, 
-	finish/2
+	init/1, 
+	finish/1
 ]).
 
 % TODO 
@@ -17,61 +17,72 @@
 % creating too many atoms and causing Erlang to run out of
 % memory.
 
-init(Context, State) -> 
-	% Get the path.
-	Bridge = Context#context.request,
-	Path = Bridge:path(),
+init(Routes) -> 
+	% Get the path...
+	RequestBridge = wf_context:request_bridge(),
+	Path = RequestBridge:path(),
 	
-	% Turn the path into a module and pathinfo.
-	{Module, PathInfo} = path_to_module(Path),
-	{ok, NewContext} = update_context(Module, PathInfo, Context),
-	{ok, NewContext, State}.
+	% Convert the path to a module.
+	% If there are no routes defined, then just
+	% convert everything without an extension to
+	% a module.
+	% Otherwise, look through all routes for
+	% the first matching route.
+	{Module, PathInfo} = case Routes of
+		[] -> route_using_extension(Path);
+		_ -> route(Path, Routes)
+	end,
 	
-finish(Context, State) -> 
-	{ok, Context, State}.
+	% TODO - Allow users to supply their own custom 404 module.
+	{Module1, PathInfo1} = check_for_404(Module, PathInfo, Path),
+					
+	wf_context:page_module(Module1),
+	wf_context:path_info(PathInfo1),
+
+	{ok, Routes}.
+	
+finish(State) -> 
+	{ok, State}.
 
 %%% PRIVATE FUNCTIONS %%%
 
-update_context(Module, PathInfo, Context) ->
-	Page = Context#context.page_context,
-	Page1 = Page#page_context {
-		module=Module,
-		path_info=PathInfo
-	},
-	{ok, Context#context { page_context=Page1 }}.
-
-%% path_to_module/1 - Convert a web path to a module.
-path_to_module(undefined) -> {web_index, ""};
-path_to_module(S) -> 
-	case lists:last(S) of
-		$/ -> 
-			S1 = S ++ "index",
-			tokens_to_module(string:tokens(S1, "/"), [], true);
-		_ -> 
-			tokens_to_module(string:tokens(S, "/"), [], false)
+% If there is no extension, convert to
+% a module name. Otherwise, assume
+% it's a static file.
+route_using_extension(Path) ->
+	case filename:extension(Path) of
+		[] ->
+			% No extension, it's a module. 
+			Path1 = string:strip(Path, both, $/),
+			Tokens = string:tokens(Path1, "/"),
+			ModuleString = string:join(Tokens, "_"),
+			Module = list_to_atom(ModuleString),
+			{Module, ""};
+		_ ->
+			% Serve this up as a static file.
+			{static_file, Path}
 	end.
 	
-tokens_to_module([], PathInfoAcc, AddedIndex) -> 
-	{file_not_found_page, to_path_info(PathInfoAcc, AddedIndex)};
+% Look through all routes for a route that matches
+% the specified path. If none are found, then 
+% this is a static file.	
+route(Path, []) -> 
+	{static_file, Path};
 	
-tokens_to_module(Tokens, PathInfoAcc, AddedIndex) ->
-	try
-		% Try to get the name of a module. 
-		% TODO - Somehow change this to list_to_existing_atom
-		ModuleString = string:join(Tokens, "_"),
-		Module = list_to_atom(ModuleString),
+route(Path, [{Prefix, Module}|Routes]) ->
+	case string:str(Path, Prefix) of
+		1 -> 
+			{Module, string:substr(length(Prefix), Path)};
+		_ -> 
+			route(Path, Routes)
+	end.
+
+
+check_for_404(static_file, _PathInfo, Path) ->
+	{static_file, Path};
 		
-		% Moke sure the module is loaded.
-		{module, Module} = code:ensure_loaded(Module),
-		{Module, to_path_info(PathInfoAcc, AddedIndex)}
-	catch _ : _ -> 
-		% Strip off the last token, and try again.
-		LastToken = lists:last(Tokens),
-		Tokens1 = lists:reverse(tl(lists:reverse(Tokens))),
-		tokens_to_module(Tokens1, [LastToken|PathInfoAcc], AddedIndex)
-	end.	
-	
-chop_last_element(L) -> lists:reverse(tl(lists:reverse(L))).
-to_path_info([], _) -> "";
-to_path_info(PathInfoAcc, true)  -> string:join(chop_last_element(PathInfoAcc), "/");
-to_path_info(PathInfoAcc, false) -> string:join(PathInfoAcc, "/").
+check_for_404(Module, PathInfo, Path) ->
+	case code:ensure_loaded(Module) of
+		{module, Module} -> {Module, PathInfo};
+		_ -> {file_not_found_page, Path}
+	end.

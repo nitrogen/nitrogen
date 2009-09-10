@@ -12,7 +12,7 @@
 
 reflect() -> record_info(fields, bind).
 
-render_element(_HtmlID, Record, Context) -> 
+render_element(_HtmlID, Record) -> 
 	% Get attributes.
 	Data = Record#bind.data,
 	Map = Record#bind.map,
@@ -24,7 +24,7 @@ render_element(_HtmlID, Record, Context) ->
 	Body = Record#bind.body,
 	
 	% Bind the data to the body template...
-	Elements = case length(Data) > 0 of
+	case length(Data) > 0 of
 		true ->	
 			Body1 = bind(Body, Data, Map, Transform, AccInit),
 			% Render the new body to html...
@@ -32,8 +32,7 @@ render_element(_HtmlID, Record, Context) ->
 		
 		_ ->
 			Record#bind.empty_body
-	end,
-	{ok, Elements, Context}.
+	end.
 
 render_rows([], _) -> [];
 render_rows([H|T], N) ->

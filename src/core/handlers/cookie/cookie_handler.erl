@@ -5,27 +5,27 @@
 -module (cookie_handler).
 -export ([
 	behaviour_info/1,
-	get_cookie/2,
-	set_cookie/5
+	get_cookie/1,
+	set_cookie/4
 ]).
 
 
 
-% get_cookie(Key, Context, State) -> Value.
+% get_cookie(Key, State) -> Value.
 % Read a cookie from the browser.
-get_cookie(Key, Context) -> 
-	_Value = wf_context:call_handler_function_readonly(cookie_handler, get_cookie, [Key], Context).
+get_cookie(Key) -> 
+	_Value = wf_handler:call_readonly(cookie_handler, get_cookie, [Key]).
 	
-% set_cookie(Key, Value, Path, MinutesToLive, Context, State) -> {ok, NewContext, NewState}.
+% set_cookie(Key, Value, Path, MinutesToLive, State) -> {ok, NewState}.
 % Send a cookie to the browser.
-set_cookie(Key, Value, Path, MinutesToLive, Context) -> 
-	{ok, _NewContext} = wf_context:call_handler_function(cookie_handler, set_cookie, [Key, Value, Path, MinutesToLive], Context).
+set_cookie(Key, Value, Path, MinutesToLive) -> 
+	ok = wf_handler:call(cookie_handler, set_cookie, [Key, Value, Path, MinutesToLive]).
 
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2},
-	{get_cookie, 3},
-	{set_cookie, 6}
+	{init, 1},      
+	{finish, 1},
+	{get_cookie, 2},
+	{set_cookie, 5}
 ];
 
 behaviour_info(_) -> undefined.

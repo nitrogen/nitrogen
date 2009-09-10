@@ -1,14 +1,17 @@
 # all: compile test
 
 compile:
+	make -C ./deps/*
+	cp ./deps/*/ebin/*.beam ./ebin
 	erl \
 		-pa ebin \
 		-make
 
 clean:
 	rm -rf ./coverage/*.*
-	rm -rf ./ebin/*.*
-	rm -rf ./test/ebin/*.*
+	rm -rf ./ebin/*.beam
+	rm -rf ./deps/*/ebin/*.beam
+	rm -rf ./test/ebin/*.beam
 
 test: compile
 	erl -noshell \

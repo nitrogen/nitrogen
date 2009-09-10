@@ -81,21 +81,25 @@
 							<key>filename</key>
 							<string>src/core/wf_core.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-18T01:59:10Z</date>
+							<date>2009-07-21T23:26:16Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wf.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-17T16:28:03Z</date>
+							<date>2009-07-22T00:01:07Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>src/core/wff.erl</string>
 							<key>lastUsed</key>
-							<date>2009-06-17T16:28:03Z</date>
+							<date>2009-07-22T00:01:07Z</date>
 						</dict>
 						<dict>
+							<key>expanded</key>
+							<true/>
 							<key>name</key>
 							<string>lib</string>
 							<key>regexFolderFilter</key>
@@ -136,6 +140,8 @@
 							<string>src/core/elements</string>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>Core</string>
 				</dict>
@@ -299,6 +305,8 @@
 					<string>Mantle</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -309,7 +317,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-06-17T16:12:53Z</date>
+					<date>2009-07-22T00:00:48Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -348,7 +356,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-06-17T02:56:06Z</date>
+					<date>2009-07-21T23:26:16Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -377,6 +385,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{287, 0}, {926, 778}}</string>
+	<string>{{282, 0}, {921, 778}}</string>
 </dict>
 </plist>

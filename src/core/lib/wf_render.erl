@@ -5,29 +5,29 @@
 -module (wf_render).
 -include ("wf.inc").
 -export ([
-	render/3
+	render/2
 ]).
 
-render(Elements, Actions, Context) ->
+render(Elements, Actions) ->
 	% Save any queued actions...
-	OldQueuedActions = Context#context.queued_actions,
-	Context1 = Context#context { queued_actions=[] },
+	OldQueuedActions = wf_context:actions(),
+	wf_context:clear_actions(),
 
 	% First, render the elements.
-	{ok, Html, Context2} = wf_render_elements:render_elements(Elements, Context1),
+	{ok, Html} = wf_render_elements:render_elements(Elements),
 	
 	% Second, render any actions.
-	{ok, Script1, Context3} = wf_render_actions:render_actions(Actions, Context2),
+	{ok, Script1} = wf_render_actions:render_actions(Actions),
 	
 	% Third, render queued actions that were a result of step 1 or 2.
-	QueuedActions = lists:reverse(Context2#context.queued_actions),
-	{ok, Script2, Context4} = wf_render_actions:render_actions(QueuedActions, Context3),
+	QueuedActions = wf_context:actions(),
+	{ok, Script2} = wf_render_actions:render_actions(QueuedActions),
 	
 	% Restore queued actions...
-	Context5 = Context4#context { queued_actions=OldQueuedActions },
+	wf_context:actions(OldQueuedActions),
 	
 	% Return.
 	Script=[Script1, Script2],
-	{ok, Html, Script, Context5}.
+	{ok, Html, Script}.
 
 	

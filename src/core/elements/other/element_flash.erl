@@ -8,40 +8,38 @@
 
 reflect() -> record_info(fields, flash).
 	
-render_element(_HtmlID, _Record, Context) -> 
+render_element(_HtmlID, _Record) -> 
 	Terms = #panel { 
 		id=flash,
 		class=flash_container
 	},
-	{ok, Context1} = wff:state(has_flash, true, Context),
-	{ok, Terms, Context1}.
+	wf:state(has_flash, true),
+	Terms.
 
 % render/0 - Convenience methods to place the flash element on a page from a template.
 render() -> #flash{}.
-render(Context) -> {ok, #flash{}, Context}.
 
-update(Context) ->
+update() ->
 	% TODO - Stifle flash when we are redirecting.
-	HasFlash = wff:state(has_flash, Context),
+	HasFlash = wf:state(has_flash),
 	case HasFlash of
 		true -> 
-			{ok, Flashes, Context1} = get_flashes(Context),
-			wff:insert_bottom(flash, Flashes, Context1);
-	  _ -> 
-			{ok, Context}
+			{ok, Flashes} = get_flashes(),
+			wf:insert_bottom(flash, Flashes);
+	  _ -> ignore
 	end.
 
-add_flash(Term, Context) ->
-	Flashes = case wff:session(flashes, Context) of
+add_flash(Term) ->
+	Flashes = case wf:session(flashes) of
 		undefined -> [];
 		X -> X
 	end,
-	{ok, _NewContext} = wff:session(flashes, [Term|Flashes], Context).
+  wf:session(flashes, [Term|Flashes]).
 
-get_flashes(Context) -> 
+get_flashes() -> 
 	% Create terms for an individual flash...
 	F = fun(X) ->
-		FlashID = wff:temp_id(),
+		FlashID = wf:temp_id(),
 		InnerPanel = #panel { class=flash, actions=#show { target=FlashID, effect=blind, speed=400 }, body=[
 			#link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#hide { effect=blind, speed=400 } } },
 			#panel { class=flash_content, body=X }
@@ -50,12 +48,12 @@ get_flashes(Context) ->
 	end,
 	
 	% Get flashes, and clear session...
-	Flashes = case wff:session(flashes, Context) of 
+	Flashes = case wf:session(flashes) of 
 		undefined -> [];
 		Other -> Other
 	end,	
-	{ok, Context1} = wff:session(flashes, [], Context),
+	wf:session(flashes, []),
 	
 	% Return list of terms...
 	Flashes1 = [F(X) || X <- lists:reverse(Flashes)],
-	{ok, Flashes1, Context1}.
+	{ok, Flashes1}.

@@ -8,10 +8,10 @@
 -include ("wf.inc").
 -export ([
 	start/0,
-	init/2, 
-	finish/2,
-	get_pid/3,
-	get_pid/4
+	init/1, 
+	finish/1,
+	get_pid/2,
+	get_pid/3
 ]).
 
 -define (TABLE, process_cabinet).
@@ -28,21 +28,21 @@ start() ->
 	end,
 	erlang:spawn(F).
 
-init(Context, State) -> 
-	{ok, Context, State}.
+init(State) -> 
+	{ok, State}.
 
-finish(Context, State) ->
-	{ok, Context, State}.
+finish(State) ->
+	{ok, State}.
 	
-get_pid(Key, Context, State) -> 
+get_pid(Key, State) -> 
 	Pid = case ets:lookup(?TABLE, Key) of
 		[] -> undefined;
 		[{Key, Value}] -> Value
 	end,
-	{ok, Pid, Context, State}.
+	{ok, Pid, State}.
 
-get_pid(Key, Function, Context, State) ->
-	{ok, Pid, Context1, State1} = get_pid(Key, Context, State),
+get_pid(Key, Function, State) ->
+	{ok, Pid, State1} = get_pid(Key, State),
 	Pid1 = case Pid /= undefined andalso is_pid(Pid) andalso is_process_alive(Pid) of
 		true  -> Pid;
 		false -> 
@@ -50,4 +50,4 @@ get_pid(Key, Function, Context, State) ->
 			ets:insert(?TABLE, {Key, NewPid}),
 			NewPid
 	end,
-	{ok, Pid1, Context1, State1}.
+	{ok, Pid1, State1}.

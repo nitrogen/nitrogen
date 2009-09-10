@@ -59,15 +59,8 @@ N.Page = function(o) {
 
 N.Inline = function(o) {
 	var n = new Nitrogen(o);
-	if (o.windex) {
-		n.$do_event = n.$do_windex_event;
-		n.$do_system_event = n.$do_windex_system_event;
-		n.$url = Nitrogen.$add_param_to_url(n.$url, "windex", "true");
-	} else {
-		n.$do_event = n.$do_xhr_event;
-		n.$do_system_event = n.$do_xhr_system_event;
-	}
-	
+	n.$do_event = n.$do_xhr_event;
+	n.$do_system_event = n.$do_xhr_system_event;	
 	var url = Nitrogen.$add_param_to_url(n.$url, "object_id", n.id);
 	Nitrogen.$load_script(url);
 	return n;
@@ -242,30 +235,6 @@ N.prototype.$do_xhr_system_event = function(eventContext) {
 		}
 	});                     
 }
-
-
-/*** WINDEX METHODS ***/
-
-// N.prototype.$do_windex_event = function(triggerID, eventContext, extraParams) { 
-// 	// Run validation...
-// 	var s = this.$validate_and_serialize(triggerID);	
-// 	if (s == null) {
-// 		return;
-// 	}
-// 	
-// 	// Build params...
-// 	var url = this.$url;
-// 	url = Nitrogen.$add_param_to_url(url, "domState", this.$dom_state);
-// 	url = Nitrogen.$add_param_to_url(url, "eventContext", eventContext);
-// 	url = Nitrogen.$add_param_to_url(url, s);
-// 	url = Nitrogen.$add_param_to_url(url, extraParams);
-// 	Nitrogen.$load_script(url);
-// }
-// 
-// 
-// N.prototype.$do_windex_system_event = function(eventContext) { 
-// 	alert("Async is not yet supported via Windex.");
-// }
 
 /*** FILE UPLOAD ***/
 // N.$upload = function(form) {

@@ -7,7 +7,7 @@
 -compile(export_all).
 
 % This action is used internally by Nitrogen.
-render_action(Record, Context) ->
+render_action(Record) ->
 	% TODO - Add a 'replace' case here eventually...
 	FormatString = case Record#update.type of
 		update        -> "Nitrogen.$update(obj('me'), \"~s\");";
@@ -17,25 +17,25 @@ render_action(Record, Context) ->
 
 	% Render into HTML and Javascript...
 	Elements = Record#update.elements,
-	{ok, Html, Script, Context1} = wf_render:render(Elements, [], Context), 
+	{ok, Html, Script} = wf_render:render(Elements, []), 
 	
 	% Turn the HTML into a Javascript statement that will update the right element.
-	ScriptifiedHtml = wff:f(FormatString, [wf_utils:js_escape(Html)]),
-	{ok, [ScriptifiedHtml, Script], Context1}.
+	ScriptifiedHtml = wf:f(FormatString, [wf:js_escape(Html)]),
+	[ScriptifiedHtml, Script].
 	
-update(TargetID, Elements, Context) -> 
-	update(update, TargetID, Elements, Context).
+update(TargetID, Elements) -> 
+	update(update, TargetID, Elements).
 
-insert_top(TargetID, Elements, Context) -> 
-	update(insert_top, TargetID, Elements, Context).
+insert_top(TargetID, Elements) -> 
+	update(insert_top, TargetID, Elements).
 
-insert_bottom(TargetID, Elements, Context) -> 
-	update(insert_bottom, TargetID, Elements, Context).
+insert_bottom(TargetID, Elements) -> 
+	update(insert_bottom, TargetID, Elements).
 
 %%% PRIVATE FUNCTIONS %%%
 
-update(Type, TargetID, Elements, Context) ->
-	CurrentPath = Context#context.current_path,
+update(Type, TargetID, Elements) ->
+	CurrentPath = wf_context:current_path(),
 	Action = #wire { target=CurrentPath, actions=[
 		#update {
 			type=Type,
@@ -43,5 +43,5 @@ update(Type, TargetID, Elements, Context) ->
 			elements=Elements		
 		}
 	]},
-	QueuedActions = [Action|Context#context.queued_actions],
-	{ok, Context#context { queued_actions = QueuedActions }}.
+	wf_context:add_action(Action),
+	ok.

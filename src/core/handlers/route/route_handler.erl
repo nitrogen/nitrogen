@@ -8,8 +8,8 @@
 ]).
 
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2}
+	{init, 1},      
+	{finish, 1}
 ];
 
 behaviour_info(_) -> undefined.

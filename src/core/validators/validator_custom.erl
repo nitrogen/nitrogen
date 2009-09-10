@@ -6,10 +6,10 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(Record, Context) -> 
+render_action(Record) -> 
 	TriggerPath= Record#custom.trigger,
 	TargetPath = Record#custom.target,
-	Validators = state_handler:get_state(validators, [], Context),
+	Validators = state_handler:get_state(validators, []),
 	V = {TriggerPath, TargetPath, Record},
-	{ok, Context1} = state_handler:set_state(validators, lists:delete(V, Validators) ++ [V], Context),
-	{ok, [], Context1}.
+	state_handler:set_state(validators, lists:delete(V, Validators) ++ [V]),
+	[].

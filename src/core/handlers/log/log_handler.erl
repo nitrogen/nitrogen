@@ -5,45 +5,45 @@
 -module (log_handler).
 -export ([
 	behaviour_info/1,
-	info/2, info/3,
-	warning/2, warning/3,
-	error/2, error/3
+	info/1, info/2,
+	warning/1, warning/2,
+	error/1, error/2
 ]).
 
 
 
-% info(String, Context, State) -> {ok, NewContext, NewState}.
+% info(String, State) -> {ok, NewState}.
 % Log an info-level message. Everything is functioning as usual.
-info(String, Args, Context) -> 
-	{ok, _NewContext} = info(wff:f(String, Args), Context).
+info(String, Args) -> 
+	ok = info(wf:f(String, Args)).
 	
-info(String, Context) -> 
-	{ok, _NewContext} = wf_context:call_handler_function(log_handler, info, [String], Context).
+info(String) -> 
+	ok = wf_handler:call(log_handler, info, [String]).
 	
-% warning(String, Context, State) -> {ok, NewContext, NewState}.
+% warning(String, State) -> {ok, NewState}.
 % Log a warning-level message. If something is not corrected, then
 % service could be interrupted in some way.
-warning(String, Args, Context) -> 
-	{ok, _NewContext} = warning(wff:f(String, Args), Context).
+warning(String, Args) -> 
+	ok = warning(wf:f(String, Args)).
 	
-warning(String, Context) -> 
-	{ok, _NewContext} = wf_context:call_handler_function(log_handler, warning, [String], Context).
+warning(String) -> 
+	ok = wf_handler:call(log_handler, warning, [String]).
 
-% error(String, Context, State) -> {ok, NewContext, NewState}.
+% error(String, State) -> {ok, NewState}.
 % Log an error-level message. Service has been interrupted in some way.
-error(String, Args, Context) -> 
-	{ok, _NewContext} = error(wff:f(String, Args), Context).
+error(String, Args) -> 
+	ok = error(wf:f(String, Args)).
 	
-error(String, Context) -> 
-	{ok, _NewContext} = wf_context:call_handler_function(log_handler, error, [String], Context).
+error(String) -> 
+	ok = wf_handler:call(log_handler, error, [String]).
 
 
 
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2},
-	{info, 3},       
-	{warning, 3},	
-	{error, 3}
+	{init, 1},      
+	{finish, 1},
+	{info, 2},       
+	{warning, 2},	
+	{error, 2}
 ];
 behaviour_info(_) -> undefined.

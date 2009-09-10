@@ -20,7 +20,7 @@ body() ->
 	% Start the counter as a background process.
 	wf:comet(fun() -> background_update(myCounter, 1) end),
 	
-	wf:render(Body).
+	Body.
 
 event(_) -> ok.
 

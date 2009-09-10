@@ -8,16 +8,14 @@
 
 reflect() -> record_info(fields, listitem).
 
-render_element(HtmlID, Record, Context) -> 
+render_element(HtmlID, Record) -> 
 	Body = [
-		wff:html_encode(Record#listitem.text, Record#listitem.html_encode),
+		wf:html_encode(Record#listitem.text, Record#listitem.html_encode),
 		Record#listitem.body
 	],
 
-	Elements = wf_tags:emit_tag(li, Body, [
+	wf_tags:emit_tag(li, Body, [
 		{id, HtmlID},
 		{class, [listitem, Record#listitem.class]},
 		{style, Record#listitem.style}
-	]),
-	
-	{ok, Elements, Context}.
+	]).

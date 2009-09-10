@@ -16,30 +16,30 @@
 -module (process_cabinet_handler).
 -export ([
 	behaviour_info/1,
-	get_pid/2,
-	get_pid/3
+	get_pid/1,
+	get_pid/2
 ]).
 
 
 
-% get_pid(Key, Context, State) -> {ok, Pid, NewContext, NewState}.
+% get_pid(Key, State) -> {ok, Pid, NewState}.
 % Get the process associated with this Key.
-get_pid(Key, Context) ->
-	_Pid = wf_context:call_handler_function_readonly(process_cabinet_handler, get_pid, [Key], Context).
+get_pid(Key) ->
+	_Pid = wf_handler:call_readonly(process_cabinet_handler, get_pid, [Key]).
 
-% get_pid(Key, Function, Context, State) -> {ok, Pid, NewContext, NewState}.	
+% get_pid(Key, Function, State) -> {ok, Pid, NewState}.	
 % Return the process associated with Key. If that process does not
 % exist, then create a new process and associate it with Key.
-get_pid(Key, Function, Context) ->
-	{ok, _Pid, _NewContext} = wf_context:call_handler_function(process_cabinet_handler, get_pid, [Key, Function], Context).
+get_pid(Key, Function) ->
+	{ok, _Pid} = wf_handler:call(process_cabinet_handler, get_pid, [Key, Function]).
 
 		
 
 behaviour_info(callbacks) -> [
-	{init, 2},      
-	{finish, 2},
-	{get_pid, 3},
-	{get_pid, 4}
+	{init, 1},      
+	{finish, 1},
+	{get_pid, 2},
+	{get_pid, 3}
 ];
 
 behaviour_info(_) -> undefined.

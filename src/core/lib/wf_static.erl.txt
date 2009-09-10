@@ -1,0 +1,134 @@
+% Nitrogen Web Framework for Erlang
+% Copyright (c) 2008-2009 Rusty Klophaus
+% See MIT-LICENSE for licensing information.
+
+% Serve up static file. Code borrows heavily from Mochiweb.
+% Returns ok or {error, file_not_found}
+serve_file(DocRoot, Path) ->
+	case safe_relative_path(Path) of
+		undefined -> {error, file_not_found};
+		NewPath -> serve_file1(NewPath, DocRoot)
+	end.
+	
+serve_file1(DocRoot, SafeRelativePath) ->
+	FullPath = filename:join([DocRoot, SafeRelative]),
+	case file:read_file_info(FullPath) of
+		{error, _} -> {error, file_not_found};
+		{ok, FileInfo} -> serve_file2(FullPath, FileInfo)
+	end.
+	
+serve_file2(FullPath, FileInfo) ->
+	case file:open(File, [raw, binary]) of
+		{ok, IoDevice} ->
+				LastModified = httpd_util:rfc1123_date(FileInfo#file_info.mtime),
+				ContentType = guess_mime(File),
+				
+				Response = wf_context:response_bridge(),
+				Response1 = Response:data(Html1),
+				Response1:build_response().
+
+				Res = ok({ContentType, [{"last-modified", LastModified}
+	| ExtraHeaders],	{file, IoDevice}}),
+	file:close(IoDevice),
+	Res;
+	_ ->
+	not_found(ExtraHeaders)
+	end
+	end;
+
+%% @spec safe_relative_path(string()) -> string() | undefined
+%% @doc Return the reduced version of a relative path or undefined if it
+%%      is not safe. safe relative paths can be joined with an absolute path
+%%      and will result in a subdirectory of the absolute path.
+safe_relative_path("/" ++ _) ->
+    undefined;
+safe_relative_path(P) ->
+    safe_relative_path(P, []).
+
+safe_relative_path("", Acc) ->
+    case Acc of
+        [] ->
+            "";
+        _ ->
+            string:join(lists:reverse(Acc), "/")
+    end;
+safe_relative_path(P, Acc) ->
+    case partition(P, "/") of
+        {"", "/", _} ->
+            %% /foo or foo//bar
+            undefined;
+        {"..", _, _} when Acc =:= [] ->
+            undefined;
+        {"..", _, Rest} ->
+            safe_relative_path(Rest, tl(Acc));
+        {Part, "/", ""} ->
+            safe_relative_path("", ["", Part | Acc]);
+        {Part, _, Rest} ->
+            safe_relative_path(Rest, [Part | Acc])
+    end.
+
+%% @spec guess_mime(string()) -> string()
+%% @doc  Guess the mime type of a file by the extension of its filename.
+guess_mime(File) ->
+    case filename:extension(File) of
+        ".html" ->
+            "text/html";
+        ".xhtml" ->
+            "application/xhtml+xml";
+        ".xml" ->
+            "application/xml";
+        ".css" ->
+            "text/css";
+        ".js" ->
+            "application/x-javascript";
+        ".jpg" ->
+            "image/jpeg";
+        ".gif" ->
+            "image/gif";
+        ".png" ->
+            "image/png";
+        ".swf" ->
+            "application/x-shockwave-flash";
+        ".zip" ->
+            "application/zip";
+        ".bz2" ->
+            "application/x-bzip2";
+        ".gz" ->
+            "application/x-gzip";
+        ".tar" ->
+            "application/x-tar";
+        ".tgz" ->
+            "application/x-gzip";
+        ".txt" ->
+            "text/plain";
+        ".doc" ->
+            "application/msword";
+        ".pdf" ->
+            "application/pdf";
+        ".xls" ->
+            "application/vnd.ms-excel";
+        ".rtf" ->
+            "application/rtf";
+        ".mov" ->
+            "video/quicktime";
+        ".mp3" ->
+            "audio/mpeg";
+        ".z" ->
+            "application/x-compress";
+        ".wav" ->
+            "audio/x-wav";
+        ".ico" ->
+            "image/x-icon";
+        ".bmp" ->
+            "image/bmp";
+        ".m4a" ->
+            "audio/mpeg";
+        ".m3u" ->
+            "audio/x-mpegurl";
+        ".exe" ->
+            "application/octet-stream";
+        ".csv" ->
+            "text/csv";
+        _ ->
+            "text/plain"
+    end.

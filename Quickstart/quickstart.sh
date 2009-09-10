@@ -14,4 +14,3 @@ erl \
 	-s make all \
 	-eval "application:start(quickstart_inets)"
 
-

@@ -7,13 +7,13 @@
 -compile(export_all).
 
 % This action is used internally by Nitrogen.
-render_action(Record, Context) ->
-	Value = wf_utils:js_escape(wf:to_list(Record#set.value)),
-	Script = wf:f("Nitrogen.$set_value('me', \"~s\");", [Value]),
-	{ok, Script, Context}.
+render_action(Record) ->
+	Value = wf:js_escape(wf:to_list(Record#set.value)),
+	wf:f("Nitrogen.$set_value('me', \"~s\");", [Value]).
+	
 
-set(Element, Value, Context) ->
-	{ok, _NewContext} = wff:wire(Element, #set { value=Value }, Context).
+set(Element, Value) ->
+	wf:wire(Element, #set { value=Value }).
 
 
 % TODO - not sure if anyone uses this anymore.

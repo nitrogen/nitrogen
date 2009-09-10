@@ -5,27 +5,27 @@
 -module (default_log_handler).
 -behaviour (log_handler).
 -export ([
-	init/2, 
-	finish/2,
-	info/3, 
-	warning/3, 
-	error/3
+	init/1, 
+	finish/1,
+	info/2, 
+	warning/2, 
+	error/2
 ]).
 
-init(Context, State) -> 
-	{ok, Context, State}.
+init(State) -> 
+	{ok, State}.
 	
-finish(Context, State) -> 
-	{ok, Context, State}.
+finish(State) -> 
+	{ok, State}.
 
-info(S, Context, State) -> 
+info(S, State) -> 
 	error_logger:info_msg([S, "\n"]),
-	{ok, Context, State}.
+	{ok, State}.
 
-warning(S, Context, State) -> 
+warning(S, State) -> 
 	error_logger:warning_msg([S, "\n"]),
-	{ok, Context, State}.
+	{ok, State}.
 
-error(S, Context, State) -> 
+error(S, State) -> 
 	error_logger:error_msg([S, "\n"]),
-	{ok, Context, State}.
+	{ok, State}.

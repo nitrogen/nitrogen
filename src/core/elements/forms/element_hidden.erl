@@ -8,12 +8,11 @@
 
 reflect() -> record_info(fields, hidden).
 
-render_element(HtmlID, Record, Context) -> 
+render_element(HtmlID, Record) -> 
 	Value = wf:html_encode(Record#hidden.text, Record#hidden.html_encode),
-	Elements = wf_tags:emit_tag(input, [
+	wf_tags:emit_tag(input, [
 		{id, HtmlID}, 
 		{name, HtmlID}, 
 		{type, hidden},
 		{value, Value}
-	]), 
-	{ok, Elements, Context}.
+	]).

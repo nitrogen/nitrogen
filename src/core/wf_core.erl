@@ -2,7 +2,7 @@
 -include ("wf.inc").
 -include ("simplebridge.hrl").
 -export ([
-	run/1
+	run/0
 ]).
 
 % nitrogen_core - 
@@ -11,102 +11,104 @@
 % from other Erlang web frameworks or resource servers, such as WebMachine, 
 % Erlang Web, ErlyWeb, etc.
 
-run(Context) ->
-	try
-		run_bootstrap(Context)
+run() ->
+	try 
+		run_catched()
 	catch Type : Message -> 
 		?LOG("~p~n", [{error, Type, Message, erlang:get_stacktrace()}])
 	end.
 
-run_bootstrap(Context) ->
+run_catched() ->
 	% Get the handlers from querystring, if they exist...
-	{ok, Context1} = deserialize_context(Context),
+	deserialize_context(),
 	
 	% Initialize all handlers...
-	{ok, Context2} = call_init_on_handlers(Context1),
-	run_execute(Context2).
-	 
-run_execute(Context) ->
+	call_init_on_handlers(),
+	
 	% Deserialize the event if available...
-	{ok, Context1} = wf_event:update_context_with_event(Context),
+	wf_event:update_context_with_event(),
 
 	% TODO - Check for access
 
 	% Call the module...
-	Event = Context1#context.event_context,
-	IsFirstRequest = Event#event_context.is_first_request,
-	{ok, Context2} = case IsFirstRequest of
-		true  -> run_execute_first_request(Context1);
-		false -> run_execute_postback(Context1)
-	end,
+	case wf_context:type() of
+		first_request    -> 
+			run_first_request(), 
+			finish_dynamic_request();
+		postback_request -> 
+			run_postback_request(), 
+			finish_dynamic_request();
+		static_file      -> 
+			finish_static_request()
+	end.
 	
-	% Update flash...
-	{ok, Context3} = element_flash:update(Context2),
-	
-	run_render(Context3).
-		
-run_render(Context) ->
-	Elements = Context#context.data,
-	Actions = lists:reverse(Context#context.queued_actions),
-	Context1 = Context#context { data=[], queued_actions=[] },
-	{ok, Html, Javascript, Context2} = wf_render:render(Elements, Actions, Context1),
-	run_finish(Html, Javascript, Context2).
+finish_dynamic_request() ->
+	% Update flash and render.
+	element_flash:update(),	
 
-run_finish(Html, Javascript, Context) ->
+	% Get elements and actions...
+	Elements = wf_context:data(),
+	wf_context:clear_data(),
+	Actions = wf_context:actions(),
+	wf_context:clear_actions(),
+	
+	% Render...
+	{ok, Html, Javascript} = wf_render:render(Elements, Actions),
+
 	% Call finish on all handlers.
-	{ok, Context1} = call_finish_on_handlers(Context),
+	call_finish_on_handlers(),
 	
 	% Create Javascript to set the state...
-	State = serialize_context(Context1),
-	run_output(Html, [State, Javascript], Context1).
+	StateScript = serialize_context(),
+	Javascript1 = [StateScript, Javascript],
+	case wf_context:type() of
+		first_request       -> build_first_response(Html, Javascript1);
+		postback_request    -> build_postback_response(Javascript1)
+	end.
 	
-run_output(Html, Javascript, Context) ->
-	% Output the results to the browser...
-	output_handler:build_response(Html, Javascript, Context).
-
-
-
+finish_static_request() ->
+	Path = wf_context:path_info(),
+	build_static_file_response(Path).
+	
 %%% SERIALIZE AND DESERIALIZE STATE %%%
 
-% serialize_context_state/1 -
+% serialize_context_state/0 -
 % Serialize part of Context and send it to the browser
 % as Javascript variables.
-serialize_context(Context) ->
-	Page = Context#context.page_context,
-	Handlers = Context#context.handler_list,
-	SerializedContextState = wff:pickle([Page, Handlers]),
+serialize_context() ->
+	Page = wf_context:page_context(),
+	Handlers = wf_context:handlers(),
+	SerializedContextState = wf:pickle([Page, Handlers]),
 	[
-		wf_render_actions:generate_scope_script(Context),
-		wff:f("Nitrogen.$set_param('pageContext', '~s');", [SerializedContextState])
+		wf_render_actions:generate_scope_script(),
+		wf:f("Nitrogen.$set_param('pageContext', '~s');", [SerializedContextState])
 	].
 
 % deserialize_context_state/1 -
 % Updates the context with values that were stored
 % in the browser by serialize_context_state/1.
-deserialize_context(Context) ->	
-	Request = Context#context.request,
-	Params = Request:query_params(),
+deserialize_context() ->
+	RequestBridge = wf_context:request_bridge(),	
+	Params = RequestBridge:query_params(),
 	
 	% Deserialize page_context and handler_list if available...
 	SerializedPageContext = proplists:get_value("pageContext", Params),
 	[Page, Handlers] = case SerializedPageContext of
-		undefined -> [Context#context.page_context, Context#context.handler_list];
-		Other -> wff:depickle(Other)
+		undefined -> [wf_context:page_context(), wf_context:handlers()];
+		Other -> wf:depickle(Other)
 	end,	
 	
 	% Deserialize dom_paths if available...
 	DomPathList = proplists:get_value("domPaths", Params),
-	DomPaths = wf_path:split_dom_paths(Page#page_context.name, DomPathList),
+	DomPaths = wf_path:split_dom_paths(wf_context:page_name(), DomPathList),
 	
 	% Create a new context...
-	Context1 = Context#context { 
-		page_context = Page, 
-		handler_list=Handlers, 
-		dom_paths=DomPaths 
-	},
-
+	wf_context:page_context(Page),
+	wf_context:handlers(Handlers),
+	wf_context:dom_paths(DomPaths),
+	
 	% Return the new context...
-	{ok, Context1}.
+	ok.
 	
 	
 	
@@ -116,60 +118,79 @@ deserialize_context(Context) ->
 % Handlers are initialized in the order that they exist in #context.handlers. The order
 % is important, as some handlers may depend on others being initialize. For example, 
 % the session handler may use the cookie handler to get or set the session cookie.
-call_init_on_handlers(Context) ->
-	Handlers = Context#context.handler_list,
-	F = fun(#handler_context { name=Name, module=Module, state=State }, Cx) -> 
-		{ok, NewContext, NewState} = Module:init(Cx, State),
-		wf_context:set_handler(Name, Module, NewState, NewContext)
-	end,
-	{ok, lists:foldl(F, Context, Handlers)}.
+call_init_on_handlers() ->
+	Handlers = wf_context:handlers(),
+	F = fun(#handler_context { name=Name, module=Module, state=State }) -> 
+		{ok, NewState} = Module:init(State),
+		wf_handler:set_handler(Name, Module, NewState)
+	end,	
+	[F(X) || X <- Handlers].
 
 % finish_handlers/1 - 
 % Handlers are finished in the order that they exist in #context.handlers. The order
 % is important, as some handlers should finish after others. At the very least,
 % the 'render' handler should go last to make sure that it captures all changes
 % put in place by the other handlers.
-call_finish_on_handlers(Context) ->
-	Handlers = Context#context.handler_list,
-	F = fun(#handler_context { name=Name, module=Module, state=State }, Cx) -> 
-		{ok, NewContext, NewState} = Module:finish(Cx, State),
-		wf_context:set_handler(Name, Module, NewState, NewContext)
+call_finish_on_handlers() ->
+	Handlers = wf_context:handlers(),
+	F = fun(#handler_context { name=Name, module=Module, state=State }) -> 
+		{ok, NewState} = Module:finish(State),
+		wf_handler:set_handler(Name, Module, NewState)
 	end,
-	{ok, lists:foldl(F, Context, Handlers)}.
+	[F(X) || X <- Handlers].
 	
 	
 	
 %%% FIRST REQUEST %%%
 
-run_execute_first_request(Context) ->
+run_first_request() ->
 	% Some values...
-	Event = Context#context.event_context,
-	Module = Event#event_context.module,
-	% Call Module:main/1
-	{ok, Data, Context1} = call_module_main(Module, Context),
-	{ok, Context1#context { data=Data}}.
-
-call_module_main(Module, Context) ->
+	Module = wf_context:event_module(),
 	{module, Module} = code:ensure_loaded(Module),
-	{ok, _Data, _NewContext} = wf_context:call_with_context(Module, main, [], Context, true).
+	Data = Module:main(),
+	wf_context:data(Data).
 
 
 %%% POSTBACK REQUEST %%%
 
-run_execute_postback(Context) ->
+run_postback_request() ->
 	% Some values...
-	Event = Context#context.event_context,
-	Module = Event#event_context.module,
-	Tag = Event#event_context.tag,
+	Module = wf_context:event_module(),
+	Tag = wf_context:event_tag(),
 	
 	% Validate...
-	{ok, IsValid, Context1} = wf_validation:validate(Context),
+	{ok, IsValid} = wf_validation:validate(),
 	
 	% Call the event...
 	case IsValid of
-		true -> call_module_event(Module, Tag, Context1);
-		false -> {ok, Context1}
+		true -> Module:event(Tag);
+		false -> ok
 	end.
 	
-call_module_event(Module, Tag, Context) ->
-	{ok, _NewContext} = wf_context:call_with_context(Module, event, [Tag], Context, false).
+%%% BUILD THE RESPONSE %%%
+
+build_static_file_response(Path) ->
+	Response = wf_context:response_bridge(),
+	Response1 = Response:file(Path),
+	Response1:build_response().
+
+build_first_response(Html, Script) ->
+	% Update the output with any script...
+	Html1 = replace(script, Script, Html),
+
+	% Update the response bridge and return.
+	Response = wf_context:response_bridge(),
+	Response1 = Response:data(Html1),
+	Response1:build_response().
+	
+build_postback_response(Script) ->
+	% Update the response bridge and return.
+	Response = wf_context:response_bridge(),
+	% TODO - does this need to be flattened?
+	Response1 = Response:data(lists:flatten(Script)),
+	Response1:build_response().
+		
+replace(_, _, S) when ?IS_STRING(S) -> S;
+replace(Old, New, [Old|T]) -> [New|T];
+replace(Old, New, [H|T]) -> [replace(Old, New, H)|replace(Old, New, T)];
+replace(_, _, Other) -> Other.
