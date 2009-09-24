@@ -5,7 +5,6 @@
 -module (passthrough_route_handler).
 -behaviour (route_handler).
 -include ("wf.inc").
--include ("simplebridge.hrl").
 -export ([
 	init/1, 
 	finish/1

@@ -1,5 +1,4 @@
 -module (quickstart_mochiweb_app).
--include ("simplebridge.hrl").
 -include ("wf.inc").
 
 -export ([

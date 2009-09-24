@@ -5,6 +5,12 @@
 	<key>documents</key>
 	<array>
 		<dict>
+			<key>filename</key>
+			<string>Emakefile</string>
+			<key>lastUsed</key>
+			<date>2009-09-11T02:28:25Z</date>
+		</dict>
+		<dict>
 			<key>children</key>
 			<array>
 				<dict>
@@ -17,7 +23,7 @@
 					<key>filename</key>
 					<string>apps/quickstart_inets.app</string>
 					<key>lastUsed</key>
-					<date>2009-05-16T04:08:56Z</date>
+					<date>2009-09-10T01:54:33Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -44,13 +50,15 @@
 					<key>filename</key>
 					<string>quickstart.sh</string>
 					<key>lastUsed</key>
-					<date>2009-01-04T23:26:13Z</date>
+					<date>2009-09-10T01:54:33Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>quickstart_mochiweb.sh</string>
 					<key>lastUsed</key>
-					<date>2009-06-17T12:25:18Z</date>
+					<date>2009-09-10T01:54:33Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -71,7 +79,7 @@
 					<key>filename</key>
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
-					<date>2009-06-17T12:25:18Z</date>
+					<date>2009-09-04T22:30:37Z</date>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -101,7 +109,7 @@
 					<key>filename</key>
 					<string>src/web_index.erl</string>
 					<key>lastUsed</key>
-					<date>2009-05-16T04:08:55Z</date>
+					<date>2009-09-10T00:16:48Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -136,12 +144,8 @@
 					<string>src/web_tasklist.erl</string>
 					<key>lastUsed</key>
 					<date>2009-06-18T00:59:20Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Code</string>
 		</dict>
@@ -174,14 +178,7 @@
 		</dict>
 		<dict>
 			<key>children</key>
-			<array>
-				<dict>
-					<key>filename</key>
-					<string>wwwroot/windex.html</string>
-					<key>lastUsed</key>
-					<date>2009-04-04T13:53:13Z</date>
-				</dict>
-			</array>
+			<array/>
 			<key>expanded</key>
 			<true/>
 			<key>name</key>

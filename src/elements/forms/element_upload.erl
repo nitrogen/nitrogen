@@ -4,6 +4,7 @@
 
 -module (element_upload).
 -include ("wf.inc").
+-include ("simplebridge.hrl").
 -compile(export_all).
 
 reflect() -> record_info(fields, upload).
@@ -11,7 +12,7 @@ reflect() -> record_info(fields, upload).
 render_element(HtmlID, Record) ->
 	ShowButton = Record#upload.show_button,
 	ButtonText = Record#upload.button_text,
-	Tag = Record#upload.tag,
+	Tag = {upload_finished, Record},
 	FormID = wf:temp_id(),
 	IFrameID = wf:temp_id(),
 	SubmitJS = wf:f("Nitrogen.$upload(obj('~s'));", [FormID]),
@@ -29,13 +30,19 @@ render_element(HtmlID, Record) ->
 		]),	
 	
 		wf_tags:emit_tag(input, [
-			{name, postbackInfo},
+			{name, eventContext},
 			{type, hidden},
 			{value, PostbackInfo}
 		]),
+
+		wf_tags:emit_tag(input, [
+			{name, pageContext},
+			{type, hidden},
+			{value, ""}
+		]),
 		
 		wf_tags:emit_tag(input, [
-			{name, domState},
+			{name, domPaths},
 			{type, hidden},
 			{value, ""}
 		]),
@@ -59,7 +66,31 @@ render_element(HtmlID, Record) ->
 		])
 	].
 	
-event({upload, Tag, Filename, LocalFileData}) -> 
-	Delegate = wf_platform:get_page_module(),
-	Delegate:upload_event(Tag, Filename, LocalFileData),
-	ok.
+event({upload_finished, Record}) ->
+	wf_context:type(first_request),
+	Req = wf_context:request_bridge(),
+
+	% % Create the postback...
+	NewTag = case Req:uploaded_file() of
+		undefined -> 
+			{upload_event, Record, undefined, undefined};
+		#uploaded_file { original_name=OriginalName, temp_file=TempFile } ->
+			{upload_event, Record, OriginalName, TempFile}
+	end,
+
+	% Make the tag...
+	Trigger = wf_context:event_trigger(),
+	Target = wf_context:event_target(),
+	Postback = wf_event:generate_postback_script(NewTag, upload_finished, Trigger, Target, ?MODULE),
+
+	% Set the response...
+	wf_context:data([
+		"<html><body><script>",
+		"var Nitrogen = window.parent.Nitrogen;",
+		Postback,
+		"</script></body></html>"
+	]);
+
+event({upload_event, Record, OriginalName, TempFile}) ->
+	Module = wf:coalesce([Record#upload.delegate, wf:page_module()]),
+	Module:upload_event(Record#upload.tag, OriginalName, TempFile).

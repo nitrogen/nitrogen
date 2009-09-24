@@ -104,23 +104,19 @@ NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam
 		return;
 	}
 	
-	
 	// Assemble other parameters... 
-	var url = this.$url;
+	var params = "";
+	params += "eventContext=" + eventContext + "&";
+	params += "domPaths=" + this.$get_dom_paths() + "&";
+	params += extraParams + "&";
 	for (var key in this.$params) {
-		url = this.$add_param_to_url(url, key, this.$params[key]);
+		params += key + "=" + this.$params[key] + "&";
 	}
-	url = this.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
-
-	// Build params...
-	var params = 
-		"eventContext=" + eventContext + "&" + 
-		s + "&" + extraParams;
-
+	
 	var n = this;
 
 	jQuery.ajax({ 
-		url: url,
+		url: this.$url,
 		type:'post',
 		data: params,
 		dataType: 'text',
@@ -138,19 +134,17 @@ NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam
 
 NitrogenClass.prototype.$do_system_event = function(eventContext) { 
 	// Assemble parameters... 
-	var url = this.$url;
+	var params = "";
+	params += "eventContext=" + eventContext + "&";
+	params += "domPaths=" + this.$get_dom_paths() + "&";
 	for (var key in this.$params) {
-		url = this.$add_param_to_url(url, key, this.$params[key]);
+		params += key + "=" + this.$params[key] + "&";
 	}
-	url = this.$add_param_to_url(url, "domPaths", this.$get_dom_paths());
-	
-	// Build params...
-	var params = "eventContext=" + eventContext;
 
 	var n = this;
 
 	$.ajax({ 
-		url: url,
+		url: this.$url,
 		type:'post',
 		data: params,
 		dataType: 'text',
@@ -164,10 +158,13 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
 
 /*** FILE UPLOAD ***/
 NitrogenClass.prototype.$upload = function(form) {
-	form.domState.value = this.$dom_state;
+	// Assemble other parameters...
 	form.action = this.$url;
+	form.domPaths.value = this.$get_dom_paths();
+	form.pageContext.value = this.$params["pageContext"];
 	form.submit();
 	form.reset();
+	form.action = "";
 }
 
 /*** SERIALIZATION ***/
@@ -298,17 +295,13 @@ NitrogenClass.prototype.$set_value = function(element, value) {
 	else this.$update(element, value);
 }
 
-NitrogenClass.prototype.$add_param_to_url = function(url, key, value) {
+NitrogenClass.prototype.$normalize_param = function(key, value) {
 	// Create the key=value line to add.
 	// Sometimes, the user will pass a bunch of params in the key field.
 	var s = "";
 	if (key) { s = key; }
 	if (key && value) { s = key + "=" + value; }
-	
-	// Return the updated url...
-	var parts = url.split("?");
-	if (parts.length == 1) { return url + "?" + s; }
-	if (parts.length > 1) { return url + "&" + s; }
+	return key + "&" + value;
 }
 
 /*** DATE PICKER ***/

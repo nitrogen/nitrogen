@@ -75,7 +75,7 @@ event({next, N, StepIDs}) ->
 	ok;	
 
 event({finish, Tag}) -> 
-	Delegate = wf_platform:get_page_module(),
+	Delegate = wf_platform:page_module(),
 	Delegate:wizard_event(Tag),
 	ok;
 	

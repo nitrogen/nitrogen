@@ -4,12 +4,11 @@
 
 -module (wf).
 -include ("wf.inc").
--include ("simplebridge.hrl").
 -compile (export_all).
 
 %%% EXPOSE PAGE CONTEXT %%%
 
-get_page_module() -> wf_context:page_module().
+page_module() -> wf_context:page_module().
 
 %%% EXPOSE WIRE, UPDATE, FLASH %%%
 wire(Actions) -> 

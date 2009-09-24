@@ -4,7 +4,6 @@
 
 -module (default_process_cabinet_handler).
 -behaviour (process_cabinet_handler).
--include ("simplebridge.hrl").
 -include ("wf.inc").
 -export ([
 	start/0,

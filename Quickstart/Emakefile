@@ -1,3 +1,20 @@
+% Compile SimpleBridge files.
+{ '../deps/*/src/*/*', [
+	{ i, "../include" },
+	{ i, "../deps/simple_bridge/include" },
+	{ outdir, "../ebin" },
+	debug_info
+]}.
+
+{ '../deps/*/src/*', [
+	{ i, "../include" },
+	{ i, "../deps/simple_bridge/include" },
+	{ outdir, "../ebin" },
+	debug_info
+]}.
+
+
+
 % Compile Nitrogen files.
 { '../src/*', [
 	{ i, "../include" },

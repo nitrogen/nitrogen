@@ -1,6 +1,5 @@
 -module (wf_core).
 -include ("wf.inc").
--include ("simplebridge.hrl").
 -export ([
 	run/0
 ]).
@@ -89,7 +88,7 @@ serialize_context() ->
 % in the browser by serialize_context_state/1.
 deserialize_context() ->
 	RequestBridge = wf_context:request_bridge(),	
-	Params = RequestBridge:query_params(),
+	Params = RequestBridge:post_params(),
 	
 	% Deserialize page_context and handler_list if available...
 	SerializedPageContext = proplists:get_value("pageContext", Params),

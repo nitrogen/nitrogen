@@ -5,7 +5,6 @@
 -module (default_route_handler).
 -behaviour (route_handler).
 -include ("wf.inc").
--include ("simplebridge.hrl").
 -export ([
 	init/1, 
 	finish/1
@@ -87,8 +86,6 @@ check_for_404(static_file, _PathInfo, Path) ->
 	{static_file, Path};
 		
 check_for_404(Module, PathInfo, Path) ->
-	?PRINT(Module),
-	?PRINT(code:ensure_loaded(Module)),
 	case code:ensure_loaded(Module) of
 		{module, Module} -> {Module, PathInfo};
 		_ -> {file_not_found_page, Path}

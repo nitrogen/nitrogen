@@ -8,13 +8,13 @@
 			<key>filename</key>
 			<string>VERSIONS</string>
 			<key>lastUsed</key>
-			<date>2009-03-08T15:05:32Z</date>
+			<date>2009-09-03T11:10:30Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>CHANGELOG</string>
 			<key>lastUsed</key>
-			<date>2009-04-05T13:04:08Z</date>
+			<date>2009-09-03T11:10:29Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -26,7 +26,7 @@
 			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
-			<date>2009-05-17T17:30:05Z</date>
+			<date>2009-09-09T23:12:40Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -35,274 +35,77 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-06-14T22:01:52Z</date>
+					<date>2009-09-10T02:03:43Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
-					<string>src/nitrogen.erl.old</string>
+					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-06-16T02:16:26Z</date>
+					<date>2009-09-10T11:28:10Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/wf_core.erl</string>
+					<key>lastUsed</key>
+					<date>2009-09-10T11:28:09Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>src/sync.erl</string>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/web_x.erl</string>
-					<key>lastUsed</key>
-					<date>2009-05-16T15:09:12Z</date>
 				</dict>
 				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
-							<string>src/project/nitrogen_project.erl</string>
-							<key>lastUsed</key>
-							<date>2009-06-11T23:16:08Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/project/nitrogen_file.erl</string>
-							<key>lastUsed</key>
-							<date>2009-01-08T13:59:54Z</date>
-						</dict>
-					</array>
 					<key>name</key>
-					<string>Project</string>
+					<string>validators</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/validators</string>
 				</dict>
 				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
-							<string>src/core/sync.erl</string>
-							<key>lastUsed</key>
-							<date>2009-06-16T02:16:24Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/core/wf_core.erl</string>
-							<key>lastUsed</key>
-							<date>2009-07-21T23:26:16Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/core/wf.erl</string>
-							<key>lastUsed</key>
-							<date>2009-07-22T00:01:07Z</date>
-							<key>selected</key>
-							<true/>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>src/core/wff.erl</string>
-							<key>lastUsed</key>
-							<date>2009-07-22T00:01:07Z</date>
-						</dict>
-						<dict>
-							<key>expanded</key>
-							<true/>
-							<key>name</key>
-							<string>lib</string>
-							<key>regexFolderFilter</key>
-							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-							<key>sourceDirectory</key>
-							<string>src/core/lib</string>
-						</dict>
-						<dict>
-							<key>name</key>
-							<string>handlers</string>
-							<key>regexFolderFilter</key>
-							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-							<key>sourceDirectory</key>
-							<string>src/core/handlers</string>
-						</dict>
-						<dict>
-							<key>name</key>
-							<string>actions</string>
-							<key>regexFolderFilter</key>
-							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-							<key>sourceDirectory</key>
-							<string>src/core/actions</string>
-						</dict>
-						<dict>
-							<key>name</key>
-							<string>validators</string>
-							<key>regexFolderFilter</key>
-							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-							<key>sourceDirectory</key>
-							<string>src/core/validators</string>
-						</dict>
-						<dict>
-							<key>name</key>
-							<string>elements</string>
-							<key>regexFolderFilter</key>
-							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-							<key>sourceDirectory</key>
-							<string>src/core/elements</string>
-						</dict>
-					</array>
+					<key>name</key>
+					<string>lib</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/lib</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>actions</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/actions</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>project</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/project</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>elements</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/elements</string>
+				</dict>
+				<dict>
 					<key>expanded</key>
 					<true/>
 					<key>name</key>
-					<string>Core</string>
-				</dict>
-				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>children</key>
-							<array>
-								<dict>
-									<key>filename</key>
-									<string>src/platforms/nitrogen_inets_app.erl</string>
-									<key>lastUsed</key>
-									<date>2009-05-29T01:46:14Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/platforms/nitrogen_mochiweb_app.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-14T15:12:56Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/platforms/nitrogen_yaws_app.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-13T19:31:11Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/platforms/wf_inets.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-13T19:31:11Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/platforms/wf_mochiweb.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-14T15:12:56Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/platforms/wf_yaws.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-13T19:31:11Z</date>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>Platforms</string>
-						</dict>
-						<dict>
-							<key>children</key>
-							<array>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_multipart.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-16T22:36:42Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_cache.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-12T02:47:17Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_cache_server.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-12T02:47:17Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_platform_yaws.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-12T02:47:17Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_platform.erl.txt</string>
-									<key>lastUsed</key>
-									<date>2009-06-12T02:47:16Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_handle.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-12T02:48:22Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_handle_firstrequest.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-10T11:42:41Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_handle_postback.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-11T01:51:54Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_handle_postback_multipart.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-12T02:48:21Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_init.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-07T00:00:52Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_utils.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-17T02:07:58Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_session_sup.erl</string>
-									<key>lastUsed</key>
-									<date>2009-01-07T02:19:36Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_session_server.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-11T02:32:59Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_session.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-12T00:07:01Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_platform_mochiweb.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-14T15:12:56Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_platform_inets.erl</string>
-									<key>lastUsed</key>
-									<date>2009-05-16T14:24:50Z</date>
-								</dict>
-								<dict>
-									<key>filename</key>
-									<string>src/lib/wf_http_basic_auth.erl</string>
-									<key>lastUsed</key>
-									<date>2009-06-13T18:57:35Z</date>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>Lib</string>
-						</dict>
-					</array>
-					<key>name</key>
-					<string>Mantle</string>
+					<string>handlers</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>src/handlers</string>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -314,10 +117,41 @@
 			<key>children</key>
 			<array>
 				<dict>
+					<key>name</key>
+					<string>actions</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>test/src/actions</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>test/src/test_suite.erl</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>elements</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>test/src/elements</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>test/src/eunit_helper.erl</string>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>Test</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-07-22T00:00:48Z</date>
+					<date>2009-09-09T23:38:04Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -326,8 +160,6 @@
 					<date>2008-12-09T22:31:59Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Include</string>
 		</dict>
@@ -356,7 +188,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-07-21T23:26:16Z</date>
+					<date>2009-09-10T11:28:09Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -367,6 +199,20 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
+		<key>src/nitrogen.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>6</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>www/nitrogen.css</key>
 		<dict>
 			<key>caret</key>

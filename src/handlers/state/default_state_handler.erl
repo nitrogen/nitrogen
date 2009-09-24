@@ -4,7 +4,6 @@
 
 -module (default_state_handler).
 -behaviour (state_handler).
--include ("simplebridge.hrl").
 -include ("wf.inc").
 -export ([
 	init/1, finish/1, get_state/3, set_state/3, clear/2, clear_all/1
