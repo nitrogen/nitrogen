@@ -21,9 +21,10 @@ body() ->
   ],
 
 	% Start the counter as a background process.
-	wf:comet(fun() -> cycle_and_update(1000, colorLabel, ["Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"]) end),
-	wf:comet(fun() -> cycle_and_update(2000, directionLabel, ["North", "East", "South", "West"]) end),
-
+	wf:wire([
+		#async { function=fun() -> cycle_and_update(1000, colorLabel, ["Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"]) end },
+		#async { function=fun() -> cycle_and_update(2000, directionLabel, ["North", "East", "South", "West"]) end }
+	]),
 	Body.
 
 event(_) -> ok.
@@ -34,7 +35,8 @@ cycle_and_update(Speed, ControlID, List) ->
 	
 	% Check to see if we have received an EXIT notice.
 	receive 
-		{'EXIT', _, stop_comet} -> 
+		{'EXIT', _, Message} -> 
+			?PRINT(Message),
 			io:format("The user has left the page.~n"),
 			exit(done)
 	after 0 -> continue
@@ -48,7 +50,7 @@ cycle_and_update(Speed, ControlID, List) ->
 	
 	% wf:comet_flush() is only needed because we are looping. Otherwise,
 	% we could just let the function complete.
-	wf:comet_flush(),
+	wf:flush(),
 	
 	% Take the first item from the list, make it the last item on the list.
 	% So if we start with [1, 2, 3, 4], we'd end with [2, 3, 4, 1]

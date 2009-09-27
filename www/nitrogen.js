@@ -109,6 +109,7 @@ NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam
 	params += "eventContext=" + eventContext + "&";
 	params += "domPaths=" + this.$get_dom_paths() + "&";
 	params += extraParams + "&";
+	params += s + "&";
 	for (var key in this.$params) {
 		params += key + "=" + this.$params[key] + "&";
 	}
@@ -247,10 +248,6 @@ NitrogenClass.prototype.$observe_event = function(el, type, func) {
 
 NitrogenClass.prototype.$update = function(el, html) {
 	jQuery(el).html(html);
-}
-
-NitrogenClass.prototype.$update = function(html) {
-	jQuery(this.$div).html(html);
 }
 
 NitrogenClass.prototype.$insert_top = function(el, html) {

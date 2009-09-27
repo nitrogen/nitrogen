@@ -17,9 +17,11 @@ body() ->
 		#span { id=myCounter, text="-" }
   ],
 
-	% Start the counter as a background process.
-	wf:comet(fun() -> background_update(myCounter, 1) end),
-	
+	wf_context:async_mode(comet),
+	wf:wire(#async {
+		function = fun() -> background_update(myCounter, 1) end
+	}),
+
 	Body.
 
 event(_) -> ok.
@@ -33,7 +35,7 @@ background_update(ControlID, Count) ->
 	
 	% wf:comet_flush() is only needed because we are looping. Otherwise,
 	% we could just let the function complete.
-	wf:comet_flush(),
+	wf:flush(),
 	
 	% Loop. This process will automatically be killed
 	% once the page stops requesting the output that

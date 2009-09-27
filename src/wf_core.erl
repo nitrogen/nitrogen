@@ -11,10 +11,18 @@
 % Erlang Web, ErlyWeb, etc.
 
 run() ->
+	Request = wf_context:request_bridge(),
+	Response = wf_context:response_bridge(),
 	try 
-		run_catched()
-	catch Type : Message -> 
-		?LOG("~p~n", [{error, Type, Message, erlang:get_stacktrace()}])
+		case Request:error() of
+			none -> run_catched();
+			Other -> 
+				Message = wf:f("Errors: ~p~n", [Other]),
+				Response1 = Response:data(Message),
+				Response1:build_response()
+		end
+	catch Type : Error -> 
+		?LOG("~p~n", [{error, Type, Error, erlang:get_stacktrace()}])
 	end.
 
 run_catched() ->

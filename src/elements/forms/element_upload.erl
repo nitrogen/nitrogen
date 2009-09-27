@@ -71,10 +71,10 @@ event({upload_finished, Record}) ->
 	Req = wf_context:request_bridge(),
 
 	% % Create the postback...
-	NewTag = case Req:uploaded_file() of
-		undefined -> 
+	NewTag = case Req:post_files() of
+		[] -> 
 			{upload_event, Record, undefined, undefined};
-		#uploaded_file { original_name=OriginalName, temp_file=TempFile } ->
+		[#uploaded_file { original_name=OriginalName, temp_file=TempFile }|_] ->
 			{upload_event, Record, OriginalName, TempFile}
 	end,
 
