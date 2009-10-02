@@ -2,8 +2,6 @@
 
 {title, "Integer Validator"},
 
-{see_also, [base]},
-
 {usage, "
 	wf:wire(ButtonID, TextBoxID, #validate { validators=[<br>
 	&nbsp;&nbsp;#is_integer { text=\"Must be an integer.\" }<br>

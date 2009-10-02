@@ -2,8 +2,6 @@
 
 {title, "Custom Client-Side Validator"},
 
-{see_also, [base]},
-
 {usage, "	
 	% Wire the validator against the 'my_validator' Javascript<br>
 	% function, passing in some args...<br>

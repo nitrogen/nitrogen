@@ -2,8 +2,6 @@
 
 {title, "Custom Server-Side Validator"},
 
-{see_also, [base]},
-
 {usage, "
 	% Function to validate that a value is either upper or lower case,<br>
 	% depending on the value of Tag...<br>

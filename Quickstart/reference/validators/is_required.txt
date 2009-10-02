@@ -2,8 +2,6 @@
 
 {title, "Required Field Validator"},
 
-{see_also, [base]},
-
 {usage, "
 	wf:wire(ButtonID, TextBoxID, #validate { validators=[<br>
 	&nbsp;&nbsp;#is_required { text=\"Required\" }<br>

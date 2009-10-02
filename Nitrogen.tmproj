@@ -1362,10 +1362,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-<<<<<<< HEAD:Nitrogen.tmproj
 	<string>{{285, 0}, {928, 778}}</string>
-=======
-	<string>{{287, 0}, {928, 778}}</string>
->>>>>>> 19b6f15aecead6e0cb0d1de9317551bf1ef735ab:Nitrogen.tmproj
 </dict>
 </plist>

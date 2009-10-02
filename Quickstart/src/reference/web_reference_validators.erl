@@ -51,7 +51,6 @@ column2() ->
 	],
 	
 	Other = [
-		{ "/web/reference/validators/base", "(Base Action)" },
 		{ "/web/reference/validators/js_custom", "Custom Client Side (JS)" },
 		{ "/web/reference/validators/custom", "Custom Server Side (Erlang)" }
 	],
@@ -66,10 +65,6 @@ column2() ->
 
 body() ->
 	Term = get(term),
-	TransformSeeAlso = fun(SeeAlso, Acc) -> 
-		SeeAlso1 = wf:to_list(SeeAlso),
-		{{SeeAlso1, SeeAlso1}, Acc, []} 
-	end,
 	
 	#bind { 
 		data=[Term],
@@ -78,11 +73,6 @@ body() ->
 			#p{},
 			#span { class=reference_description, id=description, html_encode=false },
 			#p{},
-			#span { class=reference_see_also_label, text="See also: " },
-			#bind { id=see_also, data=[], map={link@text, link@url}, transform=TransformSeeAlso,
-				body=[#link { class=reference_see_also_link, id=link }, "&nbsp;"],
-				empty_body="-"
-			},
 			#h2{ text="Usage" },
 			#span { class=reference_usage, id=usage, html_encode=false },
 			#h2 { text="Attributes" },

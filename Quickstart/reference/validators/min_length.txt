@@ -2,8 +2,6 @@
 
 {title, "Min Length Validator"},
 
-{see_also, [base]},
-
 {usage, "
 	wf:wire(ButtonID, TextBoxID, #validate { validators=[<br>
 	&nbsp;&nbsp;#min_length { text=\"Minimum of 4 characters.\", length=4 }<br>
