@@ -34,7 +34,6 @@ f(S) -> wf_utils:f(S).
 f(S, Args) -> wf_utils:f(S, Args).
 coalesce(L) -> wf_utils:coalesce(L).
 
-id() -> wf_utils:id().
 guid() -> wf_utils:guid().
 
 pickle(Data) -> wf_utils:pickle(Data).
