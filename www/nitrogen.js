@@ -131,6 +131,7 @@ N.prototype.$validate_and_serialize = function(triggerID) {
 	var s = "";
 	var is_valid = true;
 	var elements = this.$get_elements_to_serialize();
+
 	for (var i=0; i<elements.length; i++) {
 		element = elements[i];
 		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
@@ -253,6 +254,7 @@ N.prototype.$do_windex_comet = function(postbackInfo) {
 N.$upload = function(form) {
 	var n = Nitrogen.$lookup(Nitrogen.$current_id);
 	form.domState.value = n.$dom_state;
+	form.action = n.$url;
 	form.submit();
 	form.reset();
 }
@@ -439,6 +441,7 @@ N.$droppable = function(dropObj, dropOptions, dropPostbackInfo) {
 
 N.$sortitem = function(sortItem, sortTag) {
 	sortItem.$sort_tag = sortTag;
+	sortItem.$drag_tag = sortTag;
 }
 
 N.$sortblock = function(sortBlock, sortOptions, sortPostbackInfo) {

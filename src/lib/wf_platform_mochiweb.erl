@@ -98,6 +98,7 @@ get_headers() ->
     {content_type, F("content-type")},
     {content_encoding, F("content-encoding")},
     {authorization, F("authorization")},
+    {x_forwarded_for, F("x-forwarded-for")},
     {transfer_encoding, F("transfer-encoding")}
 	].
 

@@ -45,7 +45,8 @@ render(Term) when is_tuple(Term) ->
 			% Wire actions and render the control.
 			HtmlID = wf_path:to_html_id(ID),
 			wf:wire(HtmlID, HtmlID, Base#elementbase.actions),
-			lists:flatten([Module:render(HtmlID, Term)]);
+			Terms = Module:render(HtmlID, Term),
+			ensure_rendered(Terms);
 
 		{true, false} -> 
 			% Set the new path...
@@ -54,7 +55,8 @@ render(Term) when is_tuple(Term) ->
 			% Wire actions and render the control.
 			HtmlID = wf_path:to_html_id(wf_path:get_path()),
 			wf:wire(HtmlID, HtmlID, Base#elementbase.actions),
-		 	Html = lists:flatten([Module:render(HtmlID, Term)]),
+		 	Terms = Module:render(HtmlID, Term),
+			Html = ensure_rendered(Terms),
 			
 			% Restore the old path...
 			wf_path:pop_path(),
@@ -62,6 +64,14 @@ render(Term) when is_tuple(Term) ->
 		{_, _} -> []
 	end,
 	Response.
+	
+ensure_rendered(Terms) ->
+	% Call render if it has not already been called.
+	case wf:is_string(Terms) of
+		true -> Terms;
+		false -> wf:render(Terms)
+	end.
+
 	
 %%% RENDER ACTIONS %%%
 

@@ -15,7 +15,7 @@ render(ControlID, Record) ->
 		PickledTag
 	]),
 	wf:wire(Script),
-
+	
 	element_panel:render(ControlID, #panel {
 		class="sortitem " ++ wf:to_list(Record#sortitem.class),
 		style=Record#sortitem.style,

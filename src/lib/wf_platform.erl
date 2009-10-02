@@ -109,7 +109,7 @@ set_header(Key, Value) ->
 
 %%% SOCKETS %%%
 get_socket() -> do(get_socket).
-get_peername() -> inet:peername(get_socket).
+get_peername() -> inet:peername(get_socket()).
 recv_from_socket(Length, Timeout) -> do(recv_from_socket, [Length, Timeout]).
 
 

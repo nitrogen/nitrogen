@@ -16,6 +16,7 @@ render_action(_TriggerPath, TargetPath, Record) ->
 	Script = case Record#jquery_effect.type of
 		'show' when Effect==none -> wf:f("show();");
 		'hide' when Effect==none -> wf:f("hide();");
+		'toggle' when Effect==none -> wf:f("toggle();");
 		'appear' -> wf:f("fadeIn(~p);", [Speed]);
 		'fade'   -> wf:f("fadeOut(~p);", [Speed]);
 		'show'   -> wf:f("show('~s', ~s, ~p);",   [Effect, Options, Speed]);

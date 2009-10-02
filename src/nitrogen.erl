@@ -130,7 +130,14 @@ get_templateroot() ->
 	
 get_sign_key() -> 
 	case get_env(serving_app(), sign_key) of
-		{ok, Val} -> Val;
+		{ok, randomized} -> 
+		    Key = wf_utils:guid(),     
+		    set_env(serving_app(), sign_key, Key),
+		    Key;
+
+		{ok, Val} -> 
+		    Val;
+
 		_ -> throw("You must declare a sign_key!")
 	end.
 
@@ -162,3 +169,10 @@ get_env(undefined, Key) ->
 get_env(App, Key) -> 
 	Value = application:get_env(App, Key),
 	Value.
+
+set_env(undefined, Key, Val) ->
+	{ok, App} = application:get_application(),
+	ok = application:set_env(App, Key, Val);
+
+set_env(App, Key, Val) ->
+	ok = application:set_env(App, Key, Val).

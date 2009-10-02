@@ -12,13 +12,17 @@
 	html_encode/1, html_encode/2
 ]).
 
+-include ("wf.inc").
 
 %%% CONVERSION %%%
 
 clean_lower(L) -> string:strip(string:to_lower(to_list(L))).
 
 to_list(undefined) -> [];
-to_list(L) when is_list(L) -> inner_to_list(lists:flatten(L));
+to_list(L) when ?IS_STRING(L) -> L;
+to_list(L) when is_list(L) ->
+    SubLists = [inner_to_list(X) || X <- L],
+    lists:flatten(SubLists);
 to_list(A) -> inner_to_list(A).
 inner_to_list(A) when is_atom(A) -> atom_to_list(A);
 inner_to_list(B) when is_binary(B) -> binary_to_list(B);
@@ -52,6 +56,7 @@ html_encode([H|T]) ->
 		$< -> "&lt;" ++ html_encode(T);
 		$> -> "&gt;" ++ html_encode(T);
 		$" -> "&quot;" ++ html_encode(T);
+		$' -> "&#39;" ++ html_encode(T);
 		$& -> "&amp;" ++ html_encode(T);
 		$\n -> "<br>" ++ html_encode(T);
 		_ -> [H|html_encode(T)]

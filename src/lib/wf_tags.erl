@@ -27,6 +27,8 @@ emit_tag(TagName, [[], []], Props) ->
 
 emit_tag(TagName, [], Props) when 
 	TagName =/= 'div', 
+	TagName =/= 'span',
+	TagName =/= 'label',
 	TagName =/= 'textarea',
 	TagName =/= 'iframe' ->
     emit_tag(TagName, Props);
@@ -55,12 +57,12 @@ display_property({Prop, V}) when is_atom(Prop) ->
 display_property({_, []}) -> "";    
     
 display_property({Prop, Value}) when is_integer(Value); is_atom(Value) ->
-	[" ", Prop, "='", wf:to_list(Value), "'"];
+	[" ", Prop, "=\"", wf:to_list(Value), "\""];
     
 display_property({Prop, Value}) when is_binary(Value); ?IS_STRING(Value) ->
-	[" ", Prop, "='", Value, "'"];
+	[" ", Prop, "=\"", Value, "\""];
 
 display_property({Prop, Values}) ->
 	StrValues = [wf:to_list(X) || X <- Values],
-	[" ", Prop, "='", string:strip(string:join(StrValues, " ")), "'"].
+	[" ", Prop, "=\"", string:strip(string:join(StrValues, " ")), "\""].
 

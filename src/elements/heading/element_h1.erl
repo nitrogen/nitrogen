@@ -9,7 +9,7 @@
 reflect() -> record_info(fields, h1).
 
 render(ControlID, Record) -> 
-	Content = Record#h1.text,
+	Content = wf:html_encode(Record#h1.text, Record#h1.html_encode),
 	wf_tags:emit_tag(h1, Content, [
 		{id, ControlID},
 		{class, [h1, Record#h1.class]},

@@ -33,12 +33,12 @@ new_list_6() ->
 
 basic_test_() ->
   [
-   ?_assertEqual("<ul id='1' class='list'/>",new_list_1()),
-   ?_assertEqual("<ul id='2' class='list t_list'/>",new_list_2()),
-   ?_assertEqual("<ul id='3' class='list t_list' style='color: cyan;'>SOME BODY</ul>",new_list_3()),
-   ?_assertEqual("<ol id='4' class='list'/>",new_list_4()),
-   ?_assertEqual("<ol id='5' class='list t_list'/>",new_list_5()),
-   ?_assertEqual("<ol id='6' class='list t_list' style='color: cyan;'>SOME BODY</ol>",new_list_6()),
+   ?_assertEqual("<ul id=\"1\" class=\"list\"/>",new_list_1()),
+   ?_assertEqual("<ul id=\"2\" class=\"list t_list\"/>",new_list_2()),
+   ?_assertEqual("<ul id=\"3\" class=\"list t_list\" style=\"color: cyan;\">SOME BODY</ul>",new_list_3()),
+   ?_assertEqual("<ol id=\"4\" class=\"list\"/>",new_list_4()),
+   ?_assertEqual("<ol id=\"5\" class=\"list t_list\"/>",new_list_5()),
+   ?_assertEqual("<ol id=\"6\" class=\"list t_list\" style=\"color: cyan;\">SOME BODY</ol>",new_list_6()),
    ?_assertEqual([module,id,actions,show_if,class,style,numbered,body],
 	 element_list:reflect())
   ].

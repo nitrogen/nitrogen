@@ -37,7 +37,7 @@ basic_test_() ->
                 new_jquery_effect_1('fade')),
   ?_assertEqual("Nitrogen.$current_id='';Nitrogen.$current_path='';jQuery(obj('_target_path')).effect('none', { Key1: 'Value1',Key2: 'Value2' }, \"a_speed\");",
                 new_jquery_effect_1('effect')),
-  ?_assertEqual("Nitrogen.$current_id='';Nitrogen.$current_path='';jQuery(obj('_target_path')).toggle('none', { Key1: 'Value1',Key2: 'Value2' }, \"a_speed\");",
+  ?_assertEqual("Nitrogen.$current_id='';Nitrogen.$current_path='';jQuery(obj('_target_path')).toggle();",
                 new_jquery_effect_1('toggle')),
   ?_assertEqual("Nitrogen.$current_id='';Nitrogen.$current_path='';jQuery(obj('_target_path')).addClass('a_class', \"a_speed\");",
                 new_jquery_effect_1('add_class')),

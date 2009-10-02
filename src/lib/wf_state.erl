@@ -43,7 +43,9 @@ state(Key, Value) ->
 	Value.
 
 clear_state() ->
-	put(wf_state, []).
+	put(wf_state, []),
+	wf:state(validators, []).
+
 	
 get_state_script() ->
 	DomState = get(wf_state),

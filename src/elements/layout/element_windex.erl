@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, windex).
 
-render(_ControlID, Record) ->
+render(_ControlID, _Record) ->
 	% Prevent loops.
 	case wf:state(template_was_called) of
 		true -> throw("Calling a template from a template.");

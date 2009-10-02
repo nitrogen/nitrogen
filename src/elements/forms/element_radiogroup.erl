@@ -10,14 +10,7 @@ reflect() -> record_info(fields, radiogroup).
 
 render(ControlID, Record) -> 
 	% Set the group to the current ControlID...
-
-	F = fun(X) ->
-		case is_record(X, radio) of
-			true -> X#radio { name=ControlID };
-			false -> X
-		end
-	end,
-	Body = [F(X) || X <- Record#radiogroup.body],
+	Body = apply_name(ControlID, Record#radiogroup.body),
 	
 	% Render the record...
 	element_panel:render(ControlID, #panel {
@@ -25,3 +18,14 @@ render(ControlID, Record) ->
 		style=Record#radiogroup.style,
 		body=Body
 	}).
+
+apply_name(Name, Terms) ->
+    [do_apply(Name, X) || X <- Terms].
+
+do_apply(Name, X) when is_record(X, radio) ->
+    X#radio {name = Name};
+do_apply(Name, X) when is_record(X, bind) ->
+    Body2 = apply_name(Name, X#bind.body),
+    X#bind{body = Body2};
+do_apply(_Name, X) ->
+    X.
