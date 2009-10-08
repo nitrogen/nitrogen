@@ -16,7 +16,7 @@ render_element(HtmlID, Record) ->
 	FormID = wf:temp_id(),
 	IFrameID = wf:temp_id(),
 	SubmitJS = wf:f("Nitrogen.$upload(obj('~s'));", [FormID]),
-	PostbackInfo = wf_event:serialize_event_context(Tag, upload, Record#upload.id, Record#upload.id, ?MODULE),
+	PostbackInfo = wf_event:serialize_event_context(Tag, Record#upload.id, Record#upload.id, ?MODULE),
 	
 	% If the button is invisible, then start uploading when the user selects a file.
 	wf:wire(Record#upload.id, #event { show_if=(not ShowButton), type=change, actions=SubmitJS }),
@@ -26,24 +26,28 @@ render_element(HtmlID, Record) ->
 		wf_tags:emit_tag(input, [
 			{id, HtmlID},
 			{name, HtmlID},
+			{class, no_postback},
 			{type, file}
 		]),	
 	
 		wf_tags:emit_tag(input, [
 			{name, eventContext},
 			{type, hidden},
+			{class, no_postback},
 			{value, PostbackInfo}
 		]),
 
 		wf_tags:emit_tag(input, [
 			{name, pageContext},
 			{type, hidden},
+			{class, no_postback},
 			{value, ""}
 		]),
 		
 		wf_tags:emit_tag(input, [
 			{name, domPaths},
 			{type, hidden},
+			{class, no_postback},
 			{value, ""}
 		]),
 		
@@ -53,9 +57,10 @@ render_element(HtmlID, Record) ->
 	[
 		wf_tags:emit_tag(form, FormContent, [
 			{id, FormID},
-			{name, FormID}, 
+			{name, upload}, 
 			{method, 'POST'},
 			{enctype, "multipart/form-data"},
+			{class, no_postback},
 			{target, IFrameID}
 		]),
 		
@@ -67,9 +72,10 @@ render_element(HtmlID, Record) ->
 	].
 	
 event({upload_finished, Record}) ->
+	?DEBUG,
 	wf_context:type(first_request),
 	Req = wf_context:request_bridge(),
-
+	
 	% % Create the postback...
 	NewTag = case Req:post_files() of
 		[] -> 
@@ -77,12 +83,12 @@ event({upload_finished, Record}) ->
 		[#uploaded_file { original_name=OriginalName, temp_file=TempFile }|_] ->
 			{upload_event, Record, OriginalName, TempFile}
 	end,
-
+	
 	% Make the tag...
 	Trigger = wf_context:event_trigger(),
 	Target = wf_context:event_target(),
-	Postback = wf_event:generate_postback_script(NewTag, upload_finished, Trigger, Target, ?MODULE),
-
+	Postback = wf_event:generate_postback_script(NewTag, Trigger, Target, ?MODULE),
+	
 	% Set the response...
 	wf_context:data([
 		"<html><body><script>",

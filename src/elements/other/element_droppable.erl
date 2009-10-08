@@ -10,8 +10,10 @@ reflect() -> record_info(fields, droppable).
 
 render_element(HtmlID, Record) -> 
 	% Get properties...
+	Trigger = Target = Record#droppable.id,
+	Delegate = Record#droppable.delegate,
 	Tag = Record#droppable.tag,
-	PostbackInfo = wf_event:serialize_event_context(Tag, sort, Record#droppable.id, Record#droppable.id, ?MODULE),
+	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Trigger, Target, ?MODULE),
 	ActiveClass = Record#droppable.active_class, 
 	HoverClass = Record#droppable.hover_class,
 	AcceptGroups = groups_to_accept(Record#droppable.accept_groups),
@@ -29,10 +31,10 @@ render_element(HtmlID, Record) ->
 		body=Record#droppable.body
 	}).
 	
-event(DropTag) ->
+event({Delegate, DropTag}) ->
 	DragItem = wf:q(drag_item),
 	DragTag = wf:depickle(DragItem),
-	Module = wf_context:page_module(),
+	Module = wf:coalesce([Delegate, wf:page_module()]),
 	Module:drop_event(DragTag, DropTag).
 
 groups_to_accept(all) -> "*";

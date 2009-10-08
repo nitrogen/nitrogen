@@ -11,7 +11,9 @@ reflect() -> record_info(fields, sortblock).
 render_element(HtmlID, Record) -> 
 	% Get properties...
 	Tag = Record#sortblock.tag,
-	PostbackInfo = wf_event:serialize_event_context(Tag, sort, Record#sortblock.id, Record#sortblock.id, ?MODULE),
+	Trigger = Target = Record#sortblock.id,
+	Delegate = Record#sortblock.delegate,
+	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Trigger, Target, ?MODULE),
 	Handle = case Record#sortblock.handle of
 		undefined -> "null";
 		Other -> wf:f("'.~s'", [Other])
@@ -31,10 +33,10 @@ render_element(HtmlID, Record) ->
 		body=Record#sortblock.items
 	}).
 
-event(BlockTag) ->
+event({Delegate, BlockTag}) ->
 	SortItems = wf:q(sort_items),
 	SortTags = [wf:depickle(X) || X <- string:tokens(SortItems, ",")],
-	Module = wf_context:page_module(),
+	Module = wf:coalesce([Delegate, wf:page_module()]),
 	Module:sort_event(BlockTag, SortTags).
 
 groups_to_classes([]) -> "";

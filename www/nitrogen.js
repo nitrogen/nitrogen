@@ -52,7 +52,7 @@ NitrogenClass.prototype.$event_loop = function() {
 NitrogenClass.prototype.$validate_and_serialize = function(triggerID) {
 	// Check validatation, build list of params...
 	var is_valid = true;
-	var elements = this.$get_form_elements();
+	var elements = jQuery(":input, :text, :password, :radio, :checkbox, :submit, :image, :reset, :button").not(".no_postback").get();
 	var params=new Array();
 	for (var i=0; i<elements.length; i++) {
 		var element = elements[i];
@@ -163,23 +163,9 @@ NitrogenClass.prototype.$upload = function(form) {
 	form.pageContext.value = this.$params["pageContext"];
 	form.submit();
 	form.reset();
-	form.action = "";
 }
 
 /*** SERIALIZATION ***/
-
-NitrogenClass.prototype.$get_form_elements = function() {
-	var tagnames = ["input", "button", "select", "textarea", "checkbox"];
-	var a = new Array();
-	for (var i=0; i<tagnames.length; i++) {
-		var l = this.$div.getElementsByTagName(tagnames[i]);
-		for (var j=0; j<l.length; j++) {
-			a = a.concat(l[j]);
-		}
-	}
-	
-  return a;	
-}
 
 NitrogenClass.prototype.$to_api_args = function(Arr) {
 	var s = "";

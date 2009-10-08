@@ -19,10 +19,11 @@ render_element(HtmlID, Record) ->
 	TextBoxID = wf:temp_id(),
 	Tag = Record#inplace_textbox.tag,
 	OriginalText = Record#inplace_textbox.text,
+	Delegate = Record#inplace_textbox.delegate,
 	
 	% Set up the events...
 	Controls = {ViewPanelID, LabelID, EditPanelID, TextBoxID},
-	OKEvent = #event { delegate=?MODULE, postback={ok, Controls, Tag} },
+	OKEvent = #event { delegate=?MODULE, postback={ok, Delegate, Controls, Tag} },
 	CancelEvent = #event { delegate=?MODULE, postback={cancel, Controls, Tag, OriginalText} },
 	
 	% Create the view...
@@ -65,10 +66,10 @@ render_element(HtmlID, Record) ->
 	
 	element_panel:render_element(HtmlID, Terms).
 
-event({ok, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}) -> 
+event({ok, Delegate, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}) -> 
 	Value = wf:q(TextBoxID),
-	Delegate = wf_context:page_module(),
-	{ok, Value1} = Delegate:inplace_textbox_event(Tag, Value),
+	Module = wf:coalesce([Delegate, wf:page_module()]),
+	Value1 = Module:inplace_textbox_event(Tag, Value),
 	wf:update(LabelID, Value1),
 	wf:set(TextBoxID, Value1),
 	wf:wire(EditPanelID, #hide {}),

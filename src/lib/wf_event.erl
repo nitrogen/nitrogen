@@ -6,6 +6,7 @@
 -include ("wf.inc").
 -export ([
 	update_context_with_event/0,
+	generate_postback_script/4,
 	generate_postback_script/5,
 	generate_system_postback_script/4,
 	serialize_event_context/4
@@ -52,6 +53,9 @@ update_context_for_postback_request(Event) ->
 	wf_context:event_trigger(TriggerPath),
 	wf_context:event_target(TargetPath),
 	ok.
+
+generate_postback_script(Postback, TriggerPath, TargetPath, Delegate) -> 
+	generate_postback_script(Postback, TriggerPath, TargetPath, Delegate, "''").
 	
 generate_postback_script(undefined, _TriggerPath, _TargetPath, _Delegate, _ExtraParam) -> [];
 generate_postback_script(Postback, TriggerPath, TargetPath, Delegate, ExtraParam) ->

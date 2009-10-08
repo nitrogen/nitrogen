@@ -32,7 +32,7 @@ f(S, Args) -> lists:flatten(io_lib:format(S, Args)).
 
 % guid/0 - Return a guid like object.
 guid() ->
-	MD5 = erlang:md5(term_to_binary(make_ref())),
+	MD5 = erlang:md5(term_to_binary({node(), now(), make_ref()})),
 	MD5List = lists:nthtail(8, binary_to_list(MD5)),
 	F = fun(N) -> wf:f("~2.16.0B", [N]) end,
 	L = [F(N) || N <- MD5List],
@@ -40,7 +40,7 @@ guid() ->
 
 % short_guid/0 - Return a shorter guid like object.
 short_guid() ->
-	MD5 = erlang:md5(term_to_binary(make_ref())),
+	MD5 = erlang:md5(term_to_binary({node(), now(), make_ref()})),
 	MD5List = lists:nthtail(14, binary_to_list(MD5)),
 	F = fun(N) -> wf:f("~2.16.0B", [N]) end,
 	L = [F(N) || N <- MD5List],
@@ -116,32 +116,7 @@ inner_decode(Data, Base) when is_list(Data) ->
 		_  -> 
 			throw("Could not hex_decode the string.")
 	end.
-	
-%%% PICKLE / UNPICKLE %%%
-
-% get_seconds() -> calendar:datetime_to_gregorian_seconds(calendar:universal_time()).
-
-% pickle(Data) ->
-% 	B = term_to_binary({get_seconds(), Data}, [compressed]),
-% 	<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
-% 	modified_base64_encode(<<Signature/binary, B/binary>>).
-% 	
-% depickle(Data) -> 
-% 	{_IsExpired, Term} = depickle(Data, 24 * 365 * 60 * 60),
-% 	Term.
-% 	
-% depickle(Data, SecondsToLive) ->
-% 	{CreatedOn, Term} = try
-% 		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(Data)),
-% 		<<Signature:4/binary, _/binary>> = erlang:md5([B, nitrogen:get_sign_key()]),
-% 		wf:assert(S == Signature, invalid_signature),
-% 		binary_to_term(B)
-% 	catch _Type : _Message ->
-% 		{0, undefined}
-% 	end,
-% 	IsExpired = (CreatedOn + SecondsToLive) < get_seconds(),
-% 	{not IsExpired, Term}.
-		
+			
 %%% URL ENCODE %%%
 
 url_encode(S) -> quote_plus(S).
