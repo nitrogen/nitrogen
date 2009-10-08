@@ -36,7 +36,8 @@ column2() -> [
 	#h3 { text="Effects, Events, and Ajax" },
 	#p{},
 	#link { text="Postbacks", url="/web/samples/postback" }, #br{}, 
-	#link { text="AJAX Replacement", url="/web/samples/ajax" }, #br{}, 
+	#link { text="AJAX Updates", url="/web/samples/ajax" }, #br{}, 
+	#link { text="AJAX Replace", url="/web/samples/replace" }, #br{},
 	#link { text="User Notices", url="/web/samples/notices" }, #br{}, 
 
 	#h3 { text="Data Binding" },

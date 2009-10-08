@@ -23,6 +23,9 @@ wire(TriggerID, TargetID, Actions) ->
 update(TargetID, Elements) -> 
 	ok = action_update:update(TargetID, Elements).
 	
+replace(TargetID, Elements) ->
+	ok = action_update:replace(TargetID, Elements).
+	
 insert_top(TargetID, Elements) -> 
 	ok = action_update:insert_top(TargetID, Elements).
 	

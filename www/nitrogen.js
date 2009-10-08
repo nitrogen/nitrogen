@@ -256,6 +256,10 @@ NitrogenClass.prototype.$update = function(el, html) {
 	jQuery(el).html(html);
 }
 
+NitrogenClass.prototype.$replace = function(el, html) {
+	jQuery(el).replaceWith(html);
+}
+
 NitrogenClass.prototype.$insert_top = function(el, html) {
 	jQuery(el).prepend(html);
 }
