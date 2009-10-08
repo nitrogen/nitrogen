@@ -48,6 +48,7 @@ column2() -> [
 
 	#h3 { text="Advanced Topics" },
 	#p{},
+	#link { text="Javascript API", url="/web/samples/api" }, #br{},
 	#link { text="Counter with Comet", url="/web/samples/comet1" }, #br{},
 	#link { text="Chatroom with Comet", url="/web/samples/comet2" }, #br{},
 	#link { text="Multiple Comets with Graceful Exit", url="/web/samples/comet3" }, #br{},

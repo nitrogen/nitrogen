@@ -38,15 +38,19 @@ get_value(Path, State) ->
 	
 	% Function to check if our query key ends with NPath.
 	F = fun({X, _Y}) -> 
-		NPath == string:right(X, NPathSize)
+		XPath = string:right(X, NPathSize),		
+		("_" ++ NPath == "_" ++ XPath) orelse
+		(NPath == X)
 	end,
 	
-	% Filter and return the result. There should only be one.
-	Results = lists:filter(F, State),	
-	_Value = case Results of 
+	% Filter and return the result.
+	% If there is only one, then return the rightmost result, otherwise
+	% return a list of results
+	Results = [Value || {_Key, Value} <- lists:filter(F, State)],	
+	case Results of 
 		[] -> undefined;
-		[{_X, Y}] -> Y;
-		_ -> throw({too_many_matching_parameters, Path})
+		[Value] -> Value;
+		Values -> Values
 	end.
 
 %%% PRIVATE FUNCTIONS %%%

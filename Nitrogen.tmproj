@@ -41,13 +41,13 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-09-10T11:28:10Z</date>
+					<date>2009-09-29T01:53:54Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_core.erl</string>
 					<key>lastUsed</key>
-					<date>2009-09-10T11:28:09Z</date>
+					<date>2009-09-26T13:07:08Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -151,7 +151,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-09-09T23:38:04Z</date>
+					<date>2009-09-29T23:24:23Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -186,11 +186,21 @@
 				</dict>
 				<dict>
 					<key>filename</key>
+					<string>www/bert.js</string>
+					<key>lastUsed</key>
+					<date>2009-09-29T23:49:45Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-09-10T11:28:09Z</date>
+					<date>2009-09-29T23:24:22Z</date>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>WWW</string>
 		</dict>
@@ -231,6 +241,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{282, 0}, {921, 778}}</string>
+	<string>{{289, 0}, {926, 778}}</string>
 </dict>
 </plist>

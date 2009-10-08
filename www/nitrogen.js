@@ -24,12 +24,12 @@ NitrogenClass.prototype.$set_param = function(key, value) {
 
 /*** EVENT QUEUE ***/
 
-NitrogenClass.prototype.$queue_event = function(triggerID, eventContext, extraParams) {
+NitrogenClass.prototype.$queue_event = function(triggerID, eventContext, extraParam) {
 	// Put an event on the event_queue.
 	this.$event_queue.push({
 		triggerID    : this.obj(triggerID).id,
 		eventContext : eventContext,
-		extraParams  : extraParams
+		extraParam   : extraParam
 	});
 }
 
@@ -44,7 +44,7 @@ NitrogenClass.prototype.$event_loop = function() {
 	
 	// Get and exect the event.
 	var o = this.$event_queue.shift();
-	this.$do_event(o.triggerID, o.eventContext, o.extraParams);
+	this.$do_event(o.triggerID, o.eventContext, o.extraParam);
 }
 
 /*** VALIDATE AND SERIALIZE ***/
@@ -91,11 +91,9 @@ NitrogenClass.prototype.$get_dom_paths = function() {
 
 /*** AJAX METHODS ***/
 
-NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParams) {
+NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam) {
 	// Flag to prevent firing multiple postbacks at the same time...
 	this.$event_is_running = true;
-
-	if (!extraParams) extraParams="";
 
 	// Run validation...
 	var s = this.$validate_and_serialize(triggerID);	
@@ -108,7 +106,7 @@ NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam
 	var params = "";
 	params += "eventContext=" + eventContext + "&";
 	params += "domPaths=" + this.$get_dom_paths() + "&";
-	params += extraParams + "&";
+	params += extraParam + "&";
 	params += s + "&";
 	for (var key in this.$params) {
 		params += key + "=" + this.$params[key] + "&";
@@ -181,6 +179,14 @@ NitrogenClass.prototype.$get_form_elements = function() {
 	}
 	
   return a;	
+}
+
+NitrogenClass.prototype.$to_api_args = function(Arr) {
+	var s = "";
+	for (var i=0; i<Arr.length; i++) {
+		s += "arg=" + escape(Arr[i].toString()) + "&";
+	}
+	return s;
 }
 
 /*** PATH LOOKUPS ***/
@@ -301,6 +307,20 @@ NitrogenClass.prototype.$normalize_param = function(key, value) {
 	return key + "&" + value;
 }
 
+NitrogenClass.prototype.$encode_arguments_object = function(Obj) {
+	if (! Bert) { alert("Bert.js library not included in template.") }
+	var a = new Array();
+	for (var i=0; i<Obj.length; i++) {
+		a.push(Obj[i]);
+	}
+	var s = Bert.encode(a);
+	return "args=" + this.$urlencode(s);
+}
+
+NitrogenClass.prototype.$urlencode = function(str) {
+	return escape(str).replace(/\+/g,'%2B').replace(/%20/g, '+').replace(/\*/g, '%2A').replace(/\//g, '%2F').replace(/@/g, '%40');
+}
+
 /*** DATE PICKER ***/
 
 NitrogenClass.prototype.$datepicker = function(pickerObj, pickerOptions) {
@@ -353,4 +373,5 @@ function obj(path) {
 }
 
 var Nitrogen = new NitrogenClass();
+var page = document;
 Nitrogen.$event_loop();

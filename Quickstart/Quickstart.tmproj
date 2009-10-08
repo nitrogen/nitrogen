@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>wwwroot/onecolumn.html</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -23,7 +25,7 @@
 					<key>filename</key>
 					<string>apps/quickstart_inets.app</string>
 					<key>lastUsed</key>
-					<date>2009-09-10T01:54:33Z</date>
+					<date>2009-09-24T00:29:03Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -57,8 +59,6 @@
 					<string>quickstart_mochiweb.sh</string>
 					<key>lastUsed</key>
 					<date>2009-09-10T01:54:33Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -162,7 +162,9 @@
 					<key>filename</key>
 					<string>wwwroot/onecolumn.html</string>
 					<key>lastUsed</key>
-					<date>2009-06-17T12:25:19Z</date>
+					<date>2009-09-29T02:53:25Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -188,10 +190,44 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
-	<dict/>
+	<dict>
+		<key>src/samples/web_samples_api.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>38</integer>
+				<key>line</key>
+				<integer>22</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>wwwroot/onecolumn.html</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>9</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>src/samples/web_samples_api.erl</string>
+		<string>wwwroot/onecolumn.html</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{203, 0}, {1002, 778}}</string>
+	<string>{{210, 0}, {1005, 778}}</string>
 </dict>
 </plist>

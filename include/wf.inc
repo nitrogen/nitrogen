@@ -15,7 +15,7 @@
 % Event Information. A serialized version of this record
 % is sent by the browser when an event is called.
 -record(event_context, {
-	module,     % The module that should handle the event
+  module,     % The module that should handle the event
   tag,        % An Erlang term that is passed along with the event
   type,       % The type of event postback, comet, continuation, upload
   trigger,    % The element id that triggered the event
@@ -121,13 +121,14 @@
 -record(continue, {?ACTION_BASE(action_continue), function, delegate, tag, interval=100, timeout=20000}).
 -record(update, {?ACTION_BASE(action_update), type=update, elements=[]}).
 -record(async, {?ACTION_BASE(action_async), pool=default, scope=local, function, dying_message}).
+-record(api, {?ACTION_BASE(action_api), name, tag, delegate }).
 -record(set, {?ACTION_BASE(action_set), value}).
 -record(redirect, {?ACTION_BASE(action_redirect), url}).
--record(event, {?ACTION_BASE(action_event), type=click, delay=0, postback, delegate}).
+-record(event, {?ACTION_BASE(action_event), type=default, delay=0, postback, delegate, extra_param}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
 -record(validation_error, {?ACTION_BASE(action_validation_error), text="" }).
 -record(alert, {?ACTION_BASE(action_alert), text=""}).
--record(confirm, {?ACTION_BASE(action_confirm), text="", postback}).
+-record(confirm, {?ACTION_BASE(action_confirm), text="", postback, delegate}).
 -record(script, {?ACTION_BASE(action_script), script}).
 -record(disable_selection, {?ACTION_BASE(action_disable_selection)}).
 -record(jquery_effect, {?ACTION_BASE(action_jquery_effect), type, effect, speed, options=[], class, easing}).

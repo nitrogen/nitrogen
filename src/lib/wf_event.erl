@@ -7,11 +7,11 @@
 -export ([
 	update_context_with_event/0,
 	generate_postback_script/5,
-	generate_system_postback_script/5,
-	serialize_event_context/5
+	generate_system_postback_script/4,
+	serialize_event_context/4
 ]).
 
-% This module looks at the incoming requets for 'eventContext' and 'pageContext' params. 
+% This module looks at the incoming request for 'eventContext' and 'pageContext' params. 
 % If found, then it updates the current context, putting values into event_context
 % and page_context, respectively.
 %
@@ -53,29 +53,28 @@ update_context_for_postback_request(Event) ->
 	wf_context:event_target(TargetPath),
 	ok.
 	
-generate_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate) -> [];
-generate_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
-	PickledPostbackInfo = serialize_event_context(Postback, EventType, TriggerPath, TargetPath, Delegate),
+generate_postback_script(undefined, _TriggerPath, _TargetPath, _Delegate, _ExtraParam) -> [];
+generate_postback_script(Postback, TriggerPath, TargetPath, Delegate, ExtraParam) ->
+	PickledPostbackInfo = serialize_event_context(Postback, TriggerPath, TargetPath, Delegate),
 	[
 		wf_render_actions:generate_scope_script(),
-		wf:f("Nitrogen.$queue_event('~s', '~s');", [wf:to_js_id(TriggerPath), PickledPostbackInfo])
+		wf:f("Nitrogen.$queue_event('~s', '~s', ~s);", [wf:to_js_id(TriggerPath), PickledPostbackInfo, ExtraParam])
 	].
 
-generate_system_postback_script(undefined, _EventType, _TriggerPath, _TargetPath, _Delegate) -> [];
-generate_system_postback_script(Postback, EventType, TriggerPath, TargetPath, Delegate) ->
-	PickledPostbackInfo = serialize_event_context(Postback, EventType, TriggerPath, TargetPath, Delegate),
+generate_system_postback_script(undefined, _TriggerPath, _TargetPath, _Delegate) -> [];
+generate_system_postback_script(Postback, TriggerPath, TargetPath, Delegate) ->
+	PickledPostbackInfo = serialize_event_context(Postback, TriggerPath, TargetPath, Delegate),
 	[
 		wf_render_actions:generate_scope_script(),
 		wf:f("Nitrogen.$do_system_event('~s');", [PickledPostbackInfo])
 	].
 	
-serialize_event_context(Tag, EventType, TriggerPath, TargetPath, Delegate) ->
+serialize_event_context(Tag, TriggerPath, TargetPath, Delegate) ->
 	PageModule = wf_context:page_module(),
 	EventModule = wf:coalesce([Delegate, PageModule]),
 	Event = #event_context {
 		module = EventModule,
 		tag = Tag,
-		type = EventType,
 		trigger = TriggerPath,
 		target = TargetPath
 	},

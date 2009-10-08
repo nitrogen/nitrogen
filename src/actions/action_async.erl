@@ -195,7 +195,7 @@ accumulator_loop(Guardians, Actions, Waiting, TimerRef) ->
 			accumulator_loop(Guardians, [], none, TimerRef);
 			
 		{set_lease, LengthInMS} ->
-			Result = timer:cancel(TimerRef),
+			timer:cancel(TimerRef),
 			{ok, NewTimerRef} = timer:send_after(LengthInMS, die),
 			accumulator_loop(Guardians, Actions, Waiting, NewTimerRef);
 									
