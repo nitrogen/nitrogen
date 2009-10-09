@@ -35,9 +35,8 @@ insert_bottom(TargetID, Elements) ->
 flash(Elements) ->
 	ok = element_flash:add_flash(Elements).
 
-% flash(Terms) -> element_flash:add_flash(Terms).
-
 %%% EXPOSE WF_UTILS %%%
+
 f(S) -> 
 	_String = wf_utils:f(S).
 	
@@ -118,16 +117,37 @@ temp_id() ->
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%% EXPOSE COOKIE HANDLER %%%
-cookie(Key) -> 
-	_Value = cookie_handler:get_cookie(Key).
-	
-cookie(Key, Value) -> 
-	ok = cookie(Key, Value, "/", 20).
-	
-cookie(Key, Value, Path, MinutesToLive) -> 
-	ok = cookie_handler:set_cookie(Key, Value, Path, MinutesToLive).
+%%% EXPOSE HEADERS %%%
 
+status_code() -> 
+	ok = wf_context:status_code().
+	
+status_code(StatusCode) ->
+	ok = wf_context:status_code(StatusCode).
+	
+content_type(ContentType) ->
+	ok = wf_context:content_type(ContentType).
+	
+headers() -> 
+	wf_context:headers().
+	
+header(Header) ->
+	wf_context:header(Header).
+
+header(Header, Value) ->
+	ok = wf_context:header(Header, Value).
+	
+cookies() ->
+	wf_context:cookies().
+	
+cookie(Cookie) ->
+	wf_context:cookie(Cookie).
+
+cookie(Cookie, Value) ->
+	ok = wf_context:cookie(Cookie, Value).
+
+cookie(Cookie, Value, Path, MinutesToLive) ->
+	ok = wf_context:cookie(Cookie, Value, Path, MinutesToLive).
 
 	
 %%% EXPOSE QUERY_HANDLER %%%

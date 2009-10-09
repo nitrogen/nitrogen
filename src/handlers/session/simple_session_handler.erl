@@ -28,7 +28,7 @@ init(_State) ->
 		undefined -> erlang:md5(term_to_binary({now(), erlang:make_ref()}));
 		Other -> Other
 	end,
-	ok = wf:cookie("wf", wf:pickle(Unique)),
+	ok = wf:cookie("wf", wf:pickle(Unique), "/", ?TIMEOUT),
 	{ok, {session, Unique}}.
 
 finish(_State) -> 

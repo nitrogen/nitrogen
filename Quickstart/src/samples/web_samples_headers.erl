@@ -13,9 +13,8 @@ headline() -> "Headers".
 right() -> linecount:render().
 
 body() -> 
-	?PRINT(wf:get_headers()),
-	?PRINT(wf:get_header(authorization)),
-	Headers = [{wf:to_list(Key), wf:to_list(Value)} || {Key, Value} <- wf:get_headers()],
+	?PRINT(wf:headers()),
+	Headers = [{wf:to_list(Key), wf:to_list(Value)} || {Key, Value} <- wf:headers()],
 
 	[
 		#table { rows=[

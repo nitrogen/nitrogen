@@ -22,14 +22,63 @@ response_bridge() ->
 
 response_bridge(ResponseBridge) ->
 	Context = context(),
-	Context#context { response_bridge = ResponseBridge }.
+	context(Context#context { response_bridge = ResponseBridge }).
+	
+status_code() ->
+	Req = request_bridge(),
+	Req:status_code().
+	
+status_code(StatusCode) ->
+	Res = response_bridge(),
+	response_bridge(Res:status_code(StatusCode)),
+	ok.
+	
+content_type(ContentType) ->
+	Res = response_bridge(),
+	response_bridge(Res:header("Content-Type", ContentType)),
+	ok.
+	
+headers() ->
+	Req = request_bridge(),
+	Req:headers().
+	
+header(Header) ->
+	Req = request_bridge(),
+	Req:header(Header).
 
+header(Header, Value) ->
+	Res = response_bridge(),
+	response_bridge(Res:header(Header, Value)),
+	ok.
+	
+cookies() ->
+	Req = request_bridge(),
+	Req:cookies().
+	
+cookie(Cookie) ->
+	Req = request_bridge(),
+	Req:cookie(Cookie).
+
+cookie(Cookie, Value) ->
+	Res = response_bridge(),
+	response_bridge(Res:cookie(Cookie, Value)),
+	ok.
+
+cookie(Cookie, Value, Path, MinutesToLive) ->
+	Res = response_bridge(),
+	response_bridge(Res:cookie(Cookie, Value, Path, MinutesToLive)),
+	ok.
+	
 %%% TRANSIENT CONTEXT %%%
 
 add_dom_path(NewDomPath) ->
 	Context = context(),
 	DomPaths = Context#context.dom_paths,
-	context(Context#context { dom_paths=[NewDomPath|DomPaths] }).
+	DomPaths1 = case lists:member(NewDomPath, DomPaths) of
+		true -> DomPaths;
+		false -> [NewDomPath|DomPaths]
+	end,
+	context(Context#context { dom_paths=DomPaths1 }).
 	
 dom_paths() ->
 	Context = context(),
@@ -199,7 +248,6 @@ init_context(RequestBridge, ResponseBridge) ->
 			make_handler(process_cabinet_handler, default_process_cabinet_handler),
 			make_handler(cache_handler, default_cache_handler), 
 			make_handler(query_handler, default_query_handler),
-			make_handler(cookie_handler, default_cookie_handler),
 			
 			% Stateful handlers...
 			make_handler(session_handler, simple_session_handler), 

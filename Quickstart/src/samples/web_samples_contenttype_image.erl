@@ -4,7 +4,7 @@
 -compile(export_all).
 
 main() -> 
-	wf:set_content_type("image/png"),
+	wf:content_type("image/png"),
 	binary_to_list(image_data()).
 
 event(_) -> ok.
