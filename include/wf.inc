@@ -5,7 +5,6 @@
 
 % Page Request Information.
 -record(page_context, {
-	name=page,   % 'page' by default. Can be renamed by Inline Apps.
 	series_id,   % A unique ID assigned to the first request which stays constant on repeated requests.
 	module,      % The requested page module
 	path_info,   % Any extra info passed with the request

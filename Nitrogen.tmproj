@@ -26,7 +26,7 @@
 			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
-			<date>2009-09-09T23:12:40Z</date>
+			<date>2009-10-09T00:03:24Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -41,13 +41,13 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-09-29T01:53:54Z</date>
+					<date>2009-10-09T00:13:22Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_core.erl</string>
 					<key>lastUsed</key>
-					<date>2009-09-26T13:07:08Z</date>
+					<date>2009-10-09T03:19:47Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -98,8 +98,6 @@
 					<string>src/elements</string>
 				</dict>
 				<dict>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>handlers</string>
 					<key>regexFolderFilter</key>
@@ -108,8 +106,6 @@
 					<string>src/handlers</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -151,7 +147,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-09-29T23:24:23Z</date>
+					<date>2009-10-09T00:26:05Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -188,19 +184,15 @@
 					<key>filename</key>
 					<string>www/bert.js</string>
 					<key>lastUsed</key>
-					<date>2009-09-29T23:49:45Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2009-10-08T23:47:54Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-09-29T23:24:22Z</date>
+					<date>2009-10-09T03:19:48Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>WWW</string>
 		</dict>

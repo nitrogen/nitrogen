@@ -85,9 +85,36 @@ NitrogenClass.prototype.$get_dom_paths = function() {
 			paths.push(elements[i].id);
 		}
 	}
-	
-	return paths.join(",");
+	paths = paths.sort();
+	var condensedPaths = this.$condense_dom_paths(paths);
+	var combinedPaths = this.$combine_dom_paths(condensedPaths);
+	return combinedPaths;
 }
+
+NitrogenClass.prototype.$condense_dom_paths = function(paths) {
+	var a = new Object();
+	for (var i=0; i<paths.length; i++) {
+		var parts=paths[i].split("__");
+		var b = a;
+		for (var j=0; j<parts.length; j++) {
+			if (!b[parts[j]]) b[parts[j]] = new Object();
+			b = b[parts[j]];
+		}
+	}
+	return a;
+}
+
+NitrogenClass.prototype.$combine_dom_paths = function(paths) {
+	var s = "";
+	for (var key in paths) {
+		if (s != "") s += ",";
+		s += key;
+		var inner = NitrogenClass.prototype.$combine_dom_paths(paths[key]);
+		if (inner != "") s += "(" + inner + ")";
+	}
+	return s;
+}
+
 
 /*** AJAX METHODS ***/
 
@@ -163,16 +190,6 @@ NitrogenClass.prototype.$upload = function(form) {
 	form.pageContext.value = this.$params["pageContext"];
 	form.submit();
 	form.reset();
-}
-
-/*** SERIALIZATION ***/
-
-NitrogenClass.prototype.$to_api_args = function(Arr) {
-	var s = "";
-	for (var i=0; i<Arr.length; i++) {
-		s += "arg=" + escape(Arr[i].toString()) + "&";
-	}
-	return s;
 }
 
 /*** PATH LOOKUPS ***/

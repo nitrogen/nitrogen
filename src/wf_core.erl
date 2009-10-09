@@ -85,7 +85,7 @@ finish_static_request() ->
 serialize_context() ->
 	Page = wf_context:page_context(),
 	Handlers = wf_context:handlers(),
-	SerializedContextState = wf:pickle([Page, Handlers]),
+	SerializedContextState = wf_pickle:pickle(page_context_schema(), [Page, Handlers]),
 	[
 		wf_render_actions:generate_scope_script(),
 		wf:f("Nitrogen.$set_param('pageContext', '~s');", [SerializedContextState])
@@ -102,7 +102,7 @@ deserialize_context() ->
 	SerializedPageContext = proplists:get_value("pageContext", Params),
 	[Page, Handlers] = case SerializedPageContext of
 		undefined -> [wf_context:page_context(), wf_context:handlers()];
-		Other -> wf:depickle(Other)
+		Other -> wf_pickle:depickle(page_context_schema(), Other)
 	end,	
 	
 	% Deserialize dom_paths if available...
@@ -117,7 +117,11 @@ deserialize_context() ->
 	% Return the new context...
 	ok.
 	
-	
+page_context_schema() -> 
+	[
+		#page_context { series_id=string@, module=atom@, path_info=string@, async_mode=term@ },
+		{list@, #handler_context { name=atom@, module=atom@, state=term@ }}
+	].
 	
 %%% SET UP AND TEAR DOWN HANDLERS %%%
 	

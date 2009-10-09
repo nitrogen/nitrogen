@@ -6,10 +6,11 @@
 -include ("wf.inc").
 -define (SIGNKEY, "Gabagaba").
 -export ([
-	pickle/1,
-	depickle/1
+	pickle/1, pickle/2,
+	depickle/1, depickle/2
 ]).
 
+% Does a plain old term_to_binary...
 pickle(Data) ->
 	B = term_to_binary({Data, now()}, [compressed]),
 	<<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
@@ -25,6 +26,26 @@ depickle(PickledData) ->
 	catch _Type : _Message ->
 		undefined
 	end.
+	
+%%% PICKLE WITH SCHEMA %%%
+
+pickle(Schema, Data) ->
+	% Use BinaryVice to make the data smaller...
+	B = vice:to_binary({Schema, {integer@, integer@, integer@}}, {Data, now()}),
+	<<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
+	_PickledData = modified_base64_encode(<<Signature/binary, B/binary>>).
+
+depickle(Schema, PickledData) ->
+	try
+		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(PickledData)),
+		<<S:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
+		{Data, _PickleTime} = vice:from_binary({Schema, {integer@, integer@, integer@}}, B),
+		Data
+	catch _Type : _Message ->
+		undefined
+	end.
+	
+	
 
 %%% PRIVATE FUNCTIONS
 	

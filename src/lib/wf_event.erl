@@ -22,7 +22,7 @@
 
 update_context_with_event() ->
 	SerializedEvent = wf:q(eventContext),
-	Event = wf:depickle(SerializedEvent),
+	Event = wf_pickle:depickle(event_schema(), SerializedEvent),
 
 	% Update the Context...
 	PageModule = wf_context:page_module(),
@@ -82,4 +82,13 @@ serialize_event_context(Tag, TriggerPath, TargetPath, Delegate) ->
 		trigger = TriggerPath,
 		target = TargetPath
 	},
-	wf:pickle(Event).
+	wf_pickle:pickle(event_schema(), Event).
+	
+	
+event_schema() ->
+	#event_context {
+		module=atom@,
+		tag=term@,
+		trigger=term@,
+		target=term@
+	}.

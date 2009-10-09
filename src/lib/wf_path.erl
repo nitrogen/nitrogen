@@ -12,17 +12,33 @@
 -define (BASEPATH, ["page"]).
 
 
-split_dom_paths(undefined) ->
-	[?BASEPATH];
-
-split_dom_paths(DomPaths) ->
-	DomPathList = string:tokens(DomPaths, ","),
-	DomPathList1 = [lists:reverse(string:tokens(X, "__")) || X <- DomPathList],
-	case lists:member(?BASEPATH, DomPathList1) of
-		true -> DomPathList1;
-		false -> [?BASEPATH|DomPathList1]
+split_dom_paths(undefined) -> [?BASEPATH];
+split_dom_paths(DomPathList) -> 
+	{ Paths, _} = split_dom_paths(DomPathList, []),
+	case lists:member(?BASEPATH, Paths) of
+		true -> Paths;
+		false -> [?BASEPATH|Paths]
 	end.
 
+split_dom_paths(DomPaths, Acc) ->
+	case read_next_token(DomPaths, []) of
+		{path, Token, Rest} -> 
+			split_dom_paths(Rest, [Token|Acc]);
+		{start_list, Token, Rest} ->
+			{NewTokens, Rest1} = split_dom_paths(Rest, []),
+			NewPaths = [X ++ Token || X <- NewTokens, X /= [], X /= [[]]],
+			split_dom_paths(Rest1, [Token] ++ NewPaths ++ Acc);
+		{end_list, Token, Rest} ->
+			{[Token|Acc], Rest}
+	end.
+	
+read_next_token([$,|Rest], Acc) ->  {path, [lists:reverse(Acc)], Rest};
+read_next_token([$(|Rest], Acc) -> {start_list, [lists:reverse(Acc)], Rest};
+read_next_token([$),$,|Rest], Acc) -> {end_list, [lists:reverse(Acc)], Rest};
+read_next_token([$)|Rest], Acc) -> {end_list, [lists:reverse(Acc)], Rest};
+read_next_token([], Acc) -> {end_list, [lists:reverse(Acc)], []};
+read_next_token([C|Rest], Acc) -> read_next_token(Rest, [C|Acc]).
+	
 
 % normalize_path/1 -
 % When path is an atom or string, then look for something like this:
