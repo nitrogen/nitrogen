@@ -244,6 +244,7 @@ init_context(RequestBridge, ResponseBridge) ->
 		event_context = #event_context {},
 		handler_list = [
 			% Core handlers...
+			make_handler(config_handler, default_config_handler), 
 			make_handler(log_handler, default_log_handler),
 			make_handler(process_cabinet_handler, default_process_cabinet_handler),
 			make_handler(cache_handler, default_cache_handler), 

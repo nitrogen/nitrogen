@@ -20,18 +20,18 @@
 	clear_all/1
 ]).
 
--define(TIMEOUT, 20000).
-
-init(_State) -> 
-	% Check if a session exists for the user. If not, start one.
+init(_) -> 
+	% Get the session cookie...
 	Unique = case wf:depickle(wf:cookie("wf")) of
 		undefined -> erlang:md5(term_to_binary({now(), erlang:make_ref()}));
 		Other -> Other
 	end,
-	ok = wf:cookie("wf", wf:pickle(Unique), "/", ?TIMEOUT),
 	{ok, {session, Unique}}.
 
-finish(_State) -> 
+finish({session, Unique}) -> 
+	% Drop the session cookie...
+	Timeout = wf:config_default(nitrogen_session_timeout, 20),
+	ok = wf:cookie("wf", wf:pickle(Unique), "/", Timeout),
 	{ok, []}.
 	
 get_value(Key, DefaultValue, SessionName) -> 
@@ -62,9 +62,10 @@ clear_all(SessionName) ->
 	{ok, SessionName}.
 	
 get_session_pid(SessionName) ->
-	{ok, _Pid} = process_cabinet_handler:get_pid(SessionName, fun() -> session_loop([]) end).
+	Timeout = wf:config_default(nitrogen_session_timeout, 20),
+	{ok, _Pid} = process_cabinet_handler:get_pid(SessionName, fun() -> session_loop([], Timeout) end).
 
-session_loop(Session) ->
+session_loop(Session, Timeout) ->
 	receive
 		{get_value, Key, Pid} ->
 			Value = case lists:keysearch(Key, 1, Session) of
@@ -72,22 +73,22 @@ session_loop(Session) ->
 				false -> undefined
 			end,
 			Pid!{ok, Value},
-			session_loop(Session);
+			session_loop(Session, Timeout);
 			
 		{set_value, Key, Value, Pid} ->
 			Session1 = lists:keystore(Key, 1, Session, {Key, Value}),
 			Pid!ok,
-			session_loop(Session1);			
+			session_loop(Session1, Timeout);			
 			
 		{clear_value, Key, Pid} ->	
 			Session1 = lists:keydelete(Key, 1, Session),
 			Pid!ok,
-			session_loop(Session1);
+			session_loop(Session1, Timeout);
 			
 		{clear_all, Pid} ->
 			Pid!ok,
-			session_loop([])	
+			session_loop([], Timeout)	
 				
-	after ?TIMEOUT -> 
+	after Timeout * 60 * 1000 -> 
 			exit(timed_out)
 	end.

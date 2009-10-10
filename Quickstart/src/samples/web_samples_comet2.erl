@@ -33,9 +33,7 @@ body() ->
 	
 	% Start a process to listen for messages,
 	% and then tell the chatroom that we would like to join.
-	wf_context:async_mode(comet),
-	wf:wire(#async { function=fun() -> chat_loop() end, scope=global, pool=chatroom }),
-	% chatroom!{join, Pid},
+	wf:comet_global(fun() -> chat_loop() end, chatroom),
 
 	Body.
 	

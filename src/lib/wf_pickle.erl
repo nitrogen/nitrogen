@@ -16,13 +16,12 @@ pickle(Data) ->
 	<<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
 	_PickledData = modified_base64_encode(<<Signature/binary, B/binary>>).
 	
-depickle(undefined) -> undefined;
 depickle(PickledData) ->
 	try
 		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(PickledData)),
 		<<S:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
 		{Data, _PickleTime} = binary_to_term(B),
-		Data
+		Data		
 	catch _Type : _Message ->
 		undefined
 	end.

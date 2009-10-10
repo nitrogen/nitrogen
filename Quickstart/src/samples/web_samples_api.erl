@@ -13,7 +13,6 @@ headline() -> "Javascript API Example".
 right() -> linecount:render().
 
 body() -> 
-	?PRINT(wf:q("test")),
 	wf:wire(#api { name=apiOne, tag=f1 }),
 	wf:wire(#api { name=apiTwo, tag=f2 }),
 	wf:wire(#api { name=apiThree, tag=f3 }),

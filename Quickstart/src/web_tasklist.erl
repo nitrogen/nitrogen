@@ -67,8 +67,6 @@ event({save, SpanID, TextBoxID, OldTask}) ->
 	taskdata:save_tasks(Tasks1);
 	
 event({edit, SpanID, TextBoxID}) ->
-	?PRINT(SpanID),
-	?PRINT(TextBoxID),
 	wf:wire(SpanID, #hide {}),
 	wf:wire(TextBoxID, #appear {}),
 	wf:wire(TextBoxID, "obj('me').select();");

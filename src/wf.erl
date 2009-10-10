@@ -235,6 +235,16 @@ clear_state() ->
 
 
 %%% EXPOSE ACTION_ASYNC %%%
+
+comet(Function) -> 
+	action_async:comet(Function).
+
+comet(Function, Pool) -> 
+	action_async:comet(Function, Pool).
+	
+comet_global(Function, Pool) ->  
+	action_async:comet_global(Function, Pool).
+
 send(Pool, Message) ->
 	ok = action_async:send(Pool, Message).
 
@@ -248,6 +258,11 @@ get_async_mode() -> wf_context:async_mode().
 set_async_mode(AsyncMode) -> wf_context:async_mode(AsyncMode).
 switch_to_comet() -> set_async_mode(comet).
 switch_to_polling(IntervalInMS) -> set_async_mode({poll, IntervalInMS}).
+
+%%% CONFIGURATION %%%
+
+config(Key) -> config_handler:get_value(Key).
+config_default(Key, DefaultValue) -> config_handler:get_value(Key, DefaultValue).
 
 %%% DEBUGGING %%%
 debug() -> wf_utils:debug().

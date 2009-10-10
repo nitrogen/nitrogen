@@ -5,29 +5,31 @@
 -module (config_handler).
 -export ([
 	behaviour_info/1,
-	get_config/1, get_config/2, set_config/2, set_config/1
+	get_value/1, get_values/1,
+	get_value/2, get_values/2
 ]).
 
-% get_config(Application, Module, Key, DefaultValue, State) -> Value.
+% get_value(Application, Module, Key, DefaultValue, State) -> Value.
 % Retrieve a configuration value.
-get_config(Key) ->
-	_Value = get_config(Key, undefined).
+get_value(Key) -> 
+	_Value = get_value(Key, undefined).
 
-get_config(Key, DefaultValue) -> 
-	_Value = wf_handler:call(config_handler, get_config, [Key, DefaultValue]).
+get_value(Key, DefaultValue) -> 
+	_Value = wf_handler:call_readonly(config_handler, get_value, [Key, DefaultValue]).
 
-set_config(Key, Value) ->
-	ok = wf_handler:call(config_handler, set_config, [Key, Value]).
-	
-set_config(PropList) ->
-	ok = wf_handler:call(config_handler, set_config, [PropList]).
+% get_values(Application, Module, Key, DefaultValue, State) -> Value.
+% Retrieve a list of configuration values.
+get_values(Key) -> 
+	_Value = get_values(Key, undefined).
+
+get_values(Key, DefaultValue) -> 
+	_Value = wf_handler:call_readonly(config_handler, get_values, [Key, DefaultValue]).
 
 behaviour_info(callbacks) -> [
 	{init, 1},      
 	{finish, 1},
-	{get_config, 3},
-	{set_config, 3},
-	{set_config, 2}
+	{get_value, 3},
+	{get_values, 3}
 ];
 
 behaviour_info(_) -> undefined.

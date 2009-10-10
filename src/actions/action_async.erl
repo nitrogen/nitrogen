@@ -52,6 +52,7 @@ render_action(Record) ->
 % In the process of starting the function, it will create
 % an accumulator and a pool if they don't already exist.
 event({spawn_async_function, Record}) ->
+	?PRINT(Record),
 	% Some values...
 	SeriesID = wf_context:series_id(),
 	Pool = Record#async.pool,
@@ -145,12 +146,11 @@ pool_loop(Processes) ->
 		{'DOWN', _, process, Pid, _} ->
 			pool_loop(Processes -- [Pid]);
 			
-		{send_message, Message} ->
+		Message ->
+			?PRINT(Message),
+			?PRINT(Processes),
 			[Pid!Message || Pid <- Processes],
-			pool_loop(Processes);
-			
-		Other ->
-			?PRINT({pool_loop, unhandled_event, Other})
+			pool_loop(Processes)
 	end.
 
 
@@ -219,13 +219,13 @@ guardian_process(FunctionPid, AccumulatorPid, PoolPid, DyingMessage) ->
 		{'DOWN', _, process, FunctionPid, _} ->
 			% The AsyncFunction process has died. 
 			% Communicate dying_message to the pool and exit.
-			PoolPid!{send_message, DyingMessage};
+			PoolPid!DyingMessage;
 			
 		{'DOWN', _, process, AccumulatorPid, _} -> 
 			% The accumulator process has died. 
 			% Communicate dying_message to the pool, 
 			% kill the AsyncFunction process, and exit.
-			PoolPid!{send_message, DyingMessage},
+			PoolPid!DyingMessage,
 			erlang:exit(FunctionPid, async_die);
 		
 		{'DOWN', _, process, PoolPid, _} ->
@@ -236,6 +236,24 @@ guardian_process(FunctionPid, AccumulatorPid, PoolPid, DyingMessage) ->
 			?PRINT({FunctionPid, AccumulatorPid, PoolPid}),
 			?PRINT({guardian_process, unhandled_event, Other})
 	end.
+	
+%% @doc Convenience method to start a comet process.
+comet(F) -> 
+	comet(F, default).
+	
+%% @doc Convenience method to start a comet process.
+comet(F, Pool) ->
+	SeriesID = wf_context:series_id(),
+	wf:wire(#async { function=F, pool=Pool, scope=local }),
+	{ok, PoolPid} = get_pool_pid(SeriesID, Pool, local),
+	PoolPid.
+	
+%% @doc Convenience method to start a comet process with global pool.
+comet_global(F, Pool) ->
+	SeriesID = wf_context:series_id(),
+	wf:wire(#async { function=F, pool=Pool, scope=global }),
+	{ok, PoolPid} = get_pool_pid(SeriesID, Pool, global),
+	PoolPid.
 			
 %% @doc Gather all wired actions, and send to the accumulator.
 flush() ->
@@ -257,9 +275,10 @@ send_global(Pool, Message) ->
 %%% PRIVATE FUNCTIONS %%%
 
 inner_send(Pool, Scope, Message) ->
+	?PRINT({Pool, Scope, Message}),
 	SeriesID = wf_context:series_id(),
 	{ok, PoolPid} = get_pool_pid(SeriesID, Pool, Scope),
-	PoolPid!{send_message, Message},
+	PoolPid!Message,
 	ok.
 
 % Get actions from accumulator. If there are no actions currently in the

@@ -17,10 +17,7 @@ body() ->
 		#span { id=myCounter, text="-" }
   ],
 
-	wf_context:async_mode(comet),
-	wf:wire(#async {
-		function = fun() -> background_update(myCounter, 1) end
-	}),
+	wf:comet(fun() -> background_update(myCounter, 1) end),
 
 	Body.
 

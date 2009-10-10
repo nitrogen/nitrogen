@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>src/handlers/config/default_config_handler.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -41,13 +43,13 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-09T11:26:59Z</date>
+					<date>2009-10-10T14:29:50Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_core.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-09T03:19:47Z</date>
+					<date>2009-10-10T13:33:13Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -205,6 +207,34 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
+		<key>src/handlers/config/default_config_handler.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>46</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>20</integer>
+		</dict>
+		<key>src/handlers/session/simple_session_handler.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>65</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>59</integer>
+		</dict>
 		<key>src/nitrogen.erl</key>
 		<dict>
 			<key>caret</key>
@@ -234,9 +264,14 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>src/handlers/session/simple_session_handler.erl</string>
+		<string>src/handlers/config/default_config_handler.erl</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{289, 0}, {926, 778}}</string>
+	<string>{{333, -122}, {926, 778}}</string>
 </dict>
 </plist>
