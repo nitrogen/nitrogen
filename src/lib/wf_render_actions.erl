@@ -78,7 +78,7 @@ render_action(Action) when is_tuple(Action) ->
 			% but only if this is not a container event. This
 			% is kind of a hack to reduce the number of spurious
 			% javascript calls to Nitrogen.$scope(...).
-			ContainerActions = [action_wire, action_async],
+			ContainerActions = [action_wire, action_comet],
 			ScopeScript = case not lists:member(Module, ContainerActions) of
 				true -> generate_scope_script();
 				false -> []

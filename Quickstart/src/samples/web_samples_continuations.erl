@@ -38,7 +38,7 @@ body() -> [
 event({continue, Description, DelaySeconds, TimeoutSeconds}) ->
 	wf:flash("Started the task..."),
 	F = fun() -> long_running_function(DelaySeconds) end,
-	wf:continue({continue, Description}, F, 100, TimeoutSeconds * 1000);
+	wf:continue({continue, Description}, F, TimeoutSeconds * 1000);
 
 event(_) -> ok.
 

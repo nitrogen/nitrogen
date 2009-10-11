@@ -234,30 +234,37 @@ clear_state() ->
 
 
 
-%%% EXPOSE ACTION_ASYNC %%%
+%%% EXPOSE ACTION_COMET %%%
 
 comet(Function) -> 
-	action_async:comet(Function).
+	action_comet:comet(Function).
 
 comet(Function, Pool) -> 
-	action_async:comet(Function, Pool).
+	action_comet:comet(Function, Pool).
 	
 comet_global(Function, Pool) ->  
-	action_async:comet_global(Function, Pool).
+	action_comet:comet_global(Function, Pool).
 
 send(Pool, Message) ->
-	ok = action_async:send(Pool, Message).
+	ok = action_comet:send(Pool, Message).
 
 send_global(Pool, Message) ->
-	ok = action_async:send_global(Pool, Message).
+	ok = action_comet:send_global(Pool, Message).
 
 flush() ->
-	ok = action_async:flush().
+	ok = action_comet:flush().
 
 get_async_mode() -> wf_context:async_mode().
 set_async_mode(AsyncMode) -> wf_context:async_mode(AsyncMode).
 switch_to_comet() -> set_async_mode(comet).
 switch_to_polling(IntervalInMS) -> set_async_mode({poll, IntervalInMS}).
+
+%%% EXPOSE ACTION_CONTINUE %%%
+
+continue(Tag, Function) -> action_continue:continue(Tag, Function).
+
+continue(Tag, Function, TimeoutMS) -> action_continue:continue(Tag, Function, TimeoutMS).
+
 
 %%% CONFIGURATION %%%
 

@@ -120,9 +120,9 @@
 -define(ACTION_BASE(Module), is_action=is_action, module=Module, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
 -record(wire, {?ACTION_BASE(action_wire)}).
--record(continue, {?ACTION_BASE(action_continue), function, delegate, tag, interval=100, timeout=20000}).
 -record(update, {?ACTION_BASE(action_update), type=update, elements=[]}).
--record(async, {?ACTION_BASE(action_async), pool=default, scope=local, function, dying_message}).
+-record(comet, {?ACTION_BASE(action_comet), pool=undefined, scope=local, function, dying_message}).
+-record(continue, {?ACTION_BASE(action_continue), function, delegate, tag, timeout}).
 -record(api, {?ACTION_BASE(action_api), name, tag, delegate }).
 -record(set, {?ACTION_BASE(action_set), value}).
 -record(redirect, {?ACTION_BASE(action_redirect), url}).
@@ -144,7 +144,6 @@
 -record(remove_class, {?ACTION_BASE(action_remove_class), class=none, speed=0}).
 -record(animate, {?ACTION_BASE(action_animate), options=[], speed=500, easing=swing}).
 -record(buttonize, {?ACTION_BASE(action_buttonize)}).
--record(comet_start, {?ACTION_BASE(action_comet_start)}).
 
 %%% Validators %%%
 -define(VALIDATOR_BASE(Module), ?ACTION_BASE(Module), text="Failed.").
