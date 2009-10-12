@@ -3,7 +3,22 @@
 	url = git://github.com/mmullis/coverize.git
 [submodule "lib/simple_bridge"]
 	path = lib/simple_bridge
-	url = git@github.com:rklophaus/SimpleBridge.git
+	url = git://github.com/rklophaus/SimpleBridge.git
 [submodule "lib/mochiweb"]
 	path = lib/mochiweb
 	url = git://github.com/rklophaus/mochiweb.git
+[submodule "lib/binary_vice"]
+	path = lib/binary_vice
+	url = git://github.com/rklophaus/BinaryVice.git
+[submodule "simple_bridge"]
+	path = simple_bridge
+	url = git://github.com/rklophaus/SimpleBridge.git
+[submodule "deps/simple_bridge"]
+	path = deps/simple_bridge
+	url = git://github.com/rklophaus/SimpleBridge.git
+[submodule "deps/binary_vice"]
+	path = deps/binary_vice
+	url = git://github.com/rklophaus/BinaryVice.git
+[submodule "deps/coverize"]
+	path = deps/coverize
+	url = git://github.com/mmullis/coverize.git

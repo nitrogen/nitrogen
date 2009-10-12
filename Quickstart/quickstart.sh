@@ -11,7 +11,6 @@ erl \
 	-name nitrogen@127.0.0.1 \
 	-pa $PWD/apps $PWD/ebin $PWD/include \
 	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
+	-pa $NITROGEN_SRC/deps/*/ebin \
 	-s make all \
 	-eval "application:start(quickstart_inets)"
-
-	# -pa $NITROGEN_SRC/deps/*/ebin $NITROGEN_SRC/deps/*/include \

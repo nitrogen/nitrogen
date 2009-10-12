@@ -1,6 +1,7 @@
 # all: compile test
 
 compile:
+	git submodule update --init
 	make -C ./deps/simple_bridge
 	make -C ./deps/binary_vice
 	erl -make
@@ -19,13 +20,12 @@ test: compile
 		-s init stop
 
 coverage: compile
-	git submodule init lib/coverize
-	git submodule update lib/coverize
-	make -C lib/coverize
+	git submodule update --init
+	make -C deps/coverize
 	mkdir -p coverage
 	erl -noshell \
 		-pa ebin \
 		-pa test/ebin \
-		-pa lib/coverize/ebin \
+		-pa deps/coverize/ebin \
 		-s eunit_helper run_cover \
 		-s init stop
