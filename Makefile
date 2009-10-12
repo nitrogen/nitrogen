@@ -3,10 +3,7 @@
 compile:
 	make -C ./deps/simple_bridge
 	make -C ./deps/binary_vice
-	cp ./deps/*/ebin/*.beam ./ebin
-	erl \
-		-pa ebin \
-		-make
+	erl -make
 
 clean:
 	rm -rf ./coverage/*.*

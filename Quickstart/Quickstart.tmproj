@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>quickstart.sh</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -52,7 +50,7 @@
 					<key>filename</key>
 					<string>quickstart.sh</string>
 					<key>lastUsed</key>
-					<date>2009-10-10T14:49:14Z</date>
+					<date>2009-10-10T15:00:19Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -77,11 +75,15 @@
 			<array>
 				<dict>
 					<key>filename</key>
+					<string>src/web_test.erl</string>
+					<key>lastUsed</key>
+					<date>2009-10-10T15:23:49Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
 					<date>2009-10-10T14:46:17Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -111,7 +113,9 @@
 					<key>filename</key>
 					<string>src/web_index.erl</string>
 					<key>lastUsed</key>
-					<date>2009-09-10T00:16:48Z</date>
+					<date>2009-10-12T00:54:37Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -192,29 +196,10 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>298</integer>
 	<key>metaData</key>
-	<dict>
-		<key>quickstart.sh</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>34</integer>
-				<key>line</key>
-				<integer>8</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>quickstart.sh</string>
-	</array>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{308, 0}, {907, 778}}</string>
+	<string>{{306, 0}, {907, 778}}</string>
 </dict>
 </plist>

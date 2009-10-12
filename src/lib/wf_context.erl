@@ -257,7 +257,7 @@ init_context(RequestBridge, ResponseBridge) ->
 			make_handler(role_handler, default_role_handler), 
 			
 			% Handlers that possibly redirect...
-			make_handler(route_handler, default_route_handler), 
+			make_handler(route_handler, dynamic_route_handler), 
 			make_handler(security_handler, default_security_handler)
 		]
 	},

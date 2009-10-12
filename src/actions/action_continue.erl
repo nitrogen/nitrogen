@@ -27,7 +27,6 @@ continue_wrapper(Record) ->
 	
 	% Initiate a postback on the page to gather the requests...
 	Ref = make_ref(),
-	% ?PRINT(Ref),
 	wf:wire(#event { delegate=?MODULE, postback={finished, self(), Ref} }),
 	wf:flush(),
 
@@ -48,14 +47,11 @@ run_continue_function(Record) ->
 	% Spawn the user's function...
 	Pid = spawn(fun() -> 
 		try 
-			% ?PRINT(calling_function),
 			Self ! {result, Fun(), Ref}
 		catch 
 			_Type : timeout ->
-				% ?PRINT(caught_timeout),
 				timeout;
 			Type : Error ->
-				% ?PRINT({error, Type, Error}),
 				error_handler:error_msg("Error in continuation function ~p (~p) - ~p : ~p~n", [Fun, Tag, Type, Error]),
 				Self ! {result, error, Ref}
 		end
@@ -66,7 +62,6 @@ run_continue_function(Record) ->
 	receive {result, Result, Ref} -> 
 		Result
 	after Timeout ->
-		% ?PRINT(timed_out),
 		erlang:exit(Pid, timeout),
 		timeout 
 	end.
@@ -77,17 +72,14 @@ event({finished, Pid, Ref}) ->
 	% continue/2 on the page or element that initiated
 	% the continuation...
 	Pid ! { get_results, self(), Ref},
-	% ?PRINT(waiting_for_response),
 	receive 
 		{get_results_response, Record, Result, Ref} ->
 			Tag = Record#continue.tag,	
 			Delegate = Record#continue.delegate,
 			PageModule = wf_context:page_module(),
 			Module = wf:coalesce([Delegate, PageModule]),
-			% ?PRINT({calling, Module, continue, [Tag, Result]}),
 			Module:continue(Tag, Result)
 	after 2000 ->
-		% ?PRINT("THIS SHOULD NEVER HAPPEN!!!"),
 		stop
 	end.
 
