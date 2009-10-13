@@ -1,0 +1,24 @@
+[
+
+{title, "Custom Client-Side Validator"},
+
+{usage, "	
+	% Wire the validator against the 'my_validator' Javascript<br>
+	% function, passing in some args...<br>
+	wf:wire(ButtonID, TextBoxID, #validate { validators=[<br>
+	&nbsp;&nbsp;#js_custom { text=\"Validation failed.\", function=my_validator, args=\"{ amount: 5 }\" }<br>
+	]})
+" },
+
+{description, "Attach a custom validator, written in Javascript, to an element. The validator will be executed on the client when a postback is triggered. Validation failure will prevent the postback.
+<p>
+See <a href='http://livevalidation.com/documentation#ValidateCustom'>Live Validation's Validate Custom</a> for more information about the validation function and args.
+"},
+
+{attributes, [
+	{"text", "string", "The text to display if validation fails." },
+	{"function", "atom or string", "The name of a a Javascript function that returns true if the value is valid, false if invalid.<br>function(Value, Args) -> 'true' or 'false'" },
+	{"args", "JSON String", "Extra arguments passed to the custom validation function." }
+]}
+
+].

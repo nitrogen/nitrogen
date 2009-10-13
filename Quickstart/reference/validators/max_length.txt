@@ -1,0 +1,18 @@
+[
+
+{title, "Max Length Validator"},
+
+{usage, "
+	wf:wire(ButtonID, TextBoxID, #validate { validators=[<br>
+	&nbsp;&nbsp;#max_length { text=\"Maximum of 7 characters.\", length=7 }<br>
+	]})
+" },
+
+{description, "Validate the maximum length of text in a textbox."},
+
+{attributes, [
+	{"text", "string", "The text to display if validation fails." },
+	{"length", "integer", "The maximum length of text." }
+]}
+
+].

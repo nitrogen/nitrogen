@@ -56,7 +56,6 @@ redirect(Url) ->
 % redirect_from_login(DefaultUrl) -> wf_redirect:redirect_from_login(DefaultUrl).
 
 
-
 %%% EXPOSE WF_PICKLE %%%
 pickle(Data) -> 
 	_SerializedData = wf_pickle:pickle(Data).

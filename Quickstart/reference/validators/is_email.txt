@@ -1,0 +1,17 @@
+[
+
+{title, "Email Validator"},
+
+{usage, "
+	wf:wire(ButtonID, TextBoxID, #validate { validators=[<br>
+	&nbsp;&nbsp;#is_email { text=\"Not a valid email address.\" }<br>
+	]})
+" },
+
+{description, "Validate that the field contains a valid email address."},
+
+{attributes, [
+	{"text", "string", "The text to display if validation fails." }
+]}
+
+].

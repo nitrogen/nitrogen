@@ -2,6 +2,8 @@
 export NITROGEN_SRC=..
 cd `dirname $0`
 
+make -C $NITROGEN_SRC
+
 echo Creating link to nitrogen support files...
 rm -rf wwwroot/nitrogen
 ln -s ../$NITROGEN_SRC/www wwwroot/nitrogen
