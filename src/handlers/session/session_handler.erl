@@ -15,7 +15,6 @@
 	get_value/1, 
 	get_value/2, 
 	set_value/2, 
-	clear_value/1, 
 	clear_all/0
 ]).
 
@@ -25,7 +24,6 @@ behaviour_info(callbacks) -> [
 	{finish, 1},
 	{get_value, 3},       
 	{set_value, 3},
-	{clear_value, 2},
 	{clear_all, 1}
 ];
 behaviour_info(_) -> undefined.
@@ -43,12 +41,8 @@ get_value(Key, DefaultValue) ->
 % set_value(Key, Value, State) -> {ok, NewState}.
 % Put a value into the storage area.
 set_value(Key, Value) ->
-	ok = wf_handler:call(session_handler, set_value, [Key, Value]).
-
-% clear_value(Key, State) -> {ok, NewState}.
-% Remove a value from the storage area.
-clear_value(Key) ->
-	ok = wf_handler:call(session_handler, clear_value, [Key]).
+	{ok, OldValue} = wf_handler:call(session_handler, set_value, [Key, Value]),
+	OldValue.
 
 % clear_all(State) -> {ok, NewState}.
 % Clear all values from the storage area.

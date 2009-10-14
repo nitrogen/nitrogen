@@ -33,7 +33,7 @@ insert_bottom(TargetID, Elements) ->
 	ok = action_update:insert_bottom(TargetID, Elements).
 
 flash(Elements) ->
-	ok = element_flash:add_flash(Elements).
+	element_flash:add_flash(Elements).
 
 %%% EXPOSE WF_UTILS %%%
 
@@ -181,10 +181,7 @@ session(Key) ->
 	_Value = session_handler:get_value(Key).
 
 session(Key, Value) -> 
-	ok = session_handler:set_value(Key, Value).
-
-clear_session(Key) ->
-	ok = session_handler:clear(Key).
+	_Value = session_handler:set_value(Key, Value).
 
 clear_session() -> 
 	ok = session_handler:clear_all().

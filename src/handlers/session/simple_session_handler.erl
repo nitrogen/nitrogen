@@ -16,7 +16,6 @@
 	finish/1,
 	get_value/3, 
 	set_value/3, 
-	clear_value/2, 
 	clear_all/1
 ]).
 
@@ -36,57 +35,54 @@ finish({session, Unique}) ->
 	
 get_value(Key, DefaultValue, SessionName) -> 
 	{ok, Pid} = get_session_pid(SessionName),
-	Pid!{get_value, Key, self()},
+	Ref = make_ref(),
+	Pid!{get_value, Key, self(), Ref},
 	Value = receive 
-		{ok, undefined} -> DefaultValue;
-		{ok, Other} -> Other
+		{ok, undefined, Ref} -> DefaultValue;
+		{ok, Other, Ref} -> Other
 	end,
 	Value.
 	
 set_value(Key, Value, SessionName) -> 
 	{ok, Pid} = get_session_pid(SessionName),
-	Pid!{set_value, Key, Value, self()},
-	receive ok -> ok end,	
-	{ok, SessionName}.
+	Ref = make_ref(),
+	Pid!{set_value, Key, Value, self(), Ref},
+	receive {ok, OldValue, Ref} -> ok end,	
+	{ok, OldValue, SessionName}.
 	
-clear_value(Key, SessionName) ->
-	{ok, Pid} = get_session_pid(SessionName),
-	Pid!{clear_value, Key, self()},
-	receive ok -> ok end,	
-	{ok, SessionName}.
-
 clear_all(SessionName) -> 
 	{ok, Pid} = get_session_pid(SessionName),
-	Pid!{clear_all, self()},
-	receive ok -> ok end,	
+	Ref = make_ref(),
+	Pid!{clear_all, self(), Ref},
+	receive {ok, Ref} -> ok end,	
 	{ok, SessionName}.
 	
 get_session_pid(SessionName) ->
 	Timeout = wf:config_default(nitrogen_session_timeout, 20),
-	{ok, _Pid} = process_cabinet_handler:get_pid(SessionName, fun() -> session_loop([], Timeout) end).
+	{ok, Pid} = process_cabinet_handler:get_pid(SessionName, fun() -> session_loop([], Timeout) end),
+	{ok, Pid}.
 
 session_loop(Session, Timeout) ->
 	receive
-		{get_value, Key, Pid} ->
+		{get_value, Key, Pid, Ref} ->
 			Value = case lists:keysearch(Key, 1, Session) of
 				{value, {Key, V}} -> V;
 				false -> undefined
 			end,
-			Pid!{ok, Value},
+			Pid!{ok, Value, Ref},
 			session_loop(Session, Timeout);
 			
-		{set_value, Key, Value, Pid} ->
+		{set_value, Key, Value, Pid, Ref} ->
+			OldValue = case lists:keysearch(Key, 1, Session) of
+				{value, {Key, V}} -> V;
+				false -> undefined
+			end,
 			Session1 = lists:keystore(Key, 1, Session, {Key, Value}),
-			Pid!ok,
+			Pid!{ok, OldValue, Ref},
 			session_loop(Session1, Timeout);			
 			
-		{clear_value, Key, Pid} ->	
-			Session1 = lists:keydelete(Key, 1, Session),
-			Pid!ok,
-			session_loop(Session1, Timeout);
-			
-		{clear_all, Pid} ->
-			Pid!ok,
+		{clear_all, Pid, Ref} ->
+			Pid!{ok, Ref},
 			session_loop([], Timeout)	
 				
 	after Timeout * 60 * 1000 -> 

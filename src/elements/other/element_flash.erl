@@ -48,11 +48,10 @@ get_flashes() ->
 	end,
 	
 	% Get flashes, and clear session...
-	Flashes = case wf:session(flashes) of 
+	Flashes = case wf:session(flashes, []) of 
 		undefined -> [];
 		Other -> Other
 	end,	
-	wf:session(flashes, []),
 	
 	% Return list of terms...
 	Flashes1 = [F(X) || X <- lists:reverse(Flashes)],

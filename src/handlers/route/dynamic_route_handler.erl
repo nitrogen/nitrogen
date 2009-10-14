@@ -37,7 +37,6 @@ finish(_State) ->
 % First, cycle through code:all_loaded(). If not there, then check erl_prim_loader:get_file()
 % If still not there, then 404.
 route("/") -> 
-	?PRINT(web_index),
 	{web_index, []};
 	
 route(Path) ->

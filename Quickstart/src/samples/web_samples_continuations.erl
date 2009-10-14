@@ -21,6 +21,7 @@ body() -> [
 		You can also set a timeout, where the server basically just throws
 		up it's hands after X seconds.
 	",
+	#panel { id=test, body="Test panel" },
 	
 	#p{},
 	#button { text="Start a 1 second task.", postback={continue, "1 Second Task", 1, 20} },
