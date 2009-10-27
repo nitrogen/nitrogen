@@ -58,19 +58,19 @@ update(Type, TargetID, Elements) ->
 		}
 	]},
 	
-	case Type == update orelse Type == replace of 
-		true -> remove_update(TargetID);
-		false -> ignore
-	end,
+	% case Type == update orelse Type == replace of 
+	% 	true -> remove_update(TargetID);
+	% 	false -> ignore
+	% end,
 	wf_context:add_action(Action),
 	ok.
 
-remove_update(TargetID) ->
-	Actions = wf_context:actions(),
-	
-inner_remove_update([Action|Actions], TargetID) ->
-	case Action of
-		_ when is_list(Action) -> [inner_remove_update(Action, TargetID)|inner_remove_update(Actions, TargetID)];
-		_ when is_record(Action, update) -> 
-		_ -> [Action|inner_remove_update(Actions, TargetID)]
-	end.
+% remove_update(TargetID) ->
+% 	Actions = wf_context:actions(),
+% 	
+% inner_remove_update([Action|Actions], TargetID) ->
+% 	case Action of
+% 		_ when is_list(Action) -> [inner_remove_update(Action, TargetID)|inner_remove_update(Actions, TargetID)];
+% 		_ when is_record(Action, update) -> 
+% 		_ -> [Action|inner_remove_update(Actions, TargetID)]
+% 	end.
