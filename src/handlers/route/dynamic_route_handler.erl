@@ -77,9 +77,11 @@ try_load_module(Tokens, ExtraTokens) ->
 	BeamFile = string:join(Tokens, "_") ++ ".beam",
 	case erl_prim_loader:get_file(BeamFile) of
 		{ok, _, _} -> 
-			{list_to_atom(string:join(Tokens, "_")), string:join(lists:reverse(ExtraTokens), "/")};
-		undefined -> 
-			try_load_module(tl(lists:reverse(Tokens)), [hd(lists:reverse(Tokens))|ExtraTokens])
+			{list_to_atom(string:join(Tokens, "_")), string:join(ExtraTokens, "/")};
+		_ -> 
+		    Tokens1 = lists:reverse(tl(lists:reverse(Tokens))),
+		    ExtraTokens1 = [hd(lists:reverse(Tokens))|ExtraTokens],
+			try_load_module(Tokens1, ExtraTokens1)
 	end.
 	
 

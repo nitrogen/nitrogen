@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>src/actions/action_update.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -78,8 +76,6 @@
 					<string>src/lib</string>
 				</dict>
 				<dict>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>actions</string>
 					<key>regexFolderFilter</key>
@@ -112,8 +108,6 @@
 					<string>src/handlers</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -215,34 +209,6 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>src/actions/action_update.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>37</integer>
-				<key>line</key>
-				<integer>60</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>39</integer>
-		</dict>
-		<key>src/lib/wf_context.erl</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>120</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>93</integer>
-		</dict>
 		<key>src/nitrogen.erl</key>
 		<dict>
 			<key>caret</key>
@@ -272,11 +238,6 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>src/actions/action_update.erl</string>
-		<string>src/lib/wf_context.erl</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>

@@ -15,7 +15,7 @@ render_element(HtmlID, Record) ->
 	end,
 	case Record#password.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#password.id, #event { type=enterkey, postback=Postback })
+		Postback -> wf:wire(Record#password.id, #event { type=enterkey, postback=Postback, delegate=Record#password.delegate })
 	end,
 
 	Value = wf:html_encode(Record#password.text, Record#password.html_encode),

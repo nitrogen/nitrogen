@@ -16,7 +16,7 @@ render_element(HtmlID, Record) ->
 
 	case Record#textbox.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#textbox.id, #event { type=enterkey, postback=Postback })
+		Postback -> wf:wire(Record#textbox.id, #event { type=enterkey, postback=Postback, delegate=Record#textbox.delegate })
 	end,
 	
 	Value = wf:html_encode(Record#textbox.text, Record#textbox.html_encode),

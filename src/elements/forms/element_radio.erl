@@ -16,7 +16,7 @@ render_element(HtmlID, Record) ->
 
 	case Record#radio.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#radio.id, #event { type=change, postback=Postback })
+		Postback -> wf:wire(Record#radio.id, #event { type=change, postback=Postback, delegate=Record#radio.delegate })
 	end,
 
 	Content = wf:html_encode(Record#radio.text, Record#radio.html_encode),

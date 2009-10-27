@@ -111,11 +111,11 @@ eval([script|T], Record) -> [script|eval(T, Record)];
 eval([H|T], Record) when ?IS_STRING(H) -> [H|eval(T, Record)];
 eval([H|T], Record) -> [replace_callbacks(H, Record)|eval(T, Record)].
 
-% Turn callbacks into a reference to #function {}.
+% Turn callbacks into a reference to #function_el {}.
 replace_callbacks(CallbackTuples, Record) ->
 	Bindings = Record#template.bindings,
 	Functions = [convert_callback_tuple_to_function(M, F, ArgString, Bindings) || {M, F, ArgString} <- CallbackTuples],
-	#function { function=Functions }.
+	#function_el { function=Functions }.
 	
 convert_callback_tuple_to_function(Module, Function, ArgString, Bindings) ->
 	% De-reference to page module...

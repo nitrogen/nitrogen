@@ -14,10 +14,11 @@
 
 split_dom_paths(undefined) -> [?BASEPATH];
 split_dom_paths(DomPathList) -> 
-	{ Paths, _} = split_dom_paths(DomPathList, []),
-	case lists:member(?BASEPATH, Paths) of
-		true -> Paths;
-		false -> [?BASEPATH|Paths]
+	{Paths, _} = split_dom_paths(DomPathList, []),
+	Paths1 = [X || X <- Paths, X /= []],
+	case lists:member(?BASEPATH, Paths1) of
+		true -> Paths1;
+		false -> [?BASEPATH|Paths1]
 	end.
 
 split_dom_paths(DomPaths, Acc) ->
@@ -74,7 +75,7 @@ normalize_path(Path) when is_list(Path) ->
 	DomPaths = wf_context:dom_paths(),
 	% Find the one matching dom path.
 	case find_matching_dom_path(Path, DomPaths) of
-		[] -> throw({no_matching_dom_paths, Path, DomPaths});
+		[] -> throw({dom_path_error, no_matching_paths});
 		[Match] -> Match;
 		Matches -> narrow_matches_with_current_path(Matches)
 	end.
@@ -112,9 +113,9 @@ narrow_matches_with_current_path(Matches) ->
 	CurrentPath = lists:reverse(wf_context:current_path()),
 	Matches1 = [lists:reverse(X) || X <- Matches],
 	case narrow_matches_with_current_path(CurrentPath, Matches1, 1) of
-		[] -> throw({no_matching_dom_paths, Matches});
+		[] -> throw({dom_path_error, no_matching_paths});
 		[Match] -> lists:reverse(Match);
-		Matches -> throw({too_many_matching_dom_paths, Matches})
+		Matches -> throw({dom_path_error, too_many_matching_paths})
 	end.
 	
 % Similar to find_matching_dom_path, except we stop when we narrow
@@ -124,7 +125,9 @@ narrow_matches_with_current_path(_, [], _) -> [];
 narrow_matches_with_current_path(_, Matches, _) when length(Matches) == 1 -> Matches;
 narrow_matches_with_current_path(Path, Matches, Pos) ->
 	Part = lists:nth(Pos, Path),
-	F = fun(X) -> Part == lists:nth(Pos, X) end,
+	F = fun(X) -> 
+	    Pos =< length(X) andalso Part == lists:nth(Pos, X) 
+	end,
 	Matches1 = lists:filter(F, Matches),
 	narrow_matches_with_current_path(Path, Matches1, Pos + 1).
 	

@@ -65,9 +65,24 @@ render_action(Action) when is_tuple(Action) ->
 			TriggerPath = wf:coalesce([Base#actionbase.trigger, TargetPath, OldPath]),
 
 			% Normalize the trigger and target...
+			TriggerPath1 = try
+			    wf_path:normalize_path(TriggerPath) 
+			catch 
+			    _Type1 : {dom_path_error, Err1} -> 
+			        ?PRINT({dom_path_error, Err1, TriggerPath, Action}),
+			        [TriggerPath]
+			end,
+			TargetPath1 = try
+			    wf_path:normalize_path(TargetPath) 
+			catch 
+			    _Type2 : {dom_path_error, Err2} -> 
+			        ?PRINT({dom_path_error, Err2, TargetPath, Action}),
+			        [TargetPath]
+			end,
+			
 			Base1 = Base#actionbase {
-				trigger = wf_path:normalize_path(TriggerPath),
-				target = TargetPath1 = wf_path:normalize_path(TargetPath)
+				trigger = TriggerPath1,
+				target = TargetPath1
 			},
 			Action1 = wf_utils:replace_with_base(Base1, Action),
 

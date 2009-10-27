@@ -112,6 +112,7 @@ temp_id() ->
 	{_, _, C} = now(), 
 	"temp" ++ integer_to_list(C).
 
+
 is_temp_element(undefined) -> true;
 is_temp_element([P]) -> is_temp_element(P);
 is_temp_element(P) -> 

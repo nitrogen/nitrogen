@@ -6,7 +6,7 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(#event { postback=Postback, actions=Actions, trigger=Trigger, target=Target, type=Type, delay=Delay, delegate=Delegate, extra_param=ExtraParam}) -> 
+render_action(#event { postback=Postback, actions=Actions, trigger=Trigger, target=Target, type=Type, keycode=KeyCode, delay=Delay, delegate=Delegate, extra_param=ExtraParam}) -> 
 	PostbackScript = wf_event:generate_postback_script(Postback, Trigger, Target, Delegate, ExtraParam),
 	SystemPostbackScript = wf_event:generate_system_postback_script(Postback, Trigger, Target, Delegate),
 	WireAction = #wire { trigger=Trigger, target=Target, actions=Actions },
@@ -29,14 +29,25 @@ render_action(#event { postback=Postback, actions=Actions, trigger=Trigger, targ
 			];
 			
 		%%% USER EVENTS %%%
-		% Run the event when an enter key is hit, such as in an input textbox
+		
+		% Handle keypress, keydown, or keyup when a keycode is defined...
+	    _ when (Type==keypress orelse Type==keydown orelse Type==keyup) andalso (KeyCode /= undefined) ->
+		    [
+				wf:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {", [wf:to_js_id(Trigger), Type]),
+				wf:f("if (Nitrogen.$is_key_code(event, ~p)) { ", [KeyCode]),
+				PostbackScript, WireAction,
+				"return false; }});"
+		    ];
+
+		% Convenience method for Enter Key...
 		enterkey ->
 			[
-				wf:f("Nitrogen.$observe_event(obj('~s'), 'keypress', function anonymous(event) {", [wf:to_js_id(Trigger)]),
-				"if (Nitrogen.$is_enter_key(event)) {", PostbackScript, WireAction, "return false; }",
-				"});"
+				wf:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {", [wf:to_js_id(Trigger), keydown]),
+				wf:f("if (Nitrogen.$is_key_code(event, ~p)) { ", [13]),
+				PostbackScript, WireAction,
+				"return false; }});"
 			];
-		
+					
 		% Run the event after a specified amount of time
 		timer ->
 			TempID = wf:temp_id(),

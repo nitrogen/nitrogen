@@ -166,6 +166,7 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
 	for (var key in this.$params) {
 		params += key + "=" + this.$params[key] + "&";
 	}
+	params += "is_system_event=1"
 
 	var n = this;
 
@@ -175,7 +176,9 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
 		data: params,
 		dataType: 'text',
 		success: function(data, textStatus) {
+            var pc = n.$params["pageContext"];
 			eval(data);
+            n.$set_param("pageContext", pc);
 		},
 		error: function(xmlHttpRequest, textStatus, errorThrown) {
 		}
@@ -229,9 +232,9 @@ NitrogenClass.prototype.$scan_elements = function(path, elements) {
 	for (var i=0; i<elements.length; i++) {
 		var t = elements[i].id;
 		if (t == undefined) continue;
-		var pos = t.indexOf(path);
+		var pos = t.lastIndexOf(path);
 		if (pos == -1) continue;
-		if (t.indexOf(path) + path.length == t.length) {
+		if (pos + path.length == t.length) {
 			return elements[i];
 		}
 	}
@@ -278,8 +281,8 @@ NitrogenClass.prototype.$return_false = function(value, args) {
 	return false; 
 }
 
-NitrogenClass.prototype.$is_enter_key = function(event) {
-	return (event && event.keyCode == 13);
+NitrogenClass.prototype.$is_key_code = function(event, keyCode) {
+	return (event && event.keyCode == keyCode);
 }
 
 NitrogenClass.prototype.$go_next = function(controlID) {
