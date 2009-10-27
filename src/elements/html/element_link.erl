@@ -11,7 +11,7 @@ reflect() -> record_info(fields, link).
 render_element(HtmlID, Record) -> 
 	case Record#link.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#link.id, #event { type=click, postback=Postback })
+		Postback -> wf:wire(Record#link.id, #event { type=click, postback=Postback, delegate=Record#link.delegate })
 	end,
 	
 	Body = [

@@ -20,7 +20,11 @@ render_element(HtmlID, Record) ->
 			#table { 
 				style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 99; overflow:auto;", 
 				rows=#tablerow {
-					cells=#tablecell { align=center, valign=middle, style="vertical-align: middle;", body=Record#lightbox.body } 
+					cells=#tablecell { align=center, valign=middle, style="vertical-align: middle;", body=[
+					    "<center><table><tr><td>",
+					    Record#lightbox.body,
+					    "</td></tr></table></center>"
+				    ]} 
 				}
 			}
 		]

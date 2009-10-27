@@ -47,17 +47,15 @@ comet(F) ->
 	
 %% @doc Convenience method to start a comet process.
 comet(F, Pool) ->
-	SeriesID = wf_context:series_id(),
-	wf:wire(#comet { function=F, pool=Pool, scope=local }),
-	{ok, PoolPid} = get_pool_pid(SeriesID, Pool, local),
-	PoolPid.
+    Pid = spawn_with_context(F),
+	wf:wire(#comet { function=Pid, pool=Pool, scope=local }),
+	{ok, Pid}.
 	
 %% @doc Convenience method to start a comet process with global pool.
 comet_global(F, Pool) ->
-	SeriesID = wf_context:series_id(),
-	wf:wire(#comet { function=F, pool=Pool, scope=global }),
-	{ok, PoolPid} = get_pool_pid(SeriesID, Pool, global),
-	PoolPid.
+    Pid = spawn_with_context(F),
+	wf:wire(#comet { function=Pid, pool=Pool, scope=global }),
+	{ok, Pid}.
 			
 %% @doc Gather all wired actions, and send to the accumulator.
 flush() ->
@@ -111,9 +109,10 @@ event({spawn_async_function, Record}) ->
 	{ok, PoolPid} = get_pool_pid(SeriesID, Pool, Scope), 
 	
 	% Create a process for the AsyncFunction...
-	AsyncFunction = Record#comet.function,
-	Context = wf_context:context(),
-	FunctionPid = erlang:spawn(fun() -> wf_context:context(Context), AsyncFunction(), flush() end),
+	FunctionPid = case Record#comet.function of
+	    F when is_function(F) -> spawn_with_context(F);
+	    P when is_pid(P) -> P
+	end,
 	
 	% Create a process for the AsyncGuardian...
 	DyingMessage = Record#comet.dying_message,
@@ -128,6 +127,8 @@ event({spawn_async_function, Record}) ->
 		"if (!document.comet_started) { document.comet_started=true; ", make_async_event(0), " }"
 	],
 	wf:wire(Actions);
+	
+
 		
 % This clause is the heart of async functions. It
 % is first triggered by the event/1 function above,
@@ -187,12 +188,17 @@ get_pool_pid(SeriesID, Pool, Scope) ->
 % and is responsible for distributing messages to all processes in the pool.
 pool_loop(Processes) -> 
 	receive
-		{add_process, Pid} ->
-			erlang:monitor(process, Pid), 
-			pool_loop([Pid|Processes]);
+		{add_process, JoinPid} ->
+			erlang:monitor(process, JoinPid), 
+			case Processes of
+			    [] -> JoinPid!'INIT';
+			    _  -> [Pid!{'JOIN', JoinPid} || Pid <- Processes]
+			end,
+			pool_loop([JoinPid|Processes]);
 			
-		{'DOWN', _, process, Pid, _} ->
-			pool_loop(Processes -- [Pid]);
+		{'DOWN', _, process, LeavePid, _} ->
+		    [Pid!{'LEAVE', LeavePid} || Pid <- Processes],
+			pool_loop(Processes -- [LeavePid]);
 			
 		Message ->
 			[Pid!Message || Pid <- Processes],
@@ -233,11 +239,11 @@ accumulator_loop(Guardians, Actions, Waiting, TimerRef) ->
 			accumulator_loop(Guardians, [], Pid, TimerRef);
 			
 		{get_actions_blocking, Pid} when Actions /= [] ->
-			Pid!{actions, Actions},
+			Pid!{actions, lists:reverse(Actions)},
 			accumulator_loop(Guardians, [], none, TimerRef);
 
 		{get_actions, Pid} ->
-			Pid!{actions, Actions},
+			Pid!{actions, lists:reverse(Actions)},
 			accumulator_loop(Guardians, [], none, TimerRef);
 			
 		{set_lease, LengthInMS} ->
@@ -265,13 +271,19 @@ guardian_process(FunctionPid, AccumulatorPid, PoolPid, DyingMessage) ->
 		{'DOWN', _, process, FunctionPid, _} ->
 			% The AsyncFunction process has died. 
 			% Communicate dying_message to the pool and exit.
-			PoolPid!DyingMessage;
+			case DyingMessage of
+			    undefined -> ignore;
+			    _ -> PoolPid!DyingMessage
+			end;
 			
 		{'DOWN', _, process, AccumulatorPid, _} -> 
 			% The accumulator process has died. 
 			% Communicate dying_message to the pool, 
 			% kill the AsyncFunction process, and exit.
-			PoolPid!DyingMessage,
+			case DyingMessage of
+			    undefined -> ignore;
+			    _ -> PoolPid!DyingMessage
+			end,
 			erlang:exit(FunctionPid, async_die);
 		
 		{'DOWN', _, process, PoolPid, _} ->
@@ -286,8 +298,13 @@ guardian_process(FunctionPid, AccumulatorPid, PoolPid, DyingMessage) ->
 
 %%% PRIVATE FUNCTIONS %%%
 
+spawn_with_context(Function) ->
+	Context = wf_context:context(),
+	erlang:spawn(fun() -> wf_context:context(Context), wf_context:clear_actions(), Function(), flush() end).
+
+
 inner_send(Pool, Scope, Message) ->
-	?PRINT({Pool, Scope, Message}),
+	% ?PRINT({Pool, Scope, Message}),
 	SeriesID = wf_context:series_id(),
 	{ok, PoolPid} = get_pool_pid(SeriesID, Pool, Scope),
 	PoolPid!Message,

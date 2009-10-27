@@ -11,7 +11,7 @@ reflect() -> record_info(fields, dropdown).
 render_element(HtmlID, Record) -> 
 	case Record#dropdown.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#dropdown.id, #event { type=change, postback=Postback })
+		Postback -> wf:wire(Record#dropdown.id, #event { type=change, postback=Postback, delegate=Record#dropdown.delegate })
 	end,
 
 	case Record#dropdown.value of 

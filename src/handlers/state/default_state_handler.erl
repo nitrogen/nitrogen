@@ -10,7 +10,7 @@
 ]).
 
 init(State) -> 
-	% Deserialize the state from domState.	
+	% Deserialize the state from domState.
 	{ok, State}.
 
 finish(State) ->

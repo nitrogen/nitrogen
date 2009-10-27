@@ -8,10 +8,17 @@
 
 % This action is used internally by Nitrogen.
 render_action(Record) ->
-	DefaultTrigger = Record#wire.trigger,
-	DefaultTarget = Record#wire.target,
-	Actions = set_paths(DefaultTrigger, DefaultTarget, Record#wire.actions),
-	[Actions].
+    try 
+    	DefaultTrigger = Record#wire.trigger,
+    	DefaultTarget = Record#wire.target,
+    	Actions = set_paths(DefaultTrigger, DefaultTarget, Record#wire.actions),
+    	[Actions]
+    catch Type : Error ->
+        ?PRINT(Type),
+        ?PRINT(Error),
+        ?PRINT(Record),
+        erlang:Type(Error)
+    end.
 	
 set_paths(_DefaultTrigger, _DefaultTarget, []) -> 
 	[];
@@ -40,7 +47,7 @@ wire(TriggerID, TargetID, Script) when ?IS_STRING(Script) ->
 wire(TriggerID, TargetID, Actions) ->
 	CurrentPath = wf_context:current_path(),
 	Action = #wire { trigger=CurrentPath, target=CurrentPath, actions=[
-		#wire { 
+		#wire {
 			trigger=wf:coalesce([TriggerID, CurrentPath]),
 			target=wf:coalesce([TargetID, CurrentPath]),
 			actions=Actions

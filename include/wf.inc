@@ -65,7 +65,7 @@
 -define(ELEMENT_BASE(Module), is_element=is_element, module=Module, id, actions, show_if=true, class="", style="").
 -record(elementbase, {?ELEMENT_BASE(undefined)}).
 -record(template, {?ELEMENT_BASE(element_template), file, bindings=[] }).
--record(function, {?ELEMENT_BASE(element_function), function=fun() -> [] end}).
+-record(function_el, {?ELEMENT_BASE(element_function), function=fun() -> [] end}).
 -record(body, {?ELEMENT_BASE(element_body), title="", body=[]}).
 -record(h1, {?ELEMENT_BASE(element_h1), text="", html_encode=true}).
 -record(h2, {?ELEMENT_BASE(element_h2), text="", html_encode=true}).
@@ -78,21 +78,21 @@
 -record(p, {?ELEMENT_BASE(element_p), body=""}).
 -record(label, {?ELEMENT_BASE(element_label), text="", html_encode=true}).
 -record(value, {?ELEMENT_BASE(element_value), text="", html_encode=true}).
--record(link, {?ELEMENT_BASE(element_link), text="", body="", html_encode=true, url="javascript:", postback}).
+-record(link, {?ELEMENT_BASE(element_link), text="", body="", html_encode=true, url="javascript:", postback, delegate}).
 -record(error, {?ELEMENT_BASE(element_error), text="", html_encode=true}).
 -record(span, {?ELEMENT_BASE(element_span), text="", html_encode=true}).
--record(button, {?ELEMENT_BASE(element_button), text="Button", html_encode=true, postback}).
+-record(button, {?ELEMENT_BASE(element_button), text="Button", html_encode=true, postback, delegate}).
 -record(literal, {?ELEMENT_BASE(element_literal), text="", html_encode=true}).
--record(textbox, {?ELEMENT_BASE(element_textbox), text="", html_encode=true, next, postback}).
+-record(textbox, {?ELEMENT_BASE(element_textbox), text="", html_encode=true, next, postback, delegate}).
 -record(hidden, {?ELEMENT_BASE(element_hidden), text="", html_encode=true}).
 -record(textarea, {?ELEMENT_BASE(element_textarea), text="", html_encode=true}).
 -record(datepicker_textbox, {?ELEMENT_BASE(element_datepicker_textbox), text="", next, html_encode=true, validators=[], options = [{dateFormat, "yy-mm-dd"}] }).
--record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, value}).
+-record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, delegate, value}).
 -record(option, { text="", value="", selected=false }).
--record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback}).
+-record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback, delegate}).
 -record(radiogroup, {?ELEMENT_BASE(element_radiogroup), body=[]}).
--record(radio, {?ELEMENT_BASE(element_radio), text="", html_encode=true, value, name, checked=false, postback}).
--record(password, {?ELEMENT_BASE(element_password), text="", html_encode=true, next, postback}).
+-record(radio, {?ELEMENT_BASE(element_radio), text="", html_encode=true, value, name, checked=false, postback, delegate}).
+-record(password, {?ELEMENT_BASE(element_password), text="", html_encode=true, next, postback, delegate}).
 -record(panel, {?ELEMENT_BASE(element_panel), body=""}).
 -record(spinner, {?ELEMENT_BASE(element_spinner), image="/nitrogen/spinner.gif"}).
 -record(image, {?ELEMENT_BASE(element_image), image="", alt}).
@@ -124,9 +124,10 @@
 -record(comet, {?ACTION_BASE(action_comet), pool=undefined, scope=local, function, dying_message}).
 -record(continue, {?ACTION_BASE(action_continue), function, delegate, tag, timeout}).
 -record(api, {?ACTION_BASE(action_api), name, tag, delegate }).
+-record(function, {?ACTION_BASE(action_function), function }).
 -record(set, {?ACTION_BASE(action_set), value}).
 -record(redirect, {?ACTION_BASE(action_redirect), url}).
--record(event, {?ACTION_BASE(action_event), type=default, delay=0, postback, delegate, extra_param}).
+-record(event, {?ACTION_BASE(action_event), type=default, keycode=undefined, delay=0, postback, delegate, extra_param}).
 -record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
 -record(validation_error, {?ACTION_BASE(action_validation_error), text="" }).
 -record(alert, {?ACTION_BASE(action_alert), text=""}).

@@ -22,7 +22,10 @@ run() ->
 				Response1:build_response()
 		end
 	catch Type : Error -> 
-		?LOG("~p~n", [{error, Type, Error, erlang:get_stacktrace()}])
+		?LOG("~p~n", [{error, Type, Error, erlang:get_stacktrace()}]),
+		ErrResponse = Response:status_code(500),
+		ErrResponse1 = ErrResponse:data("Internal Server Error"),
+		ErrResponse1:build_response()
 	end.
 
 run_catched() ->

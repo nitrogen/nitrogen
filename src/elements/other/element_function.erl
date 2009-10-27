@@ -6,7 +6,7 @@
 -include ("wf.inc").
 -compile(export_all).
 
-% The 'function' attribute is an Erlang function of arity 0 that returns {ok, [Elements]}.
+% The 'function' attribute is an Erlang function of arity 0 that returns [Elements].
 %
 % Elements can either be a String, a binary, more Nitrogen elements, or a combination thereof. 
 %
@@ -15,10 +15,10 @@
 % one that exists and returns a value (not undefined) will
 % be used.
 
-reflect() -> record_info(fields, function).
+reflect() -> record_info(fields, function_el).
 
 render_element(_HtmlID, Record) ->
-	Functions = lists:flatten([Record#function.function]),
+	Functions = lists:flatten([Record#function_el.function]),
 	call_next_function(Functions).
 	
 call_next_function([]) -> [];
