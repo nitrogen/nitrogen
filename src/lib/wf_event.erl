@@ -70,7 +70,7 @@ generate_system_postback_script(Postback, TriggerPath, TargetPath, Delegate) ->
 	PickledPostbackInfo = serialize_event_context(Postback, TriggerPath, TargetPath, Delegate),
 	[
 		wf_render_actions:generate_scope_script(),
-		wf:f("Nitrogen.$do_system_event('~s');", [PickledPostbackInfo])
+		wf:f("Nitrogen.$queue_system_event('~s');", [PickledPostbackInfo])
 	].
 	
 serialize_event_context(Tag, TriggerPath, TargetPath, Delegate) ->

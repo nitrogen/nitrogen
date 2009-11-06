@@ -31,7 +31,7 @@ run() ->
 run_catched() ->
 	% Get the handlers from querystring, if they exist...
 	deserialize_context(),
-	
+
 	% Initialize all handlers...
 	call_init_on_handlers(),
 	
@@ -106,7 +106,7 @@ deserialize_context() ->
 	[Page, Handlers] = case SerializedPageContext of
 		undefined -> [wf_context:page_context(), wf_context:handlers()];
 		Other -> wf_pickle:depickle(page_context_schema(), Other)
-	end,	
+	end,
 	
 	% Deserialize dom_paths if available...
 	DomPathList = proplists:get_value("domPaths", Params),

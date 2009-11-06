@@ -11,7 +11,7 @@ reflect() -> record_info(fields, lightbox).
 render_element(HtmlID, Record) -> 
 	Panel = #panel {
 		class=lightbox,
-		style="position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px;",
+		style="position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px; " ++ wf:to_list(Record#lightbox.style),
 		body=[
 			#panel { 			
 				class=lightbox_background, 

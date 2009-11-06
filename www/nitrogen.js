@@ -9,6 +9,8 @@ function NitrogenClass(o) {
 	this.$current_path = "";
 	this.$event_queue = new Array();
 	this.$event_is_running = false;
+	this.$system_event_queue = new Array();
+	this.$system_event_is_running = false;
 	return this;
 }
 
@@ -33,18 +35,28 @@ NitrogenClass.prototype.$queue_event = function(triggerID, eventContext, extraPa
 	});
 }
 
+NitrogenClass.prototype.$queue_system_event = function(eventContext) {
+	// Put an event on the event_queue.
+	this.$system_event_queue.push({
+		eventContext : eventContext
+	});
+}
 
 NitrogenClass.prototype.$event_loop = function() {
 	// Make it loop.
 	setTimeout("Nitrogen.$event_loop();", 1);
+
+	// If no events are running and an event is queued, then fire it.
+	if (!this.$system_event_is_running && this.$system_event_queue.length > 0) {
+    	var o = this.$system_event_queue.shift();
+    	this.$do_system_event(o.eventContext);
+	}
 	
-	// If something is running, or the queue is empty, then just return.
-	if (this.$event_is_running) return;
-	if (this.$event_queue.length == 0) return;
-	
-	// Get and exect the event.
-	var o = this.$event_queue.shift();
-	this.$do_event(o.triggerID, o.eventContext, o.extraParam);
+	// If no events are running and an event is queued, then fire it.
+	if (!this.$event_is_running && this.$event_queue.length > 0) {
+    	var o = this.$event_queue.shift();
+    	this.$do_event(o.triggerID, o.eventContext, o.extraParam);
+	}
 }
 
 /*** VALIDATE AND SERIALIZE ***/
@@ -159,6 +171,9 @@ NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam
 /*** SYSTEM EVENTS (FOR ASYNC) ***/
 
 NitrogenClass.prototype.$do_system_event = function(eventContext) { 
+	// Flag to prevent firing multiple postbacks at the same time...
+	this.$system_event_is_running = true;
+
 	// Assemble parameters... 
 	var params = "";
 	params += "eventContext=" + eventContext + "&";
@@ -176,11 +191,15 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
 		data: params,
 		dataType: 'text',
 		success: function(data, textStatus) {
+			n.$system_event_is_running = false;
+			// A system event shouldn't clobber the pageContext.
+			// Easiest to cacount for it here.
             var pc = n.$params["pageContext"];
 			eval(data);
             n.$set_param("pageContext", pc);
 		},
 		error: function(xmlHttpRequest, textStatus, errorThrown) {
+			n.$system_event_is_running = false;
 		}
 	});                     
 }

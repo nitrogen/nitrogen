@@ -69,14 +69,14 @@ render_action(Action) when is_tuple(Action) ->
 			    wf_path:normalize_path(TriggerPath) 
 			catch 
 			    _Type1 : {dom_path_error, Err1} -> 
-			        ?PRINT({dom_path_error, Err1, TriggerPath, Action}),
+                    % ?PRINT({dom_path_error, Err1, TriggerPath, Action}),
 			        [TriggerPath]
 			end,
 			TargetPath1 = try
 			    wf_path:normalize_path(TargetPath) 
 			catch 
 			    _Type2 : {dom_path_error, Err2} -> 
-			        ?PRINT({dom_path_error, Err2, TargetPath, Action}),
+                    % ?PRINT({dom_path_error, Err2, TargetPath, Action}),
 			        [TargetPath]
 			end,
 			

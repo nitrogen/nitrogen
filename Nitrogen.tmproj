@@ -155,7 +155,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-10-11T13:14:11Z</date>
+					<date>2009-11-06T12:22:34Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -198,7 +198,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-10-11T15:32:30Z</date>
+					<date>2009-11-06T02:28:31Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -241,6 +241,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{287, 0}, {926, 778}}</string>
+	<string>{{289, 0}, {1100, 878}}</string>
 </dict>
 </plist>
