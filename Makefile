@@ -2,8 +2,8 @@
 
 compile:
 	git submodule update --init
-	make -C ./deps/simple_bridge
-	make -C ./deps/binary_vice
+	@(cd ./deps/simple_bridge; make)
+	@(cd ./deps/binary_vice; make)
 	erl -make
 
 clean:
