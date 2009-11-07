@@ -72,7 +72,6 @@ render_element(HtmlID, Record) ->
 	].
 	
 event({upload_finished, Record}) ->
-	?DEBUG,
 	wf_context:type(first_request),
 	Req = wf_context:request_bridge(),
 	
