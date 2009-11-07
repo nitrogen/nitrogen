@@ -23,8 +23,8 @@ init(Routes) ->
 	wf_context:path_info(PathInfo1),
 	{ok, Routes}.
 	
-finish(_State) -> 
-	{ok, []}.
+finish(State) -> 
+	{ok, State}.
 
 %%% PRIVATE FUNCTIONS %%%
 
@@ -42,12 +42,13 @@ route(Path, Routes) ->
 	end,
 	Matches = [F(Prefix, Module) || {Prefix, Module} <- Routes],
 	Matches1 = lists:reverse(lists:sort([X || X <- Matches, X /= not_found])),
-
 	case Matches1 of
 		[] ->
 			{static_file, Path};
+		[{_, _, static_file}|_] ->
+		    {static_file, Path};
 		[{_, Prefix, Module}|_] ->
-			{Module, string:substr(Path, length(Prefix))}
+			{Module, string:substr(Path, length(Prefix) + 1)}
 	end.
 
 check_for_404(static_file, _PathInfo, Path) ->

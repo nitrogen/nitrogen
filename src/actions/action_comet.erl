@@ -48,13 +48,13 @@ comet(F) ->
 %% @doc Convenience method to start a comet process.
 comet(F, Pool) ->
     Pid = spawn_with_context(F),
-	wf:wire(#comet { function=Pid, pool=Pool, scope=local }),
+	wf:wire(page, page, #comet { function=Pid, pool=Pool, scope=local }),
 	{ok, Pid}.
 	
 %% @doc Convenience method to start a comet process with global pool.
 comet_global(F, Pool) ->
     Pid = spawn_with_context(F),
-	wf:wire(#comet { function=Pid, pool=Pool, scope=global }),
+	wf:wire(page, page, #comet { function=Pid, pool=Pool, scope=global }),
 	{ok, Pid}.
 			
 %% @doc Gather all wired actions, and send to the accumulator.
@@ -121,12 +121,12 @@ event({spawn_async_function, Record}) ->
 	% Register the function with the accumulator and the pool.
 	AccumulatorPid!{add_guardian, GuardianPid},
 	PoolPid!{add_process, FunctionPid},
-
+	
 	% Only start the async event loop if it has not already been started...
 	Actions = [
 		"if (!document.comet_started) { document.comet_started=true; ", make_async_event(0), " }"
 	],
-	wf:wire(Actions);
+	wf:wire(page, page, Actions);
 	
 
 		
@@ -150,7 +150,7 @@ event(start_async) ->
 			% Start the polling postback...
 			Actions = get_actions_blocking(?COMET_INTERVAL),
 			Event = make_async_event(0),
-			wf:wire([Actions, Event]),
+			wf:wire(page, page, [Actions, Event]),
 			
 			% Renew the lease, because the blocking call
 			% could have used up a significant amount of time.
@@ -165,7 +165,7 @@ event(start_async) ->
 			% Start the polling postback...
 			Actions = get_actions(),
 			Event = make_async_event(Interval),
-			wf:wire([Actions, Event])
+			wf:wire(page, page, [Actions, Event])
 	end.
 
 
