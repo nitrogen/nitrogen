@@ -41,7 +41,7 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T00:54:34Z</date>
+					<date>2009-12-05T14:21:10Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -209,6 +209,20 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Makefile</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>31</integer>
+				<key>line</key>
+				<integer>5</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>src/nitrogen.erl</key>
 		<dict>
 			<key>caret</key>
@@ -241,6 +255,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{289, 0}, {1100, 878}}</string>
+	<string>{{282, 0}, {921, 778}}</string>
 </dict>
 </plist>
