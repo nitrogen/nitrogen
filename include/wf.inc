@@ -17,6 +17,7 @@
   module,     % The module that should handle the event
   tag,        % An Erlang term that is passed along with the event
   type,       % The type of event postback, comet, continuation, upload
+	anchor,     % The element id to which trigger and target are relative.
   trigger,    % The element id that triggered the event
   target      % The element id that "receives" the event
 }).
@@ -36,8 +37,7 @@
 	type,                % Either first_request, postback_request, or static_file
 	request_bridge,      % Holds the simple_bridge request object
 	response_bridge,     % Holds the simple_bridge response object
-	dom_paths=undefined, % A list of dom paths corresponding to elements in the browser. Used during the wire process.
-	current_path=[],     % Used during rendering to hold the path of whatever is currently getting rendered. 
+	anchor=undefined,    % Holds the unique ID of the current anchor element.
 	data=[],             % Holds whatever the page_module:main/1 method returns: HTML, Elements, Binary, etc..
 	queued_actions=[],   % List of actions queued in main/1, event/2, or when rendering elements.	
 
@@ -117,7 +117,7 @@
 -record(upload, {?ELEMENT_BASE(element_upload), delegate, tag, show_button=true, button_text="Upload" }).
 
 %%% Actions %%%
--define(ACTION_BASE(Module), is_action=is_action, module=Module, trigger, target, actions, show_if=true).
+-define(ACTION_BASE(Module), is_action=is_action, module=Module, anchor, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
 -record(wire, {?ACTION_BASE(action_wire)}).
 -record(update, {?ACTION_BASE(action_update), type=update, elements=[]}).

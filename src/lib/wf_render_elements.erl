@@ -54,46 +54,39 @@ render_element(Element) when is_tuple(Element) ->
 		true -> ok;
 		false -> throw({not_an_element, Element})
 	end,
+	
+	case Base#elementbase.show_if of
+		true ->
+			% Normalize identifiers...
+			ID = case Base#elementbase.id of
+				undefined -> temp_id();
+				Other     -> Other
+			end,
+			HtmlID = normalize_id(ID),
+			TempID = normalize_id(temp_id()),
 
-	% Set the element ID if it is not already set...
-	ID = case Base#elementbase.id of
-		undefined -> wf:temp_id();
-		Other -> wf:to_list(Other)
-	end,
-	
-	NewPath = [wf:to_list(ID)|wf_context:current_path()],
-	HtmlID = to_html_id(NewPath),
-	
-	% Update the base element with the new id...
-	Base1 = Base#elementbase {id = ID},
-	Element1 = wf_utils:replace_with_base(Base1, Element),
-		
-	% Push the new path into our list of dom_paths...
-	wf_context:add_dom_path(NewPath),
-	
-	case {Base1#elementbase.show_if, is_temp_element(ID)} of
-		{true, true} -> 			
-			% This is a temp element. Don't update the current path, it should use the parent path.
-			% Wire the actions, render the element...
-			wf:wire(ID, Base1#elementbase.actions),
-		 	{ok, _Html} = call_element_render(Module, HtmlID, Element1);
+			% Update class...
+			Class  = [HtmlID, TempID|Base#elementbase.class],
 
-		{true, false} -> 
-			% This is a named element. Update the current path.
-			OldPath = wf_context:current_path(),
-			wf_context:current_path(NewPath),
-	
-			% Wire the actions, render the element...
-			wf:wire(me, Base1#elementbase.actions),
-			{ok, Html} = call_element_render(Module, HtmlID, Element1),
-					
-			% Restore the old path...
-			wf_context:current_path(OldPath),
+			% Update the base element with the new id and class...
+			Base1 = Base#elementbase { id=ID, class=Class },
+			Element1 = wf_utils:replace_with_base(Base1, Element),
+			
+			% Wire the actions...
+			Anchor = "." ++ TempID,
+			wf_context:anchor(Anchor),
+			wf:wire(Base1#elementbase.actions),
+			
+			% Render the element...
+			{ok, Html} = call_element_render(Module, TempID, Element1),
+			
+			% Reset the anchor (likely changed during the inner render)...
+			wf_context:anchor(Anchor),
 			{ok, Html};
 			
-		{_, _} -> 
+		false -> 
 			{ok, []}
-	end.
+		end.
 	
 % call_element_render(Module, HtmlID, Element) -> {ok, Html}.
 % Calls the render_element/3 function of an element to turn an element record into
@@ -102,7 +95,13 @@ call_element_render(Module, HtmlID, Element) ->
 	{module, Module} = code:ensure_loaded(Module),
 	NewElements = Module:render_element(HtmlID, Element),
 	{ok, _Html} = render_elements(NewElements, []).
-
+	
+% Convert the following forms into a string...
+normalize_id(ID) -> 
+	case wf_utils:to_string_list(ID) of
+		[]      -> "";
+		[NewID] -> "wfid_" ++ NewID
+	end.
 
 to_html_id(P) ->
 	P1 = lists:reverse(P),
@@ -113,12 +112,12 @@ temp_id() ->
 	"temp" ++ integer_to_list(C).
 
 
-is_temp_element(undefined) -> true;
-is_temp_element([P]) -> is_temp_element(P);
-is_temp_element(P) -> 
-	Name = wf:to_list(P),
-	length(Name) > 4 andalso
-	lists:nth(1, Name) == $t andalso
-	lists:nth(2, Name) == $e andalso
-	lists:nth(3, Name) == $m andalso
-	lists:nth(4, Name) == $p.
+% is_temp_element(undefined) -> true;
+% is_temp_element([P]) -> is_temp_element(P);
+% is_temp_element(P) -> 
+% 	Name = wf:to_list(P),
+% 	length(Name) > 4 andalso
+% 	lists:nth(1, Name) == $t andalso
+% 	lists:nth(2, Name) == $e andalso
+% 	lists:nth(3, Name) == $m andalso
+% 	lists:nth(4, Name) == $p.

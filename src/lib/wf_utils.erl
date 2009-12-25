@@ -13,6 +13,7 @@
 	url_encode/1,
 	js_escape/1,
 	replace/3,
+	to_string_list/1,
 	coalesce/1,
 	is_process_alive/1,
 	debug/0, break/0,
@@ -180,6 +181,28 @@ replace(String, S1, S2) when is_list(String), is_list(S1), is_list(S2) ->
 		_ -> 
 			[hd(String)|replace(tl(String), S1, S2)]
 	end.
+	
+	
+%%% TO STRING LIST %%%
+
+%% @doc
+%% Convert the following forms into a list of strings...
+%% 	- atom
+%%  - [atom, atom, ...]
+%%  - "String"
+%%  - "String, String, ..."
+%%  - "String String ..."
+%%  - [atom, "String", ...]
+to_string_list(L) -> to_string_list(L, []).
+to_string_list([], Acc) -> Acc;
+to_string_list(undefined, Acc) -> Acc;
+to_string_list(L, Acc) when is_atom(L) ->
+	[atom_to_list(L)|Acc];
+to_string_list(L, Acc) when ?IS_STRING(L) ->
+	string:tokens(L, " ,") ++ Acc;
+to_string_list([H|T], Acc) ->
+	to_string_list(T, to_string_list(H) ++ Acc).
+
 	
 %%% COALESCE %%%
 

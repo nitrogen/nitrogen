@@ -14,7 +14,7 @@
 			<key>filename</key>
 			<string>CHANGELOG</string>
 			<key>lastUsed</key>
-			<date>2009-10-12T01:18:59Z</date>
+			<date>2009-12-16T12:34:26Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -26,7 +26,7 @@
 			<key>filename</key>
 			<string>Makefile</string>
 			<key>lastUsed</key>
-			<date>2009-10-12T11:30:01Z</date>
+			<date>2009-12-16T12:34:27Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -108,6 +108,8 @@
 					<string>src/handlers</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -143,8 +145,6 @@
 					<date>2009-10-12T11:30:01Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Test</string>
 		</dict>
@@ -155,7 +155,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-11-06T12:22:34Z</date>
+					<date>2009-12-16T13:01:16Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -241,6 +241,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{289, 0}, {1100, 878}}</string>
+	<string>{{282, 0}, {915, 778}}</string>
 </dict>
 </plist>

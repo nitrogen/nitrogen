@@ -38,7 +38,7 @@ get_value(Path, State) ->
 	
 	% Function to check if our query key ends with NPath.
 	F = fun({X, _Y}) -> 
-		XPath = string:right(X, NPathSize),		
+		XPath = string:right(X, NPathSize),
 		("_" ++ NPath == "_" ++ XPath) orelse
 		(NPath == X)
 	end,

@@ -9,9 +9,10 @@
 % This action is used internally by Nitrogen.
 render_action(Record) ->
     try 
+			DefaultAnchor = Record#wire.anchor,
     	DefaultTrigger = Record#wire.trigger,
     	DefaultTarget = Record#wire.target,
-    	Actions = set_paths(DefaultTrigger, DefaultTarget, Record#wire.actions),
+    	Actions = set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, Record#wire.actions),
     	[Actions]
     catch Type : Error ->
         ?PRINT(Type),
@@ -20,40 +21,49 @@ render_action(Record) ->
         erlang:Type(Error)
     end.
 	
-set_paths(_DefaultTrigger, _DefaultTarget, []) -> 
+set_paths(_DefaultAnchor, _DefaultTrigger, _DefaultTarget, []) -> 
 	[];
 	
-set_paths(DefaultTrigger, DefaultTarget, [H|T]) ->
-	[set_paths(DefaultTrigger, DefaultTarget, H)|set_paths(DefaultTarget, DefaultTarget, T)];
+set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, [H|T]) ->
+	[set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, H)|
+	 set_paths(DefaultAnchor, DefaultTarget, DefaultTarget, T)];
 	
-set_paths(DefaultTrigger, DefaultTarget, Action) when is_tuple(Action) ->
+set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, Action) when is_tuple(Action) ->
 	% If the action doesn't have a target
-	Trigger = wf:coalesce([get_trigger(Action), DefaultTrigger]),
-	Action1 = set_trigger(Action, Trigger),
+	Anchor  = wf:coalesce([get_anchor(Action), DefaultAnchor]),
+	Action1 = set_anchor(Action, Anchor),
 	
-	Target = wf:coalesce([get_target(Action1), DefaultTarget]),
-	_Action2 = set_target(Action1, Target);
+	Trigger = wf:coalesce([get_trigger(Action1), DefaultTrigger]),
+	Action2 = set_trigger(Action1, Trigger),
 	
-set_paths(_, _, Other) -> Other.
+	Target = wf:coalesce([get_target(Action2), DefaultTarget]),
+	set_target(Action2, Target);
+	
+set_paths(_, _, _, Other) -> Other.
 
-get_trigger(Action) -> element(4, Action).
-set_trigger(Action, Trigger) -> setelement(4, Action, Trigger).
-get_target(Action) -> element(5, Action).
-set_target(Action, Target) -> setelement(5, Action, Target).
+get_anchor(Action) -> element(4, Action).
+set_anchor(Action, Anchor) -> setelement(4, Action, Anchor).
+get_trigger(Action) -> element(5, Action).
+set_trigger(Action, Trigger) -> setelement(5, Action, Trigger).
+get_target(Action) -> element(6, Action).
+set_target(Action, Target) -> setelement(6, Action, Target).
 
-wire(TriggerID, TargetID, Script) when ?IS_STRING(Script) ->
-	wire(TriggerID, TargetID, #script { script=Script });
+wire(_, _, undefined) -> 
+	ok;
 	
-wire(TriggerID, TargetID, Actions) ->
-	CurrentPath = wf_context:current_path(),
-	Action = #wire { trigger=CurrentPath, target=CurrentPath, actions=[
-		#wire {
-			trigger=wf:coalesce([TriggerID, CurrentPath]),
-			target=wf:coalesce([TargetID, CurrentPath]),
-			actions=Actions
-		}
-	]},
+wire(_, _, []) -> 
+	ok;
+	
+wire(Trigger, Target, Actions) when ?IS_STRING(Actions) ->
+	wire(Trigger, Target, #script { script=Actions });
+	
+wire(Trigger, Target, Actions) ->
+	Anchor = wf_context:anchor(),
+	Action = #wire {
+		anchor  = Anchor, 
+		trigger = wf:coalesce([Trigger, Anchor]), 
+		target  = wf:coalesce([Target, Anchor]), 
+		actions = Actions
+	},
 	wf_context:add_action(Action),
 	ok.
-
-

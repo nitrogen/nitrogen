@@ -45,7 +45,6 @@ render_element(HtmlID, Record) ->
 		]),
 		
 		wf_tags:emit_tag(input, [
-			{name, domPaths},
 			{type, hidden},
 			{class, no_postback},
 			{value, ""}

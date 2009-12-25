@@ -7,10 +7,11 @@
 	debug_info
 ]}.
 
-{ './src/*/*', [
-	{ i, "./include" },
+% Compile Nitrogen files.
+{ ["../src/*", "../src/*/*", "../src/*/*/*"], [
 	{ i, "../include" },
 	{ i, "../deps/simple_bridge/include" },
-	{ outdir, "./ebin" },
+	{ outdir, "../ebin" },
 	debug_info
 ]}.
+

@@ -6,9 +6,16 @@
 -include ("wf.inc").
 -compile(export_all).
 
-render_action(#event { postback=Postback, actions=Actions, trigger=Trigger, target=Target, type=Type, keycode=KeyCode, delay=Delay, delegate=Delegate, extra_param=ExtraParam}) -> 
-	PostbackScript = wf_event:generate_postback_script(Postback, Trigger, Target, Delegate, ExtraParam),
-	SystemPostbackScript = wf_event:generate_system_postback_script(Postback, Trigger, Target, Delegate),
+render_action(#event { 
+	postback=Postback, actions=Actions, 
+	anchor=Anchor, trigger=Trigger, target=Target, 
+	type=Type, keycode=KeyCode, delay=Delay, delegate=Delegate, 
+	extra_param=ExtraParam
+}) -> 
+
+	AnchorScript = wf_event:generate_anchor_script(Anchor), 
+	PostbackScript = wf_event:generate_postback_script(Postback, Anchor, Trigger, Target, Delegate, ExtraParam),
+	SystemPostbackScript = wf_event:generate_system_postback_script(Postback, Anchor, Trigger, Target, Delegate),
 	WireAction = #wire { trigger=Trigger, target=Target, actions=Actions },
 
 	Script = case Type of
@@ -31,20 +38,20 @@ render_action(#event { postback=Postback, actions=Actions, trigger=Trigger, targ
 		%%% USER EVENTS %%%
 		
 		% Handle keypress, keydown, or keyup when a keycode is defined...
-	    _ when (Type==keypress orelse Type==keydown orelse Type==keyup) andalso (KeyCode /= undefined) ->
-		    [
-				wf:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {", [wf:to_js_id(Trigger), Type]),
-				wf:f("if (Nitrogen.$is_key_code(event, ~p)) { ", [KeyCode]),
-				PostbackScript, WireAction,
+		_ when (Type==keypress orelse Type==keydown orelse Type==keyup) andalso (KeyCode /= undefined) ->
+			[
+				wf:f("Nitrogen.$observe_event('~s', '~s', '~s', function anonymous(event) {", [Anchor, Trigger, Type]),
+				wf:f("if (Nitrogen.$is_key_code(event, ~p)) { ", [KeyCode]), 
+				AnchorScript, PostbackScript, WireAction, 
 				"return false; }});"
-		    ];
+			];
 
 		% Convenience method for Enter Key...
 		enterkey ->
 			[
-				wf:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {", [wf:to_js_id(Trigger), keydown]),
+				wf:f("Nitrogen.$observe_event('~s', '~s', '~s', function anonymous(event) {", [Anchor, Trigger, keydown]),
 				wf:f("if (Nitrogen.$is_key_code(event, ~p)) { ", [13]),
-				PostbackScript, WireAction,
+				AnchorScript, PostbackScript, WireAction,
 				"return false; }});"
 			];
 					
@@ -52,20 +59,23 @@ render_action(#event { postback=Postback, actions=Actions, trigger=Trigger, targ
 		timer ->
 			TempID = wf:temp_id(),
 			[
-				wf:f("document.~s = function() {", [TempID]), PostbackScript, WireAction, "};",
+				wf:f("document.~s = function() {", [TempID]), 
+				wf_event:generate_anchor_script(Anchor), 
+				AnchorScript, PostbackScript, WireAction, 
+				"};",
 				wf:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, TempID, Delay])
 			];
 			
 		default ->
 			[
-				PostbackScript, WireAction
+				AnchorScript, PostbackScript, WireAction
 			];
 		
 		% Run some other Javascript event (click, mouseover, mouseout, etc.)
 		_ ->
 			[
-				wf:f("Nitrogen.$observe_event(obj('~s'), '~s', function anonymous(event) {", [wf:to_js_id(Trigger), Type]), 
-				PostbackScript, WireAction, 
+				wf:f("Nitrogen.$observe_event('~s', '~s', '~s', function anonymous(event) {", [Anchor, Trigger, Type]), 
+				AnchorScript, PostbackScript, WireAction, 
 				"});"
 			]
 			

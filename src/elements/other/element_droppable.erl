@@ -10,23 +10,23 @@ reflect() -> record_info(fields, droppable).
 
 render_element(HtmlID, Record) -> 
 	% Get properties...
-	Trigger = Target = Record#droppable.id,
 	Delegate = Record#droppable.delegate,
 	Tag = Record#droppable.tag,
-	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Trigger, Target, ?MODULE),
+	Anchor = wf_context:anchor(),
+	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, Anchor, Anchor, ?MODULE),
 	ActiveClass = Record#droppable.active_class, 
 	HoverClass = Record#droppable.hover_class,
 	AcceptGroups = groups_to_accept(Record#droppable.accept_groups),
 
 	% Write out the script to make this element droppable...
 	Script = #script {
-		script=wf:f("Nitrogen.$droppable(obj('me'), { activeClass: '~s', hoverClass: '~s', accept: '~s' }, '~s');", [ActiveClass, HoverClass, AcceptGroups, PostbackInfo])
+		script=wf:f("Nitrogen.$droppable('~s', { activeClass: '~s', hoverClass: '~s', accept: '~s' }, '~s');", [Anchor, ActiveClass, HoverClass, AcceptGroups, PostbackInfo])
 	},
-	wf:wire(Record#droppable.id, Script),
+	wf:wire(Script),
 
 	% Render as a panel.
 	element_panel:render_element(HtmlID, #panel {
-		class="droppable " ++ wf:to_list(Record#droppable.class),
+		class=[droppable|Record#droppable.class],
 		style=Record#droppable.style,
 		body=Record#droppable.body
 	}).

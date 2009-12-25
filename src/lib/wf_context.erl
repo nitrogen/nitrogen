@@ -71,30 +71,13 @@ cookie(Cookie, Value, Path, MinutesToLive) ->
 	
 %%% TRANSIENT CONTEXT %%%
 
-add_dom_path(NewDomPath) ->
+anchor(Anchor) ->
 	Context = context(),
-	DomPaths = Context#context.dom_paths,
-	DomPaths1 = case lists:member(NewDomPath, DomPaths) of
-		true -> DomPaths;
-		false -> [NewDomPath|DomPaths]
-	end,
-	context(Context#context { dom_paths=DomPaths1 }).
-	
-dom_paths() ->
-	Context = context(),
-	Context#context.dom_paths.
-	
-dom_paths(DomPaths) ->
-	Context = context(),
-	context(Context#context { dom_paths=DomPaths }).
+	context(Context#context { anchor=Anchor }).
 
-current_path() ->
+anchor() ->
 	Context = context(),
-	Context#context.current_path.
-	
-current_path(Path) ->
-	Context = context(),
-	context(Context#context { current_path=Path }).
+	Context#context.anchor.
 		
 data() ->
 	Context = context(),

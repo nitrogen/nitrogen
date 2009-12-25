@@ -10,10 +10,10 @@ reflect() -> record_info(fields, sortblock).
 
 render_element(HtmlID, Record) -> 
 	% Get properties...
+	Anchor = wf_context:anchor(),
 	Tag = Record#sortblock.tag,
-	Trigger = Target = Record#sortblock.id,
 	Delegate = Record#sortblock.delegate,
-	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Trigger, Target, ?MODULE),
+	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, Anchor, Anchor, ?MODULE),
 	Handle = case Record#sortblock.handle of
 		undefined -> "null";
 		Other -> wf:f("'.~s'", [Other])
@@ -23,12 +23,12 @@ render_element(HtmlID, Record) ->
 		
 	% Emit the javascript...
 	Script = #script { 
-		script=wf:f("Nitrogen.$sortblock(obj('me'), { handle: ~s, connectWith: [~s] }, '~s');", [Handle, ConnectWithGroups, PostbackInfo])
+		script=wf:f("Nitrogen.$sortblock('~s', { handle: ~s, connectWith: [~s] }, '~s');", [Anchor, Handle, ConnectWithGroups, PostbackInfo])
 	},
-	wf:wire(Record#sortblock.id, Script),
+	wf:wire(Script),
 
 	element_panel:render_element(HtmlID, #panel {
-		class="sortblock " ++ GroupClasses ++ " " ++ wf:to_list(Record#sortblock.class),
+		class=[sortblock, GroupClasses|Record#sortblock.class],
 		style=Record#sortblock.style,
 		body=Record#sortblock.items
 	}).

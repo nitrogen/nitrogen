@@ -63,7 +63,7 @@ finish_dynamic_request() ->
 	wf_context:clear_actions(),
 	
 	% Render...
-	{ok, Html, Javascript} = wf_render:render(Elements, Actions),
+	{ok, Html, Javascript} = wf_render:render(Elements, Actions, undefined, undefined, undefined),
 
 	% Call finish on all handlers.
 	call_finish_on_handlers(),
@@ -88,11 +88,8 @@ finish_static_request() ->
 serialize_context() ->
 	Page = wf_context:page_context(),
 	Handlers = wf_context:handlers(),
-	SerializedContextState = wf_pickle:pickle(page_context_schema(), [Page, Handlers]),
-	[
-		wf_render_actions:generate_scope_script(),
-		wf:f("Nitrogen.$set_param('pageContext', '~s');", [SerializedContextState])
-	].
+	SerializedContextState = wf_pickle:pickle([Page, Handlers]),
+	wf:f("Nitrogen.$set_param('pageContext', '~s');", [SerializedContextState]).
 
 % deserialize_context_state/1 -
 % Updates the context with values that were stored
@@ -105,27 +102,16 @@ deserialize_context() ->
 	SerializedPageContext = proplists:get_value("pageContext", Params),
 	[Page, Handlers] = case SerializedPageContext of
 		undefined -> [wf_context:page_context(), wf_context:handlers()];
-		Other -> wf_pickle:depickle(page_context_schema(), Other)
+		Other -> wf_pickle:depickle(Other)
 	end,
-	
-	% Deserialize dom_paths if available...
-	DomPathList = proplists:get_value("domPaths", Params),
-	DomPaths = wf_path:split_dom_paths(DomPathList),
 	
 	% Create a new context...
 	wf_context:page_context(Page),
 	wf_context:handlers(Handlers),
-	wf_context:dom_paths(DomPaths),
 	
 	% Return the new context...
 	ok.
-	
-page_context_schema() -> 
-	[
-		#page_context { series_id=string@, module=atom@, path_info=string@, async_mode=term@ },
-		{list@, #handler_context { name=atom@, module=atom@, state=term@ }}
-	].
-	
+		
 %%% SET UP AND TEAR DOWN HANDLERS %%%
 	
 % init_handlers/1 - 

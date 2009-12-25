@@ -8,69 +8,58 @@
 
 % This action is used internally by Nitrogen.
 render_action(Record) ->
-	FormatString = case Record#update.type of
-		update        -> "Nitrogen.$update(obj('me'), \"~s\");";
-		replace       -> "Nitrogen.$replace(obj('me'), \"~s\");";
-		insert_top    -> "Nitrogen.$insert_top(obj('me'), \"~s\");";
-		insert_bottom -> "Nitrogen.$insert_bottom(obj('me'), \"~s\");"
-	end,
+	Type    = Record#update.type,
+	Anchor  = Record#update.anchor,
+	Trigger = Record#update.trigger,
+	Target  = Record#update.target,
 	
-	% If this is a replacement, then pop up one layer in the current path
-	% before rendering...
-	OldPath = wf_context:current_path(),
-	case Record#update.type == replace of
-		true ->  wf_context:current_path(tl(OldPath));
-		false -> continue
-	end,
-
 	% Render into HTML and Javascript...
 	Elements = Record#update.elements,
-	{ok, Html, Script} = wf_render:render(Elements, []), 
-	
-	% Move back to original path...
-	wf_context:current_path(OldPath),
+	{ok, Html, Script} = wf_render:render(Elements, [], Anchor, Trigger, Target), 
 	
 	% Turn the HTML into a Javascript statement that will update the right element.
-	ScriptifiedHtml = wf:f(FormatString, [wf:js_escape(Html)]),
-	[ScriptifiedHtml, Script].
+	AnchorScript = wf_event:generate_anchor_script(Anchor),
+	ScriptifiedHtml = wf:f("Nitrogen.$~s(\"~s\", \"~s\", \"~s\");", [Type, Anchor, Target, wf:js_escape(Html)]),
+	[ScriptifiedHtml, AnchorScript, Script].
 	
-update(TargetID, Elements) -> 
-	update(update, TargetID, Elements).
+update(Target, Elements) -> 
+	update(update, Target, Elements).
 
-replace(TargetID, Elements) ->
-	update(replace, TargetID, Elements).
+replace(Target, Elements) ->
+	update(replace, Target, Elements).
 
-insert_top(TargetID, Elements) -> 
-	update(insert_top, TargetID, Elements).
+insert_top(Target, Elements) -> 
+	update(insert_top, Target, Elements).
 
-insert_bottom(TargetID, Elements) -> 
-	update(insert_bottom, TargetID, Elements).
+insert_bottom(Target, Elements) -> 
+	update(insert_bottom, Target, Elements).
 
 %%% PRIVATE FUNCTIONS %%%
 
-update(Type, TargetID, Elements) ->
-	CurrentPath = wf_context:current_path(),
-	Action = #wire { target=CurrentPath, actions=[
-		#update {
-			type=Type,
-			target=TargetID,
-			elements=Elements		
-		}
-	]},
-	
+update(Type, Target, Elements) ->
+	Anchor = wf_context:anchor(),
+	Action = #update {
+		type=Type,
+		anchor  = Anchor, 
+		target  = wf:coalesce([Target, Anchor]), 
+		elements=Elements		
+	},
+
+	% TODO
 	% case Type == update orelse Type == replace of 
-	% 	true -> remove_update(TargetID);
+	% 	true -> remove_update(Target);
 	% 	false -> ignore
 	% end,
-	wf_context:add_action(Action),
+	wf_context:add_action([Action]),
 	ok.
-
-% remove_update(TargetID) ->
+	
+% TODO
+% remove_update(Target) ->
 % 	Actions = wf_context:actions(),
 % 	
-% inner_remove_update([Action|Actions], TargetID) ->
+% inner_remove_update([Action|Actions], Target) ->
 % 	case Action of
-% 		_ when is_list(Action) -> [inner_remove_update(Action, TargetID)|inner_remove_update(Actions, TargetID)];
+% 		_ when is_list(Action) -> [inner_remove_update(Action, Target)|inner_remove_update(Actions, Target)];
 % 		_ when is_record(Action, update) -> 
-% 		_ -> [Action|inner_remove_update(Actions, TargetID)]
+% 		_ -> [Action|inner_remove_update(Actions, Target)]
 % 	end.

@@ -6,7 +6,6 @@ function NitrogenClass(o) {
 	this.$url = document.location.href;
 	this.$div = document;
 	this.$params = new Object();
-	this.$current_path = "";
 	this.$event_queue = new Array();
 	this.$event_is_running = false;
 	this.$system_event_queue = new Array();
@@ -16,8 +15,8 @@ function NitrogenClass(o) {
 
 /*** PRIVATE METHODS ***/
 
-NitrogenClass.prototype.$scope = function(path) {
-	this.$current_path = path;
+NitrogenClass.prototype.$anchor = function(anchor) {
+	this.$anchor_id = anchor;
 }
 
 NitrogenClass.prototype.$set_param = function(key, value) {
@@ -26,10 +25,11 @@ NitrogenClass.prototype.$set_param = function(key, value) {
 
 /*** EVENT QUEUE ***/
 
-NitrogenClass.prototype.$queue_event = function(triggerID, eventContext, extraParam) {
+NitrogenClass.prototype.$queue_event = function(anchorID, triggerID, eventContext, extraParam) {
 	// Put an event on the event_queue.
 	this.$event_queue.push({
-		triggerID    : this.obj(triggerID).id,
+		anchorID     : anchorID,
+		triggerID    : triggerID, // TODO this.obj(triggerID).id,
 		eventContext : eventContext,
 		extraParam   : extraParam
 	});
@@ -55,7 +55,7 @@ NitrogenClass.prototype.$event_loop = function() {
 	// If no events are running and an event is queued, then fire it.
 	if (!this.$event_is_running && this.$event_queue.length > 0) {
     	var o = this.$event_queue.shift();
-    	this.$do_event(o.triggerID, o.eventContext, o.extraParam);
+    	this.$do_event(o.anchorID, o.triggerID, o.eventContext, o.extraParam);
 	}
 }
 
@@ -87,54 +87,14 @@ NitrogenClass.prototype.$validate_and_serialize = function(triggerID) {
 	}
 }
 
-NitrogenClass.prototype.$get_dom_paths = function() {
-	// Build list of paths...
-	var paths=new Array();
-	var elements = this.$div.getElementsByTagName('*');
-	for (var i=0; i<elements.length; i++) {
-		var element=elements[i];
-		if (element.id) {
-			paths.push(elements[i].id);
-		}
-	}
-	paths = paths.sort();
-	var condensedPaths = this.$condense_dom_paths(paths);
-	var combinedPaths = this.$combine_dom_paths(condensedPaths);
-	return combinedPaths;
-}
-
-NitrogenClass.prototype.$condense_dom_paths = function(paths) {
-	var a = new Object();
-	for (var i=0; i<paths.length; i++) {
-		var parts=paths[i].split("__");
-		var b = a;
-		for (var j=0; j<parts.length; j++) {
-			if (!b[parts[j]]) b[parts[j]] = new Object();
-			b = b[parts[j]];
-		}
-	}
-	return a;
-}
-
-NitrogenClass.prototype.$combine_dom_paths = function(paths) {
-	var s = "";
-	for (var key in paths) {
-		if (s != "") s += ",";
-		s += key;
-		var inner = NitrogenClass.prototype.$combine_dom_paths(paths[key]);
-		if (inner != "") s += "(" + inner + ")";
-	}
-	return s;
-}
-
-
 /*** AJAX METHODS ***/
 
-NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam) {
+NitrogenClass.prototype.$do_event = function(anchorID, triggerID, eventContext, extraParam) {
 	// Flag to prevent firing multiple postbacks at the same time...
 	this.$event_is_running = true;
 
 	// Run validation...
+	Nitrogen.$anchor(anchorID);
 	var s = this.$validate_and_serialize(triggerID);	
 	if (s == null) {
 		this.$event_is_running = false;
@@ -144,7 +104,6 @@ NitrogenClass.prototype.$do_event = function(triggerID, eventContext, extraParam
 	// Assemble other parameters... 
 	var params = "";
 	params += "eventContext=" + eventContext + "&";
-	params += "domPaths=" + this.$get_dom_paths() + "&";
 	params += extraParam + "&";
 	params += s + "&";
 	for (var key in this.$params) {
@@ -177,7 +136,6 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
 	// Assemble parameters... 
 	var params = "";
 	params += "eventContext=" + eventContext + "&";
-	params += "domPaths=" + this.$get_dom_paths() + "&";
 	for (var key in this.$params) {
 		params += key + "=" + this.$params[key] + "&";
 	}
@@ -208,7 +166,6 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
 NitrogenClass.prototype.$upload = function(form) {
 	// Assemble other parameters...
 	form.action = this.$url;
-	form.domPaths.value = this.$get_dom_paths();
 	form.pageContext.value = this.$params["pageContext"];
 	form.submit();
 	form.reset();
@@ -217,18 +174,12 @@ NitrogenClass.prototype.$upload = function(form) {
 /*** PATH LOOKUPS ***/
 
 NitrogenClass.prototype.obj = function(path) {
-	// Clean the path...
-	path = this.$normalize_partial_path(path);
-
-	// Special case for the 'page' element, which is the entire document.
-	if (path == "page") return document;	
-	
-	// Try the easy option...
-	var el = document.getElementById(path);
-	if (el) return el;
-	
-	// Not found, so scan recursively...
-	return this.$scan_elements(path, this.$div.childNodes);
+	var anchor=this.$anchor_id;
+	if (path == 'me') {
+	return jQuery(anchor).get(0);
+	} else {
+		return jQuery(anchor).parents().find(path).get(0);
+	}
 }
 
 NitrogenClass.prototype.$normalize_partial_path = function(path) {
@@ -269,28 +220,28 @@ NitrogenClass.prototype.$scan_elements = function(path, elements) {
 
 /*** EVENT WIRING ***/
 
-NitrogenClass.prototype.$observe_event = function(el, type, func) {
-	jQuery(el).bind(type, func);
+NitrogenClass.prototype.$observe_event = function(anchor, el, type, func) {
+	jQuery(anchor).parents().find(el).bind(type, func);
 }
 
 
 
 /*** DYNAMIC UPDATING ***/
 
-NitrogenClass.prototype.$update = function(el, html) {
-	jQuery(el).html(html);
+NitrogenClass.prototype.$update = function(anchor, el, html) {
+	jQuery(anchor).parents().find(el).html(html);
 }
 
-NitrogenClass.prototype.$replace = function(el, html) {
-	jQuery(el).replaceWith(html);
+NitrogenClass.prototype.$replace = function(anchor, el, html) {
+	jQuery(anchor).parents().find(el).replaceWith(html);
 }
 
-NitrogenClass.prototype.$insert_top = function(el, html) {
-	jQuery(el).prepend(html);
+NitrogenClass.prototype.$insert_top = function(anchor, el, html) {
+	jQuery(anchor).parents().find(el).prepend(html);
 }
 
-NitrogenClass.prototype.$insert_bottom = function(el, html) {
-	jQuery(el).append(html);
+NitrogenClass.prototype.$insert_bottom = function(anchor, el, html) {
+	jQuery(anchor).parents().find(el).append(html);
 }
 
 
@@ -359,30 +310,32 @@ NitrogenClass.prototype.$datepicker = function(pickerObj, pickerOptions) {
 
 /*** DRAG AND DROP ***/
 
-NitrogenClass.prototype.$draggable = function(dragObj, dragOptions, dragTag) {
+NitrogenClass.prototype.$draggable = function(el, dragOptions, dragTag) {
+	var dragObj = jQuery(el).get(0);
 	dragObj.$drag_tag = dragTag;
-	jQuery(dragObj).draggable(dragOptions);	
+	jQuery(el).draggable(dragOptions);	
 }
 
-NitrogenClass.prototype.$droppable = function(dropObj, dropOptions, dropPostbackInfo) {
+NitrogenClass.prototype.$droppable = function(el, dropOptions, dropPostbackInfo) {
 	var n = this;
 	dropOptions.drop = function(ev, ui) {
 		var dragItem = ui.draggable[0].$drag_tag;
-		n.$queue_event(this.id, dropPostbackInfo, "drag_item=" + dragItem);
+		n.$queue_event(el, el, dropPostbackInfo, "drag_item=" + dragItem);
 	}
-	jQuery(dropObj).droppable(dropOptions);
+	jQuery(el).droppable(dropOptions);
 }
 
 
 
 /*** SORTING ***/
 
-NitrogenClass.prototype.$sortitem = function(sortItem, sortTag) {
+NitrogenClass.prototype.$sortitem = function(el, sortTag) {
+	var sortItem = jQuery(el).get(0);
 	sortItem.$sort_tag = sortTag;
 	sortItem.$drag_tag = sortTag;
 }
 
-NitrogenClass.prototype.$sortblock = function(sortBlock, sortOptions, sortPostbackInfo) {
+NitrogenClass.prototype.$sortblock = function(el, sortOptions, sortPostbackInfo) {
 	var n = this;
 	sortOptions.update = function() {
 		var sortItems = "";
@@ -391,9 +344,9 @@ NitrogenClass.prototype.$sortblock = function(sortBlock, sortOptions, sortPostba
 			if (sortItems != "") sortItems += ",";
 			if (childNode.$sort_tag) sortItems += childNode.$sort_tag;
 		}
-		n.$queue_event(this.id, sortPostbackInfo, "sort_items=" + sortItems);
+		n.$queue_event(el, el, sortPostbackInfo, "sort_items=" + sortItems);
 	};
-	jQuery(sortBlock).sortable(sortOptions);
+	jQuery(el).sortable(sortOptions);
 }
 
 

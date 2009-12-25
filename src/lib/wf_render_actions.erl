@@ -5,46 +5,44 @@
 -module (wf_render_actions).
 -include ("wf.inc").
 -export ([
-	render_actions/1,
-	to_js_id/1,
-	generate_scope_script/0
+	render_actions/2,
+	render_actions/4,
+	to_js_id/1
 ]).
 
 %%% RENDER ACTIONS %%%
 
 % render_actions(Actions) -> {ok, Script}.
-render_actions(Actions) ->
-	% Render all actions...
-	{ok, ScriptAcc} = render_actions(Actions, []),
-	
-	% Return.
-	{ok, ScriptAcc}.
+render_actions(Actions, Anchor) ->
+	render_actions(Actions, Anchor, Anchor, Anchor).
 
+render_actions(Actions, Anchor, Trigger, Target) ->
+	Script = inner_render_actions(Actions, Anchor, Trigger, Target),
+	{ok, Script}.
+	
 % render_actions(Actions, ScriptAcc) -> {ok, Script}.
-render_actions(S, ScriptAcc) when S == undefined orelse S == []  ->
-	{ok, ScriptAcc};
-	
-render_actions(S, ScriptAcc) when is_binary(S) orelse ?IS_STRING(S) ->
-	{ok, [S|ScriptAcc]};
-
-render_actions(Actions, ScriptAcc) when is_list(Actions) ->
-	F = fun(X, {ok, SAcc}) ->
-		render_actions(X, SAcc)
-	end,
-	{ok, Script} = lists:foldl(F, {ok, []}, Actions),
-	ScriptAcc1 = [lists:reverse(Script)|ScriptAcc],
-	{ok, ScriptAcc1};
-	
-render_actions(Action, ScriptAcc) when is_tuple(Action) ->
-	{ok, Script} = render_action(Action),
-	ScriptAcc1 = [Script|ScriptAcc],
-	{ok, ScriptAcc1};
-	
-render_actions(Unknown, _ScriptAcc) ->
-	throw({unanticipated_case_in_render_actions, Unknown}).
+inner_render_actions(Action, Anchor, Trigger, Target) ->
+	if 
+		Action == [] -> 
+			[];
+		Action == undefined -> 
+			[];
+		is_binary(Action)   -> 
+			[Action];
+		?IS_STRING(Action)  -> 
+			[Action];
+		is_tuple(Action) ->    
+			Script = inner_render_action(Action, Anchor, Trigger, Target),
+			[Script];
+		is_list(Action) ->
+			[inner_render_actions(hd(Action), Anchor, Trigger, Target)|
+	 		 inner_render_actions(tl(Action), Anchor, Trigger, Target)];
+		true ->
+			throw({unanticipated_case_in_render_actions, Action})
+	end.
 	
 % render_action(Action) -> {ok, Script}.
-render_action(Action) when is_tuple(Action) ->
+inner_render_action(Action, Anchor, Trigger, Target) when is_tuple(Action) ->
 	Base = wf_utils:get_actionbase(Action),
 	Module = Base#actionbase.module, 
 	
@@ -57,75 +55,57 @@ render_action(Action) when is_tuple(Action) ->
 	% Render...
 	case Base#actionbase.show_if of 
 		true -> 
-			% Save the current path...
-			OldPath = wf_context:current_path(),
-
-			% Get the trigger and target...
-			TargetPath = wf:coalesce([Base#actionbase.target, OldPath]),
-			TriggerPath = wf:coalesce([Base#actionbase.trigger, TargetPath, OldPath]),
-
-			% Normalize the trigger and target...
-			TriggerPath1 = try
-			    wf_path:normalize_path(TriggerPath) 
-			catch 
-			    _Type1 : {dom_path_error, Err1} -> 
-                    % ?PRINT({dom_path_error, Err1, TriggerPath, Action}),
-			        [TriggerPath]
-			end,
-			TargetPath1 = try
-			    wf_path:normalize_path(TargetPath) 
-			catch 
-			    _Type2 : {dom_path_error, Err2} -> 
-                    % ?PRINT({dom_path_error, Err2, TargetPath, Action}),
-			        [TargetPath]
-			end,
-			
+			% Figure out the anchor, trigger, and target...
+			Anchor1  = wf_utils:coalesce([Base#actionbase.anchor, Anchor]),
+			Anchor2  = normalize_path(Anchor1),
+			Trigger1 = wf_utils:coalesce([Base#actionbase.trigger, Trigger, Anchor]),
+			Trigger2 = normalize_path(Trigger1),
+			Target1  = wf_utils:coalesce([Base#actionbase.target, Target, Anchor]),
+			Target2  = normalize_path(Target1),
+						
 			Base1 = Base#actionbase {
-				trigger = TriggerPath1,
-				target = TargetPath1
+				anchor = Anchor2,
+				trigger = Trigger2,
+				target = Target2
 			},
 			Action1 = wf_utils:replace_with_base(Base1, Action),
 
-			% Update to a new current path...
-			wf_context:current_path(TargetPath1),
-			
-			% Add some Javascript to set the target path on the client,
-			% but only if this is not a container event. This
-			% is kind of a hack to reduce the number of spurious
-			% javascript calls to Nitrogen.$scope(...).
-			ContainerActions = [action_wire, action_comet],
-			ScopeScript = case not lists:member(Module, ContainerActions) of
-				true -> generate_scope_script();
-				false -> []
-			end,
-			
 			% Render the action...
-			{ok, Script} = call_action_render(Module, Action1),
-			
-			% Restore the old path...
-			wf_context:current_path(OldPath),
-
-			case Script /= undefined andalso Script/=[] of
-				true  -> {ok, [ScopeScript, Script]};
-				false -> {ok, []}
+		  Script = call_action_render(Module, Action1, Anchor2, Trigger2, Target2),
+			case Script /= undefined andalso lists:flatten(Script) /= [] of
+				true  -> [Script, "\n"];
+				false -> []
 			end;
 		_ -> 
-			{ok, []}
+			[]
 	end.
 
-% call_action_render(Module, TriggerPath, TargetPath, Action) -> {ok, Script}.
+% call_action_render(Module, Action) -> {ok, Script}.
 % Calls the render_action/4 function of an action to turn an action record into Javascript.
-call_action_render(Module, Action) ->
+call_action_render(Module, Action, Anchor, Trigger, Target) ->
 	{module, Module} = code:ensure_loaded(Module),
 	NewActions = Module:render_action(Action),
-	{ok, _Script} = render_actions(NewActions, []).
+	inner_render_actions(NewActions, Anchor, Trigger, Target).
+
+% Turn an atom into ".wfid_atom"
+% Turn atom.atom... into ".wfid_atom .wfid_atom"
+% If it's a string, replace double "##" with ".wfid_"
+normalize_path(undefined) -> 
+	undefined;
+normalize_path(Path) when is_atom(Path) ->
+	String = atom_to_list(Path),
+	Tokens = string:tokens(String, "."),
+	Tokens1 = [".wfid_" ++ X || X <- Tokens],
+	string:join(Tokens1, " ");
+normalize_path(String) ->
+	case String of
+		"temp" ++ _ -> ".wfid_" ++ String;
+		_ -> wf_utils:replace(String, "##", ".wfid_")
+	end.
+	
+	
+
 	
 to_js_id(P) ->
 	P1 = lists:reverse(P),
 	string:join(P1, ".").
-
-
-generate_scope_script() ->
-	CurrentPath = wf_context:current_path(),
-	Script = wf:f("~nNitrogen.$scope('~s'); ", [wf:to_js_id(CurrentPath)]),
-	Script.
