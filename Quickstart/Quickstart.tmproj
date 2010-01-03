@@ -8,7 +8,7 @@
 			<key>filename</key>
 			<string>Emakefile</string>
 			<key>lastUsed</key>
-			<date>2009-10-09T00:06:33Z</date>
+			<date>2009-12-24T14:16:40Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -194,12 +194,12 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>298</integer>
+	<integer>225</integer>
 	<key>metaData</key>
 	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{301, 0}, {896, 778}}</string>
+	<string>{{235, 0}, {970, 778}}</string>
 </dict>
 </plist>

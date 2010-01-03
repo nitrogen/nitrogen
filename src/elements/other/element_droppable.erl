@@ -8,11 +8,11 @@
 
 reflect() -> record_info(fields, droppable).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	% Get properties...
 	Delegate = Record#droppable.delegate,
 	Tag = Record#droppable.tag,
-	Anchor = wf_context:anchor(),
+	Anchor = Record#droppable.anchor,
 	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, Anchor, Anchor, ?MODULE),
 	ActiveClass = Record#droppable.active_class, 
 	HoverClass = Record#droppable.hover_class,
@@ -25,8 +25,10 @@ render_element(HtmlID, Record) ->
 	wf:wire(Script),
 
 	% Render as a panel.
-	element_panel:render_element(HtmlID, #panel {
-		class=[droppable|Record#droppable.class],
+	element_panel:render_element(#panel {
+		id=Record#droppable.id,
+		anchor=Record#droppable.anchor,
+		class=[droppable, Record#droppable.class],
 		style=Record#droppable.style,
 		body=Record#droppable.body
 	}).

@@ -8,7 +8,8 @@
 
 reflect() -> record_info(fields, radio).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
+	Anchor = Record#radio.anchor,
 	CheckedOrNot = case Record#radio.checked of
 		true -> checked;
 		_ -> not_checked
@@ -24,7 +25,7 @@ render_element(HtmlID, Record) ->
 	[
 		%% Checkbox...
 		wf_tags:emit_tag(input, [
-			{id, HtmlID}, 
+			{id, Anchor}, 
 			{name, Record#radio.name},
 			{value, Record#radio.value},
 			{type, radio},
@@ -35,6 +36,6 @@ render_element(HtmlID, Record) ->
 
 		%% Label for Radio...
 		wf_tags:emit_tag(label, Content, [
-			{for, HtmlID}
+			{for, Anchor}
 		])
 	].

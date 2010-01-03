@@ -8,21 +8,24 @@
 
 reflect() -> record_info(fields, textbox).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
+	Anchor = Record#textbox.anchor,
 	case Record#textbox.next of
 		undefined -> ignore;
-		Next -> wf:wire(Record#textbox.id, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next]) })
+		Next -> 
+			Next1 = wf_render_actions:normalize_path(Next),
+			wf:wire(Anchor, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next1]) })
 	end,
 
 	case Record#textbox.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#textbox.id, #event { type=enterkey, postback=Postback, delegate=Record#textbox.delegate })
+		Postback -> wf:wire(Anchor, #event { type=enterkey, postback=Postback, delegate=Record#textbox.delegate })
 	end,
 	
 	Value = wf:html_encode(Record#textbox.text, Record#textbox.html_encode),
 	wf_tags:emit_tag(input, [
-		{id, HtmlID}, 
-		{name, HtmlID},
+		% {id, HtmlID}, 
+		% {name, HtmlID},
 		{type, text}, 
 		{class, [textbox, Record#textbox.class]},
 		{style, Record#textbox.style},

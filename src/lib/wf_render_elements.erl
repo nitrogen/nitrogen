@@ -54,22 +54,26 @@ render_element(Element) when is_tuple(Element) ->
 		true -> ok;
 		false -> throw({not_an_element, Element})
 	end,
-	
+
 	case Base#elementbase.show_if of
 		true ->
-			% Normalize identifiers...
-			ID = case Base#elementbase.id of
-				undefined -> temp_id();
-				Other     -> Other
+			% If no ID is defined, then use the same
+			% temp_id() for both the HtmlID and TempID.
+			% Otherwise, create a new TempID. Update the class
+			% with either one or both.
+			{HtmlID, TempID, Class} = 
+			case Base#elementbase.id of
+				undefined -> 
+					T = normalize_id(temp_id()),
+					{T, T, [T|Base#elementbase.class]};
+				Other -> 
+					T1 = normalize_id(Other),
+					T2 = normalize_id(temp_id()),
+					{T1, T2, [T1, T2|Base#elementbase.class]}
 			end,
-			HtmlID = normalize_id(ID),
-			TempID = normalize_id(temp_id()),
-
-			% Update class...
-			Class  = [HtmlID, TempID|Base#elementbase.class],
 
 			% Update the base element with the new id and class...
-			Base1 = Base#elementbase { id=ID, class=Class },
+			Base1 = Base#elementbase { id=HtmlID, anchor=TempID, class=Class },
 			Element1 = wf_utils:replace_with_base(Base1, Element),
 			
 			% Wire the actions...
@@ -78,7 +82,7 @@ render_element(Element) when is_tuple(Element) ->
 			wf:wire(Base1#elementbase.actions),
 			
 			% Render the element...
-			{ok, Html} = call_element_render(Module, TempID, Element1),
+			{ok, Html} = call_element_render(Module, Element1),
 			
 			% Reset the anchor (likely changed during the inner render)...
 			wf_context:anchor(Anchor),
@@ -91,9 +95,9 @@ render_element(Element) when is_tuple(Element) ->
 % call_element_render(Module, HtmlID, Element) -> {ok, Html}.
 % Calls the render_element/3 function of an element to turn an element record into
 % HTML.
-call_element_render(Module, HtmlID, Element) ->
+call_element_render(Module, Element) ->
 	{module, Module} = code:ensure_loaded(Module),
-	NewElements = Module:render_element(HtmlID, Element),
+	NewElements = Module:render_element(Element),
 	{ok, _Html} = render_elements(NewElements, []).
 	
 % Convert the following forms into a string...

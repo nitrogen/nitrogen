@@ -8,9 +8,9 @@
 
 reflect() -> record_info(fields, sortblock).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	% Get properties...
-	Anchor = wf_context:anchor(),
+	Anchor = Record#sortblock.anchor,
 	Tag = Record#sortblock.tag,
 	Delegate = Record#sortblock.delegate,
 	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, Anchor, Anchor, ?MODULE),
@@ -27,7 +27,9 @@ render_element(HtmlID, Record) ->
 	},
 	wf:wire(Script),
 
-	element_panel:render_element(HtmlID, #panel {
+	element_panel:render_element(#panel {
+		id=Record#sortblock.id,
+		anchor=Record#sortblock.anchor,
 		class=[sortblock, GroupClasses|Record#sortblock.class],
 		style=Record#sortblock.style,
 		body=Record#sortblock.items

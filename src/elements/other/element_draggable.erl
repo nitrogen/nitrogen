@@ -8,10 +8,10 @@
 
 reflect() -> record_info(fields, draggable).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	% Get properties...
-	PickledTag = wf:pickle(Record#draggable.tag),
-	
+	Anchor = Record#draggable.anchor,
+	PickledTag = wf:pickle(Record#draggable.tag),	
 	GroupClasses = groups_to_classes(Record#draggable.group),
 
 	Handle = case Record#draggable.handle of
@@ -32,15 +32,16 @@ render_element(HtmlID, Record) ->
 	end,
 
 	% Write out the script to make this element draggable...
-	Anchor = wf_context:anchor(),
 	Script = #script {
 		script=wf:f("Nitrogen.$draggable('~s', { handle: ~s, helper: '~s', revert: ~s }, '~s');", [Anchor, Handle, Helper, Revert, PickledTag])
 	},
 	wf:wire(Script),
 
 	% Render as a panel...
-	element_panel:render_element(HtmlID, #panel {
-		class=[draggable, GroupClasses|Record#draggable.class],
+	element_panel:render_element(#panel {
+		id=Record#draggable.id,
+		anchor=Anchor,
+		class=[draggable, GroupClasses, Record#draggable.class],
 		style=Record#draggable.style,
 		body=Record#draggable.body
 	}).

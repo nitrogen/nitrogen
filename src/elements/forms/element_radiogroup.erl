@@ -8,14 +8,16 @@
 
 reflect() -> record_info(fields, radiogroup).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	% Set the group to the current HtmlID...
-	Body = apply_name(HtmlID, Record#radiogroup.body),
+	Anchor = Record#radiogroup.anchor,
+	Body = apply_name(Anchor, Record#radiogroup.body),
 	
 	% Render the record...
-	element_panel:render_element(HtmlID, #panel {
+	element_panel:render_element(#panel {
 		id=Record#radiogroup.id,
-		class="radiogroup " ++ wf:to_list(Record#radiogroup.class),
+		anchor=Record#radiogroup.anchor,
+		class=[radiogroup, Record#radiogroup.class],
 		style=Record#radiogroup.style,
 		body=Body
 	}).

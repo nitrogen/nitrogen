@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, inplace_textbox).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	% Get vars...
 	OKButtonID = wf:temp_id(),
 	CancelButtonID = wf:temp_id(),
@@ -29,7 +29,7 @@ render_element(HtmlID, Record) ->
 	% Create the view...
 	Text = Record#inplace_textbox.text,
 	Terms = #panel { 
-		class="inplace_textbox " ++ wf:to_list(Record#inplace_textbox.class),
+		class=[inplace_textbox, Record#inplace_textbox.class],
 		style=Record#inplace_textbox.style,
 		body = [
 			#panel { id=ViewPanelID, class="view", body=[
@@ -64,7 +64,7 @@ render_element(HtmlID, Record) ->
 	
 	wf:wire(OKButtonID, TextBoxID, #validate { attach_to=CancelButtonID, validators=Record#inplace_textbox.validators }),
 	
-	element_panel:render_element(HtmlID, Terms).
+	element_panel:render_element(Terms).
 
 event({ok, Delegate, {ViewPanelID, LabelID, EditPanelID, TextBoxID}, Tag}) -> 
 	Value = wf:q(TextBoxID),

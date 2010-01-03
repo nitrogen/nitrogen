@@ -69,13 +69,15 @@ NitrogenClass.prototype.$validate_and_serialize = function(triggerID) {
 	for (var i=0; i<elements.length; i++) {
 		var element = elements[i];
 		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
-			// Don't short circuit here, because we want to update all of the validator UI.
+			// Set a flag, but keep validating to show all messages.
 			is_valid = false;
 		} else {
-			if (element.type == "radio") {
-				params.push(element.id + "=" + element.checked);
-			}
-			params.push(jQuery(element).serialize());
+			// if (element.type == "radio") {
+			// 	params.push(element.id + "=" + element.checked);
+			// }
+			var full_id = this.$make_id(element);
+			var value = element.value;
+			params.push(full_id + "=" + encodeURIComponent(value));
 		}
 	}
 		
@@ -85,6 +87,18 @@ NitrogenClass.prototype.$validate_and_serialize = function(triggerID) {
 	} else {
 		return null;
 	}
+}
+
+NitrogenClass.prototype.$make_id = function(element) {
+	var a = [];
+	var re = new RegExp("\.wfid_(.[^\\s]*)", "g");
+	while(element && element.className) {
+		var matches = element.className.match(/wfid_([^\s])+/g);
+		a.unshift.apply(a, matches);
+		element = element.parentNode;		
+	}
+	
+	return a.join(".");
 }
 
 /*** AJAX METHODS ***/
@@ -173,75 +187,78 @@ NitrogenClass.prototype.$upload = function(form) {
 
 /*** PATH LOOKUPS ***/
 
-NitrogenClass.prototype.obj = function(path) {
-	var anchor=this.$anchor_id;
+NitrogenClass.prototype.$closest = function(path, anchor) {
+	// Similar to the jQuery .closest() operator, but not
+	// exactly like it. Walks up levels starting at the anchor
+	// object finding matching paths.
+		
+	if (!anchor) anchor = this.$anchor_id;
+
+	path = this.$normalize_path(path);
+
 	if (path == 'me') {
-	return jQuery(anchor).get(0);
-	} else {
-		return jQuery(anchor).parents().find(path).get(0);
-	}
-}
-
-NitrogenClass.prototype.$normalize_partial_path = function(path) {
-	var oldparts = this.$current_path.split(".");
-	var newparts = path.split(".");
-	var a = new Array();
-	for (var i=0; i<newparts.length; i++) {
-		var part = newparts[i];
-		if (part == "me") a = oldparts;
-		else if (part == "parent") a.pop();
-		else a.push(part);
+		return jQuery(anchor).get(0);
 	}
 	
-	return a.join("__");
+	var results = jQuery(anchor).find(path);
+	if (results.length > 0) {
+		return results;
+	}
+	
+	var results = jQuery(anchor).parents();
+	for (var i=0; i<results.length; i++) {
+		var results2 = jQuery(results.get(i)).find(path);
+		if (results2.length > 0) {
+			return results2;
+		}		
+	}
+	
+	return nil;
 }
 
-NitrogenClass.prototype.$scan_elements = function(path, elements) {
-	if (!elements) return;
+NitrogenClass.prototype.$normalize_path = function(path) {
+	// If path == 'me' then it is already normalized...
+	if (path == "me") return path;
 	
-	for (var i=0; i<elements.length; i++) {
-		var t = elements[i].id;
-		if (t == undefined) continue;
-		var pos = t.lastIndexOf(path);
-		if (pos == -1) continue;
-		if (pos + path.length == t.length) {
-			return elements[i];
+	// If path has spaces or periods, then it is already normalized.
+	if (path.indexOf(" ") != -1) return path;
+	
+	// Otherwise, split on periods, and then prepend 
+	// stuff with '.wfid_'	
+	var paths = path.split(".");
+	for (var i=0; i<paths.length; i++) {
+		if (paths[i] == "") continue;
+		if (paths[i].indexOf("wfid_") == -1) {
+			paths[i] = "wfid_" + paths[i];
 		}
+		paths[i] = "." + paths[i];
 	}
 	
-	for (var i=0; i<elements.length; i++) {
-		var el = this.$scan_elements(path, elements[i].childNodes)
-		if (el) return el;
-	}
-
-	return null;
+	return paths.join(" ");
 }
-
 
 /*** EVENT WIRING ***/
 
-NitrogenClass.prototype.$observe_event = function(anchor, el, type, func) {
-	jQuery(anchor).parents().find(el).bind(type, func);
+NitrogenClass.prototype.$observe_event = function(anchor, path, type, func) {
+	this.$closest(path, anchor).bind(type, func);
 }
-
-
 
 /*** DYNAMIC UPDATING ***/
 
-NitrogenClass.prototype.$update = function(anchor, el, html) {
-	jQuery(anchor).parents().find(el).html(html);
+NitrogenClass.prototype.$update = function(anchor, path, html) {
+	this.$closest(path, anchor).html(html);
 }
 
-NitrogenClass.prototype.$replace = function(anchor, el, html) {
-	jQuery(anchor).parents().find(el).replaceWith(html);
+NitrogenClass.prototype.$replace = function(anchor, path, html) {
+	this.$closest(path, anchor).replaceWith(html);
 }
 
-NitrogenClass.prototype.$insert_top = function(anchor, el, html) {
-	jQuery(anchor).parents().find(el).prepend(html);
+NitrogenClass.prototype.$insert_top = function(anchor, path, html) {
+	this.$closest(path, anchor).prepend(html);
 }
 
-NitrogenClass.prototype.$insert_bottom = function(anchor, el, html) {
-	jQuery(anchor).parents().find(el).append(html);
+NitrogenClass.prototype.$insert_bottom = function(anchor, path, html) {
+	this.$closest(path, anchor).append(html);
 }
 
 
@@ -256,7 +273,7 @@ NitrogenClass.prototype.$is_key_code = function(event, keyCode) {
 }
 
 NitrogenClass.prototype.$go_next = function(controlID) {
-	var o = this.obj(controlID);
+	var o = obj(controlID);
 	if (o.focus) o.focus();
 	if (o.select) o.select();
 	if (o.click) o.click();
@@ -310,14 +327,18 @@ NitrogenClass.prototype.$datepicker = function(pickerObj, pickerOptions) {
 
 /*** DRAG AND DROP ***/
 
-NitrogenClass.prototype.$draggable = function(el, dragOptions, dragTag) {
-	var dragObj = jQuery(el).get(0);
-	dragObj.$drag_tag = dragTag;
-	jQuery(el).draggable(dragOptions);	
+NitrogenClass.prototype.$draggable = function(path, dragOptions, dragTag) {
+	objs(path).each(function(index, el) {
+		el.$drag_tag = dragTag;
+		jQuery(el).draggable(dragOptions);
+	});
 }
 
-NitrogenClass.prototype.$droppable = function(el, dropOptions, dropPostbackInfo) {
+NitrogenClass.prototype.$droppable = function(path, dropOptions, dropPostbackInfo) {
 	var n = this;
+	objs(path).each(function(index, el) {
+		n.$queue_event(el, el, dropPostbackInfo, "drag_item=" + dragItem);
+	})
 	dropOptions.drop = function(ev, ui) {
 		var dragItem = ui.draggable[0].$drag_tag;
 		n.$queue_event(el, el, dropPostbackInfo, "drag_item=" + dragItem);
@@ -330,7 +351,7 @@ NitrogenClass.prototype.$droppable = function(el, dropOptions, dropPostbackInfo)
 /*** SORTING ***/
 
 NitrogenClass.prototype.$sortitem = function(el, sortTag) {
-	var sortItem = jQuery(el).get(0);
+	var sortItem = obj(el);
 	sortItem.$sort_tag = sortTag;
 	sortItem.$drag_tag = sortTag;
 }
@@ -346,12 +367,16 @@ NitrogenClass.prototype.$sortblock = function(el, sortOptions, sortPostbackInfo)
 		}
 		n.$queue_event(el, el, sortPostbackInfo, "sort_items=" + sortItems);
 	};
-	jQuery(el).sortable(sortOptions);
+	objs(el).sortable(sortOptions);
 }
 
 
-function obj(path) {
-	return Nitrogen.obj(path);
+function obj(path, anchor) {
+	return Nitrogen.$closest(path, anchor).get(0);
+}
+
+function objs(path, anchor) {
+	return Nitrogen.$closest(path, anchor);
 }
 
 var Nitrogen = new NitrogenClass();

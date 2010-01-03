@@ -4,11 +4,13 @@
 
 reflect() -> record_info(fields, gravatar).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	Image = #image {
-	    image = gravatar_icon(Record)
+		id=Record#gravatar.id,
+		anchor=Record#gravatar.anchor,
+    image = gravatar_icon(Record)
 	},
-	element_image:render_element(HtmlID, Image).
+	element_image:render_element(Image).
 
 gravatar_icon(#gravatar{email=Email, size=Size, rating=Rating, default=Default}) ->
 	GravatarId = digest2str(erlang:md5(wf:clean_lower(Email))),

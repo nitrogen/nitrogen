@@ -8,9 +8,9 @@
 
 reflect() -> record_info(fields, image).
 
-render_element(HtmlID, Record) ->
+render_element(Record) ->
 	Attributes = [
-		{id, HtmlID},
+		% {id, HtmlID},
 		{class, [image, Record#image.class]},
 		{style, Record#image.style},
 		{src, Record#image.image}

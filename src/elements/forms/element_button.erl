@@ -8,16 +8,15 @@
 
 reflect() -> record_info(fields, button).
 
-render_element(HtmlID, Record) ->
+render_element(Record) ->
+	Anchor = Record#button.anchor,
 	case Record#button.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#button.id, #event { type=click, postback=Postback, delegate=Record#button.delegate })
+		Postback -> wf:wire(Anchor, #event { type=click, postback=Postback, delegate=Record#button.delegate })
 	end,
 	
 	Value = ["  ", wf:html_encode(Record#button.text, Record#button.html_encode), "  "], 
 	wf_tags:emit_tag(input, [
-		{id, HtmlID},
-		{name, HtmlID},
 		{type, button},
 		{class, [button, Record#button.class]},
 		{style, Record#button.style},

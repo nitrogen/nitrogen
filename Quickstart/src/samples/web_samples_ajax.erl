@@ -35,8 +35,7 @@ body() -> [
 	
 event(click) ->
 	% Get the message...
-	% Message = wf:q(theMessage),
-	Message = "Hello there",
+	Message = wf:q(theMessage),
 
 	% Replace old contents of this cell...
 	wf:update(updateCell, #panel { body=Message }),

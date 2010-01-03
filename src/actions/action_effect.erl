@@ -7,7 +7,6 @@
 -compile(export_all).
 
 render_action(Record) ->
-	?PRINT(Record),
 	#jquery_effect {
 		type=effect,
 		anchor = Record#effect.anchor,

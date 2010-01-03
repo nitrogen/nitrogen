@@ -9,7 +9,7 @@
 
 reflect() -> record_info(fields, google_chart).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	% Path...
 	Path = "http://chart.apis.google.com/chart?",
 
@@ -118,11 +118,13 @@ render_element(HtmlID, Record) ->
 	
 	% Render the image tag...
 	Image = #image {
-		class="google_chart " ++ wf:to_list(Record#google_chart.class),
+		id=Record#google_chart.id,
+		anchor=Record#google_chart.anchor,
+		class=[google_chart, Record#google_chart.class],
 		style = Record#google_chart.style,
 		image = lists:flatten([Path, Type, Title, TitleStyle, Size, Grid, BGColors, LegendLocation, BarSize, Axes, Data])
 	},
-	element_image:render_element(HtmlID, Image).
+	element_image:render_element(Image).
 	
 process_axis(N, Axis) ->
 	Position = case Axis#chart_axis.position of

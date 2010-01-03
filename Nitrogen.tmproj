@@ -41,13 +41,13 @@
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T00:54:34Z</date>
+					<date>2009-12-25T15:10:30Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_core.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-10T13:33:13Z</date>
+					<date>2009-12-25T16:20:21Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -108,8 +108,6 @@
 					<string>src/handlers</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -155,7 +153,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2009-12-16T13:01:16Z</date>
+					<date>2010-01-02T13:49:40Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -198,7 +196,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2009-11-06T02:28:31Z</date>
+					<date>2010-01-02T22:23:16Z</date>
 				</dict>
 			</array>
 			<key>name</key>

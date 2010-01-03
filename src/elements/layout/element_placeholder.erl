@@ -8,5 +8,5 @@
 
 reflect() -> record_info(fields, placeholder).
 
-render_element(_HtmlID, Record) -> 
+render_element(Record) -> 
 	Record#placeholder.body.

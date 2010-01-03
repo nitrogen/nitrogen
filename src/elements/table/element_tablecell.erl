@@ -8,14 +8,14 @@
 
 reflect() -> record_info(fields, tablecell).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	Body = [
 		wf:html_encode(Record#tablecell.text, Record#tablecell.html_encode),
 		Record#tablecell.body
 	],
 	
 	wf_tags:emit_tag(td, Body, [
-		{id, HtmlID},
+		% {id, HtmlID},
 		{class, [tablecell, Record#tablecell.class]},
 		{style, Record#tablecell.style},
 		{align, Record#tablecell.align},

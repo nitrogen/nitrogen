@@ -8,8 +8,10 @@
 
 reflect() -> record_info(fields, lightbox).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	Panel = #panel {
+		id=Record#lightbox.id,
+		anchor=Record#lightbox.anchor,
 		class=lightbox,
 		style="position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px; " ++ wf:to_list(Record#lightbox.style),
 		body=[
@@ -29,4 +31,4 @@ render_element(HtmlID, Record) ->
 			}
 		]
 	},
-	element_panel:render_element(HtmlID, Panel).
+	element_panel:render_element(Panel).

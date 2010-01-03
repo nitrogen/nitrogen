@@ -17,7 +17,7 @@
 
 reflect() -> record_info(fields, function_el).
 
-render_element(_HtmlID, Record) ->
+render_element(Record) ->
 	Functions = lists:flatten([Record#function_el.function]),
 	call_next_function(Functions).
 	

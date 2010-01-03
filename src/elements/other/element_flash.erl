@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, flash).
 	
-render_element(_HtmlID, _Record) -> 
+render_element(_Record) -> 
 	Terms = #panel { 
 		id=flash,
 		class=flash_container

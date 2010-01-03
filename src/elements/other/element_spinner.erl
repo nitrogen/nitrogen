@@ -8,11 +8,12 @@
 
 reflect() -> record_info(fields, spinner).
 
-render(_HtmlID, Record) -> 
+render_element(Record) -> 
 	wf:wire(spinner, #hide{}),
 	Terms = #panel {
-		id=spinner,
-		class=wf:f("spinner ~s", [Record#spinner.class]),
+		id=Record#spinner.id,
+		anchor=Record#spinner.anchor,
+		class=[spinner, Record#spinner.class],
 		style=Record#spinner.style,
 		body=#image { image=Record#spinner.image }
 	},

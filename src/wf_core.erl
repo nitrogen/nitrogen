@@ -89,7 +89,7 @@ serialize_context() ->
 	Page = wf_context:page_context(),
 	Handlers = wf_context:handlers(),
 	SerializedContextState = wf_pickle:pickle([Page, Handlers]),
-	wf:f("Nitrogen.$set_param('pageContext', '~s');", [SerializedContextState]).
+	wf:f("Nitrogen.$set_param('pageContext', '~s');~n", [SerializedContextState]).
 
 % deserialize_context_state/1 -
 % Updates the context with values that were stored

@@ -7,6 +7,7 @@
 -export ([
 	render_actions/2,
 	render_actions/4,
+	normalize_path/1,
 	to_js_id/1
 ]).
 
@@ -99,6 +100,7 @@ normalize_path(Path) when is_atom(Path) ->
 	string:join(Tokens1, " ");
 normalize_path(String) ->
 	case String of
+		"wfid_" ++ _ -> "." ++ String;
 		"temp" ++ _ -> ".wfid_" ++ String;
 		_ -> wf_utils:replace(String, "##", ".wfid_")
 	end.

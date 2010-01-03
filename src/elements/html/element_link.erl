@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, link).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	case Record#link.postback of
 		undefined -> ignore;
 		Postback -> wf:wire(Record#link.id, #event { type=click, postback=Postback, delegate=Record#link.delegate })
@@ -20,7 +20,7 @@ render_element(HtmlID, Record) ->
 	],
 	
 	wf_tags:emit_tag(a, Body, [
-		{id, HtmlID},
+		% {id, HtmlID},
 		{href, Record#link.url},
 		{class, [link, Record#link.class]},
 		{style, Record#link.style}

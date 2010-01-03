@@ -8,7 +8,8 @@
 
 reflect() -> record_info(fields, checkbox).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
+	Anchor = Record#checkbox.anchor,
 	CheckedOrNot = case Record#checkbox.checked of
 		true -> checked;
 		_ -> not_checked
@@ -22,8 +23,7 @@ render_element(HtmlID, Record) ->
 	[
 		% Checkbox...
 		wf_tags:emit_tag(input, [
-			{id, HtmlID}, 
-			{name, HtmlID},
+			{name, Anchor},
 			{type, checkbox},
 			{class, [checkbox, Record#checkbox.class]},
 			{style, Record#checkbox.style},
@@ -32,6 +32,6 @@ render_element(HtmlID, Record) ->
 
 		% Label for Checkbox...
 		wf_tags:emit_tag(label, Text, [
-			{for, HtmlID}
+			{for, Anchor}
 		])
 	].

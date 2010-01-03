@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, body).
 
-render_element(_HtmlID, Record) ->
+render_element(Record) ->
 	["
 	<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\">
 	<html>

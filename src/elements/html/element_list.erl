@@ -8,14 +8,14 @@
 
 reflect() -> record_info(fields, list).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	Tag = case Record#list.numbered of 
 		true -> ol;
 		_ -> ul
 	end,
 
 	wf_tags:emit_tag(Tag, Record#list.body, [
-		{id, HtmlID},
+		% {id, HtmlID},
 		{class, [list, Record#list.class]},
 		{style, Record#list.style}
 	]).

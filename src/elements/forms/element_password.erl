@@ -8,7 +8,7 @@
 
 reflect() -> record_info(fields, password).
 
-render_element(HtmlID, Record) -> 
+render_element(Record) -> 
 	case Record#password.next of
 		undefined -> ignore;
 		Next -> wf:wire(Record#password.id, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next]) })
@@ -20,8 +20,6 @@ render_element(HtmlID, Record) ->
 
 	Value = wf:html_encode(Record#password.text, Record#password.html_encode),
 	wf_tags:emit_tag(input, [
-		{id, HtmlID},
-		{name, HtmlID},
 		{type, password},
 		{class, [password, Record#password.class]},
 		{style, Record#password.style},

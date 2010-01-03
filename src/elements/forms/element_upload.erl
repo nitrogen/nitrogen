@@ -9,7 +9,7 @@
 
 reflect() -> record_info(fields, upload).
 
-render_element(HtmlID, Record) ->
+render_element(Record) ->
 	ShowButton = Record#upload.show_button,
 	ButtonText = Record#upload.button_text,
 	Tag = {upload_finished, Record},
@@ -24,8 +24,8 @@ render_element(HtmlID, Record) ->
 	% Render the controls and hidden iframe...
 	FormContent = [
 		wf_tags:emit_tag(input, [
-			{id, HtmlID},
-			{name, HtmlID},
+			% {id, HtmlID},
+			% {name, HtmlID},
 			{class, no_postback},
 			{type, file}
 		]),	
