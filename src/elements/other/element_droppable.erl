@@ -13,7 +13,7 @@ render_element(Record) ->
 	Delegate = Record#droppable.delegate,
 	Tag = Record#droppable.tag,
 	Anchor = Record#droppable.anchor,
-	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, Anchor, Anchor, ?MODULE),
+	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, undefined, ?MODULE),
 	ActiveClass = Record#droppable.active_class, 
 	HoverClass = Record#droppable.hover_class,
 	AcceptGroups = groups_to_accept(Record#droppable.accept_groups),

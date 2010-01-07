@@ -13,7 +13,7 @@ render_element(Record) ->
 	Anchor = Record#sortblock.anchor,
 	Tag = Record#sortblock.tag,
 	Delegate = Record#sortblock.delegate,
-	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, Anchor, Anchor, ?MODULE),
+	PostbackInfo = wf_event:serialize_event_context({Delegate, Tag}, Anchor, undefined, ?MODULE),
 	Handle = case Record#sortblock.handle of
 		undefined -> "null";
 		Other -> wf:f("'.~s'", [Other])

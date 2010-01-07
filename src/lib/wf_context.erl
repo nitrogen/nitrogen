@@ -189,21 +189,14 @@ event_tag(Tag) ->
 	Event = event_context(),
 	event_context(Event#event_context { tag = Tag }).
 	
-event_trigger() ->
+event_validation_group() ->
 	Event = event_context(),
-	Event#event_context.trigger.
+	Event#event_context.validation_group.
 	
-event_trigger(Trigger) ->
+event_validation_group(ValidationGroup) ->
 	Event = event_context(),
-	event_context(Event#event_context { trigger = Trigger }).
+	event_context(Event#event_context { validation_group = ValidationGroup }).
 
-event_target() ->
-	Event = event_context(),
-	Event#event_context.target.
-	
-event_target(Target) ->
-	Event = event_context(),
-	event_context(Event#event_context { target = Target }).
 
 
 %%% HANDLERS %%%

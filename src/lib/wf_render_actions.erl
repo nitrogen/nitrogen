@@ -8,7 +8,8 @@
 	render_actions/2,
 	render_actions/4,
 	normalize_path/1,
-	to_js_id/1
+	to_js_id/1,
+	generate_anchor_script/1
 ]).
 
 %%% RENDER ACTIONS %%%
@@ -72,14 +73,24 @@ inner_render_action(Action, Anchor, Trigger, Target) when is_tuple(Action) ->
 			Action1 = wf_utils:replace_with_base(Base1, Action),
 
 			% Render the action...
-		  Script = call_action_render(Module, Action1, Anchor2, Trigger2, Target2),
-			case Script /= undefined andalso lists:flatten(Script) /= [] of
-				true  -> [Script, "\n"];
+			AnchorScript = case Anchor2 of
+				undefined -> 
+					"";
+				_ ->
+					% ?PRINT(Action),
+					generate_anchor_script(Anchor2)
+			end,
+		  ActionScript = call_action_render(Module, Action1, Anchor2, Trigger2, Target2),
+			case ActionScript /= undefined andalso lists:flatten(ActionScript) /= [] of
+				true  -> [AnchorScript, ActionScript, "\n"];
 				false -> []
 			end;
 		_ -> 
 			[]
 	end.
+	
+generate_anchor_script(Anchor) ->
+	wf:f("Nitrogen.$anchor('~s');", [Anchor]).
 
 % call_action_render(Module, Action) -> {ok, Script}.
 % Calls the render_action/4 function of an action to turn an action record into Javascript.

@@ -8,8 +8,13 @@
 
 render_action(Record) -> 
 	% Some values...
+	?PRINT(Record),
 	TriggerPath = Record#validate.trigger,
 	TargetPath = Record#validate.target,
+	ValidationGroup = case Record#validate.group of
+		undefined -> TriggerPath;
+		Other -> Other
+	end,
 	ValidMessage = wf:js_escape(Record#validate.success_text),
 	OnlyOnBlur = (Record#validate.on == blur),
 	OnlyOnSubmit = (Record#validate.on == submit),	
@@ -19,8 +24,8 @@ render_action(Record) ->
 	end,
 
 	% Create the validator Javascript...
-	ConstructorJS = wf:f("var v = obj('me').validator = new LiveValidation(obj('me'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [wf:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
-	TriggerJS = wf:f("v.trigger = obj('~s');", [wf:to_js_id(TriggerPath)]),
+	ConstructorJS = wf:f("var v = obj('~s').validator = new LiveValidation(obj('me'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [TargetPath, wf:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
+	TriggerJS = wf:f("v.validation_group = '~s';", [ValidationGroup]),
 	
 	% Update all child validators with TriggerPath and TargetPath...
 	F = fun(X) ->

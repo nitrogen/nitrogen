@@ -18,8 +18,7 @@
   tag,        % An Erlang term that is passed along with the event
   type,       % The type of event postback, comet, continuation, upload
 	anchor,     % The element id to which trigger and target are relative.
-  trigger,    % The element id that triggered the event
-  target      % The element id that "receives" the event
+	validation_group % The validation group that should be run when this event is fired.
 }).
 
 % Handlers Context-
@@ -127,8 +126,8 @@
 -record(function, {?ACTION_BASE(action_function), function }).
 -record(set, {?ACTION_BASE(action_set), value}).
 -record(redirect, {?ACTION_BASE(action_redirect), url}).
--record(event, {?ACTION_BASE(action_event), type=default, keycode=undefined, delay=0, postback, delegate, extra_param}).
--record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", validators, attach_to }).
+-record(event, {?ACTION_BASE(action_event), type=default, keycode=undefined, delay=0, postback, validation_group, delegate, extra_param}).
+-record(validate, {?ACTION_BASE(action_validate), on=submit, success_text=" ", group, validators, attach_to }).
 -record(validation_error, {?ACTION_BASE(action_validation_error), text="" }).
 -record(alert, {?ACTION_BASE(action_alert), text=""}).
 -record(confirm, {?ACTION_BASE(action_confirm), text="", postback, delegate}).

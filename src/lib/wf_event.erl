@@ -6,10 +6,9 @@
 -include ("wf.inc").
 -export ([
 	update_context_with_event/0,
-	generate_postback_script/6,
-	generate_system_postback_script/5,
-	serialize_event_context/5,
-	generate_anchor_script/1
+	generate_postback_script/5,
+	generate_system_postback_script/4,
+	serialize_event_context/4
 ]).
 
 % This module looks at the incoming request for 'eventContext' and 'pageContext' params. 
@@ -46,36 +45,30 @@ update_context_for_first_request() ->
 
 update_context_for_postback_request(Event) ->
 	Anchor = Event#event_context.anchor,
-	Trigger = Event#event_context.trigger,
-	Target = Event#event_context.target,
+	ValidationGroup = Event#event_context.validation_group,
 	wf_context:type(postback_request),
 	wf_context:event_context(Event),
 	wf_context:anchor(Anchor),
-	wf_context:event_trigger(Trigger),
-	wf_context:event_target(Target),
+	wf_context:event_validation_group(ValidationGroup),
 	ok.
 
-generate_postback_script(undefined, _Anchor, _Trigger, _Target, _Delegate, _ExtraParam) -> [];
-generate_postback_script(Postback, Anchor, Trigger, Target, Delegate, ExtraParam) ->
-	PickledPostbackInfo = serialize_event_context(Postback, Anchor, Trigger, Target, Delegate),
-	wf:f("Nitrogen.$queue_event('~s', '~s', '~s', ~s);", [Anchor, Trigger, PickledPostbackInfo, ExtraParam]).
+generate_postback_script(undefined, _Anchor, _ValidationGroup, _Delegate, _ExtraParam) -> [];
+generate_postback_script(Postback, Anchor, ValidationGroup, Delegate, ExtraParam) ->
+	PickledPostbackInfo = serialize_event_context(Postback, Anchor, ValidationGroup, Delegate),
+	wf:f("Nitrogen.$queue_event('~s', '~s', ~s);", [ValidationGroup, PickledPostbackInfo, ExtraParam]).
 
-generate_system_postback_script(undefined, _Anchor, _Trigger, _Target, _Delegate) -> [];
-generate_system_postback_script(Postback, Anchor, Trigger, Target, Delegate) ->
-	PickledPostbackInfo = serialize_event_context(Postback, Anchor, Trigger, Target, Delegate),
+generate_system_postback_script(undefined, _Anchor, _ValidationGroup, _Delegate) -> [];
+generate_system_postback_script(Postback, Anchor, ValidationGroup, Delegate) ->
+	PickledPostbackInfo = serialize_event_context(Postback, Anchor, ValidationGroup, Delegate),
 	wf:f("Nitrogen.$queue_system_event('~s');", [PickledPostbackInfo]).
 	
-serialize_event_context(Tag, Anchor, Trigger, Target, Delegate) ->
+serialize_event_context(Tag, Anchor, ValidationGroup, Delegate) ->
 	PageModule = wf_context:page_module(),
 	EventModule = wf:coalesce([Delegate, PageModule]),
 	Event = #event_context {
 		module = EventModule,
 		tag = Tag,
 		anchor = Anchor,
-		trigger = Trigger,
-		target = Target
+		validation_group = ValidationGroup
 	},
 	wf_pickle:pickle(Event).
-	
-generate_anchor_script(Anchor) ->
-	wf:f("Nitrogen.$anchor('~s');", [Anchor]).

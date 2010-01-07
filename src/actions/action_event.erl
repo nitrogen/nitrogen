@@ -8,14 +8,14 @@
 
 render_action(#event { 
 	postback=Postback, actions=Actions, 
-	anchor=Anchor, trigger=Trigger, target=Target, 
+	anchor=Anchor, trigger=Trigger, target=Target, validation_group=ValidationGroup,
 	type=Type, keycode=KeyCode, delay=Delay, delegate=Delegate, 
 	extra_param=ExtraParam
 }) -> 
-
-	AnchorScript = wf_event:generate_anchor_script(Anchor), 
-	PostbackScript = wf_event:generate_postback_script(Postback, Anchor, Trigger, Target, Delegate, ExtraParam),
-	SystemPostbackScript = wf_event:generate_system_postback_script(Postback, Anchor, Trigger, Target, Delegate),
+	?PRINT(Anchor),
+  AnchorScript = wf_render_actions:generate_anchor_script(Anchor), 
+	PostbackScript = wf_event:generate_postback_script(Postback, Anchor, ValidationGroup, Delegate, ExtraParam),
+	SystemPostbackScript = wf_event:generate_system_postback_script(Postback, Anchor, ValidationGroup, Delegate),
 	WireAction = #wire { trigger=Trigger, target=Target, actions=Actions },
 
 	Script = case Type of
@@ -24,13 +24,14 @@ render_action(#event {
 		% Trigger a system postback immediately...
 		system when Delay == 0 ->
 			[
-				SystemPostbackScript, WireAction
+				AnchorScript, SystemPostbackScript, WireAction
 			];
 		
 		% Trigger a system postback after some delay...
 		system ->
 			TempID = wf:temp_id(),
 			[
+				AnchorScript,
 				wf:f("document.~s = function() {", [TempID]), SystemPostbackScript, WireAction, "};",
 				wf:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, TempID, Delay])
 			];
@@ -60,7 +61,6 @@ render_action(#event {
 			TempID = wf:temp_id(),
 			[
 				wf:f("document.~s = function() {", [TempID]), 
-				wf_event:generate_anchor_script(Anchor), 
 				AnchorScript, PostbackScript, WireAction, 
 				"};",
 				wf:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, TempID, Delay])

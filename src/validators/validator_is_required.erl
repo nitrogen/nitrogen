@@ -11,7 +11,7 @@ render_action(Record) ->
 	TargetPath = Record#is_required.target,
 	Text = wf:js_escape(Record#is_required.text),
 	CustomValidatorAction = #custom { trigger=TriggerPath, target=TargetPath, function=fun validate/2, text=Text, tag=Record },
-	Script = wf:f("obj('me').validator.add(Validate.Presence, { failureMessage: \"~s\" });", [Text]),
+	Script = wf:f("obj('~s').validator.add(Validate.Presence, { failureMessage: \"~s\" });", [TargetPath, Text]),
 	[CustomValidatorAction, Script].
 
 validate(_, Value) -> 

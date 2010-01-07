@@ -25,13 +25,12 @@ NitrogenClass.prototype.$set_param = function(key, value) {
 
 /*** EVENT QUEUE ***/
 
-NitrogenClass.prototype.$queue_event = function(anchorID, triggerID, eventContext, extraParam) {
+NitrogenClass.prototype.$queue_event = function(validationGroup, eventContext, extraParam) {
 	// Put an event on the event_queue.
 	this.$event_queue.push({
-		anchorID     : anchorID,
-		triggerID    : triggerID, // TODO this.obj(triggerID).id,
-		eventContext : eventContext,
-		extraParam   : extraParam
+		validationGroup : validationGroup,
+		eventContext    : eventContext,
+		extraParam      : extraParam
 	});
 }
 
@@ -55,20 +54,20 @@ NitrogenClass.prototype.$event_loop = function() {
 	// If no events are running and an event is queued, then fire it.
 	if (!this.$event_is_running && this.$event_queue.length > 0) {
     	var o = this.$event_queue.shift();
-    	this.$do_event(o.anchorID, o.triggerID, o.eventContext, o.extraParam);
+    	this.$do_event(o.validationGroup, o.eventContext, o.extraParam);
 	}
 }
 
 /*** VALIDATE AND SERIALIZE ***/
 
-NitrogenClass.prototype.$validate_and_serialize = function(triggerID) {
+NitrogenClass.prototype.$validate_and_serialize = function(validationGroup) {
 	// Check validatation, build list of params...
 	var is_valid = true;
 	var elements = jQuery(":input, :text, :password, :radio, :checkbox, :submit, :image, :reset, :button").not(".no_postback").get();
 	var params=new Array();
 	for (var i=0; i<elements.length; i++) {
 		var element = elements[i];
-		if (element.validator && (element.validator.trigger.id == triggerID) && !element.validator.validate()) {
+		if (element.validator && (element.validator.group == validationGroup) && !element.validator.validate()) {
 			// Set a flag, but keep validating to show all messages.
 			is_valid = false;
 		} else {
@@ -103,13 +102,12 @@ NitrogenClass.prototype.$make_id = function(element) {
 
 /*** AJAX METHODS ***/
 
-NitrogenClass.prototype.$do_event = function(anchorID, triggerID, eventContext, extraParam) {
+NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extraParam) {
 	// Flag to prevent firing multiple postbacks at the same time...
 	this.$event_is_running = true;
 
 	// Run validation...
-	Nitrogen.$anchor(anchorID);
-	var s = this.$validate_and_serialize(triggerID);	
+	var s = this.$validate_and_serialize(validationGroup);	
 	if (s == null) {
 		this.$event_is_running = false;
 		return;
@@ -193,8 +191,11 @@ NitrogenClass.prototype.$closest = function(path, anchor) {
 	// object finding matching paths.
 		
 	if (!anchor) anchor = this.$anchor_id;
-
+	anchor = this.$normalize_path(path);
 	path = this.$normalize_path(path);
+
+	alert("Anchor: " + anchor);
+	alert("Path: " + path);
 
 	if (path == 'me') {
 		return jQuery(anchor).get(0);
@@ -213,7 +214,7 @@ NitrogenClass.prototype.$closest = function(path, anchor) {
 		}		
 	}
 	
-	return nil;
+	return jQuery(path);
 }
 
 NitrogenClass.prototype.$normalize_path = function(path) {
@@ -336,14 +337,13 @@ NitrogenClass.prototype.$draggable = function(path, dragOptions, dragTag) {
 
 NitrogenClass.prototype.$droppable = function(path, dropOptions, dropPostbackInfo) {
 	var n = this;
-	objs(path).each(function(index, el) {
-		n.$queue_event(el, el, dropPostbackInfo, "drag_item=" + dragItem);
-	})
 	dropOptions.drop = function(ev, ui) {
 		var dragItem = ui.draggable[0].$drag_tag;
-		n.$queue_event(el, el, dropPostbackInfo, "drag_item=" + dragItem);
+		n.$queue_event(null, dropPostbackInfo, "drag_item=" + dragItem);
 	}
-	jQuery(el).droppable(dropOptions);
+	objs(path).each(function(index, el) {
+		jQuery(el).droppable(dropOptions);
+	});
 }
 
 
@@ -365,7 +365,7 @@ NitrogenClass.prototype.$sortblock = function(el, sortOptions, sortPostbackInfo)
 			if (sortItems != "") sortItems += ",";
 			if (childNode.$sort_tag) sortItems += childNode.$sort_tag;
 		}
-		n.$queue_event(el, el, sortPostbackInfo, "sort_items=" + sortItems);
+		n.$queue_event(null, sortPostbackInfo, "sort_items=" + sortItems);
 	};
 	objs(el).sortable(sortOptions);
 }

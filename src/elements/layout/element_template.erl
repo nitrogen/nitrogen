@@ -115,7 +115,7 @@ eval([H|T], Record) -> [replace_callbacks(H, Record)|eval(T, Record)].
 replace_callbacks(CallbackTuples, Record) ->
 	Bindings = Record#template.bindings,
 	Functions = [convert_callback_tuple_to_function(M, F, ArgString, Bindings) || {M, F, ArgString} <- CallbackTuples],
-	#function_el { function=Functions }.
+	#function_el { anchor=page, function=Functions }.
 	
 convert_callback_tuple_to_function(Module, Function, ArgString, Bindings) ->
 	% De-reference to page module...

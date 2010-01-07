@@ -61,23 +61,31 @@ render_element(Element) when is_tuple(Element) ->
 			% temp_id() for both the HtmlID and TempID.
 			% Otherwise, create a new TempID. Update the class
 			% with either one or both.
-			{HtmlID, TempID, Class} = 
-			case Base#elementbase.id of
-				undefined -> 
-					T = normalize_id(temp_id()),
-					{T, T, [T|Base#elementbase.class]};
-				Other -> 
-					T1 = normalize_id(Other),
-					T2 = normalize_id(temp_id()),
-					{T1, T2, [T1, T2|Base#elementbase.class]}
-			end,
-
-			% Update the base element with the new id and class...
-			Base1 = Base#elementbase { id=HtmlID, anchor=TempID, class=Class },
-			Element1 = wf_utils:replace_with_base(Base1, Element),
 			
-			% Wire the actions...
-			Anchor = "." ++ TempID,
+			% Get the anchor, or create a new one if it's not defined...
+			Anchor = case Base#elementbase.anchor of
+				undefined -> normalize_id(temp_id());
+				Other1 -> normalize_id(Other1)
+			end,
+			
+			% Get the ID, or use the anchor if it's not defined...
+			ID = case Base#elementbase.id of
+				undefined -> Anchor;
+				Other2 -> normalize_id(Other2)
+			end,
+			
+			% Update the class...
+			Class = case Anchor == ID of
+				true  -> [ID, Base#elementbase.class];
+				false -> [ID, Anchor, Base#elementbase.class]
+			end,
+			
+			% Update the base element with the new id and class...
+			Base1 = Base#elementbase { id=ID, anchor=Anchor, class=Class },
+			Element1 = wf_utils:replace_with_base(Base1, Element),
+			?PRINT(Element1),
+			
+			% Wire the actions...			
 			wf_context:anchor(Anchor),
 			wf:wire(Base1#elementbase.actions),
 			
@@ -92,7 +100,7 @@ render_element(Element) when is_tuple(Element) ->
 			{ok, []}
 		end.
 	
-% call_element_render(Module, HtmlID, Element) -> {ok, Html}.
+% call_element_render(Module, Element) -> {ok, Html}.
 % Calls the render_element/3 function of an element to turn an element record into
 % HTML.
 call_element_render(Module, Element) ->
@@ -100,11 +108,10 @@ call_element_render(Module, Element) ->
 	NewElements = Module:render_element(Element),
 	{ok, _Html} = render_elements(NewElements, []).
 	
-% Convert the following forms into a string...
 normalize_id(ID) -> 
 	case wf_utils:to_string_list(ID) of
-		[]      -> "";
-		[NewID] -> "wfid_" ++ NewID
+		["page"] -> "page";
+		[NewID]  -> "wfid_" ++ NewID
 	end.
 
 to_html_id(P) ->

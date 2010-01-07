@@ -18,9 +18,8 @@ render_action(Record) ->
 	{ok, Html, Script} = wf_render:render(Elements, [], Anchor, Trigger, Target), 
 	
 	% Turn the HTML into a Javascript statement that will update the right element.
-	AnchorScript = wf_event:generate_anchor_script(Anchor),
 	ScriptifiedHtml = wf:f("Nitrogen.$~s(\"~s\", \"~s\", \"~s\");", [Type, Anchor, Target, wf:js_escape(Html)]),
-	[ScriptifiedHtml, AnchorScript, Script].
+	[ScriptifiedHtml, Script].
 	
 update(Target, Elements) -> 
 	update(update, Target, Elements).
