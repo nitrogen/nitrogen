@@ -10,21 +10,23 @@
 reflect() -> record_info(fields, upload).
 
 render_element(Record) ->
+	Anchor = Record#upload.anchor,
 	ShowButton = Record#upload.show_button,
 	ButtonText = Record#upload.button_text,
 	Tag = {upload_finished, Record},
 	FormID = wf:temp_id(),
 	IFrameID = wf:temp_id(),
-	SubmitJS = wf:f("Nitrogen.$upload(obj('~s'));", [FormID]),
+	SubmitJS = wf:f("Nitrogen.$upload(jQuery('#~s').get(0));", [FormID]),
 	PostbackInfo = wf_event:serialize_event_context(Tag, Record#upload.id, undefined, ?MODULE),
 	
 	% If the button is invisible, then start uploading when the user selects a file.
-	wf:wire(Record#upload.id, #event { show_if=(not ShowButton), type=change, actions=SubmitJS }),
+	wf:wire(Anchor, #event { show_if=(not ShowButton), type=change, actions=SubmitJS }),
 	
 	% Render the controls and hidden iframe...
 	FormContent = [
 		wf_tags:emit_tag(input, [
-			{class, no_postback},
+			{name, file},
+			{class, [no_postback|Anchor]},
 			{type, file}
 		]),	
 	
@@ -81,8 +83,9 @@ event({upload_finished, Record}) ->
 	end,
 	
 	% Make the tag...
+	Anchor = wf_context:anchor(),
 	ValidationGroup = wf_context:event_validation_group(),
-	Postback = wf_event:generate_postback_script(NewTag, ValidationGroup, ?MODULE),
+	Postback = wf_event:generate_postback_script(NewTag, Anchor, ValidationGroup, ?MODULE, undefined),
 	
 	% Set the response...
 	wf_context:data([

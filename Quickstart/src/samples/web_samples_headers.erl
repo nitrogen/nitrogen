@@ -13,7 +13,6 @@ headline() -> "Headers".
 right() -> linecount:render().
 
 body() -> 
-	?PRINT(wf:headers()),
 	Headers = [{wf:to_list(Key), wf:to_list(Value)} || {Key, Value} <- wf:headers()],
 
 	[

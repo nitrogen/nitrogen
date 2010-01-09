@@ -25,8 +25,7 @@ body() -> [
 	#p{},
 	"This example hides he upload button. When the user selects a file it will automatically start uploading.",
 	#p{},
-	#upload { tag=myUpload1, show_button=false }
-	
+	#upload { tag=myUpload1, show_button=false }	
 ].
 	
 event(_) -> ok.
