@@ -68,5 +68,10 @@ display_property({Prop, Value}) when is_binary(Value); ?IS_STRING(Value) ->
 
 display_property({Prop, Values}) ->
 	StrValues = wf_utils:to_string_list(Values),
-	[" ", Prop, "=\"", string:strip(string:join(StrValues, " ")), "\""].
+	StrValues1 = string:strip(string:join(StrValues, " ")),
+	StrValues2 = case Prop of
+		"class" -> wf_utils:replace(StrValues1, ".", "");
+		_ -> StrValues1
+	end,
+	[" ", Prop, "=\"", StrValues2, "\""].
 

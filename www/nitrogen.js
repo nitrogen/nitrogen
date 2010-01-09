@@ -65,6 +65,7 @@ NitrogenClass.prototype.$validate_and_serialize = function(validationGroup) {
 	var is_valid = true;
 	var elements = jQuery(":input, :text, :password, :radio, :checkbox, :submit, :image, :reset, :button").not(".no_postback").get();
 	var params=new Array();
+
 	for (var i=0; i<elements.length; i++) {
 		var element = elements[i];
 		if (element.validator && (element.validator.group == validationGroup) && !element.validator.validate()) {
@@ -193,9 +194,6 @@ NitrogenClass.prototype.$closest = function(path, anchor) {
 	if (!anchor) anchor = this.$anchor_id;
 	anchor = this.$normalize_path(path);
 	path = this.$normalize_path(path);
-
-	alert("Anchor: " + anchor);
-	alert("Path: " + path);
 
 	if (path == 'me') {
 		return jQuery(anchor).get(0);

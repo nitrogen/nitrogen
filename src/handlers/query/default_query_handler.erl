@@ -24,44 +24,79 @@ init(_State) ->
 	PostParams = RequestBridge:post_params(),
 
 	% Load into state...
-	NewState = QueryParams ++ PostParams,
-	{ok, NewState}.
+	Params = QueryParams ++ PostParams,
+	
+	% Pre-normalize the parameters.
+	Params1 = [normalize_param(X) || X <- Params],
+	{ok, Params1}.
 	
 finish(_State) -> 
 	% Clear out the state.
 	{ok, []}.
-
+	
+%% Given a path, return the value that matches the path.
 get_value(Path, State) ->
-	% Convert Key to a fuzzy string
-	NPath = normalize(Path),
-	NPathSize = length(NPath),
+	Params = State,
+	Path1 = normalize_path(Path),
+	?PRINT(Path1),
+	?PRINT(State),
 	
-	% Function to check if our query key ends with NPath.
-	F = fun({X, _Y}) -> 
-		XPath = string:right(X, NPathSize),
-		("_" ++ NPath == "_" ++ XPath) orelse
-		(NPath == X)
-	end,
-	
-	% Filter and return the result.
-	% If there is only one, then return the rightmost result, otherwise
-	% return a list of results
-	Results = [Value || {_Key, Value} <- lists:filter(F, State)],	
-	case Results of 
-		[] -> undefined;
-		[Value] -> Value;
-		Values -> Values
-	end.
+	% First, get all params whose first element equals the 
+	% first element of the path we are looking for. In the process,
+	% take the tail of the paths.
+	Params1 = [{tl(P), V} || {P, V} <- Params, hd(P) == hd(Path1)],
 
-%%% PRIVATE FUNCTIONS %%%
+	% Call refine_params/2 to further refine our search.
+	Matches = refine_params(tl(Path1), Params1),
+	case Matches of
+		[] -> undefined;
+		[One] -> One;
+		_Many -> throw({?MODULE, too_many_matches, Path})
+	end.
 	
-normalize(Path) ->
-	% Convert to a string and replace periods (.) with underscores (_).
-	S = wf:to_list(Path),
-	_S1 = replace($., $_, S).
+%% Next, narrow down the parameters by keeping only the parameters
+%% that contain the next element found in path, while shrinking the 
+%% parameter paths at the same time.
+%% For example, if:
+%% 	Path   = [a, b, c] 
+%% 	Params = [{[x, a, y, b, c], _}] 
+%% Then after the first round of refine_params/2 we would have:
+%%   Path   = [b, c]
+%%   Params = [y, b, c]
+refine_params([], Params) -> 
+	[V || {_, V} <- Params];
+refine_params([H|T], Params) ->
+	F = fun({Path, Value}, Acc) ->
+		case split_on(H, Path) of
+			[] -> Acc;
+			RemainingPath -> [{RemainingPath, Value}|Acc]
+		end
+	end,
+	Params1 = lists:foldl(F, [], Params),
+	refine_params(T, lists:reverse(Params1)).
 	
-replace(Old, New, [Old|T]) -> [New|T];
-replace(Old, New, [H|T]) -> [H|replace(Old, New, T)];
-replace(_, _, []) -> [].
-		
+split_on(_,  []) -> [];
+split_on(El, [El|T]) -> T;
+split_on(El, [_|T]) -> split_on(El, T).
+	
+%% Path will be a dot separated list of identifiers.
+%% Split and reverse.
+normalize_param({Path, Value}) ->
+	{normalize_path(Path), Value}.
+	
+normalize_path(Path) when is_atom(Path) ->
+	normalize_path(atom_to_list(Path));
+	
+normalize_path(Path) when ?IS_STRING(Path) ->
+	Tokens = string:tokens(Path, "."),
+	Tokens1 = [strip_wfid(X) || X <- Tokens],
+	lists:reverse(Tokens1).
+
+%% Most tokens will start with "wfid_". Strip this out.
+strip_wfid(Path) ->
+	case Path of 
+		"wfid_" ++ S -> S;
+		S -> S
+	end.
+	
 	

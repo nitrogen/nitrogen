@@ -7,15 +7,12 @@
 -compile(export_all).
 
 render_action(Record) -> 
-	TriggerPath = Record#validation_error.trigger,
 	TargetPath = Record#validation_error.target,
 	Text = wf:js_escape(Record#validation_error.text),
-	Script = [
-		"var v = new LiveValidation(obj('me'), { onlyOnSubmit: true });",
+	[
+		wf:f("var v = new LiveValidation(obj('~s'), { onlyOnSubmit: true });", [TargetPath]),
 		wf:f("v.add(Validate.Custom, { against: Nitrogen.$return_false, failureMessage: \"~s\", displayMessageWhenEmpty: true });", [Text]),
 		"v.validate();"
-	],
-	
-	#script { trigger=TriggerPath, target=TargetPath, script=Script }.
+	].
 		
 	

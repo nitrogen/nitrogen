@@ -108,9 +108,6 @@ to_js_id(Path) ->
 js_escape(String) -> 
 	_String = wf_utils:js_escape(String).
 	
-to_html_id(Path) -> 
-	_String = wf_render_elements:to_html_id(Path).
-	
 temp_id() -> 
 	_String = wf_render_elements:temp_id().
 	

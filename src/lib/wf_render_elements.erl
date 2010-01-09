@@ -6,8 +6,7 @@
 -include ("wf.inc").
 -export ([
 	render_elements/1,
-	temp_id/0,
-	to_html_id/1
+	temp_id/0
 ]).
 
 % render_elements(Elements) - {ok, Html}
@@ -83,7 +82,6 @@ render_element(Element) when is_tuple(Element) ->
 			% Update the base element with the new id and class...
 			Base1 = Base#elementbase { id=ID, anchor=Anchor, class=Class },
 			Element1 = wf_utils:replace_with_base(Base1, Element),
-			?PRINT(Element1),
 			
 			% Wire the actions...			
 			wf_context:anchor(Anchor),
@@ -110,14 +108,10 @@ call_element_render(Module, Element) ->
 	
 normalize_id(ID) -> 
 	case wf_utils:to_string_list(ID) of
-		["page"] -> "page";
-		[NewID]  -> "wfid_" ++ NewID
+		["page"] -> ".page";
+		[NewID]  -> ".wfid_" ++ NewID
 	end.
 
-to_html_id(P) ->
-	P1 = lists:reverse(P),
-	string:join(P1, "__").
-	
 temp_id() ->
 	{_, _, C} = now(), 
 	"temp" ++ integer_to_list(C).

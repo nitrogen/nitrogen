@@ -8,7 +8,6 @@
 
 render_action(Record) -> 
 	% Some values...
-	?PRINT(Record),
 	TriggerPath = Record#validate.trigger,
 	TargetPath = Record#validate.target,
 	ValidationGroup = case Record#validate.group of
@@ -24,8 +23,8 @@ render_action(Record) ->
 	end,
 
 	% Create the validator Javascript...
-	ConstructorJS = wf:f("var v = obj('~s').validator = new LiveValidation(obj('me'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [TargetPath, wf:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
-	TriggerJS = wf:f("v.validation_group = '~s';", [ValidationGroup]),
+	ConstructorJS = wf:f("var v = obj('~s').validator = new LiveValidation(obj('~s'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [TargetPath, TargetPath, wf:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
+	TriggerJS = wf:f("v.group = '~s';", [ValidationGroup]),
 	
 	% Update all child validators with TriggerPath and TargetPath...
 	F = fun(X) ->
@@ -39,6 +38,4 @@ render_action(Record) ->
   % Use #script element to create the final javascript to send to the browser...
 	[
 		ConstructorJS, TriggerJS, Validators1
-	].
-	
-
+	].	

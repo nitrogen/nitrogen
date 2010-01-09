@@ -47,7 +47,7 @@
 					<key>filename</key>
 					<string>src/wf_core.erl</string>
 					<key>lastUsed</key>
-					<date>2009-12-25T16:20:21Z</date>
+					<date>2010-01-07T22:20:06Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -92,6 +92,8 @@
 					<string>src/project</string>
 				</dict>
 				<dict>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>elements</string>
 					<key>regexFolderFilter</key>
@@ -108,6 +110,8 @@
 					<string>src/handlers</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
 		</dict>
@@ -153,7 +157,7 @@
 					<key>filename</key>
 					<string>include/wf.inc</string>
 					<key>lastUsed</key>
-					<date>2010-01-02T13:49:40Z</date>
+					<date>2010-01-03T23:48:11Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -196,7 +200,7 @@
 					<key>filename</key>
 					<string>www/nitrogen.js</string>
 					<key>lastUsed</key>
-					<date>2010-01-02T22:23:16Z</date>
+					<date>2010-01-07T22:20:06Z</date>
 				</dict>
 			</array>
 			<key>name</key>

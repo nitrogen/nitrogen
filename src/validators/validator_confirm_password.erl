@@ -18,5 +18,7 @@ render_action(Record)  ->
 	validator_js_custom:render_action(#js_custom { trigger=TriggerPath, target=TargetPath, function=JSFunction, text=Text }).
 
 validate(Record, Value) ->
+	?PRINT(Record#confirm_password.password),
 	Password = wf:q(Record#confirm_password.password),
+	?PRINT(Password),
 	Value == Password.

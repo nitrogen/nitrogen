@@ -9,12 +9,10 @@
 ]).
 
 
-
 % get_value(Path, State) -> Value.
 % Given a path, return the parameter value.
 get_value(Path) ->
 	_Value = wf_handler:call_readonly(query_handler, get_value, [Path]).
-		
 		
 
 behaviour_info(callbacks) -> [
