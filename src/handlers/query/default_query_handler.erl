@@ -38,12 +38,9 @@ finish(_State) ->
 get_value(Path, State) ->
 	Params = State,
 	Path1 = normalize_path(Path),
-	?PRINT(Params),
 	
 	% Call refine_params/2 to further refine our search.
 	Matches = refine_params(Path1, Params),
-	?PRINT(Path1),
-	?PRINT(Matches),
 	case Matches of
 		[] -> undefined;
 		[One] -> One;
