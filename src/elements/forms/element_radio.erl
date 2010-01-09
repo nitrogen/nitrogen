@@ -9,6 +9,7 @@
 reflect() -> record_info(fields, radio).
 
 render_element(Record) -> 
+	ID = Record#radio.id,
 	Anchor = Record#radio.anchor,
 	CheckedOrNot = case Record#radio.checked of
 		true -> checked;
@@ -17,7 +18,7 @@ render_element(Record) ->
 
 	case Record#radio.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#radio.id, #event { type=change, postback=Postback, delegate=Record#radio.delegate })
+		Postback -> wf:wire(Anchor, #event { type=change, postback=Postback, validation_group=ID, delegate=Record#radio.delegate })
 	end,
 
 	Content = wf:html_encode(Record#radio.text, Record#radio.html_encode),
@@ -25,7 +26,6 @@ render_element(Record) ->
 	[
 		%% Checkbox...
 		wf_tags:emit_tag(input, [
-			{id, Anchor}, 
 			{name, Record#radio.name},
 			{value, Record#radio.value},
 			{type, radio},

@@ -12,7 +12,6 @@ render_element(Record) ->
 	Rows = Record#table.rows,
 	
 	wf_tags:emit_tag(table, Rows, [
-		% {id, HtmlID},
 		{border, 0},
 		{cellpadding, 0},
 		{cellspacing, 0},

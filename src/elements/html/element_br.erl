@@ -10,7 +10,6 @@ reflect() -> record_info(fields, br).
 
 render_element(Record) -> 
 	wf_tags:emit_tag(br, [
-		% {id, HtmlID},
 		{class, [br, Record#br.class]}, 
 		{style, Record#br.style}
 	]).

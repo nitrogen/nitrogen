@@ -9,6 +9,7 @@
 reflect() -> record_info(fields, textbox).
 
 render_element(Record) -> 
+	ID = Record#textbox.id,
 	Anchor = Record#textbox.anchor,
 	case Record#textbox.next of
 		undefined -> ignore;
@@ -19,13 +20,11 @@ render_element(Record) ->
 
 	case Record#textbox.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Anchor, #event { type=enterkey, postback=Postback, delegate=Record#textbox.delegate })
+		Postback -> wf:wire(Anchor, #event { type=enterkey, postback=Postback, validation_group=ID, delegate=Record#textbox.delegate })
 	end,
 	
 	Value = wf:html_encode(Record#textbox.text, Record#textbox.html_encode),
 	wf_tags:emit_tag(input, [
-		% {id, HtmlID}, 
-		% {name, HtmlID},
 		{type, text}, 
 		{class, [textbox, Record#textbox.class]},
 		{style, Record#textbox.style},

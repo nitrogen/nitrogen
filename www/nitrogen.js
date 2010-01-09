@@ -72,9 +72,9 @@ NitrogenClass.prototype.$validate_and_serialize = function(validationGroup) {
 			// Set a flag, but keep validating to show all messages.
 			is_valid = false;
 		} else {
-			// if (element.type == "radio") {
-			// 	params.push(element.id + "=" + element.checked);
-			// }
+			// Skip any unchecked radio boxes.
+			if (element.type == "radio" && !element.checked) continue;
+
 			var full_id = this.$make_id(element);
 			var value = element.value;
 			params.push(full_id + "=" + encodeURIComponent(value));

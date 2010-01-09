@@ -9,13 +9,15 @@
 reflect() -> record_info(fields, password).
 
 render_element(Record) -> 
+	ID = Record#password.id,
+	Anchor = Record#password.anchor,
 	case Record#password.next of
 		undefined -> ignore;
-		Next -> wf:wire(Record#password.id, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next]) })
+		Next -> wf:wire(Anchor, #event { type=enterkey, actions=wf:f("Nitrogen.$go_next('~s');", [Next]) })
 	end,
 	case Record#password.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#password.id, #event { type=enterkey, postback=Postback, delegate=Record#password.delegate })
+		Postback -> wf:wire(Anchor, #event { type=enterkey, postback=Postback, validation_group=ID, delegate=Record#password.delegate })
 	end,
 
 	Value = wf:html_encode(Record#password.text, Record#password.html_encode),

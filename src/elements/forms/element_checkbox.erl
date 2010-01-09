@@ -9,6 +9,7 @@
 reflect() -> record_info(fields, checkbox).
 
 render_element(Record) -> 
+	ID = Record#checkbox.id,
 	Anchor = Record#checkbox.anchor,
 	CheckedOrNot = case Record#checkbox.checked of
 		true -> checked;
@@ -16,7 +17,7 @@ render_element(Record) ->
 	end,
 	case Record#checkbox.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Record#checkbox.id, #event { type=change, postback=Postback, delegate=Record#checkbox.delegate })
+		Postback -> wf:wire(Anchor, #event { type=change, postback=Postback, validation_group=ID, delegate=Record#checkbox.delegate })
 	end,
 	
 	Text = wf:html_encode(Record#checkbox.text, Record#checkbox.html_encode),

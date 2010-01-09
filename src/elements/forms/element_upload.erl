@@ -24,8 +24,6 @@ render_element(Record) ->
 	% Render the controls and hidden iframe...
 	FormContent = [
 		wf_tags:emit_tag(input, [
-			% {id, HtmlID},
-			% {name, HtmlID},
 			{class, no_postback},
 			{type, file}
 		]),	

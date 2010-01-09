@@ -9,10 +9,11 @@
 reflect() -> record_info(fields, dropdown).
 
 render_element(Record) -> 
+	ID = Record#dropdown.id,
 	Anchor = Record#dropdown.anchor,
 	case Record#dropdown.postback of
 		undefined -> ignore;
-		Postback -> wf:wire(Anchor, #event { type=change, postback=Postback, delegate=Record#dropdown.delegate })
+		Postback -> wf:wire(Anchor, #event { type=change, postback=Postback, validation_group=ID, delegate=Record#dropdown.delegate })
 	end,
 
 	case Record#dropdown.value of 
@@ -26,8 +27,6 @@ render_element(Record) ->
 	end,
 
 	wf_tags:emit_tag(select, Options, [
-		% {id, HtmlID},
-		% {name, HtmlID},
 		{class, [dropdown, Record#dropdown.class]},
 		{style, Record#dropdown.style}
 	]).

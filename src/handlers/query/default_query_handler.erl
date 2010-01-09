@@ -38,16 +38,12 @@ finish(_State) ->
 get_value(Path, State) ->
 	Params = State,
 	Path1 = normalize_path(Path),
-	?PRINT(Path1),
-	?PRINT(State),
+	?PRINT(Params),
 	
-	% First, get all params whose first element equals the 
-	% first element of the path we are looking for. In the process,
-	% take the tail of the paths.
-	Params1 = [{tl(P), V} || {P, V} <- Params, hd(P) == hd(Path1)],
-
 	% Call refine_params/2 to further refine our search.
-	Matches = refine_params(tl(Path1), Params1),
+	Matches = refine_params(Path1, Params),
+	?PRINT(Path1),
+	?PRINT(Matches),
 	case Matches of
 		[] -> undefined;
 		[One] -> One;
@@ -68,15 +64,15 @@ refine_params([], Params) ->
 refine_params([H|T], Params) ->
 	F = fun({Path, Value}, Acc) ->
 		case split_on(H, Path) of
-			[] -> Acc;
-			RemainingPath -> [{RemainingPath, Value}|Acc]
+			{ok, RemainingPath} -> [{RemainingPath, Value}|Acc];
+			false -> Acc
 		end
 	end,
 	Params1 = lists:foldl(F, [], Params),
 	refine_params(T, lists:reverse(Params1)).
 	
-split_on(_,  []) -> [];
-split_on(El, [El|T]) -> T;
+split_on(_,  []) -> false;
+split_on(El, [El|T]) -> {ok, T};
 split_on(El, [_|T]) -> split_on(El, T).
 	
 %% Path will be a dot separated list of identifiers.

@@ -31,9 +31,10 @@ event({checked, Number}) ->
 	ok;
 	
 event(clicked_button) ->
-	
 	wf:flash("Radio button " ++ wf:q(myRadio) ++ " is selected."),
-	wf:flash("Is radio button 1 selected: " ++ wf:q(myRadio1)),
+	
+	IsRadio1 = (wf:q(myRadio1) /= undefined),
+	wf:flash("Is radio button 1 selected: " ++ atom_to_list(IsRadio1)),
 	ok; 
 
 event(_) -> ok.
