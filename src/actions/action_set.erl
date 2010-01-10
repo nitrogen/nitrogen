@@ -8,6 +8,7 @@
 
 % This action is used internally by Nitrogen.
 render_action(Record) ->
+	Target = Record#set.target,
 	Value = wf:js_escape(wf:to_list(Record#set.value)),
 	wf:f("Nitrogen.$set_value('me', \"~s\");", [Value]).
 	

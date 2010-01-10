@@ -19,7 +19,7 @@ render_element(Record) ->
 	 html_encode = Record#datepicker_textbox.html_encode
 	},
 
-	Script = wf:f("Nitrogen.$datepicker(obj('me'), ~s);", [Options]),
+	Script = wf:f("Nitrogen.$datepicker(obj('~s'), ~s);", [Anchor, Options]),
 	wf:wire(Anchor, #script { script=Script }),
 
 	element_textbox:render_element(Textbox).

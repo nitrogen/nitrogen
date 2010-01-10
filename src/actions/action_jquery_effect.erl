@@ -7,7 +7,6 @@
 -compile(export_all).
 
 render_action(Record) ->
-	Anchor = Record#jquery_effect.anchor,
 	Target = Record#jquery_effect.target,
 	Effect = Record#jquery_effect.effect,
 	Speed = Record#jquery_effect.speed, 
@@ -29,7 +28,7 @@ render_action(Record) ->
 		'remove_class' -> wf:f("removeClass('~s', ~p);", [Class, Speed]);
 		'animate' -> wf:f("animate(~s, ~p, '~s');", [Options, Speed, Easing])
 	end,
-	wf:f("jQuery(\"~s\").parents().find(\"~s\").~s", [Anchor, Target, Script]).
+	wf:f("objs('~s').~s", [Target, Script]).
 	
 
 %% Options is a list of {Key,Value} tuples	

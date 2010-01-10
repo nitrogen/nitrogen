@@ -7,10 +7,11 @@
 -compile(export_all).
 
 render_action(Record) ->
+	Anchor = Record#api.anchor,
 	Name = Record#api.name,
 	Tag = {api_event, Record},
 	[
-		wf:f("obj('me').~s = function() {", [Name]),
+		wf:f("obj('~s').~s = function() {", [Anchor, Name]),
 			"var s = Nitrogen.$encode_arguments_object(arguments);",
 		  #event { postback=Tag, delegate=?MODULE, extra_param="s" },
 		"}"

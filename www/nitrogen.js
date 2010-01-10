@@ -15,8 +15,9 @@ function NitrogenClass(o) {
 
 /*** PRIVATE METHODS ***/
 
-NitrogenClass.prototype.$anchor = function(anchor) {
-	this.$anchor_id = anchor;
+NitrogenClass.prototype.$anchor = function(anchor, target) {
+	this.$anchor_path = anchor;
+	this.$target_path = target;
 }
 
 NitrogenClass.prototype.$set_param = function(key, value) {
@@ -190,13 +191,21 @@ NitrogenClass.prototype.$closest = function(path, anchor) {
 	// Similar to the jQuery .closest() operator, but not
 	// exactly like it. Walks up levels starting at the anchor
 	// object finding matching paths.
-		
-	if (!anchor) anchor = this.$anchor_id;
+	
+	// Return the document itself...
+	if (path == "page" || path == ".page") {
+		return jQuery('');
+	}
+	
+	// Normalize stuff...
+	if (!anchor) anchor = this.$anchor_path;
 	anchor = this.$normalize_path(path);
 	path = this.$normalize_path(path);
 
-	if (path == 'me') {
-		return jQuery(anchor).get(0);
+	// If the user passed 'me' as the path, then fall back
+	// on the target path that was set in the last $anchor statement.
+	if (path == 'me' && this.$target_path != 'me') {
+		return this.$closest(this.$target_path, anchor);
 	}
 	
 	var results = jQuery(anchor).find(path);
