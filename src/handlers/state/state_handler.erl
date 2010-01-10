@@ -38,12 +38,12 @@ clear_all() ->
 
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_state, 3},       
-	{set_state, 3},	
-	{clear, 2},
-	{clear_all, 1}
+	{init, 2},
+	{finish, 2},
+	{get_state, 4},
+	{set_state, 4},
+	{clear, 3},
+	{clear_all, 2}
 ];
 
 behaviour_info(_) -> undefined.

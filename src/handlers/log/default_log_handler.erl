@@ -5,27 +5,27 @@
 -module (default_log_handler).
 -behaviour (log_handler).
 -export ([
-	init/1, 
-	finish/1,
-	info/2, 
-	warning/2, 
-	error/2
+	init/2, 
+	finish/2,
+	info/3, 
+	warning/3, 
+	error/3
 ]).
 
-init(State) -> 
+init(_Config, State) -> 
 	{ok, State}.
 	
-finish(State) -> 
+finish(_Config, State) -> 
 	{ok, State}.
 
-info(S, State) -> 
+info(S, _Config, State) -> 
 	error_logger:info_msg([S, "\n"]),
 	{ok, State}.
 
-warning(S, State) -> 
+warning(S, _Config, State) -> 
 	error_logger:warning_msg([S, "\n"]),
 	{ok, State}.
 
-error(S, State) -> 
+error(S, _Config, State) -> 
 	error_logger:error_msg([S, "\n"]),
 	{ok, State}.

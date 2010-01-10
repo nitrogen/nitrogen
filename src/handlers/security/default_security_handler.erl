@@ -5,12 +5,12 @@
 -module (default_security_handler).
 -behaviour (security_handler).
 -export ([
-	init/1, 
-	finish/1
+	init/2, 
+	finish/2
 ]).
 
-init(State) -> 
+init(_Config, State) -> 
 	{ok, State}.
 
-finish(State) -> 
+finish(_Config, State) -> 
 	{ok, State}.

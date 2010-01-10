@@ -36,10 +36,10 @@ get_pid(Key, Function) ->
 		
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_pid, 2},
-	{get_pid, 3}
+	{init, 2},      
+	{finish, 2},
+	{get_pid, 3},
+	{get_pid, 4}
 ];
 
 behaviour_info(_) -> undefined.

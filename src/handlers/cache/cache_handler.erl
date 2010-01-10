@@ -29,10 +29,10 @@ clear_all() ->
 
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_cached, 4}, 
-	{clear, 2},
-	{clear_all, 1}
+	{init, 2},
+	{finish, 2},
+	{get_cached, 5}, 
+	{clear, 3},
+	{clear_all, 2}
 ];
 behaviour_info(_) -> undefined.

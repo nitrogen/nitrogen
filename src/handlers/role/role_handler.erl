@@ -32,11 +32,11 @@ clear_all() ->
 
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_has_role, 2},
-	{set_has_role, 3},
-	{get_roles, 1},
-	{clear_all, 1}	
+	{init, 2},
+	{finish, 2},
+	{get_has_role, 3},
+	{set_has_role, 4},
+	{get_roles, 2},
+	{clear_all, 2}
 ];
 behaviour_info(_) -> undefined.

@@ -5,24 +5,24 @@
 -module (default_cache_handler).
 -behaviour (cache_handler).
 -export ([
-	init/1, 
-	finish/1,
-	get_cached/4,
-	clear/2, 
-	clear_all/1
+	init/2, 
+	finish/2,
+	get_cached/5,
+	clear/3, 
+	clear_all/2
 ]).
 
-init(State) -> 
+init(_Config, State) -> 
 	{ok, State}.
 
-finish(State) -> 
+finish(_Config, State) -> 
 	{ok, State}.
 
-get_cached(_Key, Function, _TTL, State) -> 
+get_cached(_Key, Function, _TTL, _Config, State) -> 
 	{ok, Function(), State}.
 
-clear(_Key, State) -> 
+clear(_Key, _Config, State) -> 
 	{ok, State}.
 
-clear_all(State) -> 
+clear_all(_Config, State) -> 
 	{ok, State}.

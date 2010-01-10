@@ -3,7 +3,6 @@
 -compile(export_all).
 
 main() ->	
-	?DEBUG,
 	#template { file="./wwwroot/twocolumn.html", bindings=[
 		{'Group', learn},
 		{'Item', samples}

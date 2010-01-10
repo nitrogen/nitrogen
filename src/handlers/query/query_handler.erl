@@ -16,9 +16,9 @@ get_value(Path) ->
 		
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_value, 2}
+	{init, 2},      
+	{finish, 2},
+	{get_value, 3}
 ];
 
 behaviour_info(_) -> undefined.

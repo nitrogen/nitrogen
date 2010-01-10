@@ -6,11 +6,11 @@
 -behaviour (route_handler).
 -include ("wf.inc").
 -export ([
-	init/1, 
-	finish/1
+	init/2, 
+	finish/2
 ]).
 
-init(Module) -> 
+init(Module, State) -> 
 	% Some values...
 	RequestBridge = wf_context:request_bridge(),
 	Path = RequestBridge:path(),
@@ -18,7 +18,7 @@ init(Module) ->
 	% Update the page_context with the path and module.
 	wf_context:page_module(Module),
 	wf_context:path_info(Path),
-	{ok, Module}.
+	{ok, State}.
 		
-finish(Module) -> 
-	{ok, Module}.
+finish(_Config, State) -> 
+	{ok, State}.

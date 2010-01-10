@@ -86,8 +86,11 @@ finish_static_request() ->
 % Serialize part of Context and send it to the browser
 % as Javascript variables.
 serialize_context() ->
+  % Get page context...
 	Page = wf_context:page_context(),
-	Handlers = wf_context:handlers(),
+	
+	% Get handler context, but don't serialize the config.
+	Handlers = [X#handler_context { config=undefined } || X <- wf_context:handlers()],
 	SerializedContextState = wf_pickle:pickle([Page, Handlers]),
 	wf:f("Nitrogen.$set_param('pageContext', '~s');~n", [SerializedContextState]).
 
@@ -98,6 +101,9 @@ deserialize_context() ->
 	RequestBridge = wf_context:request_bridge(),	
 	Params = RequestBridge:post_params(),
 	
+	% Save the old handles...
+	OldHandlers = wf_context:handlers(),
+	
 	% Deserialize page_context and handler_list if available...
 	SerializedPageContext = proplists:get_value("pageContext", Params),
 	[Page, Handlers] = case SerializedPageContext of
@@ -105,12 +111,24 @@ deserialize_context() ->
 		Other -> wf_pickle:depickle(Other)
 	end,
 	
+	% Config is not serialized, so copy config from old handler list to new
+	% handler list.
+	Handlers1 = copy_handler_config(OldHandlers, Handlers),
+	
 	% Create a new context...
 	wf_context:page_context(Page),
-	wf_context:handlers(Handlers),
+	wf_context:handlers(Handlers1),
 	
 	% Return the new context...
 	ok.
+	
+copy_handler_config([], []) -> [];
+copy_handler_config([H1|T1], [H2|T2]) when H1#handler_context.name == H2#handler_context.name ->
+	[H2#handler_context { config=H1#handler_context.config }|copy_handler_config(T1, T2)];
+copy_handler_config(L1, L2) -> 
+	?PRINT(L1),
+	?PRINT(L2),
+	throw({?MODULE, handler_list_has_changed}).
 		
 %%% SET UP AND TEAR DOWN HANDLERS %%%
 	
@@ -120,11 +138,8 @@ deserialize_context() ->
 % the session handler may use the cookie handler to get or set the session cookie.
 call_init_on_handlers() ->
 	Handlers = wf_context:handlers(),
-	F = fun(#handler_context { name=Name, module=Module, state=State }) -> 
-		{ok, NewState} = Module:init(State),
-		wf_handler:set_handler(Name, Module, NewState)
-	end,	
-	[F(X) || X <- Handlers].
+	[wf_handler:call(X#handler_context.name, init) || X <- Handlers],
+	ok.
 
 % finish_handlers/1 - 
 % Handlers are finished in the order that they exist in #context.handlers. The order
@@ -133,12 +148,8 @@ call_init_on_handlers() ->
 % put in place by the other handlers.
 call_finish_on_handlers() ->
 	Handlers = wf_context:handlers(),
-	F = fun(#handler_context { name=Name, module=Module, state=State }) -> 
-		{ok, NewState} = Module:finish(State),
-		wf_handler:set_handler(Name, Module, NewState)
-	end,
-	[F(X) || X <- Handlers].
-	
+	[wf_handler:call(X#handler_context.name, finish) || X <- Handlers],
+	ok.	
 	
 	
 %%% FIRST REQUEST %%%

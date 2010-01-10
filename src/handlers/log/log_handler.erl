@@ -40,10 +40,10 @@ error(String) ->
 
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{info, 2},       
-	{warning, 2},	
-	{error, 2}
+	{init, 2},      
+	{finish, 2},
+	{info, 3},       
+	{warning, 3},	
+	{error, 4}
 ];
 behaviour_info(_) -> undefined.

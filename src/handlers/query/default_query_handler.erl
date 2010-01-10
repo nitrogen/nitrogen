@@ -11,12 +11,12 @@
 -behaviour (query_handler).
 -include ("wf.inc").
 -export ([
-	init/1, 
-	finish/1,
-	get_value/2
+	init/2, 
+	finish/2,
+	get_value/3
 ]).
 
-init(_State) -> 
+init(_Config, _State) -> 
 	% Get query params and post params
 	% from the request bridge...
 	RequestBridge = wf_context:request_bridge(),
@@ -30,12 +30,12 @@ init(_State) ->
 	Params1 = [normalize_param(X) || X <- Params],
 	{ok, Params1}.
 	
-finish(_State) -> 
+finish(_Config, _State) -> 
 	% Clear out the state.
 	{ok, []}.
 	
 %% Given a path, return the value that matches the path.
-get_value(Path, State) ->
+get_value(Path, _Config, State) ->
 	Params = State,
 	Path1 = normalize_path(Path),
 	

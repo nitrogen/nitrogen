@@ -113,7 +113,10 @@ temp_id() ->
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%% EXPOSE HEADERS %%%
+%%% EXPOSE REQUEST INFORMATION %%%
+
+path_info() ->
+	wf_context:path_info().
 
 status_code() -> 
 	ok = wf_context:status_code().

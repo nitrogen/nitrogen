@@ -6,20 +6,20 @@
 -include ("wf.inc").
 -behaviour (config_handler).
 -export ([
-	init/1, 
-	finish/1,
-	get_value/3,
-	get_values/3 
+	init/2, 
+	finish/2,
+	get_value/4,
+	get_values/4 
 ]).
 
-init(_State) -> 
+init(_Config, _State) -> 
 	{ok, []}.
 
-finish(_State) -> 
+finish(_Config, _State) -> 
 	{ok, []}.
 	
-get_value(Key, DefaultValue, State) ->
-	case get_values(Key, [DefaultValue], State) of
+get_value(Key, DefaultValue, Config, State) ->
+	case get_values(Key, [DefaultValue], Config, State) of
 		[Value] -> Value;
 		Values ->
 			error_logger:error_msg("Too many matching config values for key: ~p~n", [Key]),
@@ -30,7 +30,7 @@ get_value(Key, DefaultValue, State) ->
 % environment. If we don't find the key there
 % then try to read from the command line and
 % convert to a term.
-get_values(Key, DefaultValue, _State) -> 
+get_values(Key, DefaultValue, _Config, _State) -> 
 	case application:get_env(Key) of
 		{ok, Value} -> Value;
 		undefined ->

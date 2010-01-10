@@ -28,7 +28,8 @@
 -record(handler_context, {
 	name,    % The name of a handler. See wf_context for a list.
 	module,     % A module that provides the logic for a handler. This can be substituted by your app.
-	state       % An Erlang Struct that holds the state of a module.
+	config,     % The config of the handler, set at the beginning of each request.
+	state       % The state of the handler, serialized and maintained between postbacks in a series.
 }).
 
 -record(context, {

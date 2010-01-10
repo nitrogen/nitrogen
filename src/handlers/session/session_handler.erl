@@ -20,11 +20,11 @@
 
 % Example Session Handler Interface
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_value, 3},       
-	{set_value, 3},
-	{clear_all, 1}
+	{init, 2},      
+	{finish, 2},
+	{get_value, 4},       
+	{set_value, 4},
+	{clear_all, 2}
 ];
 behaviour_info(_) -> undefined.
 

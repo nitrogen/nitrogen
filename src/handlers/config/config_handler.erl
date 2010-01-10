@@ -26,10 +26,10 @@ get_values(Key, DefaultValue) ->
 	_Value = wf_handler:call_readonly(config_handler, get_values, [Key, DefaultValue]).
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_value, 3},
-	{get_values, 3}
+	{init, 2},      
+	{finish, 2},
+	{get_value, 4},
+	{get_values, 4}
 ];
 
 behaviour_info(_) -> undefined.

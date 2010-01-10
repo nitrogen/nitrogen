@@ -6,24 +6,53 @@
 -behaviour (route_handler).
 -include ("wf.inc").
 -export ([
-	init/1, 
-	finish/1
+	init/2, 
+	finish/2
 ]).
 
-init(undefined) -> init([]);
-init(Routes) -> 
+%% @doc
+%% The named route handler allows you to specify strongly
+%% named routes that are then dispatched to modules. Routes
+%% are of the form {Prefix, Module} where Prefix is a string
+%% and Module is an atom name of a module, or 'static_file' if
+%% this should be treated as a static file or directory.
+%%
+%% Here is a an example setting up some routes, taken from
+%% the SlideBlast.com configuration. The root
+%% path would go to web_index, any requests for "/view/..."
+%% go to web_view, any requests for "/nitrogen" are treated
+%% as a static file, etc.
+%%
+%%	wf_handler:set_handler(named_route_handler, [
+%%        % Modules...
+%%        {"/", web_index},
+%%        {"/view", web_view},
+%%        {"/img", web_img},
+%%        
+%%        % Static directories...
+%%        {"/nitrogen", static_file},
+%%        {"/js", static_file},
+%%        {"/images", static_file},
+%%        {"/css", static_file}
+%%  ])
+
+
+init(undefined, State) -> init([], State);
+init(Routes, State) -> 
 	% Get the path...
 	RequestBridge = wf_context:request_bridge(),
 	Path = RequestBridge:path(),
 	
 	% Match to the longest possible route.
 	{Module, PathInfo} = route(Path, Routes),
+	?PRINT(Module),
 	{Module1, PathInfo1} = check_for_404(Module, PathInfo, Path),
+	?PRINT(Module1),
 	wf_context:page_module(Module1),
 	wf_context:path_info(PathInfo1),
-	{ok, Routes}.
+	{ok, State}.
 	
-finish(State) -> 
+finish(_Config, State) -> 
 	{ok, State}.
 
 %%% PRIVATE FUNCTIONS %%%

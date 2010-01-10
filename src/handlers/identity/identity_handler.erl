@@ -27,10 +27,10 @@ clear() ->
 
 
 behaviour_info(callbacks) -> [
-	{init, 1},      
-	{finish, 1},
-	{get_user, 1},	
-	{set_user, 2},
-	{clear, 1}	
+	{init, 2},
+	{finish, 2},
+	{get_user, 2},
+	{set_user, 3},
+	{clear, 2}
 ];
 behaviour_info(_) -> undefined.

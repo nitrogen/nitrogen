@@ -6,11 +6,27 @@
 -behaviour (route_handler).
 -include ("wf.inc").
 -export ([
-	init/1, 
-	finish/1
+	init/2, 
+	finish/2
 ]).
 
-init(_) -> 
+%% @doc
+%% dynamic_route_handler looks at the requested path and file extension
+%% to determine how a request should be served. If the request path has no 
+%% extension, then it assumes this request should be handled by a Nitrogen
+%% page module that matches the path with slashes converted to underscores.
+%% If no module is found, then it will chop off the last part of the path 
+%% (storing it for later access in wf:path_info/0) and try again, repeating
+%% until either a module is found, or there are no more parts to chop. If
+%% a module still can't be found, then the web_404 module is used if defined
+%% by the user, otherwise a 404 is generated internally.
+%% 
+%% Requests for "/" are automatically sent to web_index.
+%%
+%% If the request path does have an extension, then it is treated like a request
+%% for a static file. This is delegated back to the HTTP server.
+
+init(_Config, State) -> 
 	% Get the path...
 	RequestBridge = wf_context:request_bridge(),
 	Path = RequestBridge:path(),
@@ -24,14 +40,15 @@ init(_) ->
 	wf_context:page_module(Module1),
 	wf_context:path_info(PathInfo1),
 
-	{ok, undefined}.
+	{ok, State}.
 	
-finish(_State) -> 
-	{ok, []}.
+finish(_Config, State) -> 
+	{ok, State}.
 
 %%% PRIVATE FUNCTIONS %%%
 
-% No routes are specified, so do dynamic routing.
+% First, check if this is a request for the root path. If so
+% then just send it to web_index.
 % Check if there is an extension, if so, it's static.
 % Otherwise, try to load a module according to each part of the path.
 % First, cycle through code:all_loaded(). If not there, then check erl_prim_loader:get_file()
@@ -84,8 +101,6 @@ try_load_module(Tokens, ExtraTokens) ->
 			try_load_module(Tokens1, ExtraTokens1)
 	end.
 	
-
-
 
 check_for_404(static_file, _PathInfo, Path) ->
 	{static_file, Path};
