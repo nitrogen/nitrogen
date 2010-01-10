@@ -13,15 +13,22 @@ render_element(Record) ->
 	Anchor = Record#upload.anchor,
 	ShowButton = Record#upload.show_button,
 	ButtonText = Record#upload.button_text,
-	Tag = {upload_finished, Record},
+	StartedTag = {upload_started, Record},
+	FinishedTag = {upload_finished, Record}, 
 	FormID = wf:temp_id(),
 	IFrameID = wf:temp_id(),
+	ButtonID = wf:temp_id(),
 	SubmitJS = wf:f("Nitrogen.$upload(jQuery('#~s').get(0));", [FormID]),
-	PostbackInfo = wf_event:serialize_event_context(Tag, Record#upload.id, undefined, ?MODULE),
+	PostbackInfo = wf_event:serialize_event_context(FinishedTag, Record#upload.id, undefined, ?MODULE),
 	
+	% Create a postback that is called when the user first starts the upload...
+	wf:wire(Anchor, #event { show_if=(not ShowButton), type=change, delegate=?MODULE, actions=postback=StartedTag }),
+	wf:wire(ButtonID, #event { show_if=ShowButton, type=click, delegate=?MODULE, postback=StartedTag }),
+
 	% If the button is invisible, then start uploading when the user selects a file.
 	wf:wire(Anchor, #event { show_if=(not ShowButton), type=change, actions=SubmitJS }),
-	
+	wf:wire(ButtonID, #event { show_if=ShowButton, type=click, actions=SubmitJS }),
+		
 	% Render the controls and hidden iframe...
 	FormContent = [
 		wf_tags:emit_tag(input, [
@@ -50,7 +57,7 @@ render_element(Record) ->
 			{value, ""}
 		]),
 		
-		#button { show_if=ShowButton, text=ButtonText, actions=#event { type=click, actions=SubmitJS } }
+		#button { id=ButtonID, show_if=ShowButton, text=ButtonText }
 	],
 	
 	[
@@ -70,6 +77,15 @@ render_element(Record) ->
 		])
 	].
 	
+% This event is fired when the user first clicks the upload button.
+event({upload_started, Record}) ->
+	Module = wf:coalesce([Record#upload.delegate, wf:page_module()]),
+	Module:start_upload_event(Record#upload.tag);
+    
+	
+% This event is called once the upload post happens behind the scenes.
+% It happens somewhat outside of Nitrogen, so the next thing we do
+% is trigger a postback that happens inside of Nitrogen. 
 event({upload_finished, Record}) ->
 	wf_context:type(first_request),
 	Req = wf_context:request_bridge(),
@@ -95,6 +111,8 @@ event({upload_finished, Record}) ->
 		"</script></body></html>"
 	]);
 
+% This event is fired by the upload_finished event, it calls
+% back to the page or control that contained the upload element.
 event({upload_event, Record, OriginalName, TempFile}) ->
 	Module = wf:coalesce([Record#upload.delegate, wf:page_module()]),
-	Module:upload_event(Record#upload.tag, OriginalName, TempFile).
+	Module:finish_upload_event(Record#upload.tag, OriginalName, TempFile).

@@ -30,11 +30,14 @@ body() -> [
 	
 event(_) -> ok.
 
-upload_event(_Tag, undefined, _) ->
+start_upload_event(myUpload1) ->
+	wf:flash("Upload started.").
+	
+finish_upload_event(_Tag, undefined, _) ->
 	wf:flash("Please select a file."),
 	ok;
 
-upload_event(_Tag, FileName, LocalFileData) ->
+finish_upload_event(_Tag, FileName, LocalFileData) ->
 	FileSize = filelib:file_size(LocalFileData),
 	wf:flash(wf:f("Uploaded file: ~s (~p bytes)", [FileName, FileSize])),
 	ok.

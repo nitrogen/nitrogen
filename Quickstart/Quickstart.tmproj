@@ -8,7 +8,9 @@
 			<key>filename</key>
 			<string>Emakefile</string>
 			<key>lastUsed</key>
-			<date>2009-12-24T14:16:40Z</date>
+			<date>2010-01-10T15:01:00Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -23,7 +25,7 @@
 					<key>filename</key>
 					<string>apps/quickstart_inets.app</string>
 					<key>lastUsed</key>
-					<date>2009-09-24T00:29:03Z</date>
+					<date>2010-01-10T15:24:05Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -83,7 +85,7 @@
 					<key>filename</key>
 					<string>src/quickstart.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-10T14:46:17Z</date>
+					<date>2010-01-10T15:00:59Z</date>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -113,9 +115,7 @@
 					<key>filename</key>
 					<string>src/web_index.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T00:54:37Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-01-10T15:00:58Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -152,8 +152,6 @@
 					<date>2009-10-10T14:46:15Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Code</string>
 		</dict>
