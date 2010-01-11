@@ -6,7 +6,7 @@
 -define (PORT, 8000).
 
 start(_, _) ->
-	default_process_cabinet_handler:start(),
+	default_process_registry_handler:start(),
 	inets:start(),
 	{ok, Pid} = inets:start(httpd, [
 		{port, ?PORT},

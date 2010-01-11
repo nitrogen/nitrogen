@@ -2,8 +2,8 @@
 % Copyright (c) 2008-2009 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
--module (default_process_cabinet_handler).
--behaviour (process_cabinet_handler).
+-module (default_process_registry_handler).
+-behaviour (process_registry_handler).
 -include ("wf.inc").
 -export ([
 	start/0,
@@ -13,7 +13,7 @@
 	get_pid/4
 ]).
 
--define (TABLE, process_cabinet).
+-define (TABLE, process_registry).
 
 start() ->
 	% TODO - this needs to be way more robust.

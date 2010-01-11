@@ -172,7 +172,7 @@ event(start_async) ->
 	
 %% - POOL - %%
 
-% Retrieve a Pid from the process_cabinet for the specified pool.
+% Retrieve a Pid from the process_registry for the specified pool.
 % A pool can either be local or global. In a local pool, messages sent
 % to the pool are only sent to async processes for one browser window.
 % In a global pool, messages sent to the pool are sent to all processes
@@ -182,7 +182,7 @@ get_pool_pid(SeriesID, Pool, Scope) ->
 		local  -> {Pool, SeriesID};
 		global -> {Pool, global}
 	end,
-	{ok, _Pid} = process_cabinet_handler:get_pid({async_pool, PoolID}, fun() -> pool_loop([]) end).
+	{ok, _Pid} = process_registry_handler:get_pid({async_pool, PoolID}, fun() -> pool_loop([]) end).
 
 % The pool loop keeps track of the AsyncFunction processes in a pool, 
 % and is responsible for distributing messages to all processes in the pool.
@@ -209,9 +209,9 @@ pool_loop(Processes) ->
 
 %% - ACCUMULATOR - %%
 
-% Retrieve a Pid from the process cabinet for the specified Series.
+% Retrieve a Pid from the process registry for the specified Series.
 get_accumulator_pid(SeriesID) ->
-	{ok, _Pid} = process_cabinet_handler:get_pid({async_accumulator, SeriesID}, fun() -> accumulator_loop([], [], none, undefined) end).
+	{ok, _Pid} = process_registry_handler:get_pid({async_accumulator, SeriesID}, fun() -> accumulator_loop([], [], none, undefined) end).
 
 % The accumulator_loop keeps track of guardian processes within a pool,
 % and gathers actions from the various AsyncFunctions in order 

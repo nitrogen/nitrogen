@@ -59,7 +59,7 @@ clear_all(Config, SessionName) ->
 	
 get_session_pid(_Config, SessionName) ->
 	Timeout = wf:config_default(nitrogen_session_timeout, 20),
-	{ok, Pid} = process_cabinet_handler:get_pid(SessionName, fun() -> session_loop([], Timeout) end),
+	{ok, Pid} = process_registry_handler:get_pid(SessionName, fun() -> session_loop([], Timeout) end),
 	{ok, Pid}.
 
 session_loop(Session, Timeout) ->
