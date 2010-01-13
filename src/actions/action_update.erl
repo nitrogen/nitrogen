@@ -32,6 +32,9 @@ insert_top(Target, Elements) ->
 
 insert_bottom(Target, Elements) -> 
 	update(insert_bottom, Target, Elements).
+	
+remove(Target) ->
+	update(remove, Target, []).
 
 %%% PRIVATE FUNCTIONS %%%
 

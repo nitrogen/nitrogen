@@ -201,7 +201,7 @@ NitrogenClass.prototype.$closest = function(path, anchor) {
 	if (!anchor) anchor = this.$anchor_path;
 	anchor = this.$normalize_path(path);
 	path = this.$normalize_path(path);
-
+	
 	// If the user passed 'me' as the path, then fall back
 	// on the target path that was set in the last $anchor statement.
 	if (path == 'me' && this.$target_path != 'me') {
@@ -228,11 +228,17 @@ NitrogenClass.prototype.$normalize_path = function(path) {
 	// If path == 'me' then it is already normalized...
 	if (path == "me") return path;
 	
-	// If path has spaces or periods, then it is already normalized.
-	if (path.indexOf(" ") != -1) return path;
+	// Replace '##' with '.wfid_'
+	path = path.replace(/##/g, '.wfid_');
 	
-	// Otherwise, split on periods, and then prepend 
-	// stuff with '.wfid_'	
+	// Check for form element1.element2.element3...
+	var re = new RegExp(/^[\w\d_]+(\.[\w\d_]+)*$/);
+	if (!re.test(path)) {
+			return path;
+	} 
+	
+	// In the form element1.element2.element3...
+	// Split on periods, and then prepend stuff with '.wfid_'	
 	var paths = path.split(".");
 	for (var i=0; i<paths.length; i++) {
 		if (paths[i] == "") continue;
@@ -267,6 +273,10 @@ NitrogenClass.prototype.$insert_top = function(anchor, path, html) {
 
 NitrogenClass.prototype.$insert_bottom = function(anchor, path, html) {
 	this.$closest(path, anchor).append(html);
+}
+
+NitrogenClass.prototype.$remove = function(anchor, path) {
+	this.$closest(path, anchor).remove();
 }
 
 

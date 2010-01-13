@@ -14,23 +14,26 @@ page_module() -> wf_context:page_module().
 wire(Actions) -> 
 	ok = wire(undefined, undefined, Actions).
 	
-wire(TargetID, Actions) -> 
-	ok = wire(TargetID, TargetID, Actions).
+wire(Target, Actions) -> 
+	ok = wire(Target, Target, Actions).
 	
-wire(TriggerID, TargetID, Actions) -> 
-	ok = action_wire:wire(TriggerID, TargetID, Actions).
+wire(Trigger, Target, Actions) -> 
+	ok = action_wire:wire(Trigger, Target, Actions).
 
-update(TargetID, Elements) -> 
-	ok = action_update:update(TargetID, Elements).
+update(Target, Elements) -> 
+	ok = action_update:update(Target, Elements).
 	
-replace(TargetID, Elements) ->
-	ok = action_update:replace(TargetID, Elements).
+replace(Target, Elements) ->
+	ok = action_update:replace(Target, Elements).
 	
-insert_top(TargetID, Elements) -> 
-	ok = action_update:insert_top(TargetID, Elements).
+insert_top(Target, Elements) -> 
+	ok = action_update:insert_top(Target, Elements).
 	
-insert_bottom(TargetID, Elements) -> 
-	ok = action_update:insert_bottom(TargetID, Elements).
+insert_bottom(Target, Elements) -> 
+	ok = action_update:insert_bottom(Target, Elements).
+	
+remove(Target) ->
+	ok = action_update:remove(Target).
 
 flash(Elements) ->
 	element_flash:add_flash(Elements).
