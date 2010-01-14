@@ -16,6 +16,31 @@ body() -> [
 	"In addition to referencing elements based on the element name, Nitrogen now allows 
 	you to use jQuery style paths to reference your elements.
 	<p>
+	For example:
+	",
+	#p{},
+	#link { text="Click to highlight all boxes with TargetPath== \".box\"", actions=[
+		#event { target=".box", type=click, actions=#effect { effect=highlight, speed=1000, options=[{color, "#ffff00"}] } }
+	]}, 
+	#br{},
+	#link { text="Click to highlight all boxes with TargetPath == \".box:even\"", actions=[
+			#event { target=".box:even", type=click, actions=#effect { effect=highlight, speed=1000, options=[{color, "#ffff00"}] } }
+	]},
+	#br{},
+	#link { text="Click to highlight all boxes with TargetPath == \".box:odd\"", actions=[
+			#event { target=".box:odd", type=click, actions=#effect { effect=highlight, speed=1000, options=[{color, "#ffff00"}] } }
+	]},
+	#p{},	
+	#panel { class=box, style=?STYLE, body="Box 0" },
+	#panel { class=box, style=?STYLE, body="Box 1" },
+	#panel { class=box, style=?STYLE, body="Box 2" },
+	#panel { class=box, style=?STYLE, body="Box 3" },
+	#panel { class=box, style=?STYLE, body="Box 4" },
+	#p{ style="clear:both;" },	
+	#hr {},
+	"
+	jQuery selectors can be used in all places where a trigger or target are specified, ie:
+	<p>
 	<pre>wf:wire(TargetPath, ...actions...)</pre>
 	<pre>wf:wire(TriggerPath, TargetPath, ...actions...)</pre>
 	<pre>#event { target=TargetPath }</pre>	
@@ -37,25 +62,5 @@ body() -> [
 	<p>
 	See <a href='http://docs.jquery.com/Selectors'>jQuery selector documentation</a> for more information
 	on jQuery selectors.
-	<p>
-	Some examples of jQuery selectors in action:
-	",
-	#p{},
-	#link { text="Highlight all boxes with TargetPath== \".box\"", actions=[
-		#event { target=".box", type=click, actions=#effect { effect=highlight, speed=1000, options=[{color, "#ffff00"}] } }
-	]}, 
-	#br{},
-	#link { text="Highlight all boxes with TargetPath == \".box:even\"", actions=[
-			#event { target=".box:even", type=click, actions=#effect { effect=highlight, speed=1000, options=[{color, "#ffff00"}] } }
-	]},
-	#br{},
-	#link { text="Toggle all boxes with TargetPath == \".box:odd\"", actions=[
-			#event { target=".box:odd", type=click, actions=#effect { effect=highlight, speed=1000, options=[{color, "#ffff00"}] } }
-	]},
-	#p{},	
-	#panel { class=box, style=?STYLE, body="Box 0" },
-	#panel { class=box, style=?STYLE, body="Box 1" },
-	#panel { class=box, style=?STYLE, body="Box 2" },
-	#panel { class=box, style=?STYLE, body="Box 3" },
-	#panel { class=box, style=?STYLE, body="Box 4" }
+	"
 ].
