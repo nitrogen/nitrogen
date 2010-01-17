@@ -37,7 +37,7 @@ column2() -> [
 	#link { text="Postbacks", url="/web/samples/postback" }, #br{}, 
 	#link { text="AJAX Updates", url="/web/samples/ajax" }, #br{}, 
 	#link { text="AJAX Replace", url="/web/samples/replace" }, #br{},
-	#link { text="AJAX Deletes", url="/web/samples/delete" }, #br{},
+	#link { text="AJAX Remove", url="/web/samples/remove" }, #br{},
 	#link { text="JQuery Paths", url="/web/samples/jquerypaths" }, #br{}, 
 	#link { text="User Notices", url="/web/samples/notices" }, #br{}, 
 

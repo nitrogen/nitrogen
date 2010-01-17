@@ -36,7 +36,8 @@ get_value(Key) ->
 % get(Key, DefaultValue, State, Key, DefaultValue) -> {ok, Value, NewState}.
 % Retrieve a value from the storage area.
 get_value(Key, DefaultValue) ->
-	_Value = wf_handler:call_readonly(session_handler, get_value, [Key, DefaultValue]).
+	{ok, Value} = wf_handler:call(session_handler, get_value, [Key, DefaultValue]),
+	Value.
 	
 % set_value(Key, Value, State) -> {ok, NewState}.
 % Put a value into the storage area.

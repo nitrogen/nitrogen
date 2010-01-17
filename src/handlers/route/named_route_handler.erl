@@ -45,9 +45,7 @@ init(Routes, State) ->
 	
 	% Match to the longest possible route.
 	{Module, PathInfo} = route(Path, Routes),
-	?PRINT(Module),
 	{Module1, PathInfo1} = check_for_404(Module, PathInfo, Path),
-	?PRINT(Module1),
 	wf_context:page_module(Module1),
 	wf_context:path_info(PathInfo1),
 	{ok, State}.

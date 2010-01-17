@@ -1,6 +1,6 @@
 #!/bin/sh
 export NITROGEN_HOME=..
-export MOCHIWEB_HOME=../lib/mochiweb
+export MOCHIWEB_HOME=../http_servers/mochiweb
 export SIMPLEBRIDGE_HOME=../deps/simple_bridge
 cd `dirname $0`
 

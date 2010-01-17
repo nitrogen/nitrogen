@@ -6,7 +6,8 @@
 -define (PORT, 8000).
 
 start(_, _) ->
-	default_process_registry_handler:start(),
+  Nodes = ['nitrogen@127.0.0.1', 'nitrogen_mochiweb@127.0.0.1'],
+	mnesia_process_registry_handler:start(Nodes),
 	inets:start(),
 	{ok, Pid} = inets:start(httpd, [
 		{port, ?PORT},

@@ -6,8 +6,9 @@
 ]).
 
 start(_, _) ->
-	default_process_registry_handler:start(),
-	Options = [{ip, "127.0.0.1"}, {port, 8000}],
+  Nodes = ['nitrogen@127.0.0.1', 'nitrogen_mochiweb@127.0.0.1'],
+	mnesia_process_registry_handler:start(Nodes),
+	Options = [{ip, "127.0.0.1"}, {port, 8001}],
 	Loop = fun loop/1,
 	mochiweb_http:start([{name, mochiweb_example_app}, {loop, Loop} | Options]).
 
