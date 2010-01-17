@@ -7,6 +7,31 @@
 -include ("simplebridge.hrl").
 -compile(export_all).
 
+%% #upload allows a user to upload a file.
+%% 
+%% How it works:
+%% - This element creates an <input type=file ...> HTML element on the page, wrapped
+%%   in a <form>, with all of the required parameters necessary to fake the system
+%%   into believing it is a real postback call. 
+%%
+%% - When the user clicks the upload button, first the 'upload_started' event
+%%   gets fired, calling start_upload_event(Tag) on the Module or Page.
+%%
+%% - Then, the browser begins uploading the file to the server. The multipart file
+%%   is parsed in SimpleBridge.
+%%
+%% - Finally, once the upload is complete, control is passed on to Nitrogen, which reads 
+%%   the parameters sent over in the first step and calls the 'upload_finished' event in
+%%   this module.
+%%
+%% - The 'upload_finished' emits Javascript that causes *another* postback, this time
+%%   to the 'upload_event' event in this module, which then calls 
+%%   Module:finish_upload_event(Tag, OriginalName, TempFile, Node).
+%%   The reason we do this extra postback is because the upload itself happens in a form
+%%   separate from the main Nitrogen page (otherwise the main Nitrogen page would need to 
+%%   refresh) so this is our way of getting the main page to see the event.
+
+
 reflect() -> record_info(fields, upload).
 
 render_element(Record) ->
@@ -22,7 +47,7 @@ render_element(Record) ->
 	PostbackInfo = wf_event:serialize_event_context(FinishedTag, Record#upload.id, undefined, ?MODULE),
 	
 	% Create a postback that is called when the user first starts the upload...
-	wf:wire(Anchor, #event { show_if=(not ShowButton), type=change, delegate=?MODULE, actions=postback=StartedTag }),
+	wf:wire(Anchor, #event { show_if=(not ShowButton), type=change, delegate=?MODULE, postback=StartedTag }),
 	wf:wire(ButtonID, #event { show_if=ShowButton, type=click, delegate=?MODULE, postback=StartedTag }),
 
 	% If the button is invisible, then start uploading when the user selects a file.
@@ -93,9 +118,9 @@ event({upload_finished, Record}) ->
 	% % Create the postback...
 	NewTag = case Req:post_files() of
 		[] -> 
-			{upload_event, Record, undefined, undefined};
+			{upload_event, Record, undefined, undefined, undefined};
 		[#uploaded_file { original_name=OriginalName, temp_file=TempFile }|_] ->
-			{upload_event, Record, OriginalName, TempFile}
+			{upload_event, Record, OriginalName, TempFile, node()}
 	end,
 	
 	% Make the tag...
@@ -113,6 +138,6 @@ event({upload_finished, Record}) ->
 
 % This event is fired by the upload_finished event, it calls
 % back to the page or control that contained the upload element.
-event({upload_event, Record, OriginalName, TempFile}) ->
+event({upload_event, Record, OriginalName, TempFile, Node}) ->
 	Module = wf:coalesce([Record#upload.delegate, wf:page_module()]),
-	Module:finish_upload_event(Record#upload.tag, OriginalName, TempFile).
+	Module:finish_upload_event(Record#upload.tag, OriginalName, TempFile, Node).
