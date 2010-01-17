@@ -47,21 +47,5 @@ update(Type, Target, Elements) ->
 		elements=Elements		
 	},
 
-	% TODO
-	% case Type == update orelse Type == replace of 
-	% 	true -> remove_update(Target);
-	% 	false -> ignore
-	% end,
 	wf_context:add_action([Action]),
 	ok.
-	
-% TODO
-% remove_update(Target) ->
-% 	Actions = wf_context:actions(),
-% 	
-% inner_remove_update([Action|Actions], Target) ->
-% 	case Action of
-% 		_ when is_list(Action) -> [inner_remove_update(Action, Target)|inner_remove_update(Actions, Target)];
-% 		_ when is_record(Action, update) -> 
-% 		_ -> [Action|inner_remove_update(Actions, Target)]
-% 	end.

@@ -12,22 +12,22 @@ headline() -> "Proxied Example".
 right() -> linecount:render().
 
 body() -> 
-  [
-    "
-    Nitrogen stores postback state within the browser, allowing you to load-balance
-    across different servers at will without worrying about breaking your site's functionality.
-    <p>
-    Press the 'Postback' button repeatedly to see which node you are on.
-    <p>
-    Note: For this example to work, you must have multiple versions of Nitrogen 
-    running in a proxied environment, and depending on which process_registry_handler
-    you use, you will need to ensure that the nodes are all connected.
-    ",
-    #p{},
-    #button { text="Postback", postback=postback },
-    #p{},
-    #panel { id=server }
-  ].
+	[
+		"
+		Nitrogen stores postback state within the browser, allowing you to load-balance
+		across different servers at will without worrying about breaking your site's functionality.
+		<p>
+		Press the 'Postback' button repeatedly to see which node you are on.
+		<p>
+		Note: For this example to work, you must have multiple versions of Nitrogen 
+		running in a proxied environment, and depending on which process_registry_handler
+		you use, you will need to ensure that the nodes are all connected.
+		",
+		#p{},
+		#button { text="Postback", postback=postback },
+		#p{},
+		#panel { id=server }
+	].
 
 event(postback) ->
 	Count = wf_utils:coalesce([wf:session(count), 0]),
