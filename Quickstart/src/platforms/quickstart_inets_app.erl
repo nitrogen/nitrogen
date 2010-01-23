@@ -1,13 +1,15 @@
 -module (quickstart_inets_app).
 -export ([start/2, stop/0, do/1]).
 -include ("wf.inc").
+-define(PORT, 8000).
+
 
 start(_, _) ->
   Nodes = ['nitrogen@127.0.0.1', 'nitrogen_mochiweb@127.0.0.1'],
 	mnesia_process_registry_handler:start(Nodes),
 	inets:start(),
 	{ok, Pid} = inets:start(httpd, [
-		{port, 8000},
+		{port, ?PORT},
 		{server_name, "nitrogen"},
 		{server_root, "."},
 		{document_root, "./wwwroot"},

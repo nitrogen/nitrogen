@@ -22,4 +22,5 @@ echo Starting Nitrogen on Mochiweb...
 erl \
     -name nitrogen_mochiweb@127.0.0.1 \
     -pa ./ebin ../apps/*/ebin ../apps/*/include \
+    -s make all \
     -eval "application:start(quickstart_mochiweb)"

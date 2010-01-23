@@ -6,6 +6,7 @@
   ], 
   [
     { i, "./include" },
+    { i, "../apps/nitrogen/include" },
     { outdir, "./ebin" },
     debug_info
   ]
