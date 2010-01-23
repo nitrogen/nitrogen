@@ -1,0 +1,41 @@
+
+Nitrogen version 2.0.x
+
+---
+
+Nitrogen relies on the following software:
+
+  - Erlang R13B02 or later (http://erlang.org)
+
+  - Rebar - Erlang build tool.
+    Hg Repo:  http://bitbucket.org/basho/rebar
+    
+
+  - SimpleBridge - Common interface to Erlang HTTP servers.
+    Git Repo: git://github.com/rklophaus/SimpleBridge.git
+    Commit:   652a3d1
+
+  - coverize - Erlang coverage analysis.
+    Git Repo: git://github.com/mmullis/coverize.git
+    Commit:   860452d
+
+  - mochiweb - HTTP Server
+    SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
+    Revision: 133
+
+  - yaws - HTTP Server
+    http://yaws.hyber.org/download/yaws-1.87.tar.gz
+
+---
+
+Javascript Libraries:
+  - JQuery 1.3.2
+  - JQuery UI 1.7
+  - Live Validation 1.3
+
+---
+
+
+---
+
+Nitrogen is built and tested on a Mac running OSX Leopard.

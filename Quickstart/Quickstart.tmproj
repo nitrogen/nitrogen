@@ -9,8 +9,6 @@
 			<string>Emakefile</string>
 			<key>lastUsed</key>
 			<date>2010-01-10T15:01:00Z</date>
-			<key>selected</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -19,19 +17,21 @@
 					<key>filename</key>
 					<string>apps/quickstart_yaws.app</string>
 					<key>lastUsed</key>
-					<date>2009-01-08T03:09:10Z</date>
+					<date>2010-01-17T15:22:03Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>apps/quickstart_inets.app</string>
 					<key>lastUsed</key>
-					<date>2010-01-10T15:24:05Z</date>
+					<date>2010-01-17T15:22:03Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>apps/quickstart_mochiweb.app</string>
 					<key>lastUsed</key>
-					<date>2009-03-08T00:39:00Z</date>
+					<date>2010-01-17T15:22:03Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -52,13 +52,13 @@
 					<key>filename</key>
 					<string>quickstart.sh</string>
 					<key>lastUsed</key>
-					<date>2009-10-10T15:00:19Z</date>
+					<date>2010-01-17T15:22:03Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>quickstart_mochiweb.sh</string>
 					<key>lastUsed</key>
-					<date>2009-09-10T01:54:33Z</date>
+					<date>2010-01-16T15:12:40Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>

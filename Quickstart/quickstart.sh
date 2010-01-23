@@ -1,18 +1,17 @@
-#!/bin/sh
-export NITROGEN_SRC=..
+#!/usr/bin/env sh
 cd `dirname $0`
 
-make -C $NITROGEN_SRC
+# Compile all required projects...
+(cd ..; make compile)
 
+# Link to support files...
 echo Creating link to nitrogen support files...
 rm -rf wwwroot/nitrogen
-ln -s ../$NITROGEN_SRC/www wwwroot/nitrogen
+ln -s ../../apps/nitrogen/www wwwroot/nitrogen
 
+# Start Nitrogen on Inets...
 echo Starting Nitrogen on Inets...
 erl \
-	-name nitrogen@127.0.0.1 \
-	-pa $PWD/apps $PWD/ebin $PWD/include \
-	-pa $NITROGEN_SRC/ebin $NITROGEN_SRC/include \
-	-pa $NITROGEN_SRC/deps/*/ebin \
-	-s make all \
-	-eval "application:start(quickstart_inets)"
+    -name nitrogen@127.0.0.1 \
+    -pa ./ebin ../apps/*/ebin ../apps/*/include \
+    -eval "application:start(quickstart_inets)"
