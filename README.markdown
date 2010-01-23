@@ -6,17 +6,24 @@ technology stack.
 
 See the [Nitrogen Project website](http://nitrogenproject.com) for additional information.
 
-## Getting Started in Mac OSX / Linux
+### Getting Started
 
-Run the following:
+Download the code and move to the experimental branch.
+
+    $> git clone git://github.com/rklophaus/nitrogen.git
+    $> cd nitrogen
+    $> git checkout origin/experimental -b experimental
+
+Then, run the following...
+
+### On Mac OSX / Linux
 
     $> cd Quickstart 
     $> ./quickstart.sh
 
 Open your web browser to http://localhost:8000
 
-
-## Getting Started in Windows
+### On Windows
 
     $> cd Quickstart 
     $> quickstart.bat
