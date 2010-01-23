@@ -5,11 +5,7 @@ Nitrogen version 2.0.x
 
 Nitrogen relies on the following software:
 
-  - Erlang R13B02 or later (http://erlang.org)
-
-  - Rebar - Erlang build tool.
-    Hg Repo:  http://bitbucket.org/basho/rebar
-    
+  - Erlang R13B03 or later (http://erlang.org)
 
   - SimpleBridge - Common interface to Erlang HTTP servers.
     Git Repo: git://github.com/rklophaus/SimpleBridge.git
@@ -19,11 +15,11 @@ Nitrogen relies on the following software:
     Git Repo: git://github.com/mmullis/coverize.git
     Commit:   860452d
 
-  - mochiweb - HTTP Server
+  - mochiweb - HTTP Server (Optional)
     SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
     Revision: 133
 
-  - yaws - HTTP Server
+  - yaws - HTTP Server (Optional)
     http://yaws.hyber.org/download/yaws-1.87.tar.gz
 
 ---
