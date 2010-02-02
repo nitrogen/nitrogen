@@ -27,7 +27,7 @@ init(_Config, _State) ->
 	Params = QueryParams ++ PostParams,
 	
 	% Pre-normalize the parameters.
-	Params1 = [normalize_param(X) || X <- Params],
+	Params1 = [{normalize_path(Path), Value} || {Path, Value} <- Params, Path /= undefined, Path /= []],
 	{ok, Params1}.
 	
 finish(_Config, _State) -> 
@@ -71,11 +71,6 @@ refine_params([H|T], Params) ->
 split_on(_,  []) -> false;
 split_on(El, [El|T]) -> {ok, T};
 split_on(El, [_|T]) -> split_on(El, T).
-	
-%% Path will be a dot separated list of identifiers.
-%% Split and reverse.
-normalize_param({Path, Value}) ->
-	{normalize_path(Path), Value}.
 	
 normalize_path(Path) when is_atom(Path) ->
 	normalize_path(atom_to_list(Path));

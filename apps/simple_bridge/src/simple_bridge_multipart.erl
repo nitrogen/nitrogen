@@ -46,7 +46,7 @@
 -define (NEWLINE, "\r\n").
 
 parse(Req) ->
-	case is_multipart_request(Req) of
+  	case is_multipart_request(Req) of
 		true ->  parse_multipart(Req);
 		false -> {ok, not_multipart}
 	end.

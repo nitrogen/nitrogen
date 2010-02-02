@@ -1,3 +1,5 @@
 *.dump
 .DS_Store
 scratch
+*.log
+localhost.access

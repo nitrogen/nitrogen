@@ -43,10 +43,11 @@ cookie(Cookie) ->
 query_params() -> Mod:query_params(Req).
 
 post_params() -> 
-	case IsMultiPart of
-		true -> PostParams;
-		false -> Mod:post_params(Req)
-	end.
+  case {request_method(), IsMultiPart} of
+    {'POST', true}  -> PostParams;
+    {'POST', false} -> Mod:post_params(Req);
+    _ -> []
+  end.
 	
 post_files() -> PostFiles.
 

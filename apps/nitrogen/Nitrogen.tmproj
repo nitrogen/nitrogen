@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>src/sync.erl</string>
+	<string>src/wf.erl</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -13,25 +13,27 @@
 					<key>filename</key>
 					<string>src/nitrogen.erl</string>
 					<key>lastUsed</key>
-					<date>2009-09-10T02:03:43Z</date>
+					<date>2010-01-23T14:54:52Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf.erl</string>
 					<key>lastUsed</key>
-					<date>2010-01-16T23:12:33Z</date>
+					<date>2010-02-02T00:18:32Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/wf_core.erl</string>
 					<key>lastUsed</key>
-					<date>2010-01-16T23:09:49Z</date>
+					<date>2010-01-25T01:33:01Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>src/sync.erl</string>
 					<key>lastUsed</key>
-					<date>2010-01-18T12:32:11Z</date>
+					<date>2010-01-23T15:32:42Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -88,10 +90,10 @@
 					<string>src/handlers</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SRC</string>
-			<key>selected</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -122,7 +124,7 @@
 					<key>filename</key>
 					<string>test/src/eunit_helper.erl</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T11:30:01Z</date>
+					<date>2010-01-25T01:32:59Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -189,33 +191,95 @@
 	<integer>279</integer>
 	<key>metaData</key>
 	<dict>
-		<key>src/nitrogen.erl</key>
+		<key>src/actions/action_continue.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>22</integer>
 				<key>line</key>
-				<integer>6</integer>
+				<integer>7</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>20</integer>
+				<key>line</key>
+				<integer>7</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>22</integer>
+				<key>line</key>
+				<integer>7</integer>
+			</dict>
 		</dict>
-		<key>src/sync.erl</key>
+		<key>src/handlers/session/simple_session_handler.erl</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>39</integer>
+				<integer>57</integer>
 				<key>line</key>
-				<integer>60</integer>
+				<integer>32</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>42</integer>
+			<integer>14</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>55</integer>
+				<key>line</key>
+				<integer>32</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>57</integer>
+				<key>line</key>
+				<integer>32</integer>
+			</dict>
+		</dict>
+		<key>src/wf.erl</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>10</integer>
+				<key>line</key>
+				<integer>267</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>242</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>267</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>10</integer>
+				<key>line</key>
+				<integer>267</integer>
+			</dict>
 		</dict>
 		<key>www/nitrogen.css</key>
 		<dict>
@@ -234,7 +298,9 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>src/sync.erl</string>
+		<string>src/actions/action_continue.erl</string>
+		<string>src/handlers/session/simple_session_handler.erl</string>
+		<string>src/wf.erl</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
