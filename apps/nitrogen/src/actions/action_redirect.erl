@@ -13,3 +13,17 @@ render_action(Record) ->
 redirect(Url) -> 
 	wf:wire(#redirect { url=Url }),
 	wf:f("<script>window.location=\"~s\";</script>", [wf:js_escape(Url)]).
+
+redirect_to_login(LoginUrl) ->
+    % Assemble the original
+    Request = wf_context:request_bridge(),
+    OriginalURI = Request:uri(),
+    PickledURI = wf:pickle(OriginalURI),
+    redirect(LoginUrl ++ "?x=" ++ wf:to_list(PickledURI)).
+	
+redirect_from_login(DefaultUrl) ->	
+    PickledURI = wf:q(x),
+    case wf:depickle(PickledURI) of
+        undefined -> redirect(DefaultUrl);
+        Other -> ?PRINT(Other), redirect(Other)
+    end.

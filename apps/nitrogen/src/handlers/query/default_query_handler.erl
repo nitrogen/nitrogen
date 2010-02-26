@@ -13,7 +13,8 @@
 -export ([
 	init/2, 
 	finish/2,
-	get_value/3
+	get_value/3,
+    get_values/3
 ]).
 
 init(_Config, _State) -> 
@@ -35,17 +36,17 @@ finish(_Config, _State) ->
 	{ok, []}.
 	
 %% Given a path, return the value that matches the path.
-get_value(Path, _Config, State) ->
-	Params = State,
-	Path1 = normalize_path(Path),
-	
-	% Call refine_params/2 to further refine our search.
-	Matches = refine_params(Path1, Params),
-	case Matches of
-		[] -> undefined;
-		[One] -> One;
-		_Many -> throw({?MODULE, too_many_matches, Path})
-	end.
+get_value(Path, Config, State) ->
+    case get_values(Path, Config, State) of
+        [] -> undefined;
+        [One] -> One;
+        _Many -> throw({?MODULE, too_many_matches, Path})
+    end.
+
+get_values(Path, _Config, State) ->
+    Params = State,
+    Path1 = normalize_path(Path),
+    refine_params(Path1, Params).    
 	
 %% Next, narrow down the parameters by keeping only the parameters
 %% that contain the next element found in path, while shrinking the 

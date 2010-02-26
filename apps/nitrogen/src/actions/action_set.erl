@@ -10,8 +10,7 @@
 render_action(Record) ->
 	Target = Record#set.target,
 	Value = wf:js_escape(wf:to_list(Record#set.value)),
-	wf:f("Nitrogen.$set_value('me', \"~s\");", [Value]).
-	
+	wf:f("Nitrogen.$set_value('~s', \"~s\");", [Target, Value]).
 
 set(Element, Value) ->
 	wf:wire(Element, #set { value=Value }).

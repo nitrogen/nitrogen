@@ -1,6 +1,5 @@
 -module (web_samples_advancedcontrols1).
 -include ("wf.inc").
--include ("google_chart.inc").
 -compile(export_all).
 
 main() -> #template { file="./wwwroot/onecolumn.html", bindings=[

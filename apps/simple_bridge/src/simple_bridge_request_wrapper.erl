@@ -14,6 +14,7 @@ set_error(Error1) ->
 
 request_method() -> Mod:request_method(Req).
 path() -> Mod:path(Req).
+uri() -> Mod:uri(Req).
 
 peer_ip() -> Mod:peer_ip(Req).
 peer_port() -> Mod:peer_port(Req).

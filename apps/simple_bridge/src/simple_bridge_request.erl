@@ -35,7 +35,8 @@ behaviour_info(callbacks) -> [
 	{init, 1},           % Should accept the request value passed by the http server.
 
 	{request_method, 1}, % GET, POST, etc.
-	{path, 1},           % The path. (http://server.com/<PATH>?querystring)
+        {uri, 1},            % The uri (path and querystring)
+	{path, 1},           % Just the path. (http://server.com/<PATH>?querystring)
 	
 	{headers, 1},        % Return a proplist of headers, key and value are strings.
 	{cookies, 1},        % Return a proplist of cookies, key and value are strings.

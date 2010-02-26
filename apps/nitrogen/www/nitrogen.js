@@ -64,7 +64,7 @@ NitrogenClass.prototype.$event_loop = function() {
 NitrogenClass.prototype.$validate_and_serialize = function(validationGroup) {
 	// Check validatation, build list of params...
 	var is_valid = true;
-	var elements = jQuery(":input, :text, :password, :radio, :checkbox, :submit, :image, :reset, :button").not(".no_postback").get();
+	var elements = jQuery(":input").not(".no_postback").get();
 	var params=new Array();
 
 	for (var i=0; i<elements.length; i++) {

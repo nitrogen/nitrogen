@@ -3,18 +3,17 @@
 % See MIT-LICENSE for licensing information.
 
 -module (wf_pickle).
--include ("wf.inc").
--define (SIGNKEY, "Gabagaba").
 -export ([
     pickle/1,
     depickle/1, 
     depickle/2
 ]).
+-include ("wf.inc").
 
 % Does a plain old term_to_binary...
 pickle(Data) ->
     B = term_to_binary({Data, now()}, [compressed]),
-    <<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
+    <<Signature:4/binary, _/binary>> = erlang:md5([B, signkey()]),
     _PickledData = modified_base64_encode(<<Signature/binary, B/binary>>).
 
 depickle(PickledData) ->
@@ -40,10 +39,25 @@ depickle(PickledData, TTLSeconds) ->
 
 %%% PRIVATE FUNCTIONS
 
+signkey() ->
+    % Read the signkey from config.
+    SignKey = config_handler:get_value(signkey),
+
+    % Return the signkey, or if it's not found, log an error and then
+    % use a signkey based on the cookie.
+    case SignKey /= undefined of 
+        true  -> 
+            SignKey;
+        false -> 
+            Cookie = erlang:get_cookie(),
+            erlang:md5(wf:to_list(Cookie))
+    end.
+
+
 inner_depickle(PickledData) ->
     try
 	<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(PickledData)),
-	<<S:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
+	<<S:4/binary, _/binary>> = erlang:md5([B, signkey()]),
 	{_Data, _PickleTime} = binary_to_term(B)
     catch _Type : _Message ->
 	undefined

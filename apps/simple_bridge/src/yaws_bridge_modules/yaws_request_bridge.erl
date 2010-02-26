@@ -7,9 +7,9 @@
 -include("simplebridge.hrl").
 -export ([
   init/1,
-  request_method/1, path/1,
+  request_method/1, path/1, uri/1,
   peer_ip/1, peer_port/1,
-  headers/1, cookies/1,
+  headers/1, cookie/2, cookies/1,
   query_params/1, post_params/1, request_body/1,
   socket/1, recv_from_socket/3
 ]).
@@ -22,6 +22,11 @@ request_method(Arg) ->
 
 path(Arg) ->
   Arg#arg.server_path.
+
+uri(Arg) ->
+    Req = Arg#arg.req,
+    {abs_path, Path} = Req#http_request.path,
+    Path.
 
 peer_ip(Arg) -> 
   Socket = socket(Arg),
@@ -58,19 +63,20 @@ headers(Arg) ->
     {transfer_encoding, Headers#headers.transfer_encoding}
   ].
 
+cookie(Key, Req) ->
+    Key1 = wf:to_list(Key),
+    Headers = Req#arg.headers,
+    yaws_api:find_cookie_val(Key1, Headers#headers.cookie).
+
 cookies(Req) ->
-  Headers = Req#arg.headers,
-  CookieData = Headers#headers.cookie,
-  F = fun(Cookie) ->
-    case string:tokens(Cookie, "=") of
-      [] -> [];
-      L -> 
-	X = string:strip(hd(L)),
-	Y = string:join(tl(L), "="),
-	{X, Y}
-    end
-  end,
-  [F(X) || X <- string:tokens(CookieData, ";")].
+    Headers = Req#arg.headers,
+    CookieList = Headers#headers.cookie,
+    F = fun(Cookie) ->
+        Key = hd(string:tokens(Cookie, "=")),
+        Val = yaws_api:find_cookie_val(Key, [Cookie]),
+        {Key, Val}
+    end,
+  [F(X) || X <- CookieList].
 
 query_params(Arg) ->
   yaws_api:parse_query(Arg).

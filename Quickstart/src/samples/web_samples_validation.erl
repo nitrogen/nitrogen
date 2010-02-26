@@ -1,6 +1,5 @@
 -module (web_samples_validation).
 -include ("wf.inc").
--include ("google_chart.inc").
 -compile(export_all).
 
 main() -> #template { file="./wwwroot/onecolumn.html", bindings=[

@@ -55,8 +55,11 @@ coalesce(L) ->
 redirect(Url) -> 
 	action_redirect:redirect(Url).
 
-% redirect_to_login(Url) -> wf_redirect:redirect_to_login(Url).
-% redirect_from_login(DefaultUrl) -> wf_redirect:redirect_from_login(DefaultUrl).
+redirect_to_login(LoginUrl) -> 
+    action_redirect:redirect_to_login(LoginUrl).
+
+redirect_from_login(DefaultUrl) -> 
+    action_redirect:redirect_from_login(DefaultUrl).
 
 
 %%% EXPOSE WF_PICKLE %%%
@@ -157,6 +160,9 @@ cookie(Cookie, Value, Path, MinutesToLive) ->
 %%% EXPOSE QUERY_HANDLER %%%
 q(Key) -> 
 	_String = query_handler:get_value(Key).
+
+qs(Key) -> 
+	query_handler:get_values(Key).
 
 
 

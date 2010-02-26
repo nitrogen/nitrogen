@@ -56,7 +56,8 @@ column2() -> [
 	#link { text="Multiple Comets with Graceful Exit", url="/web/samples/comet3" }, #br{},
 	#link { text="Continuations", url="/web/samples/continuations" }, #br{},
 	#link { text="Set Content Type", url="/web/samples/contenttype" }, #br{},
-	#link { text="HTTP Headers", url="/web/samples/headers" }	
+	#link { text="HTTP Headers", url="/web/samples/headers" }, #br{},
+    	#link { text="Security", url="/web/samples/security" }
 ].
 	
 event(go) ->

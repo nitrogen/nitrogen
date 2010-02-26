@@ -1,6 +1,5 @@
 -module (web_samples_contenttype_image).
 -include ("wf.inc").
--include ("google_chart.inc").
 -compile(export_all).
 
 main() -> 
