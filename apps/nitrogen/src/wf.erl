@@ -66,6 +66,8 @@ pickle(Data) ->
 depickle(SerializedData) -> 
 	_Data = wf_pickle:depickle(SerializedData).
 
+depickle(SerializedData, TTLSeconds) ->
+    _Data = wf_pickle:depickle(SerializedData, TTLSeconds).
 
 
 %%% EXPOSE WF_CONVERT %%%

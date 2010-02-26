@@ -115,6 +115,7 @@
 -record(inplace_textbox, {?ELEMENT_BASE(element_inplace_textbox), tag, text="", html_encode=true, start_mode=view, validators=[], delegate=undefined}).
 -record(wizard, {?ELEMENT_BASE(element_wizard), tag, titles, steps }).
 -record(upload, {?ELEMENT_BASE(element_upload), delegate, tag, show_button=true, button_text="Upload" }).
+-record(sparkline, {?ELEMENT_BASE(element_sparkline), type, values, options }).
 
 %%% Actions %%%
 -define(ACTION_BASE(Module), is_action=is_action, module=Module, anchor, trigger, target, actions, show_if=true).

@@ -6,48 +6,49 @@
 -include ("wf.inc").
 -define (SIGNKEY, "Gabagaba").
 -export ([
-	pickle/1, pickle/2,
-	depickle/1, depickle/2
+    pickle/1,
+    depickle/1, 
+    depickle/2
 ]).
 
 % Does a plain old term_to_binary...
 pickle(Data) ->
-	B = term_to_binary({Data, now()}, [compressed]),
-	<<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
-	_PickledData = modified_base64_encode(<<Signature/binary, B/binary>>).
-	
+    B = term_to_binary({Data, now()}, [compressed]),
+    <<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
+    _PickledData = modified_base64_encode(<<Signature/binary, B/binary>>).
+
 depickle(PickledData) ->
-	try
-		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(PickledData)),
-		<<S:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
-		{Data, _PickleTime} = binary_to_term(B),
-		Data		
-	catch _Type : _Message ->
-		undefined
-	end.
-	
-%%% PICKLE WITH SCHEMA %%%
+    try
+	{Data, _PickleTime} = inner_depickle(PickledData),
+	Data		
+    catch _Type : _Message ->
+	undefined
+    end.
 
-pickle(Schema, Data) ->
-	% Use BinaryVice to make the data smaller...
-	B = vice:to_binary({Schema, {integer@, integer@, integer@}}, {Data, now()}),
-	<<Signature:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
-	_PickledData = modified_base64_encode(<<Signature/binary, B/binary>>).
+depickle(PickledData, TTLSeconds) ->
+    try
+	{Data, PickledTime} = inner_depickle(PickledData),
+	AgeInSeconds = timer:now_diff(now(), PickledTime) / 1024 / 1024,
+	case AgeInSeconds < TTLSeconds of
+	    true -> Data;
+	    false -> undefined
+	end
+    catch _Type : _Message ->
+	undefined
+    end.
 
-depickle(Schema, PickledData) ->
-	try
-		<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(PickledData)),
-		<<S:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
-		{Data, _PickleTime} = vice:from_binary({Schema, {integer@, integer@, integer@}}, B),
-		Data
-	catch _Type : _Message ->
-		undefined
-	end.
-	
-	
 
 %%% PRIVATE FUNCTIONS
-	
+
+inner_depickle(PickledData) ->
+    try
+	<<S:4/binary, B/binary>> = modified_base64_decode(wf:to_binary(PickledData)),
+	<<S:4/binary, _/binary>> = erlang:md5([B, ?SIGNKEY]),
+	{_Data, _PickleTime} = binary_to_term(B)
+    catch _Type : _Message ->
+	undefined
+    end.
+
 % modified_base64_encode/1 
 %	- Replace '+' and '/' with '-' and '_', respectively. 
 % - Strip '='.
@@ -57,7 +58,7 @@ m_b64_e(<<$+, Rest/binary>>, Acc) -> m_b64_e(Rest, <<Acc/binary, $->>);
 m_b64_e(<<$/, Rest/binary>>, Acc) -> m_b64_e(Rest, <<Acc/binary, $_>>);
 m_b64_e(<<$=, Rest/binary>>, Acc) -> m_b64_e(Rest, Acc);
 m_b64_e(<<H,  Rest/binary>>, Acc) -> m_b64_e(Rest, <<Acc/binary, H>>).
-		
+
 % modified_base64_decode/1 
 % - Replace '-' and '_' with '+' and '/', respectively. 
 % - Pad with '=' to a multiple of 4 chars.
