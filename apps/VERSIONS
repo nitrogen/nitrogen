@@ -1,5 +1,5 @@
 
-Nitrogen version 2.0.x
+Nitrogen Version 1.0.x
 
 ---
 
@@ -25,13 +25,10 @@ Nitrogen relies on the following software:
 ---
 
 Javascript Libraries:
-  - JQuery 1.3.2
-  - JQuery UI 1.7
+  - JQuery 1.4.2
+  - JQuery UI 1.8rc2
   - Live Validation 1.3
 
 ---
 
-
----
-
-Nitrogen is built and tested on a Mac running OSX Leopard.
+Nitrogen is built and tested on a Mac running OSX Leopard in Firefox, Chrome, and Safari.
