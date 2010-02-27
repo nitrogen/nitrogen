@@ -1,0 +1,110 @@
+# Nitrogen 1.0 Changelog
+
+### Architectural Changes
+
+* Nitrogen now runs _under_ other web frameworks (inets, mochiweb, yaws, misultin) using simple_bridge. In other words, you hook into the other frameworks like normal (mochiweb loop, yaws appmod, etc.) and then call nitrogen:run() from within that process.
+* Handlers are the new mechanism to extend the inner parts of Nitrogen, such as session storage, authentication, etc.
+* New route handler code means that pages can exist in any namespace, don't have to start with /web/... (see dynamic_route_handler and named_route_handler)
+* Changed interface to elements and actions, any custom elements and actions will need tweaks.
+* sync:go() recompiles any changed files more intelligently by scanning for Emakefiles.
+
+### Page Manipulation Changes
+
+* wf:wire can now act upon CSS classes or full JQuery Paths, not just Nitrogen elements. For example, wf:wire(".people > .address", Actions) will wire actions to any HTML elements with an "address" class underneath a "people" class. Anything on http://api.jquery.com/category/selectors/ is supported
+* Added wf:replace(ID, Elements), remove an element from the page, put new elements in their place.
+* Added wf:remove(ID), remove an element from the page.
+* New #api{} action allows you to define a javascript method that takes parameters and will trigger a postback. Javascript parameters are automatically translated to Erlang, allowing for pattern matching. 
+
+### Changes to Comet
+
+* You can now start comet processes using #comet{} action syntax, in addition to the old wf:comet/N commands. This allows for more flexibility in starting up comet processes.
+* Removed wf:continue/N, which was polled for events. Folded support for this into comet. Can now specify whether comet forms a real persistent connection, or polls via wf:switch_to_comet() or wf:switch_to_polling(IntervalMS).
+* Comet processes can now register in a local pool (for a specific session) or a global pool (across the entire Nitrogen cluster). All other processes in the pool are alerted when a process joins or leaves. The first process in a pool gets a special init message.
+* Use wf:send(Pool, Message) or wf:send_global(Pool, Message) to broadcast a message to the entire pool.
+* wf:comet_flush() is now wf:flush()
+
+### Changes to #upload{} Element
+
+* The #upload{} event callbacks have changed. Event fires both on start of upload and when upload finishes. 
+* Upload callbacks take a Node parameter so that file uploads work even when a postback hits a different node.
+
+### Changes to wf.erl
+
+* Many methods that used to be in 'nitrogen.erl' are now in 'wf.erl'. Also, some method signatures in wf.erl have changed.
+* wf:get_page_module changed to wf:page_module
+* wf:q(ID) no longer returns a list, just the value.
+* wf:qs(ID) returns a list.
+* wf:depickle(Data, TTL) returns undefined if expired.
+
+### Reasons for using SimpleBridge, not EWGI
+
+* Limited interface
+* Would require a rewrite of multipart parsing
+* Makes reading posts difficult
+* 4 times as much code as simple bridge
+* Poor cookie support
+
+
+# Nitrogen 0.5 Changelog
+
+2009-05-02
+- Added changes and bugfixes by Tom McNulty.
+
+2009-04-05
+- Added a templateroot setting in .app file, courtesy of Ville Koivula.
+
+2009-03-28
+- Added file upload support.
+
+2009-03-22 
+- Added alt text support to #image elements by Robert Schonberger.
+- Fixed bug, 'nitrogen create (PROJECT)' now does a recursive copy of the Nitrogen support files, by Jay Doane.
+- Added radio button support courtesy of Benjamin Nortier and Tom McNulty.
+
+2009-03-16
+- Added .app configuration setting to bind Nitrogen to a specific IP address, by Tom McNulty.
+
+2009-03-08
+- Added DatePicker element by Torbjorn Tornkvist.
+- Upgrade to JQuery 1.3.2 and JQuery UI 1.7.
+- Created initial VERSIONS file.
+- Added code from Tom McNulty to expose Mochiweb loop.
+- Added coverage code from Michael Mullis, including lib/coverize submodule.
+- Added wf_platform:get_peername/0 code from Marius A. Eriksen.
+
+2009-03-07
+- Added code by Torbjorn Tornkvist: Basic Authentication, Hostname settings, access to HTTP Headers, and a Max Length validator.
+
+2009-01-26
+- Added Gravatar support by Dan Bravender.
+
+2009-01-24
+- Add code-level documentation around comet.
+- Fix bug where comet functions would continue running after a user left the page.
+- Apply patch by Tom McNulty to allow request object access within the route/1 function.
+- Apply patch by Tom McNulty to correctly bind binaries.
+- Apply patch by Tom McNulty for wf_tags library to correctly handle binaries.
+
+2009-01-16
+- Clean up code around timeout events. (Events that will start running after X seconds on the browser.)
+
+2009-01-08
+- Apply changes by Jon Gretar to support 'nitrogen create PROJECT' and 'nitrogen page /web/page' scripts.
+- Finish putting all properties into .app file. Put request/1 into application module file.
+- Add ability to route through route/1 in application module file.
+- Remove need for wf_global.erl
+- Start Yaws process underneath the main Nitrogen supervisor. (Used to be separate.)
+
+2009-01-06
+- Make Nitrogen a supervised OTP application, startable and stoppable via nitrogen:start() and nitrogen:stop().
+- Apply changes by Dave Peticolas to fix session bugs and turn sessions into supervised processes.
+
+2009-01-04
+- Update sync module, add mirror module. These tools allow you to deploy and start applications on a bare remote node.
+
+2009-01-03 
+- Allow Nitrogen to be run as an OTP application. See Quickstart project for example.
+- Apply Tom McNulty's patch to create and implement wf_tags library. Emit html tags more cleanly.
+- Change templates to allow multiple callbacks, and use first one that is defined. Basic idea and starter code by Tom McNulty.
+- Apply Martin Scholl's patch to optimize copy_to_baserecord in wf_utils.
+
