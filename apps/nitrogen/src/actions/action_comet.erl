@@ -196,9 +196,13 @@ pool_loop(Processes) ->
 			end,
 			pool_loop([JoinPid|Processes]);
 			
-		{'DOWN', _, process, LeavePid, _} ->
-		    [Pid!{'LEAVE', LeavePid} || Pid <- Processes],
-			pool_loop(Processes -- [LeavePid]);
+        {'DOWN', _, process, LeavePid, _} ->
+            [Pid!{'LEAVE', LeavePid} || Pid <- Processes],
+            NewProcesses = Processes -- [LeavePid],
+            case NewProcesses == [] of 
+                false -> pool_loop(NewProcesses);
+                true -> ok
+            end;
 			
 		Message ->
 			[Pid!Message || Pid <- Processes],

@@ -30,7 +30,7 @@ init(_Config, _State) ->
 
 finish(_Config, State) -> 
 	% Drop the session cookie...
-	Timeout = wf:config_default(nitrogen_session_timeout, 20),
+	Timeout = wf:config_default(session_timeout, 20),
 	ok = wf:cookie("wf", wf:pickle(State), "/", Timeout),
 	{ok, []}.
 	
