@@ -1,6 +1,6 @@
 # Nitrogen 1.0 Changelog
 
-The current Experimental branch will soon become Nitrogen 1.0! Here's what's new...
+The current Experimental branch will soon become Nitrogen 1.0!  Here's what's new...
 
 ### Architectural Changes
 
