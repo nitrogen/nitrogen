@@ -48,9 +48,7 @@ f(S, Args) ->
 	
 coalesce(L) -> 
 	_Value = wf_utils:coalesce(L).
-	
-	
-	
+		
 %%% WF_REDIRECT %%%
 redirect(Url) -> 
 	action_redirect:redirect(Url).
@@ -85,6 +83,9 @@ to_binary(T) ->
 	
 to_integer(T) -> 
 	_Integer = wf_convert:to_integer(T).
+
+to_string_list(Term) ->
+    _StringList = wf_convert:to_string_list(Term).
 	
 clean_lower(S) -> 
 	_String = wf_convert:clean_lower(S).
@@ -95,6 +96,21 @@ html_encode(S) ->
 html_encode(S, Encode) -> 
 	_String = wf_convert:html_encode(S, Encode).
 
+url_encode(S) ->
+    _String = wf_convert:url_encode(S).
+
+url_decode(S) ->
+    _String = wf_convert:url_decode(S).
+
+hex_encode(S) ->
+    _String = wf_convert:hex_encode(S).
+
+hex_decode(S) ->
+    _String = wf_convert:hex_decode(S).
+
+js_escape(String) -> 
+    _String = wf_convert:js_escape(String).
+       
 
 %%% EXPOSE WF_BIND %%%
 % TODO
@@ -112,9 +128,6 @@ set(Element, Value) ->
 % logout() -> clear_user(), clear_roles(), clear_state(), clear_session().
 to_js_id(Path) -> 
 	_String = wf_render_actions:to_js_id(Path).
-	
-js_escape(String) -> 
-	_String = wf_utils:js_escape(String).
 	
 temp_id() -> 
 	_String = wf_render_elements:temp_id().

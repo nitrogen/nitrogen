@@ -32,7 +32,7 @@ options_to_js(Options) ->
     F = fun({Key, Value}) ->
 	if 
 	    is_list(Value) -> 
-		wf:f("~s: '~s'", [Key, wf_utils:js_escape(Value)]);
+		wf:f("~s: '~s'", [Key, wf:js_escape(Value)]);
 	    is_atom(Value) andalso (Value == true orelse Value == false) ->
 		wf:f("~s: ~s", [Key, Value]);
 	    is_atom(Value) ->

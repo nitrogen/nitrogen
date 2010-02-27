@@ -13,7 +13,7 @@ render_action(#event {
 	extra_param=ExtraParam
 }) -> 
 	
-	ValidationGroup1 = wf_utils:coalesce([ValidationGroup, Trigger]),
+	ValidationGroup1 = wf:coalesce([ValidationGroup, Trigger]),
   AnchorScript = wf_render_actions:generate_anchor_script(Anchor, Target), 
 	PostbackScript = wf_event:generate_postback_script(Postback, Anchor, ValidationGroup1, Delegate, ExtraParam),
 	SystemPostbackScript = wf_event:generate_system_postback_script(Postback, Anchor, ValidationGroup1, Delegate),

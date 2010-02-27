@@ -58,11 +58,11 @@ inner_render_action(Action, Anchor, Trigger, Target) when is_tuple(Action) ->
 	case Base#actionbase.show_if of 
 		true -> 
 			% Figure out the anchor, trigger, and target...
-			Anchor1  = wf_utils:coalesce([Base#actionbase.anchor, Anchor]),
+			Anchor1  = wf:coalesce([Base#actionbase.anchor, Anchor]),
 			Anchor2  = normalize_path(Anchor1),
-			Trigger1 = wf_utils:coalesce([Base#actionbase.trigger, Trigger, Anchor]),
+			Trigger1 = wf:coalesce([Base#actionbase.trigger, Trigger, Anchor]),
 			Trigger2 = normalize_path(Trigger1),
-			Target1  = wf_utils:coalesce([Base#actionbase.target, Target, Anchor]),
+			Target1  = wf:coalesce([Base#actionbase.target, Target, Anchor]),
 			Target2  = normalize_path(Target1),
 						
 			Base1 = Base#actionbase {

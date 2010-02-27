@@ -107,7 +107,7 @@ call_element_render(Module, Element) ->
 	{ok, _Html} = render_elements(NewElements, []).
 	
 normalize_id(ID) -> 
-	case wf_utils:to_string_list(ID) of
+	case wf:to_string_list(ID) of
 		["page"] -> ".page";
 		[NewID]  -> ".wfid_" ++ NewID
 	end.

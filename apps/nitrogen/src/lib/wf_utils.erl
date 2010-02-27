@@ -8,12 +8,7 @@
 	f/1, f/2,
 	guid/0, short_guid/0,
 	path_search/3,
-	encode/2, decode/2,
-	hex_encode/1, hex_decode/1,
-	url_encode/1,
-	js_escape/1,
 	replace/3,
-	to_string_list/1,
 	coalesce/1,
 	is_process_alive/1,
 	debug/0, break/0,
@@ -85,91 +80,6 @@ path_search([H|T], N, Paths, Pos) ->
 	Paths1 = lists:filter(F, Paths),
 	path_search(T, N, Paths1, Pos + 1).
 
-%%% HEX ENCODE and HEX DECODE
-
-hex_encode(Data) -> encode(Data, 16).
-hex_decode(Data) -> decode(Data, 16).
-
-encode(Data, Base) when is_binary(Data) -> encode(binary_to_list(Data), Base);
-encode(Data, Base) when is_list(Data) ->
-	F = fun(C) when is_integer(C) ->
-		case erlang:integer_to_list(C, Base) of
-			[C1, C2] -> <<C1, C2>>;
-			[C1]     -> <<$0, C1>>;
-			_        -> throw("Could not hex_encode the string.")
-		end
-	end,
-	{ok, list_to_binary([F(I) || I <- Data])}.
-	
-decode(Data, Base) when is_binary(Data) -> decode(binary_to_list(Data), Base);
-decode(Data, Base) when is_list(Data) -> 	
-	{ok, list_to_binary(inner_decode(Data, Base))}.
-
-inner_decode(Data, Base) when is_list(Data) ->
-	case Data of
-		[C1, C2|Rest] -> 
-			I = erlang:list_to_integer([C1, C2], Base),
-			[I|inner_decode(Rest, Base)];
-			
-		[] -> 
-			[];
-			
-		_  -> 
-			throw("Could not hex_decode the string.")
-	end.
-			
-%%% URL ENCODE %%%
-
-url_encode(S) -> quote_plus(S).
-
-% quote_plus and hexdigit are from Mochiweb.
-
--define(PERCENT, 37).  % $\%
--define(FULLSTOP, 46). % $\.
--define(QS_SAFE(C), ((C >= $a andalso C =< $z) orelse
-                     (C >= $A andalso C =< $Z) orelse
-                     (C >= $0 andalso C =< $9) orelse
-                     (C =:= ?FULLSTOP orelse C =:= $- orelse C =:= $~ orelse
-                      C =:= $_))).
-
-hexdigit(C) when C < 10 -> $0 + C;
-hexdigit(C) when C < 16 -> $A + (C - 10).
-
-quote_plus(Atom) when is_atom(Atom) ->
-    quote_plus(atom_to_list(Atom));
-quote_plus(Int) when is_integer(Int) ->
-    quote_plus(integer_to_list(Int));
-quote_plus(Bin) when is_binary(Bin) -> 
-    quote_plus(binary_to_list(Bin));
-quote_plus(String) ->
-    quote_plus(String, []).
-
-quote_plus([], Acc) ->
-    lists:reverse(Acc);
-quote_plus([C | Rest], Acc) when ?QS_SAFE(C) ->
-    quote_plus(Rest, [C | Acc]);
-quote_plus([$\s | Rest], Acc) ->
-    quote_plus(Rest, [$+ | Acc]);
-quote_plus([C | Rest], Acc) ->
-    <<Hi:4, Lo:4>> = <<C>>,
-    quote_plus(Rest, [hexdigit(Lo), hexdigit(Hi), ?PERCENT | Acc]).
-
-
-%%% ESCAPE JAVASCRIPT %%%
-
-js_escape(undefined) -> [];
-js_escape(Value) when is_list(Value) -> binary_to_list(js_escape(list_to_binary(lists:flatten(Value))));
-js_escape(Value) -> js_escape(Value, <<>>).
-js_escape(<<"\\", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\\\">>);
-js_escape(<<"\r", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\r">>);
-js_escape(<<"\n", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\n">>);
-js_escape(<<"\"", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\\"">>);
-js_escape(<<"<script", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "<scr\" + \"ipt">>);
-js_escape(<<"script>", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "scr\" + \"ipt>">>);
-js_escape(<<C, Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, C>>);
-js_escape(<<>>, Acc) -> Acc.
-
-
 %%% STRING REPLACE %%%
 
 replace([], _, _) -> [];
@@ -182,27 +92,6 @@ replace(String, S1, S2) when is_list(String), is_list(S1), is_list(S2) ->
 			[hd(String)|replace(tl(String), S1, S2)]
 	end.
 	
-	
-%%% TO STRING LIST %%%
-
-%% @doc
-%% Convert the following forms into a list of strings...
-%% 	- atom
-%%  - [atom, atom, ...]
-%%  - "String"
-%%  - "String, String, ..."
-%%  - "String String ..."
-%%  - [atom, "String", ...]
-to_string_list(L) -> to_string_list(L, []).
-to_string_list([], Acc) -> Acc;
-to_string_list(undefined, Acc) -> Acc;
-to_string_list(L, Acc) when is_atom(L) ->
-	[atom_to_list(L)|Acc];
-to_string_list(L, Acc) when ?IS_STRING(L) ->
-	string:tokens(L, " ,") ++ Acc;
-to_string_list([H|T], Acc) ->
-	to_string_list(T, to_string_list(H) ++ Acc).
-
 	
 %%% COALESCE %%%
 

@@ -33,7 +33,7 @@ render_element(Record) ->
 	Title = case Record#google_chart.title of
 		undefined -> [];
 		[] -> [];
-		OtherTitle -> ["&chtt=", wf_utils:url_encode(OtherTitle)]
+		OtherTitle -> ["&chtt=", wf:url_encode(OtherTitle)]
 	end,
 	
 	% Title Color and Font Size...
