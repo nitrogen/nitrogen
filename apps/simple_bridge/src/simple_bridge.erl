@@ -1,5 +1,5 @@
 % Simple Bridge
-% Copyright (c) 2008-2009 Rusty Klophaus
+% Copyright (c) 2008-2010 Rusty Klophaus
 % See MIT-LICENSE for licensing information.
 
 -module (simple_bridge).
