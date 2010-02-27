@@ -222,7 +222,7 @@ role(Role, IsInRole) ->
 	ok = role_handler:set_has_role(Role, IsInRole).
 
 roles() ->
-	_Roles = role_handler:roles().
+	_Roles = role_handler:get_roles().
 
 clear_roles() -> 
 	ok = role_handler:clear_all().

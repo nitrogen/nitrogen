@@ -20,10 +20,9 @@ init(_Config, State) ->
 finish(_Config, State) -> 
     {ok, State}.
 
-get_has_role(Role, _Config, State) -> 
+get_has_role(Role, _Config, _State) -> 
     Roles = wf:session_default(?KEY, []),
-    Result = lists:member(Role, Roles),
-    {ok, Result, State}.
+    lists:member(Role, Roles).
 
 set_has_role(Role, IsInRole, _Config, State) -> 
     Roles = wf:session_default(?KEY, []),
@@ -34,9 +33,9 @@ set_has_role(Role, IsInRole, _Config, State) ->
     end,
     {ok, State}.
 
-get_roles(_Config, State) -> 
-    Roles = wf:session_default(?KEY, []),
-    {ok, Roles, State}.
+get_roles(_Config, _State) -> 
+    wf:session_default(?KEY, []).
 
 clear_all(_Config, State) -> 
+    wf:session(?KEY, []),
     {ok, State}.

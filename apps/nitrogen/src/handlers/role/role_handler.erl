@@ -22,7 +22,7 @@ set_has_role(Role, IsInRole) ->
 % roles(State) -> {ok, [Roles], NewState}
 % Return a list of roles held by the current user
 get_roles() ->
-	_Roles = wf_handler:call_readonly(role_handler, roles).
+	_Roles = wf_handler:call_readonly(role_handler, get_roles).
 	
 % clear_all(State) -> {ok, NewState}.
 % Clear all roles.
