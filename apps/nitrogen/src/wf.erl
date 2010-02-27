@@ -189,13 +189,16 @@ error(String) ->
 
 %%% EXPOSE SESSION_HANDLER %%% 
 session(Key) -> 
-	_Value = session_handler:get_value(Key).
+    _Value = session_handler:get_value(Key).
 
 session(Key, Value) -> 
-	_Value = session_handler:set_value(Key, Value).
+    _Value = session_handler:set_value(Key, Value).
+
+session_default(Key, DefaultValue) ->
+    _Value = session_handler:get_value(Key, DefaultValue).
 
 clear_session() -> 
-	ok = session_handler:clear_all().
+    ok = session_handler:clear_all().
 
 
 
@@ -228,16 +231,19 @@ clear_roles() ->
 
 %%% EXPOSE STATE_HANDLER %%%
 state(Key) -> 
-	_Value = state_handler:get_state(Key).
+    _Value = state_handler:get_state(Key).
+
+state_default(Key, DefaultValue) ->
+    _Value = state_handler:get_state(Key, DefaultValue).
 
 state(Key, Value) -> 
-	ok = state_handler:set_state(Key, Value).
+    ok = state_handler:set_state(Key, Value).
 
 clear_state(Key) ->
-	ok = state_handler:clear(Key).
+    ok = state_handler:clear(Key).
 	
 clear_state() -> 
-	ok = state_handler:clear_all().
+    ok = state_handler:clear_all().
 
 
 
@@ -275,8 +281,11 @@ continue(Tag, Function, TimeoutMS) -> action_continue:continue(Tag, Function, Ti
 
 %%% CONFIGURATION %%%
 
-config(Key) -> config_handler:get_value(Key).
-config_default(Key, DefaultValue) -> config_handler:get_value(Key, DefaultValue).
+config(Key) -> 
+    config_handler:get_value(Key).
+
+config_default(Key, DefaultValue) -> 
+    config_handler:get_value(Key, DefaultValue).
 
 %%% DEBUGGING %%%
 debug() -> wf_utils:debug().

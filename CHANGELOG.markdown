@@ -17,10 +17,9 @@ The current Experimental branch will soon become Nitrogen 1.0!  Here's what's ne
 * Added wf:remove(ID), remove an element from the page.
 * New #api{} action allows you to define a javascript method that takes parameters and will trigger a postback. Javascript parameters are automatically translated to Erlang, allowing for pattern matching. 
 
-### Changes to Comet
+### Changes to Background Processes
 
-* You can now start comet processes using #comet{} action syntax, in addition to the old wf:comet/N commands. This allows for more flexibility in starting up comet processes.
-* Removed wf:continue/N, which was polled for events. Folded support for this into comet. Can now specify whether comet forms a real persistent connection, or polls via wf:switch_to_comet() or wf:switch_to_polling(IntervalMS).
+* Behind the scenes, combined logic for comet and continue events. This now all goes through the same channel. You can switch async mode between comet and intervalled polling by calling wf:switch_to_comet() or wf:switch_to_polling(IntervalMS), respectively.
 * Comet processes can now register in a local pool (for a specific session) or a global pool (across the entire Nitrogen cluster). All other processes in the pool are alerted when a process joins or leaves. The first process in a pool gets a special init message.
 * Use wf:send(Pool, Message) or wf:send_global(Pool, Message) to broadcast a message to the entire pool.
 * wf:comet_flush() is now wf:flush()
