@@ -11,10 +11,6 @@ Nitrogen relies on the following software:
     Git Repo: git://github.com/rklophaus/SimpleBridge.git
     Commit:   652a3d1
 
-  - coverize - Erlang coverage analysis.
-    Git Repo: git://github.com/mmullis/coverize.git
-    Commit:   860452d
-
   - mochiweb - HTTP Server (Optional)
     SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
     Revision: 133

@@ -7,7 +7,7 @@ compile:
 		-make
 	
 clean:
-	@rm -rf ./ebin/*.*
+	@rm -rf ./ebin/*.beam
 
 test: compile
 	@erl \
