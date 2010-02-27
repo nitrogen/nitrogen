@@ -3,9 +3,13 @@
 % See MIT-LICENSE for licensing information.
 
 -module (nitrogen).
--export ([init_request/2, run/0]).
+-export ([init_request/2, handler/2, run/0]).
 
 init_request(RequestBridge, ResponseBridge) ->
-	wf_context:init_context(RequestBridge, ResponseBridge).
+    wf_context:init_context(RequestBridge, ResponseBridge).
 
-run() -> wf_core:run().
+handler(Module, Config) ->
+    wf_handler:set_handler(Module, Config).
+
+run() -> 
+    wf_core:run().

@@ -6,10 +6,6 @@
 -include ("wf.inc").
 -compile (export_all).
 
-%%% EXPOSE PAGE CONTEXT %%%
-
-page_module() -> wf_context:page_module().
-
 %%% EXPOSE WIRE, UPDATE, FLASH %%%
 wire(Actions) -> 
 	ok = wire(undefined, undefined, Actions).
@@ -135,6 +131,9 @@ temp_id() ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% EXPOSE REQUEST INFORMATION %%%
+
+page_module() -> 
+    wf_context:page_module().
 
 path_info() ->
 	wf_context:path_info().
