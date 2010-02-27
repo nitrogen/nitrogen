@@ -18,7 +18,6 @@ column1() -> [
 	#link { text="Simple Controls", url="/web/samples/simplecontrols" }, #br{}, 
 	#link { text="In-Place Textbox", url="/web/samples/advancedcontrols1" }, #br{}, 
 	#link { text="Google Charts", url="/web/samples/advancedcontrols2" }, #br{}, 
-	#link { text="Step-by-Step Wizard", url="/web/samples/advancedcontrols3" }, #br{}, 
 	#link { text="Radio Buttons", url="/web/samples/radio" }, #br{}, 
 	#link { text="Validation", url="/web/samples/validation" }, #br{}, 
 	#link { text="File Uploading", url="/web/samples/upload" }, #br{}, 
