@@ -25,5 +25,5 @@ redirect_from_login(DefaultUrl) ->
     PickledURI = wf:q(x),
     case wf:depickle(PickledURI) of
         undefined -> redirect(DefaultUrl);
-        Other -> ?PRINT(Other), redirect(Other)
+        Other -> redirect(Other)
     end.
