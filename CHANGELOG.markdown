@@ -1,5 +1,7 @@
 # Nitrogen 1.0 Changelog
 
+The current Experimental branch will soon become Nitrogen 1.0! Here's what's new...
+
 ### Architectural Changes
 
 * Nitrogen now runs _under_ other web frameworks (inets, mochiweb, yaws, misultin) using simple_bridge. In other words, you hook into the other frameworks like normal (mochiweb loop, yaws appmod, etc.) and then call nitrogen:run() from within that process.
@@ -35,15 +37,6 @@
 * wf:q(ID) no longer returns a list, just the value.
 * wf:qs(ID) returns a list.
 * wf:depickle(Data, TTL) returns undefined if expired.
-
-### Reasons for using SimpleBridge, not EWGI
-
-* Limited interface
-* Would require a rewrite of multipart parsing
-* Makes reading posts difficult
-* 4 times as much code as simple bridge
-* Poor cookie support
-
 
 # Nitrogen 0.5 Changelog
 
