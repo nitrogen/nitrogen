@@ -21,7 +21,7 @@
 %% a module still can't be found, then the web_404 module is used if defined
 %% by the user, otherwise a 404 is generated internally.
 %% 
-%% Requests for "/" are automatically sent to web_index.
+%% Requests for "/" are automatically sent to index.
 %%
 %% If the request path does have an extension, then it is treated like a request
 %% for a static file. This is delegated back to the HTTP server.
@@ -48,13 +48,13 @@ finish(_Config, State) ->
 %%% PRIVATE FUNCTIONS %%%
 
 % First, check if this is a request for the root path. If so
-% then just send it to web_index.
+% then just send it to index.
 % Check if there is an extension, if so, it's static.
 % Otherwise, try to load a module according to each part of the path.
 % First, cycle through code:all_loaded(). If not there, then check erl_prim_loader:get_file()
 % If still not there, then 404.
 route("/") -> 
-    {web_index, []};
+    {index, []};
 
 route(Path) ->
     IsStatic = (filename:extension(Path) /= []),

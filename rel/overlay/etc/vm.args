@@ -4,7 +4,7 @@
 
 ## Cookie for distributed erlang
 ## If you don't specify one, erlang will make it up.
-## -setcookie nitrogen
+-setcookie nitrogen
 
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
