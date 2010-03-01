@@ -2,18 +2,16 @@
 -include ("wf.inc").
 
 -export ([
-	start/2
+    start/2
 ]).
 
 start(_, _) ->
-  Nodes = ['nitrogen@127.0.0.1', 'nitrogen_mochiweb@127.0.0.1'],
-	mnesia_process_registry_handler:start(Nodes),
-	Options = [{ip, "127.0.0.1"}, {port, 8000}],
-	Loop = fun loop/1,
-	mochiweb_http:start([{name, mochiweb_example_app}, {loop, Loop} | Options]).
+    Options = [{ip, "127.0.0.1"}, {port, 8000}],
+    Loop = fun loop/1,
+    mochiweb_http:start([{name, mochiweb_example_app}, {loop, Loop} | Options]).
 
 loop(Req) ->
-	RequestBridge = simple_bridge:make_request(mochiweb_request_bridge, {Req, "./wwwroot"}),
-	ResponseBridge = simple_bridge:make_response(mochiweb_response_bridge, {Req, "./wwwroot"}),
-	nitrogen:init_request(RequestBridge, ResponseBridge),
-	nitrogen:run().
+    RequestBridge = simple_bridge:make_request(mochiweb_request_bridge, {Req, "./wwwroot"}),
+    ResponseBridge = simple_bridge:make_response(mochiweb_response_bridge, {Req, "./wwwroot"}),
+    nitrogen:init_request(RequestBridge, ResponseBridge),
+    nitrogen:run().

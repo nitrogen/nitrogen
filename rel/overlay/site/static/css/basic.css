@@ -1,0 +1,82 @@
+/*** FONTS ***/
+
+body, table, table td { font-size: 1em; font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif; line-height: 1.7em; }
+
+h1 { font-family: 'Arial'; font-size: 2.2em; font-weight: bold; }
+h2 { font-family: 'Arial', Georgia; font-size: 1.7em; font-weight: bold;  }
+h3 { font-family: 'Arial', Georgia; font-size: 1.2em; font-weight: bold; }
+h4 { font-family: 'Arial', Georgia; font-size: 0.9em; text-transform: uppercase; }
+
+a, a:visited { text-decoration: none; }
+a:hover, a:active { text-decoration: underline; }
+
+input[type=text], input[type=password], textarea {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight: bold; font-size: 1.1em; line-height: 1.1em;
+}
+
+input[type=submit], input[type=button] {
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif; font-size: 1em;
+}
+
+.big { font-size: 120%; line-height: 180%; }
+.small { font-size: 90%; }
+.error { font-size: 10px; }
+
+
+/*** COLORS ***/
+
+body, table, table td {	color: #525252; }
+
+a, a:visited, a:active, a:hover { color: #4488FF;	} 
+
+h1 { color: #000000; }
+h2 { color: #84B712; }
+h3 { color: #84B712; }
+h4 { color: #000000; }
+
+input[type=text], input[type=password], textarea {	border: solid 1px #99AACC; }
+input[type=submit], input[type=button] { color: #333333; }
+input[type=submit]:HOVER, input[type=button]:HOVER { color: #3333FF; }
+
+.error { color: #ffff00; }
+
+hr { background-color: #E0E0E0; }
+
+/*** POSITIONING ***/
+
+body, img, table, form { border: 0px; margin: 0px; padding: 0px}
+table td { vertical-align: top; padding: 4px 7px 4px 7px; }
+
+img { vertical-align: middle; }
+
+table { border-collapse:collapse; }
+
+p { clear: both; margin: 0px 0px 0px 0px; padding: 1em 0px 0px 0px; }
+
+h1 { margin: 0px 0px 0px 0px;  padding: 0em 0px 0.75em 0px; }
+h2 { margin: 0px 0px 0px 0px;  padding: 0em 0px 0.5em 0px; }
+h3 { margin: 0px 0px 0px 0px;  padding: 0em 0px 0.5em 0px; }
+h4 { margin: 0px 0px 0px 0px;  padding: 0.2em 0px 0.1em 0px; }
+
+input[type=text], input[type=password], textarea {	padding: 5px 5px 5px 5px; margin: 0px 7px 0px 0px; }
+input[type=submit], input[type=button] { margin-right: 7px; }
+input[type=checkbox] { vertical-align: middle; margin-right: 10px; }
+label { vertical-align: middle; }
+hr { margin: 12px 0px 12px 0px; padding: 0px 0px 0px 0px; height: 1px; border: 0px; }
+.error { margin-top: 2px; }
+
+/*** EXTRAS ***/
+:focus { outline: 0; } 
+
+ul {
+	list-style-type: disc;
+	padding-left: 20px;
+	padding-top: 7px;
+}
+
+
+
+.description {
+	font-size: 0.8em;
+	color: #000000;
+}

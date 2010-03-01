@@ -35,10 +35,8 @@ column1() ->
 	Layout = [
 		{ "/web/reference/elements/template", "Template" },
 		{ "/web/reference/elements/panel", "Panel" },
-		{ "/web/reference/elements/rounded_panel", "Rounded Panel" },
 		{ "/web/reference/elements/span", "Span" },
-		{ "/web/reference/elements/lightbox", "Lightbox" },
-		{ "/web/reference/elements/wizard", "Wizard" }
+		{ "/web/reference/elements/lightbox", "Lightbox" }
 	],
 	
 	Tables = [
