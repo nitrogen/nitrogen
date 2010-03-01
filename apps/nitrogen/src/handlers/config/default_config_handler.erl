@@ -32,9 +32,9 @@ get_value(Key, DefaultValue, Config, State) ->
 % then try to read from the command line and
 % convert to a term.
 get_values(Key, DefaultValue, _Config, _State) -> 
-    case application:get_env(Key) of
+    case application:get_env(nitrogen, Key) of
         {ok, Value} -> 
-            Value;
+            [Value];
         undefined ->
             KeyString = "nitrogen_ " ++ wf:to_list(Key),
             case init:get_argument(KeyString) of
