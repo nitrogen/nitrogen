@@ -9,7 +9,7 @@
 % Someone please make it better! - Rusty
 
 -module (simple_session_handler).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -behaviour (session_handler).
 -export ([
     init/2, 

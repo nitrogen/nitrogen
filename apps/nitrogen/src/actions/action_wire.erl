@@ -3,13 +3,13 @@
 % See MIT-LICENSE for licensing information.
 
 -module (action_wire).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 % This action is used internally by Nitrogen.
 render_action(Record) ->
     try 
-			DefaultAnchor = Record#wire.anchor,
+        DefaultAnchor = Record#wire.anchor,
     	DefaultTrigger = Record#wire.trigger,
     	DefaultTarget = Record#wire.target,
     	Actions = set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, Record#wire.actions),
@@ -20,25 +20,25 @@ render_action(Record) ->
         ?PRINT(Record),
         erlang:Type(Error)
     end.
-	
+
 set_paths(_DefaultAnchor, _DefaultTrigger, _DefaultTarget, []) -> 
-	[];
-	
+    [];
+
 set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, [H|T]) ->
-	[set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, H)|
-	 set_paths(DefaultAnchor, DefaultTarget, DefaultTarget, T)];
-	
+    [set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, H)|
+        set_paths(DefaultAnchor, DefaultTarget, DefaultTarget, T)];
+
 set_paths(DefaultAnchor, DefaultTrigger, DefaultTarget, Action) when is_tuple(Action) ->
-	% If the action doesn't have a target
-	Anchor  = wf:coalesce([get_anchor(Action), DefaultAnchor]),
-	Action1 = set_anchor(Action, Anchor),
-	
-	Trigger = wf:coalesce([get_trigger(Action1), DefaultTrigger]),
-	Action2 = set_trigger(Action1, Trigger),
-	
-	Target = wf:coalesce([get_target(Action2), DefaultTarget]),
-	set_target(Action2, Target);
-	
+    % If the action doesn't have a target
+    Anchor  = wf:coalesce([get_anchor(Action), DefaultAnchor]),
+    Action1 = set_anchor(Action, Anchor),
+
+    Trigger = wf:coalesce([get_trigger(Action1), DefaultTrigger]),
+    Action2 = set_trigger(Action1, Trigger),
+
+    Target = wf:coalesce([get_target(Action2), DefaultTarget]),
+    set_target(Action2, Target);
+
 set_paths(_, _, _, Other) -> Other.
 
 get_anchor(Action) -> element(4, Action).
@@ -49,21 +49,21 @@ get_target(Action) -> element(6, Action).
 set_target(Action, Target) -> setelement(6, Action, Target).
 
 wire(_, _, undefined) -> 
-	ok;
-	
+    ok;
+
 wire(_, _, []) -> 
-	ok;
-	
+    ok;
+
 wire(Trigger, Target, Actions) when ?IS_STRING(Actions) ->
-	wire(Trigger, Target, #script { script=Actions });
-	
+    wire(Trigger, Target, #script { script=Actions });
+
 wire(Trigger, Target, Actions) ->
-	Anchor = wf_context:anchor(),
-	Action = #wire {
-		anchor  = Anchor, 
-		trigger = wf:coalesce([Trigger, Anchor]), 
-		target  = wf:coalesce([Target, Anchor]), 
-		actions = Actions
-	},
-	wf_context:add_action(Action),
-	ok.
+    Anchor = wf_context:anchor(),
+    Action = #wire {
+        anchor  = Anchor, 
+        trigger = wf:coalesce([Trigger, Anchor]), 
+        target  = wf:coalesce([Target, Anchor]), 
+        actions = Actions
+    },
+    wf_context:add_action(Action),
+    ok.

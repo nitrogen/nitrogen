@@ -4,13 +4,13 @@
 
 -module (element_p).
 -compile(export_all).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 
 reflect() -> record_info(fields, p).
 
 render_element(Record) -> 
-	wf_tags:emit_tag(p, Record#p.body, [
-		{class, [p, Record#p.class]},
-		{style, Record#p.style}
-	]).
-	
+    wf_tags:emit_tag(p, Record#p.body, [
+        {class, [p, Record#p.class]},
+        {style, Record#p.style}
+    ]).
+

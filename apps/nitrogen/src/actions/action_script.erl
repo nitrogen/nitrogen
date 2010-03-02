@@ -3,9 +3,9 @@
 % See MIT-LICENSE for licensing information.
 
 -module (action_script).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 render_action(Record) -> 
-	Record#script.script.
-	
+    Record#script.script.
+

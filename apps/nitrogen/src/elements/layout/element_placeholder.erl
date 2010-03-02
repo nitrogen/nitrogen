@@ -3,10 +3,10 @@
 % See MIT-LICENSE for licensing information.
 
 -module (element_placeholder).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 reflect() -> record_info(fields, placeholder).
 
 render_element(Record) -> 
-	Record#placeholder.body.
+    Record#placeholder.body.

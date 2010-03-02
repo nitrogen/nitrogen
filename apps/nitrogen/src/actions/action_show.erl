@@ -3,13 +3,13 @@
 % See MIT-LICENSE for licensing information.
 
 -module (action_show).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 render_action(Record) ->
-	#jquery_effect {
-		type=show,
-		effect = Record#show.effect,
-		options = Record#show.options,
-		speed = Record#show.speed
-	}.
+    #jquery_effect {
+        type=show,
+        effect = Record#show.effect,
+        options = Record#show.options,
+        speed = Record#show.speed
+    }.

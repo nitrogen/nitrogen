@@ -4,8 +4,8 @@
 
 -module (simple_bridge).
 -export ([
-	make_request/2,
-	make_response/2
+    make_request/2,
+    make_response/2
 ]).
 
 % Return a simple_bridge request module.

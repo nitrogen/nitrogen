@@ -3,14 +3,14 @@
 % See MIT-LICENSE for licensing information.
 
 -module (element_value).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 reflect() -> record_info(fields, value).
 
 render_element(Record) -> 
-	Text = wf:html_encode(Record#value.text, Record#value.html_encode),
-	wf_tags:emit_tag(span, Text, [
-		{class, [value, Record#value.class]},
-		{style, Record#value.style}
-	]).
+    Text = wf:html_encode(Record#value.text, Record#value.html_encode),
+    wf_tags:emit_tag(span, Text, [
+        {class, [value, Record#value.class]},
+        {style, Record#value.style}
+    ]).

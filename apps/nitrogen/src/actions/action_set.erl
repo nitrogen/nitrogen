@@ -3,17 +3,17 @@
 % See MIT-LICENSE for licensing information.
 
 -module (action_set).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 % This action is used internally by Nitrogen.
 render_action(Record) ->
-	Target = Record#set.target,
-	Value = wf:js_escape(wf:to_list(Record#set.value)),
-	wf:f("Nitrogen.$set_value('~s', \"~s\");", [Target, Value]).
+    Target = Record#set.target,
+    Value = wf:js_escape(wf:to_list(Record#set.value)),
+    wf:f("Nitrogen.$set_value('~s', \"~s\");", [Target, Value]).
 
 set(Element, Value) ->
-	wf:wire(Element, #set { value=Value }).
+    wf:wire(Element, #set { value=Value }).
 
 
 % TODO - not sure if anyone uses this anymore.

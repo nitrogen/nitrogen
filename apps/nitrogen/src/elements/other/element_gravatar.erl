@@ -1,21 +1,21 @@
 -module (element_gravatar).
 -compile(export_all).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 
 reflect() -> record_info(fields, gravatar).
 
 render_element(Record) -> 
-	Image = #image {
-		id=Record#gravatar.id,
-		anchor=Record#gravatar.anchor,
-    image = gravatar_icon(Record)
-	},
-	element_image:render_element(Image).
+    Image = #image {
+        id=Record#gravatar.id,
+        anchor=Record#gravatar.anchor,
+        image = gravatar_icon(Record)
+    },
+    element_image:render_element(Image).
 
 gravatar_icon(#gravatar{email=Email, size=Size, rating=Rating, default=Default}) ->
-	GravatarId = digest2str(erlang:md5(wf:clean_lower(Email))),
-	wf:f("http://www.gravatar.com/avatar/~s?size=~s&r=~s&d=~s" ,
-	     [GravatarId, Size, Rating, Default]).
+    GravatarId = digest2str(erlang:md5(wf:clean_lower(Email))),
+    wf:f("http://www.gravatar.com/avatar/~s?size=~s&r=~s&d=~s" ,
+        [GravatarId, Size, Rating, Default]).
 
 digest2str(Digest) ->
     [[nibble2hex(X bsr 4), nibble2hex(X band 15)] ||

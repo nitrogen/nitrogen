@@ -3,7 +3,7 @@
 % See MIT-LICENSE for licensing information.
 
 -module (element_textarea).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 reflect() -> record_info(fields, textarea).

@@ -4,20 +4,20 @@
 
 -module (wf_convert).
 -export ([
-	clean_lower/1,
-	to_list/1, 
-	to_atom/1, 
-	to_binary/1, 
-	to_integer/1,
-	to_string_list/1,
-	encode/2, decode/2,
-	html_encode/1, html_encode/2,
-	hex_encode/1, hex_decode/1,
-	url_encode/1, url_decode/1,
-	js_escape/1
+    clean_lower/1,
+    to_list/1, 
+    to_atom/1, 
+    to_binary/1, 
+    to_integer/1,
+    to_string_list/1,
+    encode/2, decode/2,
+    html_encode/1, html_encode/2,
+    hex_encode/1, hex_decode/1,
+    url_encode/1, url_decode/1,
+    js_escape/1
 ]).
 
--include ("wf.inc").
+-include_lib ("wf.hrl").
 
 %%% CONVERSION %%%
 
@@ -63,11 +63,11 @@ to_string_list(L) -> to_string_list(L, []).
 to_string_list([], Acc) -> Acc;
 to_string_list(undefined, Acc) -> Acc;
 to_string_list(L, Acc) when is_atom(L) ->
-	[atom_to_list(L)|Acc];
+    [atom_to_list(L)|Acc];
 to_string_list(L, Acc) when ?IS_STRING(L) ->
-	string:tokens(L, " ,") ++ Acc;
+    string:tokens(L, " ,") ++ Acc;
 to_string_list([H|T], Acc) ->
-	to_string_list(T, to_string_list(H) ++ Acc).
+    to_string_list(T, to_string_list(H) ++ Acc).
 
 
 %%% HTML ENCODE %%%
@@ -76,17 +76,17 @@ html_encode(L, false) -> wf:to_list(lists:flatten([L]));
 html_encode(L, true) -> html_encode(wf:to_list(lists:flatten([L]))).	
 html_encode([]) -> [];
 html_encode([H|T]) ->
-	case H of
-		$\s -> "&nbsp;" ++ html_encode(T);
-		$\t -> "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ++ html_encode(T);
-		$< -> "&lt;" ++ html_encode(T);
-		$> -> "&gt;" ++ html_encode(T);
-		$" -> "&quot;" ++ html_encode(T);
-		$' -> "&#39;" ++ html_encode(T);
-		$& -> "&amp;" ++ html_encode(T);
-		$\n -> "<br>" ++ html_encode(T);
-		_ -> [H|html_encode(T)]
-	end.
+    case H of
+        $\s -> "&nbsp;" ++ html_encode(T);
+        $\t -> "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ++ html_encode(T);
+        $< -> "&lt;" ++ html_encode(T);
+        $> -> "&gt;" ++ html_encode(T);
+        $" -> "&quot;" ++ html_encode(T);
+        $' -> "&#39;" ++ html_encode(T);
+        $& -> "&amp;" ++ html_encode(T);
+        $\n -> "<br>" ++ html_encode(T);
+        _ -> [H|html_encode(T)]
+    end.
 
 %%% HEX ENCODE and HEX DECODE
 
@@ -95,32 +95,32 @@ hex_decode(Data) -> decode(Data, 16).
 
 encode(Data, Base) when is_binary(Data) -> encode(binary_to_list(Data), Base);
 encode(Data, Base) when is_list(Data) ->
-	F = fun(C) when is_integer(C) ->
-		case erlang:integer_to_list(C, Base) of
-			[C1, C2] -> <<C1, C2>>;
-			[C1]     -> <<$0, C1>>;
-			_        -> throw("Could not hex_encode the string.")
-		end
-	end,
-	{ok, list_to_binary([F(I) || I <- Data])}.
-	
+    F = fun(C) when is_integer(C) ->
+        case erlang:integer_to_list(C, Base) of
+            [C1, C2] -> <<C1, C2>>;
+            [C1]     -> <<$0, C1>>;
+            _        -> throw("Could not hex_encode the string.")
+        end
+    end,
+    {ok, list_to_binary([F(I) || I <- Data])}.
+
 decode(Data, Base) when is_binary(Data) -> decode(binary_to_list(Data), Base);
 decode(Data, Base) when is_list(Data) -> 	
-	{ok, list_to_binary(inner_decode(Data, Base))}.
+    {ok, list_to_binary(inner_decode(Data, Base))}.
 
 inner_decode(Data, Base) when is_list(Data) ->
-	case Data of
-		[C1, C2|Rest] -> 
-			I = erlang:list_to_integer([C1, C2], Base),
-			[I|inner_decode(Rest, Base)];
-			
-		[] -> 
-			[];
-			
-		_  -> 
-			throw("Could not hex_decode the string.")
-	end.
-			
+    case Data of
+        [C1, C2|Rest] -> 
+            I = erlang:list_to_integer([C1, C2], Base),
+            [I|inner_decode(Rest, Base)];
+
+        [] -> 
+            [];
+
+        _  -> 
+            throw("Could not hex_decode the string.")
+    end.
+
 %%% URL ENCODE/DECODE %%%
 
 url_encode(S) -> quote_plus(S).
@@ -169,13 +169,13 @@ js_escape(<<>>, Acc) -> Acc.
 -define(PERCENT, 37).  % $\%
 -define(FULLSTOP, 46). % $\.
 -define(IS_HEX(C), ((C >= $0 andalso C =< $9) orelse
-                    (C >= $a andalso C =< $f) orelse
-                    (C >= $A andalso C =< $F))).
+    (C >= $a andalso C =< $f) orelse
+    (C >= $A andalso C =< $F))).
 -define(QS_SAFE(C), ((C >= $a andalso C =< $z) orelse
-                     (C >= $A andalso C =< $Z) orelse
-                     (C >= $0 andalso C =< $9) orelse
-                     (C =:= ?FULLSTOP orelse C =:= $- orelse C =:= $~ orelse
-                      C =:= $_))).
+    (C >= $A andalso C =< $Z) orelse
+    (C >= $0 andalso C =< $9) orelse
+    (C =:= ?FULLSTOP orelse C =:= $- orelse C =:= $~ orelse
+        C =:= $_))).
 
 
 hexdigit(C) when C < 10 -> $0 + C;

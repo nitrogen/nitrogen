@@ -3,7 +3,7 @@
 % See MIT-LICENSE for licensing information.
 
 -module (action_function).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 % This action is used internally by Nitrogen.

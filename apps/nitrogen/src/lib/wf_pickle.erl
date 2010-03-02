@@ -8,7 +8,7 @@
     depickle/1, 
     depickle/2
 ]).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 
 % Does a plain old term_to_binary...
 pickle(Data) ->

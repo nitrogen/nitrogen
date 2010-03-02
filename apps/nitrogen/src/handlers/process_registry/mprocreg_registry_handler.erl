@@ -4,7 +4,7 @@
 
 -module (mprocreg_registry_handler).
 -behaviour (process_registry_handler).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -export ([
     init/2, 
     finish/2,

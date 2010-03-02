@@ -3,7 +3,7 @@
 % See MIT-LICENSE for licensing information.
 
 -module (element_function).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 % The 'function' attribute is an Erlang function of arity 0 that returns [Elements].
@@ -18,14 +18,14 @@
 reflect() -> record_info(fields, function_el).
 
 render_element(Record) ->
-	Functions = lists:flatten([Record#function_el.function]),
-	call_next_function(Functions).
-	
+    Functions = lists:flatten([Record#function_el.function]),
+    call_next_function(Functions).
+
 call_next_function([]) -> [];
 call_next_function([F|Functions]) ->
-	% Call the function. If it provides results, then return it, 
-	% Otherwise, call the next function.
-	case F() of
-		undefined -> call_next_function(Functions);
-		Elements  -> Elements
-	end.
+    % Call the function. If it provides results, then return it, 
+    % Otherwise, call the next function.
+    case F() of
+        undefined -> call_next_function(Functions);
+        Elements  -> Elements
+    end.

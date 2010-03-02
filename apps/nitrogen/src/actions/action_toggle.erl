@@ -3,13 +3,13 @@
 % See MIT-LICENSE for licensing information.
 
 -module (action_toggle).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 render_action(Record) ->
-	#jquery_effect {
-		type=toggle,
-		effect = Record#toggle.effect,
-		options = Record#toggle.options,
-		speed = Record#toggle.speed
-	}.
+    #jquery_effect {
+        type=toggle,
+        effect = Record#toggle.effect,
+        options = Record#toggle.options,
+        speed = Record#toggle.speed
+    }.

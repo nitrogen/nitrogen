@@ -3,56 +3,56 @@
 % See MIT-LICENSE for licensing information.
 
 -module (element_flash).
--include ("wf.inc").
+-include_lib ("wf.hrl").
 -compile(export_all).
 
 reflect() -> record_info(fields, flash).
-	
+
 render_element(_Record) -> 
-	Terms = #panel { 
-		id=flash,
-		class=flash_container
-	},
-	wf:state(has_flash, true),
-	Terms.
+    Terms = #panel { 
+        id=flash,
+        class=flash_container
+    },
+    wf:state(has_flash, true),
+    Terms.
 
 % render/0 - Convenience methods to place the flash element on a page from a template.
 render() -> #flash{}.
 
 update() ->
-	% TODO - Stifle flash when we are redirecting.
-	HasFlash = wf:state(has_flash),
-	case HasFlash of
-		true -> 
-			{ok, Flashes} = get_flashes(),
-			wf:insert_bottom(flash, Flashes);
-	  _ -> ignore
-	end.
+    % TODO - Stifle flash when we are redirecting.
+    HasFlash = wf:state(has_flash),
+    case HasFlash of
+        true -> 
+            {ok, Flashes} = get_flashes(),
+            wf:insert_bottom(flash, Flashes);
+        _ -> ignore
+    end.
 
 add_flash(Term) ->
-	Flashes = case wf:session(flashes) of
-		undefined -> [];
-		X -> X
-	end,
-  wf:session(flashes, [Term|Flashes]).
+    Flashes = case wf:session(flashes) of
+        undefined -> [];
+        X -> X
+    end,
+    wf:session(flashes, [Term|Flashes]).
 
 get_flashes() -> 
-	% Create terms for an individual flash...
-	F = fun(X) ->
-		FlashID = wf:temp_id(),
-		InnerPanel = #panel { class=flash, actions=#show { target=FlashID, effect=blind, speed=400 }, body=[
-			#link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#hide { effect=blind, speed=400 } } },
-			#panel { class=flash_content, body=X }
-		]},
-		#panel { id=FlashID, style="display: none;", body=InnerPanel}
-	end,
-	
-	% Get flashes, and clear session...
-	Flashes = case wf:session(flashes, []) of 
-		undefined -> [];
-		Other -> Other
-	end,	
-	
-	% Return list of terms...
-	Flashes1 = [F(X) || X <- lists:reverse(Flashes)],
-	{ok, Flashes1}.
+    % Create terms for an individual flash...
+    F = fun(X) ->
+        FlashID = wf:temp_id(),
+        InnerPanel = #panel { class=flash, actions=#show { target=FlashID, effect=blind, speed=400 }, body=[
+            #link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#hide { effect=blind, speed=400 } } },
+            #panel { class=flash_content, body=X }
+        ]},
+        #panel { id=FlashID, style="display: none;", body=InnerPanel}
+    end,
+
+    % Get flashes, and clear session...
+    Flashes = case wf:session(flashes, []) of 
+        undefined -> [];
+        Other -> Other
+    end,	
+
+    % Return list of terms...
+    Flashes1 = [F(X) || X <- lists:reverse(Flashes)],
+    {ok, Flashes1}.

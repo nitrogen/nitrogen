@@ -76,7 +76,7 @@ command(Other) ->
 template(Template, Name) ->
     {ok, B} = file:read_file(Template),
     replace_name(binary_to_list(B), Name).
-    
+
 replace_name(S, Name) ->
     case S of
         "[[[NAME]]]" ++ Rest -> 
