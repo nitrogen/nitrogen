@@ -1,0 +1,28 @@
+-- 
+INTRODUCTION
+--
+
+Nitrogen-mode is a a major Emacs mode, derived from erlang-mode, that
+fixes Erlang indentation to be more nitrogen friendly by indenting
+block at a fixed amount rather than underneath the end of the block.
+
+In other words, it changes this:
+
+    Elements = #panel { body=[
+                              #span { text="Hello, World!" }
+                             ]}
+
+Into this:
+
+    Elements = #panel { body=[
+        #span { text="Hello, World!" }
+    ]},
+
+
+--
+INSTALLATION
+--
+
+To install, add nitrogen-mode.el to your load path, and then run:
+
+(require 'nitrogen-mode)
