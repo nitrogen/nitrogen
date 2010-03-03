@@ -4,8 +4,8 @@ NITROGEN_VERSION=2.0.0
 help:
 	@echo 
 	@echo "Usage: ./make {compile|clean}                   # Compile" 
-	@echo "       ./make {rel_inets|rel_mochiweb}          # Build release"
-	@echo "       ./make {package_inets|package_mochiweb}  # Package .tar.gz"
+	@echo "       ./make {rel_inets|rel_mochiweb}          # Create ./rel/nitrogen"
+	@echo "       ./make {package_inets|package_mochiweb}  # Create ./builds/*.tar.gz"
 	@echo
 
 
@@ -46,7 +46,7 @@ rel_mochiweb: compile
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 
-package_inets: 
+package_inets: rel_inets
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
