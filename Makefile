@@ -24,14 +24,17 @@ rel_inets: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
-# rel_mochiweb: compile
-# 	@rm -rf rel/nitrogen
-# 	@rm -rf rel/reltool.config
-# 	@ln rel/mochiweb.config rel/reltool.config
-# 	@(cd rel; ./rebar generate)
-# 	@(cd rel/nitrogen; make)
-# 	@rm -rf rel/reltool.config	
-# 	@echo Generated self-contained Nitrogen (Mochiweb) project in rel/nitrogen.
+rel_mochiweb: compile
+	@rm -rf rel/nitrogen
+	@rm -rf rel/reltool.config
+	@ln rel/mochiweb.config rel/reltool.config
+	@(cd rel; ./rebar generate)
+	@(cd rel/nitrogen; make)
+	@rm -rf rel/reltool.config	
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Mochiweb.
+
+
 
 
 # rel_yaws: compile

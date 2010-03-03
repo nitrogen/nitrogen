@@ -20,3 +20,5 @@
 -env ERL_FULLSWEEP_AFTER 10
 
 -pa ./site/ebin
+
+-eval "application:start(nitrogen_mochiweb)"
