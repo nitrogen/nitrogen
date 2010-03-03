@@ -1,0 +1,165 @@
+
+* Summary
+
+  The purpose of this document is to help you get up and hacking
+  quickly on a new Nitrogen-based website. 
+
+* Common Questions
+
+** How do I start/stop/manage Nitrogen?
+
+   To start Nitrogen, run:
+
+   : ./bin/nitrogen start
+
+   The =./bin/nitrogen= script takes the following commands:
+
+   + =start= - Start Nitrogen.
+   + =console= - Start Nitrogen in console mode.
+   + =attach= - Attach to a running instance of Nitrogen.
+   + =stop=  - Stop Nitrogen
+   + =restart= - Relaunches Nitrogen inside of the Erlang VM.
+   + =reboot= - Cleanly shuts down the Erlang VM, and relaunches if
+     'heart' is running.
+   + =ping= - Check if this version of Nitrogen is running.
+
+  By default, Nitrogen starts on port 8000. You can access your
+  running Nitrogen server by navigating to http://localhost:8000. You
+  should see the startup page.
+
+** Where is the code for my website?
+
+   The Nitrogen project is structured so that all site specific code is
+   inside the =site= directory. This allows you to put the entire
+   =site= directory under source control, for easy development and
+   deployment.
+
+   + =./site/src= - Page modules, custom elements, and custom actions for
+     your site.
+   + =./site/static= - Static files, including Javascript and
+     CSS. These will be served through the web.
+   + =./site/templates= - Html files used by the =#template{}= action.
+   + =./site/.prototypes= - Code used by =./bin/dev= to generate a page,
+     element, or action.
+
+** How do I create new pages, custom elements, or custom actions?
+
+   Nitrogen includes a developer tool to help you get started with a
+   bare-bones page, element, or action.
+
+   + To create a new page at http://localhost/user/login, run:
+
+      : ./bin/dev page user_login
+
+   + To create a new element called =#custom_element{}=, run:
+
+      : ./bin/dev element custom_element
+
+   + To create a new action called =#custom_action{}=, run:
+
+      : ./bin/dev action custom_action
+
+   The code is placed under =./site/src=, =./site/src/elements=, or
+   =./site/src/actions= for pages, elements, and actions,
+   respectively. You can modify the code from which the new page,
+   element, or action is derived by editing the files in
+   =./site/.prototypes/=.
+
+** How do I compile my code?
+
+   Nitrogen provides three ways to compile code. Most often, you will
+   want to compile without restarting Erlang. To do this, run:
+
+   : ./bin/dev compile
+
+   You can also run =sync:go()= on the Erlang shell.
+
+   Alternatively, you can run =make=, but this will require you to
+   restart Erlang before the changes will take effect.
+
+** How do I change configuration settings?
+
+   By default, Nitrogen starts on port 8000 and listens on all IP
+   addresses pointing to your computer. You can change this by editing
+   the files within =./etc=. 
+
+   Note that the actual file to edit depends upon which web server you
+   are running, but if you learned Erlang, you are probably smart
+   enough to figure it out.
+
+** How do I upgrade to a new version of Nitrogen?
+   
+   Assuming there are no API level changes that require you to change
+   your existing code, you can upgrade Nitrogen as follows:
+
+   + Build or download the new Nitrogen environment for your
+     architecture and preferred web server. Unzip to a new directory.
+
+   + Copy the entire =./site= directory to the new version, *except* for
+     the files in =./site/static/nitrogen=.
+
+   + Copy the entire =./etc= directory to the new version.
+
+   This will update the Erlang version, the dependencies files, and
+   all of the Javascript used by Nitrogen. Note that this applies from
+   Nitrogen version 2.0 onward.
+
+* Resources
+
+  + NitrogenProject.com - http://nitrogenproject.com
+
+  + Source Code - http://github.com/rklophaus/nitrogen
+
+  + Donations - http://pledgie.com/campaigns/2057
+
+  + Mailing List - http://groups.google.com/group/nitrogenweb
+  
+  + Bugs and Issues - http://nitrogen.lighthouseapp.com
+
+* Versions
+
+  Nitrogen relies on some or all of the following software:
+
+  + *Erlang R13B03* or later - http://erlang.org
+
+  + *SimpleBridge* - Common interface to Erlang HTTP servers.
+    - Git Repo: git://github.com/rklophaus/SimpleBridge.git
+    - Commit:   652a3d1
+
+  + *mochiweb* - HTTP Server (Optional)
+    - SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
+    - Revision: 133
+
+  + *yaws* - HTTP Server - http://yaws.hyber.org/ (Optional)
+    - Source: http://yaws.hyber.org/download/yaws-1.87.tar.gz
+
+  + *JQuery 1.4.2* - http://jquery.com
+
+  + *JQuery UI 1.8rc2* - http://jqueryui.com
+
+  + *Live Validation 1.3* - http://livevalidation.com/
+
+* Thanks
+
+  Sincere thanks to all the people who have helped make Nitrogen great, including:
+   
+  + Rusty Klophaus (@rklophaus)
+  + Chris Williams (@voodootikigod)
+  + Joel Reymont (@wagerlabs)
+  + Tom McNulty
+  + Martin Scholl (@zeit\_geist)
+  + Dave Peticolas
+  + Jon Gretar Borgthorsson (@jongretar)
+  + Dan Bravender (@dbravender)
+  + Taavi Talvik
+  + Torbjorn Tornkvist (@kruskakli)
+  + Marius A. Eriksen (@marius)
+  + Michael Mullis
+  + John Dragos
+  + Benjamin Nortier (@bjnortier)
+  + Jay Doane
+  + Robert Schonberger
+  + Yurii Rashkovskii (@yrashk)
+  + Ville Koivula
+   
+  Roughly sorted by date of contribution. Send your twitter handles to @rklophaus

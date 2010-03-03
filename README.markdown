@@ -4,7 +4,8 @@ Nitrogen is an Erlang-based web framework that allows you to develop
 infinitely scaleable, Ajax-rich web applications using a pure Erlang 
 technology stack.
 
-See the [Nitrogen Project website](http://nitrogenproject.com) for additional information.
+See the [Nitrogen Project website](http://nitrogenproject.com) for
+additional information.
 
 ### Getting Started
 

@@ -1,0 +1,79 @@
+.label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-top: 7px;
+}
+
+.value {
+    display: block;
+    font-weight: bold;
+    padding: 0px 0px 0px 0px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+/*** INPLACE EDITING ***/
+
+div.inplace_textbox div.view {
+    cursor: pointer;
+}
+
+div.inplace_textbox .label {
+    display: inline;
+}
+
+div.inplace_textbox .instructions {
+    padding-left: 12px;
+    font-size: 0.8em;
+}
+
+div.inplace_textbox .LV_invalid {
+    position: relative;
+    margin-right: 7px;
+    color:#CC0000;
+    background-color: #FFFF99;
+    border: solid 2px #D0D0C0;
+}
+
+.flash_container {
+}
+
+.flash {
+    color: #303030;
+    background-color: #FAEC7F;
+    border: #FFE800 solid 2px; 
+    padding: 3px 5px 3px 5px; 
+    margin-bottom: 7px;
+}
+
+.flash .flash_content {
+    margin-right: 50px;
+}
+
+.flash .flash_close_button {
+    float: right;
+    font-size: 90%;
+}
+
+/*** VALIDATION ***/
+
+.LV_validation_message {
+    vertical-align: middle;
+    display: inline;
+    line-height: 100%;
+    position: absolute;
+    font-weight:bold;
+    margin: 0px 0px 0px 7px;
+    padding: 5px 7px 5px 7px;
+    opacity: 0.8;
+    -moz-opacity: 0.8;
+    filter:alpha(opacity=80);
+}
+
+.LV_invalid {
+    color:#CC0000;
+    background-color: #FFFF99;
+    border: solid 2px #D0D0C0;
+}

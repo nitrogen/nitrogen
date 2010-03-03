@@ -1,6 +1,10 @@
 /*** FONTS ***/
 
-body, table, table td { font-size: 1em; font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif; line-height: 1.7em; }
+body, table, table td { 
+    font-size: 1em; 
+    font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif; 
+    line-height: 1.7em; 
+}
 
 h1 { font-family: 'Arial'; font-size: 2.2em; font-weight: bold; }
 h2 { font-family: 'Arial', Georgia; font-size: 1.7em; font-weight: bold;  }
@@ -11,11 +15,15 @@ a, a:visited { text-decoration: none; }
 a:hover, a:active { text-decoration: underline; }
 
 input[type=text], input[type=password], textarea {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight: bold; font-size: 1.1em; line-height: 1.1em;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+    font-weight: bold; 
+    font-size: 1.1em; 
+    line-height: 1.1em;
 }
 
 input[type=submit], input[type=button] {
-	font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif; font-size: 1em;
+    font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif; 
+    font-size: 1em;
 }
 
 .big { font-size: 120%; line-height: 180%; }
@@ -58,25 +66,33 @@ h2 { margin: 0px 0px 0px 0px;  padding: 0em 0px 0.5em 0px; }
 h3 { margin: 0px 0px 0px 0px;  padding: 0em 0px 0.5em 0px; }
 h4 { margin: 0px 0px 0px 0px;  padding: 0.2em 0px 0.1em 0px; }
 
-input[type=text], input[type=password], textarea {	padding: 5px 5px 5px 5px; margin: 0px 7px 0px 0px; }
+input[type=text], input[type=password], textarea {	
+    padding: 5px 5px 5px 5px; 
+    margin: 0px 7px 0px 0px; 
+}
 input[type=submit], input[type=button] { margin-right: 7px; }
 input[type=checkbox] { vertical-align: middle; margin-right: 10px; }
 label { vertical-align: middle; }
-hr { margin: 12px 0px 12px 0px; padding: 0px 0px 0px 0px; height: 1px; border: 0px; }
+hr { 
+    margin: 12px 0px 12px 0px; 
+    padding: 0px 0px 0px 0px; 
+    height: 1px; 
+    border: 0px; 
+}
 .error { margin-top: 2px; }
 
 /*** EXTRAS ***/
 :focus { outline: 0; } 
 
 ul {
-	list-style-type: disc;
-	padding-left: 20px;
-	padding-top: 7px;
+    list-style-type: disc;
+    padding-left: 20px;
+    padding-top: 7px;
 }
 
 
 
 .description {
-	font-size: 0.8em;
-	color: #000000;
+    font-size: 0.8em;
+    color: #000000;
 }
