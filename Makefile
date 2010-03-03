@@ -1,4 +1,13 @@
-# all: compile test
+
+NITROGEN_VERSION=2.0.0
+
+help:
+	@echo 
+	@echo "Usage: ./make {compile|clean}                   # Compile" 
+	@echo "       ./make {rel_inets|rel_mochiweb}          # Build release"
+	@echo "       ./make {package_inets|package_mochiweb}  # Package .tar.gz"
+	@echo
+
 
 compile:
 	@(cd ./apps/nitrogen; make compile)
@@ -14,6 +23,7 @@ clean:
 
 rel: rel_inets
 
+
 rel_inets: compile
 	@rm -rf rel/nitrogen
 	@rm -rf rel/reltool.config
@@ -23,6 +33,7 @@ rel_inets: compile
 	@rm -rf rel/reltool.config	
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
+
 
 rel_mochiweb: compile
 	@rm -rf rel/nitrogen
@@ -35,23 +46,11 @@ rel_mochiweb: compile
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 
+package_inets: 
+	mkdir -p ./builds
+	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
 
-# rel_yaws: compile
-# 	@rm -rf rel/nitrogen
-# 	@rm -rf rel/reltool.config
-# 	@ln rel/yaws.config rel/reltool.config
-# 	@(cd rel; ./rebar generate)
-# 	@(cd rel/nitrogen; make)
-# 	@rm -rf rel/reltool.config	
-# 	@echo Generated self-contained Nitrogen (Yaws) project in rel/nitrogen.
-
-
-# rel_misultin: compile
-# 	@rm -rf rel/nitrogen
-# 	@rm -rf rel/reltool.config
-# 	@ln rel/misultin.config rel/reltool.config
-# 	@(cd rel; ./rebar generate)
-# 	@(cd rel/nitrogen; make)
-# 	@rm -rf rel/reltool.config	
-# 	@echo Generated self-contained Nitrogen (Misultin) project in rel/nitrogen.
+package_mochiweb: rel_mochiweb
+	mkdir -p ./builds
+	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz

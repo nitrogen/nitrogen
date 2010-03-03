@@ -1,4 +1,4 @@
-# Nitrogen 1.0 Changelog
+# Nitrogen 2.0 Changelog
 
 The current Experimental branch will soon become Nitrogen 1.0!  Here's what's new...
 
@@ -37,7 +37,7 @@ The current Experimental branch will soon become Nitrogen 1.0!  Here's what's ne
 * wf:qs(ID) returns a list.
 * wf:depickle(Data, TTL) returns undefined if expired.
 
-# Nitrogen 0.5 Changelog
+# Nitrogen 1.0 Changelog
 
 2009-05-02
 - Added changes and bugfixes by Tom McNulty.

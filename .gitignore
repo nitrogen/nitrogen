@@ -1,8 +1,8 @@
 *.dump
 .DS_Store
-http_servers
 coverage
 .hgignore
 *.beam
 rel/nitrogen
 TAGS
+builds
