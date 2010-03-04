@@ -1,0 +1,276 @@
+#+STYLE: <LINK href="stylesheet.css" rel="stylesheet" type="text/css" />
+#+TITLE: The Nitrogen API
+#+AUTHOR: Rusty Klophaus (@rklophaus)
+#+OPTIONS:   H:2 num:1 toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+EMAIL: 
+
+#+TEXT: [[./index.html][Getting Started]] | API | [[./elements.html][Elements]] | [[./actions.html][Actions]] | [[./validators.html][Validators]] | [[./handlers.html][Handlers]]
+
+* Convenience Functions
+
+** wf:f(Format, Data) -> String
+
+   Convenience function to format a string similar to
+   io\_lib:format(Format, Data). Returns a flattened list.
+   
+** wf:coalesce([List]) -> Item
+
+   Returns the first element in the list that is not 'undefined'.
+   
+** wf:is\_string(Term) -> Bool
+
+   Returns true if the Term is an Erlang string. That is, a flat list
+   of integers.
+   
+** wf:to\_list(Term) -> List
+
+   Converts the supplied term to a flat list, if possible. Useful for
+   turning Integers, Atoms, Binaries into Strings.
+   
+** wf:to\_atom(Term) -> Atom
+
+   Converts the supplied term into an Atm, if possible. Useful for
+   turning Integers, Binaries, and Strings into Atoms.
+
+** wf:to\_binary(Term) -> Binary
+
+   Converts the supplied term into a Binary, if possible. Useful for
+   turning Integers, Atoms, and Strings into Binaries.
+
+** wf:to\_integer(Term) -> Integer
+
+   Converts the supplied term into an Integer, if possible. Useful for turning Atoms, Strings, and Binaries into Integers.
+
+** wf:html\_encode(String) -> EncodedString
+
+   HTML encodes the supplied String, converting things like < and > into &lt; and &gt;.
+   
+** wf:guid() -> String
+   Returns a guid. That is, highly unique 16 byte value, represented as a hex string 32 characters long.
+   
+** wf:temp\_id() -> String
+
+   Return a temp id. Useful for naming an Element so that you can
+   refer to it during a postback later, without giving it a specific
+   name.
+
+* AJAX Updates
+
+  TargetID can refer to the name of an element, or it can be a JQuery selector path.
+   
+** wf:update(TargetID, Elements) -> ok
+   Update the contents of TargetID with a new set of Nitrogen Elements.
+
+** wf:replace(TargetID, Elements) -> ok
+   Replace TargetID with a new set of Nitrogen Elements.
+
+** wf:remove(TargetID) -> ok
+   Remove TargetID from the DOM.
+   
+** wf:insert\_top(TargetID, Elements) -> ok
+   Insert Nitrogen Elements at the top of TargetID, shifting the existing contents downward.
+   
+** wf:insert\_bottom(TargetID, Elements) -> ok
+   Insert Nitrogen Elements at the bottom of the TargetID, below the existing contents.
+
+** wf:flash(Elements) -> ok
+   Insert the Nitrogen Elements as a new flash message.
+
+
+* Event Wiring
+   
+** wf:wire(Actions) -> ok
+
+   Wire actions to the page. The Actions are applied against the entire page unless a
+   trigger or target are specified within the action itself.
+
+   For example, show a Javascript alert:
+
+   : wf:wire(#alert { text=\"Hello, World!\" })
+   
+** wf:wire(TargetID, Actions) -> ok
+
+   Wire actions to the page, targeted against supplied TargetID.
+   For example, hide a Panel:
+
+   : wf:wire(PanelID, #hide {})
+
+   
+** wf:wire(TriggerID, TargetID, Actions) -> ok
+
+   Wire actions to the page, triggering on the supplied TriggerID and targeting against
+   the supplied TargetID. This allows you to wire actions (such as #event) that listen
+   to a click on one element and modify a different element.
+
+   For example, when a button is clicked, hide a panel:
+
+   : wf:wire(ButtonID, PanelID, #event { type=click, actions=#hide {} })
+
+** wf:continue(Tag, Function, IntervalInMS, TimeoutInMS) -> ok
+
+   Spawn the provided function (arity 0) and tell the browser to poll for the results at the specified interval, with a timeout setting.
+   See [[http://nitrogenproject.com/web/samples/continuations][continuations example]] for usage.
+
+* Asynchronous Page Updates (Comet, Continuations)
+
+** wf:comet(Function) -> Pid
+
+   Spawn a function and tell the browser to open a COMET request to receive the results in real time.
+   See [[http://nitrogenproject.com/web/samples/comet1][example 1]], [[http://nitrogenproject.com/web/samples/comet2][example 2]], and [[http://nitrogenproject.com/web/samples/comet3][example 3]] for usage.
+   
+** wf:flush() -> ok
+
+   Normally, the results of a comet function are sent to the browser when the function exits.
+   comet\_flush/0 pushes results to the browser immediately, useful for a looping comet function.
+
+** wf:continue(Tag, Function) -> ok
+
+   Spawn the provided function (arity 0) and tell the browser to poll for the results.
+   See [[http://nitrogenproject.com/web/samples/continuations][continuations example]] for usage.
+   
+** wf:continue(Tag, Function, Interval) -> ok
+
+   Spawn the provided function (arity 0) and tell the browser to poll for the results at the specified interval.
+   See [[http://nitrogenproject.com/web/samples/continuations][continuations example]] for usage.
+
+* Redirect
+
+** wf:redirect(Url) -> ok
+   Redirect to the provided URL.
+   
+** wf:redirect\_to\_login(Url) -> ok
+
+   Redirect to the provided URL, attaching a token on the end. The recieving page can call
+   =wf:redirect\_from\_login(DefaultUrl)= to send the user back to the current page.
+   
+** wf:redirect\_from\_login(DefaultUrl) -> ok
+
+   Redirect the user back to a page that called =wf:redirect\_to\_login(Url)=. If 
+   the user came to the page for some other reason, then the user is redirected to the 
+   provided DefaultUrl.
+
+* Session State
+
+** wf:session(Key) -> Value or 'undefined'
+
+   Retrieve the session value stored under the specified key.
+   For example, retrieve the value of 'count' for the current user:
+   =Count = wf:session(count)=
+   
+** wf:session(Key, Value) -> ok
+   
+   Store a session variable for the current user. Key and Value can be any Erlang term.
+   For example, store a count:
+   =wf:session(count, Count)=
+   
+** wf:clear\_session() -> ok
+
+   Clear the current user's session.
+   
+** wf:logout() -> ok
+   Clear session state, page state, identity, and roles.	
+
+* Page State
+   
+** wf:state(Key) -> Value
+
+   Retrieve a page state value stored under the specified key. Page State is
+   different from Session State in that Page State is scoped to a series
+   of requests by one user to one Nitrogen Page.
+   
+** wf:state(Key, Value) -> ok
+
+   Store a page state variable for the current user. Page State is
+   different from Session State in that Page State is scoped to a series
+   of requests by one user to one Nitrogen Page.
+   
+** wf:clear\_state() -> ok
+   Clear a user's page state.
+
+* Authentication and Authorization    
+   
+** wf:user() -> User or 'undefined'
+   Return the user value that was previously set by =wf:user(User)=
+
+** wf:user(User) -> ok
+   Set the user for the current session.
+   
+** wf:clear\_user() -> ok
+   Same as =wf:user(undefined)=.
+   
+** wf:role(Role) -> 'true' or 'false'
+   Check if the current user has a specified role.
+   
+** wf:role(Role, IsInRole) -> ok
+   Set whether the current user is in a specified role.
+   
+** wf:clear\_roles() -> ok
+   Remove the user from all roles.	
+
+* Web Request and Response
+
+** wf:q(AtomKey) -> [StringValue]
+
+   Get all query string and POST values for the provided key. In most cases,
+   returns a list of Values, though in most cases it will be a list of length 1.
+   
+** wf:set\_response\_code(IntegerCode) -> ok
+   Set the HTTP response code. Defaults to 200
+   
+** wf:set\_content\_type(ContentType) -> ok
+
+   Set the HTTP content type. Defaults to "text/html". This can be
+   used to return text images or other files to the browser, rather than returning 
+   HTML.
+
+** wf:get\_path\_info() -> String
+
+   Return the path info for the requested page. In other words, if the module
+   web\_my\_page is requsted with the path "/web/my/page/some/extra/stuff then
+   wf:get\_path\_info() would return "some/extra/stuff".
+   
+** wf:get\_page\_module() -> Atom
+
+   Returns the requested page module. Useful information to know when writing a custom
+   element or action.
+
+* Cookies
+
+** wf:set\_cookie(Key, Value) -> ok
+
+   Tell Nitrogen to set a cookie on the browser. Uses \"/\" for the Path, and Nitrogen's
+   session timeout setting for the MinutesToLive value.
+   
+** wf:set\_cookie(Key, Value, Path, MinutesToLive) -> ok
+
+   Tell Nitrogen to set a cookie on the browser under the specified Path that is valid
+   for a certain number of minutes.
+   
+** wf:get\_cookie(Key) -> String
+   Retrieve a previously set cookie.
+   
+* HTTP Headers
+   
+** wf:get\_headers() -> [{AtomKey, StringValue}, ...]
+   Returns a proplist of all HTTP headers.
+   
+** wf:get\_header(AtomKey) -> Value
+   Returns the value of an HTTP header.
+   
+** wf:set\_header(StringKey, HeaderValue) -> ok
+   Sets an HTTP header during the next response.
+   
+* Serialization
+   
+** wf:pickle(Term) -> PickledBinary
+   Serialize a term into a web-safe hex string, with checksumming. (Not encrypted!)
+   
+** wf:depickle(PickledBinary) -> Term
+   Turn a pickled binary back into the original term.
+   
+** wf:depickle(PickledBinary, SecondsToLive) -> Term or 'undefined'
+
+   Turn a pickled binary back into the original term, checking to see
+   if the term was pickled more than SecondsToLive second
+   ago. Returns the Term if it is still 'fresh' or the atom
+   'undefined'.
