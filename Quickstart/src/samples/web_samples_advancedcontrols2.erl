@@ -1,9 +1,9 @@
 -module (web_samples_advancedcontrols2).
--include ("wf.inc").
--include ("google_chart.inc").
+-include_lib ("nitrogen/include/wf.hrl").
+-include ("nitrogen/include/google_chart.hrl").
 -compile(export_all).
 
-main() -> #template { file="./wwwroot/onecolumn.html", bindings=[
+main() -> #template { file="./templates/onecolumn.html", bindings=[
 	{'Group', learn},
 	{'Item', samples}
 ]}.

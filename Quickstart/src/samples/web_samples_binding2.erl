@@ -1,10 +1,10 @@
 -module (web_samples_binding2).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
 -record(mydata, {title, author, description, postback}).
 
-main() ->	#template { file="./wwwroot/twocolumn.html", bindings=[
+main() ->	#template { file="./templates/twocolumn.html", bindings=[
 	{'Group', learn},
 	{'Item', samples}
 ]}.

@@ -1,5 +1,5 @@
 -module (web_samples_viewsource).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
 main() ->

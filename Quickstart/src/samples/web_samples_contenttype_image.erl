@@ -1,5 +1,5 @@
 -module (web_samples_contenttype_image).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
 main() -> 

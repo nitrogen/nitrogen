@@ -1,8 +1,6 @@
----------
-NEW USERS
----------
 
 To get started with Nitrogen quickly, simply run:
+
 
 ./quickstart.sh
 
@@ -14,40 +12,8 @@ This will:
 
 Then, open your browser to http://localhost:8000
 
+---
 
--------------------
-MOCHIWEB QUICKSTART
--------------------
-
-1.	Download and compile Mochiweb.
-
-2. 	Update the $MOCHIWEB_SRC variable in 'quickstart_mochiweb.sh' to point
-   	to your root mochiweb directory.
-
-3. 	Run ./quickstart_mochiweb.sh 
-
-		This will:
-		 - Compile the Nitrogen Web Framework.
-		 - Compile the sample files.
-		 - Start Nitrogen on top of the Mochiweb server on port 8000.
-
-4. Open your web browser to http://localhost:8000
-
-
----------------
-YAWS QUICKSTART
----------------
-
-1.	Download and compile Yaws.
-
-2. 	Update the $YAWS_SRC variable in 'quickstart_yaws.sh' to point
-   	to your root yaws directory.
-
-3. 	Run ./quickstart_yaws.sh 
-
-		This will:
-		 - Compile the Nitrogen Web Framework.
-		 - Compile the sample files.
-		 - Start Nitrogen on top of the Yaws server on port 8000.
-
-4. Open your web browser to http://localhost:8000
+To build your own project, run "make rel_inets", "make rel_mochiweb",
+or "make rel_yaws" in the root directory of Nitrogen, and then base
+your project in "./rel/nitrogen".

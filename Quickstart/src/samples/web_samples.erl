@@ -1,9 +1,9 @@
 -module (web_samples).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
 main() ->	
-	#template { file="./wwwroot/twocolumn.html", bindings=[
+	#template { file="./templates/twocolumn.html", bindings=[
 		{'Group', learn},
 		{'Item', samples}
 	]}.

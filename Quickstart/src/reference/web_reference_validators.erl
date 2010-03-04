@@ -1,5 +1,5 @@
 -module (web_reference_validators).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
 main() -> 
@@ -8,7 +8,7 @@ main() ->
 	case PathInfo of 
 		[] -> 
 			put(title, "Nitrogen Validator Reference"),
-			#template { file="./wwwroot/twocolumn.html", bindings=Bindings };
+			#template { file="./templates/twocolumn.html", bindings=Bindings };
 		_ -> 
 			Terms = read_file("./reference/validators", PathInfo, "txt"),
 			case Terms of 
@@ -16,7 +16,7 @@ main() ->
 					Term1 = [{Key, trim(Value)} || {Key, Value} <- Term],
 					put(title, proplists:get_value(title, Term1)),
 					put(term, Term1),
-					#template { file="./wwwroot/onecolumn.html", bindings=Bindings };
+					#template { file="./templates/onecolumn.html", bindings=Bindings };
 				_ -> 
 					[]
 			end

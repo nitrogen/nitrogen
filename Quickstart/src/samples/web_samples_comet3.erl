@@ -1,8 +1,8 @@
 -module (web_samples_comet3).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
-main() -> #template { file="./wwwroot/onecolumn.html", bindings=[
+main() -> #template { file="./templates/onecolumn.html", bindings=[
 	{'Group', learn},
 	{'Item', samples}
 ]}.

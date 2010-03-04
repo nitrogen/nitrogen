@@ -1,5 +1,5 @@
 -module (linecount).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -export ([render/0]).
 
 render() ->

@@ -1,9 +1,9 @@
 -module (web_samples_jquerypaths).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 -define (STYLE, "border: solid 1px #cde; margin: 7px; float: left; width: 100px; line-height: 40px; text-align: center; height: 40px;").
 
-main() -> #template { file="./wwwroot/onecolumn.html", bindings=[
+main() -> #template { file="./templates/onecolumn.html", bindings=[
 	{'Group', learn},
 	{'Item', samples}
 ]}.
