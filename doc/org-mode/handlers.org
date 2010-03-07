@@ -4,7 +4,7 @@
 #+OPTIONS:   H:2 num:1 toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+EMAIL: 
 
-#+TEXT: [[./index.org][Getting Started]] | [[./api.org][API]] | [[./elements.org][Elements]] | [[./actions.org][Actions]] | [[./validators.org][Validators]] | Handlers
+#+TEXT: [[file:./index.org][Getting Started]] | [[file:./api.org][API]] | [[file:./elements.org][Elements]] | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | Handlers | [[file:./about.org][About]]
 
 TODO
 

@@ -5,9 +5,6 @@
 
 #+TEXT: Getting Started | [[file:./api.org][API]] | [[file:./elements.org][Elements]] | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | [[file:./handlers.org][Handlers]] | [[file:./about.org][About]]
 
-The purpose of this document is to help you get up and hacking
-quickly on a new Nitrogen-based website. 
-
 * Common Questions
 
   + [[1][How do I create a new Nitrogen application?]]
@@ -104,37 +101,38 @@ quickly on a new Nitrogen-based website.
   + *vm.args* - This controls the arguments passed in to the
     VM. Here, you can set the node name, cookie, memory flags, etc.
 
-   + *app.config* - This contains application settings for Nitrogen,
-     mprocreg (an Mnesia-based process registry), and sasl (error logging).
+  + *app.config* - This contains application settings for Nitrogen,
+    mprocreg (an Mnesia-based process registry), and sasl (error logging).
 
-     *Inets-Only*
+  *Important:* Before deploying your app to production, you should
+  change the Erlang cookie (found in =./etc/vm.args=) and define a Nitrogen
+  signkey (found in =./etc/app.config=).
+
+** Inets Configuration
      
-     Nitrogen applications running on Inets will also contain:
+  Nitrogen applications running on Inets will also contain:
 
-   + *inets.config* - You should not need to touch this file.
+  + *inets.config* - You should not need to touch this file.
      
-   + *inets\_httpd.erlenv* - Configure ip/port of your application, and other
-     Inets-specific information.
+  + *inets\_httpd.erlenv* - Configure ip/port of your application, and other
+    Inets-specific information.
 
-     *Mochiweb-Only*
+** Mochiweb Configuration
 
-     Nitrogen applications running on Mochiweb will also contain:
+   Nitrogen applications running on Mochiweb will also contain:
 
    + *mochiweb.config* - Configure ip/port of your application, and
      other Mochiweb-specific information.
 
-     *Yaws-Only*
+** Yaws Configuration
 
-     Nitrogen applications running on Yaws will also contain:
+   Nitrogen applications running on Yaws will also contain:
 
    + *yaws.config* - You should not need to touch this file.
 
    + *yaws.conf* - Configure ip/port of your application, and other
      Yaws-specific information.
 
-     *Important:* Before deploying your app to production, you should
-     change the Erlang cookie (found in =./etc/vm.args=) and define a Nitrogen
-     signkey (found in =./etc/app.config=).
 
 * Where is the code for my website?
 # <<4>>
@@ -147,25 +145,46 @@ quickly on a new Nitrogen-based website.
 
   The =site= directory contains the following sub-directories:
 
-  + =./site/src= - Page modules, custom elements, and custom actions for
+  + =./site/src= :: Page modules, custom elements, and custom actions for
     your site.
 
-   + =./site/static= - Static files, including Javascript and
-     CSS. These will be served through the web. Place any files you
-     like here, but try not to touch the =nitrogen= directory, as you
-     will need to overwrite this when you upgrade to a new version of
-     Nitrogen.
+  + =./site/static= :: Static files, including Javascript and
+    CSS. These will be served through the web. Place any files you
+    like here, but try not to touch the =nitrogen= directory, as you
+    will need to overwrite this when you upgrade to a new version of
+    Nitrogen.
 
-   + =./site/templates= - Html files used by the =#template{}= action.
+  + =./site/templates= :: Html files used by the =#template{}= action.
 
-   + =./site/.prototypes= - Code used by =./bin/dev= to generate a page,
-     element, or action. Feel free to edit these to something more to
-     your liking.
+  + =./site/.prototypes= :: Code used by =./bin/dev= to generate a page,
+    element, or action. Feel free to edit these to something more to
+    your liking.
 
-   + =./site/ebin= - Compiled =.beam= files.
+  + =./site/ebin= :: Compiled =.beam= files.
+
+* How do I compile my code?
+# <<5>>
+
+  There are three different ways to compile code in Nitrogen:
+
+  + If you are *in the Erlang console* then run =sync:go().=
+
+    This will look at all loaded modules, find their associated
+    Emakefiles, and run =make:all([load]).= to recompile.
+
+  + If *Nitrogen is running in the background* then run =./bin/dev
+    compile=
+
+    This connects to the running Nitrogen application and issues a
+    =sync:go().= command.
+
+  + If *Nitrogen is stopped* then run =make compile=
+
+    This calls =erl -make=, causing your application to be compiled
+    based on the provided Emakefile.
 
 * How do I create new pages, custom elements, or custom actions?
-# <<5>>
+# <<6>>
 
   Nitrogen 2.0 includes a developer tool to help you get started with a
   bare-bones page, element, or action. This tool uses the files found
@@ -176,38 +195,17 @@ quickly on a new Nitrogen-based website.
 
     : ./bin/dev page user_login
 
-   + To create a new element called =#custom_element{}=, run:
+  + To create a new element called =#custom_element{}=, run:
 
-     : ./bin/dev element custom_element
+    : ./bin/dev element custom_element
 
-   + To create a new action called =#custom_action{}=, run:
+  + To create a new action called =#custom_action{}=, run:
 
-     : ./bin/dev action custom_action
+    : ./bin/dev action custom_action
 
-     The code is placed under =./site/src=, =./site/src/elements=, or
-     =./site/src/actions= for pages, elements, and actions,
-     respectively. 
-
-* How do I compile my code?
-# <<6>>
-
-  There are three different ways to compile code in Nitrogen:
-
-  + If you are *in the Erlang console* then run =sync:go().=
-
-    This will look at all loaded modules, find their associated
-    Emakefiles, and run =make:all([load]).= to recompile.
-
-   + If *Nitrogen is running in the background* then run =./bin/dev
-     compile=
-
-     This connects to the running Nitrogen application and issues a
-     =sync:go().= command.
-
-   + If *Nitrogen is stopped* then run =make compile=
-
-     This calls =erl -make=, causing your application to be compiled
-     based on the provided Emakefile.
+  The code is placed under =./site/src=, =./site/src/elements=, or
+  =./site/src/actions= for pages, elements, and actions,
+  respectively. 
 
 * How do I upgrade to a new version of Nitrogen?
 # <<7>>
@@ -217,15 +215,15 @@ quickly on a new Nitrogen-based website.
   + Build or download the new Nitrogen environment for your
     architecture and preferred web server. Unzip to a new directory.
 
-   + Copy your existing =./etc= directory to the new build. This
-     retains your configuration settings.
+  + Copy your existing =./etc= directory to the new build. This
+    retains your configuration settings.
 
-   + Copy your existing =./site= directory to the new build, *except* for
-     the files in =./site/static/nitrogen=. You will want to use the
-     new version of any files in =./site/static/nitrogen=.
+  + Copy your existing =./site= directory to the new build, *except* for
+    the files in =./site/static/nitrogen=. You will want to use the
+    new version of any files in =./site/static/nitrogen=.
 
-     This will update the Erlang version, the dependencies files, and
-     all of the Javascript used by Nitrogen. 
-
-     You will also need to update your code if there are any API level changes.
+  This will update the Erlang version, the dependencies files, and
+  all of the Javascript used by Nitrogen. 
+    
+  You will also need to update your code if there are any API level changes.
 

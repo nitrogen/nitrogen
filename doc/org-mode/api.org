@@ -5,7 +5,7 @@
 #+OPTIONS:   H:2 num:1 toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+EMAIL: 
 
-#+TEXT: [[./index.org][Getting Started]] | API | [[./elements.org][Elements]] | [[./actions.org][Actions]] | [[./validators.org][Validators]] | [[./handlers.org][Handlers]]
+#+TEXT: [[file:./index.org][Getting Started]] | API | [[file:./elements.org][Elements]] | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | [[file:./handlers.org][Handlers]] | [[file:./about.org][About]]
 
 * Index
 

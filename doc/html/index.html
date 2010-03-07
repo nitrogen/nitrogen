@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>Getting Started with Nitrogen</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-03-07 13:41:49 EST"/>
+<meta name="generated" content="2010-03-07 13:51:31 EST"/>
 <meta name="author" content="Rusty Klophaus (@rklophaus)"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -76,10 +76,6 @@ lang="en" xml:lang="en">
 <p>Getting Started | <a href="./api.html">API</a> | <a href="./elements.html">Elements</a> | <a href="./actions.html">Actions</a> | <a href="./validators.html">Validators</a> | <a href="./handlers.html">Handlers</a> | <a href="./about.html">About</a>
 </p>
 
-<p>
-The purpose of this document is to help you get up and hacking
-quickly on a new Nitrogen-based website. 
-</p>
 
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
@@ -88,10 +84,16 @@ quickly on a new Nitrogen-based website.
 <li><a href="#sec-1">1 Common Questions </a></li>
 <li><a href="#sec-2">2 How do I create a new Nitrogen application? </a></li>
 <li><a href="#sec-3">3 How do I start/stop/manage Nitrogen? </a></li>
-<li><a href="#sec-4">4 How do I change configuration settings? </a></li>
+<li><a href="#sec-4">4 How do I change configuration settings? </a>
+<ul>
+<li><a href="#sec-4.1">4.1 Inets Configuration </a></li>
+<li><a href="#sec-4.2">4.2 Mochiweb Configuration </a></li>
+<li><a href="#sec-4.3">4.3 Yaws Configuration </a></li>
+</ul>
+</li>
 <li><a href="#sec-5">5 Where is the code for my website? </a></li>
-<li><a href="#sec-6">6 How do I create new pages, custom elements, or custom actions? </a></li>
-<li><a href="#sec-7">7 How do I compile my code? </a></li>
+<li><a href="#sec-6">6 How do I compile my code? </a></li>
+<li><a href="#sec-7">7 How do I create new pages, custom elements, or custom actions? </a></li>
 <li><a href="#sec-8">8 How do I upgrade to a new version of Nitrogen? </a></li>
 </ul>
 </div>
@@ -258,18 +260,30 @@ Here, you will see:
 <b>vm.args</b> - This controls the arguments passed in to the
 VM. Here, you can set the node name, cookie, memory flags, etc.
 
-<ul>
+</li>
 <li>
 <b>app.config</b> - This contains application settings for Nitrogen,
 mprocreg (an Mnesia-based process registry), and sasl (error logging).
 
-<p>
-<b>Inets-Only</b>
+</li>
+</ul>
+
+<p><b>Important:</b> Before deploying your app to production, you should
+change the Erlang cookie (found in <code>./etc/vm.args</code>) and define a Nitrogen
+signkey (found in <code>./etc/app.config</code>).
 </p>
+
+</div>
+
+<div id="outline-container-4.1" class="outline-3">
+<h3 id="sec-4.1"><span class="section-number-3">4.1</span> Inets Configuration </h3>
+<div class="outline-text-3" id="text-4.1">
+
+
 <p>
 Nitrogen applications running on Inets will also contain:
 </p>
-</li>
+<ul>
 <li>
 <b>inets.config</b> - You should not need to touch this file.
 
@@ -278,24 +292,40 @@ Nitrogen applications running on Inets will also contain:
 <b>inets_httpd.erlenv</b> - Configure ip/port of your application, and other
 Inets-specific information.
 
-<p>
-<b>Mochiweb-Only</b>
-</p>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4.2" class="outline-3">
+<h3 id="sec-4.2"><span class="section-number-3">4.2</span> Mochiweb Configuration </h3>
+<div class="outline-text-3" id="text-4.2">
+
+
 <p>
 Nitrogen applications running on Mochiweb will also contain:
 </p>
-</li>
+<ul>
 <li>
 <b>mochiweb.config</b> - Configure ip/port of your application, and
 other Mochiweb-specific information.
 
-<p>
-<b>Yaws-Only</b>
-</p>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4.3" class="outline-3">
+<h3 id="sec-4.3"><span class="section-number-3">4.3</span> Yaws Configuration </h3>
+<div class="outline-text-3" id="text-4.3">
+
+
 <p>
 Nitrogen applications running on Yaws will also contain:
 </p>
-</li>
+<ul>
 <li>
 <b>yaws.config</b> - You should not need to touch this file.
 
@@ -304,15 +334,10 @@ Nitrogen applications running on Yaws will also contain:
 <b>yaws.conf</b> - Configure ip/port of your application, and other
 Yaws-specific information.
 
-<p>
-<b>Important:</b> Before deploying your app to production, you should
-change the Erlang cookie (found in <code>./etc/vm.args</code>) and define a Nitrogen
-signkey (found in <code>./etc/app.config</code>).
-</p>
+
 </li>
 </ul>
-</li>
-</ul>
+</div>
 </div>
 
 </div>
@@ -332,44 +357,80 @@ configurations easily.
 <p>
 The <code>site</code> directory contains the following sub-directories:
 </p>
-<ul>
-<li>
-<code>./site/src</code> - Page modules, custom elements, and custom actions for
+<dl>
+<dt><code>./site/src</code></dt><dd>
+Page modules, custom elements, and custom actions for
 your site.
 
-<ul>
-<li>
-<code>./site/static</code> - Static files, including Javascript and
+</dd>
+<dt><code>./site/static</code></dt><dd>
+Static files, including Javascript and
 CSS. These will be served through the web. Place any files you
 like here, but try not to touch the <code>nitrogen</code> directory, as you
 will need to overwrite this when you upgrade to a new version of
 Nitrogen.
 
-</li>
-<li>
-<code>./site/templates</code> - Html files used by the <code>#template{}</code> action.
+</dd>
+<dt><code>./site/templates</code></dt><dd>
+Html files used by the <code>#template{}</code> action.
 
-</li>
-<li>
-<code>./site/.prototypes</code> - Code used by <code>./bin/dev</code> to generate a page,
+</dd>
+<dt><code>./site/.prototypes</code></dt><dd>
+Code used by <code>./bin/dev</code> to generate a page,
 element, or action. Feel free to edit these to something more to
 your liking.
 
-</li>
-<li>
-<code>./site/ebin</code> - Compiled <code>.beam</code> files.
+</dd>
+<dt><code>./site/ebin</code></dt><dd>
+Compiled <code>.beam</code> files.
 
-</li>
-</ul>
-</li>
-</ul>
+</dd>
+</dl>
 </div>
 
 </div>
 
 <div id="outline-container-6" class="outline-2">
-<h2 id="sec-6"><a name="5" id="5"></a><span class="section-number-2">6</span> How do I create new pages, custom elements, or custom actions? </h2>
+<h2 id="sec-6"><a name="5" id="5"></a><span class="section-number-2">6</span> How do I compile my code? </h2>
 <div class="outline-text-2" id="text-6">
+
+
+<p>
+There are three different ways to compile code in Nitrogen:
+</p>
+<ul>
+<li>
+If you are <b>in the Erlang console</b> then run <code>sync:go().</code>
+
+<p>
+This will look at all loaded modules, find their associated
+Emakefiles, and run <code>make:all([load]).</code> to recompile.
+</p>
+</li>
+<li>
+If <b>Nitrogen is running in the background</b> then run <code>./bin/dev     compile</code>
+
+<p>
+This connects to the running Nitrogen application and issues a
+<code>sync:go().</code> command.
+</p>
+</li>
+<li>
+If <b>Nitrogen is stopped</b> then run <code>make compile</code>
+
+<p>
+This calls <code>erl -make</code>, causing your application to be compiled
+based on the provided Emakefile.
+</p>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><a name="6" id="6"></a><span class="section-number-2">7</span> How do I create new pages, custom elements, or custom actions? </h2>
+<div class="outline-text-2" id="text-7">
 
 
 <p>
@@ -387,7 +448,7 @@ To create a new page at <a href="http://localhost/user/login">http://localhost/u
 </pre>
 
 
-<ul>
+</li>
 <li>
 To create a new element called <code>#custom_element{}</code>, run:
 
@@ -405,55 +466,13 @@ To create a new action called <code>#custom_action{}</code>, run:
 </pre>
 
 
-<p>
-The code is placed under <code>./site/src</code>, <code>./site/src/elements</code>, or
+</li>
+</ul>
+
+<p>The code is placed under <code>./site/src</code>, <code>./site/src/elements</code>, or
 <code>./site/src/actions</code> for pages, elements, and actions,
 respectively. 
 </p>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-
-</div>
-
-<div id="outline-container-7" class="outline-2">
-<h2 id="sec-7"><a name="6" id="6"></a><span class="section-number-2">7</span> How do I compile my code? </h2>
-<div class="outline-text-2" id="text-7">
-
-
-<p>
-There are three different ways to compile code in Nitrogen:
-</p>
-<ul>
-<li>
-If you are <b>in the Erlang console</b> then run <code>sync:go().</code>
-
-<p>
-This will look at all loaded modules, find their associated
-Emakefiles, and run <code>make:all([load]).</code> to recompile.
-</p>
-<ul>
-<li>
-If <b>Nitrogen is running in the background</b> then run <code>./bin/dev      compile</code>
-
-<p>
-This connects to the running Nitrogen application and issues a
-<code>sync:go().</code> command.
-</p>
-</li>
-<li>
-If <b>Nitrogen is stopped</b> then run <code>make compile</code>
-
-<p>
-This calls <code>erl -make</code>, causing your application to be compiled
-based on the provided Emakefile.
-</p>
-</li>
-</ul>
-</li>
-</ul>
 </div>
 
 </div>
@@ -471,7 +490,7 @@ To upgrade to new versions of Nitrogen 2.0:
 Build or download the new Nitrogen environment for your
 architecture and preferred web server. Unzip to a new directory.
 
-<ul>
+</li>
 <li>
 Copy your existing <code>./etc</code> directory to the new build. This
 retains your configuration settings.
@@ -482,24 +501,22 @@ Copy your existing <code>./site</code> directory to the new build, <b>except</b>
 the files in <code>./site/static/nitrogen</code>. You will want to use the
 new version of any files in <code>./site/static/nitrogen</code>.
 
-<p>
-This will update the Erlang version, the dependencies files, and
+</li>
+</ul>
+
+<p>This will update the Erlang version, the dependencies files, and
 all of the Javascript used by Nitrogen. 
 </p>
 <p>
 You will also need to update your code if there are any API level changes.
 </p>
-</li>
-</ul>
-</li>
-</ul>
 </div>
 </div>
 <div id="postamble">
 <p class="author"> Author: Rusty Klophaus (@rklophaus)
 <a href="mailto:">&lt;&gt;</a>
 </p>
-<p class="date"> Date: 2010-03-07 13:41:49 EST</p>
+<p class="date"> Date: 2010-03-07 13:51:31 EST</p>
 <p class="creator">HTML generated by org-mode 6.33f in emacs 22</p>
 </div>
 </div>
