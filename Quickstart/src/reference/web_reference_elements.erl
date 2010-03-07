@@ -3,7 +3,7 @@
 -compile(export_all).
 
 main() -> 
- 	PathInfo = wf:get_path_info(),
+ 	PathInfo = wf:path_info(),
 	Bindings = [{'Group', reference}, {'Item', elements}],
 	case PathInfo of 
 		[] -> 

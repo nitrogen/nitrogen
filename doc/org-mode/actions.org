@@ -1,0 +1,32 @@
+#+STYLE: <LINK href="stylesheet.css" rel="stylesheet" type="text/css" />
+#+TITLE: The Nitrogen API - Actions
+#+AUTHOR: Rusty Klophaus (@rklophaus)
+#+OPTIONS:   H:2 num:1 toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+EMAIL: 
+
+#+TEXT: [[./index.org][Getting Started]] | [[./api.org][API]] | [[./elements.org][Elements]] | Actions | [[./validators.org][Validators]] | [[./handlers.org][Handlers]]
+
+
+* Base Action
+  + [[./actions/base.org][Base Action]] - All actions contain these attributes.
+
+* Page Manipulation
+  + [[./actions/event.org][Event]]
+  + [[./actions/script.org][Script]]
+  + [[./actions/validate.org][Validate]]
+
+* Effects
+  + [[./actions/show.org][Show]]
+  + [[./actions/hide.org][Hide]]
+  + [[./actions/appear.org][Appear]]
+  + [[./actions/fade.org][Fade]]
+  + [[./actions/animate.org][Animate]]
+  + [[./actions/toggle.org][Toggle]]
+  + [[./actions/effect.org][Effect]]
+  + [[./actions/add_class.org][Add Class]]
+  + [[./actions/remove_class.org][Remove Class]]
+
+* Feedback
+  + [[./actions/alert.org][Alert]]
+  + [[./actions/confirm.org][Confirm]]
+  + [[./actions/other.org][Other]]

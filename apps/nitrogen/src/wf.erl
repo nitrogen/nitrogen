@@ -279,8 +279,8 @@ send_global(Pool, Message) ->
 flush() ->
     ok = action_comet:flush().
 
-get_async_mode() -> wf_context:async_mode().
-set_async_mode(AsyncMode) -> wf_context:async_mode(AsyncMode).
+async_mode() -> wf_context:async_mode().
+async_mode(AsyncMode) -> wf_context:async_mode(AsyncMode).
 switch_to_comet() -> set_async_mode(comet).
 switch_to_polling(IntervalInMS) -> set_async_mode({poll, IntervalInMS}).
 

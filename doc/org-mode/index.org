@@ -1,0 +1,231 @@
+#+STYLE: <LINK href="stylesheet.css" rel="stylesheet" type="text/css">
+#+TITLE: Getting Started with Nitrogen
+#+AUTHOR: Rusty Klophaus (@rklophaus)
+#+EMAIL: 
+
+#+TEXT: Getting Started | [[file:./api.org][API]] | [[file:./elements.org][Elements]] | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | [[file:./handlers.org][Handlers]] | [[file:./about.org][About]]
+
+The purpose of this document is to help you get up and hacking
+quickly on a new Nitrogen-based website. 
+
+* Common Questions
+
+  + [[1][How do I create a new Nitrogen application?]]
+  + [[2][How do I start and stop my application?]]
+  + [[3][How do I change configuration settings?]]
+  + [[4][Where is the code for my website?]]
+  + [[5][How do I compile my code?]]
+  + [[6][How do I create new pages, custom elements, or custom actions?]]
+  + [[7][How do I upgrade to a new version of Nitrogen?]]
+
+* How do I create a new Nitrogen application?
+# <<1>>
+
+  First, check the [[http://nitrogenproject.com/downloads][Downloads]] page to see if a pre-built package
+  exists for your OS/architecture. If it does, then just download the
+  package, unzip, and you are ready to start coding. (You don't even
+  need to have Erlang installed, the Nitrogen binaries come with it
+  pre-packaged.)
+
+  If you don't see a package that will run on your computer, or you
+  want to try running from the latest code in source control, then
+  follow the steps below:
+
+  Pull the latest source code from GitHub and run:
+
+  : make rel_inets
+
+  This creates a completely self-contained starter application under
+  =./rel/nitrogen= that runs on Inets, Erlang's built in HTTP
+  server. "Self-contained" here means that the =./rel/nitrogen=
+  directory contains everything you need to develop and run nitrogen,
+  including the Erlang VM. To create a =.tar.gz= version of this
+  code, exactly like you would find on the [[http://nitrogenproject.com/downloads][Downloads]] page, run:
+
+  : make package_inets
+
+  You can also run Nitrogen on Mochiweb or Yaws. Run one of the
+  scripts provided in the =./apps/= directory to download the
+  Mochiweb or Yaws code.
+
+  : # For Mochiweb...
+  : ./apps/get_mochiweb.sh
+  : 
+  : # For Yaws...
+  : ./apps/get_yaws.sh
+
+  Then, create the release or the binary package (example below is
+  for Mochiweb):
+  
+  : # Build a release in ./rel/nitrogen
+  : make rel_mochiweb
+  : 
+  : # Build a binary package in ./builds
+  : make package_mochiweb
+
+  Nitrogen 2.0 uses Dave "Dizzy" Smith's [[http://dizzyd.com/blog/post/194][Rebar]] ([[http://bitbucket.org/basho/rebar/][source code]]) to build
+  OTP-compliant releases and packages. Check it out, it is awesome.
+  
+* How do I start/stop/manage Nitrogen?
+# <<2>>
+
+  Once you have a build of Nitrogen that will run on your
+  application, the next step is to start the application. Nitrogen
+  includes a handy script inside your release, under
+  =./bin/nitrogen=, that will let you bring your Nitrogen application
+  up or down:
+
+  : # Start the app in the background...
+  : ./bin/nitrogen start
+  :
+  : # Connect to the app in the background. Control-D to disconnect.
+  : ./bin/nitrogen attach
+  :
+  : # Stop the app...
+  : ./bin/nitrogen stop
+  :
+  : # Start the app in "console" mode...
+  : ./bin/nitrogen console
+  : 
+  : # Ping the app to see if it is running...
+  : ./bin/nitrogen ping
+
+  Once you have started your application, open
+  http://localhost:8000. You should see a basic welcome page.x
+
+* How do I change configuration settings?
+# <<3>>
+
+  All configuration files for your application can be found under the
+  =./etc= directory.
+
+  Here, you will see:
+
+  + *vm.args* - This controls the arguments passed in to the
+    VM. Here, you can set the node name, cookie, memory flags, etc.
+
+   + *app.config* - This contains application settings for Nitrogen,
+     mprocreg (an Mnesia-based process registry), and sasl (error logging).
+
+     *Inets-Only*
+     
+     Nitrogen applications running on Inets will also contain:
+
+   + *inets.config* - You should not need to touch this file.
+     
+   + *inets\_httpd.erlenv* - Configure ip/port of your application, and other
+     Inets-specific information.
+
+     *Mochiweb-Only*
+
+     Nitrogen applications running on Mochiweb will also contain:
+
+   + *mochiweb.config* - Configure ip/port of your application, and
+     other Mochiweb-specific information.
+
+     *Yaws-Only*
+
+     Nitrogen applications running on Yaws will also contain:
+
+   + *yaws.config* - You should not need to touch this file.
+
+   + *yaws.conf* - Configure ip/port of your application, and other
+     Yaws-specific information.
+
+     *Important:* Before deploying your app to production, you should
+     change the Erlang cookie (found in =./etc/vm.args=) and define a Nitrogen
+     signkey (found in =./etc/app.config=).
+
+* Where is the code for my website?
+# <<4>>
+
+  The Nitrogen project is structured so that all site specific code
+  is contained inside the =site= directory. It is recommended that
+  you place your entire =site= directory under source control. This
+  will allow you to move your application to other architectures and
+  configurations easily.
+
+  The =site= directory contains the following sub-directories:
+
+  + =./site/src= - Page modules, custom elements, and custom actions for
+    your site.
+
+   + =./site/static= - Static files, including Javascript and
+     CSS. These will be served through the web. Place any files you
+     like here, but try not to touch the =nitrogen= directory, as you
+     will need to overwrite this when you upgrade to a new version of
+     Nitrogen.
+
+   + =./site/templates= - Html files used by the =#template{}= action.
+
+   + =./site/.prototypes= - Code used by =./bin/dev= to generate a page,
+     element, or action. Feel free to edit these to something more to
+     your liking.
+
+   + =./site/ebin= - Compiled =.beam= files.
+
+* How do I create new pages, custom elements, or custom actions?
+# <<5>>
+
+  Nitrogen 2.0 includes a developer tool to help you get started with a
+  bare-bones page, element, or action. This tool uses the files found
+  in =./site/.prototypes= as templates. If you wish, you can edit files in this
+  directory to make them more suitable for your application.
+
+  + To create a new page at http://localhost/user/login, run:
+
+    : ./bin/dev page user_login
+
+   + To create a new element called =#custom_element{}=, run:
+
+     : ./bin/dev element custom_element
+
+   + To create a new action called =#custom_action{}=, run:
+
+     : ./bin/dev action custom_action
+
+     The code is placed under =./site/src=, =./site/src/elements=, or
+     =./site/src/actions= for pages, elements, and actions,
+     respectively. 
+
+* How do I compile my code?
+# <<6>>
+
+  There are three different ways to compile code in Nitrogen:
+
+  + If you are *in the Erlang console* then run =sync:go().=
+
+    This will look at all loaded modules, find their associated
+    Emakefiles, and run =make:all([load]).= to recompile.
+
+   + If *Nitrogen is running in the background* then run =./bin/dev
+     compile=
+
+     This connects to the running Nitrogen application and issues a
+     =sync:go().= command.
+
+   + If *Nitrogen is stopped* then run =make compile=
+
+     This calls =erl -make=, causing your application to be compiled
+     based on the provided Emakefile.
+
+* How do I upgrade to a new version of Nitrogen?
+# <<7>>
+
+  To upgrade to new versions of Nitrogen 2.0:
+
+  + Build or download the new Nitrogen environment for your
+    architecture and preferred web server. Unzip to a new directory.
+
+   + Copy your existing =./etc= directory to the new build. This
+     retains your configuration settings.
+
+   + Copy your existing =./site= directory to the new build, *except* for
+     the files in =./site/static/nitrogen=. You will want to use the
+     new version of any files in =./site/static/nitrogen=.
+
+     This will update the Erlang version, the dependencies files, and
+     all of the Javascript used by Nitrogen. 
+
+     You will also need to update your code if there are any API level changes.
+

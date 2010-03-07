@@ -18,6 +18,8 @@ p {
  
 ul { margin-left: 14px; }
 li { padding: 3px 0px 3px 0px; }
+dt { padding-top: 10px; }
+dl { padding-bottom: 10px; }
 
 
 body {
@@ -28,6 +30,8 @@ body {
     line-height: 1.6em; 
     margin: 20px 50px;
 }
+
+.title, #table-of-contents, #postamble { display: none; }
 
 h1 { 
     font-size: 2.2em; 
@@ -75,4 +79,8 @@ h4 {
 }
 
 .outline-text-1, .outline-text-2, .outline-text-3, .outline-text-4 {
+}
+
+.src {
+    padding: 12px 10px;
 }
