@@ -281,8 +281,8 @@ flush() ->
 
 async_mode() -> wf_context:async_mode().
 async_mode(AsyncMode) -> wf_context:async_mode(AsyncMode).
-switch_to_comet() -> set_async_mode(comet).
-switch_to_polling(IntervalInMS) -> set_async_mode({poll, IntervalInMS}).
+switch_to_comet() -> async_mode(comet).
+switch_to_polling(IntervalInMS) -> async_mode({poll, IntervalInMS}).
 
 %%% EXPOSE ACTION_CONTINUE %%%
 

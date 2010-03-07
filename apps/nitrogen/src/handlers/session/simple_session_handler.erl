@@ -22,7 +22,8 @@
 
 init(_Config, _State) -> 
     % Get the session cookie and node...
-    State = case wf:depickle(wf:cookie("wf")) of
+    Cookie = wf:cookie(get_cookie_name()),
+    State = case wf:depickle(Cookie) of
         undefined -> new_state();
         Other -> Other
     end,
@@ -31,7 +32,7 @@ init(_Config, _State) ->
 finish(_Config, State) -> 
     % Drop the session cookie...
     Timeout = wf:config_default(session_timeout, 20),
-    ok = wf:cookie("wf", wf:pickle(State), "/", Timeout),
+    ok = wf:cookie(get_cookie_name(), wf:pickle(State), "/", Timeout),
     {ok, []}.
 
 get_value(Key, DefaultValue, Config, State) -> 
@@ -57,6 +58,11 @@ clear_all(Config, State) ->
     Pid!{clear_all, self(), Ref},
     receive {ok, Ref} -> ok end,	
     {ok, State}.
+
+%%% PRIVATE FUNCTIONS
+
+get_cookie_name() ->
+    wf:config_default(cookie_name, "newcookie").
 
 get_session_pid(_Config, State) ->
     Timeout = wf:config_default(session_timeout, 20),
