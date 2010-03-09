@@ -5,10 +5,11 @@
 render(Item) ->
 	Items = [
 		{home, "Home", "/"},
-		{learn, "Learn", "/web/learn"},
-		{discuss, "Discuss", "/web/discuss/news"},
-		{reference, "Reference", "/web/reference"},
-		{download, "Code", "/web/download"}
+		{download, "Download", "/download"},
+		{demos, "Demos", "/demos"},
+		{learn, "Learn More", "/learn"},
+		{get_involed, "Get Involved", "/get_involved"},
+		{donate, "Donate", "/donate"}
 	],
 	
 	Transform = fun(DataRow, Acc) ->

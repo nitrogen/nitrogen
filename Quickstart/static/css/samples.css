@@ -1,0 +1,149 @@
+/*** SAMPLES ***/
+
+.stats {
+	color: #999;
+	font-size: 0.85em;
+	display: block;
+}
+
+.stats .count {
+	position: relative;
+	top: 2px;
+	font-weight: bold;
+	font-size: 1.8em;
+	color: #777;
+}
+
+.google_chart {
+	background-color: #ffffff;
+	padding: 7px;
+	border: solid 3px #BAB8A3;
+}
+
+
+.inplace_textbox .view {
+	height: 30px;
+}
+.inplace_textbox .view .label {
+	vertical-align: middle;
+	font-size: 14pt;
+}
+
+.effects_target {
+	text-align: center;
+	width: 150px; 
+	border: solid 5px black;
+	padding: 10px;
+	font-size: 15px;
+	background-color: #F7D243;
+}
+
+.bigfont {
+	font-size: 20px;
+}
+
+.draggable, .droppable {
+	display: block;
+	cursor: default; 
+	font-size: 12px; 
+	text-align: center; 
+	float: left; 
+}
+
+.draggable {
+	width: 70px;
+	height: 70px;
+	color: #ffffff;
+	background-color: #336699;
+	padding: 7px;
+	margin: 0px 7px 7px 0px;
+	border: solid 1px black;
+}
+
+.draggable .handle {
+	display: block;
+	background-color: #99AACC;
+	border: solid 1px black;
+	margin: 0px;
+}
+
+.droppable {
+	width: 200px;
+	height: 80px;
+	background-color: #BBCCDD;
+	padding: 9px;
+	margin: 0px 7px 7px 0px;
+	border: solid 1px black;	
+}
+
+.droppable.active {
+	border: dashed 1px black;	
+}
+
+.droppable.hover {
+	border: solid 1px #FFFF00;	
+}
+
+.simple .sortitem {
+	padding: 7px;
+	margin: 3px;
+	width: 150px;
+	color: #ffffff;
+	border: solid 1px black;
+	background-color: #336699;
+}
+
+.advanced .sortitem .handle {
+	text-align: center;
+	font-size: 80%;
+	display: block;
+	background-color: #99AACC;
+	margin: 0px;
+}
+.advanced .sortitem {
+	width: 100px;
+	margin-right: 20px;
+	padding: 7px;
+	float: left;
+	color: #ffffff;
+	border: solid 1px black;
+	background-color: #336699;
+}
+
+.advanced .sortitem .sortitem {
+	background-color: #999;
+	margin: 7px auto;
+	width: 80%;
+}
+
+.tiny,
+input.tiny,
+table.tiny td,
+table.tiny th,
+table.tiny td input
+ {
+	margin-left: 0px;
+	padding-left: 0px;
+	padding-right: 10px;
+	font-size: 10px;
+	line-height: 16px;
+}
+
+.chat_history {
+	width: 80%;
+	height: 150px;
+	overflow: auto;
+	background-color: #ffffff;
+	border: solid 1px black;
+	padding: 12px;
+	font-size: 110%;
+}
+
+.chat_history .username {
+	font-weight: bold;
+	color: #0000ff;
+}
+
+.chat_history .message {
+	color: #888;
+}
