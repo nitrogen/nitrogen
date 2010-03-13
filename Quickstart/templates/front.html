@@ -1,83 +1,104 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Nitrogen - [[[page:title()]]]</title>
-<script src='/nitrogen/jquery.js' type='text/javascript' charset='utf-8'></script>
-<script src='/nitrogen/jquery-ui.js' type='text/javascript' charset='utf-8'></script>
-<script src='/nitrogen/livevalidation.js' type='text/javascript' charset='utf-8'></script>
-<script src='/nitrogen/nitrogen.js' type='text/javascript' charset='utf-8'></script>
-<link rel="stylesheet" href="/nitrogen/jquery-ui/jquery.ui.all.css" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="/css/text.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="/css/960.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="/css/page.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="/nitrogen/nitrogen.css" type="text/css" media="screen" charset="utf-8">
-<style>
-  p { background: #ddd; }
-</style>
-</head>
-<body>
-<div class=container_12>
-  <div class="grid_12 alpha omega"><p>HOME | DOWNLOAD | DEMOS | LEARN MORE | GET INVOLVED | DONATE</p></div>
-  <div class="clear">&nbsp;</div>
+  <head>
+    <title>Nitrogen - [[[page:title()]]]</title>
+    <script src='/nitrogen/jquery.js' type='text/javascript' charset='utf-8'></script>
+    <script src='/nitrogen/jquery-ui.js' type='text/javascript' charset='utf-8'></script>
+    <script src='/nitrogen/livevalidation.js' type='text/javascript' charset='utf-8'></script>
+    <script src='/nitrogen/nitrogen.js' type='text/javascript' charset='utf-8'></script>
+    <link rel="stylesheet" href="/nitrogen/jquery-ui/jquery.ui.all.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/css/text.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/css/960.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/css/page.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/nitrogen/nitrogen.css" type="text/css" media="screen" charset="utf-8" />
+  </head>
+  <body>
+    <div class=container_12>
 
-  <div class="grid_5 alpha">
-    <p >SPACEMAN</p>
-  </div>
-  <div class="grid_7 omega">
-    <div class="grid_7 alpha omega"><p>DOWNLOADS</p></div>
-    <div class="clear"></div>
-    <div class="grid_7 alpha omega"><p>WHAT'S NEW</p></div>
-    <div class="clear"></div>
-    <div class="grid_7 alpha omega"><p>INFO SECTION</p></div>
-   <div class="clear"></div>
-  </div>
-  <div class="clear"></div>
+      <!-- Menu -->
+      <div class="grid_12 alpha omega">
+        <p class="menu">
+          <a href="#" class=selected>HOME</a> |
+          <a href="#">DOWNLOADS</a> |
+          <a href="#">DEMOS</a> |
+          <a href="#">LEARN MORE</a> | 
+          <a href="#">GET INVOLVED</a>
+<!--           <a href="#">DONATE</a> -->
+        </p>
+        <div class="tag">DONATE</div>
+      </div>
+      <div class="clear"></div>
 
-  <div class="grid_12 alpha omega">
-    <p>CREDITS</p>
-  </div>
-  <div class=clear></div>
+      <!-- Menu -->
+      <div class="grid_12 alpha omega">
+        <p class="headline">
+<!--           <img src="/images/Headline.png" alt="The Nitrogen Web Framework helps you build powerful interactive websites in Erlang." /> -->
+        </p>
+      </div>
+      <div class="clear"></div>
 
-</div>
 
-<!-- <div class=header> -->
-<!-- </div> -->
+      <!-- Green Head -->
+      <div class="grid_5 alpha prefix_1 suffix_1">
+        <p style="text-align: center;">
+          <img src="./images/GreenHead.png" width=380 />
+        </p>
+      </div>  
+      
+      <div class="grid_5 omega">
 
-<!-- <div class=topmenu1> -->
-<!-- [[[topmenu1:render(Group)]]] -->
-<!-- <div class=clear></div> -->
-<!-- </div> -->
+        <!-- Downloads -->
+        <div class="grid_5 alpha omega">
+          <p class="downloads_title">DOWNLOADS</p>
+          <p class="downloads">
+            <img src="./images/downloads/mac_logo.png" />
+            <img src="./images/downloads/ubuntu_logo.png" />
+            <img src="./images/downloads/fedora_logo.png" />
+            <img src="./images/downloads/centos_logo.png" />
+          </p>
+        </div>
+        <div class="clear"></div>
 
-<!-- <div class=topmenu2> -->
-<!-- [[[topmenu2:render(Group, Item)]]] -->
-<!-- <div class=clear></div> -->
-<!-- </div> -->
-	
-<!-- <div class=content> -->
-<!-- 	[[[page:body()]]] -->
-<!-- 	<div class=clear></div> -->
-<!-- </div> -->
-<!-- <div class=footer> -->
-<!-- 	[[[footer:render()]]] -->
-<!-- 	<p class=clear> -->
-<!-- </div>	 -->
-<!-- <div class=legal> -->
-<!-- 	<p> -->
-<!-- 	Copyright &copy; 2008-2010 <a href="http://rklophaus.com">Rusty Klophaus</a>. -->
-<!-- 	Released under the MIT License. -->
-<!-- </div> -->
+        <!-- What's New -->
+        <div class="grid_5 alpha omega">
+          <p class="new_title">NEWS</p>
+          <p class="new">
+          </p>
+          <p class="new">
+            Nitrogen 2.0 has arrived:
+            <ul>
+              <li>Reference elements via JQuery selectors.</li>
+              <li>Override core Nitrogen behavior with Handlers.</li>
+              <li>Use "Comet Pools" to quickly develop multi-user applications.</li>
+              <li><a href="/new">Release notes &raquo;</a></li>
+            </ul>
+          </p>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
 
-<script>
-[[[script]]]
-</script>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-2432542-4");
-pageTracker._trackPageview();
-</script>
-</body>
+      <!-- Credits -->
+      <div class="grid_12 alpha omega">
+        <p class="credits">
+          Copyright &copy; 2008-2010 <a href="http://rklophaus.com">Rusty Klophaus</a>. 
+          <img src="/images/MiniSpaceman.png" style="vertical-align: middle;" />
+          Released under the MIT License.</p>
+      </div>
+      <div class=clear></div>
+
+    </div>
+    <script>
+      [[[script]]]
+    </script>
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      var pageTracker = _gat._getTracker("UA-2432542-4");
+      pageTracker._trackPageview();
+    </script>
+  </body>
 </html>
