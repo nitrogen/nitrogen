@@ -72,7 +72,7 @@ render_element(Element) when is_tuple(Element) ->
                 undefined -> Anchor;
                 Other2 -> normalize_id(Other2)
             end,
-
+            
             % Update the class...
             Class = case Anchor == ID of
                 true  -> [ID, Base#elementbase.class];
