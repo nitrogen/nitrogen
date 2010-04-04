@@ -18,5 +18,7 @@ render_action(Record)  ->
     wf:f("v.add(Validate.Email, { failureMessage: \"~s\" });", [Text]).
 
 validate(_, Value) ->
-    Result = regexp:match(wf:to_list(Value), "([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})"),
-    Result /= nomatch.
+    case re:run(wf:to_list(Value), "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+") of
+        {match, _} -> true;
+        _ -> false
+    end.

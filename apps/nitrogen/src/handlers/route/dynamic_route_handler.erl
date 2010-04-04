@@ -67,58 +67,60 @@ route(Path) ->
             Path1 = string:strip(Path, both, $/),
             Tokens = string:tokens(Path1, "/"),
             % Check for a loaded module. If not found, then try to load it.
-            case find_loaded_module(Tokens) of
+            case try_load_module(Tokens) of
                 {Module, PathInfo} -> 
                     {Module, PathInfo};
-                undefined -> 
-                    case try_load_module(Tokens) of
-                        {Module, PathInfo} -> {Module, PathInfo};
-                        undefined -> {web_404, Path1}
-                    end
+                undefined ->
+                    {web_404, Path1}
             end
-
     end.
 
-find_loaded_module(Tokens) -> find_loaded_module(Tokens, []).	
-find_loaded_module([], _ExtraTokens) -> undefined;
-find_loaded_module(Tokens, ExtraTokens) ->
-    BeamFile = "/" ++ string:join(Tokens, "_") ++ ".beam",
-    F = fun({_Module, Path}) -> is_list(Path) andalso string:rstr(Path, BeamFile) /= 0 end,
-    case lists:filter(F, code:all_loaded()) of 
-        [{Module, _}] -> 
-            case erlang:function_exported(Module, main, 0) of
-                true ->
-                    {Module, string:join(lists:reverse(ExtraTokens), "/")};
-                false ->
-                    find_loaded_module(tl(lists:reverse(Tokens)), [hd(lists:reverse(Tokens))|ExtraTokens])
-            end;
-        [] -> 
-            find_loaded_module(tl(lists:reverse(Tokens)), [hd(lists:reverse(Tokens))|ExtraTokens])
-    end.
+%% find_loaded_module(Tokens) -> find_loaded_module(Tokens, []).	
+%% find_loaded_module([], _ExtraTokens) -> undefined;
+%% find_loaded_module(Tokens, ExtraTokens) ->
+%%     BeamFile = "/" ++ string:join(Tokens, "_") ++ ".beam",
+%%     F = fun({_Module, Path}) -> is_list(Path) andalso string:rstr(Path, BeamFile) /= 0 end,
+%%     case lists:filter(F, code:all_loaded()) of 
+%%         [{Module, _}] -> 
+%%             case erlang:function_exported(Module, main, 0) of
+%%                 true ->
+%%                     {Module, string:join(lists:reverse(ExtraTokens), "/")};
+%%                 false ->
+%%                     find_loaded_module(tl(lists:reverse(Tokens)), [hd(lists:reverse(Tokens))|ExtraTokens])
+%%             end;
+%%         [] -> 
+%%             find_loaded_module(tl(lists:reverse(Tokens)), [hd(lists:reverse(Tokens))|ExtraTokens])
+%%     end.
 
 try_load_module(Tokens) -> try_load_module(Tokens, []).
 try_load_module([], _ExtraTokens) -> undefined;
 try_load_module(Tokens, ExtraTokens) ->
-    BeamFile = string:join(Tokens, "_") ++ ".beam",
-    case erl_prim_loader:get_file(BeamFile) of
-        {ok, _, _} ->
-            Module = list_to_atom(string:join(Tokens, "_")),
+    %% Get the module name...
+    ModuleName = string:join(Tokens, "_"),
+    Module = try 
+        list_to_existing_atom(ModuleName)
+    catch _:_ ->
+        case erl_prim_loader:get_file(ModuleName ++ ".beam") of
+            {ok, _, _} -> list_to_atom(ModuleName);
+            _ -> list_to_atom("$not_found")
+        end
+    end,
+
+    %% Load the module, check if it exports the right method...
+    code:ensure_loaded(Module),
+    case erlang:function_exported(Module, main, 0) of
+        true -> 
             PathInfo = string:join(ExtraTokens, "/"),
-            code:ensure_loaded(Module),
-            case erlang:function_exported(Module, main, 0) of
-                true -> 
-                    {Module, PathInfo};
-                false ->
-		    Tokens1 = lists:reverse(tl(lists:reverse(Tokens))),
-		    ExtraTokens1 = [hd(lists:reverse(Tokens))|ExtraTokens],
-                    try_load_module(Tokens1, ExtraTokens1)
-            end;
-        _ -> 
-            Tokens1 = lists:reverse(tl(lists:reverse(Tokens))),
-            ExtraTokens1 = [hd(lists:reverse(Tokens))|ExtraTokens],
-            try_load_module(Tokens1, ExtraTokens1)
+            {Module, PathInfo};
+        false ->
+            next_try_load_module(Tokens, ExtraTokens)
     end.
 
+
+next_try_load_module(Tokens, ExtraTokens) ->
+    Tokens1 = lists:reverse(tl(lists:reverse(Tokens))),
+    ExtraTokens1 = [hd(lists:reverse(Tokens))|ExtraTokens],
+    try_load_module(Tokens1, ExtraTokens1).
 
 check_for_404(static_file, _PathInfo, Path) ->
     {static_file, Path};

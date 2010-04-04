@@ -19,7 +19,7 @@ render_elements(Elements) ->
 render_elements(S, HtmlAcc) when S == undefined orelse S == []  ->
     {ok, HtmlAcc};
 
-render_elements(S, HtmlAcc) when is_binary(S) orelse ?IS_STRING(S) ->
+render_elements(S, HtmlAcc) when is_integer(S) orelse is_binary(S) orelse ?IS_STRING(S) ->
     {ok, [S|HtmlAcc]};
 
 render_elements(Elements, HtmlAcc) when is_list(Elements) ->
