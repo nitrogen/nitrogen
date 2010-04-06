@@ -19,6 +19,8 @@
 ## Tweak GC to run more often 
 -env ERL_FULLSWEEP_AFTER 10
 
+## Include .beam files for site.
 -pa ./site/ebin
 
--eval "application:start(nitrogen_mochiweb)"
+## Run code at startup.
+-eval "nitrogen_init:init()"    

@@ -21,7 +21,7 @@ render_action(#event {
 
     Script = case Type of
 
-%%% SYSTEM EVENTS %%%
+        %% SYSTEM EVENTS %%%
         % Trigger a system postback immediately...
         system when Delay == 0 ->
             [
@@ -37,7 +37,7 @@ render_action(#event {
                 wf:f("setTimeout(\"document.~s(); document.~s=null;\", ~p);", [TempID, TempID, Delay])
             ];
 
-%%% USER EVENTS %%%
+        %% USER EVENTS %%%
 
         % Handle keypress, keydown, or keyup when a keycode is defined...
         _ when (Type==keypress orelse Type==keydown orelse Type==keyup) andalso (KeyCode /= undefined) ->

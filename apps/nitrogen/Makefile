@@ -1,5 +1,5 @@
 compile:
-	@erl -make
+	@erl -pa ./ebin -make
 
 clean:
 	@rm -rf ebin/*.beam
