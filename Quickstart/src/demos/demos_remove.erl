@@ -2,29 +2,37 @@
 -include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
-main() -> #template { file="./templates/demos46.html", bindings=[
-	{'Group', learn},
-	{'Item', samples}
-]}.
+main() -> #template { file="./templates/demos46.html" }.
 
-title() -> "AJAX Remove Example".
-headline() -> "AJAX Remove Example".
-right() -> linecount:render().
+title() -> "AJAX Remove".
 
-body() -> [
+headline() -> "AJAX Remove".
+
+left() -> 
+    [
+        "
+        <p>
+        Nitrogen allows you to remove elements from the client
+        page. When you click the 'Remove' button, the page will call
+        <code>wf:remove/1</code> to remove the panel.
+
+        <p>
+        Reload the page to reset.
+        ",
+        linecount:render()
+    ].
+
+right() -> 
+    [
+        #p{},
 	#panel { id=mainPanel, body=[
-		"
-			When you click on the button below, the page will use wf:remove(mainPanel) to 
-			remove this #panel.
-		",
-		#p{},
-		#button { postback=remove }
-	]},
-	#p{},
-	"Reload to reset the page."
-].
-	
+            "This panel will be removed.",
+            #p{},
+            #button { text="Remove", postback=remove }
+        ]}
+    ].
+
 event(remove) ->
-	wf:remove(mainPanel);
-	
+    wf:remove(mainPanel);
+
 event(_) -> ok.

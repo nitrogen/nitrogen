@@ -56,6 +56,8 @@ ul, ol {
 
 ul li { 
     list-style: disc; 
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 p { 
@@ -117,7 +119,8 @@ div.header {
     background-color: #dfe2ea;
     text-align: center;
     font-size: 12px;
-    line-height: 30px;
+    line-height: 12px;
+    padding: 8px;
 }
 
 .menu a {

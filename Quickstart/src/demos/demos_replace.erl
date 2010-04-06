@@ -2,36 +2,48 @@
 -include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
-main() -> #template { file="./templates/demos46.html", bindings=[
-	{'Group', learn},
-	{'Item', samples}
-]}.
+main() -> #template { file="./templates/demos46.html" }.
 
-title() -> "AJAX Replace Example".
-headline() -> "AJAX Replace Example".
-right() -> linecount:render().
+title() -> "AJAX Replace".
 
-body() -> [
-	#panel { id=mainPanel, body=[
-		"
-			When you click on the button below, the page will use wf:replace(mainPanel, Message) to 
-			replace this #panel with some other html. Unlike wf:update/2, wf:replace/2 removes
-			the original element.
-		",
-		#p{},
-		#button { postback=replace }
-	]}
-].
-	
+headline() -> "AJAX Replace".
+
+left() -> 
+    [
+        "
+        <p>
+        Nitrogen allows you to replace elements on the client
+        page. When you click on the 'Replace' button, the page will
+        use <code>wf:replace(mainPanel, Message)</code> to replace the
+        contents of the panel.
+
+        <p>
+        Unlike <code>wf:update/2</code> (which replaces just the inner
+        contents of an element), the <code>replace/2</code> function
+        replaces the entire DOM element.
+        ",
+         linecount:render()
+    ].
+
+right() ->
+    [
+        #p{},
+        #panel { id=mainPanel, body=[
+            "This panel will be replaced.",
+            #p{},
+            #button { text="Replace", postback=replace }
+        ]}
+    ].
+
 event(replace) ->
-	Elements = #panel { id=replacementPanel, body=[
-		"See!",
-		#p{},
-		#button { text="Reset", postback=reset }
-	]},
-	wf:replace(mainPanel, Elements);
-	
+    Elements = #panel { id=replacementPanel, body=[
+        "See!",
+        #p{},
+        #button { text="Reset", postback=reset }
+    ]},
+    wf:replace(mainPanel, Elements);
+
 event(reset) ->
-	wf:replace(replacementPanel, body());
+    wf:redirect("/demos/replace");
 
 event(_) -> ok.
