@@ -11,10 +11,10 @@ continue(Tag, Fun, TimeoutMS) ->
     wf:wire(#continue { tag=Tag, function=Fun, timeout=TimeoutMS }).
 
 
-
 %%% - ACTIONS - %%%
 
 render_action(Record) -> 
+    ?PRINT(render_action),
     % Spawn a wrapped comet function.
     #comet {
         function=fun() -> continue_wrapper(Record) end
@@ -23,7 +23,10 @@ render_action(Record) ->
 continue_wrapper(Record) ->
     % Run the user's function. The results will either
     % be the actual result of the function, 'timeout', or 'error'
+    ?PRINT(running_function),
     Result = run_continue_function(Record),
+    ?PRINT({result, Result}),
+    
 
     % Initiate a postback on the page to gather the requests...
     Ref = make_ref(),
@@ -31,8 +34,10 @@ continue_wrapper(Record) ->
     wf:flush(),
 
     % Wait for the event/1 function below to request the results...
+    ?PRINT(waiting_for_request),
     receive 
         {get_results, Pid, Ref} -> 
+            ?PRINT(requested),
             Pid ! {get_results_response, Record, Result, Ref}
     end.
 

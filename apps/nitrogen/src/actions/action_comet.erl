@@ -85,8 +85,6 @@ render_action(Record) ->
 
     % This will immediately trigger a postback to event/1 below.
     #event {
-        type=system,
-        delay=0,
         delegate=?MODULE,
         postback={spawn_async_function, Record1}
     }.
