@@ -61,7 +61,33 @@ right() ->
     [
         #p{},
         #panel { class=platform, body=[
-            #image { class=logo, image="/images/downloads/mac_logo.png" },
+            #panel { class=logo, body=[
+                #image { image="/images/downloads/documentation.png" }
+            ]},
+            #span { class=title, text="Nitrogen Documentation" },
+            #link { class=link, url="#", text="View Online" },
+            #link { class=link, url="#", text="Download .zip file" }
+        ]},
+
+        #panel { class=clear },
+
+        #panel { class=platform, body=[
+            #panel { class=logo, body=[
+                #image { image="/images/downloads/erlang_logo.png" }
+            ]},
+            #span { class=title, text="Source Code" },
+            #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Nitrogen 2.0.1 source (.tar.gz)" },
+            #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Latest Code (.tar.gz)" },
+            #link { url="http://github.com/rklophaus/nitrogen", text="Nitrogen repository on GitHub" }
+        ]},
+
+        #panel { class=clear },
+
+        #p{},
+        #panel { class=platform, body=[
+            #panel { class=logo, body=[
+                #image { image="/images/downloads/mac_logo.png" }
+            ]},
             #span { class=title, text="Mac OSX 10.5+ Binaries" },
             #link { class=link, url="#", text="Nitrogen 2.0.1 for Mac OSX on Mochiweb" },
             #link { class=link, url="#", text="Nitrogen 2.0.1 for Mac OSX on Yaws" },
@@ -71,7 +97,9 @@ right() ->
         #panel { class=clear },
 
         #panel { class=platform, body=[
-            #image { class=logo, image="/images/downloads/linux_logo_gray.png" },
+            #panel { class=logo, body=[
+                #image { image="/images/downloads/linux_logo_gray.png" }
+            ]},
             #span { class=title, text="Linux Binaries Coming Soon" },
             #span { class=link, text="Nitrogen 2.0.1 for Linux on Mochiweb" },
             #span { class=link, text="Nitrogen 2.0.1 for Linux on Yaws" },
@@ -81,21 +109,13 @@ right() ->
         #panel { class=clear },
 
         #panel { class=platform, body=[
-            #image { class=logo, image="/images/downloads/windows_logo_gray.png" },
+            #panel { class=logo, body=[
+                #image { image="/images/downloads/windows_logo_gray.png" }
+            ]},
             #span { class=title, text="Windows Binaries" },
             #span { class=link, text="Nitrogen 2.0.1 for Windows on Mochiweb" },
             #span { class=link, text="Nitrogen 2.0.1 for Windows on Yaws" },
             #span { class=link, text="Nitrogen 2.0.1 for Windows on Inets" }
-        ]},
-
-        #panel { class=clear },
-
-        #panel { class=platform, body=[
-            #image { class=logo, image="/images/downloads/erlang_logo.png" },
-            #span { class=title, text="Source Code" },
-            #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Nitrogen 2.0.1 source (.tar.gz)" },
-            #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Latest Code (.tar.gz)" },
-            #link { url="http://github.com/rklophaus/nitrogen", text="Nitrogen repository on GitHub" }
         ]}
     ].
 

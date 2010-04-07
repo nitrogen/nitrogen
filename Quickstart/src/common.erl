@@ -8,9 +8,8 @@ header(Selected) ->
         #link { id=home, url='/', text="HOME" },
         #link { id=downloads, url='/downloads', text="DOWNLOADS" },
         #link { id=demos, url='/demos', text="DEMOS" },
-        #link { id=learn_more, url='/learnmore', text="LEARN MORE" },
-        #link { id=get_involved, url='/getinvolved', text="GET INVOLVED" },
-        #link { id=donate, url='/donate', text="DONATE" }
+        #link { id=learn, url='/learn', text="LEARN MORE" },
+        #link { id=community, url='/community', text="GET INVOLVED" }
     ]}.
 
 

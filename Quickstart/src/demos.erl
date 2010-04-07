@@ -53,7 +53,6 @@ middle() ->
 
 	#h2 { text="Drag, Drop & Sort" },
 	#p{},
-	#link { text="Effects", url="/demos/effects" }, #br{}, 
 	#link { text="Drag and Drop", url="/demos/dragdrop" }, #br{}, 
 	#link { text="Sorting", url="/demos/sorting1" }, #br{}, 
 	#link { text="Nested Sorting", url="/demos/sorting2" }, #br{},
@@ -70,6 +69,7 @@ right() ->
     [
 	#h2 { text="Events and Ajax" },
 	#p{},
+	#link { text="Effects", url="/demos/effects" }, #br{}, 
 	#link { text="Postbacks", url="/demos/postback" }, #br{}, 
 	#link { text="AJAX Updates", url="/demos/ajax" }, #br{}, 
 	#link { text="AJAX Replace", url="/demos/replace" }, #br{},
