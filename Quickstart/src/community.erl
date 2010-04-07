@@ -73,11 +73,6 @@ top() ->
             "
         ]},
 
-
-
-
-
-
         #grid_clear {},
 
         #grid_10 { alpha=true, omega=true, body=[
@@ -113,6 +108,16 @@ articles() ->
     [
         #h1 { text="Articles" },
 
+        #h2 { text="March 2010" },
+        
+        #p{},
+        #link { text="Erlang, Nitrogen and automatic rebuild. (objitsu.com)", url="http://objitsu.com/blog/2010/03/16/erlang-nitrogen-and-automatic-rebuild/" },
+
+        #h2 { text="December 2009" },
+        
+        #p{},
+        #link { text="Erlang Web Development with Nitrogen (sergioveiga.com)", url="http://sergioveiga.com/index.php/2009/12/03/erlang-web-development-with-nitrogen/" },
+
         #h2 { text="October 2009" },
 
         #p{},
@@ -130,32 +135,27 @@ articles() ->
         " - IEEE Internet Computing Magazine, Steve.Vinoski.net",
 
         #p{},
-        #link { text="Using DTL Templates with Nitrogen", url="http://fiatdev.com/2009/07/13/using-dtl-templates-with-nitrogen" },
-        " - FiatDev.com",
+        #link { text="Using DTL Templates with Nitrogen (fiatdev.com)", url="http://fiatdev.com/2009/07/13/using-dtl-templates-with-nitrogen" },
 
         #h2 { text="June 2009" },
 
         #p{},
-        #link { text="Advanced Nitrogen Elements", url="http://jeremy.marzhillstudios.com/index.php/site-news/advanced-nitrogen-elements/" },
-        " - Jeremy.Marzhillstudios.com",
+        #link { text="Advanced Nitrogen Elements (jeremy.marzhissstudios.com)", url="http://jeremy.marzhillstudios.com/index.php/site-news/advanced-nitrogen-elements/" },
 
         #p{},
         #link { text="Rusty presenting Nitrogen at Erlang Factory in London", url="http://www.erlang-factory.com/conference/London2009/speakers/RustyKlophaus" },
         " - Erlang-Factory.com",
 
         #p{},
-        #link { text="Embedded Webapp on Freerunner", url="http://blondon.fr/blog/index.php?post/2009/06/07/freerunner-embedded-webapp" },
-        " - blondon.fr",        
+        #link { text="Embedded Webapp on Freerunner (blondon.fr)", url="http://blondon.fr/blog/index.php?post/2009/06/07/freerunner-embedded-webapp" },
 
         #h2 { text="May 2009" },
 
         #p{},
-        #link { text="Creating Custom Nitrogen Elements", url="http://jeremy.marzhillstudios.com/index.php/site-news/creating-custom-nitrogen-elements/" },
-        " - Jeremy.Marzhillstudios.com",
+        #link { text="Creating Custom Nitrogen Elements (jeremy.marzhissstudios.com)", url="http://jeremy.marzhillstudios.com/index.php/site-news/creating-custom-nitrogen-elements/" },
 
         #p{},
-        #link { text="Erlang Factory 2009 Review", url="http://www.sauria.com/blog/2009/05/04/erlang-factory-2009/" },
-        " - www.sauria.com, Ted Leung",    
+        #link { text="Erlang Factory 2009 Review (sauria.com)", url="http://www.sauria.com/blog/2009/05/04/erlang-factory-2009/" },
 
         #h2 { text="April 2009" },
 
@@ -171,36 +171,28 @@ articles() ->
         #link { text="Seethrough and Nitrogen", url="http://www.redhoterlang.com/web/plink?id=bce1408f0f211d3e4951f972b6e9bdbf" },
         " - RedHotErlang.com",  
 
-        #p{},
         #h2 { text="January 2009" },
 
         #p{},
-        #link { text="A Simple Web App using Nitrogen", url="http://www.joeandmotorboat.com/2009/01/08/a-simple-web-app-using-nitrogen/" },
-        " - JoeAndMotorboat.com",
+        #link { text="A Simple Web App using Nitrogen (joeandmotorboat.com)", url="http://www.joeandmotorboat.com/2009/01/08/a-simple-web-app-using-nitrogen/" },
 
         #h2 { text="December 2008" },
         #p{},
-        #link { text="Erlang Web Development Frameworks", url="http://medevyoujane.com/blog/2008/12/18/erlang-web-development-frameworks.html" },
-        " - MeDevYouJane.com",
+        #link { text="Erlang Web Development Frameworks (medevyoujane.com)", url="http://medevyoujane.com/blog/2008/12/18/erlang-web-development-frameworks.html" },
 
         #p{},
-        #link { text="5 Minute Blog Using Nitrogen and CouchDB", url="http://medevyoujane.com/blog/2008/12/12/5-minute-blog-using-nitrogen-and-couchdb.html" },
-        " - MeDevYouJane.com",
+        #link { text="5 Minute Blog Using Nitrogen and CouchDB (medevyoujane.com)", url="http://medevyoujane.com/blog/2008/12/12/5-minute-blog-using-nitrogen-and-couchdb.html" },
 
         #p{},
-        #link { text="Nitrogen", url="http://fiatdev.com/2008/12/06/nitrogen" }, 
-        " - FiatDevelopment",
-
+        #link { text="Nitrogen (fiatdev.com)", url="http://fiatdev.com/2008/12/06/nitrogen" }, 
 
         #h2 { text="November 2008" },
         #p{},
-        #link { text="Release of Nitrogen web framework", url="http://translate.google.com/translate?u=http%3A%2F%2Fwww.siteduzero.com%2Fnews-62-30656-sortie-du-framework-web-nitrogen.html&hl=en&ie=UTF-8&sl=fr&tl=en" }, ", ",
+        #link { text="Release of Nitrogen web framework (siteduzero.com)", url="http://translate.google.com/translate?u=http%3A%2F%2Fwww.siteduzero.com%2Fnews-62-30656-sortie-du-framework-web-nitrogen.html&hl=en&ie=UTF-8&sl=fr&tl=en" }, ", ",
         #link { text="French (orig.)", url="http://www.siteduzero.com/news-62-30656-sortie-du-framework-web-nitrogen.html" },
-        " - SiteDuZero.com",
 
         #h2 { text="October 2008" },
-        #link { text="Interview on Nitrogen Web Framework", url="http://erlanginside.com/interview-with-rusty-klophaus-on-the-nitrogen-erlang-web-framework-37" },
-        " - ErlangInside.com",
+        #link { text="Interview on Nitrogen Web Framework (erlanginside.com)", url="http://erlanginside.com/interview-with-rusty-klophaus-on-the-nitrogen-erlang-web-framework-37" },
 
         #p{},
 

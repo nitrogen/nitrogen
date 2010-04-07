@@ -78,7 +78,8 @@ right() ->
             #span { class=title, text="Source Code" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Nitrogen 2.0.1 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Latest Code (.tar.gz)" },
-            #link { url="http://github.com/rklophaus/nitrogen", text="Nitrogen repository on GitHub" }
+            #link { url="http://github.com/rklophaus/nitrogen", text="Nitrogen repository on GitHub" },
+            #link { url="http://github.com/vim/nitrogen_elements", text="Community Repository of Nitrogen Elements" }
         ]},
 
         #panel { class=clear },

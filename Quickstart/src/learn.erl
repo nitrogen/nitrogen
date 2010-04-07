@@ -118,6 +118,8 @@ right() ->
     [
         #p{},
         #h2 { text="Documentation" },
+        
+        #p{},
         "
         Nitrogen documentation is available on the <a
         href='/downloads'>downloads</a> page. You can also <a
@@ -126,6 +128,8 @@ right() ->
         
         #p{},
         #h2 { text="About Nitrogen" },
+
+        #p{},
 	"
         Nitrogen was created by <a href='http://rklophaus.com'>Rusty
         Klophaus</a> (@rklophaus).  It is in active development, and

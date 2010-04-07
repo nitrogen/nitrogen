@@ -46,7 +46,7 @@ top_right() ->
         #p { class="section", body=[
             "
             <a href=/learn_more>Nitrogen Version 2.x</a> adds more flexible JQuery
-            integration, improved Erlang OTP compliance, and a handler
+            integration, improved Erlang OTP compliance, a handler
             interface allowing you to customize things like session
             management and security, and many more features.
             "

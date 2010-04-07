@@ -14,7 +14,7 @@ body {
     text-transform: uppercase;
     font-size: 1.8462em; /* 24px */
     line-height: 1.0833em; /* 26px */
-    margin: 0.5416em 0em; 
+    margin: 0.5416em 0em;
     padding: 0px;
 }
 
@@ -35,6 +35,7 @@ h2 {
     font-size: 1.3846em; /* 18px */
     line-height: 1.4444em; /* 26px */
     margin: 0.7222em 0em;
+/*     margin: 1.4444em 0em; */
     padding: 0px;
 }
 
