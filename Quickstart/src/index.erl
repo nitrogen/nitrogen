@@ -3,7 +3,7 @@
 -compile(export_all).
 -include("grid.hrl").
 
-main() -> #template { file="./templates/grid.html" }.
+main() -> #template { file="./templates/front.html" }.
 
 title() -> "Nitrogen Web Framework for Erlang".
 
@@ -22,7 +22,7 @@ layout() ->
 top_left() ->
     [
         #p{},
-        #image { image="./images/GreenHead.png" }
+        #image { class=green_head, image="./images/green_head.png" }
     ].
 
 top_right() ->
