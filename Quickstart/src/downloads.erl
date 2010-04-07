@@ -112,7 +112,7 @@ right() ->
             #panel { class=logo, body=[
                 #image { image="/images/downloads/windows_logo_gray.png" }
             ]},
-            #span { class=title, text="Windows Binaries" },
+            #span { class=title, text="Windows Binaries Coming Soon" },
             #span { class=link, text="Nitrogen 2.0.1 for Windows on Mochiweb" },
             #span { class=link, text="Nitrogen 2.0.1 for Windows on Yaws" },
             #span { class=link, text="Nitrogen 2.0.1 for Windows on Inets" }
