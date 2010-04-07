@@ -1,9 +1,10 @@
 -module (element_[[[NAME]]]).
 -compile(export_all).
 -include_lib("nitrogen/include/wf.hrl").
+-include("records.hrl").
 
-%% Move the following line to an include file:
--record([[[NAME]]], {?ELEMENT_BASE(element_[[[NAME]]])}).
+%% Move the following line to records.hrl:
+-record([[[NAME]]], {?ELEMENT_BASE(element_[[[NAME]]]), attr1, attr2}).
 
 reflect() -> record_info(fields, [[[NAME]]]).
 

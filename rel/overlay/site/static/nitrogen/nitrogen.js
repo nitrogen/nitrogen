@@ -194,7 +194,7 @@ NitrogenClass.prototype.$closest = function(path, anchor) {
 	
 	// Return the document itself...
 	if (path == "page" || path == ".page") {
-		return jQuery('');
+	    return jQuery(document);
 	}
 	
 	// Normalize stuff...

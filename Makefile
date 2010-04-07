@@ -3,9 +3,10 @@ NITROGEN_VERSION=2.0.0
 
 help:
 	@echo 
-	@echo "Usage: ./make {compile|clean}                   # Compile" 
-	@echo "       ./make {rel_inets|rel_mochiweb}          # Create ./rel/nitrogen"
-	@echo "       ./make {package_inets|package_mochiweb}  # Create ./builds/*.tar.gz"
+	@echo "Usage: ./make {compile|clean}"        
+	@echo "       ./make {rel_inets|package_inets}"  
+	@echo "       ./make {rel_mochiweb|package_mochiweb}"
+	@echo "       ./make {rel_yaws|package_yaws}"
 	@echo
 
 
