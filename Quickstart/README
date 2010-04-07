@@ -14,6 +14,6 @@ Then, open your browser to http://localhost:8000
 
 ---
 
-To build your own project, run "make rel_inets", "make rel_mochiweb",
+To start a new project, run "make rel_inets", "make rel_mochiweb",
 or "make rel_yaws" in the root directory of Nitrogen, and then base
 your project in "./rel/nitrogen".
