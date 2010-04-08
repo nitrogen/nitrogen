@@ -1,7 +1,6 @@
 -module (demos).
 -include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
--include("grid.hrl").
 
 main() -> #template { file="./templates/grid.html" }.
 

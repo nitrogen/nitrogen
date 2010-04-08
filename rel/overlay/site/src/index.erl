@@ -6,8 +6,13 @@ main() -> #template { file="./site/templates/bare.html" }.
 
 title() -> "Welcome to Nitrogen".
 
+layout() ->
+    #container_12 { body=[
+        #grid_8 { alpha=true, prefix=2, suffix=2, omega=true, body=body() }
+    ]}.
+
 body() -> 
-    #panel { style="width: 60%; margin: 50px auto;", body=[
+    [
         #h1 { text="Welcome to Nitrogen" },
         #p{},
         "
@@ -20,7 +25,7 @@ body() ->
         "
         Run <b>./bin/dev help</b> to see some useful developer commands.
         "
-    ]}.
+    ].
 	
 event(click) ->
     wf:replace(button, #panel { 

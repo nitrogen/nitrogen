@@ -1,7 +1,6 @@
 -module (element_grid).
 -compile(export_all).
--include_lib("nitrogen/include/wf.hrl").
--include("../grid.hrl").
+-include_lib("wf.hrl").
 
 reflect() -> record_info(fields, grid).
 

@@ -1,17 +1,11 @@
 .label {
     display: block;
     font-weight: bold;
-    font-size: 0.9em;
-    margin-top: 7px;
 }
 
 .value {
     display: block;
     font-weight: bold;
-    padding: 0px 0px 0px 0px;
-    margin-top: 2px;
-    margin-bottom: 10px;
-    color: #000000;
 }
 
 /*** INPLACE EDITING ***/

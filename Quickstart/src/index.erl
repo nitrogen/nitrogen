@@ -1,7 +1,6 @@
 -module (index).
 -include ("wf.inc").
 -compile(export_all).
--include("grid.hrl").
 
 main() -> #template { file="./templates/front.html" }.
 

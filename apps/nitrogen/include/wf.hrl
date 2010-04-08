@@ -116,6 +116,30 @@
 -record(upload, {?ELEMENT_BASE(element_upload), delegate, tag, show_button=true, button_text="Upload" }).
 -record(sparkline, {?ELEMENT_BASE(element_sparkline), type, values, options }).
 
+%% 960.gs Grid
+-record(grid,  {?ELEMENT_BASE(element_grid), type, columns,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(container_12,  {?ELEMENT_BASE(element_grid), type=container, columns=12, alpha, omega, push, pull, prefix, suffix, body}).
+-record(container_16,  {?ELEMENT_BASE(element_grid), type=container, columns=16, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_1,  {?ELEMENT_BASE(element_grid), type=grid, columns=1,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_2,  {?ELEMENT_BASE(element_grid), type=grid, columns=2,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_3,  {?ELEMENT_BASE(element_grid), type=grid, columns=3,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_4,  {?ELEMENT_BASE(element_grid), type=grid, columns=4,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_5,  {?ELEMENT_BASE(element_grid), type=grid, columns=5,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_6,  {?ELEMENT_BASE(element_grid), type=grid, columns=6,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_7,  {?ELEMENT_BASE(element_grid), type=grid, columns=7,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_8,  {?ELEMENT_BASE(element_grid), type=grid, columns=8,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_9,  {?ELEMENT_BASE(element_grid), type=grid, columns=9,  alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_10, {?ELEMENT_BASE(element_grid), type=grid, columns=10, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_11, {?ELEMENT_BASE(element_grid), type=grid, columns=11, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_12, {?ELEMENT_BASE(element_grid), type=grid, columns=12, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_13, {?ELEMENT_BASE(element_grid), type=grid, columns=13, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_14, {?ELEMENT_BASE(element_grid), type=grid, columns=14, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_15, {?ELEMENT_BASE(element_grid), type=grid, columns=15, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_16, {?ELEMENT_BASE(element_grid), type=grid, columns=16, alpha, omega, push, pull, prefix, suffix, body}).
+-record(grid_clear,  {?ELEMENT_BASE(element_grid), type=clear, columns,  alpha, omega, push, pull, prefix, suffix, body}).
+
+
+
 %%% Actions %%%
 -define(ACTION_BASE(Module), is_action=is_action, module=Module, anchor, trigger, target, actions, show_if=true).
 -record(actionbase, {?ACTION_BASE(undefined)}).
