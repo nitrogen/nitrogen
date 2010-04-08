@@ -3,12 +3,16 @@ NITROGEN_VERSION=2.0.0
 
 help:
 	@echo 
-	@echo "Usage: ./make {compile|clean}"        
+	@echo "Usage: "
+	@echo "       ./make {compile|clean}"        
+	@echo
 	@echo "       ./make {rel_inets|package_inets}"  
 	@echo "       ./make {rel_mochiweb|package_mochiweb}"
 	@echo "       ./make {rel_yaws|package_yaws}"
 	@echo
-
+	@echo "       ./make package_docs"
+	@echo
+	@echo
 
 compile:
 	@(cd ./apps/nitrogen; make compile)
@@ -84,3 +88,12 @@ rel_inner:
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
 	@rm -rf rel/reltool.config	
+
+
+# 
+
+package_docs:
+	cp -r doc nitrogen-doc-${NITROGEN_VERSION}
+	zip -r ./builds/nitrogen-doc-${NITROGEN_VERSION}.zip nitrogen-doc-${NITROGEN_VERSION}
+	cp -r doc/html Quickstart/static/doc
+	rm -rf nitrogen-doc-${NITROGEN_VERSION}
