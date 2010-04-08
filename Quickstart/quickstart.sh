@@ -4,6 +4,9 @@ cd `dirname $0`
 # Compile all required projects...
 (cd ..; make compile)
 
+# Link to nitrogen files...
+(cd static; rm nitrogen; ln -s ../../apps/nitrogen/www nitrogen)
+
 # Start Nitrogen on Inets...
 echo "Starting Nitrogen on Inets (http://localhost:8000)..."
 erl \
