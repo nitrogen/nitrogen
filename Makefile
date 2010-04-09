@@ -86,12 +86,12 @@ rel_inner:
 	@(cd rel/nitrogen; make)
 	@echo "Nitrogen Version:\n${NITROGEN_VERSION}\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
+	@cp -r ./doc rel/nitrogen/doc
 	@uname -v >> rel/nitrogen/BuildInfo.txt
 	@rm -rf rel/reltool.config	
 
 
-# 
-
+# Zip up the docs, put into Quickstart project.
 package_docs:
 	cp -r doc nitrogen-doc-${NITROGEN_VERSION}
 	zip -r ./builds/nitrogen-doc-${NITROGEN_VERSION}.zip nitrogen-doc-${NITROGEN_VERSION}
