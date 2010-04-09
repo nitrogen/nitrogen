@@ -1,6 +1,6 @@
 -module (demos_advancedcontrols2).
 -include_lib ("nitrogen/include/wf.hrl").
--include ("nitrogen/include/google_chart.hrl").
+-include_lib ("nitrogen/include/google_chart.hrl").
 -compile(export_all).
 
 main() -> #template { file="./templates/demos46.html" }.
