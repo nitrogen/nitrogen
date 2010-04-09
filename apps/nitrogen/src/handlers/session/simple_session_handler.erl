@@ -71,6 +71,11 @@ get_session_pid(_Config, State) ->
     {ok, _Pid} = process_registry_handler:get_pid(SessionTag, F).
 
 session_loop(Session, Timeout) ->
+    %% Timeout in 10 if the session is empty...
+    TimeoutMS = case Session == [] of
+        true  -> 10 * 1000;
+        false -> Timeout * 60 * 1000
+    end,
     receive
         {get_value, Key, Pid, Ref} ->
             Value = case lists:keysearch(Key, 1, Session) of
@@ -93,7 +98,7 @@ session_loop(Session, Timeout) ->
             Pid!{ok, Ref},
             session_loop([], Timeout)	
 
-    after Timeout * 60 * 1000 -> 
+    after TimeoutMS -> 
         exit(timed_out)
     end.
 
