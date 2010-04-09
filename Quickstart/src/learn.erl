@@ -122,7 +122,7 @@ right() ->
         "
         Nitrogen documentation is available on the <a
         href='/downloads'>downloads</a> page. You can also <a
-        href='/docs'>browse it online</a>.
+        href='/doc/index.html'>browse it online</a>.
         ",
         
         #p{},

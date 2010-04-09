@@ -1,5 +1,5 @@
 all:
-	@(cd site; make)
+	@(cd site; ../erts-*/bin/erl -make)
 
 clean:
-	@(cd site; make clean)
+	@(cd site; rm -rf ebin/*.beam)

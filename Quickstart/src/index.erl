@@ -1,5 +1,5 @@
 -module (index).
--include ("wf.inc").
+-include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
 main() -> #template { file="./templates/front.html" }.

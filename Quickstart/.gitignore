@@ -1,5 +1,9 @@
 *.dump
 .DS_Store
-scratch
-*.log
-localhost.access
+coverage
+.hgignore
+*.beam
+rel/nitrogen
+TAGS
+builds
+scratch/*

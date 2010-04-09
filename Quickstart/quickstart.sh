@@ -7,6 +7,9 @@ cd `dirname $0`
 # Link to nitrogen files...
 (cd static; rm nitrogen; ln -s ../../apps/nitrogen/www nitrogen)
 
+# Make all files.
+make
+
 # Start Nitrogen on Inets...
 echo "Starting Nitrogen on Inets (http://localhost:8000)..."
 erl \
