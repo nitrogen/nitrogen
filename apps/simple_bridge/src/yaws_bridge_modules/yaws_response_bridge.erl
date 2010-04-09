@@ -36,7 +36,19 @@ build_response(_Arg, Res) ->
             ]);
 
         {file, Path} ->
-            {page, filename:join(".", Path)}
+            %% Calculate expire date far into future...
+            Seconds = calendar:datetime_to_gregorian_seconds(calendar:local_time()),
+            TenYears = 10 * 365 * 24 * 60 * 60,
+            ?PRINT(Seconds),
+            ?PRINT(TenYears),
+            Seconds1 = calendar:gregorian_seconds_to_datetime(Seconds + TenYears),
+            ExpireDate = httpd_util:rfc1123_date(Seconds1),
+            ?PRINT(ExpireDate),
+
+            % Create the response telling Yaws to server file...
+            Options = [{header, {"Expires", ExpireDate}}],
+            Path = filename:join(".", Path),
+            {page, {Options, Path}}
     end.
 
 coalesce([]) -> undefined;

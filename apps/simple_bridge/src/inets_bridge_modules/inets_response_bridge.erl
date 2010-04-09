@@ -27,7 +27,9 @@ build_response(Req, Res) ->
             ]};
 
         {file, _Path} ->
-            mod_get:do(Req)
+            GetResponse = mod_get:do(Req),
+            ?PRINT(GetResponse),
+            GetResponse
     end.
 
 create_cookie_header(Cookie) ->

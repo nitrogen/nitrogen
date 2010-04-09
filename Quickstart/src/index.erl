@@ -2,7 +2,7 @@
 -include_lib ("nitrogen/include/wf.hrl").
 -compile(export_all).
 
-main() -> #template { file="./templates/front.html" }.
+main() -> #template { file="./templates/grid.html" }.
 
 title() -> "Nitrogen Web Framework for Erlang".
 
