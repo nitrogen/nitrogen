@@ -5,7 +5,7 @@ cd `dirname $0`
 (cd ..; make compile)
 
 # Link to nitrogen files...
-(cd static; rm nitrogen; ln -s ../../apps/nitrogen/www nitrogen)
+(cd static; rm -rf nitrogen; mkdir nitrogen; cp -r ../../apps/nitrogen/www/* nitrogen)
 
 # Make all files.
 make
