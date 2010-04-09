@@ -16,25 +16,52 @@
 reflect() -> record_info(fields, template).
 
 render_element(Record) ->
-    % % Prevent loops.
-    % case wf:state(template_was_called) of
-    % 	true -> throw("Calling a template from a template.");
-    % 	_ -> ignore
-    % end,
-    % wf:state(template_was_called, true),
-
     % Parse the template file...
+    
     File = wf:to_list(Record#template.file),
-    Template = parse_template(File),
-
-    % IN PROGRESS - Caching
-    % Key = {template, File},
-    % Template = wf_cache:cache(Key, fun() -> parse_template(File) end, [{ttl, 5}]),
+    Template = get_cached_template(File),
 
     % Evaluate the template.
     Body = eval(Template, Record),
     Body.
 
+get_cached_template(File) ->
+    FileAtom = list_to_atom("template_file_" ++ File),
+
+    LastModAtom = list_to_atom("template_lastmod_" ++ File),
+    LastMod = mochiglobal:get(LastModAtom),
+
+    CacheTimeAtom = list_to_atom("template_cachetime_" ++ File),
+    CacheTime = mochiglobal:get(CacheTimeAtom),
+    
+    %% Check for recache if one second has passed since last cache time...
+    ReCache = case (CacheTime == undefined) orelse (timer:now_diff(now(), CacheTime) > (1000 * 1000)) of
+        true -> 
+            %% Recache if the file has been modified. Otherwise, reset
+            %% the CacheTime timer...
+            case LastMod /= filelib:last_modified(File) of
+                true -> 
+                    true;
+                false ->
+                    mochiglobal:put(CacheTimeAtom, now()),
+                    false
+            end;
+        false ->
+            false
+    end,
+    
+    case ReCache of
+        true ->
+            %% Recache the template...
+            Template = parse_template(File),
+            mochiglobal:put(FileAtom, Template),
+            mochiglobal:put(LastModAtom, filelib:last_modified(File)),
+            mochiglobal:put(CacheTimeAtom, now()),
+            Template;
+        false ->
+            %% Load template from cache...
+            mochiglobal:get(FileAtom)
+    end.
 
 parse_template(File) ->
     % TODO - Templateroot
