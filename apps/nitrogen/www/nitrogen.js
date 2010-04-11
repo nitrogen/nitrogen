@@ -199,32 +199,76 @@ NitrogenClass.prototype.$upload = function(form) {
 
 /*** PATH LOOKUPS ***/
 
-NitrogenClass.prototype.$closest = function(path, anchor) {
-    // Similar to the jQuery .closest() operator, but not
-    // exactly like it. Walks up levels starting at the anchor
-    // object finding matching paths.
-    
-    // Return the document itself...
+function obj(path, anchor) {
+    return objs(path, anchor).get(0);
+}
+
+function objs(path, anchor) {
+    // Trim the path...
+    path = jQuery.trim(path);
+
+    // If no anchor is specified, then use the last anchor set...
+    if (!anchor) {
+        anchor = Nitrogen.$anchor_path;
+    }
+
+    // Multiple parts, so split and combine results...
+    if (path.indexOf(",") != -1) {
+        var paths=path.split(",");
+        var a = $();
+        for (var i=0; i<paths.length; i++) {
+            a = a.add(objs(paths[i], anchor));
+        }
+        return a;
+    }
+
+    // Selector is "page", so return the document...
     if (path == "page" || path == ".page") {
 	return jQuery(document);
     }
-    
-    // Normalize stuff...
-    if (!anchor) anchor = this.$anchor_path;
-    anchor = this.$normalize_path(path);
-    path = this.$normalize_path(path);
-    
-    // If the user passed 'me' as the path, then fall back
-    // on the target path that was set in the last $anchor statement.
-    if (path == 'me' && this.$target_path != 'me') {
-	return this.$closest(this.$target_path, anchor);
+
+    // Replace "##" with ".wfid_"...
+    path = path.replace(/##/g, '.wfid_');
+
+    // Replace "me" with anchor...
+    path = path.replace(/\bme\b/g, anchor);
+
+    // If this is a single word, then rewrite it to a Nitrogen element id.
+    if (path.indexOf(" ") == -1 && path.indexOf(".") == -1) {
+        var results = objs(".wfid_" + path, anchor);
+        
+        // If we found results, then return them...
+        if (results.length > 0) {
+            return results;
+        }
+
+        // If no results, and this is not a valid HTML element name, then return. Otherwise,
+        // keep trying with the assumption that this is an HTML element...
+        if (results.length == 0 && jQuery.inArray(path.toLowerCase(), Nitrogen.$valid_elements) == -1) {
+            return jQuery();
+        }
     }
-    
+
+    // If of the form "element1.element2.element3" rewrite to Nitrogen paths...
+    var re = new RegExp(/^[\w\d_]+(\.[\w\d_]+)+$/);
+    if (re.test(path)) {
+        path = '.wfid_' + path.replace(/\./g, ' .wfid_');
+    } 
+
+    // If path begins with "body", then try matching across the entire
+    // body...
+    var re = new RegExp(/^body\b/);
+    if (re.test(path)) {
+        return jQuery(path);
+    }    
+
+    // Find all results under the anchor...
     var results = jQuery(anchor).find(path);
     if (results.length > 0) {
 	return results;
     }
     
+    // If no results under the anchor, then try on each parent, moving upwards...
     var results = jQuery(anchor).parents();
     for (var i=0; i<results.length; i++) {
 	var results2 = jQuery(results.get(i)).find(path);
@@ -232,63 +276,50 @@ NitrogenClass.prototype.$closest = function(path, anchor) {
 	    return results2;
 	}		
     }
-    
+
+    // No results, so try in context of entire page.
     return jQuery(path);
 }
 
-NitrogenClass.prototype.$normalize_path = function(path) {
-    // If path == 'me' then it is already normalized...
-    if (path == "me") return path;
-    
-    // Replace '##' with '.wfid_'
-    path = path.replace(/##/g, '.wfid_');
-    
-    // Check for form element1.element2.element3...
-    var re = new RegExp(/^[\w\d_]+(\.[\w\d_]+)*$/);
-    if (!re.test(path)) {
-	return path;
-    } 
-    
-    // In the form element1.element2.element3...
-    // Split on periods, and then prepend stuff with '.wfid_'	
-    var paths = path.split(".");
-    for (var i=0; i<paths.length; i++) {
-	if (paths[i] == "") continue;
-	if (paths[i].indexOf("wfid_") == -1) {
-	    paths[i] = "wfid_" + paths[i];
-	}
-	paths[i] = "." + paths[i];
-    }
-    
-    return paths.join(" ");
-}
+NitrogenClass.prototype.$valid_elements = [
+    "a", "abbr", "acronym", "address", "applet", "area", "b", "base", "basefont", 
+    "bdo", "big", "blockquote", "body", "br", "button", "caption", "center", "cite", 
+    "code", "col", "colgroup", "dd", "del", "dfn", "dir", "div", "dl", "dt", "em", 
+    "fieldset", "font", "form", "frame", "frameset", "h1", "h2", "h3", "h4", 
+    "h5", "h6", "head", "hr", "html", "i", "iframe", "img", "input", "ins", "isindex", 
+    "kbd", "label", "legend", "li", "link", "map", "menu", "meta", "noframes", "noscript", 
+    "object", "ol", "optgroup", "option", "p", "param", "pre", "q", "s", "samp", "script", "select", 
+    "small", "span", "strike", "strong", "style", "sub", "sup", "table", "tbody", "td", "textarea", 
+    "tfoot", "th", "thead", "title", "tr", "tt", "u", "ul", "var"
+];
+
 
 /*** EVENT WIRING ***/
 
 NitrogenClass.prototype.$observe_event = function(anchor, path, type, func) {
-    this.$closest(path, anchor).bind(type, func);
+    objs(path, anchor).bind(type, func);
 }
 
 /*** DYNAMIC UPDATING ***/
 
 NitrogenClass.prototype.$update = function(anchor, path, html) {
-    this.$closest(path, anchor).html(html);
+    objs(path, anchor).html(html);
 }
 
 NitrogenClass.prototype.$replace = function(anchor, path, html) {
-    this.$closest(path, anchor).replaceWith(html);
+    objs(path, anchor).replaceWith(html);
 }
 
 NitrogenClass.prototype.$insert_top = function(anchor, path, html) {
-    this.$closest(path, anchor).prepend(html);
+    objs(path, anchor).prepend(html);
 }
 
 NitrogenClass.prototype.$insert_bottom = function(anchor, path, html) {
-    this.$closest(path, anchor).append(html);
+    objs(path, anchor).append(html);
 }
 
 NitrogenClass.prototype.$remove = function(anchor, path) {
-    this.$closest(path, anchor).remove();
+    objs(path, anchor).remove();
 }
 
 
@@ -318,11 +349,11 @@ NitrogenClass.prototype.$disable_selection = function(element) {
     element.style.cursor = "default";
 }
 
-NitrogenClass.prototype.$set_value = function(element, value) {
+NitrogenClass.prototype.$set_value = function(anchor, element, value) {
     if (!element.id) element = obj(element);
     if (element.value != undefined) element.value = value;
     else if (element.checked != undefined) element.checked = value;
-    else this.$update(element, value);
+    else this.$update(anchor, element, value);
 }
 
 NitrogenClass.prototype.$normalize_param = function(key, value) {
@@ -369,7 +400,7 @@ NitrogenClass.prototype.$droppable = function(path, dropOptions, dropPostbackInf
     dropOptions.drop = function(ev, ui) {
 	var dragItem = ui.draggable[0].$drag_tag;
 	n.$queue_event(null, dropPostbackInfo, "drag_item=" + dragItem);
-    }
+    };
     objs(path).each(function(index, el) {
 		        jQuery(el).droppable(dropOptions);
 	            });
@@ -397,15 +428,6 @@ NitrogenClass.prototype.$sortblock = function(el, sortOptions, sortPostbackInfo)
 	n.$queue_event(null, sortPostbackInfo, "sort_items=" + sortItems);
     };
     objs(el).sortable(sortOptions);
-}
-
-
-function obj(path, anchor) {
-    return Nitrogen.$closest(path, anchor).get(0);
-}
-
-function objs(path, anchor) {
-    return Nitrogen.$closest(path, anchor);
 }
 
 var Nitrogen = new NitrogenClass();
