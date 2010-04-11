@@ -27,7 +27,7 @@ left() ->
 right() -> 
     [
         #p{},
-        #image { image="/web/samples/contenttype/image" }
+        #image { image="/demos/contenttype/image" }
     ].
 	
 event(_) -> ok.

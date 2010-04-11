@@ -118,25 +118,29 @@ right() ->
         #p{},
         #h2 { text="Documentation" },
         
-        #p{},
         "
-        Nitrogen documentation is available on the <a
-        href='/downloads'>downloads</a> page. You can also <a
-        href='/doc/index.html'>browse it online</a>.
+        <p>
+        Nitrogen documentation is available for <a
+        href='/doc/index.html'>browsing online</a>.  It is also
+        included in the source code under <i>/doc/html</i>, and
+        is packaged in all binary downloads.
+        
+        <p>
+        Read <a href='/whatsnew'>What's New in Nitrogen 2.x &raquo;</a>
         ",
         
         #p{},
         #h2 { text="About Nitrogen" },
 
-        #p{},
 	"
+        <p>
         Nitrogen was created by <a href='http://rklophaus.com'>Rusty
         Klophaus</a> (@rklophaus).  It is in active development, and
         is available for use under the MIT License.
         ",
 
-        #p{},
         "
+        <p>
         Twitter: <a href='http://twitter.com/nitrogenproject'>@nitrogenproject</a>
         ",
 

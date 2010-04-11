@@ -33,7 +33,7 @@ top_right() ->
             "
         ]},
 
-        #p { class="section_title", body="DOWNLOAD 2.01" },
+        #p { class="section_title", body="DOWNLOAD NITROGEN 2.x" },
         #p { class="section", body=[
             #link { url="/downloads", body=#image { image="/images/downloads/mac_logo.png" }},
             #link { url="/downloads", body=#image { image="/images/downloads/linux_logo_gray.png" }},
@@ -44,10 +44,11 @@ top_right() ->
         #p { class="section_title", body="LATEST NEWS" },
         #p { class="section", body=[
             "
-            <a href=/learn_more>Nitrogen Version 2.x</a> adds more flexible JQuery
-            integration, improved Erlang OTP compliance, a handler
-            interface allowing you to customize things like session
-            management and security, and many more features.
+            Nitrogen 2.x adds great new elements, actions, and API
+            calls, as well as improved packaging and OTP
+            compliance. 
+            <p>
+            Read <a href='/whatsnew'>What's New in Nitrogen 2.x &raquo;</a>
             "
         ]}
     ].

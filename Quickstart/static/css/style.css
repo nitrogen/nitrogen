@@ -38,7 +38,6 @@ h2 {
     font-size: 1.3846em; /* 18px */
     line-height: 1.4444em; /* 26px */
     margin: 0.7222em 0em;
-/*     margin: 1.4444em 0em; */
     padding: 0px;
 }
 
@@ -354,4 +353,15 @@ table.tiny td input
 
 .chat_history .message {
 	color: #888;
+}
+
+/***** WHATS NEW *****/
+
+.whatsnew_overview {
+    font-size: 1.3em;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #79C;
+    margin: 0.5em 0em;
+    border-top: solid 1px #dfe2ea;
+    border-bottom: solid 1px #dfe2ea;
 }
