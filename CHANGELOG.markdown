@@ -1,6 +1,26 @@
-# Nitrogen 2.0 Changelog
+# Nitrogen 2.0 New Features
 
-The current Experimental branch will soon become Nitrogen 1.0!  Here's what's new...
+### New Elements, Actions, and API functions
+
+* wf:wire can now act upon CSS classes or full JQuery Paths, not just Nitrogen elements. For example, wf:wire(".people > .address", Actions) will wire actions to any HTML elements with an "address" class underneath a "people" class. Anything on http://api.jquery.com/category/selectors/ is supported
+* Added wf:replace(ID, Elements), remove an element from the page, put new elements in their place.
+* Added wf:remove(ID), remove an element from the page.
+* New #api{} action allows you to define a javascript method that takes parameters and will trigger a postback. Javascript parameters are automatically translated to Erlang, allowing for pattern matching. 
+* New #grid{} element provides a Nitrogen interface to the 960 Grid System (http://960.gs) for page layouts.
+* The #upload{} event callbacks have changed. Event fires both on start of upload and when upload finishes. 
+* Upload callbacks take a Node parameter so that file uploads work even when a postback hits a different node.
+* Many methods that used to be in 'nitrogen.erl' are now in 'wf.erl'. Also, some method signatures in wf.erl have changed.
+* wf:get_page_module changed to wf:page_module
+* wf:q(ID) no longer returns a list, just the value.
+* wf:qs(ID) returns a list.
+* wf:depickle(Data, TTL) returns undefined if expired.
+
+### Comet Pools
+
+* Behind the scenes, combined logic for comet and continue events. This now all goes through the same channel. You can switch async mode between comet and intervalled polling by calling wf:switch_to_comet() or wf:switch_to_polling(IntervalMS), respectively.
+* Comet processes can now register in a local pool (for a specific session) or a global pool (across the entire Nitrogen cluster). All other processes in the pool are alerted when a process joins or leaves. The first process in a pool gets a special init message.
+* Use wf:send(Pool, Message) or wf:send_global(Pool, Message) to broadcast a message to the entire pool.
+* wf:comet_flush() is now wf:flush()
 
 ### Architectural Changes
 
@@ -9,33 +29,7 @@ The current Experimental branch will soon become Nitrogen 1.0!  Here's what's ne
 * New route handler code means that pages can exist in any namespace, don't have to start with /web/... (see dynamic_route_handler and named_route_handler)
 * Changed interface to elements and actions, any custom elements and actions will need tweaks.
 * sync:go() recompiles any changed files more intelligently by scanning for Emakefiles.
-
-### Page Manipulation Changes
-
-* wf:wire can now act upon CSS classes or full JQuery Paths, not just Nitrogen elements. For example, wf:wire(".people > .address", Actions) will wire actions to any HTML elements with an "address" class underneath a "people" class. Anything on http://api.jquery.com/category/selectors/ is supported
-* Added wf:replace(ID, Elements), remove an element from the page, put new elements in their place.
-* Added wf:remove(ID), remove an element from the page.
-* New #api{} action allows you to define a javascript method that takes parameters and will trigger a postback. Javascript parameters are automatically translated to Erlang, allowing for pattern matching. 
-
-### Changes to Background Processes
-
-* Behind the scenes, combined logic for comet and continue events. This now all goes through the same channel. You can switch async mode between comet and intervalled polling by calling wf:switch_to_comet() or wf:switch_to_polling(IntervalMS), respectively.
-* Comet processes can now register in a local pool (for a specific session) or a global pool (across the entire Nitrogen cluster). All other processes in the pool are alerted when a process joins or leaves. The first process in a pool gets a special init message.
-* Use wf:send(Pool, Message) or wf:send_global(Pool, Message) to broadcast a message to the entire pool.
-* wf:comet_flush() is now wf:flush()
-
-### Changes to #upload{} Element
-
-* The #upload{} event callbacks have changed. Event fires both on start of upload and when upload finishes. 
-* Upload callbacks take a Node parameter so that file uploads work even when a postback hits a different node.
-
-### Changes to wf.erl
-
-* Many methods that used to be in 'nitrogen.erl' are now in 'wf.erl'. Also, some method signatures in wf.erl have changed.
-* wf:get_page_module changed to wf:page_module
-* wf:q(ID) no longer returns a list, just the value.
-* wf:qs(ID) returns a list.
-* wf:depickle(Data, TTL) returns undefined if expired.
+* New ability to package Nitrogen projects as self-contained directories using rebar.
 
 # Nitrogen 1.0 Changelog
 
