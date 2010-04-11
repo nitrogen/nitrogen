@@ -88,4 +88,5 @@ rel_inner:
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
 	@cp -r ./doc rel/nitrogen/doc
+	@cp -r ./apps/nitrogen/www rel/nitrogen/site/static/nitrogen
 	@rm -rf rel/reltool.config	
