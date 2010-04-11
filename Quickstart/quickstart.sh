@@ -7,6 +7,9 @@ cd `dirname $0`
 # Link to nitrogen files...
 (cd static; rm -rf nitrogen; mkdir nitrogen; cp -r ../../apps/nitrogen/www/* nitrogen)
 
+# Copy latest docs...
+(cd static; rm -rf doc; mkdir doc; cp -r ../../doc/html/* doc)
+
 # Make all files.
 make
 

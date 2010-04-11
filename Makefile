@@ -84,16 +84,8 @@ package_yaws: rel_yaws
 rel_inner:
 	@(cd rel; ./rebar generate)
 	@(cd rel/nitrogen; make)
-	@echo "Nitrogen Version:\n${NITROGEN_VERSION}\n" > rel/nitrogen/BuildInfo.txt
+	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
-	@cp -r ./doc rel/nitrogen/doc
 	@uname -v >> rel/nitrogen/BuildInfo.txt
+	@cp -r ./doc rel/nitrogen/doc
 	@rm -rf rel/reltool.config	
-
-
-# Zip up the docs, put into Quickstart project.
-package_docs:
-	cp -r doc nitrogen-doc-${NITROGEN_VERSION}
-	zip -r ./builds/nitrogen-doc-${NITROGEN_VERSION}.zip nitrogen-doc-${NITROGEN_VERSION}
-	cp -r doc/html Quickstart/static/doc
-	rm -rf nitrogen-doc-${NITROGEN_VERSION}
