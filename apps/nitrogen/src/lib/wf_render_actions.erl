@@ -94,8 +94,8 @@ needs_anchor_script(Script) when ?IS_STRING(Script) ->
         "\nNitrogen.$anchor" ++ _ -> false;
         _ -> true
     end;
-needs_anchor_script([H|_]) -> 
-    needs_anchor_script(H);
+needs_anchor_script([Script|_]) ->
+    needs_anchor_script(Script);
 needs_anchor_script([]) -> 
     false.
 
