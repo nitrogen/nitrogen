@@ -1,9 +1,10 @@
 #+STYLE: <LINK href="stylesheet.css" rel="stylesheet" type="text/css">
-#+TITLE: Getting Started with Nitrogen
+#+TITLE: Nitrogen 2.x Documentation
 #+AUTHOR: Rusty Klophaus (@rklophaus)
 #+EMAIL: 
 
 #+TEXT: [[file:./index.org][Getting Started]] | [[file:./api.org][API]] | [[file:./elements.org][Elements]] | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | [[file:./handlers.org][Handlers]] | About
+#+HTML: <div class=headline>About Nitrogen</div>
 
 * Resources
 

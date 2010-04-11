@@ -1,4 +1,3 @@
-
 #+TITLE: Add Class Action Element
 #+STYLE: <LINK href='../stylesheet.css' rel='stylesheet' type='text/css' />
 #+AUTHOR: Rusty Klophaus (@rklophaus)

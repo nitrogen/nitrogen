@@ -1,10 +1,11 @@
 #+STYLE: <LINK href="stylesheet.css" rel="stylesheet" type="text/css" />
-#+TITLE: The Nitrogen API
+#+TITLE: Nitrogen 2.x Documentation
 #+AUTHOR: Rusty Klophaus (@rklophaus)
 #+OPTIONS:   H:2 num:1 toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+EMAIL: 
 
 #+TEXT: [[file:./index.org][Getting Started]] | [[file:./api.org][API]] | Elements | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | [[file:./handlers.org][Handlers]] | [[file:./about.org][About]]
+#+HTML: <div class=headline>Nitrogen Elements</div>
 
 * Base Element
   + [[./elements/base.org][Base Element]] - All elements contain these attributes.
@@ -48,3 +49,6 @@
   + [[./elements/sortblock.org][Sort Block]]
   + [[./elements/sortitem.org][Sort Item]]
   + [[./elements/gravatar.org][Gravatar]]
+
+* See Also
+  + [[./paths.org][Nitrogen Element Paths]]

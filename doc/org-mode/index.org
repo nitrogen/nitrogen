@@ -4,6 +4,7 @@
 #+EMAIL: 
 
 #+TEXT: Getting Started | [[file:./api.org][API]] | [[file:./elements.org][Elements]] | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | [[file:./handlers.org][Handlers]] | [[file:./about.org][About]]
+#+HTML: <div class=headline>Getting Started</div>
 
 * Common Questions
 
@@ -132,7 +133,6 @@
 
    + *yaws.conf* - Configure ip/port of your application, and other
      Yaws-specific information.
-
 
 * Where is the code for my website?
 # <<4>>
