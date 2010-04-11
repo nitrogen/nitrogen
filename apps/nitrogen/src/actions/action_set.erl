@@ -8,9 +8,10 @@
 
 % This action is used internally by Nitrogen.
 render_action(Record) ->
+    Anchor = Record#set.anchor,
     Target = Record#set.target,
     Value = wf:js_escape(wf:to_list(Record#set.value)),
-    wf:f("Nitrogen.$set_value('~s', \"~s\");", [Target, Value]).
+    wf:f("Nitrogen.$set_value('~s', '~s', \"~s\");", [Anchor, Target, Value]).
 
 set(Element, Value) ->
     wf:wire(Element, #set { value=Value }).
