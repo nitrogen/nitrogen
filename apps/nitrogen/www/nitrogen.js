@@ -249,12 +249,6 @@ function objs(path, anchor) {
         }
     }
 
-    // If of the form "element1.element2.element3" rewrite to Nitrogen paths...
-    var re = new RegExp(/^[\w\d_]+(\.[\w\d_]+)+$/);
-    if (re.test(path)) {
-        path = '.wfid_' + path.replace(/\./g, ' .wfid_');
-    } 
-
     // If path begins with "body", then try matching across the entire
     // body...
     var re = new RegExp(/^body\b/);
