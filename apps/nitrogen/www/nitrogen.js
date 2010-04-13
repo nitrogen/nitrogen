@@ -344,10 +344,12 @@ NitrogenClass.prototype.$disable_selection = function(element) {
 }
 
 NitrogenClass.prototype.$set_value = function(anchor, element, value) {
-    if (!element.id) element = obj(element);
-    if (element.value != undefined) element.value = value;
-    else if (element.checked != undefined) element.checked = value;
-    else this.$update(anchor, element, value);
+    if (!element.id) element = objs(element);
+    element.each(function(index, el) {
+                     if (el.value != undefined) el.value = value;
+                     else if (el.checked != undefined) el.checked = value;
+                     else $(el).html(value);
+                 });
 }
 
 NitrogenClass.prototype.$normalize_param = function(key, value) {
