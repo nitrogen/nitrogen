@@ -13,7 +13,6 @@ Download the code and move to the experimental branch.
 
     git clone git://github.com/rklophaus/nitrogen.git
     cd nitrogen
-    git checkout origin/experimental -b experimental
 
 Then, run the following...
 
@@ -24,13 +23,13 @@ Then, run the following...
 
 Open your web browser to http://localhost:8000
 
-### On Windows
+### Create a New Project
 
-    cd Quickstart 
-    quickstart.bat
+    make rel_inets
+    cd rel/nitrogen
+    bin/nitrogen start
 
 Open your web browser to http://localhost:8000
-
 
 ## More Information
 
