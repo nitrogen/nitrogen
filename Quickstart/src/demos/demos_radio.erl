@@ -21,7 +21,6 @@ left() ->
 
 right() -> 
     [
-        #p{},
         #flash {},
         #p{},
 	#radiogroup { id=myRadio, body=[

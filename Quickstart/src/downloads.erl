@@ -26,7 +26,6 @@ headline() -> "Downloads".
 left() -> 
     [
         " 
-        <p>
         Select a link to the right to download the Nitrogen 2.0
         environment for your platform. Each download is a self-contained
         installation of Nitrogen that includes both Erlang and a web 
@@ -60,7 +59,6 @@ left() ->
 
 right() ->
     [
-        #p{},
         #panel { class=platform, body=[
             #panel { class=logo, body=[
                 #image { image="/images/downloads/documentation.png" }

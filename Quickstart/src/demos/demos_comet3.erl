@@ -31,7 +31,6 @@ left() ->
 
 right() -> 
     Body = [
-        #p{},
         #span { text="Cycle through colors: " },
         #span { id=colorLabel, text="-" },
         #p{},

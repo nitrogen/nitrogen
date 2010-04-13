@@ -27,7 +27,6 @@ left() ->
 
 right() ->
     [
-        #p{},
         #panel { id=mainPanel, body=[
             "This panel will be replaced.",
             #p{},

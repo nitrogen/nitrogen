@@ -45,7 +45,6 @@ right() ->
     wf:wire(#api { name=apiTwo, tag=f2 }),
     wf:wire(#api { name=apiThree, tag=f3 }),
     [
-	#p{},
         #flash{},
         #p{},
 	"<a onclick=\"page.apiOne('Hello Joe!');\">page.apiOne('Hello Joe!')</a><br>"

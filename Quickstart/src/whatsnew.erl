@@ -91,7 +91,6 @@ left() ->
         ",
 
 
-        #p{},
         #h2 { text="jQuery Selecters" },
         "
         <p>
@@ -108,7 +107,6 @@ left() ->
         ",
 
 
-        #p{},
         #h2 { text="Simplified Element Hierarchy" },
         "
         <p>
@@ -127,7 +125,6 @@ left() ->
 
 right() ->
     [
-        #p{},
         #h2 { text="Comet Pools" },
         "
         <p>
@@ -144,7 +141,6 @@ right() ->
         ",
 
 
-        #p{},
         #h2 { text="Handlers" },
         "
         <p>
@@ -158,7 +154,6 @@ right() ->
         ",
 
 
-        #p{},
         #h2 { text="Cleaner Interface to HTTP Servers" },
         "
         <p>
@@ -181,7 +176,6 @@ right() ->
         ",
 
 
-        #p{},
         #h2 { text="Better Packaging" },
         "
         <p>
@@ -205,7 +199,6 @@ right() ->
         ",
 
         
-        #p{},
         #h2 { text="More Documentation, New Website" },
         "
         <p>

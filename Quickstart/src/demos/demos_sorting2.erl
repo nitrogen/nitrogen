@@ -26,7 +26,6 @@ left() ->
 
 right() -> 
     [
-        #p{},
 	#sortblock { class=advanced, tag=sort, handle=handle, items=[
             #sortitem { tag=parent1, body=#panel { body=[
                 #span { class=handle, text="(Grab)" }, " Parent 1",

@@ -28,7 +28,6 @@ left() ->
 
 middle() -> 
     [
-        #p{},
 	#h1 { text="Header 1"},
 	#h2 { text="Header 2"},
 	#h3 { text="Header 3"},

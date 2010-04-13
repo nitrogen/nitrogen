@@ -28,7 +28,6 @@ left() ->
 
 right() -> 
     Body = [
-        #p{},
         #span { text="Counter updated via Comet: " },
         #span { id=myCounter, text="-" }
     ],

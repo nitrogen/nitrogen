@@ -53,7 +53,6 @@ middle() ->
     Data = get_data(),
     Map = get_map(),
     [
-        #p{},
         #h2 { text="Div Binding" },
         "
         Use a transform function to make the data alternately uppercase and lowercase.<br>
@@ -71,7 +70,6 @@ right() ->
     Data = get_data(),
     Map = get_map(),
     [
-        #p{},
         #h2 { text="Table Binding" },
         "
         Use a transform function to make the rows different colors.<br>

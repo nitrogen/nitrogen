@@ -26,7 +26,6 @@ left() ->
 
 right() -> 
     [
-        #p{},
         #image { image="/demos/contenttype/image" }
     ].
 	

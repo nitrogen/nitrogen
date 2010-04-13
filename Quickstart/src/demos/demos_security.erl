@@ -35,7 +35,6 @@ right() ->
         Other -> Other
     end,            
     [
-        #p{},
         #span { text="Current User: " },
         #span { style="font-weight: bold;", text=CurrentUser }, 
         #p{},

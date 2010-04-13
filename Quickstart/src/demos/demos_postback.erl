@@ -25,7 +25,6 @@ left() ->
 
 right() -> 
     [	
-	#p{},
 	#button { id=test, text="Press Me", postback=button_pressed },
 
 	#p{},

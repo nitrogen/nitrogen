@@ -115,7 +115,6 @@ left() ->
 
 right() ->
     [
-        #p{},
         #h2 { text="Documentation" },
         
         "
@@ -129,7 +128,6 @@ right() ->
         Read <a href='/whatsnew'>What's New in Nitrogen 2.x &raquo;</a>
         ",
         
-        #p{},
         #h2 { text="About Nitrogen" },
 
 	"
@@ -144,7 +142,6 @@ right() ->
         Twitter: <a href='http://twitter.com/nitrogenproject'>@nitrogenproject</a>
         ",
 
- 	#p{},
 	#h2 { text="Thanks!" },
 
         #p{},

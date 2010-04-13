@@ -26,7 +26,6 @@ left() ->
 
 right() -> 
     Body = [
-        #p{},
         #label { text="Name" },
         #textbox { id=nameTextBox, next=emailTextBox },
 

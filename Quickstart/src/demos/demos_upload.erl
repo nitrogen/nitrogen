@@ -26,7 +26,6 @@ left() ->
 
 right() -> 
     [
-        #p{},
         #flash {},
         #p{},
 	#h3 { text="Upload Example #1" },

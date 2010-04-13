@@ -28,7 +28,6 @@ headline() ->
 left() -> 
     [
         "
-        <p>
         Click a link on the right to see Nitrogen in action.  
         <p>
         Each demo is a separate Erlang module.  You can view the
@@ -87,5 +86,6 @@ right() ->
 	#p{},
 	#link { text="Set Content Type", url="/demos/contenttype" }, #br{},
 	#link { text="HTTP Headers", url="/demos/headers" }, #br{},
-    	#link { text="Security", url="/demos/security" }
+    	#link { text="Security", url="/demos/security" }, #br{},
+        #link { text="State", url="/demos/state" }
     ].	

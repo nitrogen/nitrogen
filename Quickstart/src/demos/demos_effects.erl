@@ -12,7 +12,6 @@ left() ->
     [
         "
         <p>
-
         Actions such as <code>#toggle{}</code> and <code>#effect{}</code>
         allow you to perform JQuery effects on Nitrogen page element.
 
@@ -27,7 +26,6 @@ left() ->
 middle() ->
     Event = #event { target=theDiv, type=click },
     [
-        #p{},
         #link { text="Show", actions=Event#event { 
             actions=#show{} 
         }}, 
@@ -100,7 +98,6 @@ middle() ->
 
 right() -> 
     [
-        #p{},
         #panel { class=effects_target, id=theDiv, body=[
             "
             Use the buttons on the left to test different effects on this div.

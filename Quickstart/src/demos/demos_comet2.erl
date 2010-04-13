@@ -37,7 +37,6 @@ left() ->
 
 right() ->
     Body=[
-        #p{},
         #span { text="Your chatroom name: " }, 
         #textbox { id=userNameTextBox, text="Anonymous", style="width: 100px;", next=messageTextBox },
 

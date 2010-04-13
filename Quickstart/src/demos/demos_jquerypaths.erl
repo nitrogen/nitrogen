@@ -37,7 +37,6 @@ left() ->
 
 right() -> 
     [
-	#p{},
 	#link { text="Click to highlight all boxes with TargetPath== \".box\"", actions=[
             #event { target=".box", type=click, actions=#effect { effect=highlight, speed=1000, options=[{color, "#ffff00"}] } }
 	]}, 

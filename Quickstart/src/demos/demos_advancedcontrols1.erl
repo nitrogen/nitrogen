@@ -12,14 +12,12 @@ headline() -> "In-Place Textbox".
 left() -> 
     [
         "
-        <p>
         The In-Place textbox allows a user to edit a field or value.
         ",
         linecount:render()
     ].
 
 right() -> [
-	#p{},
 	#inplace_textbox { text="Sample Text 1." }, 
 	
 	#p{},			

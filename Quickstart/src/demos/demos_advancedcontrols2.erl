@@ -20,7 +20,6 @@ left() ->
     ].
 
 right() -> [
-    #p{},
     #h2 { text="Line Chart" },
     #google_chart {
         title="Line Chart", width=400, height=200, grid_x=25, grid_y=33,			

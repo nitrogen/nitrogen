@@ -45,7 +45,6 @@ middle() ->
     Data = get_data(),
     Map = get_map(),
     Column1 = [
-        #p{},
         #h2 { text="Div Binding" },
         #bind { id=simpleBinding, data=Data, map=Map, body=[
             #hr{},
@@ -61,7 +60,6 @@ right() ->
     Data = get_data(),
     Map = get_map(),
     Column2 = [
- 	#p{},
         #h2 { text="Table Binding" },
         #table { class=tiny, rows=[
             #tablerow { cells=[

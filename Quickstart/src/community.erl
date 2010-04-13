@@ -33,7 +33,6 @@ top() ->
         #grid_clear{},
 
         #grid_3 { alpha=true, body=[
-            #p{},
             #h2 { text="Newsgroup" },
         
             #p{},
@@ -43,7 +42,6 @@ top() ->
         ]},
 
         #grid_2 { body=[
-            #p{},
             #h2 { text="IRC" },
             
             #p{},
@@ -53,7 +51,6 @@ top() ->
         ]},
 
         #grid_2 { body=[
-            #p{},
             #h2 { text="Bugs" },
             
             #p{},
@@ -63,7 +60,6 @@ top() ->
         ]},
 
         #grid_3 { omega=true, body=[
-            #p{},
             #h2 { text="Contribute Code" },
             
             #p{},
@@ -81,7 +77,6 @@ top() ->
         #grid_clear {},
         
         #grid_10 { alpha=true, omega=true, body=[
-            #p{},
             #h2 { text="Donate" },
             
             #p{},

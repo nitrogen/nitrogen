@@ -27,7 +27,6 @@ left() ->
 right() -> 
     [
 	% Set up the form...
-	#p{},
 	#textbox { id=theMessage, text="Hello, world!", next=theButton },
 	#button { id=theButton, text="Go", postback=click },
 	#p{},	

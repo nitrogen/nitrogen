@@ -26,7 +26,6 @@ left() ->
 
 middle() -> 
     [
-        #p{},
 	#h3 { text="Block 1" },
 	#sortblock { class=simple, group=block1, style="padding: 10px; background-color: #eee;", connect_with_groups=block2, tag=sort, items=[
             #sortitem { tag=tag1, body="Item1" },
@@ -38,7 +37,6 @@ middle() ->
 
 right() ->
     [
-        #p{},
 	#h3 { text="Block 2" },
 	#sortblock { class=simple, group=block2, style="padding: 10px; background-color: #eee;", connect_with_groups=block1, tag=sort, items=[
             #sortitem { tag=tag5, body="Item5" },

@@ -50,7 +50,6 @@ left() ->
 
 right() -> 
     [
-	#p{},
         #flash{},
 
 	#p{},
