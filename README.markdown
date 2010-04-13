@@ -30,10 +30,3 @@ Open your web browser to http://localhost:8000
     bin/nitrogen start
 
 Open your web browser to http://localhost:8000
-
-## More Information
-
-See Quickstart/README for information on how to get up and running 
-quickly in Mochiweb and Inets.
-
-
