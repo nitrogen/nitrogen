@@ -137,7 +137,7 @@ right() ->
         all processes in the pool. Additionally, messages are sent
         when processes join (and optionally leave) the pool.
 
-        See the <a href='http://fort:8000/demos/comet2'>chatroom demo</a>.
+        See the <a href='/demos/comet2'>chatroom demo</a>.
         ",
 
 
