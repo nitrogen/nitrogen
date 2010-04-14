@@ -11,5 +11,5 @@
 
 { './test/*', [ debug_info,
 	{ i, "./include" },
-	{ outdir, "./ebin" }
+	{ outdir, "./test_ebin" }
 ]}.

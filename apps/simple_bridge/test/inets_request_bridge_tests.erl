@@ -26,8 +26,8 @@ peer_test() ->
 headers_test() ->
     Bridge = utils:make_inets_get_bridge(),
     Headers = Bridge:headers(),
-    utils:verify("connection", "keep-alive", Headers),
-    utils:verify("keep-alive", "300", Headers).
+    utils:verify(connection, "keep-alive", Headers),
+    utils:verify(keep_alive, "300", Headers).
 
 cookies_test() ->
     Bridge = utils:make_inets_get_bridge(),
