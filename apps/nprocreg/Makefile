@@ -9,9 +9,5 @@ compile:
 clean:
 	@rm -rf ./ebin/*.beam
 
-test: compile
-	@erl \
-		-noshell \
-		-pa ./ebin \
-		-s eunit_helper start \
-		-s init stop
+run: compile
+	erl -pa ./ebin -eval "application:start(nprocreg)."

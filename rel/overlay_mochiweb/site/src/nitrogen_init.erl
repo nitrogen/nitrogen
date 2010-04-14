@@ -4,5 +4,5 @@
 %% Called during application startup.
 %% Put other initialization code here.
 init() ->
-    application:start(mprocreg),
+    application:start(nprocreg),
     application:start(nitrogen_mochiweb).
