@@ -2,7 +2,7 @@
 
 ## Nitrogen 2.0.1
 
-* Removed mnesia-based process registry, create new distributed process registry.
+* Removed mnesia-based process registry, create new distributed process registry. (./apps/nprocreg)
 
 ## Nitrogen 2.0.0 - Big Release/New Features
 
