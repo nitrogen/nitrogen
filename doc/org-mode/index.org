@@ -102,8 +102,8 @@
   + *vm.args* - This controls the arguments passed in to the
     VM. Here, you can set the node name, cookie, memory flags, etc.
 
-  + *app.config* - This contains application settings for Nitrogen,
-    mprocreg (an Mnesia-based process registry), and sasl (error logging).
+  + *app.config* - This contains application settings for Nitrogen and
+    sasl (error logging).
 
   *Important:* Before deploying your app to production, you should
   change the Erlang cookie (found in =./etc/vm.args=) and define a Nitrogen
