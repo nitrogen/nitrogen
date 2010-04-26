@@ -78,6 +78,19 @@ package_yaws: rel_yaws
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
 
 
+# Create an Inets release dependent upon the built in Erlang installation.
+
+dependent: rel_inets
+	@rm -rf rel/nitrogen/erts-*
+	@mv rel/nitrogen/lib rel/nitrogen/lib2
+	@mkdir rel/nitrogen/lib
+	@cp -r rel/nitrogen/lib2/nitrogen* rel/nitrogen/lib
+	@cp -r rel/nitrogen/lib2/nprocreg* rel/nitrogen/lib
+	@cp -r rel/nitrogen/lib2/simple_bridge* rel/nitrogen/lib
+	@rm -rf rel/nitrogen/lib2
+	@cp rel/overlay_dependent/bin/nitrogen rel/nitrogen/bin/
+	@mkdir -p rel/nitrogen/erts/bin
+	@cp rel/overlay/erts-vsn/bin/nodetool rel/nitrogen/erts/bin
 
 # SHARED
 
