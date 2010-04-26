@@ -62,8 +62,16 @@ is_grid_body(Body) ->
 %% this grid.
 to_classes(Record) ->
     C = case Record#grid.type of
-        container -> "container_" ++ integer_to_list(Record#grid.columns);
-        grid -> "grid_" ++ integer_to_list(Record#grid.columns)
+        container -> 
+            %% Construct the container_N class, and add any other user
+            %% defined classes.
+            ContainerClass = "container_" ++ integer_to_list(Record#grid.columns),
+            [ContainerClass, Record#grid.class];
+        grid -> 
+            %% Just construct the grid_N class. User defined classes
+            %% are added to inner panel.
+            GridClass = "grid_" ++ integer_to_list(Record#grid.columns),
+            [GridClass]
     end,
     
     %% Check for alpha...

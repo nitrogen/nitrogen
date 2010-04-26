@@ -9,10 +9,11 @@
 reflect() -> record_info(fields, lightbox).
 
 render_element(Record) -> 
+    ?PRINT(Record#lightbox.id),
     Panel = #panel {
         id=Record#lightbox.id,
         anchor=Record#lightbox.anchor,
-        class=lightbox,
+        class=[lightbox, Record#lightbox.class],
         style="position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px; " ++ wf:to_list(Record#lightbox.style),
         body=[
             #panel { 			
