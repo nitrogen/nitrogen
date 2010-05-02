@@ -106,13 +106,15 @@ NitrogenClass.prototype.$make_id = function(element) {
     var a = [];
     var re = new RegExp("\.wfid_(.[^\\s]*)", "g");
     while(element && element.className) {
-	var matches = element.className.match(/wfid_([^\s])+/g);
-	a.unshift.apply(a, matches);
-	element = element.parentNode;		
-    }
-    
+        var matches = element.className.match(/wfid_([^\s])+/g);
+        if (matches) {
+            a.unshift.apply(a, matches);
+        }       
+        element = element.parentNode;
+    }  
     return a.join(".");
 }
+
 
 /*** AJAX METHODS ***/
 
