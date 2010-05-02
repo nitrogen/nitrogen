@@ -222,7 +222,7 @@ init_context(RequestBridge, ResponseBridge) ->
             % Core handlers...
             make_handler(config_handler, default_config_handler), 
             make_handler(log_handler, default_log_handler),
-            make_handler(process_registry_handler, mprocreg_registry_handler),
+            make_handler(process_registry_handler, nprocreg_registry_handler),
             make_handler(cache_handler, default_cache_handler), 
             make_handler(query_handler, default_query_handler),
 

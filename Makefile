@@ -17,13 +17,13 @@ help:
 compile:
 	@(cd ./apps/nitrogen; make compile)
 	@(cd ./apps/simple_bridge; make compile)
-	@(cd ./apps/mprocreg; make compile)
+	@(cd ./apps/nprocreg; make compile)
 
 
 clean:
 	@(cd ./apps/nitrogen; make clean)
 	@(cd ./apps/simple_bridge; make clean)
-	@(cd ./apps/mprocreg; make clean)
+	@(cd ./apps/nprocreg; make clean)
 
 
 # INETS
