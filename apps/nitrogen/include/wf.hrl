@@ -89,7 +89,7 @@
 -record(datepicker_textbox, {?ELEMENT_BASE(element_datepicker_textbox), text="", next, html_encode=true, validators=[], options = [{dateFormat, "yy-mm-dd"}] }).
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options=[], html_encode=true, postback, delegate, value}).
 -record(option, { text="", value="", selected=false }).
--record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, postback, delegate}).
+-record(checkbox, {?ELEMENT_BASE(element_checkbox), text="", html_encode=true, checked=false, value="on", postback, delegate}).
 -record(radiogroup, {?ELEMENT_BASE(element_radiogroup), body=[]}).
 -record(radio, {?ELEMENT_BASE(element_radio), text="", html_encode=true, value, name, checked=false, postback, delegate}).
 -record(password, {?ELEMENT_BASE(element_password), text="", html_encode=true, next, postback, delegate}).

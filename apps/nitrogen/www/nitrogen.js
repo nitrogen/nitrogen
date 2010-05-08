@@ -86,7 +86,7 @@ NitrogenClass.prototype.$validate_and_serialize = function(validationGroup) {
 	    is_valid = false;
 	} else {
 	    // Skip any unchecked radio boxes.
-	    if (element.type == "radio" && !element.checked) continue;
+	    if ((element.type == "radio" || element.type=="checkbox") && !element.checked) continue;
 
 	    var full_id = this.$make_id(element);
 	    var value = element.value;
