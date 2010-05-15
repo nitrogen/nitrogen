@@ -3,8 +3,7 @@
 -export ([main/0]).
 
 main() ->
-    PathInfo = wf_context:path_info(),
-    wf:info("File not found: ~p", [PathInfo]),
-    [
-        "404 - Not found."
-    ].
+    PathInfo = wf:path_info(),
+    wf:status_code(404),
+    wf:info("Page not found: ~p", [PathInfo]),
+    [].

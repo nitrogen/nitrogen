@@ -199,7 +199,7 @@ pool_loop(Processes) ->
             NewProcesses = Processes -- [LeavePid],
             case NewProcesses == [] of 
                 false -> pool_loop(NewProcesses);
-                true -> ok
+                true  -> erlang:exit({pool_loop, exiting_empty_pool})
             end;
 
         Message ->
@@ -218,7 +218,6 @@ get_accumulator_pid(SeriesID) ->
 % The accumulator_loop keeps track of guardian processes within a pool,
 % and gathers actions from the various AsyncFunctions in order 
 % to send it the page when the actions are requested.
-%
 accumulator_loop(Guardians, Actions, Waiting, TimerRef) ->
     receive
         {add_guardian, Pid} ->
@@ -256,10 +255,11 @@ accumulator_loop(Guardians, Actions, Waiting, TimerRef) ->
         die -> 
             % Nothing to do here. guardian_process will detect that
             % we've died and update the pool.
-            ok;
+            erlang:exit({accumulator_loop, exiting_lease_expired});
 
         Other ->
-            ?PRINT({accumulator_loop, unhandled_event, Other})
+            ?PRINT({accumulator_loop, unhandled_event, Other}),
+            accumulator_loop(Guardians, Actions, Waiting, TimerRef)
     end.
 
 % The guardian process monitors the running AsyncFunction and
@@ -276,7 +276,8 @@ guardian_process(FunctionPid, AccumulatorPid, PoolPid, DyingMessage) ->
             case DyingMessage of
                 undefined -> ignore;
                 _ -> PoolPid!DyingMessage
-            end;
+            end,
+            exit(async_function_died);
 
         {'DOWN', _, process, AccumulatorPid, _} -> 
             % The accumulator process has died. 
@@ -286,15 +287,18 @@ guardian_process(FunctionPid, AccumulatorPid, PoolPid, DyingMessage) ->
                 undefined -> ignore;
                 _ -> PoolPid!DyingMessage
             end,
-            erlang:exit(FunctionPid, async_die);
+            erlang:exit(FunctionPid, async_die),
+            erlang:exit({guardian_process, exiting_accumulator_died});
 
         {'DOWN', _, process, PoolPid, _} ->
             % The pool should never die on us.
-            ?PRINT(unexpected_pool_death);
+            ?PRINT(unexpected_pool_death),
+            erlang:exit({guardian_process, exiting_pool_died});
 
         Other ->
             ?PRINT({FunctionPid, AccumulatorPid, PoolPid}),
-            ?PRINT({guardian_process, unhandled_event, Other})
+            ?PRINT({guardian_process, unhandled_event, Other}),
+            guardian_process(FunctionPid, AccumulatorPid, PoolPid, DyingMessage)
     end.
 
 
