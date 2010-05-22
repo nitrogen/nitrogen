@@ -7,6 +7,7 @@
 -compile(export_all).
 -define (COMET_INTERVAL, 10 * 1000).
 -define (TEN_SECONDS, 10 * 1000).
+-define (TWENTY_SECONDS, 10 * 1000).
 
 % Comet and polling/continuations are now handled using Nitrogen's asynchronous
 % processing scheme. This allows you to fire up an asynchronous process with the
@@ -205,6 +206,13 @@ pool_loop(Processes) ->
         Message ->
             [Pid!Message || Pid <- Processes],
             pool_loop(Processes)
+
+    after ?TWENTY_SECONDS ->
+        NewProcesses = [X || X <- Processes, is_remote_process_alive(X)],
+        case NewProcesses == [] of
+            true  -> erlang:exit({pool_loop, exiting_empty_pool});
+            false -> pool_loop(NewProcesses)
+        end
     end.
 
 
@@ -253,13 +261,21 @@ accumulator_loop(Guardians, Actions, Waiting, TimerRef) ->
             accumulator_loop(Guardians, Actions, Waiting, NewTimerRef);
 
         die -> 
-            % Nothing to do here. guardian_process will detect that
-            % we've died and update the pool.
+            % Guardian_process will detect that we've died and update
+            % the pool.
             erlang:exit({accumulator_loop, exiting_lease_expired});
 
         Other ->
             ?PRINT({accumulator_loop, unhandled_event, Other}),
             accumulator_loop(Guardians, Actions, Waiting, TimerRef)
+
+    after ?TWENTY_SECONDS ->
+        %% If we have no TimerRef, then the browser never performed
+        %% the callback, so kill this process after 20 seconds.
+        case TimerRef == undefined of
+            true  -> erlang:exit({accumulator_loop, timeout});
+            false -> accumulator_loop(Guardians, Actions, Waiting, TimerRef)
+        end
     end.
 
 % The guardian process monitors the running AsyncFunction and
