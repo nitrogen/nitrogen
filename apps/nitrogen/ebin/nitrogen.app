@@ -131,5 +131,5 @@
         wf_utils,
         wf_validation
     ]},
-    {applications, [kernel, stdlib, sasl, inets]}
+    {applications, [kernel, stdlib, sasl, inets, nprocreg]}
 ]}.
