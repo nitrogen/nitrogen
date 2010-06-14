@@ -168,6 +168,8 @@ cookie(Cookie, Value) ->
 cookie(Cookie, Value, Path, MinutesToLive) ->
     ok = wf_context:cookie(Cookie, Value, Path, MinutesToLive).
 
+socket() ->
+    wf_context:socket().
 
 %%% EXPOSE QUERY_HANDLER %%%
 q(Key) -> 
