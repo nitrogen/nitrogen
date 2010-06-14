@@ -145,6 +145,7 @@ NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extr
 		    type:'post',
 		    data: params,
 		    dataType: 'text',
+                    cache: false,
 		    success: function(data, textStatus) {
 			n.$event_is_running = false;
 			eval(data);
@@ -176,6 +177,7 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
 	       type:'post',
 	       data: params,
 	       dataType: 'text',
+               cache: false,
 	       success: function(data, textStatus) {
 		   n.$system_event_is_running = false;
 		   // A system event shouldn't clobber the pageContext.
