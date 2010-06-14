@@ -17,7 +17,7 @@ build_response(Req, Res) ->
             Headers = lists:flatten([
                 {code, ResponseCode},
                 {content_length, Size},
-                [{X#header.name, X#header.value} || X <- Res#response.headers],
+                [{massage(X#header.name), X#header.value} || X <- Res#response.headers],
                 [create_cookie_header(X) || X <- Res#response.cookies]
             ]),		
 
@@ -42,3 +42,27 @@ to_cookie_expire(SecondsToLive) ->
     Seconds = calendar:datetime_to_gregorian_seconds(calendar:local_time()),
     DateTime = calendar:gregorian_seconds_to_datetime(Seconds + SecondsToLive),
     httpd_util:rfc1123_date(DateTime).
+
+
+%% Inets wants some headers as lowercase atoms, so we
+%% need to do some special massage here.
+massage(Header) ->
+    X = list_to_atom(
+          binary_to_list(
+            list_to_binary(
+              re:replace(string:to_lower(a2l(Header)),"-","_")))),
+
+    case lists:member(X, special_headers()) of
+        true  -> X;
+        false -> Header
+    end.
+
+special_headers() ->
+    [accept_ranges , allow , cache_control , content_MD5 , content_encoding , 
+     content_language , content_length , content_location , content_range , 
+     content_type , date , etag , expires , last_modified , location , 
+     pragma , retry_after , server , trailer , transfer_encoding].
+
+a2l(A) when is_atom(A) -> atom_to_list(A);
+a2l(L) when is_list(L) -> L.
+    
