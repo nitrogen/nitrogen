@@ -17,7 +17,7 @@
 %% Basic usage:
 %% 
 %% In the module that dispatches a request to Nitrogen, add a call to
-%% nitrogen:set_handler(http_basic_auth_security_handler, CallbackMod) 
+%% nitrogen:handler(http_basic_auth_security_handler, CallbackMod) 
 %% after nitrogen:init_request/2 but before nitrogen:run/0. 
 %%
 %% This will tell Nitrogen to use the http_basic_auth_security_handler

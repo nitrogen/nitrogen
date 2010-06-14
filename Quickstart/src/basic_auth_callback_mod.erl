@@ -10,11 +10,12 @@
 -include_lib ("nitrogen/include/wf.hrl").
 
 %% API
--export([realm/0,
-	is_protected/1,
-	is_authenticated/2,
-	authenticate/3
-	]).
+-export([
+    realm/0,
+    is_protected/1,
+    is_authenticated/2,
+    authenticate/3
+]).
 
 %%%===================================================================
 %%% API
@@ -26,19 +27,16 @@
 %% @end
 %%--------------------------------------------------------------------
 realm() ->
-   "Protected Area".
+    "Protected Area".
 
-is_protected(Page) -> 
-?LOG("Module ~p ",[Page]),
-false.
+%% Return true if the page should be protected.
+is_protected(_Page) -> 
+    false.
 
-is_authenticated(Module, User) -> 
-true.
+%% Return true if the user can access this page.
+is_authenticated(_Module, _User) -> 
+    true.
 
-authenticate(Module, User, Password) -> 
-?LOG("Module ~p User ~p Password ~p ",[Module,User, Password]),
-true.
-
-%%%===================================================================
-%%% Internal functions
-%%%===================================================================
+%% Return true if the User and Password result in a successful authentication.
+authenticate(_Module, _User, _Password) -> 
+    true.
