@@ -27,6 +27,6 @@ do(Info) ->
     nitrogen:init_request(RequestBridge, ResponseBridge),
 
     %% Uncomment for basic authentication...
-    nitrogen:handler(http_basic_auth_security_handler, basic_auth_callback_mod),
+    %% nitrogen:handler(http_basic_auth_security_handler, basic_auth_callback_mod),
 
     nitrogen:run().
