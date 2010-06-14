@@ -26,7 +26,7 @@ response_bridge(ResponseBridge) ->
 
 socket() ->
     Req = wf_context:request_bridge(), 
-    Socket = Req:socket() 
+    Socket = Req:socket().
 
 status_code() ->
     Req = request_bridge(),
