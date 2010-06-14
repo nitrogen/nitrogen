@@ -7,7 +7,7 @@ main() -> #template { file="./site/templates/bare.html" }.
 
 title() -> "Hello from [[[NAME]]].erl!".
 
-layout() -> 
+body() -> 
     [
         #panel { style="margin: 50px 100px;", body=[
             #span { text="Hello from [[[NAME]]].erl!" },
