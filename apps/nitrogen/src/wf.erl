@@ -178,6 +178,13 @@ q(Key) ->
 qs(Key) -> 
     query_handler:get_values(Key).
 
+mq(KeyList) when is_list(KeyList) ->
+    [q(X) || X<-KeyList].
+
+mqs(KeyList) when is_list(KeyList) ->
+    [qs(X) || X<-KeyList].
+
+
 
 
 %%% EXPOSE LOG_HANDLER %%%

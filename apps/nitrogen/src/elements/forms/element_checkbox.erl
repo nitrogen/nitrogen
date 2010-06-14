@@ -28,6 +28,7 @@ render_element(Record) ->
             {type, checkbox},
             {class, [checkbox, Record#checkbox.class]},
             {style, Record#checkbox.style},
+            {value, Record#checkbox.value},
             {CheckedOrNot, true}
         ]),
 
