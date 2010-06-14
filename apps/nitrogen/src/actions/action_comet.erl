@@ -7,7 +7,7 @@
 -compile(export_all).
 -define (COMET_INTERVAL, 10 * 1000).
 -define (TEN_SECONDS, 10 * 1000).
--define (TWENTY_SECONDS, 10 * 1000).
+-define (TWENTY_SECONDS, 20 * 1000).
 
 % Comet and polling/continuations are now handled using Nitrogen's asynchronous
 % processing scheme. This allows you to fire up an asynchronous process with the
