@@ -20,5 +20,7 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Robert Schonberger
 * Yurii Rashkovskii (@yrashk)
 * Ville Koivula
+* Manuel Durán Aguete
+* Jesse Gumm
 
 Roughly sorted by date of contribution. Send your twitter handles to @rklophaus

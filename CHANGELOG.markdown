@@ -3,6 +3,20 @@
 ## Nitrogen 2.0.1
 
 * Removed mnesia-based process registry, create new distributed process registry. (./apps/nprocreg)
+* Fixed Yaws and Mochiweb SimpleBridge to set a default Content-Type. [#60] [#69]
+* Fixed Inets SimpleBridge to properly set headers specified as lists rather than atoms. [#60] [#70]
+* Disabled Ajax Caching. [#45]
+* Ensure site/actions and site/elements directories exist. [#49] [#75]
+* Fix page prototype used by "bin/dev page <page>" [#50]
+* Update #container_12{} and #container_16{} to use supplied class names and ids [#51]
+* Added wf:socket() command [#56]
+* Made checkbox readable by wf:q/1 [#58]
+* No longer encoding space as &nbsp in html_encode method. [#77]
+* Fixed comet timeout value. [#74]
+* Updated comet code to prevent spawned process leakage in certain cases.
+* Update http_basic_auth_security_handler to protect selective modules. [#76]
+* Properly return request_body in Mochiweb SimpleBridge response [#73]
+* Fixed "Object Expected" error in IE8 [#57]
 
 ## Nitrogen 2.0.0 - Big Release/New Features
 
