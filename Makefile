@@ -103,3 +103,7 @@ rel_inner:
 	@cp -r ./doc rel/nitrogen/doc
 	@cp -r ./apps/nitrogen/www rel/nitrogen/site/static/nitrogen
 	@rm -rf rel/reltool.config	
+
+rellink:  
+	$(foreach app,$(wildcard apps/*), rm -rf rel/nitrogen/lib/$(shell basename $(app))* && ln -sf $(abspath $(app)) rel/nitrogen/lib;)
+

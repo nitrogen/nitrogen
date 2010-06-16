@@ -19,8 +19,16 @@ build_response({Req, DocRoot}, Res) ->
                 [create_cookie_header(X) || X <- Res#response.cookies]
             ]),		
 
+            % Ensure content type...
+            F = fun(Key) -> lists:keymember(Key, 1, Headers) end,
+            HasContentType = lists:any(F, ["content-type", "Content-Type", "CONTENT-TYPE"]),
+            case HasContentType of
+                true -> Headers2 = Headers;
+                false -> Headers2 = [{"Content-Type", "text/html"}]
+            end,
+
             % Send the mochiweb response...
-            Req:respond({Code, Headers, Body});
+            Req:respond({Code, Headers2, Body});
         {file, Path} ->
             %% Calculate expire date far into future...
             Seconds = calendar:datetime_to_gregorian_seconds(calendar:local_time()),
