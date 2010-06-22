@@ -26,12 +26,13 @@ NitrogenClass.prototype.$set_param = function(key, value) {
 
 /*** EVENT QUEUE ***/
 
-NitrogenClass.prototype.$queue_event = function(validationGroup, eventContext, extraParam) {
+NitrogenClass.prototype.$queue_event = function(validationGroup, eventContext, extraParam, callbacks) {
     // Put an event on the event_queue.
     this.$event_queue.push({
 		               validationGroup : validationGroup,
 		               eventContext    : eventContext,
-		               extraParam      : extraParam
+		               extraParam      : extraParam,
+                   callbacks       : callbacks
 	                   });
 }
 
@@ -52,7 +53,7 @@ NitrogenClass.prototype.$event_loop = function() {
     // If no events are running and an event is queued, then fire it.
     if (!this.$event_is_running && this.$event_queue.length > 0) {
         var o = this.$event_queue.shift();
-        this.$do_event(o.validationGroup, o.eventContext, o.extraParam);
+        this.$do_event(o.validationGroup, o.eventContext, o.extraParam, o.callbacks);
     }
 
     // No more events, sleep for 50 ms...
@@ -118,7 +119,13 @@ NitrogenClass.prototype.$make_id = function(element) {
 
 /*** AJAX METHODS ***/
 
-NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extraParam) {
+NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extraParam, callbacks) {
+    
+    var c = jQuery.extend({
+      success: null,
+      error: null
+    }, callbacks);
+    
     // Flag to prevent firing multiple postbacks at the same time...
     this.$event_is_running = true;
 
@@ -141,19 +148,21 @@ NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extr
     var n = this;
 
     jQuery.ajax({ 
-		    url: this.$url,
-		    type:'post',
-		    data: params,
-		    dataType: 'text',
-                    cache: false,
-		    success: function(data, textStatus) {
-			n.$event_is_running = false;
-			eval(data);
+        url: this.$url,
+        type:'post',
+        data: params,
+        dataType: 'text',
+        cache: false,
+        success: function(data, textStatus) {
+          n.$event_is_running = false;
+          eval(data);
+          c.success && c.success(data, textStatus);
 		    },
 		    error: function(xmlHttpRequest, textStatus, errorThrown) {
-			n.$event_is_running = false;
-		    }
-	        });			
+          n.$event_is_running = false;
+          c.success && c.error(xmlHttpRequest, textStatus, errorThrown);
+        } 
+    });			
 }
 
 /*** SYSTEM EVENTS (FOR ASYNC) ***/
@@ -385,6 +394,24 @@ NitrogenClass.prototype.$datepicker = function(pickerObj, pickerOptions) {
     jQuery(pickerObj).datepicker(pickerOptions);
 }
 
+/*** AUTOCOMPLETE TEXTBOX ***/
+NitrogenClass.prototype.$autocomplete = function(path, autocompleteOptions, enterPostbackInfo, selectPostbackInfo) {
+    var n = this;
+    jQuery.extend(autocompleteOptions, {
+        select: function(ev, ui) {
+          var item = (ui.item) && '{"id":"'+ui.item.id+'","value":"'+ui.item.value+'"}' || '';
+          n.$queue_event(null, selectPostbackInfo, "select_item="+n.$urlencode(item));
+        },
+        source: function(req, res) {
+          n.$queue_event(null, enterPostbackInfo, "search_term="+req.term, {
+              success: function(data) {
+                 res(eval(data));
+              }
+          });
+        }
+    });
+    jQuery(path).autocomplete(autocompleteOptions);
+}
 
 /*** DRAG AND DROP ***/
 
