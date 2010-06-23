@@ -71,7 +71,7 @@ parse_template(File) ->
         {ok, B} -> parse_template1(B);
         _ -> 
             ?LOG("Error reading file: ~s~n", [File1]),
-            wf:f("File not found: ~s.", [File1])
+            throw({template_not_found, File1})
     end.
 
 parse_template1(B) ->
