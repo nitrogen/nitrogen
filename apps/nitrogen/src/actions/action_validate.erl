@@ -23,6 +23,9 @@ render_action(Record) ->
     end,
 
     % Create the validator Javascript...
+    % 
+    % TODO: using jQuery.data instead setting the validator object as property 
+    % of the DOM node. We could get a problem with Internet Explorer and memory leaks.
     ConstructorJS = wf:f("var v = obj('~s').validator = new LiveValidation(obj('~s'), { validMessage: \"~s\", onlyOnBlur: ~s, onlyOnSubmit: ~s ~s});", [TargetPath, TargetPath, wf:js_escape(ValidMessage), OnlyOnBlur, OnlyOnSubmit, InsertAfterNode]),
     TriggerJS = wf:f("v.group = '~s';", [ValidationGroup]),
 
