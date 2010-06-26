@@ -15,18 +15,22 @@ handler(Module, Config) ->
 run() -> 
     wf_core:run().
 
+
+handling_module() ->
+    {ok, Root} = application:get_env(nitrogen_handler_module),
+    Root.
+
 start_link(Mod) ->
+    {ok, App} = application:get_application(),
+    application:set_env(App, nitrogen_handler_module, Mod),
     start_link(Mod:http_server(), Mod).  % get config data from the .app file
  
 start_link(inets, Mod) ->
-     
-    inets:start(),
-     
     {ok, Pid} = 
         inets:start(httpd, 
-                    [{port,           Mod:port()} 
+                    [{port,           Mod:serverport()} 
                      ,{server_name,   Mod:servername()} 
-                     ,{bind_address,  Mod:ip()} 
+                     ,{bind_address,  Mod:serverip()} 
                      ,{server_root,   "."} 
                      ,{document_root, Mod:docroot()} 
                      ,{modules,       [?MODULE]} 
@@ -38,13 +42,13 @@ start_link(inets, Mod) ->
     {ok, Pid};
 
 start_link(mochiweb, Mod) -> 
-    mochiweb:start(), 
-    Options = [{port,   Mod:port()} 
+    Options = [{port,   Mod:serverport()} 
                ,{name,  Mod:servername()} 
-               ,{ip,    Mod:ip()} 
+               ,{ip,    Mod:serverip()} 
                ,{loop,  fun(Req) -> do_mochiweb(Req, Mod) end} 
               ], 
     {ok, Pid} = mochiweb_http:start(Options), 
+
     link(Pid), 
     {ok, Pid}. 
 
@@ -52,9 +56,9 @@ start_link(mochiweb, Mod) ->
 %        SC = #sconf { 
 %                appmods     = [{"/", ?MODULE}], 
 %                docroot     = Mod:docroot(), 
-%                port        = Mod:port(), 
+%                port        = Mod:serverport(), 
 %                servername  = Mod:servername(), 
-%                listen      = Mod:ip() 
+%                listen      = Mod:serverip() 
 %        }, 
 %        DefaultGC = yaws_config:make_default_gconf(false, redhot2), 
 %        GC = DefaultGC#gconf { 
@@ -77,7 +81,9 @@ do(Info) ->
 Info), 
     ResponseBridge = 
 simple_bridge:make_response(inets_response_bridge, Info), 
-    nitrogen:init_request(RequestBridge, ResponseBridge), 
+    nitrogen:init_request(RequestBridge, ResponseBridge),
+    Mod = handling_module(),
+    Mod:handlers(),
     nitrogen:run().
 
 % Yaws handler 
@@ -87,6 +93,8 @@ Info),
     ResponseBridge = simple_bridge:make_response(yaws_response_bridge, 
 Info), 
     nitrogen:init_request(RequestBridge, ResponseBridge), 
+    Mod = handling_module(),
+    Mod:handlers(),
     nitrogen:run().
 
 % Mochiweb handler 
@@ -97,5 +105,6 @@ do_mochiweb(Info, Mod) ->
     ResponseBridge = 
         simple_bridge:make_response(mochiweb_response_bridge,
                                     {Info, Mod:docroot()}),
-    nitrogen:init_request(RequestBridge, ResponseBridge), 
+    nitrogen:init_request(RequestBridge, ResponseBridge),
+    Mod:handlers(),
     nitrogen:run().
