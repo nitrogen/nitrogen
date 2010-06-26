@@ -24,5 +24,6 @@ render_element(Record) ->
     wf_tags:emit_tag(a, Body, [
         {href, Record#link.url},
         {class, [link, Record#link.class]},
-        {style, Record#link.style}
+        {style, Record#link.style},
+        {title, wf:html_encode(Record#link.title, Record#link.html_encode)}
     ]).

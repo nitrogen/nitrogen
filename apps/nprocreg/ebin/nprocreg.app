@@ -7,5 +7,6 @@
         nprocreg
     ]},
     {applications, [kernel, stdlib]},
+    {registered, []},
     {mod, {nprocreg_app, []}}
 ]}.

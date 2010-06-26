@@ -31,10 +31,27 @@ render_element(Record) ->
         invalid -> "'invalid'"
     end,
 
+    Container = case Record#draggable.container of
+                    false -> false;
+                    window -> "'window'";
+                    parent -> "'parent'";
+                    document -> "'document'";
+                    V -> V
+                end,
+    
     % Write out the script to make this element draggable...
-    Script = #script {
-        script=wf:f("Nitrogen.$draggable('~s', { handle: ~s, helper: '~s', revert: ~s }, '~s');", [Anchor, Handle, Helper, Revert, PickledTag])
-    },
+    Script = wf:f(
+               "Nitrogen.$draggable('~s', { handle: ~s, helper: '~s', revert: ~s, scroll: ~s, containment: ~s, zIndex: ~p, appendTo: 'body' }, '~s');",
+               [
+                Anchor,
+                Handle,
+                Helper, 
+                Revert, 
+                Record#draggable.scroll,
+                Container,
+		Record#draggable.zindex,
+		PickledTag
+               ]),
     wf:wire(Script),
 
     % Render as a panel...
