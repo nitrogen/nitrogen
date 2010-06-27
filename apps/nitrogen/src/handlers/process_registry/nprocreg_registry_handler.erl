@@ -19,7 +19,7 @@ finish(_Config, State) ->
     {ok, State}.
 
 get_pid(Key, _Config, State) ->
-    Pid = mprocreg:get_pid(Key),
+    Pid = nprocreg:get_pid(Key),
     {ok, Pid, State}.
 
 get_pid(Key, Function, _Config, State) ->
