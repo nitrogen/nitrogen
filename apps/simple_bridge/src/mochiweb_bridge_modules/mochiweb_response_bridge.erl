@@ -22,9 +22,9 @@ build_response({Req, DocRoot}, Res) ->
             % Ensure content type...
             F = fun(Key) -> lists:keymember(Key, 1, Headers) end,
             HasContentType = lists:any(F, ["content-type", "Content-Type", "CONTENT-TYPE"]),
-            case HasContentType of
-                true -> Headers2 = Headers;
-                false -> Headers2 = [{"Content-Type", "text/html"}]
+            Headers2 = case HasContentType of
+                true -> Headers;
+                false -> [{"Content-Type", "text/html"}|Headers]
             end,
 
             % Send the mochiweb response...
