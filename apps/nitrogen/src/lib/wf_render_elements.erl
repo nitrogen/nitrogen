@@ -55,7 +55,16 @@ render_element(Element) when is_tuple(Element) ->
     end,
 
     case Base#elementbase.show_if of
-        true ->
+        false -> 
+            {ok, []};
+        "" ->
+            {ok, []};
+        undefined ->
+            {ok, []};
+        0 ->
+            {ok, []};
+
+        _ ->
             % If no ID is defined, then use the same
             % temp_id() for both the HtmlID and TempID.
             % Otherwise, create a new TempID. Update the class
@@ -92,10 +101,7 @@ render_element(Element) when is_tuple(Element) ->
 
             % Reset the anchor (likely changed during the inner render)...
             wf_context:anchor(Anchor),
-            {ok, Html};
-
-        false -> 
-            {ok, []}
+            {ok, Html}
     end.
 
 % call_element_render(Module, Element) -> {ok, Html}.
