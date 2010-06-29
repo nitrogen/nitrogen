@@ -121,7 +121,8 @@ set(Element, Value) ->
 
 %%% OTHER %%%
 % TODO
-% logout() -> clear_user(), clear_roles(), clear_state(), clear_session().
+logout() -> clear_user(), clear_roles(), clear_state(), clear_session().
+
 to_js_id(Path) -> 
     _String = wf_render_actions:to_js_id(Path).
 
