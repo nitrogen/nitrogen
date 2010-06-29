@@ -1,5 +1,18 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.0.2
+
+* Fixed mochiweb bug that caused other headers to get clobbered when using default content type.
+* Fixed typo in nprocreg causing sessions to disappear.
+* Added #inplace_textarea element
+* Added #textbox_autocomplete element
+* Refactored nitrogen.js to be more JQuery-ish
+* Fixed bug preventing flash messages from displaying in some cases.
+* Added #link.title field.
+* Restored missing wf:logout() function.
+* Fixed max length validator.
+* Throw an error if a template file is not found.
+
 ## Nitrogen 2.0.1
 
 * Removed mnesia-based process registry, create new distributed process registry. (./apps/nprocreg)
