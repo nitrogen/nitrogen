@@ -75,7 +75,7 @@ right() ->
                 #image { image="/images/downloads/erlang_logo.png" }
             ]},
             #span { class=title, text="Source Code" },
-            #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.1", text="Download Nitrogen 2.0.1 source (.tar.gz)" },
+            #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.2", text="Download Nitrogen 2.0.2 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Latest Code (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen", text="Nitrogen repository on GitHub" },
             #link { url="http://github.com/vim/nitrogen_elements", text="Community Repository of Nitrogen Elements" }
@@ -89,9 +89,9 @@ right() ->
                 #image { image="/images/downloads/mac_logo.png" }
             ]},
             #span { class=title, text="Mac OSX 10.5+ Binaries" },
-            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.1-mochiweb.tar.gz", text="Nitrogen 2.0.1 for Mac OSX on Mochiweb" },
-            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.1-yaws.tar.gz", text="Nitrogen 2.0.1 for Mac OSX on Yaws" },
-            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.1-inets.tar.gz", text="Nitrogen 2.0.1 for Mac OSX on Inets" }
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.2-mochiweb.tar.gz", text="Nitrogen 2.0.2 for Mac OSX on Mochiweb" },
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.2-yaws.tar.gz", text="Nitrogen 2.0.2 for Mac OSX on Yaws" },
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.2-inets.tar.gz", text="Nitrogen 2.0.2 for Mac OSX on Inets" }
         ]},
 
         #panel { class=clear },
@@ -101,9 +101,9 @@ right() ->
                 #image { image="/images/downloads/linux_logo_gray.png" }
             ]},
             #span { class=title, text="Linux Binaries Coming Soon" },
-            #span { class=link, text="Nitrogen 2.0.1 for Linux on Mochiweb" },
-            #span { class=link, text="Nitrogen 2.0.1 for Linux on Yaws" },
-            #span { class=link, text="Nitrogen 2.0.1 for Linux on Inets" }
+            #span { class=link, text="Nitrogen 2.0.2 for Linux on Mochiweb" },
+            #span { class=link, text="Nitrogen 2.0.2 for Linux on Yaws" },
+            #span { class=link, text="Nitrogen 2.0.2 for Linux on Inets" }
         ]},
 
         #panel { class=clear },
@@ -113,9 +113,9 @@ right() ->
                 #image { image="/images/downloads/windows_logo_gray.png" }
             ]},
             #span { class=title, text="Windows Binaries Coming Soon" },
-            #span { class=link, text="Nitrogen 2.0.1 for Windows on Mochiweb" },
-            #span { class=link, text="Nitrogen 2.0.1 for Windows on Yaws" },
-            #span { class=link, text="Nitrogen 2.0.1 for Windows on Inets" }
+            #span { class=link, text="Nitrogen 2.0.2 for Windows on Mochiweb" },
+            #span { class=link, text="Nitrogen 2.0.2 for Windows on Yaws" },
+            #span { class=link, text="Nitrogen 2.0.2 for Windows on Inets" }
         ]},
 
         #panel { class=clear },
