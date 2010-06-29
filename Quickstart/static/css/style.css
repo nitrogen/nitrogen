@@ -84,6 +84,12 @@ ul li {
     margin-bottom: 8px;
 }
 
+ul.ui-autocomplete {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+}
+
 ul li.ui-menu-item {
   list-style: none; 
 }
