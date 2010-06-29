@@ -26,20 +26,21 @@ NitrogenClass.prototype.$set_param = function(key, value) {
 
 /*** EVENT QUEUE ***/
 
-NitrogenClass.prototype.$queue_event = function(validationGroup, eventContext, extraParam) {
+NitrogenClass.prototype.$queue_event = function(validationGroup, eventContext, extraParam, ajaxSettings) {
     // Put an event on the event_queue.
     this.$event_queue.push({
-		               validationGroup : validationGroup,
-		               eventContext    : eventContext,
-		               extraParam      : extraParam
-	                   });
+        validationGroup : validationGroup,
+        eventContext    : eventContext,
+        extraParam      : extraParam,
+        ajaxSettings    : ajaxSettings
+    });
 }
 
 NitrogenClass.prototype.$queue_system_event = function(eventContext) {
     // Put an event on the event_queue.
     this.$system_event_queue.push({
-		                      eventContext : eventContext
-	                          });
+        eventContext : eventContext
+    });
 }
 
 NitrogenClass.prototype.$event_loop = function() {
@@ -52,7 +53,7 @@ NitrogenClass.prototype.$event_loop = function() {
     // If no events are running and an event is queued, then fire it.
     if (!this.$event_is_running && this.$event_queue.length > 0) {
         var o = this.$event_queue.shift();
-        this.$do_event(o.validationGroup, o.eventContext, o.extraParam);
+        this.$do_event(o.validationGroup, o.eventContext, o.extraParam, o.ajaxSettings);
     }
 
     // No more events, sleep for 50 ms...
@@ -74,32 +75,23 @@ NitrogenClass.prototype.$event_loop = function() {
 /*** VALIDATE AND SERIALIZE ***/
 
 NitrogenClass.prototype.$validate_and_serialize = function(validationGroup) {
-    // Check validatation, build list of params...
-    var is_valid = true;
-    var elements = jQuery(":input").not(".no_postback").get();
-    var params=new Array();
+    // Check validatation, build object of params...
+    var is_valid = true,
+        params= {},
+        n = this;
 
-    for (var i=0; i<elements.length; i++) {
-	var element = elements[i];
-	if (element.validator && (element.validator.group == validationGroup) && !element.validator.validate()) {
-	    // Set a flag, but keep validating to show all messages.
-	    is_valid = false;
-	} else {
-	    // Skip any unchecked radio boxes.
-	    if ((element.type == "radio" || element.type=="checkbox") && !element.checked) continue;
-
-	    var full_id = this.$make_id(element);
-	    var value = element.value;
-	    params.push(full_id + "=" + encodeURIComponent(value));
-	}
-    }
-    
+    jQuery(":input").not(".no_postback").each(function(i) {
+        if (this.validator && this.validator.group == this.validationGroup && !this.validator.validate()) {
+            // Set a flag, but keep validating to show all messages.
+            is_valid = false;
+        } else {
+            // Skip any unchecked radio boxes.
+            if ((this.type == "radio" || this.type=="checkbox") && !this.checked) return;
+            params[n.$make_id(this)] = this.value;
+        }
+    });
     // Return the params if valid. Otherwise, return null.
-    if (is_valid) {
-	return params.join("&");
-    } else {
-	return null;
-    }
+    return is_valid && params || null;
 }
 
 NitrogenClass.prototype.$make_id = function(element) {
@@ -118,76 +110,71 @@ NitrogenClass.prototype.$make_id = function(element) {
 
 /*** AJAX METHODS ***/
 
-NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extraParam) {
+NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extraParam, ajaxSettings) {
+    var n = this;
+    
+    var s = jQuery.extend({
+        dataType: 'text',
+        cache: false,
+        success: null,
+        error: null
+    }, ajaxSettings);
+    
     // Flag to prevent firing multiple postbacks at the same time...
     this.$event_is_running = true;
 
     // Run validation...
-    var s = this.$validate_and_serialize(validationGroup);	
-    if (s == null) {
-	this.$event_is_running = false;
-	return;
+    var validationParams = this.$validate_and_serialize(validationGroup);	
+    if (validationParams == null) {
+        this.$event_is_running = false;
+        return;
     }
-    
     // Assemble other parameters... 
-    var params = "";
-    params += "eventContext=" + eventContext + "&";
-    params += extraParam + "&";
-    params += s + "&";
-    for (var key in this.$params) {
-	params += key + "=" + this.$params[key] + "&";
-    }
+    var params = jQuery.extend(n.$params, validationParams, { eventContext: eventContext });
     
-    var n = this;
-
     jQuery.ajax({ 
-		    url: this.$url,
-		    type:'post',
-		    data: params,
-		    dataType: 'text',
-                    cache: false,
-		    success: function(data, textStatus) {
-			n.$event_is_running = false;
-			eval(data);
+        url: this.$url,
+        type:'post',
+        data: [jQuery.param(params), extraParam || ''].join('&'),
+        dataType: s.dataType,
+        cache: s.cache,
+        success: function(data, textStatus) {
+          n.$event_is_running = false;
+          typeof s.success  == 'function' && s.success(data, textStatus) || eval(data);
 		    },
 		    error: function(xmlHttpRequest, textStatus, errorThrown) {
-			n.$event_is_running = false;
-		    }
-	        });			
+          n.$event_is_running = false;
+          typeof s.success == 'function' && s.error(xmlHttpRequest, textStatus, errorThrown);
+        }
+    });			
 }
 
 /*** SYSTEM EVENTS (FOR ASYNC) ***/
 
-NitrogenClass.prototype.$do_system_event = function(eventContext) { 
+NitrogenClass.prototype.$do_system_event = function(eventContext) {
+    var n = this;
     // Flag to prevent firing multiple postbacks at the same time...
-    this.$system_event_is_running = true;
+    n.$system_event_is_running = true;
 
     // Assemble parameters... 
-    var params = "";
-    params += "eventContext=" + eventContext + "&";
-    for (var key in this.$params) {
-	params += key + "=" + this.$params[key] + "&";
-    }
-    params += "is_system_event=1"
-
-    var n = this;
+    var params = jQuery.extend( n.$params, { eventContext: eventContext, is_system_event: 1 });
 
     $.ajax({ 
 	       url: this.$url,
 	       type:'post',
-	       data: params,
+	       data: jQuery.param(params),
 	       dataType: 'text',
-               cache: false,
+         cache: false,
 	       success: function(data, textStatus) {
-		   n.$system_event_is_running = false;
-		   // A system event shouldn't clobber the pageContext.
-		   // Easiest to cacount for it here.
-                   var pc = n.$params["pageContext"];
-		   eval(data);
-                   n.$set_param("pageContext", pc);
+            n.$system_event_is_running = false;
+            // A system event shouldn't clobber the pageContext.
+            // Easiest to cacount for it here.
+            var pc = n.$params["pageContext"];
+            eval(data);
+            n.$set_param("pageContext", pc);
 	       },
 	       error: function(xmlHttpRequest, textStatus, errorThrown) {
-		   n.$system_event_is_running = false;
+            n.$system_event_is_running = false;
 	       }
 	   });                     
 }
@@ -385,25 +372,44 @@ NitrogenClass.prototype.$datepicker = function(pickerObj, pickerOptions) {
     jQuery(pickerObj).datepicker(pickerOptions);
 }
 
+/*** AUTOCOMPLETE TEXTBOX ***/
+NitrogenClass.prototype.$autocomplete = function(path, autocompleteOptions, enterPostbackInfo, selectPostbackInfo) {
+    var n = this;
+    jQuery.extend(autocompleteOptions, {
+        select: function(ev, ui) {
+          var item = (ui.item) && '{"id":"'+ui.item.id+'","value":"'+ui.item.value+'"}' || '';
+          n.$queue_event(null, selectPostbackInfo, "select_item="+n.$urlencode(item));
+        },
+        source: function(req, res) {
+          n.$queue_event(null, enterPostbackInfo, "search_term="+req.term, {
+              dataType: 'json',
+              success: function(data) {
+                 res(data);
+              }
+          });
+        }
+    });
+    jQuery(path).autocomplete(autocompleteOptions);
+}
 
 /*** DRAG AND DROP ***/
 
 NitrogenClass.prototype.$draggable = function(path, dragOptions, dragTag) {
     objs(path).each(function(index, el) {
-		        el.$drag_tag = dragTag;
-		        jQuery(el).draggable(dragOptions);
-	            });
+          el.$drag_tag = dragTag;
+        jQuery(el).draggable(dragOptions);
+    });
 }
 
 NitrogenClass.prototype.$droppable = function(path, dropOptions, dropPostbackInfo) {
     var n = this;
     dropOptions.drop = function(ev, ui) {
-	var dragItem = ui.draggable[0].$drag_tag;
-	n.$queue_event(null, dropPostbackInfo, "drag_item=" + dragItem);
+        var dragItem = ui.draggable[0].$drag_tag;
+        n.$queue_event(null, dropPostbackInfo, "drag_item=" + dragItem);
     };
     objs(path).each(function(index, el) {
-		        jQuery(el).droppable(dropOptions);
-	            });
+          jQuery(el).droppable(dropOptions);
+    });
 }
 
 

@@ -84,6 +84,10 @@ ul li {
     margin-bottom: 8px;
 }
 
+ul li.ui-menu-item {
+  list-style: none; 
+}
+
 p { 
     font-size: 1em; /* 13px */
     line-height: 2em; /* 26px */
