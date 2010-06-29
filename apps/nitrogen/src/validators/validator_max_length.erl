@@ -7,10 +7,13 @@
 -include_lib ("wf.hrl").
 -compile(export_all).
 
-render_validator(TriggerPath, TargetPath, Record)  ->
+render_action(Record)  ->
+    TriggerPath= Record#max_length.trigger,
+    TargetPath = Record#max_length.target,
     Text = wf:js_escape(Record#max_length.text),
     Length = Record#max_length.length,
-    validator_custom:render_validator(TriggerPath, TargetPath, #custom { function=fun validate/2, text = Text, tag=Record }),
+    CustomValidatorAction = #custom { trigger=TriggerPath, target=TargetPath, function=fun validate/2, text=Text, tag=Record },
+    validator_custom:render_action(CustomValidatorAction),
     wf:f("v.add(Validate.Length, { maximum: ~p, tooLongMessage: \"~s\" });", [Length, Text]).
 
 validate(Record, Value) ->
