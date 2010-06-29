@@ -67,6 +67,8 @@ to_string_list(L, Acc) when is_atom(L) ->
     [atom_to_list(L)|Acc];
 to_string_list(L, Acc) when ?IS_STRING(L) ->
     string:tokens(L, " ,") ++ Acc;
+to_string_list(L, Acc) when is_binary(L) ->
+    [binary_to_list(L)|Acc];
 to_string_list([H|T], Acc) ->
     to_string_list(T, to_string_list(H) ++ Acc).
 
