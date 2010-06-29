@@ -22,5 +22,6 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Ville Koivula
 * Manuel Durán Aguete
 * Jesse Gumm
+* Martin Sivak
 
 Roughly sorted by date of contribution. Send your twitter handles to @rklophaus
