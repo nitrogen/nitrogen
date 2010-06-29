@@ -350,7 +350,8 @@ get_actions() ->
 get_actions_blocking(Timeout) ->
     SeriesID = wf_context:series_id(),
     {ok, AccumulatorPid} = get_accumulator_pid(SeriesID),
-    TimerRef = erlang:send_after(Timeout, AccumulatorPid, {add_actions, []}),
+    AccumulatorNode = node(AccumulatorPid),
+    TimerRef = rpc:call(AccumulatorNode, erlang, send_after, [Timeout, AccumulatorPid, {add_actions, []}]),
     AccumulatorPid!{get_actions_blocking, self()},
     receive 
         {actions, X} -> erlang:cancel_timer(TimerRef), X;			
