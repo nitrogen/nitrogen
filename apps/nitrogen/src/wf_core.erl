@@ -53,9 +53,6 @@ run_catched() ->
     end.
 
 finish_dynamic_request() ->
-    % Update flash and render.
-    element_flash:update(),	
-
     % Get elements and actions...
     Elements = wf_context:data(),
     wf_context:clear_data(),
@@ -63,17 +60,24 @@ finish_dynamic_request() ->
     wf_context:clear_actions(),
 
     % Render...
-    {ok, Html, Javascript} = wf_render:render(Elements, Actions, undefined, undefined, undefined),
+    {ok, Html1, Javascript1} = wf_render:render(Elements, Actions, undefined, undefined, undefined),
+
+    % Update flash and render
+    % Has to be here because has_flash state is not set before render
+    element_flash:update(),	
+    ActionsFlash = wf_context:actions(),
+    wf_context:clear_actions(),
+    {ok, Html2, Javascript2} = wf_render:render([], ActionsFlash, undefined, undefined, undefined),
 
     % Call finish on all handlers.
     call_finish_on_handlers(),
 
     % Create Javascript to set the state...
     StateScript = serialize_context(),
-    Javascript1 = [StateScript, Javascript],
+    JavascriptFinal = [StateScript, Javascript1 ++ Javascript2],
     case wf_context:type() of
-        first_request       -> build_first_response(Html, Javascript1);
-        postback_request    -> build_postback_response(Javascript1)
+        first_request       -> build_first_response(Html1 ++ Html2, JavascriptFinal);
+        postback_request    -> build_postback_response(JavascriptFinal)
     end.
 
 finish_static_request() ->
