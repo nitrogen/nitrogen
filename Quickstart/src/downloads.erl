@@ -125,6 +125,7 @@ right() ->
                 #image { image="/images/downloads/erlang_logo.png" }
             ]},
             #span { class=title, text="Old Source Code" },
+            #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.1", text="Download Nitrogen 2.0.1 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.0", text="Download Nitrogen 2.0.0 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/v1.0", text="Download Nitrogen 1.0 source (.tar.gz)" }
         ]}
