@@ -52,6 +52,7 @@
         element_function,
         element_google_chart,
         element_gravatar,
+        element_grid,
         element_h1,
         element_h2,
         element_h3,
@@ -93,7 +94,9 @@
         identity_handler,
         log_handler,
         named_route_handler,
+        nprocreg_registry_handler,
         nitrogen,
+	nitrogen_dev,
         passthrough_route_handler,
         nprocreg_registry_handler,
         process_registry_handler,
@@ -127,5 +130,5 @@
         wf_utils,
         wf_validation
     ]},
-    {applications, [kernel, stdlib, sasl, inets, nprocreg]}
+    {applications, [kernel, stdlib, sasl, mochiweb]}
 ]}.
