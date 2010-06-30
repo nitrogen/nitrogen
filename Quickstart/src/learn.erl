@@ -165,7 +165,11 @@ right() ->
             #listitem { text="Jay Doane" },
             #listitem { text="Robert Schonberger" },
             #listitem { text="Yurii Rashkovskii (@yrashk)" },
-            #listitem { text="Ville Koivula" }
+            #listitem { text="Ville Koivula" },
+            #listitem { text="Manuel Duran Aguete" },
+            #listitem { text="Jesse Gumm" },
+            #listitem { text="Jan-Felix Wittmann" },
+            #listitem { text="Martin Sivak" }
         ]}
     ].
 
