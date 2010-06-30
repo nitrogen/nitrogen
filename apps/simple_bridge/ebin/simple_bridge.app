@@ -17,6 +17,6 @@
         yaws_request_bridge,
         yaws_response_bridge
     ]},
-    {applications, [kernel, stdlib, sasl, mochiweb]},
+    {applications, [kernel, stdlib, sasl]},
     {registered, []}
 ]}.

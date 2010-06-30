@@ -1,6 +1,6 @@
 {application, nitrogen, [
     {description,  "Nitrogen Web Framework for Erlang"},
-    {vsn,          "2.0.1"},
+    {vsn,          "2.0.2"},
     {registered, []},
     {modules,      [
         action_add_class,
@@ -130,5 +130,5 @@
         wf_utils,
         wf_validation
     ]},
-    {applications, [kernel, stdlib, sasl, mochiweb]}
+    {applications, [kernel, stdlib, sasl]}
 ]}.
