@@ -70,7 +70,7 @@ cycle_and_update(Speed, ControlID, List) ->
 
     % Take the first item from the list, make it the last item on the list.
     % So if we start with [1, 2, 3, 4], we'd end with [2, 3, 4, 1]
-    List1 = lists:reverse([hd(List) | lists:reverse(tl(List))]),
+    List1 = tl(List) ++ [hd(List)],
 
     % Loop. This process will automatically be killed
     % once the page stops requesting the output that
