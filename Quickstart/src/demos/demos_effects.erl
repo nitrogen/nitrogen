@@ -93,6 +93,11 @@ middle() ->
 
         #link { text="Animate - Small Border", actions=Event#event { 
             actions=#animate { options=[{borderWidth, "1px"}] }
+        }},
+        #br{},
+
+        #link { text="Chaining effects - Shake then Puff", actions=Event#event { 
+            actions=#effect { effect=shake, actions=#hide{ effect=puff } }
         }}
     ].
 

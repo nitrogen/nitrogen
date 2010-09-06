@@ -13,5 +13,6 @@ render_action(Record) ->
         target = Record#effect.target,
         effect = Record#effect.effect,
         options = Record#effect.options,
-        speed = Record#effect.speed
+        speed = Record#effect.speed,
+        actions = Record#effect.actions
     }.

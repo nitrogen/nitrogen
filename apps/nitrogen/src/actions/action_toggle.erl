@@ -11,5 +11,6 @@ render_action(Record) ->
         type=toggle,
         effect = Record#toggle.effect,
         options = Record#toggle.options,
-        speed = Record#toggle.speed
+        speed = Record#toggle.speed,
+        actions = Record#toggle.actions
     }.

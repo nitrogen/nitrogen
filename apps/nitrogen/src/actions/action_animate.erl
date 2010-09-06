@@ -11,5 +11,6 @@ render_action(Record) ->
         type=animate,
         options = Record#animate.options,
         speed = Record#animate.speed,
-        easing = Record#animate.easing
+        easing = Record#animate.easing,
+        actions = Record#animate.actions
     }.

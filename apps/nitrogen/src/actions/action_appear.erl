@@ -9,5 +9,6 @@
 render_action(Record) ->
     #jquery_effect {
         type=appear,
-        speed = Record#appear.speed
+        speed = Record#appear.speed,
+        actions = Record#appear.actions
     }.
