@@ -129,9 +129,11 @@ NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extr
         this.$event_is_running = false;
         return;
     }
+
     // Assemble other parameters... 
-    var params = jQuery.extend(n.$params, validationParams, { eventContext: eventContext });
-    
+    var params = new Object;
+    jQuery.extend(params, n.$params, validationParams, { eventContext: eventContext });
+
     jQuery.ajax({ 
         url: this.$url,
         type:'post',
