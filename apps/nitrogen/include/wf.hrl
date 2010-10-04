@@ -126,8 +126,8 @@
 -record(article, {?ELEMENT_BASE(element_article), body=""}).
 -record(aside, {?ELEMENT_BASE(element_aside), body=""}).
 -record(hgroup, {?ELEMENT_BASE(element_hgroup), body=""}).
--record(header, {?ELEMENT_BASE(element_header), body=""}).
--record(footer, {?ELEMENT_BASE(element_footer), body=""}).
+-record(html5_header, {?ELEMENT_BASE(element_html5_header), body=""}).
+-record(html5_footer, {?ELEMENT_BASE(element_html5_footer), body=""}).
 -record(time, {?ELEMENT_BASE(element_time), pubdate=false, datetime="", body=""}).
 -record(mark, {?ELEMENT_BASE(element_mark), body=""}).
 

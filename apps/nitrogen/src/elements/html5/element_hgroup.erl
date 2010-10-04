@@ -8,7 +8,7 @@
 reflect() -> record_info(fields, hgroup).
 
 render_element(Record) ->
-    CheckH1ThruH4 = fun (X) ->
+    CheckH1ThruH6 = fun (X) ->
                         if
                             is_record(X, h1) ->
                                 true;
@@ -26,7 +26,7 @@ render_element(Record) ->
                                 false
                         end
                     end,
-    Y = lists:all(CheckH1ThruH4, Record#hgroup.body),
+    Y = lists:all(CheckH1ThruH6, Record#hgroup.body),
     if
         Y ->
             wf_tags:emit_tag(hgroup, Record#hgroup.body, [
