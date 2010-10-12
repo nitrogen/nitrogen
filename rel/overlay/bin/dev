@@ -28,12 +28,14 @@ if [ "$NAME_ARG" != "${NAME_ARG#"-sname"}" ]; then
     NAME_HOST=""
 else
     NAME_PARAM="-name"
-    if [ "$NAME_ARG" = "${NAME_ARG#"*@"}" ]; then
-        NAME_HOST="@"${NAME_ARG#"*@"}
+    if [ "$NAME_ARG" != "${NAME_ARG#"-name*@"}" ]; then
+        NAME_HOST="@"${NAME_ARG#"-name*@"}
     else
         NAME_HOST=""
     fi
 fi
+echo NAME_PARAM is $NAME_PARAM
+echo NAME_HOST is $NAME_HOST
 
 # Extract the target cookie
 COOKIE_ARG=`grep -e '-setcookie' $RUNNER_ETC_DIR/vm.args`
