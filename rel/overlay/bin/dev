@@ -23,7 +23,7 @@ if [ -z "$NAME_ARG" ]; then
 fi
 
 # Learn how to specify node name for connection from remote nodes
-if [ "$NAME_ARG" = "${NAME_ARG#"-sname"}" ]; then
+if [ "$NAME_ARG" != "${NAME_ARG#"-sname"}" ]; then
     NAME_PARAM="-sname"
     NAME_HOST=""
 else
