@@ -34,8 +34,6 @@ else
         NAME_HOST=""
     fi
 fi
-echo NAME_PARAM is $NAME_PARAM
-echo NAME_HOST is $NAME_HOST
 
 # Extract the target cookie
 COOKIE_ARG=`grep -e '-setcookie' $RUNNER_ETC_DIR/vm.args`
