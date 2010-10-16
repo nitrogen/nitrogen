@@ -93,7 +93,7 @@ request_body(Arg) ->
 socket(Arg) ->
     Arg#arg.clisock.
 
-recv_from_socket(Arg, Length, Timeout) -> 
+recv_from_socket(Length, Timeout, Arg) -> 
     Socket = socket(Arg),
     case gen_tcp:recv(Socket, Length, Timeout) of
         {ok, Data} -> Data;
