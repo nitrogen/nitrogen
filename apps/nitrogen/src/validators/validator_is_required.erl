@@ -6,7 +6,7 @@
 -include_lib ("wf.hrl").
 -compile(export_all).
 
-render_action(Record) -> 
+render_action(Record) ->
     TriggerPath = Record#is_required.trigger,
     TargetPath = Record#is_required.target,
     Text = wf:js_escape(Record#is_required.text),
@@ -14,5 +14,7 @@ render_action(Record) ->
     Script = wf:f("obj('~s').validator.add(Validate.Presence, { failureMessage: \"~s\" });", [TargetPath, Text]),
     [CustomValidatorAction, Script].
 
-validate(_, Value) -> 
+validate(_, undefined) ->
+    false;
+validate(_, Value) ->
     Value /= [].
