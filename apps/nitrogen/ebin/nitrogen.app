@@ -102,7 +102,6 @@
         nitrogen,
 	nitrogen_dev,
         passthrough_route_handler,
-        nprocreg_registry_handler,
         process_registry_handler,
         query_handler,
         role_handler,
