@@ -25,5 +25,6 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Jan-Felix Wittmann
 * Martin Sivak
 * Jonas Ådahl
+* Boris Faure
 
 Roughly sorted by date of contribution. Send your twitter handles to @rklophaus
