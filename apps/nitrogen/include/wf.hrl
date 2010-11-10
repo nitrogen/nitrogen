@@ -71,6 +71,8 @@
 -record(h2, {?ELEMENT_BASE(element_h2), text="", html_encode=true}).
 -record(h3, {?ELEMENT_BASE(element_h3), text="", html_encode=true}).
 -record(h4, {?ELEMENT_BASE(element_h4), text="", html_encode=true}).
+-record(h5, {?ELEMENT_BASE(element_h5), text="", html_encode=true}).
+-record(h6, {?ELEMENT_BASE(element_h6), text="", html_encode=true}).
 -record(list, {?ELEMENT_BASE(element_list), numbered=false, body=[]}).
 -record(listitem, {?ELEMENT_BASE(element_listitem), body=[], text="", html_encode=true}).
 -record(br, {?ELEMENT_BASE(element_br) }).
@@ -117,6 +119,17 @@
 -record(upload, {?ELEMENT_BASE(element_upload), delegate, tag, show_button=true, button_text="Upload" }).
 -record(sparkline, {?ELEMENT_BASE(element_sparkline), type, values, options }).
 -record(textbox_autocomplete, {?ELEMENT_BASE(element_textbox_autocomplete), tag, text="", minLength=2, delay=300, html_encode=true, next, postback, delegate=undefined }).
+
+%% HTML5 semantic elements
+-record(section, {?ELEMENT_BASE(element_section), body=""}).
+-record(nav, {?ELEMENT_BASE(element_nav), body=""}).
+-record(article, {?ELEMENT_BASE(element_article), body=""}).
+-record(aside, {?ELEMENT_BASE(element_aside), body=""}).
+-record(hgroup, {?ELEMENT_BASE(element_hgroup), body=""}).
+-record(html5_header, {?ELEMENT_BASE(element_html5_header), body=""}).
+-record(html5_footer, {?ELEMENT_BASE(element_html5_footer), body=""}).
+-record(time, {?ELEMENT_BASE(element_time), pubdate=false, datetime="", body=""}).
+-record(mark, {?ELEMENT_BASE(element_mark), body=""}).
 
 %% 960.gs Grid
 -record(grid,  {?ELEMENT_BASE(element_grid), type, columns,  alpha, omega, push, pull, prefix, suffix, body}).

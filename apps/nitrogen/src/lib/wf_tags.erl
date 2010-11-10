@@ -53,7 +53,10 @@ emit_tag(TagName, Content, Props) ->
 %%% Property display functions %%%
 
 write_props(Props) ->
-    lists:map(fun display_property/1, Props).            
+    lists:map(fun display_property/1, Props).
+
+display_property({Prop}) when is_atom(Prop) ->
+    [" ", atom_to_list(Prop)];
 
 display_property({Prop, V}) when is_atom(Prop) ->
     display_property({atom_to_list(Prop), V});
