@@ -1,3 +1,4 @@
+%% -*- mode: nitrogen -*-
 -module (element_[[[NAME]]]).
 -compile(export_all).
 -include_lib("nitrogen/include/wf.hrl").
