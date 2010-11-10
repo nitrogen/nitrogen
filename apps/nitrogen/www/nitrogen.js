@@ -129,8 +129,10 @@ NitrogenClass.prototype.$do_event = function(validationGroup, eventContext, extr
         this.$event_is_running = false;
         return;
     }
-    // Assemble other parameters... 
-    var params = jQuery.extend(n.$params, validationParams, { eventContext: eventContext });
+
+    // Assemble other parameters...
+    var params = new Object;
+    jQuery.extend(params, n.$params, validationParams, { eventContext: eventContext });
     
     jQuery.ajax({ 
         url: this.$url,
@@ -156,8 +158,9 @@ NitrogenClass.prototype.$do_system_event = function(eventContext) {
     // Flag to prevent firing multiple postbacks at the same time...
     n.$system_event_is_running = true;
 
-    // Assemble parameters... 
-    var params = jQuery.extend( n.$params, { eventContext: eventContext, is_system_event: 1 });
+    // Assemble other parameters...
+    var params = new Object;
+    jQuery.extend(params, n.$params, { eventContext: eventContext, is_system_event: 1 });
 
     $.ajax({ 
 	       url: this.$url,
