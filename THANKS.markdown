@@ -26,5 +26,6 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Martin Sivak
 * Jonas Ådahl
 * Boris Faure
+* Gregory Haskins
 
 Roughly sorted by date of contribution. Send your twitter handles to @rklophaus
