@@ -114,6 +114,7 @@ call_element_render(Module, Element) ->
 
 normalize_id(ID) -> 
     case wf:to_string_list(ID) of
+        [".wfid_" ++ _] = [NormalizedID] -> NormalizedID;
         ["page"] -> ".page";
         [NewID]  -> ".wfid_" ++ NewID
     end.
