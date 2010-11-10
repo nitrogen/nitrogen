@@ -59,39 +59,39 @@
    
 ** wf:coalesce([List]) -> Item
 
-   Returns the first element in the list that is not 'undefined'.
+   Return the first element in the list that is not 'undefined'.
    
 ** wf:is\_string(Term) -> Bool
 
-   Returns true if the Term is an Erlang string. That is, a flat list
+   Return true if the Term is an Erlang string. That is, a flat list
    of integers.
    
 ** wf:to\_list(Term) -> List
 
-   Converts the supplied term to a flat list, if possible. Useful for
+   Convert the supplied term to a flat list, if possible. Useful for
    turning Integers, Atoms, Binaries into Strings.
    
 ** wf:to\_atom(Term) -> Atom
 
-   Converts the supplied term into an Atm, if possible. Useful for
+   Convert the supplied term into an Atom, if possible. Useful for
    turning Integers, Binaries, and Strings into Atoms.
 
 ** wf:to\_binary(Term) -> Binary
 
-   Converts the supplied term into a Binary, if possible. Useful for
+   Convert the supplied term into a Binary, if possible. Useful for
    turning Integers, Atoms, and Strings into Binaries.
 
 ** wf:to\_integer(Term) -> Integer
 
-   Converts the supplied term into an Integer, if possible. Useful for turning Atoms, Strings, and Binaries into Integers.
+   Convert the supplied term into an Integer, if possible. Useful for turning Atoms, Strings, and Binaries into Integers.
 
 ** wf:html\_encode(String) -> EncodedString
 
-   HTML encodes the supplied String, converting things like < and > into &lt; and &gt;.
+   HTML encode the supplied String, converting things like < and > into &lt; and &gt;.
 
 ** wf:html\_decode(String) -> DecodedString
 
-   HTML decoding decodes the supplied String, converting things like &lt; and &gt; into < and >.
+   HTML decoding decode the supplied String, converting things like &lt; and &gt; into < and >.
 
 ** wf:url\_encode(String) -> EncodedString
 
@@ -227,7 +227,7 @@
    
 ** wf:redirect\_to\_login(Url) -> ok
 
-   Redirect to the provided URL, attaching a token on the end. The recieving page can call
+   Redirect to the provided URL, attaching a token on the end. The receiving page can call
    =wf:redirect\_from\_login(DefaultUrl)= to send the user back to the current page.
    
 ** wf:redirect\_from\_login(DefaultUrl) -> ok
@@ -338,7 +338,7 @@
    
 ** wf:page\_module() -> Atom
 
-   Returns the requested page module. Useful information to know when writing a custom
+   Return the requested page module. Useful information to know when writing a custom
    element or action.
 
 * Cookies
@@ -346,7 +346,7 @@
 
 ** wf:cookies() -> [{AtomKey, StringValue}].
 
-   Returns a proplist of all cookies.
+   Return a proplist of all cookies.
 
 ** wf:get\_cookie(Key) -> String
 
@@ -354,7 +354,7 @@
 
 ** wf:get\_cookie\_default(Key, Default) -> String.
 
-   Gte the value of a cookie, if it doesn't exist, return the default.
+   Get the value of a cookie, if it doesn't exist, return the default.
 
 ** wf:cookie(Key, Value) -> ok
 
@@ -371,7 +371,7 @@
    
 ** wf:headers() -> [{AtomKey, StringValue}, ...]
 
-   Returns a proplist of all HTTP headers.
+   Return a proplist of all HTTP headers.
    
 ** wf:header(AtomKey) -> Value
 
@@ -383,7 +383,7 @@
 
 ** wf:header(StringKey, HeaderValue) -> ok
 
-   Sets an HTTP header during the next response.
+   Set an HTTP header during the next response.
    
 * Serialization
 # <<12>>
