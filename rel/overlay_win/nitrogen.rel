@@ -7,7 +7,7 @@
          {inets, "5.3"},
 	 {sasl, "2.1.9"},
 	 {runtime_tools, "1.8.3"},
-	 {nitrogen, "2.0.2"},
+	 {nitrogen, "2.0.3"},
          {simple_bridge, "1.0"},
 	 {nprocreg, "0.1"}
   ]

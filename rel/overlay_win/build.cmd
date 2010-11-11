@@ -24,7 +24,7 @@ xcopy /y /e /s ..\overlay\etc\*.* nitrogen\etc\
 xcopy /y /e /s ..\overlay_inets\etc\*.* nitrogen\etc\
 xcopy /y /e /s ..\overlay\site\*.* nitrogen\site\
 xcopy /y /e /s ..\overlay_inets\site\*.* nitrogen\site\
-xcopy /y /e /s ..\..\apps\nitrogen\include\*.* nitrogen\lib\nitrogen-2.0.2\include\
+xcopy /y /e /s ..\..\apps\nitrogen\include\*.* nitrogen\lib\nitrogen-2.0.3\include\
 xcopy /y /e /s ..\..\apps\simple_bridge\include\*.* nitrogen\lib\simple_bridge-1.0\include\
 xcopy /y /e /s files\*.* nitrogen\
 xcopy /y /e /s ..\..\apps\nitrogen\www\*.* nitrogen\site\static\nitrogen\
