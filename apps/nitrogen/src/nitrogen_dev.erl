@@ -1,5 +1,49 @@
 -module(nitrogen_dev).
--export([command/1]).
+-export([
+    command/1,
+    help/0,
+    compile/0,
+    page/1,
+    action/1,
+    element/1
+]).
+
+help() ->
+    Message = [
+        "   ---------------------------------------------------------",
+        "                 Nitrogen Developer Utility",
+        "   ---------------------------------------------------------",
+        "   ",
+        "   nitrogen_dev:compile()",
+        "     - Recompile changed files on a running Nitrogen system.",
+        "   ",
+        "   nitrogen_dev:page(Name)",
+        "     - Create a new page with the specified name.",
+        "   ",
+        "   nitrogen_dev:action(Name)",
+        "     - Create a new action with the specified name.",
+        "   ",
+        "   nitrogen_dev:element(Name)",
+        "     - Create a new element with the specified name.",
+        "   ",
+        "   nitrogen_dev:help()",
+        "     - This screen."
+    ],
+    [io:format("~s~n", [X]) || X <- Message],
+    ok.
+
+compile() ->
+    command(["compile"]).
+
+page(Name) ->
+    command(["page", wf:to_list(Name)]).
+
+action(Name) ->
+    command(["action", wf:to_list(Name)]).
+
+element(Name) ->
+    command(["element", wf:to_list(Name)]).
+    
 
 command([]) ->
     Message = [
@@ -37,7 +81,7 @@ command(["page", Name]) ->
             Contents = template(Template, Name),
             file:write_file(Filename, Contents),
             io:format("Created page: " ++ Filename ++ "\n"),
-            io:format("Remember to recompile!")
+            io:format("Remember to recompile!~n")
     end;    
 
 command(["element", Name]) ->
@@ -50,7 +94,7 @@ command(["element", Name]) ->
             Contents = template(Template, Name),
             file:write_file(Filename, Contents),
             io:format("Created element: " ++ Filename ++ "\n"),
-            io:format("Remember to recompile!")
+            io:format("Remember to recompile!~n")
     end;    
 
 command(["action", Name]) ->
@@ -63,7 +107,7 @@ command(["action", Name]) ->
             Contents = template(Template, Name),
             file:write_file(Filename, Contents),
             io:format("Created action: " ++ Filename ++ "\n"),
-            io:format("Remember to recompile!")
+            io:format("Remember to recompile!~n")
     end;    
 
 command(["help"|_]) ->
