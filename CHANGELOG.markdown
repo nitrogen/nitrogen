@@ -1,5 +1,16 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.0.3
+
+* Implement callbacks to chain Ajax effects (Jonas Ådahl)
+* Fix element name normalization (Jonas Ådahl)
+* Support for HTML5 semantic elements (Rajiv M Ranganath)
+* Fix recv_from_socket bug when running on Yaws (Gregory Haskins)
+* Update livevalidation.js dependency, fixes validation bug (Boris 'billiob' Faure)
+* Fix bug causing postbacks to continually grow in certain cases (Jonas Ådahl)
+* Added rudimentary support for building and running on Windows (Rusty Klophaus)
+* Allow creating page, element, and action stubs from Erlang console more easily (Rusty Klophaus)
+
 ## Nitrogen 2.0.2
 
 * Fixed mochiweb bug that caused other headers to get clobbered when using default content type.
