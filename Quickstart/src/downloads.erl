@@ -98,24 +98,21 @@ right() ->
 
         #panel { class=platform, body=[
             #panel { class=logo, body=[
-                #image { image="/images/downloads/linux_logo_gray.png" }
+                #image { image="/images/downloads/windows_logo.png" }
             ]},
-            #span { class=title, text="Linux Binaries Coming Soon" },
-            #span { class=link, text="Nitrogen 2.0.3 for Linux on Mochiweb" },
-            #span { class=link, text="Nitrogen 2.0.3 for Linux on Yaws" },
-            #span { class=link, text="Nitrogen 2.0.3 for Linux on Inets" }
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/win/nitrogen-2.0.3-inets.zip", text="Nitrogen 2.0.3 for Windows on Inets" }
         ]},
 
         #panel { class=clear },
 
         #panel { class=platform, body=[
             #panel { class=logo, body=[
-                #image { image="/images/downloads/windows_logo_gray.png" }
+                #image { image="/images/downloads/linux_logo_gray.png" }
             ]},
-            #span { class=title, text="Windows Binaries Coming Soon" },
-            #span { class=link, text="Nitrogen 2.0.3 for Windows on Mochiweb" },
-            #span { class=link, text="Nitrogen 2.0.3 for Windows on Yaws" },
-            #span { class=link, text="Nitrogen 2.0.3 for Windows on Inets" }
+            #span { class=title, text="Linux Binaries Coming Soon" },
+            #span { class=link, text="Nitrogen 2.0.3 for Linux on Mochiweb" },
+            #span { class=link, text="Nitrogen 2.0.3 for Linux on Yaws" },
+            #span { class=link, text="Nitrogen 2.0.3 for Linux on Inets" }
         ]},
 
         #panel { class=clear },

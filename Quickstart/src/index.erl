@@ -35,8 +35,8 @@ top_right() ->
         #p { class="section_title", body="DOWNLOAD NITROGEN 2.x" },
         #p { class="section", body=[
             #link { url="/downloads", body=#image { image="/images/downloads/mac_logo.png" }},
+	    #link { url="/downloads", body=#image { image="/images/downloads/windows_logo.png" }},
             #link { url="/downloads", body=#image { image="/images/downloads/linux_logo_gray.png" }},
-	    #link { url="/downloads", body=#image { image="/images/downloads/windows_logo_gray.png" }},
 	    #link { url="/downloads", body=#image { image="/images/downloads/erlang_logo.png" }}
         ]},
 
