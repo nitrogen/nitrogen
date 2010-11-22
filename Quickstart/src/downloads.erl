@@ -64,7 +64,8 @@ right() ->
                 #image { image="/images/downloads/documentation.png" }
             ]},
             #span { class=title, text="Nitrogen Documentation" },
-            #link { class=link, url="/doc/index.html", text="View Online" },
+            #link { class=link, url="/doc/index.html", text="View Documentation Online" },
+            #link { class=link, url="/doc/tutorial.html", text="View the Nitrogen Tutorial" },
             "Docs are also included in platform downloads."
         ]},
 

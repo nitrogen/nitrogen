@@ -43,6 +43,9 @@ top_right() ->
         #p { class="section_title", body="LATEST NEWS" },
         #p { class="section", body=[
             "
+            Learn how to develop a Nitrogen application<br>
+            with the <b><a href='/doc/tutorial.html'>Nitrogen Tutorial &raquo;</a></b>
+            <p>
             Nitrogen 2.x adds great new elements, actions, and API
             calls, as well as improved packaging and OTP
             compliance. 

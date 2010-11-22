@@ -8,6 +8,7 @@
 
 * Common Questions
 
+  + [[0][Is there a Nitrogen Tutorial?]]
   + [[1][How do I create a new Nitrogen application?]]
   + [[2][How do I start and stop my application?]]
   + [[3][How do I change configuration settings?]]
@@ -16,6 +17,12 @@
   + [[6][How do I create new pages, custom elements, or custom actions?]]
   + [[7][How do I upgrade to a new version of Nitrogen?]]
 
+* Is there a Nitrogen Tutorial?
+# <<0>>
+
+  Yes! You can [[file:./tutorial.org][view the slides]] from Rusty's Nitrogen Tutorial at the
+  Erlang User Conference 2010 here.
+  
 * How do I create a new Nitrogen application?
 # <<1>>
 

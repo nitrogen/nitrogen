@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>Nitrogen 2.x Documentation</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-06-14 18:34:59 EDT"/>
+<meta name="generated" content="2010-11-22 10:50:06 EST"/>
 <meta name="author" content="Rusty Klophaus (@rklophaus)"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -35,6 +35,7 @@ lang="en" xml:lang="en">
   dt { font-weight: bold; }
   div.figure { padding: 0.5em; }
   div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
   .linenr { font-size:smaller }
   .code-highlighted {background-color:#ffff00;}
   .org-info-js_info-navigation { border-style:none; }
@@ -167,9 +168,9 @@ is actually getting matched.
 
 </div>
 
-<div id="outline-container-2.1" class="outline-3">
-<h3 id="sec-2.1"><span class="section-number-3">2.1</span> Steps To Match a Path </h3>
-<div class="outline-text-3" id="text-2.1">
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> Steps To Match a Path </h3>
+<div class="outline-text-3" id="text-2_1">
 
 
 <p>
@@ -255,9 +256,9 @@ matching <code>jQuery(path)</code>.
 
 </div>
 
-<div id="outline-container-3.1" class="outline-3">
-<h3 id="sec-3.1"><span class="section-number-3">3.1</span> Selector: me </h3>
-<div class="outline-text-3" id="text-3.1">
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> Selector: me </h3>
+<div class="outline-text-3" id="text-3_1">
 
 <p>A keyword to specify the context of the current anchor. In other
 words, if you wire an event to an element, then 'me' will point to that element.
@@ -266,9 +267,9 @@ words, if you wire an event to an element, then 'me' will point to that element.
 
 </div>
 
-<div id="outline-container-3.2" class="outline-3">
-<h3 id="sec-3.2"><span class="section-number-3">3.2</span> Selecter: ##element </h3>
-<div class="outline-text-3" id="text-3.2">
+<div id="outline-container-3_2" class="outline-3">
+<h3 id="sec-3_2"><span class="section-number-3">3.2</span> Selecter: ##element </h3>
+<div class="outline-text-3" id="text-3_2">
 
 <p>A shortcut for referring to a Nitrogen element when you specify a
 string path. Because of the way Nitrogen uses class names to tag
@@ -290,9 +291,9 @@ Selectors and descriptions below are pulled directly from the [[http://api.jquer
 
 </div>
 
-<div id="outline-container-4.1" class="outline-3">
-<h3 id="sec-4.1"><span class="section-number-3">4.1</span> Selector: * </h3>
-<div class="outline-text-3" id="text-4.1">
+<div id="outline-container-4_1" class="outline-3">
+<h3 id="sec-4_1"><span class="section-number-3">4.1</span> Selector: * </h3>
+<div class="outline-text-3" id="text-4_1">
 
 <p>Selects all elements.
 </p>
@@ -300,9 +301,9 @@ Selectors and descriptions below are pulled directly from the [[http://api.jquer
 
 </div>
 
-<div id="outline-container-4.2" class="outline-3">
-<h3 id="sec-4.2"><span class="section-number-3">4.2</span> Selector: :animated </h3>
-<div class="outline-text-3" id="text-4.2">
+<div id="outline-container-4_2" class="outline-3">
+<h3 id="sec-4_2"><span class="section-number-3">4.2</span> Selector: :animated </h3>
+<div class="outline-text-3" id="text-4_2">
 
 <p>Select all elements that are in the progress of an animation at the
 time the selector is run.
@@ -311,9 +312,9 @@ time the selector is run.
 
 </div>
 
-<div id="outline-container-4.3" class="outline-3">
-<h3 id="sec-4.3"><span class="section-number-3">4.3</span> Selector: Attribute Contains Prefix [name|=value] </h3>
-<div class="outline-text-3" id="text-4.3">
+<div id="outline-container-4_3" class="outline-3">
+<h3 id="sec-4_3"><span class="section-number-3">4.3</span> Selector: Attribute Contains Prefix [name|=value] </h3>
+<div class="outline-text-3" id="text-4_3">
 
 <p>Selects elements that have the specified attribute with a value
 either equal to a given string or starting with that string
@@ -323,9 +324,9 @@ followed by a hyphen (-).
 
 </div>
 
-<div id="outline-container-4.4" class="outline-3">
-<h3 id="sec-4.4"><span class="section-number-3">4.4</span> Selector: Attribute Contains [name*=value] </h3>
-<div class="outline-text-3" id="text-4.4">
+<div id="outline-container-4_4" class="outline-3">
+<h3 id="sec-4_4"><span class="section-number-3">4.4</span> Selector: Attribute Contains [name*=value] </h3>
+<div class="outline-text-3" id="text-4_4">
 
 <p>Selects elements that have the specified attribute with a value
 containing the a given substring.
@@ -334,9 +335,9 @@ containing the a given substring.
 
 </div>
 
-<div id="outline-container-4.5" class="outline-3">
-<h3 id="sec-4.5"><span class="section-number-3">4.5</span> Selector: Attribute Contains Word [name~=value] </h3>
-<div class="outline-text-3" id="text-4.5">
+<div id="outline-container-4_5" class="outline-3">
+<h3 id="sec-4_5"><span class="section-number-3">4.5</span> Selector: Attribute Contains Word [name~=value] </h3>
+<div class="outline-text-3" id="text-4_5">
 
 <p>Selects elements that have the specified attribute with a value
 containing a given word, delimited by spaces.
@@ -345,9 +346,9 @@ containing a given word, delimited by spaces.
 
 </div>
 
-<div id="outline-container-4.6" class="outline-3">
-<h3 id="sec-4.6"><span class="section-number-3">4.6</span> Selector: Attribute Ends With [name$=value] </h3>
-<div class="outline-text-3" id="text-4.6">
+<div id="outline-container-4_6" class="outline-3">
+<h3 id="sec-4_6"><span class="section-number-3">4.6</span> Selector: Attribute Ends With [name$=value] </h3>
+<div class="outline-text-3" id="text-4_6">
 
 <p>Selects elements that have the specified attribute with a value
 ending exactly with a given string.
@@ -356,9 +357,9 @@ ending exactly with a given string.
 
 </div>
 
-<div id="outline-container-4.7" class="outline-3">
-<h3 id="sec-4.7"><span class="section-number-3">4.7</span> Selector: Attribute Equals Selector [name=value] </h3>
-<div class="outline-text-3" id="text-4.7">
+<div id="outline-container-4_7" class="outline-3">
+<h3 id="sec-4_7"><span class="section-number-3">4.7</span> Selector: Attribute Equals Selector [name=value] </h3>
+<div class="outline-text-3" id="text-4_7">
 
 <p>Selects elements that have the specified attribute with a value
 exactly equal to a certain value.
@@ -367,9 +368,9 @@ exactly equal to a certain value.
 
 </div>
 
-<div id="outline-container-4.8" class="outline-3">
-<h3 id="sec-4.8"><span class="section-number-3">4.8</span> Selector: Attribute Not Equal Selector [name!=value] </h3>
-<div class="outline-text-3" id="text-4.8">
+<div id="outline-container-4_8" class="outline-3">
+<h3 id="sec-4_8"><span class="section-number-3">4.8</span> Selector: Attribute Not Equal Selector [name!=value] </h3>
+<div class="outline-text-3" id="text-4_8">
 
 <p>Select elements that either don't have the specified attribute, or
 do have the specified attribute but not with a certain value.
@@ -378,9 +379,9 @@ do have the specified attribute but not with a certain value.
 
 </div>
 
-<div id="outline-container-4.9" class="outline-3">
-<h3 id="sec-4.9"><span class="section-number-3">4.9</span> Selector: Attribute Starts With Selector [name^=value] </h3>
-<div class="outline-text-3" id="text-4.9">
+<div id="outline-container-4_9" class="outline-3">
+<h3 id="sec-4_9"><span class="section-number-3">4.9</span> Selector: Attribute Starts With Selector [name^=value] </h3>
+<div class="outline-text-3" id="text-4_9">
 
 <p>Selects elements that have the specified attribute with a value
 beginning exactly with a given string.
@@ -389,9 +390,9 @@ beginning exactly with a given string.
 
 </div>
 
-<div id="outline-container-4.10" class="outline-3">
-<h3 id="sec-4.10"><span class="section-number-3">4.10</span> Selector: :button Selector </h3>
-<div class="outline-text-3" id="text-4.10">
+<div id="outline-container-4_10" class="outline-3">
+<h3 id="sec-4_10"><span class="section-number-3">4.10</span> Selector: :button Selector </h3>
+<div class="outline-text-3" id="text-4_10">
 
 <p>Selects all button elements and elements of type button.
 </p>
@@ -399,9 +400,9 @@ beginning exactly with a given string.
 
 </div>
 
-<div id="outline-container-4.11" class="outline-3">
-<h3 id="sec-4.11"><span class="section-number-3">4.11</span> Selector: :checkbox Selector </h3>
-<div class="outline-text-3" id="text-4.11">
+<div id="outline-container-4_11" class="outline-3">
+<h3 id="sec-4_11"><span class="section-number-3">4.11</span> Selector: :checkbox Selector </h3>
+<div class="outline-text-3" id="text-4_11">
 
 <p>Selects all elements of type checkbox.
 </p>
@@ -409,9 +410,9 @@ beginning exactly with a given string.
 
 </div>
 
-<div id="outline-container-4.12" class="outline-3">
-<h3 id="sec-4.12"><span class="section-number-3">4.12</span> Selector: :checked Selector </h3>
-<div class="outline-text-3" id="text-4.12">
+<div id="outline-container-4_12" class="outline-3">
+<h3 id="sec-4_12"><span class="section-number-3">4.12</span> Selector: :checked Selector </h3>
+<div class="outline-text-3" id="text-4_12">
 
 <p>Matches all elements that are checked.
 </p>
@@ -419,9 +420,9 @@ beginning exactly with a given string.
 
 </div>
 
-<div id="outline-container-4.13" class="outline-3">
-<h3 id="sec-4.13"><span class="section-number-3">4.13</span> Selector: Child Selector ("parent &gt; child") </h3>
-<div class="outline-text-3" id="text-4.13">
+<div id="outline-container-4_13" class="outline-3">
+<h3 id="sec-4_13"><span class="section-number-3">4.13</span> Selector: Child Selector ("parent &gt; child") </h3>
+<div class="outline-text-3" id="text-4_13">
 
 <p>Selects all direct child elements specified by "child" of elements
 specified by "parent".
@@ -430,9 +431,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.14" class="outline-3">
-<h3 id="sec-4.14"><span class="section-number-3">4.14</span> Selector: Class Selector (".class") </h3>
-<div class="outline-text-3" id="text-4.14">
+<div id="outline-container-4_14" class="outline-3">
+<h3 id="sec-4_14"><span class="section-number-3">4.14</span> Selector: Class Selector (".class") </h3>
+<div class="outline-text-3" id="text-4_14">
 
 <p>Selects all elements with the given class.
 </p>
@@ -440,9 +441,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.15" class="outline-3">
-<h3 id="sec-4.15"><span class="section-number-3">4.15</span> Selector: :contains() Selector </h3>
-<div class="outline-text-3" id="text-4.15">
+<div id="outline-container-4_15" class="outline-3">
+<h3 id="sec-4_15"><span class="section-number-3">4.15</span> Selector: :contains() Selector </h3>
+<div class="outline-text-3" id="text-4_15">
 
 <p>Select all elements that contain the specified text.
 </p>
@@ -450,9 +451,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.16" class="outline-3">
-<h3 id="sec-4.16"><span class="section-number-3">4.16</span> Selector: Descendant Selector ("ancestor descendant") </h3>
-<div class="outline-text-3" id="text-4.16">
+<div id="outline-container-4_16" class="outline-3">
+<h3 id="sec-4_16"><span class="section-number-3">4.16</span> Selector: Descendant Selector ("ancestor descendant") </h3>
+<div class="outline-text-3" id="text-4_16">
 
 <p>Selects all elements that are descendants of a given ancestor.
 </p>
@@ -460,9 +461,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.17" class="outline-3">
-<h3 id="sec-4.17"><span class="section-number-3">4.17</span> Selector: :disabled Selector </h3>
-<div class="outline-text-3" id="text-4.17">
+<div id="outline-container-4_17" class="outline-3">
+<h3 id="sec-4_17"><span class="section-number-3">4.17</span> Selector: :disabled Selector </h3>
+<div class="outline-text-3" id="text-4_17">
 
 <p>Selects all elements that are disabled.
 </p>
@@ -470,9 +471,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.18" class="outline-3">
-<h3 id="sec-4.18"><span class="section-number-3">4.18</span> Selector: Element Selector ("element") </h3>
-<div class="outline-text-3" id="text-4.18">
+<div id="outline-container-4_18" class="outline-3">
+<h3 id="sec-4_18"><span class="section-number-3">4.18</span> Selector: Element Selector ("element") </h3>
+<div class="outline-text-3" id="text-4_18">
 
 <p>Selects all elements with the given tag name.
 </p>
@@ -480,9 +481,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.19" class="outline-3">
-<h3 id="sec-4.19"><span class="section-number-3">4.19</span> Selector: :empty Selector </h3>
-<div class="outline-text-3" id="text-4.19">
+<div id="outline-container-4_19" class="outline-3">
+<h3 id="sec-4_19"><span class="section-number-3">4.19</span> Selector: :empty Selector </h3>
+<div class="outline-text-3" id="text-4_19">
 
 <p>Select all elements that have no children (including text nodes).
 </p>
@@ -490,9 +491,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.20" class="outline-3">
-<h3 id="sec-4.20"><span class="section-number-3">4.20</span> Selector: :enabled Selector </h3>
-<div class="outline-text-3" id="text-4.20">
+<div id="outline-container-4_20" class="outline-3">
+<h3 id="sec-4_20"><span class="section-number-3">4.20</span> Selector: :enabled Selector </h3>
+<div class="outline-text-3" id="text-4_20">
 
 <p>Selects all elements that are enabled.
 </p>
@@ -500,9 +501,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.21" class="outline-3">
-<h3 id="sec-4.21"><span class="section-number-3">4.21</span> Selector: :eq() Selector </h3>
-<div class="outline-text-3" id="text-4.21">
+<div id="outline-container-4_21" class="outline-3">
+<h3 id="sec-4_21"><span class="section-number-3">4.21</span> Selector: :eq() Selector </h3>
+<div class="outline-text-3" id="text-4_21">
 
 <p>Select the element at index n within the matched set.
 </p>
@@ -510,9 +511,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.22" class="outline-3">
-<h3 id="sec-4.22"><span class="section-number-3">4.22</span> Selector: :even Selector </h3>
-<div class="outline-text-3" id="text-4.22">
+<div id="outline-container-4_22" class="outline-3">
+<h3 id="sec-4_22"><span class="section-number-3">4.22</span> Selector: :even Selector </h3>
+<div class="outline-text-3" id="text-4_22">
 
 <p>Selects even elements, zero-indexed. See also odd.
 </p>
@@ -520,9 +521,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.23" class="outline-3">
-<h3 id="sec-4.23"><span class="section-number-3">4.23</span> Selector: :file Selector </h3>
-<div class="outline-text-3" id="text-4.23">
+<div id="outline-container-4_23" class="outline-3">
+<h3 id="sec-4_23"><span class="section-number-3">4.23</span> Selector: :file Selector </h3>
+<div class="outline-text-3" id="text-4_23">
 
 <p>Selects all elements of type file.
 </p>
@@ -530,9 +531,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.24" class="outline-3">
-<h3 id="sec-4.24"><span class="section-number-3">4.24</span> Selector: :first-child Selector </h3>
-<div class="outline-text-3" id="text-4.24">
+<div id="outline-container-4_24" class="outline-3">
+<h3 id="sec-4_24"><span class="section-number-3">4.24</span> Selector: :first-child Selector </h3>
+<div class="outline-text-3" id="text-4_24">
 
 <p>Selects all elements that are the first child of their parent.
 </p>
@@ -540,9 +541,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.25" class="outline-3">
-<h3 id="sec-4.25"><span class="section-number-3">4.25</span> Selector: :first Selector </h3>
-<div class="outline-text-3" id="text-4.25">
+<div id="outline-container-4_25" class="outline-3">
+<h3 id="sec-4_25"><span class="section-number-3">4.25</span> Selector: :first Selector </h3>
+<div class="outline-text-3" id="text-4_25">
 
 <p>Selects the first matched element.
 </p>
@@ -550,9 +551,9 @@ specified by "parent".
 
 </div>
 
-<div id="outline-container-4.26" class="outline-3">
-<h3 id="sec-4.26"><span class="section-number-3">4.26</span> Selector: :gt() Selector </h3>
-<div class="outline-text-3" id="text-4.26">
+<div id="outline-container-4_26" class="outline-3">
+<h3 id="sec-4_26"><span class="section-number-3">4.26</span> Selector: :gt() Selector </h3>
+<div class="outline-text-3" id="text-4_26">
 
 <p>Select all elements at an index greater than index within the
 matched set.
@@ -561,9 +562,9 @@ matched set.
 
 </div>
 
-<div id="outline-container-4.27" class="outline-3">
-<h3 id="sec-4.27"><span class="section-number-3">4.27</span> Selector: Has Attribute Selector [name] </h3>
-<div class="outline-text-3" id="text-4.27">
+<div id="outline-container-4_27" class="outline-3">
+<h3 id="sec-4_27"><span class="section-number-3">4.27</span> Selector: Has Attribute Selector [name] </h3>
+<div class="outline-text-3" id="text-4_27">
 
 <p>Selects elements that have the specified attribute, with any value.
 </p>
@@ -571,9 +572,9 @@ matched set.
 
 </div>
 
-<div id="outline-container-4.28" class="outline-3">
-<h3 id="sec-4.28"><span class="section-number-3">4.28</span> Selector: :has() Selector </h3>
-<div class="outline-text-3" id="text-4.28">
+<div id="outline-container-4_28" class="outline-3">
+<h3 id="sec-4_28"><span class="section-number-3">4.28</span> Selector: :has() Selector </h3>
+<div class="outline-text-3" id="text-4_28">
 
 <p>Selects elements which contain at least one element that matches
 the specified selector.
@@ -582,9 +583,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.29" class="outline-3">
-<h3 id="sec-4.29"><span class="section-number-3">4.29</span> Selector: :header Selector </h3>
-<div class="outline-text-3" id="text-4.29">
+<div id="outline-container-4_29" class="outline-3">
+<h3 id="sec-4_29"><span class="section-number-3">4.29</span> Selector: :header Selector </h3>
+<div class="outline-text-3" id="text-4_29">
 
 <p>Selects all elements that are headers, like h1, h2, h3 and so on.
 </p>
@@ -592,9 +593,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.30" class="outline-3">
-<h3 id="sec-4.30"><span class="section-number-3">4.30</span> Selector: :hidden Selector </h3>
-<div class="outline-text-3" id="text-4.30">
+<div id="outline-container-4_30" class="outline-3">
+<h3 id="sec-4_30"><span class="section-number-3">4.30</span> Selector: :hidden Selector </h3>
+<div class="outline-text-3" id="text-4_30">
 
 <p>Selects all elements that are hidden.
 </p>
@@ -602,9 +603,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.31" class="outline-3">
-<h3 id="sec-4.31"><span class="section-number-3">4.31</span> Selector: ID Selector ("#id") </h3>
-<div class="outline-text-3" id="text-4.31">
+<div id="outline-container-4_31" class="outline-3">
+<h3 id="sec-4_31"><span class="section-number-3">4.31</span> Selector: ID Selector ("#id") </h3>
+<div class="outline-text-3" id="text-4_31">
 
 <p>Selects a single element with the given id attribute.
 </p>
@@ -612,9 +613,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.32" class="outline-3">
-<h3 id="sec-4.32"><span class="section-number-3">4.32</span> Selector: :image Selector </h3>
-<div class="outline-text-3" id="text-4.32">
+<div id="outline-container-4_32" class="outline-3">
+<h3 id="sec-4_32"><span class="section-number-3">4.32</span> Selector: :image Selector </h3>
+<div class="outline-text-3" id="text-4_32">
 
 <p>Selects all elements of type image.
 </p>
@@ -622,9 +623,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.33" class="outline-3">
-<h3 id="sec-4.33"><span class="section-number-3">4.33</span> Selector: :input Selector </h3>
-<div class="outline-text-3" id="text-4.33">
+<div id="outline-container-4_33" class="outline-3">
+<h3 id="sec-4_33"><span class="section-number-3">4.33</span> Selector: :input Selector </h3>
+<div class="outline-text-3" id="text-4_33">
 
 <p>Selects all input, textarea, select and button elements.
 </p>
@@ -632,9 +633,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.34" class="outline-3">
-<h3 id="sec-4.34"><span class="section-number-3">4.34</span> Selector: :last-child Selector </h3>
-<div class="outline-text-3" id="text-4.34">
+<div id="outline-container-4_34" class="outline-3">
+<h3 id="sec-4_34"><span class="section-number-3">4.34</span> Selector: :last-child Selector </h3>
+<div class="outline-text-3" id="text-4_34">
 
 <p>Selects all elements that are the last child of their parent.
 </p>
@@ -642,9 +643,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.35" class="outline-3">
-<h3 id="sec-4.35"><span class="section-number-3">4.35</span> Selector: :last Selector </h3>
-<div class="outline-text-3" id="text-4.35">
+<div id="outline-container-4_35" class="outline-3">
+<h3 id="sec-4_35"><span class="section-number-3">4.35</span> Selector: :last Selector </h3>
+<div class="outline-text-3" id="text-4_35">
 
 <p>Selects the last matched element.
 </p>
@@ -652,9 +653,9 @@ the specified selector.
 
 </div>
 
-<div id="outline-container-4.36" class="outline-3">
-<h3 id="sec-4.36"><span class="section-number-3">4.36</span> Selector: :lt() Selector </h3>
-<div class="outline-text-3" id="text-4.36">
+<div id="outline-container-4_36" class="outline-3">
+<h3 id="sec-4_36"><span class="section-number-3">4.36</span> Selector: :lt() Selector </h3>
+<div class="outline-text-3" id="text-4_36">
 
 <p>Select all elements at an index less than index within the matched
 set.
@@ -663,9 +664,9 @@ set.
 
 </div>
 
-<div id="outline-container-4.37" class="outline-3">
-<h3 id="sec-4.37"><span class="section-number-3">4.37</span> Selector: Multiple Attribute Selector [name=value][name2=value2] </h3>
-<div class="outline-text-3" id="text-4.37">
+<div id="outline-container-4_37" class="outline-3">
+<h3 id="sec-4_37"><span class="section-number-3">4.37</span> Selector: Multiple Attribute Selector [name=value][name2=value2] </h3>
+<div class="outline-text-3" id="text-4_37">
 
 <p>Matches elements that match all of the specified attribute filters.
 </p>
@@ -673,9 +674,9 @@ set.
 
 </div>
 
-<div id="outline-container-4.38" class="outline-3">
-<h3 id="sec-4.38"><span class="section-number-3">4.38</span> Selector: Multiple Selector ("selector1, selector2, selectorN") </h3>
-<div class="outline-text-3" id="text-4.38">
+<div id="outline-container-4_38" class="outline-3">
+<h3 id="sec-4_38"><span class="section-number-3">4.38</span> Selector: Multiple Selector ("selector1, selector2, selectorN") </h3>
+<div class="outline-text-3" id="text-4_38">
 
 <p>Selects the combined results of all the specified selectors.
 </p>
@@ -683,9 +684,9 @@ set.
 
 </div>
 
-<div id="outline-container-4.39" class="outline-3">
-<h3 id="sec-4.39"><span class="section-number-3">4.39</span> Selector: Next Adjacent Selector ("prev + next") </h3>
-<div class="outline-text-3" id="text-4.39">
+<div id="outline-container-4_39" class="outline-3">
+<h3 id="sec-4_39"><span class="section-number-3">4.39</span> Selector: Next Adjacent Selector ("prev + next") </h3>
+<div class="outline-text-3" id="text-4_39">
 
 <p>Selects all next elements matching "next" that are immediately
 preceded by a sibling "prev".
@@ -694,9 +695,9 @@ preceded by a sibling "prev".
 
 </div>
 
-<div id="outline-container-4.40" class="outline-3">
-<h3 id="sec-4.40"><span class="section-number-3">4.40</span> Selector: Next Siblings Selector ("prev ~ siblings") </h3>
-<div class="outline-text-3" id="text-4.40">
+<div id="outline-container-4_40" class="outline-3">
+<h3 id="sec-4_40"><span class="section-number-3">4.40</span> Selector: Next Siblings Selector ("prev ~ siblings") </h3>
+<div class="outline-text-3" id="text-4_40">
 
 <p>Selects all sibling elements that follow after the "prev" element,
 have the same parent, and match the filtering "siblings" selector.
@@ -705,9 +706,9 @@ have the same parent, and match the filtering "siblings" selector.
 
 </div>
 
-<div id="outline-container-4.41" class="outline-3">
-<h3 id="sec-4.41"><span class="section-number-3">4.41</span> Selector: :not() Selector </h3>
-<div class="outline-text-3" id="text-4.41">
+<div id="outline-container-4_41" class="outline-3">
+<h3 id="sec-4_41"><span class="section-number-3">4.41</span> Selector: :not() Selector </h3>
+<div class="outline-text-3" id="text-4_41">
 
 <p>Selects all elements that do not match the given selector.
 </p>
@@ -715,9 +716,9 @@ have the same parent, and match the filtering "siblings" selector.
 
 </div>
 
-<div id="outline-container-4.42" class="outline-3">
-<h3 id="sec-4.42"><span class="section-number-3">4.42</span> Selector: :nth-child Selector </h3>
-<div class="outline-text-3" id="text-4.42">
+<div id="outline-container-4_42" class="outline-3">
+<h3 id="sec-4_42"><span class="section-number-3">4.42</span> Selector: :nth-child Selector </h3>
+<div class="outline-text-3" id="text-4_42">
 
 <p>Selects all elements that are the nth-child of their parent.
 </p>
@@ -725,9 +726,9 @@ have the same parent, and match the filtering "siblings" selector.
 
 </div>
 
-<div id="outline-container-4.43" class="outline-3">
-<h3 id="sec-4.43"><span class="section-number-3">4.43</span> Selector: :odd Selector </h3>
-<div class="outline-text-3" id="text-4.43">
+<div id="outline-container-4_43" class="outline-3">
+<h3 id="sec-4_43"><span class="section-number-3">4.43</span> Selector: :odd Selector </h3>
+<div class="outline-text-3" id="text-4_43">
 
 <p>Selects odd elements, zero-indexed. See also even.
 </p>
@@ -735,9 +736,9 @@ have the same parent, and match the filtering "siblings" selector.
 
 </div>
 
-<div id="outline-container-4.44" class="outline-3">
-<h3 id="sec-4.44"><span class="section-number-3">4.44</span> Selector: :only-child Selector </h3>
-<div class="outline-text-3" id="text-4.44">
+<div id="outline-container-4_44" class="outline-3">
+<h3 id="sec-4_44"><span class="section-number-3">4.44</span> Selector: :only-child Selector </h3>
+<div class="outline-text-3" id="text-4_44">
 
 <p>Selects all elements that are the only child of their parent.
 </p>
@@ -745,9 +746,9 @@ have the same parent, and match the filtering "siblings" selector.
 
 </div>
 
-<div id="outline-container-4.45" class="outline-3">
-<h3 id="sec-4.45"><span class="section-number-3">4.45</span> Selector: :parent Selector </h3>
-<div class="outline-text-3" id="text-4.45">
+<div id="outline-container-4_45" class="outline-3">
+<h3 id="sec-4_45"><span class="section-number-3">4.45</span> Selector: :parent Selector </h3>
+<div class="outline-text-3" id="text-4_45">
 
 <p>Select all elements that are the parent of another element,
 including text nodes.
@@ -756,9 +757,9 @@ including text nodes.
 
 </div>
 
-<div id="outline-container-4.46" class="outline-3">
-<h3 id="sec-4.46"><span class="section-number-3">4.46</span> Selector: :password Selector </h3>
-<div class="outline-text-3" id="text-4.46">
+<div id="outline-container-4_46" class="outline-3">
+<h3 id="sec-4_46"><span class="section-number-3">4.46</span> Selector: :password Selector </h3>
+<div class="outline-text-3" id="text-4_46">
 
 <p>Selects all elements of type password.
 </p>
@@ -766,9 +767,9 @@ including text nodes.
 
 </div>
 
-<div id="outline-container-4.47" class="outline-3">
-<h3 id="sec-4.47"><span class="section-number-3">4.47</span> Selector: :radio Selector </h3>
-<div class="outline-text-3" id="text-4.47">
+<div id="outline-container-4_47" class="outline-3">
+<h3 id="sec-4_47"><span class="section-number-3">4.47</span> Selector: :radio Selector </h3>
+<div class="outline-text-3" id="text-4_47">
 
 <p>Selects all elements of type radio.
 </p>
@@ -776,9 +777,9 @@ including text nodes.
 
 </div>
 
-<div id="outline-container-4.48" class="outline-3">
-<h3 id="sec-4.48"><span class="section-number-3">4.48</span> Selector: :reset Selector </h3>
-<div class="outline-text-3" id="text-4.48">
+<div id="outline-container-4_48" class="outline-3">
+<h3 id="sec-4_48"><span class="section-number-3">4.48</span> Selector: :reset Selector </h3>
+<div class="outline-text-3" id="text-4_48">
 
 <p>Selects all elements of type reset.
 </p>
@@ -786,9 +787,9 @@ including text nodes.
 
 </div>
 
-<div id="outline-container-4.49" class="outline-3">
-<h3 id="sec-4.49"><span class="section-number-3">4.49</span> Selector: :selected Selector </h3>
-<div class="outline-text-3" id="text-4.49">
+<div id="outline-container-4_49" class="outline-3">
+<h3 id="sec-4_49"><span class="section-number-3">4.49</span> Selector: :selected Selector </h3>
+<div class="outline-text-3" id="text-4_49">
 
 <p>Selects all elements that are selected.
 </p>
@@ -796,9 +797,9 @@ including text nodes.
 
 </div>
 
-<div id="outline-container-4.50" class="outline-3">
-<h3 id="sec-4.50"><span class="section-number-3">4.50</span> Selector: :submit Selector </h3>
-<div class="outline-text-3" id="text-4.50">
+<div id="outline-container-4_50" class="outline-3">
+<h3 id="sec-4_50"><span class="section-number-3">4.50</span> Selector: :submit Selector </h3>
+<div class="outline-text-3" id="text-4_50">
 
 <p>Selects all elements of type submit.
 </p>
@@ -806,9 +807,9 @@ including text nodes.
 
 </div>
 
-<div id="outline-container-4.51" class="outline-3">
-<h3 id="sec-4.51"><span class="section-number-3">4.51</span> Selector: :text Selector </h3>
-<div class="outline-text-3" id="text-4.51">
+<div id="outline-container-4_51" class="outline-3">
+<h3 id="sec-4_51"><span class="section-number-3">4.51</span> Selector: :text Selector </h3>
+<div class="outline-text-3" id="text-4_51">
 
 <p>Selects all elements of type text.
 </p>
@@ -816,9 +817,9 @@ including text nodes.
 
 </div>
 
-<div id="outline-container-4.52" class="outline-3">
-<h3 id="sec-4.52"><span class="section-number-3">4.52</span> Selector: :visible Selector </h3>
-<div class="outline-text-3" id="text-4.52">
+<div id="outline-container-4_52" class="outline-3">
+<h3 id="sec-4_52"><span class="section-number-3">4.52</span> Selector: :visible Selector </h3>
+<div class="outline-text-3" id="text-4_52">
 
 <p>Selects all elements that are visible.
 </p></div>
@@ -826,10 +827,9 @@ including text nodes.
 </div>
 <div id="postamble">
 <p class="author"> Author: Rusty Klophaus (@rklophaus)
-<a href="mailto:">&lt;&gt;</a>
 </p>
-<p class="date"> Date: 2010-06-14 18:34:59 EDT</p>
-<p class="creator">HTML generated by org-mode 6.33f in emacs 22</p>
+<p class="date"> Date: 2010-11-22 10:50:06 EST</p>
+<p class="creator">HTML generated by org-mode 7.01h in emacs 24</p>
 </div>
 </div>
 </body>

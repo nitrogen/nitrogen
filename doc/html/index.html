@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>Getting Started with Nitrogen</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-06-14 18:35:00 EDT"/>
+<meta name="generated" content="2010-11-22 11:07:58 EST"/>
 <meta name="author" content="Rusty Klophaus (@rklophaus)"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -35,6 +35,7 @@ lang="en" xml:lang="en">
   dt { font-weight: bold; }
   div.figure { padding: 0.5em; }
   div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
   .linenr { font-size:smaller }
   .code-highlighted {background-color:#ffff00;}
   .org-info-js_info-navigation { border-style:none; }
@@ -85,19 +86,20 @@ lang="en" xml:lang="en">
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#sec-1">1 Common Questions </a></li>
-<li><a href="#sec-2">2 How do I create a new Nitrogen application? </a></li>
-<li><a href="#sec-3">3 How do I start/stop/manage Nitrogen? </a></li>
-<li><a href="#sec-4">4 How do I change configuration settings? </a>
+<li><a href="#sec-2">2 Is there a Nitrogen Tutorial? </a></li>
+<li><a href="#sec-3">3 How do I create a new Nitrogen application? </a></li>
+<li><a href="#sec-4">4 How do I start/stop/manage Nitrogen? </a></li>
+<li><a href="#sec-5">5 How do I change configuration settings? </a>
 <ul>
-<li><a href="#sec-4.1">4.1 Inets Configuration </a></li>
-<li><a href="#sec-4.2">4.2 Mochiweb Configuration </a></li>
-<li><a href="#sec-4.3">4.3 Yaws Configuration </a></li>
+<li><a href="#sec-5_1">5.1 Inets Configuration </a></li>
+<li><a href="#sec-5_2">5.2 Mochiweb Configuration </a></li>
+<li><a href="#sec-5_3">5.3 Yaws Configuration </a></li>
 </ul>
 </li>
-<li><a href="#sec-5">5 Where is the code for my website? </a></li>
-<li><a href="#sec-6">6 How do I compile my code? </a></li>
-<li><a href="#sec-7">7 How do I create new pages, custom elements, or custom actions? </a></li>
-<li><a href="#sec-8">8 How do I upgrade to a new version of Nitrogen? </a></li>
+<li><a href="#sec-6">6 Where is the code for my website? </a></li>
+<li><a href="#sec-7">7 How do I compile my code? </a></li>
+<li><a href="#sec-8">8 How do I create new pages, custom elements, or custom actions? </a></li>
+<li><a href="#sec-9">9 How do I upgrade to a new version of Nitrogen? </a></li>
 </ul>
 </div>
 </div>
@@ -109,25 +111,28 @@ lang="en" xml:lang="en">
 
 <ul>
 <li>
-<a href="#sec-2">How do I create a new Nitrogen application?</a>
+<a href="#sec-2">Is there a Nitrogen Tutorial?</a>
 </li>
 <li>
-<a href="#sec-3">How do I start and stop my application?</a>
+<a href="#sec-3">How do I create a new Nitrogen application?</a>
 </li>
 <li>
-<a href="#sec-4">How do I change configuration settings?</a>
+<a href="#sec-4">How do I start and stop my application?</a>
 </li>
 <li>
-<a href="#sec-5">Where is the code for my website?</a>
+<a href="#sec-5">How do I change configuration settings?</a>
 </li>
 <li>
-<a href="#sec-6">How do I compile my code?</a>
+<a href="#sec-6">Where is the code for my website?</a>
 </li>
 <li>
-<a href="#sec-7">How do I create new pages, custom elements, or custom actions?</a>
+<a href="#sec-7">How do I compile my code?</a>
 </li>
 <li>
-<a href="#sec-8">How do I upgrade to a new version of Nitrogen?</a>
+<a href="#sec-8">How do I create new pages, custom elements, or custom actions?</a>
+</li>
+<li>
+<a href="#sec-9">How do I upgrade to a new version of Nitrogen?</a>
 
 </li>
 </ul>
@@ -136,8 +141,21 @@ lang="en" xml:lang="en">
 </div>
 
 <div id="outline-container-2" class="outline-2">
-<h2 id="sec-2"><a name="1" id="1"></a><span class="section-number-2">2</span> How do I create a new Nitrogen application? </h2>
+<h2 id="sec-2"><a name="0" id="0"></a><span class="section-number-2">2</span> Is there a Nitrogen Tutorial? </h2>
 <div class="outline-text-2" id="text-2">
+
+
+<p>
+Yes! You can <a href="./tutorial.html">view the slides</a> from Rusty's Nitrogen Tutorial at the
+Erlang User Conference 2010 here.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><a name="1" id="1"></a><span class="section-number-2">3</span> How do I create a new Nitrogen application? </h2>
+<div class="outline-text-2" id="text-3">
 
 
 <p>
@@ -208,9 +226,9 @@ OTP-compliant releases and packages. Check it out, it is awesome.
 
 </div>
 
-<div id="outline-container-3" class="outline-2">
-<h2 id="sec-3"><a name="2" id="2"></a><span class="section-number-2">3</span> How do I start/stop/manage Nitrogen? </h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><a name="2" id="2"></a><span class="section-number-2">4</span> How do I start/stop/manage Nitrogen? </h2>
+<div class="outline-text-2" id="text-4">
 
 
 <p>
@@ -246,9 +264,9 @@ Once you have started your application, open
 
 </div>
 
-<div id="outline-container-4" class="outline-2">
-<h2 id="sec-4"><a name="3" id="3"></a><span class="section-number-2">4</span> How do I change configuration settings? </h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><a name="3" id="3"></a><span class="section-number-2">5</span> How do I change configuration settings? </h2>
+<div class="outline-text-2" id="text-5">
 
 
 <p>
@@ -278,9 +296,9 @@ signkey (found in <code>./etc/app.config</code>).
 
 </div>
 
-<div id="outline-container-4.1" class="outline-3">
-<h3 id="sec-4.1"><span class="section-number-3">4.1</span> Inets Configuration </h3>
-<div class="outline-text-3" id="text-4.1">
+<div id="outline-container-5_1" class="outline-3">
+<h3 id="sec-5_1"><span class="section-number-3">5.1</span> Inets Configuration </h3>
+<div class="outline-text-3" id="text-5_1">
 
 
 <p>
@@ -301,9 +319,9 @@ Inets-specific information.
 
 </div>
 
-<div id="outline-container-4.2" class="outline-3">
-<h3 id="sec-4.2"><span class="section-number-3">4.2</span> Mochiweb Configuration </h3>
-<div class="outline-text-3" id="text-4.2">
+<div id="outline-container-5_2" class="outline-3">
+<h3 id="sec-5_2"><span class="section-number-3">5.2</span> Mochiweb Configuration </h3>
+<div class="outline-text-3" id="text-5_2">
 
 
 <p>
@@ -320,9 +338,9 @@ other Mochiweb-specific information.
 
 </div>
 
-<div id="outline-container-4.3" class="outline-3">
-<h3 id="sec-4.3"><span class="section-number-3">4.3</span> Yaws Configuration </h3>
-<div class="outline-text-3" id="text-4.3">
+<div id="outline-container-5_3" class="outline-3">
+<h3 id="sec-5_3"><span class="section-number-3">5.3</span> Yaws Configuration </h3>
+<div class="outline-text-3" id="text-5_3">
 
 
 <p>
@@ -344,9 +362,9 @@ Yaws-specific information.
 
 </div>
 
-<div id="outline-container-5" class="outline-2">
-<h2 id="sec-5"><a name="4" id="4"></a><span class="section-number-2">5</span> Where is the code for my website? </h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><a name="4" id="4"></a><span class="section-number-2">6</span> Where is the code for my website? </h2>
+<div class="outline-text-2" id="text-6">
 
 
 <p>
@@ -392,9 +410,9 @@ Compiled <code>.beam</code> files.
 
 </div>
 
-<div id="outline-container-6" class="outline-2">
-<h2 id="sec-6"><a name="5" id="5"></a><span class="section-number-2">6</span> How do I compile my code? </h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><a name="5" id="5"></a><span class="section-number-2">7</span> How do I compile my code? </h2>
+<div class="outline-text-2" id="text-7">
 
 
 <p>
@@ -430,9 +448,9 @@ based on the provided Emakefile.
 
 </div>
 
-<div id="outline-container-7" class="outline-2">
-<h2 id="sec-7"><a name="6" id="6"></a><span class="section-number-2">7</span> How do I create new pages, custom elements, or custom actions? </h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><a name="6" id="6"></a><span class="section-number-2">8</span> How do I create new pages, custom elements, or custom actions? </h2>
+<div class="outline-text-2" id="text-8">
 
 
 <p>
@@ -479,9 +497,9 @@ respectively.
 
 </div>
 
-<div id="outline-container-8" class="outline-2">
-<h2 id="sec-8"><a name="7" id="7"></a><span class="section-number-2">8</span> How do I upgrade to a new version of Nitrogen? </h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><a name="7" id="7"></a><span class="section-number-2">9</span> How do I upgrade to a new version of Nitrogen? </h2>
+<div class="outline-text-2" id="text-9">
 
 
 <p>
@@ -516,10 +534,9 @@ You will also need to update your code if there are any API level changes.
 </div>
 <div id="postamble">
 <p class="author"> Author: Rusty Klophaus (@rklophaus)
-<a href="mailto:">&lt;&gt;</a>
 </p>
-<p class="date"> Date: 2010-06-14 18:35:00 EDT</p>
-<p class="creator">HTML generated by org-mode 6.33f in emacs 22</p>
+<p class="date"> Date: 2010-11-22 11:07:58 EST</p>
+<p class="creator">HTML generated by org-mode 7.01h in emacs 24</p>
 </div>
 </div>
 </body>

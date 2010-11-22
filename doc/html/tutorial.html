@@ -1,0 +1,4350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>Introduction to Nitrogen</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2010-11-22 11:02:35 EST"/>
+<meta name="author" content="Rusty Klophaus"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="tutorial.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">Introduction to Nitrogen</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Welcome </a></li>
+<li><a href="#sec-2">2 Main Agenda Slide </a>
+<ul>
+<li><a href="#sec-2_1">2.1 Agenda </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 PART 1 AGENDA </a>
+<ul>
+<li><a href="#sec-3_1">3.1 Install &amp; Run Nitrogen </a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 Install Nitrogen </a>
+<ul>
+<li><a href="#sec-4_1">4.1 Install Nitrogen </a>
+<ul>
+<li><a href="#sec-4_1_1">4.1.1 If you <b>don't</b> have Erlang Installed: </a></li>
+<li><a href="#sec-4_1_2">4.1.2 If you <b>do</b> have Erlang installed: </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 Start the Website in Console Mode </a>
+<ul>
+<li><a href="#sec-5_1">5.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-5_1_1">5.1.1 Start Up </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 Stop the Website </a>
+<ul>
+<li><a href="#sec-6_1">6.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-6_1_1">6.1.1 Shut Down </a></li>
+<li><a href="#sec-6_1_2">6.1.2 View the Directory </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 Anatomy of a Nitrogen Project </a>
+<ul>
+<li><a href="#sec-7_1">7.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-7_1_1">7.1.1 Anatomy of a Nitrogen Project </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 Anatomy of the site/ Directory </a>
+<ul>
+<li><a href="#sec-8_1">8.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-8_1_1">8.1.1 The <code>site/</code> Directory </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-9">9 Anatomy of the site/src Directory </a>
+<ul>
+<li><a href="#sec-9_1">9.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-9_1_1">9.1.1 The <code>site/src/</code> Directory </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-10">10 Exercise: Modify a Nitrogen Page </a>
+<ul>
+<li><a href="#sec-10_1">10.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-10_1_1">10.1.1 Exercise: Modify Your First Page </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-11">11 Exercise: Compile in Different Ways </a>
+<ul>
+<li><a href="#sec-11_1">11.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-11_1_1">11.1.1 Exercise: Compile in a Different Way </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-12">12 Exercise: Debugging </a>
+<ul>
+<li><a href="#sec-12_1">12.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-12_1_1">12.1.1 Debug Statements </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-13">13 Emacs Mode </a>
+<ul>
+<li><a href="#sec-13_1">13.1 Install &amp; Run Nitrogen </a>
+<ul>
+<li><a href="#sec-13_1_1">13.1.1 Emacs <code>nitrogen-mode</code> </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-14">14 PART 2 AGENDA </a>
+<ul>
+<li><a href="#sec-14_1">14.1 Nitrogen Pages </a></li>
+</ul>
+</li>
+<li><a href="#sec-15">15 What is a Nitrogen Page? </a>
+<ul>
+<li><a href="#sec-15_1">15.1 Nitrogen Pages </a>
+<ul>
+<li><a href="#sec-15_1_1">15.1.1 What is a Nitrogen Page </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-16">16 Dynamic Routes Explained </a>
+<ul>
+<li><a href="#sec-16_1">16.1 Nitrogen Pages </a>
+<ul>
+<li><a href="#sec-16_1_1">16.1.1 Dynamic Routing Explained </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-17">17 Creating a New Page </a>
+<ul>
+<li><a href="#sec-17_1">17.1 Nitrogen Pages </a>
+<ul>
+<li><a href="#sec-17_1_1">17.1.1 Exercise: Create a New Page </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-18">18 How is a Page Rendered (Simple Version) </a>
+<ul>
+<li><a href="#sec-18_1">18.1 Nitrogen Pages </a>
+<ul>
+<li><a href="#sec-18_1_1">18.1.1 How is a Page Rendered? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-19">19 Anatomy of a Template </a>
+<ul>
+<li><a href="#sec-19_1">19.1 Nitrogen Pages </a>
+<ul>
+<li><a href="#sec-19_1_1">19.1.1 Anatomy of a Template </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-20">20 Experimenting With Templates </a>
+<ul>
+<li><a href="#sec-20_1">20.1 Nitrogen Pages </a>
+<ul>
+<li><a href="#sec-20_1_1">20.1.1 Experimenting With Templates </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-21">21 PART 3 AGENDA </a>
+<ul>
+<li><a href="#sec-21_1">21.1 Nitrogen Elements </a></li>
+</ul>
+</li>
+<li><a href="#sec-22">22 What is a Nitrogen Element? </a>
+<ul>
+<li><a href="#sec-22_1">22.1 Nitrogen Elements </a>
+<ul>
+<li><a href="#sec-22_1_1">22.1.1 What is a Nitrogen Element? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-23">23 What is a Nitrogen Element? </a>
+<ul>
+<li><a href="#sec-23_1">23.1 Nitrogen Elements </a>
+<ul>
+<li><a href="#sec-23_1_1">23.1.1 What is a Nitrogen Element? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-24">24 Nitrogen Element Properties </a>
+<ul>
+<li><a href="#sec-24_1">24.1 Nitrogen Elements </a>
+<ul>
+<li><a href="#sec-24_1_1">24.1.1 Why Nitrogen Elements? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-25">25 Nitrogen Element Examples </a>
+<ul>
+<li><a href="#sec-25_1">25.1 Nitrogen Elements </a>
+<ul>
+<li><a href="#sec-25_1_1">25.1.1 Nitrogen Element Examples </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-26">26 Nested Elements </a>
+<ul>
+<li><a href="#sec-26_1">26.1 Nitrogen Elements </a>
+<ul>
+<li><a href="#sec-26_1_1">26.1.1 Nested Elements </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-27">27 PART 4 AGENDA </a>
+<ul>
+<li><a href="#sec-27_1">27.1 Nitrogen Actions </a></li>
+</ul>
+</li>
+<li><a href="#sec-28">28 What is a Nitrogen Action? </a>
+<ul>
+<li><a href="#sec-28_1">28.1 Nitrogen Actions </a>
+<ul>
+<li><a href="#sec-28_1_1">28.1.1 What is a Nitrogen Action? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-29">29 What is a Nitrogen Action? </a>
+<ul>
+<li><a href="#sec-29_1">29.1 Nitrogen Actions </a>
+<ul>
+<li><a href="#sec-29_1_1">29.1.1 What is a Nitrogen Action? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-30">30 Wiring an Action </a>
+<ul>
+<li><a href="#sec-30_1">30.1 Nitrogen Actions </a>
+<ul>
+<li><a href="#sec-30_1_1">30.1.1 Wiring an Action </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-31">31 Conditional Actions with <code>#event{}</code> </a>
+<ul>
+<li><a href="#sec-31_1">31.1 Nitrogen Actions </a>
+<ul>
+<li><a href="#sec-31_1_1">31.1.1 Conditional Actions with <code>#event{}</code> </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-32">32 Triggers and Targets </a>
+<ul>
+<li><a href="#sec-32_1">32.1 Nitrogen Actions </a>
+<ul>
+<li><a href="#sec-32_1_1">32.1.1 Triggers and Targets </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-33">33 Triggers and Targets </a>
+<ul>
+<li><a href="#sec-33_1">33.1 Nitrogen Actions </a>
+<ul>
+<li><a href="#sec-33_1_1">33.1.1 Triggers and Targets </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-34">34 Quick Review </a>
+<ul>
+<li><a href="#sec-34_1">34.1 Nitrogen Actions </a>
+<ul>
+<li><a href="#sec-34_1_1">34.1.1 Quick Review </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-35">35 PART 5 AGENDA </a>
+<ul>
+<li><a href="#sec-35_1">35.1 Nitrogen Events </a></li>
+</ul>
+</li>
+<li><a href="#sec-36">36 What is a Postback? </a>
+<ul>
+<li><a href="#sec-36_1">36.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-36_1_1">36.1.1 What is a Postback? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-37">37 Your First Postback </a>
+<ul>
+<li><a href="#sec-37_1">37.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-37_1_1">37.1.1 Your First Postback </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-38">38 Postback Shortcuts </a>
+<ul>
+<li><a href="#sec-38_1">38.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-38_1_1">38.1.1 Postback Shortcuts </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-39">39 Postback Shortcuts </a>
+<ul>
+<li><a href="#sec-39_1">39.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-39_1_1">39.1.1 Postback Shortcuts </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-40">40 More Event Examples </a>
+<ul>
+<li><a href="#sec-40_1">40.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-40_1_1">40.1.1 More Event Examples </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-41">41 More Event Examples </a>
+<ul>
+<li><a href="#sec-41_1">41.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-41_1_1">41.1.1 More Event Examples </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-42">42 Modifying Elements </a>
+<ul>
+<li><a href="#sec-42_1">42.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-42_1_1">42.1.1 Modifying Elements </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-43">43 More Page Manipulation </a>
+<ul>
+<li><a href="#sec-43_1">43.1 Nitrogen Events </a>
+<ul>
+<li><a href="#sec-43_1_1">43.1.1 More Page Manipulation </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-44">44 PART 6 AGENDA </a>
+<ul>
+<li><a href="#sec-44_1">44.1 Remembering State </a></li>
+</ul>
+</li>
+<li><a href="#sec-45">45 Page State vs. Session State </a>
+<ul>
+<li><a href="#sec-45_1">45.1 Remembering State </a>
+<ul>
+<li><a href="#sec-45_1_1">45.1.1 Page State vs. Session State </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-46">46 Page State </a>
+<ul>
+<li><a href="#sec-46_1">46.1 Remembering State </a>
+<ul>
+<li><a href="#sec-46_1_1">46.1.1 Page State </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-47">47 Page State </a>
+<ul>
+<li><a href="#sec-47_1">47.1 Remembering State </a>
+<ul>
+<li><a href="#sec-47_1_1">47.1.1 Page State </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-48">48 Session State </a>
+<ul>
+<li><a href="#sec-48_1">48.1 Remembering State </a>
+<ul>
+<li><a href="#sec-48_1_1">48.1.1 Session State </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-49">49 Session State </a>
+<ul>
+<li><a href="#sec-49_1">49.1 Remembering State </a>
+<ul>
+<li><a href="#sec-49_1_1">49.1.1 Session State </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-50">50 PART 7 AGENDA </a>
+<ul>
+<li><a href="#sec-50_1">50.1 Security </a></li>
+</ul>
+</li>
+<li><a href="#sec-51">51 Limiting Access to a Page </a>
+<ul>
+<li><a href="#sec-51_1">51.1 Security </a>
+<ul>
+<li><a href="#sec-51_1_1">51.1.1 Limiting Access to a Page </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-52">52 Authentication and Authorization Functions </a>
+<ul>
+<li><a href="#sec-52_1">52.1 Security </a>
+<ul>
+<li><a href="#sec-52_1_1">52.1.1 Authentication and Authorization Functions </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-53">53 Page Redirection Functions </a>
+<ul>
+<li><a href="#sec-53_1">53.1 Security </a>
+<ul>
+<li><a href="#sec-53_1_1">53.1.1 Page Redirection Functions </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-54">54 Creating a Secure Page - Step 1 </a>
+<ul>
+<li><a href="#sec-54_1">54.1 Security </a>
+<ul>
+<li><a href="#sec-54_1_1">54.1.1 Creating a Secure Page - Step 1 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-55">55 Creating a Secure Page - Step 2 </a>
+<ul>
+<li><a href="#sec-55_1">55.1 Security </a>
+<ul>
+<li><a href="#sec-55_1_1">55.1.1 Creating a Secure Page - Step 2 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-56">56 Creating a Secure Page - Step 3 </a>
+<ul>
+<li><a href="#sec-56_1">56.1 Security </a>
+<ul>
+<li><a href="#sec-56_1_1">56.1.1 Creating a Secure Page - Step 3 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-57">57 Creating a Secure Page - Step 4 </a>
+<ul>
+<li><a href="#sec-57_1">57.1 Security </a>
+<ul>
+<li><a href="#sec-57_1_1">57.1.1 Creating a Secure Page - Step 4 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-58">58 PART 8 AGENDA </a>
+<ul>
+<li><a href="#sec-58_1">58.1 Validation </a></li>
+</ul>
+</li>
+<li><a href="#sec-59">59 Overview of Nitrogen Validation </a>
+<ul>
+<li><a href="#sec-59_1">59.1 Validation </a>
+<ul>
+<li><a href="#sec-59_1_1">59.1.1 Overview of Nitrogen Validation </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-60">60 Overview of Nitrogen Validation </a>
+<ul>
+<li><a href="#sec-60_1">60.1 Validation </a>
+<ul>
+<li><a href="#sec-60_1_1">60.1.1 Overview of Nitrogen Validation </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-61">61 Overview of Nitrogen Validation </a>
+<ul>
+<li><a href="#sec-61_1">61.1 Validation </a>
+<ul>
+<li><a href="#sec-61_1_1">61.1.1 Overview of Nitrogen Validation </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-62">62 Overview of Nitrogen Validation </a>
+<ul>
+<li><a href="#sec-62_1">62.1 Validation </a>
+<ul>
+<li><a href="#sec-62_1_1">62.1.1 Overview of Nitrogen Validation </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-63">63 PART 9 AGENDA </a>
+<ul>
+<li><a href="#sec-63_1">63.1 Comet </a></li>
+</ul>
+</li>
+<li><a href="#sec-64">64 What is Comet? </a>
+<ul>
+<li><a href="#sec-64_1">64.1 Comet </a>
+<ul>
+<li><a href="#sec-64_1_1">64.1.1 What is Comet? </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-65">65 Comet the Nitrogen/Erlang Way </a>
+<ul>
+<li><a href="#sec-65_1">65.1 Comet </a>
+<ul>
+<li><a href="#sec-65_1_1">65.1.1 Comet the Nitrogen/Erlang Way </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-66">66 A Comet Counter </a>
+<ul>
+<li><a href="#sec-66_1">66.1 Comet </a>
+<ul>
+<li><a href="#sec-66_1_1">66.1.1 A Comet Counter </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-67">67 Comet Pools </a>
+<ul>
+<li><a href="#sec-67_1">67.1 Comet </a>
+<ul>
+<li><a href="#sec-67_1_1">67.1.1 Comet Pools </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-68">68 Comet Pool Scope </a>
+<ul>
+<li><a href="#sec-68_1">68.1 Comet </a>
+<ul>
+<li><a href="#sec-68_1_1">68.1.1 Comet Pool Scope </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-69">69 The Simplest Chatroom Ever Constructed </a>
+<ul>
+<li><a href="#sec-69_1">69.1 Comet </a>
+<ul>
+<li><a href="#sec-69_1_1">69.1.1 The Simplest Chatroom Ever Constructed </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-70">70 PART 10 AGENDA </a>
+<ul>
+<li><a href="#sec-70_1">70.1 Extending Nitrogen </a></li>
+</ul>
+</li>
+<li><a href="#sec-71">71 Custom Elements - Part 1 </a>
+<ul>
+<li><a href="#sec-71_1">71.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-71_1_1">71.1.1 Custom Elements - Part 1 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-72">72 Custom Elements - Part 2 </a>
+<ul>
+<li><a href="#sec-72_1">72.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-72_1_1">72.1.1 Custom Elements - Part 2 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-73">73 Custom Elements - Part 3 </a>
+<ul>
+<li><a href="#sec-73_1">73.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-73_1_1">73.1.1 Custom Elements - Part 3 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-74">74 Custom Elements - Part 4 </a>
+<ul>
+<li><a href="#sec-74_1">74.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-74_1_1">74.1.1 Custom Elements - Part 4 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-75">75 Custom Actions - Part 1 </a>
+<ul>
+<li><a href="#sec-75_1">75.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-75_1_1">75.1.1 Custom Actions - Part 1 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-76">76 Custom Actions - Part 2 </a>
+<ul>
+<li><a href="#sec-76_1">76.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-76_1_1">76.1.1 Custom Actions - Part 2 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-77">77 Custom Actions - Part 3 </a>
+<ul>
+<li><a href="#sec-77_1">77.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-77_1_1">77.1.1 Custom Actions - Part 3 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-78">78 Handlers - Part 1 </a>
+<ul>
+<li><a href="#sec-78_1">78.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-78_1_1">78.1.1 Handlers - Part 1 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-79">79 Handlers - Part 2 </a>
+<ul>
+<li><a href="#sec-79_1">79.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-79_1_1">79.1.1 Handlers - Part 2 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-80">80 Handlers - Part 3 </a>
+<ul>
+<li><a href="#sec-80_1">80.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-80_1_1">80.1.1 Handlers - Part 3 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-81">81 Handlers - Part 3 </a>
+<ul>
+<li><a href="#sec-81_1">81.1 Extending Nitrogen </a>
+<ul>
+<li><a href="#sec-81_1_1">81.1.1 Handlers - Part 3 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-82">82 Conclusion </a>
+<ul>
+<li><a href="#sec-82_1">82.1 Conclusion </a></li>
+</ul>
+</li>
+<li><a href="#sec-83">83 Conclusion </a>
+<ul>
+<li><a href="#sec-83_1">83.1 Thanks </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Welcome </h2>
+<div class="outline-text-2" id="text-1">
+
+
+<div style="text-align:center; font-size: 400%; line-height: 1em;">
+<br>
+Introduction to Nitrogen
+<hr>
+</div>
+<div style="text-align:center; font-size: 100%; line-height: 1.5em;">
+A step-by-step introduction to the<br>
+major features and concepts behind<br>
+the Nitrogen Web Framework.
+</div>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Main Agenda Slide </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> Agenda </h3>
+<div class="outline-text-3" id="text-2_1">
+
+<ul>
+<li>
+Part 1: Install &amp; Run Nitrogen
+</li>
+<li>
+Part 2: Nitrogen Pages
+</li>
+<li>
+Part 3: Nitrogen Elements
+</li>
+<li>
+Part 4: Nitrogen Actions
+</li>
+<li>
+Part 5: Nitrogen Postback Events
+</li>
+<li>
+Part 6: Session and Page State
+</li>
+<li>
+Part 7: Security
+</li>
+<li>
+Part 8: Validation
+</li>
+<li>
+Part 9: Comet
+</li>
+<li>
+Part 10: Extending Nitrogen
+</li>
+<li>
+Conclusion
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> PART 1 AGENDA </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-3_1">
+
+
+<ul>
+<li>
+Install Nitrogen
+</li>
+<li>
+Run the Website
+</li>
+<li>
+A Tour Through the Files
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Install Nitrogen </h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4_1" class="outline-3">
+<h3 id="sec-4_1"><span class="section-number-3">4.1</span> Install Nitrogen </h3>
+<div class="outline-text-3" id="text-4_1">
+
+
+
+</div>
+
+<div id="outline-container-4_1_1" class="outline-4">
+<h4 id="sec-4_1_1"><span class="section-number-4">4.1.1</span> If you <b>don't</b> have Erlang Installed: </h4>
+<div class="outline-text-4" id="text-4_1_1">
+
+
+<p>
+<a href="http://nitrogenproject.com/downloads">Download Nitrogen</a>, unzip and <code>cd nitrogen</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4_1_2" class="outline-4">
+<h4 id="sec-4_1_2"><span class="section-number-4">4.1.2</span> If you <b>do</b> have Erlang installed: </h4>
+<div class="outline-text-4" id="text-4_1_2">
+
+
+<p>
+Pull the <a href="http://github.com/rklophaus/nitrogen">Nitrogen Source Code</a>, then <code>make rel_inets; cd rel/nitrogen</code>.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Start the Website in Console Mode </h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5_1" class="outline-3">
+<h3 id="sec-5_1"><span class="section-number-3">5.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-5_1">
+
+
+</div>
+
+<div id="outline-container-5_1_1" class="outline-4">
+<h4 id="sec-5_1_1"><span class="section-number-4">5.1.1</span> Start Up </h4>
+<div class="outline-text-4" id="text-5_1_1">
+
+<pre class="example">
+bin/nitrogen console
+open http://localhost:8000
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Stop the Website </h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6_1" class="outline-3">
+<h3 id="sec-6_1"><span class="section-number-3">6.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-6_1">
+
+
+</div>
+
+<div id="outline-container-6_1_1" class="outline-4">
+<h4 id="sec-6_1_1"><span class="section-number-4">6.1.1</span> Shut Down </h4>
+<div class="outline-text-4" id="text-6_1_1">
+
+<p><i>Press Control-C twice.</i>
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6_1_2" class="outline-4">
+<h4 id="sec-6_1_2"><span class="section-number-4">6.1.2</span> View the Directory </h4>
+<div class="outline-text-4" id="text-6_1_2">
+
+<pre class="example">
+ls -l
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Anatomy of a Nitrogen Project </h2>
+<div class="outline-text-2" id="text-7">
+
+
+</div>
+
+<div id="outline-container-7_1" class="outline-3">
+<h3 id="sec-7_1"><span class="section-number-3">7.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-7_1">
+
+
+</div>
+
+<div id="outline-container-7_1_1" class="outline-4">
+<h4 id="sec-7_1_1"><span class="section-number-4">7.1.1</span> Anatomy of a Nitrogen Project </h4>
+<div class="outline-text-4" id="text-7_1_1">
+
+<dl>
+<dt>BuildInfo.txt</dt><dd>
+From <code>uname</code>.
+</dd>
+<dt>Makefile</dt><dd>
+Used by <code>make</code>.
+</dd>
+<dt>bin/</dt><dd>
+Commands to start and stop system, plus developer tools.
+</dd>
+<dt>etc/</dt><dd>
+Configuration settings.
+</dd>
+<dt>site/</dt><dd>
+Contains the website files, templates, and Erlang modules.
+</dd>
+<dt>log/</dt><dd>
+The logs.
+</dd>
+<dt>doc/</dt><dd>
+Contains Nitrogen documentation.
+</dd>
+<dt>erts-5.7.5/</dt><dd>
+Embedded Erlang.
+</dd>
+<dt>releases/</dt><dd>
+Tells Erlang how to start the system.
+</dd>
+<dt>lib/</dt><dd>
+Dependent libraries.
+
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Anatomy of the site/ Directory </h2>
+<div class="outline-text-2" id="text-8">
+
+
+</div>
+
+<div id="outline-container-8_1" class="outline-3">
+<h3 id="sec-8_1"><span class="section-number-3">8.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-8_1">
+
+
+</div>
+
+<div id="outline-container-8_1_1" class="outline-4">
+<h4 id="sec-8_1_1"><span class="section-number-4">8.1.1</span> The <code>site/</code> Directory </h4>
+<div class="outline-text-4" id="text-8_1_1">
+
+<p>The site directory should go under source control, it contains all
+of the information necessary to run the website.
+</p>
+<dl>
+<dt>Emakefile</dt><dd>
+Used by make.erl to compile the system.
+</dd>
+<dt>ebin/</dt><dd>
+Compiled Erlang modules.
+</dd>
+<dt>include/</dt><dd>
+Include files for your website.
+</dd>
+<dt>src/</dt><dd>
+Erlang source files for your website.
+</dd>
+<dt>static/</dt><dd>
+Static files for your website.
+</dd>
+<dt>templates/</dt><dd>
+Template files for your website.
+
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Anatomy of the site/src Directory </h2>
+<div class="outline-text-2" id="text-9">
+
+
+</div>
+
+<div id="outline-container-9_1" class="outline-3">
+<h3 id="sec-9_1"><span class="section-number-3">9.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-9_1">
+
+
+</div>
+
+<div id="outline-container-9_1_1" class="outline-4">
+<h4 id="sec-9_1_1"><span class="section-number-4">9.1.1</span> The <code>site/src/</code> Directory </h4>
+<div class="outline-text-4" id="text-9_1_1">
+
+<p>Stores the Erlang source files for your application. By default it
+contains:
+</p>
+<dl>
+<dt>nitrogen_init.erl</dt><dd>
+Runs once on Nitrogen startup.
+</dd>
+<dt>nitrogen_PLATFORM.erl</dt><dd>
+Holds the request loop depending on
+platform.
+</dd>
+<dt>index.erl</dt><dd>
+The default web page.
+</dd>
+<dt>elements/</dt><dd>
+By convention, custom alements are placed here.
+</dd>
+<dt>actions/</dt><dd>
+By convention, custom actions are placed here.
+
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Exercise: Modify a Nitrogen Page </h2>
+<div class="outline-text-2" id="text-10">
+
+
+</div>
+
+<div id="outline-container-10_1" class="outline-3">
+<h3 id="sec-10_1"><span class="section-number-3">10.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-10_1">
+
+
+</div>
+
+<div id="outline-container-10_1_1" class="outline-4">
+<h4 id="sec-10_1_1"><span class="section-number-4">10.1.1</span> Exercise: Modify Your First Page </h4>
+<div class="outline-text-4" id="text-10_1_1">
+
+<ul>
+<li>
+Open <code>site/src/index.erl</code>
+</li>
+<li>
+Change "Welcome to Nitrogen" to "Welcome to My Website"
+</li>
+<li>
+From the Erlang Shell, run:
+<pre class="example">
+sync:go()
+</pre>
+
+</li>
+<li>
+Reload the page
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> Exercise: Compile in Different Ways </h2>
+<div class="outline-text-2" id="text-11">
+
+
+</div>
+
+<div id="outline-container-11_1" class="outline-3">
+<h3 id="sec-11_1"><span class="section-number-3">11.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-11_1">
+
+
+</div>
+
+<div id="outline-container-11_1_1" class="outline-4">
+<h4 id="sec-11_1_1"><span class="section-number-4">11.1.1</span> Exercise: Compile in a Different Way </h4>
+<div class="outline-text-4" id="text-11_1_1">
+
+<ul>
+<li>
+Change to "Welcome to my ERL-TASTIC WEBSITE!" (or, you know, whatever)
+</li>
+<li>
+From a different terminal, run:
+<pre class="example">
+bin/dev compile
+</pre>
+
+</li>
+<li>
+Reload the page
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> Exercise: Debugging </h2>
+<div class="outline-text-2" id="text-12">
+
+
+</div>
+
+<div id="outline-container-12_1" class="outline-3">
+<h3 id="sec-12_1"><span class="section-number-3">12.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-12_1">
+
+
+</div>
+
+<div id="outline-container-12_1_1" class="outline-4">
+<h4 id="sec-12_1_1"><span class="section-number-4">12.1.1</span> Debug Statements </h4>
+<div class="outline-text-4" id="text-12_1_1">
+
+<ul>
+<li>
+Add <code>?DEBUG</code> to <code>index.erl</code>. Then compile and
+reload. What happens?
+</li>
+<li>
+Add <code>?PRINT(node())</code> to <code>index.erl</code>. Then compile and reload. What
+happens?
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> Emacs Mode </h2>
+<div class="outline-text-2" id="text-13">
+
+
+</div>
+
+<div id="outline-container-13_1" class="outline-3">
+<h3 id="sec-13_1"><span class="section-number-3">13.1</span> Install &amp; Run Nitrogen </h3>
+<div class="outline-text-3" id="text-13_1">
+
+
+</div>
+
+<div id="outline-container-13_1_1" class="outline-4">
+<h4 id="sec-13_1_1"><span class="section-number-4">13.1.1</span> Emacs <code>nitrogen-mode</code> </h4>
+<div class="outline-text-4" id="text-13_1_1">
+
+
+
+
+<pre class="src src-lisp">(add-to-list 'load-path <span style="color: #09A240;">"PATH/TO/NITROGEN/support/nitrogen-mode"</span>)
+(<span style="color: #FB5D17;">require</span> '<span style="color: #A639AE;">nitrogen-mode</span>)
+</pre>
+
+
+
+<p>
+Without <code>nitrogen-mode</code>:
+</p>
+
+
+<pre class="src src-erlang">#<span style="color: #28439B;">panel</span> { id=my_panel, body=[
+                            #<span style="color: #28439B;">panel</span> { id=my_panel2, body=[
+                                                         #<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"Name"</span> },
+                                                         #<span style="color: #28439B;">textbox</span> { id=my_textbox }
+                                                        ]}
+                           ]}
+</pre>
+
+
+
+<p>
+With <code>nitrogen-mode</code>:
+</p>
+
+
+<pre class="src src-erlang">M-x nitrogen-mode
+#<span style="color: #28439B;">panel</span> { id=my_panel, body=[
+    #<span style="color: #28439B;">panel</span> { id=my_panel2, body=[
+        #<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"Name"</span> },
+        #<span style="color: #28439B;">textbox</span> { id=my_textbox }
+    ]}
+]}
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> PART 2 AGENDA </h2>
+<div class="outline-text-2" id="text-14">
+
+
+</div>
+
+<div id="outline-container-14_1" class="outline-3">
+<h3 id="sec-14_1"><span class="section-number-3">14.1</span> Nitrogen Pages </h3>
+<div class="outline-text-3" id="text-14_1">
+
+<ul>
+<li>
+What is a Nitrogen Page?
+</li>
+<li>
+Dynamic Routing Explained
+</li>
+<li>
+Creating Your First Page
+</li>
+<li>
+How is a Page Rendered?
+</li>
+<li>
+Anatomy of a Template
+</li>
+<li>
+Experimenting With Templates
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> What is a Nitrogen Page? </h2>
+<div class="outline-text-2" id="text-15">
+
+
+</div>
+
+<div id="outline-container-15_1" class="outline-3">
+<h3 id="sec-15_1"><span class="section-number-3">15.1</span> Nitrogen Pages </h3>
+<div class="outline-text-3" id="text-15_1">
+
+
+</div>
+
+<div id="outline-container-15_1_1" class="outline-4">
+<h4 id="sec-15_1_1"><span class="section-number-4">15.1.1</span> What is a Nitrogen Page </h4>
+<div class="outline-text-4" id="text-15_1_1">
+
+<ul>
+<li>
+A Page is an Erlang Module
+</li>
+<li>
+Each page should accomplish one store or piece of
+functionality. 
+
+<p>
+Some examples:
+</p><ul>
+<li>
+Allow the user to log in (<code>user_login.erl</code>).
+</li>
+<li>
+Change the user's preferences. (<code>user_preferences.erl</code>)
+</li>
+<li>
+Display a list of items. (<code>items_view.erl</code>)
+</li>
+<li>
+Allow the user to edit an item. (<code>items_edit.erl</code>)
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-16" class="outline-2">
+<h2 id="sec-16"><span class="section-number-2">16</span> Dynamic Routes Explained </h2>
+<div class="outline-text-2" id="text-16">
+
+
+</div>
+
+<div id="outline-container-16_1" class="outline-3">
+<h3 id="sec-16_1"><span class="section-number-3">16.1</span> Nitrogen Pages </h3>
+<div class="outline-text-3" id="text-16_1">
+
+
+</div>
+
+<div id="outline-container-16_1_1" class="outline-4">
+<h4 id="sec-16_1_1"><span class="section-number-4">16.1.1</span> Dynamic Routing Explained </h4>
+<div class="outline-text-4" id="text-16_1_1">
+
+<p>Dynamic routing rules:
+</p><ol>
+<li>
+If there is an extension, assume a static file.
+<pre class="example">
+http://localhost:8000/routes/to/a/module
+http://localhost:8000/routes/to/a/static/file.html
+</pre>
+
+</li>
+<li>
+Root page maps to <code>index.erl</code>
+</li>
+<li>
+Replaces slashes with underscores.
+<pre class="example">
+http://localhost:8000/routes/to/a/module -&gt;
+routes_to_a_module.erl
+</pre>
+
+</li>
+<li>
+Try the longest matching module.
+<pre class="example">
+http://localhost:8000/routes/to/a/module/foo/bar -&gt;
+routes_to_a_module.erl
+</pre>
+
+</li>
+<li>
+Modules that aren't found go to <code>web_404.erl</code> if it exists.
+</li>
+<li>
+Static files that aren't found are handled by the underlying
+platform (not yet generalized.)
+
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-17" class="outline-2">
+<h2 id="sec-17"><span class="section-number-2">17</span> Creating a New Page </h2>
+<div class="outline-text-2" id="text-17">
+
+
+</div>
+
+<div id="outline-container-17_1" class="outline-3">
+<h3 id="sec-17_1"><span class="section-number-3">17.1</span> Nitrogen Pages </h3>
+<div class="outline-text-3" id="text-17_1">
+
+
+</div>
+
+<div id="outline-container-17_1_1" class="outline-4">
+<h4 id="sec-17_1_1"><span class="section-number-4">17.1.1</span> Exercise: Create a New Page </h4>
+<div class="outline-text-4" id="text-17_1_1">
+
+<ul>
+<li>
+Generate the Page
+<pre class="example">
+bin/dev page my\_page
+$EDIT site/src/my\_page.erl
+</pre>
+
+
+</li>
+<li>
+Replace the default body with:
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span><span style="color: #09A240;">"Hello World!"</span>.
+</pre>
+
+
+
+</li>
+<li>
+Remove the <code>event/1</code> function.
+
+</li>
+<li>
+Compile the page and load <code>http://localhost:8080/my/page</code>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-18" class="outline-2">
+<h2 id="sec-18"><span class="section-number-2">18</span> How is a Page Rendered (Simple Version) </h2>
+<div class="outline-text-2" id="text-18">
+
+
+</div>
+
+<div id="outline-container-18_1" class="outline-3">
+<h3 id="sec-18_1"><span class="section-number-3">18.1</span> Nitrogen Pages </h3>
+<div class="outline-text-3" id="text-18_1">
+
+
+</div>
+
+<div id="outline-container-18_1_1" class="outline-4">
+<h4 id="sec-18_1_1"><span class="section-number-4">18.1.1</span> How is a Page Rendered? </h4>
+<div class="outline-text-4" id="text-18_1_1">
+
+<ol>
+<li>
+User hits a URL.
+</li>
+<li>
+URL is mapped to a module.
+</li>
+<li>
+Nitrogen framework calls <code>module:main()</code>
+</li>
+<li>
+<code>module:main()</code> calls a <code>#template</code> 
+</li>
+<li>
+<code>#template</code> calls back into the page (or other modules)
+</li>
+<li>
+Nitrogen framework renders the output into HTML/Javascript.
+</li>
+</ol>
+
+<p>(This is the simple version. Complex version will come later.)
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-19" class="outline-2">
+<h2 id="sec-19"><span class="section-number-2">19</span> Anatomy of a Template </h2>
+<div class="outline-text-2" id="text-19">
+
+
+</div>
+
+<div id="outline-container-19_1" class="outline-3">
+<h3 id="sec-19_1"><span class="section-number-3">19.1</span> Nitrogen Pages </h3>
+<div class="outline-text-3" id="text-19_1">
+
+
+</div>
+
+<div id="outline-container-19_1_1" class="outline-4">
+<h4 id="sec-19_1_1"><span class="section-number-4">19.1.1</span> Anatomy of a Template </h4>
+<div class="outline-text-4" id="text-19_1_1">
+
+<ul>
+<li>
+HTML. The Page is slurped into the Template.
+</li>
+<li>
+Contains one or more callouts, ie:
+<pre class="example">
+[[[module:body()]]]
+</pre>
+
+</li>
+<li>
+Contains a script callout for Javascript:
+<pre class="example">
+[[[script]]]
+</pre>
+
+</li>
+<li>
+The callouts look like Erlang, but they are not. They can only be
+of the form <code>module:function(Args)</code>. The 'page' module refers to
+the current page.
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-20" class="outline-2">
+<h2 id="sec-20"><span class="section-number-2">20</span> Experimenting With Templates </h2>
+<div class="outline-text-2" id="text-20">
+
+
+</div>
+
+<div id="outline-container-20_1" class="outline-3">
+<h3 id="sec-20_1"><span class="section-number-3">20.1</span> Nitrogen Pages </h3>
+<div class="outline-text-3" id="text-20_1">
+
+
+</div>
+
+<div id="outline-container-20_1_1" class="outline-4">
+<h4 id="sec-20_1_1"><span class="section-number-4">20.1.1</span> Experimenting With Templates </h4>
+<div class="outline-text-4" id="text-20_1_1">
+
+<ul>
+<li>
+Change the callout from <code>page:body()</code> to <code>page:body1()</code> in the
+default template and reload the page. What happens?
+
+</li>
+<li>
+Create another callout. What happens?
+
+</li>
+<li>
+What happens when you change <code>page</code> to be a specific module?
+
+</li>
+<li>
+Replace the module call with some arbitrary Erlang code. What happens?
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-21" class="outline-2">
+<h2 id="sec-21"><span class="section-number-2">21</span> PART 3 AGENDA </h2>
+<div class="outline-text-2" id="text-21">
+
+
+</div>
+
+<div id="outline-container-21_1" class="outline-3">
+<h3 id="sec-21_1"><span class="section-number-3">21.1</span> Nitrogen Elements </h3>
+<div class="outline-text-3" id="text-21_1">
+
+<ul>
+<li>
+What is a Nitrogen Element?
+</li>
+<li>
+Add Elements to Your Page
+</li>
+<li>
+Nested Elements
+</li>
+<li>
+Documentation
+</li>
+<li>
+Anatomy of a Nitrogen Element
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-22" class="outline-2">
+<h2 id="sec-22"><span class="section-number-2">22</span> What is a Nitrogen Element? </h2>
+<div class="outline-text-2" id="text-22">
+
+
+</div>
+
+<div id="outline-container-22_1" class="outline-3">
+<h3 id="sec-22_1"><span class="section-number-3">22.1</span> Nitrogen Elements </h3>
+<div class="outline-text-3" id="text-22_1">
+
+
+</div>
+
+<div id="outline-container-22_1_1" class="outline-4">
+<h4 id="sec-22_1_1"><span class="section-number-4">22.1.1</span> What is a Nitrogen Element? </h4>
+<div class="outline-text-4" id="text-22_1_1">
+
+<p>An element can be either HTML, or some record that renders into
+HTML.
+</p>
+<p>
+Change this:
+</p>
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span><span style="color: #09A240;">"Hello World!"</span>.
+</pre>
+
+
+
+<p>
+To this:
+</p>
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>#<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"Hello World!"</span> }.
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-23" class="outline-2">
+<h2 id="sec-23"><span class="section-number-2">23</span> What is a Nitrogen Element? </h2>
+<div class="outline-text-2" id="text-23">
+
+
+</div>
+
+<div id="outline-container-23_1" class="outline-3">
+<h3 id="sec-23_1"><span class="section-number-3">23.1</span> Nitrogen Elements </h3>
+<div class="outline-text-3" id="text-23_1">
+
+
+</div>
+
+<div id="outline-container-23_1_1" class="outline-4">
+<h4 id="sec-23_1_1"><span class="section-number-4">23.1.1</span> What is a Nitrogen Element? </h4>
+<div class="outline-text-4" id="text-23_1_1">
+
+<p>The <code>#label{}</code> element is rendered into:
+</p>
+
+
+
+<pre class="src src-html">&lt;<span style="color: #28439B;">label</span> <span style="color: #000000;">class</span>=<span style="color: #09A240;">"wfid_tempNNNNN label"</span>&gt;Hello World!&lt;/<span style="color: #28439B;">label</span>&gt;
+</pre>
+
+
+
+<p>
+View the rendered page source in your browser and search for "Hello World".
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-24" class="outline-2">
+<h2 id="sec-24"><span class="section-number-2">24</span> Nitrogen Element Properties </h2>
+<div class="outline-text-2" id="text-24">
+
+
+</div>
+
+<div id="outline-container-24_1" class="outline-3">
+<h3 id="sec-24_1"><span class="section-number-3">24.1</span> Nitrogen Elements </h3>
+<div class="outline-text-3" id="text-24_1">
+
+
+</div>
+
+<div id="outline-container-24_1_1" class="outline-4">
+<h4 id="sec-24_1_1"><span class="section-number-4">24.1.1</span> Why Nitrogen Elements? </h4>
+<div class="outline-text-4" id="text-24_1_1">
+
+
+<p>
+Nitrogen elements serve two purposes:
+</p>
+<ol>
+<li>
+Allow you to generate HTML within Erlang:
+<ul>
+<li>
+Avoid mixing languages == clearer code.
+</li>
+<li>
+Fewer characters to type.
+</li>
+<li>
+Checked at compile time.
+
+</li>
+</ul>
+</li>
+<li>
+Abstraction layer:
+<ul>
+<li>
+Avoid repeating common functionality.
+</li>
+<li>
+Hide complexity in a module.
+
+</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-25" class="outline-2">
+<h2 id="sec-25"><span class="section-number-2">25</span> Nitrogen Element Examples </h2>
+<div class="outline-text-2" id="text-25">
+
+
+</div>
+
+<div id="outline-container-25_1" class="outline-3">
+<h3 id="sec-25_1"><span class="section-number-3">25.1</span> Nitrogen Elements </h3>
+<div class="outline-text-3" id="text-25_1">
+
+
+</div>
+
+<div id="outline-container-25_1_1" class="outline-4">
+<h4 id="sec-25_1_1"><span class="section-number-4">25.1.1</span> Nitrogen Element Examples </h4>
+<div class="outline-text-4" id="text-25_1_1">
+
+
+<p>
+Try this on my_page.erl:
+</p>
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>[
+    #<span style="color: #28439B;">h1</span> { text=<span style="color: #09A240;">"My Simple Application"</span> },
+    #<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"What is your name?"</span> },
+    #<span style="color: #28439B;">textbox</span> { },
+    #<span style="color: #28439B;">button</span> { text=<span style="color: #09A240;">"Submit"</span> }
+].
+</pre>
+
+
+
+<p>
+Then compile, reload, and view source.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-26" class="outline-2">
+<h2 id="sec-26"><span class="section-number-2">26</span> Nested Elements </h2>
+<div class="outline-text-2" id="text-26">
+
+
+</div>
+
+<div id="outline-container-26_1" class="outline-3">
+<h3 id="sec-26_1"><span class="section-number-3">26.1</span> Nitrogen Elements </h3>
+<div class="outline-text-3" id="text-26_1">
+
+
+</div>
+
+<div id="outline-container-26_1_1" class="outline-4">
+<h4 id="sec-26_1_1"><span class="section-number-4">26.1.1</span> Nested Elements </h4>
+<div class="outline-text-4" id="text-26_1_1">
+
+
+<p>
+Try a nested element:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    #<span style="color: #28439B;">panel</span> { style=<span style="color: #09A240;">"margin: 50px;"</span>, body=[
+        #<span style="color: #28439B;">h1</span> { text=<span style="color: #09A240;">"My Page"</span> },
+        #<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"Enter Your Name:"</span> },
+        #<span style="color: #28439B;">textbox</span> { },
+        #<span style="color: #28439B;">button</span> { text=<span style="color: #09A240;">"Submit"</span> }
+    ]}.
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-27" class="outline-2">
+<h2 id="sec-27"><span class="section-number-2">27</span> PART 4 AGENDA </h2>
+<div class="outline-text-2" id="text-27">
+
+
+</div>
+
+<div id="outline-container-27_1" class="outline-3">
+<h3 id="sec-27_1"><span class="section-number-3">27.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-27_1">
+
+<ul>
+<li>
+What is a Nitrogen Action?
+</li>
+<li>
+Wiring an Action
+</li>
+<li>
+Conditional Actions with <code>#event{}</code>
+</li>
+<li>
+Postbacks
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-28" class="outline-2">
+<h2 id="sec-28"><span class="section-number-2">28</span> What is a Nitrogen Action? </h2>
+<div class="outline-text-2" id="text-28">
+
+
+</div>
+
+<div id="outline-container-28_1" class="outline-3">
+<h3 id="sec-28_1"><span class="section-number-3">28.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-28_1">
+
+
+</div>
+
+<div id="outline-container-28_1_1" class="outline-4">
+<h4 id="sec-28_1_1"><span class="section-number-4">28.1.1</span> What is a Nitrogen Action? </h4>
+<div class="outline-text-4" id="text-28_1_1">
+
+<p>An action can either be Javascript, or some record that renders
+into Javascript.
+</p>
+<p>
+Add a Javascript alert to the <code>#button{}</code> element. Then recompile
+and run. What do you expect will happen?
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;
+    [
+        #<span style="color: #28439B;">button</span> { text=<span style="color: #09A240;">"Submit"</span>, actions=<span style="color: #09A240;">"alert('hello');"</span> }
+    ].
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-29" class="outline-2">
+<h2 id="sec-29"><span class="section-number-2">29</span> What is a Nitrogen Action? </h2>
+<div class="outline-text-2" id="text-29">
+
+
+</div>
+
+<div id="outline-container-29_1" class="outline-3">
+<h3 id="sec-29_1"><span class="section-number-3">29.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-29_1">
+
+
+</div>
+
+<div id="outline-container-29_1_1" class="outline-4">
+<h4 id="sec-29_1_1"><span class="section-number-4">29.1.1</span> What is a Nitrogen Action? </h4>
+<div class="outline-text-4" id="text-29_1_1">
+
+<p>Do the same thing a different way.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;
+    [
+        #<span style="color: #28439B;">button</span> { 
+            text=<span style="color: #09A240;">"Submit"</span>, 
+            actions=#<span style="color: #28439B;">alert</span> { text=<span style="color: #09A240;">"Hello"</span> } 
+        }
+    ].
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-30" class="outline-2">
+<h2 id="sec-30"><span class="section-number-2">30</span> Wiring an Action </h2>
+<div class="outline-text-2" id="text-30">
+
+
+</div>
+
+<div id="outline-container-30_1" class="outline-3">
+<h3 id="sec-30_1"><span class="section-number-3">30.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-30_1">
+
+
+</div>
+
+<div id="outline-container-30_1_1" class="outline-4">
+<h4 id="sec-30_1_1"><span class="section-number-4">30.1.1</span> Wiring an Action </h4>
+<div class="outline-text-4" id="text-30_1_1">
+
+
+<p>
+Setting the <code>actions</code> property of an element can lead to messy
+code. Another, cleaner way to wire an action is the <code>wf:wire/N</code>
+function.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(mybutton, #<span style="color: #28439B;">effect</span> { effect=pulsate }),
+    [
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span> }
+    ].
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-31" class="outline-2">
+<h2 id="sec-31"><span class="section-number-2">31</span> Conditional Actions with <code>#event{}</code> </h2>
+<div class="outline-text-2" id="text-31">
+
+
+</div>
+
+<div id="outline-container-31_1" class="outline-3">
+<h3 id="sec-31_1"><span class="section-number-3">31.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-31_1">
+
+
+</div>
+
+<div id="outline-container-31_1_1" class="outline-4">
+<h4 id="sec-31_1_1"><span class="section-number-4">31.1.1</span> Conditional Actions with <code>#event{}</code> </h4>
+<div class="outline-text-4" id="text-31_1_1">
+
+
+<p>
+Put the <code>#effect{}</code> action inside of an <code>#event{}</code> action. This
+causes the effect to <b>only</b> get fired if the user clicks on
+<code>mybutton</code>.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(mybutton, #<span style="color: #28439B;">event</span> { 
+        type=click, 
+        actions=#<span style="color: #28439B;">effect</span> { effect=pulsate }
+    }),
+    [
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span> }
+    ].
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-32" class="outline-2">
+<h2 id="sec-32"><span class="section-number-2">32</span> Triggers and Targets </h2>
+<div class="outline-text-2" id="text-32">
+
+
+</div>
+
+<div id="outline-container-32_1" class="outline-3">
+<h3 id="sec-32_1"><span class="section-number-3">32.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-32_1">
+
+
+</div>
+
+<div id="outline-container-32_1_1" class="outline-4">
+<h4 id="sec-32_1_1"><span class="section-number-4">32.1.1</span> Triggers and Targets </h4>
+<div class="outline-text-4" id="text-32_1_1">
+
+
+<p>
+All actions have a <code>target</code> property. The <code>target</code> specifies what
+element(s) the action effects.
+</p>
+<p>
+The event action also has a <code>trigger</code> property. The <code>trigger</code>
+specifies what element(s) trigger the action.
+</p>
+<p>
+Try this:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(#<span style="color: #28439B;">event</span> { 
+        type=click, trigger=mybutton, target=mylabel,
+        actions=#<span style="color: #28439B;">effect</span> { effect=pulsate }
+    }),
+    [
+        #<span style="color: #28439B;">label</span> { id=mylabel, text=<span style="color: #09A240;">"Make Me Blink!"</span> },
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span> }
+    ].
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-33" class="outline-2">
+<h2 id="sec-33"><span class="section-number-2">33</span> Triggers and Targets </h2>
+<div class="outline-text-2" id="text-33">
+
+
+</div>
+
+<div id="outline-container-33_1" class="outline-3">
+<h3 id="sec-33_1"><span class="section-number-3">33.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-33_1">
+
+
+</div>
+
+<div id="outline-container-33_1_1" class="outline-4">
+<h4 id="sec-33_1_1"><span class="section-number-4">33.1.1</span> Triggers and Targets </h4>
+<div class="outline-text-4" id="text-33_1_1">
+
+
+<p>
+You can also specify the <b>Trigger</b> and <b>Target</b> directly in <code>wf:wire/N</code>. It takes three forms:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #929292;">% </span><span style="color: #929292;">Specify a trigger and target.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(<span style="color: #000000;">Trigger</span>, <span style="color: #000000;">Target</span>, <span style="color: #000000;">Actions</span>)
+
+<span style="color: #929292;">% </span><span style="color: #929292;">Use the same element for both trigger and target.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(<span style="color: #000000;">TriggerAndTarget</span>, <span style="color: #000000;">Actions</span>)
+
+<span style="color: #929292;">% </span><span style="color: #929292;">Assume the trigger and/or target is provided in the actions. 
+</span><span style="color: #929292;">% </span><span style="color: #929292;">If not, then wire the action directly to the page. 
+</span><span style="color: #929292;">% </span><span style="color: #929292;">(Useful for catching keystrokes.)
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(<span style="color: #000000;">Actions</span>)
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-34" class="outline-2">
+<h2 id="sec-34"><span class="section-number-2">34</span> Quick Review </h2>
+<div class="outline-text-2" id="text-34">
+
+
+</div>
+
+<div id="outline-container-34_1" class="outline-3">
+<h3 id="sec-34_1"><span class="section-number-3">34.1</span> Nitrogen Actions </h3>
+<div class="outline-text-3" id="text-34_1">
+
+
+</div>
+
+<div id="outline-container-34_1_1" class="outline-4">
+<h4 id="sec-34_1_1"><span class="section-number-4">34.1.1</span> Quick Review </h4>
+<div class="outline-text-4" id="text-34_1_1">
+
+
+<ol>
+<li>
+Elements make HTML.
+</li>
+<li>
+Actions make Javascript.
+</li>
+<li>
+An action can be wired using the <code>actions</code> property, or wired
+later with <code>wf:wire/N</code>. Both approaches can take a single
+action or a list of actions.
+</li>
+<li>
+An action looks for <code>trigger</code> and <code>target</code> properties. These
+can be specified in a few different ways.
+</li>
+<li>
+Everything we have seen so far happens on the client.
+
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-35" class="outline-2">
+<h2 id="sec-35"><span class="section-number-2">35</span> PART 5 AGENDA </h2>
+<div class="outline-text-2" id="text-35">
+
+
+</div>
+
+<div id="outline-container-35_1" class="outline-3">
+<h3 id="sec-35_1"><span class="section-number-3">35.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-35_1">
+
+<ul>
+<li>
+What is a Postback?
+</li>
+<li>
+Your First Postback
+</li>
+<li>
+Event Properties
+</li>
+<li>
+More Event Examples
+</li>
+<li>
+Postback Shortcuts
+</li>
+<li>
+Modifying Elements
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-36" class="outline-2">
+<h2 id="sec-36"><span class="section-number-2">36</span> What is a Postback? </h2>
+<div class="outline-text-2" id="text-36">
+
+
+</div>
+
+<div id="outline-container-36_1" class="outline-3">
+<h3 id="sec-36_1"><span class="section-number-3">36.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-36_1">
+
+
+</div>
+
+<div id="outline-container-36_1_1" class="outline-4">
+<h4 id="sec-36_1_1"><span class="section-number-4">36.1.1</span> What is a Postback? </h4>
+<div class="outline-text-4" id="text-36_1_1">
+
+
+<p>
+A postback briefly transfers control from the browser to the
+Nitrogen server. It is initiated when an event fires with the
+<code>postback</code> property set. For example:
+</p>
+
+
+
+<pre class="src src-erlang">#<span style="color: #28439B;">event</span> { type=click, postback=my_click_event }
+</pre>
+
+
+
+<p>
+The postback tag can be any valid Erlang term. You use this to
+differentiate incoming events.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-37" class="outline-2">
+<h2 id="sec-37"><span class="section-number-2">37</span> Your First Postback </h2>
+<div class="outline-text-2" id="text-37">
+
+
+</div>
+
+<div id="outline-container-37_1" class="outline-3">
+<h3 id="sec-37_1"><span class="section-number-3">37.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-37_1">
+
+
+</div>
+
+<div id="outline-container-37_1_1" class="outline-4">
+<h4 id="sec-37_1_1"><span class="section-number-4">37.1.1</span> Your First Postback </h4>
+<div class="outline-text-4" id="text-37_1_1">
+
+
+<p>
+First, let's use the postback to print out a debug message.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(mybutton, #<span style="color: #28439B;">event</span> { type=click, postback=myevent }),
+    [
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span> }
+    ].
+
+<span style="color: #28439B;">event</span>(myevent) -&gt;
+    ?<span style="color: #28439B;">PRINT</span>({event, <span style="color: #000000;">now</span>()}).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-38" class="outline-2">
+<h2 id="sec-38"><span class="section-number-2">38</span> Postback Shortcuts </h2>
+<div class="outline-text-2" id="text-38">
+
+
+</div>
+
+<div id="outline-container-38_1" class="outline-3">
+<h3 id="sec-38_1"><span class="section-number-3">38.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-38_1">
+
+
+</div>
+
+<div id="outline-container-38_1_1" class="outline-4">
+<h4 id="sec-38_1_1"><span class="section-number-4">38.1.1</span> Postback Shortcuts </h4>
+<div class="outline-text-4" id="text-38_1_1">
+
+
+<p>
+A few elements allow you to set the <code>postback</code> property as a
+shortcut to handle their most common events.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col align="left" /><col align="left" />
+</colgroup>
+<tbody>
+<tr><td>Element</td><td>Shortcut Event</td></tr>
+<tr><td><code>#button{}</code></td><td>click</td></tr>
+<tr><td><code>#textbox{}</code></td><td>enter key</td></tr>
+<tr><td><code>#checkbox{}</code></td><td>click</td></tr>
+<tr><td><code>#dropdown{}</code></td><td>change</td></tr>
+<tr><td><code>#password{}</code></td><td>enter key</td></tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-39" class="outline-2">
+<h2 id="sec-39"><span class="section-number-2">39</span> Postback Shortcuts </h2>
+<div class="outline-text-2" id="text-39">
+
+
+</div>
+
+<div id="outline-container-39_1" class="outline-3">
+<h3 id="sec-39_1"><span class="section-number-3">39.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-39_1">
+
+
+</div>
+
+<div id="outline-container-39_1_1" class="outline-4">
+<h4 id="sec-39_1_1"><span class="section-number-4">39.1.1</span> Postback Shortcuts </h4>
+<div class="outline-text-4" id="text-39_1_1">
+
+
+<p>
+A few elements allow you to set the <code>postback</code> property as a
+shortcut to handle their most common events.
+</p>
+<p>
+The previous code, simplified:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    [
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span>, postback=myevent }
+    ].
+
+<span style="color: #28439B;">event</span>(myevent) -&gt;
+    ?<span style="color: #28439B;">PRINT</span>({event, <span style="color: #000000;">now</span>()}).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-40" class="outline-2">
+<h2 id="sec-40"><span class="section-number-2">40</span> More Event Examples </h2>
+<div class="outline-text-2" id="text-40">
+
+
+</div>
+
+<div id="outline-container-40_1" class="outline-3">
+<h3 id="sec-40_1"><span class="section-number-3">40.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-40_1">
+
+
+</div>
+
+<div id="outline-container-40_1_1" class="outline-4">
+<h4 id="sec-40_1_1"><span class="section-number-4">40.1.1</span> More Event Examples </h4>
+<div class="outline-text-4" id="text-40_1_1">
+
+
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #929292;">% </span><span style="color: #929292;">'mouseover', 'click', and 'mouseout' are standard Javascript
+</span>    <span style="color: #929292;">% </span><span style="color: #929292;">events.
+</span>    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(mybutton, [
+        #<span style="color: #28439B;">event</span> { type=mouseover, postback=my_mouseover_event }
+        #<span style="color: #28439B;">event</span> { type=click, postback=my_click_event }
+        #<span style="color: #28439B;">event</span> { type=mouseout, postback=my_mouseout_event }
+    ]),
+    [
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span> }
+    ].
+
+<span style="color: #28439B;">event</span>(my_click_event) -&gt;
+    ?<span style="color: #28439B;">PRINT</span>({click, <span style="color: #000000;">now</span>()});
+<span style="color: #28439B;">event</span>(<span style="color: #000000;">OtherEvent</span>) -&gt;
+    ?<span style="color: #28439B;">PRINT</span>({other, <span style="color: #000000;">MyEvent</span>, <span style="color: #000000;">now</span>()}).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-41" class="outline-2">
+<h2 id="sec-41"><span class="section-number-2">41</span> More Event Examples </h2>
+<div class="outline-text-2" id="text-41">
+
+
+</div>
+
+<div id="outline-container-41_1" class="outline-3">
+<h3 id="sec-41_1"><span class="section-number-3">41.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-41_1">
+
+
+</div>
+
+<div id="outline-container-41_1_1" class="outline-4">
+<h4 id="sec-41_1_1"><span class="section-number-4">41.1.1</span> More Event Examples </h4>
+<div class="outline-text-4" id="text-41_1_1">
+
+
+<p>
+Generally, a postback is a good chance to read form elements. The
+<code>wf:q(ElementID)</code> function does this.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    [
+        #<span style="color: #28439B;">textbox</span> { id=mytextbox, text=<span style="color: #09A240;">"Edit this text."</span> },
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span>, postback=myevent }
+    ].
+
+<span style="color: #28439B;">event</span>(myevent) -&gt;
+    <span style="color: #000000;">Text</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">q</span>(mytextbox),
+    ?<span style="color: #28439B;">PRINT</span>({event, <span style="color: #000000;">Text</span>}).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-42" class="outline-2">
+<h2 id="sec-42"><span class="section-number-2">42</span> Modifying Elements </h2>
+<div class="outline-text-2" id="text-42">
+
+
+</div>
+
+<div id="outline-container-42_1" class="outline-3">
+<h3 id="sec-42_1"><span class="section-number-3">42.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-42_1">
+
+
+</div>
+
+<div id="outline-container-42_1_1" class="outline-4">
+<h4 id="sec-42_1_1"><span class="section-number-4">42.1.1</span> Modifying Elements </h4>
+<div class="outline-text-4" id="text-42_1_1">
+
+
+<p>
+Here is where everything comes together: we are going to modify
+the page from within a postback event. Nitrogen uses <b>AJAX</b> to
+update parts of a page without updating the entire page. 
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    #<span style="color: #28439B;">panel</span> { style=<span style="color: #09A240;">"margin: 50px;"</span>, body=[
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span>, postback=click },
+        #<span style="color: #28439B;">panel</span> { id=placeholder }
+    ]}.
+
+<span style="color: #28439B;">event</span>(click) -&gt;
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">update</span>(placeholder, [
+        #<span style="color: #28439B;">h1</span> { text=<span style="color: #09A240;">"Congratulations!"</span> },
+        #<span style="color: #28439B;">p</span> { body=<span style="color: #09A240;">"You have updated the page!"</span> },
+        #<span style="color: #28439B;">p</span> { body=<span style="color: #28439B;">io_lib</span>:<span style="color: #28439B;">format</span>(<span style="color: #09A240;">"~p"</span>, [<span style="color: #000000;">now</span>()]) }
+    ]).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-43" class="outline-2">
+<h2 id="sec-43"><span class="section-number-2">43</span> More Page Manipulation </h2>
+<div class="outline-text-2" id="text-43">
+
+
+</div>
+
+<div id="outline-container-43_1" class="outline-3">
+<h3 id="sec-43_1"><span class="section-number-3">43.1</span> Nitrogen Events </h3>
+<div class="outline-text-3" id="text-43_1">
+
+
+</div>
+
+<div id="outline-container-43_1_1" class="outline-4">
+<h4 id="sec-43_1_1"><span class="section-number-4">43.1.1</span> More Page Manipulation </h4>
+<div class="outline-text-4" id="text-43_1_1">
+
+
+<p>
+The <code>wf</code> module exposes many manipulation functions:
+</p>
+<dl>
+<dt><code>wf:update/2</code></dt><dd>
+Update the contents of an element with another element(s).
+</dd>
+<dt><code>wf:insert_top/2</code></dt><dd>
+Insert a new element(s) at the beginning of another element.
+</dd>
+<dt><code>wf:insert_bottom/2</code></dt><dd>
+Insert a new element(s) at the bottom of another element.
+</dd>
+<dt><code>wf:replace/2</code></dt><dd>
+Replace an element with another element.
+</dd>
+<dt><code>wf:remove/1</code></dt><dd>
+Remove an element(s).
+</dd>
+<dt><code>wf:set/2</code></dt><dd>
+Set a textbox or checkbox value.
+
+</dd>
+</dl>
+
+<p>It also exposes many other generally useful utility functions:
+<a href="http://nitrogenproject.com/doc/api.html">http://nitrogenproject.com/doc/api.html</a>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-44" class="outline-2">
+<h2 id="sec-44"><span class="section-number-2">44</span> PART 6 AGENDA </h2>
+<div class="outline-text-2" id="text-44">
+
+
+</div>
+
+<div id="outline-container-44_1" class="outline-3">
+<h3 id="sec-44_1"><span class="section-number-3">44.1</span> Remembering State </h3>
+<div class="outline-text-3" id="text-44_1">
+
+<ul>
+<li>
+Page State vs. Session State
+</li>
+<li>
+Page State Example
+</li>
+<li>
+Session State Example
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-45" class="outline-2">
+<h2 id="sec-45"><span class="section-number-2">45</span> Page State vs. Session State </h2>
+<div class="outline-text-2" id="text-45">
+
+
+</div>
+
+<div id="outline-container-45_1" class="outline-3">
+<h3 id="sec-45_1"><span class="section-number-3">45.1</span> Remembering State </h3>
+<div class="outline-text-3" id="text-45_1">
+
+
+</div>
+
+<div id="outline-container-45_1_1" class="outline-4">
+<h4 id="sec-45_1_1"><span class="section-number-4">45.1.1</span> Page State vs. Session State </h4>
+<div class="outline-text-4" id="text-45_1_1">
+
+
+<p>
+Nitrogen can store two kinds of state:
+</p>
+<ul>
+<li>
+<b>Page State</b>
+<ul>
+<li>
+Stored in a user's browser window. 
+</li>
+<li>
+Destroyed when the user closes the window or navigates to a
+different page.
+</li>
+<li>
+Sent across the wire with each request.
+
+</li>
+</ul>
+</li>
+<li>
+<b>Session State</b>
+<ul>
+<li>
+Stored in server memory. 
+</li>
+<li>
+Destroyed when the session expires or the Erlang VM dies.
+</li>
+<li>
+Associated with the user's session by an HTTP cookie.
+</li>
+<li>
+Useful place to store authentication
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-46" class="outline-2">
+<h2 id="sec-46"><span class="section-number-2">46</span> Page State </h2>
+<div class="outline-text-2" id="text-46">
+
+
+</div>
+
+<div id="outline-container-46_1" class="outline-3">
+<h3 id="sec-46_1"><span class="section-number-3">46.1</span> Remembering State </h3>
+<div class="outline-text-3" id="text-46_1">
+
+
+</div>
+
+<div id="outline-container-46_1_1" class="outline-4">
+<h4 id="sec-46_1_1"><span class="section-number-4">46.1.1</span> Page State </h4>
+<div class="outline-text-4" id="text-46_1_1">
+
+
+<p>
+Using Page State:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #929292;">% </span><span style="color: #929292;">Set a state variable
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">state</span>(<span style="color: #000000;">Key</span>, <span style="color: #000000;">Value</span>)
+
+<span style="color: #929292;">% </span><span style="color: #929292;">Get a state variable
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">state</span>(<span style="color: #000000;">Key</span>)
+<span style="color: #28439B;">wf</span>:<span style="color: #28439B;">state_default</span>(<span style="color: #000000;">Key</span>, <span style="color: #000000;">DefaultValue</span>)
+</pre>
+
+
+
+<p>
+<code>Key</code> and <code>Value</code> can be any valid Erlang term.
+</p>
+<p>
+<b>Exercise:</b> Modify my_page.erl to display a counter that gets
+incremented every time you press the 'Submit' button. The counter
+should reset when the user reloads the page.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-47" class="outline-2">
+<h2 id="sec-47"><span class="section-number-2">47</span> Page State </h2>
+<div class="outline-text-2" id="text-47">
+
+
+</div>
+
+<div id="outline-container-47_1" class="outline-3">
+<h3 id="sec-47_1"><span class="section-number-3">47.1</span> Remembering State </h3>
+<div class="outline-text-3" id="text-47_1">
+
+
+</div>
+
+<div id="outline-container-47_1_1" class="outline-4">
+<h4 id="sec-47_1_1"><span class="section-number-4">47.1.1</span> Page State </h4>
+<div class="outline-text-4" id="text-47_1_1">
+
+
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;
+    #<span style="color: #28439B;">panel</span> { style=<span style="color: #09A240;">"margin: 50px;"</span>, body=[
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span>, postback=click },
+        #<span style="color: #28439B;">panel</span> { id=placeholder, body=<span style="color: #09A240;">"1"</span> }
+    ]}.
+
+<span style="color: #28439B;">event</span>(click) -&gt;
+    <span style="color: #000000;">Counter</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">state_default</span>(counter, 1),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">update</span>(placeholder, [
+        #<span style="color: #28439B;">panel</span> { body=<span style="color: #28439B;">io_lib</span>:<span style="color: #28439B;">format</span>(<span style="color: #09A240;">"~p"</span>, [<span style="color: #000000;">Counter</span> + 1]) }
+    ]),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">state</span>(counter, <span style="color: #000000;">Counter</span> + 1).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-48" class="outline-2">
+<h2 id="sec-48"><span class="section-number-2">48</span> Session State </h2>
+<div class="outline-text-2" id="text-48">
+
+
+</div>
+
+<div id="outline-container-48_1" class="outline-3">
+<h3 id="sec-48_1"><span class="section-number-3">48.1</span> Remembering State </h3>
+<div class="outline-text-3" id="text-48_1">
+
+
+</div>
+
+<div id="outline-container-48_1_1" class="outline-4">
+<h4 id="sec-48_1_1"><span class="section-number-4">48.1.1</span> Session State </h4>
+<div class="outline-text-4" id="text-48_1_1">
+
+
+<p>
+Using Session State:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #929292;">% </span><span style="color: #929292;">Set a session state variable
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">session</span>(<span style="color: #000000;">Key</span>, <span style="color: #000000;">Value</span>)
+
+<span style="color: #929292;">% </span><span style="color: #929292;">Get a session state variable
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">session</span>(<span style="color: #000000;">Key</span>)
+<span style="color: #28439B;">wf</span>:<span style="color: #28439B;">session_default</span>(<span style="color: #000000;">Key</span>, <span style="color: #000000;">DefaultValue</span>)
+</pre>
+
+
+
+<p>
+<code>Key</code> and <code>Value</code> can be any valid Erlang term.
+</p>
+<p>
+<b>Exercise:</b> Modify my_page.erl to display <b>TWO</b> counters. When the
+user presses the 'Submit' button, one counter should get
+incremented, the other counter should get doubled. The server
+should remember the counter even if the closes and then re-opens
+the browser.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-49" class="outline-2">
+<h2 id="sec-49"><span class="section-number-2">49</span> Session State </h2>
+<div class="outline-text-2" id="text-49">
+
+
+</div>
+
+<div id="outline-container-49_1" class="outline-3">
+<h3 id="sec-49_1"><span class="section-number-3">49.1</span> Remembering State </h3>
+<div class="outline-text-3" id="text-49_1">
+
+
+</div>
+
+<div id="outline-container-49_1_1" class="outline-4">
+<h4 id="sec-49_1_1"><span class="section-number-4">49.1.1</span> Session State </h4>
+<div class="outline-text-4" id="text-49_1_1">
+
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;
+    #<span style="color: #28439B;">panel</span> { style=<span style="color: #09A240;">"margin: 50px;"</span>, body=[
+        #<span style="color: #28439B;">button</span> { id=mybutton, text=<span style="color: #09A240;">"Submit"</span>, postback=click },
+        #<span style="color: #28439B;">panel</span> { id=placeholder1, body=<span style="color: #09A240;">"1"</span> },
+        #<span style="color: #28439B;">panel</span> { id=placeholder2, body=<span style="color: #09A240;">"1"</span> }
+    ]}.
+
+<span style="color: #28439B;">event</span>(click) -&gt;
+    <span style="color: #929292;">%% </span><span style="color: #929292;">Increment the counter...
+</span>    <span style="color: #000000;">Counter1</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">session_default</span>(counter1, 1),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">update</span>(placeholder1, <span style="color: #28439B;">io_lib</span>:<span style="color: #28439B;">format</span>(<span style="color: #09A240;">"~p"</span>, [<span style="color: #000000;">Counter1</span> + 1])),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">session</span>(counter1, <span style="color: #000000;">Counter1</span> + 1),
+
+    <span style="color: #929292;">%% </span><span style="color: #929292;">Double the other counter...
+</span>    <span style="color: #000000;">Counter2</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">session_default</span>(counter2, 1),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">update</span>(placeholder2, <span style="color: #28439B;">io_lib</span>:<span style="color: #28439B;">format</span>(<span style="color: #09A240;">"~p"</span>, [<span style="color: #000000;">Counter2</span> * 2])),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">session</span>(counter2, <span style="color: #000000;">Counter2</span> * 2).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-50" class="outline-2">
+<h2 id="sec-50"><span class="section-number-2">50</span> PART 7 AGENDA </h2>
+<div class="outline-text-2" id="text-50">
+
+
+</div>
+
+<div id="outline-container-50_1" class="outline-3">
+<h3 id="sec-50_1"><span class="section-number-3">50.1</span> Security </h3>
+<div class="outline-text-3" id="text-50_1">
+
+<ul>
+<li>
+Limiting Access to a Page
+</li>
+<li>
+Authentication and Authorization Functions
+</li>
+<li>
+Page Redirection Functions
+</li>
+<li>
+Creating a Secure Page
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-51" class="outline-2">
+<h2 id="sec-51"><span class="section-number-2">51</span> Limiting Access to a Page </h2>
+<div class="outline-text-2" id="text-51">
+
+
+</div>
+
+<div id="outline-container-51_1" class="outline-3">
+<h3 id="sec-51_1"><span class="section-number-3">51.1</span> Security </h3>
+<div class="outline-text-3" id="text-51_1">
+
+
+</div>
+
+<div id="outline-container-51_1_1" class="outline-4">
+<h4 id="sec-51_1_1"><span class="section-number-4">51.1.1</span> Limiting Access to a Page </h4>
+<div class="outline-text-4" id="text-51_1_1">
+
+
+<p>
+Nitrogen contains functions to help you build password protected websites:
+</p>
+<ul>
+<li>
+Nitrogen is built for role-based security. You set the roles for
+a current session, and check those roles later.
+
+<p>
+For example, the user may have the <code>friend</code> and <code>manager</code>
+roles, but not the <code>administrator</code> role.
+</p>
+</li>
+<li>
+Authentication/authorization info is stored in the session. 
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-52" class="outline-2">
+<h2 id="sec-52"><span class="section-number-2">52</span> Authentication and Authorization Functions </h2>
+<div class="outline-text-2" id="text-52">
+
+
+</div>
+
+<div id="outline-container-52_1" class="outline-3">
+<h3 id="sec-52_1"><span class="section-number-3">52.1</span> Security </h3>
+<div class="outline-text-3" id="text-52_1">
+
+
+</div>
+
+<div id="outline-container-52_1_1" class="outline-4">
+<h4 id="sec-52_1_1"><span class="section-number-4">52.1.1</span> Authentication and Authorization Functions </h4>
+<div class="outline-text-4" id="text-52_1_1">
+
+
+<p>
+Functions to set the user/role:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #929292;">% </span><span style="color: #929292;">Get/set the current user for this session.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">user</span>(), <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">user</span>(<span style="color: #000000;">User</span>)
+
+<span style="color: #929292;">% </span><span style="color: #929292;">Get/set whether the current session has the specified role.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">role</span>(<span style="color: #000000;">Role</span>), <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">role</span>(<span style="color: #000000;">Role</span>, <span style="color: #000000;">IsInRole</span>)
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-53" class="outline-2">
+<h2 id="sec-53"><span class="section-number-2">53</span> Page Redirection Functions </h2>
+<div class="outline-text-2" id="text-53">
+
+
+</div>
+
+<div id="outline-container-53_1" class="outline-3">
+<h3 id="sec-53_1"><span class="section-number-3">53.1</span> Security </h3>
+<div class="outline-text-3" id="text-53_1">
+
+
+</div>
+
+<div id="outline-container-53_1_1" class="outline-4">
+<h4 id="sec-53_1_1"><span class="section-number-4">53.1.1</span> Page Redirection Functions </h4>
+<div class="outline-text-4" id="text-53_1_1">
+
+
+<p>
+Functions kick the user to a login page:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #929292;">% </span><span style="color: #929292;">Redirect the user to a different page.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">redirect</span>(<span style="color: #000000;">Url</span>)
+
+<span style="color: #929292;">% </span><span style="color: #929292;">Redirect the user to the login page.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">redirect_to_login</span>(<span style="color: #000000;">LoginUrl</span>)
+
+<span style="color: #929292;">% </span><span style="color: #929292;">Redirect the user back to the original page they 
+</span><span style="color: #929292;">% </span><span style="color: #929292;">tried to access.  
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">redirect_from_login</span>(<span style="color: #000000;">DefaultUrl</span>)
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-54" class="outline-2">
+<h2 id="sec-54"><span class="section-number-2">54</span> Creating a Secure Page - Step 1 </h2>
+<div class="outline-text-2" id="text-54">
+
+
+</div>
+
+<div id="outline-container-54_1" class="outline-3">
+<h3 id="sec-54_1"><span class="section-number-3">54.1</span> Security </h3>
+<div class="outline-text-3" id="text-54_1">
+
+
+</div>
+
+<div id="outline-container-54_1_1" class="outline-4">
+<h4 id="sec-54_1_1"><span class="section-number-4">54.1.1</span> Creating a Secure Page - Step 1 </h4>
+<div class="outline-text-4" id="text-54_1_1">
+
+
+<p>
+Check for the <code>managers</code> role at the top of a page. If the user
+doesn't have the role, go to a login page.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">main</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #FB5D17;">case</span> <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">role</span>(managers) <span style="color: #FB5D17;">of</span>
+        true -&gt;
+            #<span style="color: #28439B;">template</span> { file=<span style="color: #09A240;">"./site/templates/bare.html"</span> };
+        false -&gt;
+            <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">redirect_to_login</span>(<span style="color: #09A240;">"/login"</span>)
+    <span style="color: #FB5D17;">end</span>.
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-55" class="outline-2">
+<h2 id="sec-55"><span class="section-number-2">55</span> Creating a Secure Page - Step 2 </h2>
+<div class="outline-text-2" id="text-55">
+
+
+</div>
+
+<div id="outline-container-55_1" class="outline-3">
+<h3 id="sec-55_1"><span class="section-number-3">55.1</span> Security </h3>
+<div class="outline-text-3" id="text-55_1">
+
+
+</div>
+
+<div id="outline-container-55_1_1" class="outline-4">
+<h4 id="sec-55_1_1"><span class="section-number-4">55.1.1</span> Creating a Secure Page - Step 2 </h4>
+<div class="outline-text-4" id="text-55_1_1">
+
+
+<p>
+Create a login page. For now, just create a button that, when
+clicked, grants the <code>managers</code> role to the user and redirects
+back.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;
+    #<span style="color: #28439B;">button</span> { text=<span style="color: #09A240;">"Login"</span>, postback=login }.
+
+<span style="color: #28439B;">event</span>(login) -&gt;
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">role</span>(managers, true),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">redirect_from_login</span>(<span style="color: #09A240;">"/"</span>).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-56" class="outline-2">
+<h2 id="sec-56"><span class="section-number-2">56</span> Creating a Secure Page - Step 3 </h2>
+<div class="outline-text-2" id="text-56">
+
+
+</div>
+
+<div id="outline-container-56_1" class="outline-3">
+<h3 id="sec-56_1"><span class="section-number-3">56.1</span> Security </h3>
+<div class="outline-text-3" id="text-56_1">
+
+
+</div>
+
+<div id="outline-container-56_1_1" class="outline-4">
+<h4 id="sec-56_1_1"><span class="section-number-4">56.1.1</span> Creating a Secure Page - Step 3 </h4>
+<div class="outline-text-4" id="text-56_1_1">
+
+
+<p>
+Update <code>login.erl</code> to prompt for a username and password.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    #<span style="color: #28439B;">panel</span> { style=<span style="color: #09A240;">"margin: 50px;"</span>, body=[
+        #<span style="color: #28439B;">flash</span> {},
+        #<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"Username"</span> },
+        #<span style="color: #28439B;">textbox</span> { id=username, next=password },
+        #<span style="color: #28439B;">br</span> {},
+        #<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"Password"</span> },
+        #<span style="color: #28439B;">password</span> { id=password, next=submit },
+        #<span style="color: #28439B;">br</span> {},
+        #<span style="color: #28439B;">button</span> { text=<span style="color: #09A240;">"Login"</span>, id=submit, postback=login }
+    ]}.
+
+<span style="color: #28439B;">event</span>(login) -&gt;
+    <span style="color: #FB5D17;">case</span> <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">q</span>(password) == <span style="color: #09A240;">"password"</span> <span style="color: #FB5D17;">of</span>
+        true -&gt;
+            <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">role</span>(managers, true),
+            <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">redirect_from_login</span>(<span style="color: #09A240;">"/"</span>);
+        false -&gt;
+            <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">flash</span>(<span style="color: #09A240;">"Invalid password."</span>)
+    <span style="color: #FB5D17;">end</span>.
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-57" class="outline-2">
+<h2 id="sec-57"><span class="section-number-2">57</span> Creating a Secure Page - Step 4 </h2>
+<div class="outline-text-2" id="text-57">
+
+
+</div>
+
+<div id="outline-container-57_1" class="outline-3">
+<h3 id="sec-57_1"><span class="section-number-3">57.1</span> Security </h3>
+<div class="outline-text-3" id="text-57_1">
+
+
+</div>
+
+<div id="outline-container-57_1_1" class="outline-4">
+<h4 id="sec-57_1_1"><span class="section-number-4">57.1.1</span> Creating a Secure Page - Step 4 </h4>
+<div class="outline-text-4" id="text-57_1_1">
+
+
+<p>
+Create a way for the user to logout.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #929292;">% </span><span style="color: #929292;">Clears all user, roles, session state, and page state.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">logout</span>()
+</pre>
+
+
+
+<p>
+<i>Note: Placing this statement appropriately is left as an exercise for the reader.</i>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-58" class="outline-2">
+<h2 id="sec-58"><span class="section-number-2">58</span> PART 8 AGENDA </h2>
+<div class="outline-text-2" id="text-58">
+
+
+</div>
+
+<div id="outline-container-58_1" class="outline-3">
+<h3 id="sec-58_1"><span class="section-number-3">58.1</span> Validation </h3>
+<div class="outline-text-3" id="text-58_1">
+
+<ul>
+<li>
+Overview of Nitrogen Validation
+</li>
+<li>
+Adding Some Validators
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-59" class="outline-2">
+<h2 id="sec-59"><span class="section-number-2">59</span> Overview of Nitrogen Validation </h2>
+<div class="outline-text-2" id="text-59">
+
+
+</div>
+
+<div id="outline-container-59_1" class="outline-3">
+<h3 id="sec-59_1"><span class="section-number-3">59.1</span> Validation </h3>
+<div class="outline-text-3" id="text-59_1">
+
+
+</div>
+
+<div id="outline-container-59_1_1" class="outline-4">
+<h4 id="sec-59_1_1"><span class="section-number-4">59.1.1</span> Overview of Nitrogen Validation </h4>
+<div class="outline-text-4" id="text-59_1_1">
+
+
+<p>
+Nitrogen implements a validation framework, plus a number of
+pre-built validators, to allow you to declaratively validate your
+form variables.
+</p>
+<p>
+Validation happens on both client side (using the LiveValidation
+library) and server side (in Erlang). 
+</p>
+<p>
+This is done to present a responsive front end to the user 
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-60" class="outline-2">
+<h2 id="sec-60"><span class="section-number-2">60</span> Overview of Nitrogen Validation </h2>
+<div class="outline-text-2" id="text-60">
+
+
+</div>
+
+<div id="outline-container-60_1" class="outline-3">
+<h3 id="sec-60_1"><span class="section-number-3">60.1</span> Validation </h3>
+<div class="outline-text-3" id="text-60_1">
+
+
+</div>
+
+<div id="outline-container-60_1_1" class="outline-4">
+<h4 id="sec-60_1_1"><span class="section-number-4">60.1.1</span> Overview of Nitrogen Validation </h4>
+<div class="outline-text-4" id="text-60_1_1">
+
+
+<p>
+The simplest validator is the <code>#is_required{}</code> validator. Tell your
+<code>login.erl</code> page to make sure the user enters both a username and
+a password.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(submit, username, #<span style="color: #28439B;">validate</span> { validators=[
+        #<span style="color: #28439B;">is_required</span> { text=<span style="color: #09A240;">"Required."</span> }
+    ]}),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(submit, password, #<span style="color: #28439B;">validate</span> { validators=[
+        #<span style="color: #28439B;">is_required</span> { text=<span style="color: #09A240;">"Required."</span> }
+    ]}),
+    #<span style="color: #28439B;">panel</span> { style=<span style="color: #09A240;">"margin: 50px;"</span>, body=[
+        ...
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-61" class="outline-2">
+<h2 id="sec-61"><span class="section-number-2">61</span> Overview of Nitrogen Validation </h2>
+<div class="outline-text-2" id="text-61">
+
+
+</div>
+
+<div id="outline-container-61_1" class="outline-3">
+<h3 id="sec-61_1"><span class="section-number-3">61.1</span> Validation </h3>
+<div class="outline-text-3" id="text-61_1">
+
+
+</div>
+
+<div id="outline-container-61_1_1" class="outline-4">
+<h4 id="sec-61_1_1"><span class="section-number-4">61.1.1</span> Overview of Nitrogen Validation </h4>
+<div class="outline-text-4" id="text-61_1_1">
+
+
+<p>
+We can get clever and use a validator to check that the user
+entered the correct password. The <code>#custom{}</code> validator runs on
+the server. (To make a custom client-side validator, use
+<code>#js_custom{}</code>.)
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(submit, username, #<span style="color: #28439B;">validate</span> { validators=[
+        #<span style="color: #28439B;">is_required</span> { text=<span style="color: #09A240;">"Required."</span> }
+    ]}),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(submit, password, #<span style="color: #28439B;">validate</span> { validators=[
+        #<span style="color: #28439B;">is_required</span> { text=<span style="color: #09A240;">"Required."</span> },
+        #<span style="color: #28439B;">custom</span> { 
+            text=<span style="color: #09A240;">"Invalid password."</span>, 
+            function=<span style="color: #FB5D17;">fun</span>(<span style="color: #000000;">_</span>, <span style="color: #000000;">Value</span>) -&gt;<span style="color: #28439B;"> </span><span style="color: #000000;">Value</span> == <span style="color: #09A240;">"password"</span> <span style="color: #FB5D17;">end</span>
+        }
+    ]}),
+    #<span style="color: #28439B;">panel</span> { style=<span style="color: #09A240;">"margin: 50px;"</span>, body=[
+        ...
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-62" class="outline-2">
+<h2 id="sec-62"><span class="section-number-2">62</span> Overview of Nitrogen Validation </h2>
+<div class="outline-text-2" id="text-62">
+
+
+</div>
+
+<div id="outline-container-62_1" class="outline-3">
+<h3 id="sec-62_1"><span class="section-number-3">62.1</span> Validation </h3>
+<div class="outline-text-3" id="text-62_1">
+
+
+</div>
+
+<div id="outline-container-62_1_1" class="outline-4">
+<h4 id="sec-62_1_1"><span class="section-number-4">62.1.1</span> Overview of Nitrogen Validation </h4>
+<div class="outline-text-4" id="text-62_1_1">
+
+
+<p>
+Since we validate the password in the <code>#custom</code> validator, we can
+trust that the <code>login</code> event only fires when the password is
+correct. Change the <code>login</code> event to:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">event</span>(login) -&gt;
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">role</span>(managers, true),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">redirect_from_login</span>(<span style="color: #09A240;">"/"</span>).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-63" class="outline-2">
+<h2 id="sec-63"><span class="section-number-2">63</span> PART 9 AGENDA </h2>
+<div class="outline-text-2" id="text-63">
+
+
+</div>
+
+<div id="outline-container-63_1" class="outline-3">
+<h3 id="sec-63_1"><span class="section-number-3">63.1</span> Comet </h3>
+<div class="outline-text-3" id="text-63_1">
+
+<ul>
+<li>
+What is Comet?
+</li>
+<li>
+Comet the Nitrogen/Erlang Way
+</li>
+<li>
+A Comet Counter
+</li>
+<li>
+Comet Pools
+</li>
+<li>
+Comet Pool Scope
+</li>
+<li>
+The Simplest Chatroom Ever Constructed
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-64" class="outline-2">
+<h2 id="sec-64"><span class="section-number-2">64</span> What is Comet? </h2>
+<div class="outline-text-2" id="text-64">
+
+
+</div>
+
+<div id="outline-container-64_1" class="outline-3">
+<h3 id="sec-64_1"><span class="section-number-3">64.1</span> Comet </h3>
+<div class="outline-text-3" id="text-64_1">
+
+
+</div>
+
+<div id="outline-container-64_1_1" class="outline-4">
+<h4 id="sec-64_1_1"><span class="section-number-4">64.1.1</span> What is Comet? </h4>
+<div class="outline-text-4" id="text-64_1_1">
+
+
+<p>
+<b>Comet</b> is the name for a technique where the browser requests
+something from the server, and the server doesn't respond until
+it has something useful to say.
+</p>
+<p>
+This makes it useful for applications that need fast, out-of-band
+communication, such as chat rooms. 
+</p>
+<p>
+In other words, you don't need to keep hitting a "Get Messages"
+button. The server just pushes messages when they are available.
+</p>
+<p>
+<i>A big happy shout out to Tom McNulty for his innovative ideas on what     Comet support could look like in Nitrogen.</i>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-65" class="outline-2">
+<h2 id="sec-65"><span class="section-number-2">65</span> Comet the Nitrogen/Erlang Way </h2>
+<div class="outline-text-2" id="text-65">
+
+
+</div>
+
+<div id="outline-container-65_1" class="outline-3">
+<h3 id="sec-65_1"><span class="section-number-3">65.1</span> Comet </h3>
+<div class="outline-text-3" id="text-65_1">
+
+
+</div>
+
+<div id="outline-container-65_1_1" class="outline-4">
+<h4 id="sec-65_1_1"><span class="section-number-4">65.1.1</span> Comet the Nitrogen/Erlang Way </h4>
+<div class="outline-text-4" id="text-65_1_1">
+
+
+<p>
+Think of Comet like <code>erlang:spawn/1</code>:
+</p>
+<ul>
+<li>
+Start up a function.
+
+</li>
+<li>
+The function can manipulate the page using <code>wf:update/2</code> or any
+other page manipulation function.
+
+</li>
+<li>
+Output is queued until the function ends or calls <code>wf:flush/0</code>.
+
+</li>
+<li>
+The function acts like it is linked to the current user's
+page. It is killed when the user leaves the page (or receives
+<code>{'EXIT', _, Message}</code> if <code>trap_exit</code> is <code>true</code>.)
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-66" class="outline-2">
+<h2 id="sec-66"><span class="section-number-2">66</span> A Comet Counter </h2>
+<div class="outline-text-2" id="text-66">
+
+
+</div>
+
+<div id="outline-container-66_1" class="outline-3">
+<h3 id="sec-66_1"><span class="section-number-3">66.1</span> Comet </h3>
+<div class="outline-text-3" id="text-66_1">
+
+
+</div>
+
+<div id="outline-container-66_1_1" class="outline-4">
+<h4 id="sec-66_1_1"><span class="section-number-4">66.1.1</span> A Comet Counter </h4>
+<div class="outline-text-4" id="text-66_1_1">
+
+
+<p>
+Update <code>my_page.erl</code> to count once per second.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">comet</span>(<span style="color: #FB5D17;">fun</span>() -&gt;<span style="color: #28439B;"> </span><span style="color: #28439B;">counter</span>(1) <span style="color: #FB5D17;">end</span>),
+    #<span style="color: #28439B;">panel</span> { id=placeholder }.
+
+<span style="color: #28439B;">counter</span>(<span style="color: #000000;">Count</span>) -&gt;
+    <span style="color: #28439B;">timer</span>:<span style="color: #28439B;">sleep</span>(1000),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">update</span>(placeholder, <span style="color: #000000;">integer_to_list</span>(<span style="color: #000000;">Count</span>)),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">flush</span>(),
+    <span style="color: #28439B;">counter</span>(<span style="color: #000000;">Count</span> + 1).
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-67" class="outline-2">
+<h2 id="sec-67"><span class="section-number-2">67</span> Comet Pools </h2>
+<div class="outline-text-2" id="text-67">
+
+
+</div>
+
+<div id="outline-container-67_1" class="outline-3">
+<h3 id="sec-67_1"><span class="section-number-3">67.1</span> Comet </h3>
+<div class="outline-text-3" id="text-67_1">
+
+
+</div>
+
+<div id="outline-container-67_1_1" class="outline-4">
+<h4 id="sec-67_1_1"><span class="section-number-4">67.1.1</span> Comet Pools </h4>
+<div class="outline-text-4" id="text-67_1_1">
+
+
+<p>
+You can tell a Comet function to start in a pool by providing a
+<code>PoolName</code>. The <code>PoolName</code> can be any Erlang term.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">comet</span>(<span style="color: #000000;">Fun</span>, <span style="color: #000000;">PoolName</span>)
+</pre>
+
+
+
+<p>
+Now you can send messages to the pool. The messages will be
+received by other functions started in that comet pool.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">send</span>(<span style="color: #000000;">PoolName</span>, <span style="color: #000000;">Message</span>)
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-68" class="outline-2">
+<h2 id="sec-68"><span class="section-number-2">68</span> Comet Pool Scope </h2>
+<div class="outline-text-2" id="text-68">
+
+
+</div>
+
+<div id="outline-container-68_1" class="outline-3">
+<h3 id="sec-68_1"><span class="section-number-3">68.1</span> Comet </h3>
+<div class="outline-text-3" id="text-68_1">
+
+
+</div>
+
+<div id="outline-container-68_1_1" class="outline-4">
+<h4 id="sec-68_1_1"><span class="section-number-4">68.1.1</span> Comet Pool Scope </h4>
+<div class="outline-text-4" id="text-68_1_1">
+
+
+<p>
+So far, we've been creating <b>local</b> comet pools. Nitrogen also has
+the idea of <b>global</b> comet pools:
+</p>
+<ul>
+<li>
+<b>Local</b> comet pools are walled around the current page and the
+current user. If the user reloads the page, the comet process(es)
+goes away.
+
+</li>
+<li>
+<b>Global</b> comet pools exist to help you create multi-user
+applications. They pool is accessible by <b>all</b> pages and <b>all</b>
+users.
+
+
+</li>
+</ul>
+
+
+<pre class="src src-erlang"><span style="color: #929292;">%% </span><span style="color: #929292;">Create a global comet pool.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">comet_global</span>(<span style="color: #000000;">Function</span>, <span style="color: #000000;">PoolName</span>)
+
+<span style="color: #929292;">%% </span><span style="color: #929292;">Send a global comet message.
+</span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">send_global</span>(<span style="color: #000000;">PoolName</span>, <span style="color: #000000;">Message</span>)
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-69" class="outline-2">
+<h2 id="sec-69"><span class="section-number-2">69</span> The Simplest Chatroom Ever Constructed </h2>
+<div class="outline-text-2" id="text-69">
+
+
+</div>
+
+<div id="outline-container-69_1" class="outline-3">
+<h3 id="sec-69_1"><span class="section-number-3">69.1</span> Comet </h3>
+<div class="outline-text-3" id="text-69_1">
+
+
+</div>
+
+<div id="outline-container-69_1_1" class="outline-4">
+<h4 id="sec-69_1_1"><span class="section-number-4">69.1.1</span> The Simplest Chatroom Ever Constructed </h4>
+<div class="outline-text-4" id="text-69_1_1">
+
+
+<p>
+Here we're going to create a page that listens for some text, and
+sends it to the global comet pool. Connect with different browsers
+and chat to yourself.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">comet_global</span>(<span style="color: #FB5D17;">fun</span>() -&gt;<span style="color: #28439B;"> </span><span style="color: #28439B;">repeater</span>() <span style="color: #FB5D17;">end</span>, repeater_pool),
+    [
+        #<span style="color: #28439B;">textbox</span> { id=msg, text=<span style="color: #09A240;">"Your message..."</span>, next=submit },
+        #<span style="color: #28439B;">button</span> { id=submit, text=<span style="color: #09A240;">"Submit"</span>, postback=submit },
+        #<span style="color: #28439B;">panel</span> { id=placeholder }
+    ].
+
+<span style="color: #28439B;">event</span>(submit) -&gt;
+    ?<span style="color: #28439B;">PRINT</span>(<span style="color: #28439B;">wf</span>:<span style="color: #28439B;">q</span>(msg)),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">send_global</span>(repeater_pool, {msg, <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">q</span>(msg)}).
+
+<span style="color: #28439B;">repeater</span>() -&gt;
+    <span style="color: #FB5D17;">receive</span> 
+        {msg, <span style="color: #000000;">Msg</span>} -&gt;<span style="color: #28439B;"> </span><span style="color: #28439B;">wf</span>:<span style="color: #28439B;">insert_top</span>(placeholder, [<span style="color: #000000;">Msg</span>, <span style="color: #09A240;">"&lt;br&gt;"</span>])
+    <span style="color: #FB5D17;">end</span>,
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">flush</span>(),
+    <span style="color: #28439B;">repeater</span>().
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-70" class="outline-2">
+<h2 id="sec-70"><span class="section-number-2">70</span> PART 10 AGENDA </h2>
+<div class="outline-text-2" id="text-70">
+
+
+</div>
+
+<div id="outline-container-70_1" class="outline-3">
+<h3 id="sec-70_1"><span class="section-number-3">70.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-70_1">
+
+<ul>
+<li>
+Custom Elements
+</li>
+<li>
+Custom Actions
+</li>
+<li>
+Handlers
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-71" class="outline-2">
+<h2 id="sec-71"><span class="section-number-2">71</span> Custom Elements - Part 1 </h2>
+<div class="outline-text-2" id="text-71">
+
+
+</div>
+
+<div id="outline-container-71_1" class="outline-3">
+<h3 id="sec-71_1"><span class="section-number-3">71.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-71_1">
+
+
+</div>
+
+<div id="outline-container-71_1_1" class="outline-4">
+<h4 id="sec-71_1_1"><span class="section-number-4">71.1.1</span> Custom Elements - Part 1 </h4>
+<div class="outline-text-4" id="text-71_1_1">
+
+
+<p>
+You can create custom elements to encapsulate other
+elements. There is no difference between a <b>custom</b> element and a
+<b>built-in</b> element, except where the actual files are stored.
+</p>
+<p>
+Create a new custom element in <code>site/src/elements/my_element.erl</code>.
+</p>
+<pre class="example">
+./bin/dev element my_element
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-72" class="outline-2">
+<h2 id="sec-72"><span class="section-number-2">72</span> Custom Elements - Part 2 </h2>
+<div class="outline-text-2" id="text-72">
+
+
+</div>
+
+<div id="outline-container-72_1" class="outline-3">
+<h3 id="sec-72_1"><span class="section-number-3">72.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-72_1">
+
+
+</div>
+
+<div id="outline-container-72_1_1" class="outline-4">
+<h4 id="sec-72_1_1"><span class="section-number-4">72.1.1</span> Custom Elements - Part 2 </h4>
+<div class="outline-text-4" id="text-72_1_1">
+
+
+<p>
+An element has:
+</p>
+<ol>
+<li>
+A <b>record</b> containing the properties of the element.
+
+</li>
+<li>
+A <code>reflect()</code> function, providing a programattic way to get the
+properties of an element. If <code>record_info(fields, RecordType)</code>
+worked, this would not be necessary.)
+
+</li>
+<li>
+A <code>render_element(Record)</code> function that emits HTML or
+other elements.
+
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-73" class="outline-2">
+<h2 id="sec-73"><span class="section-number-2">73</span> Custom Elements - Part 3 </h2>
+<div class="outline-text-2" id="text-73">
+
+
+</div>
+
+<div id="outline-container-73_1" class="outline-3">
+<h3 id="sec-73_1"><span class="section-number-3">73.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-73_1">
+
+
+</div>
+
+<div id="outline-container-73_1_1" class="outline-4">
+<h4 id="sec-73_1_1"><span class="section-number-4">73.1.1</span> Custom Elements - Part 3 </h4>
+<div class="outline-text-4" id="text-73_1_1">
+
+
+<p>
+Let's make an element that displays a textbox and a button, logs
+the result of the textbox to the console, and then calls a method
+on the main page.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">render_element</span>(#<span style="color: #28439B;">my_element</span>{}) -&gt;
+    <span style="color: #000000;">TextboxID</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">temp_id</span>(),
+    <span style="color: #000000;">ButtonID</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">temp_id</span>(),
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(<span style="color: #000000;">ButtonID</span>, #<span style="color: #28439B;">event</span> { 
+        type=click,
+        delegate=?<span style="color: #28439B;">MODULE</span>, 
+        postback={click, <span style="color: #000000;">TextboxID</span>}
+    }),
+    [
+        #<span style="color: #28439B;">textbox</span> { id=<span style="color: #000000;">TextboxID</span>, text=<span style="color: #09A240;">"Your text..."</span>, next=<span style="color: #000000;">ButtonID</span> },
+        #<span style="color: #28439B;">button</span> { id=<span style="color: #000000;">ButtonID</span>, text=<span style="color: #09A240;">"Submit"</span> }
+    ].
+
+<span style="color: #28439B;">event</span>({click, <span style="color: #000000;">TextboxID</span>}) -&gt;
+    <span style="color: #000000;">Text</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">q</span>(<span style="color: #000000;">TextboxID</span>),
+    ?<span style="color: #28439B;">PRINT</span>({clicked, <span style="color: #000000;">TextboxID</span>, <span style="color: #000000;">Text</span>}),
+    <span style="color: #000000;">PageModule</span> = <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">page_module</span>(),
+    <span style="color: #000000;">PageModule</span>:<span style="color: #28439B;">my_element_event</span>(<span style="color: #000000;">Text</span>).
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-74" class="outline-2">
+<h2 id="sec-74"><span class="section-number-2">74</span> Custom Elements - Part 4 </h2>
+<div class="outline-text-2" id="text-74">
+
+
+</div>
+
+<div id="outline-container-74_1" class="outline-3">
+<h3 id="sec-74_1"><span class="section-number-3">74.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-74_1">
+
+
+</div>
+
+<div id="outline-container-74_1_1" class="outline-4">
+<h4 id="sec-74_1_1"><span class="section-number-4">74.1.1</span> Custom Elements - Part 4 </h4>
+<div class="outline-text-4" id="text-74_1_1">
+
+
+<p>
+Now, use the element on <code>my_page.erl</code>. Remember to move the
+element into <code>include/records.hrl</code> first!
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    #<span style="color: #28439B;">my_element</span> {}.
+
+<span style="color: #28439B;">my_element_event</span>(<span style="color: #000000;">Text</span>) -&gt;
+    ?<span style="color: #28439B;">PRINT</span>(<span style="color: #000000;">Text</span>).
+</pre>
+
+
+
+
+<p>
+<i>For more examples, see the built-in elements under     nitrogen/src/elements.</i>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-75" class="outline-2">
+<h2 id="sec-75"><span class="section-number-2">75</span> Custom Actions - Part 1 </h2>
+<div class="outline-text-2" id="text-75">
+
+
+</div>
+
+<div id="outline-container-75_1" class="outline-3">
+<h3 id="sec-75_1"><span class="section-number-3">75.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-75_1">
+
+
+</div>
+
+<div id="outline-container-75_1_1" class="outline-4">
+<h4 id="sec-75_1_1"><span class="section-number-4">75.1.1</span> Custom Actions - Part 1 </h4>
+<div class="outline-text-4" id="text-75_1_1">
+
+
+<p>
+A custom <b>action</b> is like a custom <b>element</b>, except it should
+emit Javascript or other actions.
+</p>
+<pre class="example">
+./bin/dev action my_action
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-76" class="outline-2">
+<h2 id="sec-76"><span class="section-number-2">76</span> Custom Actions - Part 2 </h2>
+<div class="outline-text-2" id="text-76">
+
+
+</div>
+
+<div id="outline-container-76_1" class="outline-3">
+<h3 id="sec-76_1"><span class="section-number-3">76.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-76_1">
+
+
+</div>
+
+<div id="outline-container-76_1_1" class="outline-4">
+<h4 id="sec-76_1_1"><span class="section-number-4">76.1.1</span> Custom Actions - Part 2 </h4>
+<div class="outline-text-4" id="text-76_1_1">
+
+
+<p>
+Let's make a custom action that calls <code>#alert{}</code> with a specified
+string, but converted to all uppercase.
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #FB5D17;">-record</span>(<span style="color: #28439B;">my_action</span>, {?<span style="color: #28439B;">ACTION_BASE</span>(action_my_action), text}).
+
+<span style="color: #28439B;">render_action</span>(<span style="color: #000000;">Record</span> = #<span style="color: #28439B;">my_action</span>{}) -&gt;
+    #<span style="color: #28439B;">alert</span> { text=<span style="color: #28439B;">string</span>:<span style="color: #28439B;">to_upper</span>(<span style="color: #000000;">Record</span>#<span style="color: #28439B;">my_action</span>.text) }.
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-77" class="outline-2">
+<h2 id="sec-77"><span class="section-number-2">77</span> Custom Actions - Part 3 </h2>
+<div class="outline-text-2" id="text-77">
+
+
+</div>
+
+<div id="outline-container-77_1" class="outline-3">
+<h3 id="sec-77_1"><span class="section-number-3">77.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-77_1">
+
+
+</div>
+
+<div id="outline-container-77_1_1" class="outline-4">
+<h4 id="sec-77_1_1"><span class="section-number-4">77.1.1</span> Custom Actions - Part 3 </h4>
+<div class="outline-text-4" id="text-77_1_1">
+
+
+<p>
+Now, use the element on <code>my_page.erl</code>. Remember to move the action
+into <code>include/records.hrl</code> first!
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">body</span>() -&gt;<span style="color: #28439B;"> </span>
+    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(#<span style="color: #28439B;">my_action</span> { text=<span style="color: #09A240;">"this is a message"</span> }),
+    #<span style="color: #28439B;">label</span> { text=<span style="color: #09A240;">"You should see an alert."</span> }.
+</pre>
+
+
+
+<p>
+<i>For more examples, see the built-in actions under     nitrogen/src/actions.</i>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-78" class="outline-2">
+<h2 id="sec-78"><span class="section-number-2">78</span> Handlers - Part 1 </h2>
+<div class="outline-text-2" id="text-78">
+
+
+</div>
+
+<div id="outline-container-78_1" class="outline-3">
+<h3 id="sec-78_1"><span class="section-number-3">78.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-78_1">
+
+
+</div>
+
+<div id="outline-container-78_1_1" class="outline-4">
+<h4 id="sec-78_1_1"><span class="section-number-4">78.1.1</span> Handlers - Part 1 </h4>
+<div class="outline-text-4" id="text-78_1_1">
+
+
+<p>
+Handlers are an attempt to formalize an approach for overriding
+core Nitrogen behavior.
+</p>
+<p>
+Handlers exist for:
+</p><ul>
+<li>
+Configuration
+</li>
+<li>
+Logging
+</li>
+<li>
+Process Registry
+</li>
+<li>
+Caching
+</li>
+<li>
+Session Storage
+</li>
+<li>
+Page State Storage
+</li>
+<li>
+User Identity
+</li>
+<li>
+Roles
+</li>
+<li>
+Routing
+</li>
+<li>
+Security
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-79" class="outline-2">
+<h2 id="sec-79"><span class="section-number-2">79</span> Handlers - Part 2 </h2>
+<div class="outline-text-2" id="text-79">
+
+
+</div>
+
+<div id="outline-container-79_1" class="outline-3">
+<h3 id="sec-79_1"><span class="section-number-3">79.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-79_1">
+
+
+</div>
+
+<div id="outline-container-79_1_1" class="outline-4">
+<h4 id="sec-79_1_1"><span class="section-number-4">79.1.1</span> Handlers - Part 2 </h4>
+<div class="outline-text-4" id="text-79_1_1">
+
+
+<p>
+Handlers are initialized in the order described on the previous
+page. This means that any handler can access and override
+information defined by a handler that came before it. 
+</p>
+<p>
+For example, you could write a <code>route_handler</code> that behaved
+differently depending on the role of a user.
+</p></div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-80" class="outline-2">
+<h2 id="sec-80"><span class="section-number-2">80</span> Handlers - Part 3 </h2>
+<div class="outline-text-2" id="text-80">
+
+
+</div>
+
+<div id="outline-container-80_1" class="outline-3">
+<h3 id="sec-80_1"><span class="section-number-3">80.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-80_1">
+
+
+</div>
+
+<div id="outline-container-80_1_1" class="outline-4">
+<h4 id="sec-80_1_1"><span class="section-number-4">80.1.1</span> Handlers - Part 3 </h4>
+<div class="outline-text-4" id="text-80_1_1">
+
+
+<p>
+Let's make a <code>security_handler</code> handler that only allows the user
+to access modules beginning with the word "my".
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #FB5D17;">-module</span>(my_security_handler).
+<span style="color: #FB5D17;">-behaviour</span>(security_handler).
+<span style="color: #FB5D17;">-export</span>([<span style="color: #28439B;">init/2</span>, <span style="color: #28439B;">finish/2</span>]).
+<span style="color: #FB5D17;">-include_lib</span>(<span style="color: #09A240;">"nitrogen/include/wf.hrl"</span>).
+
+<span style="color: #28439B;">init</span>(<span style="color: #000000;">_Config</span>, <span style="color: #000000;">State</span>) -&gt;
+    ?<span style="color: #28439B;">PRINT</span>(<span style="color: #28439B;">wf</span>:<span style="color: #28439B;">page_module</span>()),
+    <span style="color: #FB5D17;">case</span> <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">to_list</span>(<span style="color: #28439B;">wf</span>:<span style="color: #28439B;">page_module</span>()) <span style="color: #FB5D17;">of</span>
+        <span style="color: #09A240;">"my"</span> ++ <span style="color: #000000;">_</span> -&gt;
+            {ok, <span style="color: #000000;">State</span>};
+        <span style="color: #09A240;">"static_file"</span> -&gt;
+            {ok, <span style="color: #000000;">State</span>};
+        <span style="color: #000000;">_</span> -&gt;
+            <span style="color: #28439B;">wf_context</span>:<span style="color: #28439B;">page_module</span>(access_denied),
+            {ok, <span style="color: #000000;">State</span>}
+    <span style="color: #FB5D17;">end</span>.
+
+<span style="color: #28439B;">finish</span>(<span style="color: #000000;">_Config</span>, <span style="color: #000000;">State</span>) -&gt;
+    {ok, <span style="color: #000000;">State</span>}.
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-81" class="outline-2">
+<h2 id="sec-81"><span class="section-number-2">81</span> Handlers - Part 3 </h2>
+<div class="outline-text-2" id="text-81">
+
+
+</div>
+
+<div id="outline-container-81_1" class="outline-3">
+<h3 id="sec-81_1"><span class="section-number-3">81.1</span> Extending Nitrogen </h3>
+<div class="outline-text-3" id="text-81_1">
+
+
+</div>
+
+<div id="outline-container-81_1_1" class="outline-4">
+<h4 id="sec-81_1_1"><span class="section-number-4">81.1.1</span> Handlers - Part 3 </h4>
+<div class="outline-text-4" id="text-81_1_1">
+
+
+<p>
+Now, install the handler in <code>nitrogen_inets.erl</code>:
+</p>
+
+
+
+<pre class="src src-erlang"><span style="color: #28439B;">do</span>(<span style="color: #000000;">Info</span>) -&gt;
+    <span style="color: #000000;">RequestBridge</span> = <span style="color: #28439B;">simple_bridge</span>:<span style="color: #28439B;">make_request</span>(inets_request_bridge, <span style="color: #000000;">Info</span>),
+    <span style="color: #000000;">ResponseBridge</span> = <span style="color: #28439B;">simple_bridge</span>:<span style="color: #28439B;">make_response</span>(inets_response_bridge, <span style="color: #000000;">Info</span>),
+    <span style="color: #28439B;">nitrogen</span>:<span style="color: #28439B;">init_request</span>(<span style="color: #000000;">RequestBridge</span>, <span style="color: #000000;">ResponseBridge</span>),
+    <span style="color: #28439B;">nitrogen</span>:<span style="color: #28439B;">handler</span>(my_security_handler, []),
+    <span style="color: #28439B;">nitrogen</span>:<span style="color: #28439B;">run</span>().
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-82" class="outline-2">
+<h2 id="sec-82"><span class="section-number-2">82</span> Conclusion </h2>
+<div class="outline-text-2" id="text-82">
+
+
+</div>
+
+<div id="outline-container-82_1" class="outline-3">
+<h3 id="sec-82_1"><span class="section-number-3">82.1</span> Conclusion </h3>
+<div class="outline-text-3" id="text-82_1">
+
+<p>By now, you should have a basic understanding of how Nitrogen works,
+and know enough to be able to quickly grok the examples on
+<a href="http://nitrogenproject.com">http://nitrogenproject.com</a> and apply them to your own pages.
+</p>
+<p>
+Things not covered in this tutorial:
+</p>
+<ul>
+<li>
+Drag and Drop
+</li>
+<li>
+Sorting
+</li>
+<li>
+Binding
+</li>
+<li>
+More Effects
+</li>
+<li>
+File Uploads
+</li>
+<li>
+Javascript API
+</li>
+<li>
+Custom Valiators
+</li>
+<li>
+Handlers
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-83" class="outline-2">
+<h2 id="sec-83"><span class="section-number-2">83</span> Conclusion </h2>
+<div class="outline-text-2" id="text-83">
+
+
+</div>
+
+<div id="outline-container-83_1" class="outline-3">
+<h3 id="sec-83_1"><span class="section-number-3">83.1</span> Thanks </h3>
+<div class="outline-text-3" id="text-83_1">
+
+
+<ul>
+<li>
+Mailing List, Bugs, etc: <a href="http://nitrogenproject.com/community">http://nitrogenproject.com/community</a>
+</li>
+<li>
+Follow me on Twitter: <a href="http://twitter/rklophaus">@rklophaus</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: Rusty Klophaus
+</p>
+<p class="date"> Date: 2010-11-22 11:02:35 EST</p>
+<p class="creator">HTML generated by org-mode 7.01h in emacs 24</p>
+</div>
+</div>
+</body>
+</html>

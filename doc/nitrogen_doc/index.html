@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>Getting Started with Nitrogen</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2010-06-14 18:35:00 EDT"/>
+<meta name="author" content="Rusty Klophaus (@rklophaus)"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<LINK href="stylesheet.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">Getting Started with Nitrogen</h1>
+
+<p>Getting Started | <a href="./api.html">API</a> | <a href="./elements.html">Elements</a> | <a href="./actions.html">Actions</a> | <a href="./validators.html">Validators</a> | <a href="./handlers.html">Handlers</a> | <a href="./about.html">About</a>
+</p>
+
+
+<div class=headline>Getting Started</div>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Common Questions </a></li>
+<li><a href="#sec-2">2 How do I create a new Nitrogen application? </a></li>
+<li><a href="#sec-3">3 How do I start/stop/manage Nitrogen? </a></li>
+<li><a href="#sec-4">4 How do I change configuration settings? </a>
+<ul>
+<li><a href="#sec-4.1">4.1 Inets Configuration </a></li>
+<li><a href="#sec-4.2">4.2 Mochiweb Configuration </a></li>
+<li><a href="#sec-4.3">4.3 Yaws Configuration </a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 Where is the code for my website? </a></li>
+<li><a href="#sec-6">6 How do I compile my code? </a></li>
+<li><a href="#sec-7">7 How do I create new pages, custom elements, or custom actions? </a></li>
+<li><a href="#sec-8">8 How do I upgrade to a new version of Nitrogen? </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Common Questions </h2>
+<div class="outline-text-2" id="text-1">
+
+
+<ul>
+<li>
+<a href="#sec-2">How do I create a new Nitrogen application?</a>
+</li>
+<li>
+<a href="#sec-3">How do I start and stop my application?</a>
+</li>
+<li>
+<a href="#sec-4">How do I change configuration settings?</a>
+</li>
+<li>
+<a href="#sec-5">Where is the code for my website?</a>
+</li>
+<li>
+<a href="#sec-6">How do I compile my code?</a>
+</li>
+<li>
+<a href="#sec-7">How do I create new pages, custom elements, or custom actions?</a>
+</li>
+<li>
+<a href="#sec-8">How do I upgrade to a new version of Nitrogen?</a>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><a name="1" id="1"></a><span class="section-number-2">2</span> How do I create a new Nitrogen application? </h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+First, check the <a href="http://nitrogenproject.com/downloads">Downloads</a> page to see if a pre-built package
+exists for your OS/architecture. If it does, then just download the
+package, unzip, and you are ready to start coding. (You don't even
+need to have Erlang installed, the Nitrogen binaries come with it
+pre-packaged.)
+</p>
+<p>
+If you don't see a package that will run on your computer, or you
+want to try running from the latest code in source control, then
+follow the steps below:
+</p>
+<p>
+Pull the latest source code from GitHub and run:
+</p>
+<pre class="example">
+make rel_inets
+</pre>
+
+
+<p>
+This creates a completely self-contained starter application under
+<code>./rel/nitrogen</code> that runs on Inets, Erlang's built in HTTP
+server. "Self-contained" here means that the <code>./rel/nitrogen</code>
+directory contains everything you need to develop and run nitrogen,
+including the Erlang VM. To create a <code>.tar.gz</code> version of this
+code, exactly like you would find on the <a href="http://nitrogenproject.com/downloads">Downloads</a> page, run:
+</p>
+<pre class="example">
+make package_inets
+</pre>
+
+
+<p>
+You can also run Nitrogen on Mochiweb or Yaws. Run one of the
+scripts provided in the <code>./apps/</code> directory to download the
+Mochiweb or Yaws code.
+</p>
+<pre class="example">
+# For Mochiweb...
+./apps/get_mochiweb.sh
+
+# For Yaws...
+./apps/get_yaws.sh
+</pre>
+
+
+<p>
+Then, create the release or the binary package (example below is
+for Mochiweb):
+</p>
+<pre class="example">
+# Build a release in ./rel/nitrogen
+make rel_mochiweb
+
+# Build a binary package in ./builds
+make package_mochiweb
+</pre>
+
+
+<p>
+Nitrogen 2.0 uses Dave "Dizzy" Smith's <a href="http://dizzyd.com/blog/post/194">Rebar</a> (<a href="http://bitbucket.org/basho/rebar/">source code</a>) to build
+OTP-compliant releases and packages. Check it out, it is awesome.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><a name="2" id="2"></a><span class="section-number-2">3</span> How do I start/stop/manage Nitrogen? </h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+Once you have a build of Nitrogen that will run on your
+application, the next step is to start the application. Nitrogen
+includes a handy script inside your release, under
+<code>./bin/nitrogen</code>, that will let you bring your Nitrogen application
+up or down:
+</p>
+<pre class="example">
+# Start the app in the background...
+./bin/nitrogen start
+
+# Connect to the app in the background. Control-D to disconnect.
+./bin/nitrogen attach
+
+# Stop the app...
+./bin/nitrogen stop
+
+# Start the app in "console" mode...
+./bin/nitrogen console
+
+# Ping the app to see if it is running...
+./bin/nitrogen ping
+</pre>
+
+
+<p>
+Once you have started your application, open
+<a href="http://localhost:8000">http://localhost:8000</a>. You should see a basic welcome page.x
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><a name="3" id="3"></a><span class="section-number-2">4</span> How do I change configuration settings? </h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+All configuration files for your application can be found under the
+<code>./etc</code> directory.
+</p>
+<p>
+Here, you will see:
+</p>
+<ul>
+<li>
+<b>vm.args</b> - This controls the arguments passed in to the
+VM. Here, you can set the node name, cookie, memory flags, etc.
+
+</li>
+<li>
+<b>app.config</b> - This contains application settings for Nitrogen and
+sasl (error logging).
+
+</li>
+</ul>
+
+<p><b>Important:</b> Before deploying your app to production, you should
+change the Erlang cookie (found in <code>./etc/vm.args</code>) and define a Nitrogen
+signkey (found in <code>./etc/app.config</code>).
+</p>
+
+</div>
+
+<div id="outline-container-4.1" class="outline-3">
+<h3 id="sec-4.1"><span class="section-number-3">4.1</span> Inets Configuration </h3>
+<div class="outline-text-3" id="text-4.1">
+
+
+<p>
+Nitrogen applications running on Inets will also contain:
+</p>
+<ul>
+<li>
+<b>inets.config</b> - You should not need to touch this file.
+
+</li>
+<li>
+<b>inets_httpd.erlenv</b> - Configure ip/port of your application, and other
+Inets-specific information.
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4.2" class="outline-3">
+<h3 id="sec-4.2"><span class="section-number-3">4.2</span> Mochiweb Configuration </h3>
+<div class="outline-text-3" id="text-4.2">
+
+
+<p>
+Nitrogen applications running on Mochiweb will also contain:
+</p>
+<ul>
+<li>
+<b>mochiweb.config</b> - Configure ip/port of your application, and
+other Mochiweb-specific information.
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4.3" class="outline-3">
+<h3 id="sec-4.3"><span class="section-number-3">4.3</span> Yaws Configuration </h3>
+<div class="outline-text-3" id="text-4.3">
+
+
+<p>
+Nitrogen applications running on Yaws will also contain:
+</p>
+<ul>
+<li>
+<b>yaws.config</b> - You should not need to touch this file.
+
+</li>
+<li>
+<b>yaws.conf</b> - Configure ip/port of your application, and other
+Yaws-specific information.
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><a name="4" id="4"></a><span class="section-number-2">5</span> Where is the code for my website? </h2>
+<div class="outline-text-2" id="text-5">
+
+
+<p>
+The Nitrogen project is structured so that all site specific code
+is contained inside the <code>site</code> directory. It is recommended that
+you place your entire <code>site</code> directory under source control. This
+will allow you to move your application to other architectures and
+configurations easily.
+</p>
+<p>
+The <code>site</code> directory contains the following sub-directories:
+</p>
+<dl>
+<dt><code>./site/src</code></dt><dd>
+Page modules, custom elements, and custom actions for
+your site.
+
+</dd>
+<dt><code>./site/static</code></dt><dd>
+Static files, including Javascript and
+CSS. These will be served through the web. Place any files you
+like here, but try not to touch the <code>nitrogen</code> directory, as you
+will need to overwrite this when you upgrade to a new version of
+Nitrogen.
+
+</dd>
+<dt><code>./site/templates</code></dt><dd>
+Html files used by the <code>#template{}</code> action.
+
+</dd>
+<dt><code>./site/.prototypes</code></dt><dd>
+Code used by <code>./bin/dev</code> to generate a page,
+element, or action. Feel free to edit these to something more to
+your liking.
+
+</dd>
+<dt><code>./site/ebin</code></dt><dd>
+Compiled <code>.beam</code> files.
+
+</dd>
+</dl>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><a name="5" id="5"></a><span class="section-number-2">6</span> How do I compile my code? </h2>
+<div class="outline-text-2" id="text-6">
+
+
+<p>
+There are three different ways to compile code in Nitrogen:
+</p>
+<ul>
+<li>
+If you are <b>in the Erlang console</b> then run <code>sync:go().</code>
+
+<p>
+This will look at all loaded modules, find their associated
+Emakefiles, and run <code>make:all([load]).</code> to recompile.
+</p>
+</li>
+<li>
+If <b>Nitrogen is running in the background</b> then run <code>./bin/dev     compile</code>
+
+<p>
+This connects to the running Nitrogen application and issues a
+<code>sync:go().</code> command.
+</p>
+</li>
+<li>
+If <b>Nitrogen is stopped</b> then run <code>make compile</code>
+
+<p>
+This calls <code>erl -make</code>, causing your application to be compiled
+based on the provided Emakefile.
+</p>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><a name="6" id="6"></a><span class="section-number-2">7</span> How do I create new pages, custom elements, or custom actions? </h2>
+<div class="outline-text-2" id="text-7">
+
+
+<p>
+Nitrogen 2.0 includes a developer tool to help you get started with a
+bare-bones page, element, or action. This tool uses the files found
+in <code>./site/.prototypes</code> as templates. If you wish, you can edit files in this
+directory to make them more suitable for your application.
+</p>
+<ul>
+<li>
+To create a new page at <a href="http://localhost/user/login">http://localhost/user/login</a>, run:
+
+<pre class="example">
+./bin/dev page user_login
+</pre>
+
+
+</li>
+<li>
+To create a new element called <code>#custom_element{}</code>, run:
+
+<pre class="example">
+./bin/dev element custom_element
+</pre>
+
+
+</li>
+<li>
+To create a new action called <code>#custom_action{}</code>, run:
+
+<pre class="example">
+./bin/dev action custom_action
+</pre>
+
+
+</li>
+</ul>
+
+<p>The code is placed under <code>./site/src</code>, <code>./site/src/elements</code>, or
+<code>./site/src/actions</code> for pages, elements, and actions,
+respectively. 
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><a name="7" id="7"></a><span class="section-number-2">8</span> How do I upgrade to a new version of Nitrogen? </h2>
+<div class="outline-text-2" id="text-8">
+
+
+<p>
+To upgrade to new versions of Nitrogen 2.0:
+</p>
+<ul>
+<li>
+Build or download the new Nitrogen environment for your
+architecture and preferred web server. Unzip to a new directory.
+
+</li>
+<li>
+Copy your existing <code>./etc</code> directory to the new build. This
+retains your configuration settings.
+
+</li>
+<li>
+Copy your existing <code>./site</code> directory to the new build, <b>except</b> for
+the files in <code>./site/static/nitrogen</code>. You will want to use the
+new version of any files in <code>./site/static/nitrogen</code>.
+
+</li>
+</ul>
+
+<p>This will update the Erlang version, the dependencies files, and
+all of the Javascript used by Nitrogen. 
+</p>
+<p>
+You will also need to update your code if there are any API level changes.
+</p>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: Rusty Klophaus (@rklophaus)
+<a href="mailto:">&lt;&gt;</a>
+</p>
+<p class="date"> Date: 2010-06-14 18:35:00 EDT</p>
+<p class="creator">HTML generated by org-mode 6.33f in emacs 22</p>
+</div>
+</div>
+</body>
+</html>

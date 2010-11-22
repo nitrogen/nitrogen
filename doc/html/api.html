@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>Nitrogen 2.x Documentation</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-06-14 18:35:25 EDT"/>
+<meta name="generated" content="2010-11-22 10:50:13 EST"/>
 <meta name="author" content="Rusty Klophaus (@rklophaus)"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -35,6 +35,7 @@ lang="en" xml:lang="en">
   dt { font-weight: bold; }
   div.figure { padding: 0.5em; }
   div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
   .linenr { font-size:smaller }
   .code-highlighted {background-color:#ffff00;}
   .org-info-js_info-navigation { border-style:none; }
@@ -170,9 +171,9 @@ selector path. See <a href="./paths.html">Element Paths</a> for more information
 
 </div>
 
-<div id="outline-container-2.1" class="outline-3">
-<h3 id="sec-2.1"><span class="section-number-3">2.1</span> wf:update(TargetID, Elements) -&gt; ok </h3>
-<div class="outline-text-3" id="text-2.1">
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> wf:update(TargetID, Elements) -&gt; ok </h3>
+<div class="outline-text-3" id="text-2_1">
 
 <p>Update the contents of TargetID with a new set of Nitrogen Elements.
 </p>
@@ -180,9 +181,9 @@ selector path. See <a href="./paths.html">Element Paths</a> for more information
 
 </div>
 
-<div id="outline-container-2.2" class="outline-3">
-<h3 id="sec-2.2"><span class="section-number-3">2.2</span> wf:replace(TargetID, Elements) -&gt; ok </h3>
-<div class="outline-text-3" id="text-2.2">
+<div id="outline-container-2_2" class="outline-3">
+<h3 id="sec-2_2"><span class="section-number-3">2.2</span> wf:replace(TargetID, Elements) -&gt; ok </h3>
+<div class="outline-text-3" id="text-2_2">
 
 <p>Replace TargetID with a new set of Nitrogen Elements.
 </p>
@@ -190,9 +191,9 @@ selector path. See <a href="./paths.html">Element Paths</a> for more information
 
 </div>
 
-<div id="outline-container-2.3" class="outline-3">
-<h3 id="sec-2.3"><span class="section-number-3">2.3</span> wf:remove(TargetID) -&gt; ok </h3>
-<div class="outline-text-3" id="text-2.3">
+<div id="outline-container-2_3" class="outline-3">
+<h3 id="sec-2_3"><span class="section-number-3">2.3</span> wf:remove(TargetID) -&gt; ok </h3>
+<div class="outline-text-3" id="text-2_3">
 
 <p>Remove TargetID from the DOM.
 </p>
@@ -200,9 +201,9 @@ selector path. See <a href="./paths.html">Element Paths</a> for more information
 
 </div>
 
-<div id="outline-container-2.4" class="outline-3">
-<h3 id="sec-2.4"><span class="section-number-3">2.4</span> wf:insert_top(TargetID, Elements) -&gt; ok </h3>
-<div class="outline-text-3" id="text-2.4">
+<div id="outline-container-2_4" class="outline-3">
+<h3 id="sec-2_4"><span class="section-number-3">2.4</span> wf:insert_top(TargetID, Elements) -&gt; ok </h3>
+<div class="outline-text-3" id="text-2_4">
 
 <p>Insert Nitrogen Elements at the top of TargetID, shifting the existing contents downward.
 </p>
@@ -210,9 +211,9 @@ selector path. See <a href="./paths.html">Element Paths</a> for more information
 
 </div>
 
-<div id="outline-container-2.5" class="outline-3">
-<h3 id="sec-2.5"><span class="section-number-3">2.5</span> wf:insert_bottom(TargetID, Elements) -&gt; ok </h3>
-<div class="outline-text-3" id="text-2.5">
+<div id="outline-container-2_5" class="outline-3">
+<h3 id="sec-2_5"><span class="section-number-3">2.5</span> wf:insert_bottom(TargetID, Elements) -&gt; ok </h3>
+<div class="outline-text-3" id="text-2_5">
 
 <p>Insert Nitrogen Elements at the bottom of the TargetID, below the existing contents.
 </p>
@@ -220,9 +221,9 @@ selector path. See <a href="./paths.html">Element Paths</a> for more information
 
 </div>
 
-<div id="outline-container-2.6" class="outline-3">
-<h3 id="sec-2.6"><span class="section-number-3">2.6</span> wf:flash(Elements) -&gt; ok </h3>
-<div class="outline-text-3" id="text-2.6">
+<div id="outline-container-2_6" class="outline-3">
+<h3 id="sec-2_6"><span class="section-number-3">2.6</span> wf:flash(Elements) -&gt; ok </h3>
+<div class="outline-text-3" id="text-2_6">
 
 <p>Insert the Nitrogen Elements as a new flash message.
 </p>
@@ -239,9 +240,9 @@ selector path. See <a href="./paths.html">Element Paths</a> for more information
 
 </div>
 
-<div id="outline-container-3.1" class="outline-3">
-<h3 id="sec-3.1"><span class="section-number-3">3.1</span> wf:f(Format, Data) -&gt; String </h3>
-<div class="outline-text-3" id="text-3.1">
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> wf:f(Format, Data) -&gt; String </h3>
+<div class="outline-text-3" id="text-3_1">
 
 
 <p>
@@ -252,109 +253,109 @@ io_lib:format(Format, Data). Returns a flattened list.
 
 </div>
 
-<div id="outline-container-3.2" class="outline-3">
-<h3 id="sec-3.2"><span class="section-number-3">3.2</span> wf:coalesce([List]) -&gt; Item </h3>
-<div class="outline-text-3" id="text-3.2">
+<div id="outline-container-3_2" class="outline-3">
+<h3 id="sec-3_2"><span class="section-number-3">3.2</span> wf:coalesce([List]) -&gt; Item </h3>
+<div class="outline-text-3" id="text-3_2">
 
 
 <p>
-Returns the first element in the list that is not 'undefined'.
+Return the first element in the list that is not 'undefined'.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.3" class="outline-3">
-<h3 id="sec-3.3"><span class="section-number-3">3.3</span> wf:is_string(Term) -&gt; Bool </h3>
-<div class="outline-text-3" id="text-3.3">
+<div id="outline-container-3_3" class="outline-3">
+<h3 id="sec-3_3"><span class="section-number-3">3.3</span> wf:is_string(Term) -&gt; Bool </h3>
+<div class="outline-text-3" id="text-3_3">
 
 
 <p>
-Returns true if the Term is an Erlang string. That is, a flat list
+Return true if the Term is an Erlang string. That is, a flat list
 of integers.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.4" class="outline-3">
-<h3 id="sec-3.4"><span class="section-number-3">3.4</span> wf:to_list(Term) -&gt; List </h3>
-<div class="outline-text-3" id="text-3.4">
+<div id="outline-container-3_4" class="outline-3">
+<h3 id="sec-3_4"><span class="section-number-3">3.4</span> wf:to_list(Term) -&gt; List </h3>
+<div class="outline-text-3" id="text-3_4">
 
 
 <p>
-Converts the supplied term to a flat list, if possible. Useful for
+Convert the supplied term to a flat list, if possible. Useful for
 turning Integers, Atoms, Binaries into Strings.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.5" class="outline-3">
-<h3 id="sec-3.5"><span class="section-number-3">3.5</span> wf:to_atom(Term) -&gt; Atom </h3>
-<div class="outline-text-3" id="text-3.5">
+<div id="outline-container-3_5" class="outline-3">
+<h3 id="sec-3_5"><span class="section-number-3">3.5</span> wf:to_atom(Term) -&gt; Atom </h3>
+<div class="outline-text-3" id="text-3_5">
 
 
 <p>
-Converts the supplied term into an Atm, if possible. Useful for
+Convert the supplied term into an Atom, if possible. Useful for
 turning Integers, Binaries, and Strings into Atoms.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.6" class="outline-3">
-<h3 id="sec-3.6"><span class="section-number-3">3.6</span> wf:to_binary(Term) -&gt; Binary </h3>
-<div class="outline-text-3" id="text-3.6">
+<div id="outline-container-3_6" class="outline-3">
+<h3 id="sec-3_6"><span class="section-number-3">3.6</span> wf:to_binary(Term) -&gt; Binary </h3>
+<div class="outline-text-3" id="text-3_6">
 
 
 <p>
-Converts the supplied term into a Binary, if possible. Useful for
+Convert the supplied term into a Binary, if possible. Useful for
 turning Integers, Atoms, and Strings into Binaries.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.7" class="outline-3">
-<h3 id="sec-3.7"><span class="section-number-3">3.7</span> wf:to_integer(Term) -&gt; Integer </h3>
-<div class="outline-text-3" id="text-3.7">
+<div id="outline-container-3_7" class="outline-3">
+<h3 id="sec-3_7"><span class="section-number-3">3.7</span> wf:to_integer(Term) -&gt; Integer </h3>
+<div class="outline-text-3" id="text-3_7">
 
 
 <p>
-Converts the supplied term into an Integer, if possible. Useful for turning Atoms, Strings, and Binaries into Integers.
+Convert the supplied term into an Integer, if possible. Useful for turning Atoms, Strings, and Binaries into Integers.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.8" class="outline-3">
-<h3 id="sec-3.8"><span class="section-number-3">3.8</span> wf:html_encode(String) -&gt; EncodedString </h3>
-<div class="outline-text-3" id="text-3.8">
+<div id="outline-container-3_8" class="outline-3">
+<h3 id="sec-3_8"><span class="section-number-3">3.8</span> wf:html_encode(String) -&gt; EncodedString </h3>
+<div class="outline-text-3" id="text-3_8">
 
 
 <p>
-HTML encodes the supplied String, converting things like &lt; and &gt; into &amp;lt; and &amp;gt;.
+HTML encode the supplied String, converting things like &lt; and &gt; into &amp;lt; and &amp;gt;.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.9" class="outline-3">
-<h3 id="sec-3.9"><span class="section-number-3">3.9</span> wf:html_decode(String) -&gt; DecodedString </h3>
-<div class="outline-text-3" id="text-3.9">
+<div id="outline-container-3_9" class="outline-3">
+<h3 id="sec-3_9"><span class="section-number-3">3.9</span> wf:html_decode(String) -&gt; DecodedString </h3>
+<div class="outline-text-3" id="text-3_9">
 
 
 <p>
-HTML decoding decodes the supplied String, converting things like &amp;lt; and &amp;gt; into &lt; and &gt;.
+HTML decoding decode the supplied String, converting things like &amp;lt; and &amp;gt; into &lt; and &gt;.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-3.10" class="outline-3">
-<h3 id="sec-3.10"><span class="section-number-3">3.10</span> wf:url_encode(String) -&gt; EncodedString </h3>
-<div class="outline-text-3" id="text-3.10">
+<div id="outline-container-3_10" class="outline-3">
+<h3 id="sec-3_10"><span class="section-number-3">3.10</span> wf:url_encode(String) -&gt; EncodedString </h3>
+<div class="outline-text-3" id="text-3_10">
 
 
 <p>
@@ -364,9 +365,9 @@ URL encode the supplied String, converting potentially URL-breaking characters i
 
 </div>
 
-<div id="outline-container-3.11" class="outline-3">
-<h3 id="sec-3.11"><span class="section-number-3">3.11</span> wf:url_decode(String) -&gt; DecodedString </h3>
-<div class="outline-text-3" id="text-3.11">
+<div id="outline-container-3_11" class="outline-3">
+<h3 id="sec-3_11"><span class="section-number-3">3.11</span> wf:url_decode(String) -&gt; DecodedString </h3>
+<div class="outline-text-3" id="text-3_11">
 
 
 <p>
@@ -376,9 +377,9 @@ URL decode the supplied String, converting a percent-encoded String into a norma
 
 </div>
 
-<div id="outline-container-3.12" class="outline-3">
-<h3 id="sec-3.12"><span class="section-number-3">3.12</span> wf:hex_encode(String) -&gt; EncodedString. </h3>
-<div class="outline-text-3" id="text-3.12">
+<div id="outline-container-3_12" class="outline-3">
+<h3 id="sec-3_12"><span class="section-number-3">3.12</span> wf:hex_encode(String) -&gt; EncodedString. </h3>
+<div class="outline-text-3" id="text-3_12">
 
 
 <p>
@@ -388,9 +389,9 @@ Hex-encode the supplied String.
 
 </div>
 
-<div id="outline-container-3.13" class="outline-3">
-<h3 id="sec-3.13"><span class="section-number-3">3.13</span> wf:hex_decode(String) -&gt; DecodedString </h3>
-<div class="outline-text-3" id="text-3.13">
+<div id="outline-container-3_13" class="outline-3">
+<h3 id="sec-3_13"><span class="section-number-3">3.13</span> wf:hex_decode(String) -&gt; DecodedString </h3>
+<div class="outline-text-3" id="text-3_13">
 
 
 <p>
@@ -400,9 +401,9 @@ Convert a hex-encoded String to a normal String.
 
 </div>
 
-<div id="outline-container-3.14" class="outline-3">
-<h3 id="sec-3.14"><span class="section-number-3">3.14</span> wf:temp_id() -&gt; String </h3>
-<div class="outline-text-3" id="text-3.14">
+<div id="outline-container-3_14" class="outline-3">
+<h3 id="sec-3_14"><span class="section-number-3">3.14</span> wf:temp_id() -&gt; String </h3>
+<div class="outline-text-3" id="text-3_14">
 
 
 <p>
@@ -414,9 +415,9 @@ name.
 
 </div>
 
-<div id="outline-container-3.15" class="outline-3">
-<h3 id="sec-3.15"><span class="section-number-3">3.15</span> wf:js_escape(String) -&gt; EscapedString </h3>
-<div class="outline-text-3" id="text-3.15">
+<div id="outline-container-3_15" class="outline-3">
+<h3 id="sec-3_15"><span class="section-number-3">3.15</span> wf:js_escape(String) -&gt; EscapedString </h3>
+<div class="outline-text-3" id="text-3_15">
 
 
 <p>
@@ -435,9 +436,9 @@ Convert a String to a JS-safe string by adding backslashes to quotes and newline
 
 </div>
 
-<div id="outline-container-4.1" class="outline-3">
-<h3 id="sec-4.1"><span class="section-number-3">4.1</span> wf:wire(Actions) -&gt; ok </h3>
-<div class="outline-text-3" id="text-4.1">
+<div id="outline-container-4_1" class="outline-3">
+<h3 id="sec-4_1"><span class="section-number-3">4.1</span> wf:wire(Actions) -&gt; ok </h3>
+<div class="outline-text-3" id="text-4_1">
 
 
 <p>
@@ -455,14 +456,13 @@ For example, show a Javascript alert:
 
 
 
-
 </div>
 
 </div>
 
-<div id="outline-container-4.2" class="outline-3">
-<h3 id="sec-4.2"><span class="section-number-3">4.2</span> wf:wire(TargetID, Actions) -&gt; ok </h3>
-<div class="outline-text-3" id="text-4.2">
+<div id="outline-container-4_2" class="outline-3">
+<h3 id="sec-4_2"><span class="section-number-3">4.2</span> wf:wire(TargetID, Actions) -&gt; ok </h3>
+<div class="outline-text-3" id="text-4_2">
 
 
 <p>
@@ -477,14 +477,13 @@ For example, hide a Panel:
 
 
 
-
 </div>
 
 </div>
 
-<div id="outline-container-4.3" class="outline-3">
-<h3 id="sec-4.3"><span class="section-number-3">4.3</span> wf:wire(TriggerID, TargetID, Actions) -&gt; ok </h3>
-<div class="outline-text-3" id="text-4.3">
+<div id="outline-container-4_3" class="outline-3">
+<h3 id="sec-4_3"><span class="section-number-3">4.3</span> wf:wire(TriggerID, TargetID, Actions) -&gt; ok </h3>
+<div class="outline-text-3" id="text-4_3">
 
 
 <p>
@@ -503,14 +502,13 @@ For example, when a button is clicked, hide a panel:
 
 
 
-
 </div>
 
 </div>
 
-<div id="outline-container-4.4" class="outline-3">
-<h3 id="sec-4.4"><span class="section-number-3">4.4</span> wf:continue(Tag, Function, IntervalInMS, TimeoutInMS) -&gt; ok </h3>
-<div class="outline-text-3" id="text-4.4">
+<div id="outline-container-4_4" class="outline-3">
+<h3 id="sec-4_4"><span class="section-number-3">4.4</span> wf:continue(Tag, Function, IntervalInMS, TimeoutInMS) -&gt; ok </h3>
+<div class="outline-text-3" id="text-4_4">
 
 
 <p>
@@ -530,9 +528,9 @@ See <a href="http://nitrogenproject.com/web/samples/continuations">continuations
 
 </div>
 
-<div id="outline-container-5.1" class="outline-3">
-<h3 id="sec-5.1"><span class="section-number-3">5.1</span> wf:comet(Function) -&gt; Pid </h3>
-<div class="outline-text-3" id="text-5.1">
+<div id="outline-container-5_1" class="outline-3">
+<h3 id="sec-5_1"><span class="section-number-3">5.1</span> wf:comet(Function) -&gt; Pid </h3>
+<div class="outline-text-3" id="text-5_1">
 
 
 <p>
@@ -543,9 +541,9 @@ See <a href="http://nitrogenproject.com/web/samples/comet1">example 1</a>, <a hr
 
 </div>
 
-<div id="outline-container-5.2" class="outline-3">
-<h3 id="sec-5.2"><span class="section-number-3">5.2</span> wf:comet(Function, LocalPool) -&gt; Pid </h3>
-<div class="outline-text-3" id="text-5.2">
+<div id="outline-container-5_2" class="outline-3">
+<h3 id="sec-5_2"><span class="section-number-3">5.2</span> wf:comet(Function, LocalPool) -&gt; Pid </h3>
+<div class="outline-text-3" id="text-5_2">
 
 
 <p>
@@ -555,9 +553,9 @@ Spawn a function connected to the specified local pool.
 
 </div>
 
-<div id="outline-container-5.3" class="outline-3">
-<h3 id="sec-5.3"><span class="section-number-3">5.3</span> wf:comet<sub>global</sub>(Function, GlobalPool) -&gt; Pid </h3>
-<div class="outline-text-3" id="text-5.3">
+<div id="outline-container-5_3" class="outline-3">
+<h3 id="sec-5_3"><span class="section-number-3">5.3</span> wf:comet<sub>global</sub>(Function, GlobalPool) -&gt; Pid </h3>
+<div class="outline-text-3" id="text-5_3">
 
 
 <p>
@@ -567,9 +565,9 @@ Spawn a function connected to the specified global pool.
 
 </div>
 
-<div id="outline-container-5.4" class="outline-3">
-<h3 id="sec-5.4"><span class="section-number-3">5.4</span> wf:send(LocalPool, Message) </h3>
-<div class="outline-text-3" id="text-5.4">
+<div id="outline-container-5_4" class="outline-3">
+<h3 id="sec-5_4"><span class="section-number-3">5.4</span> wf:send(LocalPool, Message) </h3>
+<div class="outline-text-3" id="text-5_4">
 
 
 <p>
@@ -580,9 +578,9 @@ specified local pool.
 
 </div>
 
-<div id="outline-container-5.5" class="outline-3">
-<h3 id="sec-5.5"><span class="section-number-3">5.5</span> wf:send<sub>global</sub>(GlobalPool, Message) </h3>
-<div class="outline-text-3" id="text-5.5">
+<div id="outline-container-5_5" class="outline-3">
+<h3 id="sec-5_5"><span class="section-number-3">5.5</span> wf:send<sub>global</sub>(GlobalPool, Message) </h3>
+<div class="outline-text-3" id="text-5_5">
 
 
 <p>
@@ -593,9 +591,9 @@ specified GlobalPool.
 
 </div>
 
-<div id="outline-container-5.6" class="outline-3">
-<h3 id="sec-5.6"><span class="section-number-3">5.6</span> wf:flush() -&gt; ok </h3>
-<div class="outline-text-3" id="text-5.6">
+<div id="outline-container-5_6" class="outline-3">
+<h3 id="sec-5_6"><span class="section-number-3">5.6</span> wf:flush() -&gt; ok </h3>
+<div class="outline-text-3" id="text-5_6">
 
 
 <p>
@@ -606,9 +604,9 @@ comet_flush/0 pushes results to the browser immediately, useful for a looping co
 
 </div>
 
-<div id="outline-container-5.7" class="outline-3">
-<h3 id="sec-5.7"><span class="section-number-3">5.7</span> wf:async<sub>mode</sub>() </h3>
-<div class="outline-text-3" id="text-5.7">
+<div id="outline-container-5_7" class="outline-3">
+<h3 id="sec-5_7"><span class="section-number-3">5.7</span> wf:async<sub>mode</sub>() </h3>
+<div class="outline-text-3" id="text-5_7">
 
 
 <p>
@@ -618,9 +616,9 @@ Return the current async mode, either <code>comet</code> or <code>{poll, Interva
 
 </div>
 
-<div id="outline-container-5.8" class="outline-3">
-<h3 id="sec-5.8"><span class="section-number-3">5.8</span> wf:async<sub>mode</sub>(Mode) </h3>
-<div class="outline-text-3" id="text-5.8">
+<div id="outline-container-5_8" class="outline-3">
+<h3 id="sec-5_8"><span class="section-number-3">5.8</span> wf:async<sub>mode</sub>(Mode) </h3>
+<div class="outline-text-3" id="text-5_8">
 
 
 <p>
@@ -630,9 +628,9 @@ Set the current async mode, either <code>comet</code> or <code>{poll, IntervalIn
 
 </div>
 
-<div id="outline-container-5.9" class="outline-3">
-<h3 id="sec-5.9"><span class="section-number-3">5.9</span> wf:switch<sub>to</sub><sub>comet</sub>() </h3>
-<div class="outline-text-3" id="text-5.9">
+<div id="outline-container-5_9" class="outline-3">
+<h3 id="sec-5_9"><span class="section-number-3">5.9</span> wf:switch<sub>to</sub><sub>comet</sub>() </h3>
+<div class="outline-text-3" id="text-5_9">
 
 
 <p>
@@ -643,9 +641,9 @@ resources on the server, as HTTP connections stay open.
 
 </div>
 
-<div id="outline-container-5.10" class="outline-3">
-<h3 id="sec-5.10"><span class="section-number-3">5.10</span> wf:switch<sub>to</sub><sub>polling</sub>(IntervalInMS) </h3>
-<div class="outline-text-3" id="text-5.10">
+<div id="outline-container-5_10" class="outline-3">
+<h3 id="sec-5_10"><span class="section-number-3">5.10</span> wf:switch<sub>to</sub><sub>polling</sub>(IntervalInMS) </h3>
+<div class="outline-text-3" id="text-5_10">
 
 
 <p>
@@ -657,9 +655,9 @@ request every <code>IntervalInMS</code> milliseconds.
 
 </div>
 
-<div id="outline-container-5.11" class="outline-3">
-<h3 id="sec-5.11"><span class="section-number-3">5.11</span> wf:continue(Tag, Function) -&gt; ok </h3>
-<div class="outline-text-3" id="text-5.11">
+<div id="outline-container-5_11" class="outline-3">
+<h3 id="sec-5_11"><span class="section-number-3">5.11</span> wf:continue(Tag, Function) -&gt; ok </h3>
+<div class="outline-text-3" id="text-5_11">
 
 
 <p>
@@ -670,9 +668,9 @@ See <a href="http://nitrogenproject.com/web/samples/continuations">continuations
 
 </div>
 
-<div id="outline-container-5.12" class="outline-3">
-<h3 id="sec-5.12"><span class="section-number-3">5.12</span> wf:continue(Tag, Function, Interval) -&gt; ok </h3>
-<div class="outline-text-3" id="text-5.12">
+<div id="outline-container-5_12" class="outline-3">
+<h3 id="sec-5_12"><span class="section-number-3">5.12</span> wf:continue(Tag, Function, Interval) -&gt; ok </h3>
+<div class="outline-text-3" id="text-5_12">
 
 
 <p>
@@ -692,9 +690,9 @@ See <a href="http://nitrogenproject.com/web/samples/continuations">continuations
 
 </div>
 
-<div id="outline-container-6.1" class="outline-3">
-<h3 id="sec-6.1"><span class="section-number-3">6.1</span> wf:redirect(Url) -&gt; ok </h3>
-<div class="outline-text-3" id="text-6.1">
+<div id="outline-container-6_1" class="outline-3">
+<h3 id="sec-6_1"><span class="section-number-3">6.1</span> wf:redirect(Url) -&gt; ok </h3>
+<div class="outline-text-3" id="text-6_1">
 
 <p>Redirect to the provided URL.
 </p>
@@ -702,22 +700,22 @@ See <a href="http://nitrogenproject.com/web/samples/continuations">continuations
 
 </div>
 
-<div id="outline-container-6.2" class="outline-3">
-<h3 id="sec-6.2"><span class="section-number-3">6.2</span> wf:redirect_to_login(Url) -&gt; ok </h3>
-<div class="outline-text-3" id="text-6.2">
+<div id="outline-container-6_2" class="outline-3">
+<h3 id="sec-6_2"><span class="section-number-3">6.2</span> wf:redirect_to_login(Url) -&gt; ok </h3>
+<div class="outline-text-3" id="text-6_2">
 
 
 <p>
-Redirect to the provided URL, attaching a token on the end. The recieving page can call
+Redirect to the provided URL, attaching a token on the end. The receiving page can call
 <code>wf:redirect_from_login(DefaultUrl)</code> to send the user back to the current page.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-6.3" class="outline-3">
-<h3 id="sec-6.3"><span class="section-number-3">6.3</span> wf:redirect_from_login(DefaultUrl) -&gt; ok </h3>
-<div class="outline-text-3" id="text-6.3">
+<div id="outline-container-6_3" class="outline-3">
+<h3 id="sec-6_3"><span class="section-number-3">6.3</span> wf:redirect_from_login(DefaultUrl) -&gt; ok </h3>
+<div class="outline-text-3" id="text-6_3">
 
 
 <p>
@@ -738,9 +736,9 @@ provided DefaultUrl.
 
 </div>
 
-<div id="outline-container-7.1" class="outline-3">
-<h3 id="sec-7.1"><span class="section-number-3">7.1</span> wf:session(Key) -&gt; Value or 'undefined' </h3>
-<div class="outline-text-3" id="text-7.1">
+<div id="outline-container-7_1" class="outline-3">
+<h3 id="sec-7_1"><span class="section-number-3">7.1</span> wf:session(Key) -&gt; Value or 'undefined' </h3>
+<div class="outline-text-3" id="text-7_1">
 
 
 <p>
@@ -752,9 +750,9 @@ For example, retrieve the value of 'count' for the current user:
 
 </div>
 
-<div id="outline-container-7.2" class="outline-3">
-<h3 id="sec-7.2"><span class="section-number-3">7.2</span> wf:session_default(Key, DefaultValue) -&gt; Value. </h3>
-<div class="outline-text-3" id="text-7.2">
+<div id="outline-container-7_2" class="outline-3">
+<h3 id="sec-7_2"><span class="section-number-3">7.2</span> wf:session_default(Key, DefaultValue) -&gt; Value. </h3>
+<div class="outline-text-3" id="text-7_2">
 
 
 <p>
@@ -765,9 +763,9 @@ found, return the supplied default value.
 
 </div>
 
-<div id="outline-container-7.3" class="outline-3">
-<h3 id="sec-7.3"><span class="section-number-3">7.3</span> wf:session(Key, Value) -&gt; ok </h3>
-<div class="outline-text-3" id="text-7.3">
+<div id="outline-container-7_3" class="outline-3">
+<h3 id="sec-7_3"><span class="section-number-3">7.3</span> wf:session(Key, Value) -&gt; ok </h3>
+<div class="outline-text-3" id="text-7_3">
 
 
 <p>
@@ -779,9 +777,9 @@ For example, store a count:
 
 </div>
 
-<div id="outline-container-7.4" class="outline-3">
-<h3 id="sec-7.4"><span class="section-number-3">7.4</span> wf:clear_session() -&gt; ok </h3>
-<div class="outline-text-3" id="text-7.4">
+<div id="outline-container-7_4" class="outline-3">
+<h3 id="sec-7_4"><span class="section-number-3">7.4</span> wf:clear_session() -&gt; ok </h3>
+<div class="outline-text-3" id="text-7_4">
 
 
 <p>
@@ -791,9 +789,9 @@ Clear the current user's session.
 
 </div>
 
-<div id="outline-container-7.5" class="outline-3">
-<h3 id="sec-7.5"><span class="section-number-3">7.5</span> wf:logout() -&gt; ok </h3>
-<div class="outline-text-3" id="text-7.5">
+<div id="outline-container-7_5" class="outline-3">
+<h3 id="sec-7_5"><span class="section-number-3">7.5</span> wf:logout() -&gt; ok </h3>
+<div class="outline-text-3" id="text-7_5">
 
 <p>Clear session state, page state, identity, and roles.        
 </p>
@@ -810,9 +808,9 @@ Clear the current user's session.
 
 </div>
 
-<div id="outline-container-8.1" class="outline-3">
-<h3 id="sec-8.1"><span class="section-number-3">8.1</span> wf:state(Key) -&gt; Value </h3>
-<div class="outline-text-3" id="text-8.1">
+<div id="outline-container-8_1" class="outline-3">
+<h3 id="sec-8_1"><span class="section-number-3">8.1</span> wf:state(Key) -&gt; Value </h3>
+<div class="outline-text-3" id="text-8_1">
 
 
 <p>
@@ -824,9 +822,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-8.2" class="outline-3">
-<h3 id="sec-8.2"><span class="section-number-3">8.2</span> wf:state_default(Key, DefaultValue) -&gt; Value. </h3>
-<div class="outline-text-3" id="text-8.2">
+<div id="outline-container-8_2" class="outline-3">
+<h3 id="sec-8_2"><span class="section-number-3">8.2</span> wf:state_default(Key, DefaultValue) -&gt; Value. </h3>
+<div class="outline-text-3" id="text-8_2">
 
 
 <p>
@@ -837,9 +835,9 @@ value is not set, then return the supplied default value.
 
 </div>
 
-<div id="outline-container-8.3" class="outline-3">
-<h3 id="sec-8.3"><span class="section-number-3">8.3</span> wf:state(Key, Value) -&gt; ok </h3>
-<div class="outline-text-3" id="text-8.3">
+<div id="outline-container-8_3" class="outline-3">
+<h3 id="sec-8_3"><span class="section-number-3">8.3</span> wf:state(Key, Value) -&gt; ok </h3>
+<div class="outline-text-3" id="text-8_3">
 
 
 <p>
@@ -851,9 +849,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-8.4" class="outline-3">
-<h3 id="sec-8.4"><span class="section-number-3">8.4</span> wf:clear_state() -&gt; ok </h3>
-<div class="outline-text-3" id="text-8.4">
+<div id="outline-container-8_4" class="outline-3">
+<h3 id="sec-8_4"><span class="section-number-3">8.4</span> wf:clear_state() -&gt; ok </h3>
+<div class="outline-text-3" id="text-8_4">
 
 <p>Clear a user's page state.
 </p>
@@ -870,9 +868,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-9.1" class="outline-3">
-<h3 id="sec-9.1"><span class="section-number-3">9.1</span> wf:user() -&gt; User or 'undefined' </h3>
-<div class="outline-text-3" id="text-9.1">
+<div id="outline-container-9_1" class="outline-3">
+<h3 id="sec-9_1"><span class="section-number-3">9.1</span> wf:user() -&gt; User or 'undefined' </h3>
+<div class="outline-text-3" id="text-9_1">
 
 <p>Return the user value that was previously set by <code>wf:user(User)</code>
 </p>
@@ -880,9 +878,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-9.2" class="outline-3">
-<h3 id="sec-9.2"><span class="section-number-3">9.2</span> wf:user(User) -&gt; ok </h3>
-<div class="outline-text-3" id="text-9.2">
+<div id="outline-container-9_2" class="outline-3">
+<h3 id="sec-9_2"><span class="section-number-3">9.2</span> wf:user(User) -&gt; ok </h3>
+<div class="outline-text-3" id="text-9_2">
 
 <p>Set the user for the current session.
 </p>
@@ -890,9 +888,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-9.3" class="outline-3">
-<h3 id="sec-9.3"><span class="section-number-3">9.3</span> wf:clear_user() -&gt; ok </h3>
-<div class="outline-text-3" id="text-9.3">
+<div id="outline-container-9_3" class="outline-3">
+<h3 id="sec-9_3"><span class="section-number-3">9.3</span> wf:clear_user() -&gt; ok </h3>
+<div class="outline-text-3" id="text-9_3">
 
 <p>Same as <code>wf:user(undefined)</code>.
 </p>
@@ -900,9 +898,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-9.4" class="outline-3">
-<h3 id="sec-9.4"><span class="section-number-3">9.4</span> wf:role(Role) -&gt; 'true' or 'false' </h3>
-<div class="outline-text-3" id="text-9.4">
+<div id="outline-container-9_4" class="outline-3">
+<h3 id="sec-9_4"><span class="section-number-3">9.4</span> wf:role(Role) -&gt; 'true' or 'false' </h3>
+<div class="outline-text-3" id="text-9_4">
 
 <p>Check if the current user has a specified role.
 </p>
@@ -910,9 +908,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-9.5" class="outline-3">
-<h3 id="sec-9.5"><span class="section-number-3">9.5</span> wf:role(Role, IsInRole) -&gt; ok </h3>
-<div class="outline-text-3" id="text-9.5">
+<div id="outline-container-9_5" class="outline-3">
+<h3 id="sec-9_5"><span class="section-number-3">9.5</span> wf:role(Role, IsInRole) -&gt; ok </h3>
+<div class="outline-text-3" id="text-9_5">
 
 <p>Set whether the current user is in a specified role.
 </p>
@@ -920,9 +918,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-9.6" class="outline-3">
-<h3 id="sec-9.6"><span class="section-number-3">9.6</span> wf:clear_roles() -&gt; ok </h3>
-<div class="outline-text-3" id="text-9.6">
+<div id="outline-container-9_6" class="outline-3">
+<h3 id="sec-9_6"><span class="section-number-3">9.6</span> wf:clear_roles() -&gt; ok </h3>
+<div class="outline-text-3" id="text-9_6">
 
 <p>Remove the user from all roles.      
 </p>
@@ -939,9 +937,9 @@ of requests by one user to one Nitrogen Page.
 
 </div>
 
-<div id="outline-container-10.1" class="outline-3">
-<h3 id="sec-10.1"><span class="section-number-3">10.1</span> wf:q(AtomKey) -&gt; String </h3>
-<div class="outline-text-3" id="text-10.1">
+<div id="outline-container-10_1" class="outline-3">
+<h3 id="sec-10_1"><span class="section-number-3">10.1</span> wf:q(AtomKey) -&gt; String </h3>
+<div class="outline-text-3" id="text-10_1">
 
 
 <p>
@@ -953,9 +951,9 @@ than one AtomKey matches, then this will throw an error, use
 
 </div>
 
-<div id="outline-container-10.2" class="outline-3">
-<h3 id="sec-10.2"><span class="section-number-3">10.2</span> wf:qs(AtomKey) -&gt; [String] </h3>
-<div class="outline-text-3" id="text-10.2">
+<div id="outline-container-10_2" class="outline-3">
+<h3 id="sec-10_2"><span class="section-number-3">10.2</span> wf:qs(AtomKey) -&gt; [String] </h3>
+<div class="outline-text-3" id="text-10_2">
 
 
 <p>
@@ -966,9 +964,9 @@ key. (This acts like <code>wf:q(AtomKey)</code> in Nitrogen 1.0.)
 
 </div>
 
-<div id="outline-container-10.3" class="outline-3">
-<h3 id="sec-10.3"><span class="section-number-3">10.3</span> wf:status_code(IntegerCode) -&gt; ok </h3>
-<div class="outline-text-3" id="text-10.3">
+<div id="outline-container-10_3" class="outline-3">
+<h3 id="sec-10_3"><span class="section-number-3">10.3</span> wf:status_code(IntegerCode) -&gt; ok </h3>
+<div class="outline-text-3" id="text-10_3">
 
 <p>Set the HTTP response code. Default is 200.
 </p>
@@ -976,9 +974,9 @@ key. (This acts like <code>wf:q(AtomKey)</code> in Nitrogen 1.0.)
 
 </div>
 
-<div id="outline-container-10.4" class="outline-3">
-<h3 id="sec-10.4"><span class="section-number-3">10.4</span> wf:content_type(ContentType) -&gt; ok </h3>
-<div class="outline-text-3" id="text-10.4">
+<div id="outline-container-10_4" class="outline-3">
+<h3 id="sec-10_4"><span class="section-number-3">10.4</span> wf:content_type(ContentType) -&gt; ok </h3>
+<div class="outline-text-3" id="text-10_4">
 
 
 <p>
@@ -990,9 +988,9 @@ HTML.
 
 </div>
 
-<div id="outline-container-10.5" class="outline-3">
-<h3 id="sec-10.5"><span class="section-number-3">10.5</span> wf:path_info() -&gt; String </h3>
-<div class="outline-text-3" id="text-10.5">
+<div id="outline-container-10_5" class="outline-3">
+<h3 id="sec-10_5"><span class="section-number-3">10.5</span> wf:path_info() -&gt; String </h3>
+<div class="outline-text-3" id="text-10_5">
 
 
 <p>
@@ -1004,13 +1002,13 @@ wf:get_path_info() would return "some/extra/stuff".
 
 </div>
 
-<div id="outline-container-10.6" class="outline-3">
-<h3 id="sec-10.6"><span class="section-number-3">10.6</span> wf:page_module() -&gt; Atom </h3>
-<div class="outline-text-3" id="text-10.6">
+<div id="outline-container-10_6" class="outline-3">
+<h3 id="sec-10_6"><span class="section-number-3">10.6</span> wf:page_module() -&gt; Atom </h3>
+<div class="outline-text-3" id="text-10_6">
 
 
 <p>
-Returns the requested page module. Useful information to know when writing a custom
+Return the requested page module. Useful information to know when writing a custom
 element or action.
 </p>
 </div>
@@ -1026,21 +1024,21 @@ element or action.
 
 </div>
 
-<div id="outline-container-11.1" class="outline-3">
-<h3 id="sec-11.1"><span class="section-number-3">11.1</span> wf:cookies() -&gt; [{AtomKey, StringValue}]. </h3>
-<div class="outline-text-3" id="text-11.1">
+<div id="outline-container-11_1" class="outline-3">
+<h3 id="sec-11_1"><span class="section-number-3">11.1</span> wf:cookies() -&gt; [{AtomKey, StringValue}]. </h3>
+<div class="outline-text-3" id="text-11_1">
 
 
 <p>
-Returns a proplist of all cookies.
+Return a proplist of all cookies.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-11.2" class="outline-3">
-<h3 id="sec-11.2"><span class="section-number-3">11.2</span> wf:get_cookie(Key) -&gt; String </h3>
-<div class="outline-text-3" id="text-11.2">
+<div id="outline-container-11_2" class="outline-3">
+<h3 id="sec-11_2"><span class="section-number-3">11.2</span> wf:get_cookie(Key) -&gt; String </h3>
+<div class="outline-text-3" id="text-11_2">
 
 
 <p>
@@ -1050,21 +1048,21 @@ Get the value of a cookie.
 
 </div>
 
-<div id="outline-container-11.3" class="outline-3">
-<h3 id="sec-11.3"><span class="section-number-3">11.3</span> wf:get_cookie_default(Key, Default) -&gt; String. </h3>
-<div class="outline-text-3" id="text-11.3">
+<div id="outline-container-11_3" class="outline-3">
+<h3 id="sec-11_3"><span class="section-number-3">11.3</span> wf:get_cookie_default(Key, Default) -&gt; String. </h3>
+<div class="outline-text-3" id="text-11_3">
 
 
 <p>
-Gte the value of a cookie, if it doesn't exist, return the default.
+Get the value of a cookie, if it doesn't exist, return the default.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-11.4" class="outline-3">
-<h3 id="sec-11.4"><span class="section-number-3">11.4</span> wf:cookie(Key, Value) -&gt; ok </h3>
-<div class="outline-text-3" id="text-11.4">
+<div id="outline-container-11_4" class="outline-3">
+<h3 id="sec-11_4"><span class="section-number-3">11.4</span> wf:cookie(Key, Value) -&gt; ok </h3>
+<div class="outline-text-3" id="text-11_4">
 
 
 <p>
@@ -1075,9 +1073,9 @@ session timeout setting for the MinutesToLive value.
 
 </div>
 
-<div id="outline-container-11.5" class="outline-3">
-<h3 id="sec-11.5"><span class="section-number-3">11.5</span> wf:cookie(Key, Value, Path, MinutesToLive) -&gt; ok </h3>
-<div class="outline-text-3" id="text-11.5">
+<div id="outline-container-11_5" class="outline-3">
+<h3 id="sec-11_5"><span class="section-number-3">11.5</span> wf:cookie(Key, Value, Path, MinutesToLive) -&gt; ok </h3>
+<div class="outline-text-3" id="text-11_5">
 
 
 <p>
@@ -1097,21 +1095,21 @@ for a certain number of minutes.
 
 </div>
 
-<div id="outline-container-12.1" class="outline-3">
-<h3 id="sec-12.1"><span class="section-number-3">12.1</span> wf:headers() -&gt; [{AtomKey, StringValue}, &hellip;] </h3>
-<div class="outline-text-3" id="text-12.1">
+<div id="outline-container-12_1" class="outline-3">
+<h3 id="sec-12_1"><span class="section-number-3">12.1</span> wf:headers() -&gt; [{AtomKey, StringValue}, &hellip;] </h3>
+<div class="outline-text-3" id="text-12_1">
 
 
 <p>
-Returns a proplist of all HTTP headers.
+Return a proplist of all HTTP headers.
 </p>
 </div>
 
 </div>
 
-<div id="outline-container-12.2" class="outline-3">
-<h3 id="sec-12.2"><span class="section-number-3">12.2</span> wf:header(AtomKey) -&gt; Value </h3>
-<div class="outline-text-3" id="text-12.2">
+<div id="outline-container-12_2" class="outline-3">
+<h3 id="sec-12_2"><span class="section-number-3">12.2</span> wf:header(AtomKey) -&gt; Value </h3>
+<div class="outline-text-3" id="text-12_2">
 
 
 <p>
@@ -1121,9 +1119,9 @@ Get the value of an HTTP header.
 
 </div>
 
-<div id="outline-container-12.3" class="outline-3">
-<h3 id="sec-12.3"><span class="section-number-3">12.3</span> wf:header_default(AtomKey, Default) -&gt; Value. </h3>
-<div class="outline-text-3" id="text-12.3">
+<div id="outline-container-12_3" class="outline-3">
+<h3 id="sec-12_3"><span class="section-number-3">12.3</span> wf:header_default(AtomKey, Default) -&gt; Value. </h3>
+<div class="outline-text-3" id="text-12_3">
 
 
 <p>
@@ -1133,13 +1131,13 @@ Get the value of an HTTP header, if it doesn't exist, return the default.
 
 </div>
 
-<div id="outline-container-12.4" class="outline-3">
-<h3 id="sec-12.4"><span class="section-number-3">12.4</span> wf:header(StringKey, HeaderValue) -&gt; ok </h3>
-<div class="outline-text-3" id="text-12.4">
+<div id="outline-container-12_4" class="outline-3">
+<h3 id="sec-12_4"><span class="section-number-3">12.4</span> wf:header(StringKey, HeaderValue) -&gt; ok </h3>
+<div class="outline-text-3" id="text-12_4">
 
 
 <p>
-Sets an HTTP header during the next response.
+Set an HTTP header during the next response.
 </p>
 </div>
 </div>
@@ -1154,9 +1152,9 @@ Sets an HTTP header during the next response.
 
 </div>
 
-<div id="outline-container-13.1" class="outline-3">
-<h3 id="sec-13.1"><span class="section-number-3">13.1</span> wf:pickle(Term) -&gt; PickledBinary </h3>
-<div class="outline-text-3" id="text-13.1">
+<div id="outline-container-13_1" class="outline-3">
+<h3 id="sec-13_1"><span class="section-number-3">13.1</span> wf:pickle(Term) -&gt; PickledBinary </h3>
+<div class="outline-text-3" id="text-13_1">
 
 <p>Serialize a term into a web-safe hex string, with checksumming. (Not encrypted!)
 </p>
@@ -1164,9 +1162,9 @@ Sets an HTTP header during the next response.
 
 </div>
 
-<div id="outline-container-13.2" class="outline-3">
-<h3 id="sec-13.2"><span class="section-number-3">13.2</span> wf:depickle(PickledBinary) -&gt; Term </h3>
-<div class="outline-text-3" id="text-13.2">
+<div id="outline-container-13_2" class="outline-3">
+<h3 id="sec-13_2"><span class="section-number-3">13.2</span> wf:depickle(PickledBinary) -&gt; Term </h3>
+<div class="outline-text-3" id="text-13_2">
 
 <p>Turn a pickled binary back into the original term.
 </p>
@@ -1174,9 +1172,9 @@ Sets an HTTP header during the next response.
 
 </div>
 
-<div id="outline-container-13.3" class="outline-3">
-<h3 id="sec-13.3"><span class="section-number-3">13.3</span> wf:depickle(PickledBinary, SecondsToLive) -&gt; Term or 'undefined' </h3>
-<div class="outline-text-3" id="text-13.3">
+<div id="outline-container-13_3" class="outline-3">
+<h3 id="sec-13_3"><span class="section-number-3">13.3</span> wf:depickle(PickledBinary, SecondsToLive) -&gt; Term or 'undefined' </h3>
+<div class="outline-text-3" id="text-13_3">
 
 
 <p>
@@ -1198,9 +1196,9 @@ ago. Returns the Term if it is still 'fresh' or the atom
 
 </div>
 
-<div id="outline-container-14.1" class="outline-3">
-<h3 id="sec-14.1"><span class="section-number-3">14.1</span> wf:info(String) </h3>
-<div class="outline-text-3" id="text-14.1">
+<div id="outline-container-14_1" class="outline-3">
+<h3 id="sec-14_1"><span class="section-number-3">14.1</span> wf:info(String) </h3>
+<div class="outline-text-3" id="text-14_1">
 
 
 <p>
@@ -1210,9 +1208,9 @@ Log an informational message.
 
 </div>
 
-<div id="outline-container-14.2" class="outline-3">
-<h3 id="sec-14.2"><span class="section-number-3">14.2</span> wf:info(Format, Args) </h3>
-<div class="outline-text-3" id="text-14.2">
+<div id="outline-container-14_2" class="outline-3">
+<h3 id="sec-14_2"><span class="section-number-3">14.2</span> wf:info(Format, Args) </h3>
+<div class="outline-text-3" id="text-14_2">
 
 
 <p>
@@ -1222,9 +1220,9 @@ Log an informational message.
 
 </div>
 
-<div id="outline-container-14.3" class="outline-3">
-<h3 id="sec-14.3"><span class="section-number-3">14.3</span> wf:warning(String) </h3>
-<div class="outline-text-3" id="text-14.3">
+<div id="outline-container-14_3" class="outline-3">
+<h3 id="sec-14_3"><span class="section-number-3">14.3</span> wf:warning(String) </h3>
+<div class="outline-text-3" id="text-14_3">
 
 
 <p>
@@ -1234,9 +1232,9 @@ Log a warning message.
 
 </div>
 
-<div id="outline-container-14.4" class="outline-3">
-<h3 id="sec-14.4"><span class="section-number-3">14.4</span> wf:warning(Format, Args) </h3>
-<div class="outline-text-3" id="text-14.4">
+<div id="outline-container-14_4" class="outline-3">
+<h3 id="sec-14_4"><span class="section-number-3">14.4</span> wf:warning(Format, Args) </h3>
+<div class="outline-text-3" id="text-14_4">
 
 
 <p>
@@ -1247,9 +1245,9 @@ Log a warning message.
 
 </div>
 
-<div id="outline-container-14.5" class="outline-3">
-<h3 id="sec-14.5"><span class="section-number-3">14.5</span> wf:error(String) </h3>
-<div class="outline-text-3" id="text-14.5">
+<div id="outline-container-14_5" class="outline-3">
+<h3 id="sec-14_5"><span class="section-number-3">14.5</span> wf:error(String) </h3>
+<div class="outline-text-3" id="text-14_5">
 
 
 <p>
@@ -1259,9 +1257,9 @@ Log an error message.
 
 </div>
 
-<div id="outline-container-14.6" class="outline-3">
-<h3 id="sec-14.6"><span class="section-number-3">14.6</span> wf:error(Format, Args) </h3>
-<div class="outline-text-3" id="text-14.6">
+<div id="outline-container-14_6" class="outline-3">
+<h3 id="sec-14_6"><span class="section-number-3">14.6</span> wf:error(Format, Args) </h3>
+<div class="outline-text-3" id="text-14_6">
 
 
 <p>
@@ -1280,9 +1278,9 @@ Log an error message.
 
 </div>
 
-<div id="outline-container-15.1" class="outline-3">
-<h3 id="sec-15.1"><span class="section-number-3">15.1</span> wf:config(Key) -&gt; Term </h3>
-<div class="outline-text-3" id="text-15.1">
+<div id="outline-container-15_1" class="outline-3">
+<h3 id="sec-15_1"><span class="section-number-3">15.1</span> wf:config(Key) -&gt; Term </h3>
+<div class="outline-text-3" id="text-15_1">
 
 
 <p>
@@ -1292,9 +1290,9 @@ Get the Nitrogen configuration setting under the specified Key.
 
 </div>
 
-<div id="outline-container-15.2" class="outline-3">
-<h3 id="sec-15.2"><span class="section-number-3">15.2</span> wf:config(Key, DefaultValue) -&gt; Term </h3>
-<div class="outline-text-3" id="text-15.2">
+<div id="outline-container-15_2" class="outline-3">
+<h3 id="sec-15_2"><span class="section-number-3">15.2</span> wf:config(Key, DefaultValue) -&gt; Term </h3>
+<div class="outline-text-3" id="text-15_2">
 
 
 <p>
@@ -1307,10 +1305,9 @@ not set, then return DefaultValue.
 </div>
 <div id="postamble">
 <p class="author"> Author: Rusty Klophaus (@rklophaus)
-<a href="mailto:">&lt;&gt;</a>
 </p>
-<p class="date"> Date: 2010-06-14 18:35:25 EDT</p>
-<p class="creator">HTML generated by org-mode 6.33f in emacs 22</p>
+<p class="date"> Date: 2010-11-22 10:50:13 EST</p>
+<p class="creator">HTML generated by org-mode 7.01h in emacs 24</p>
 </div>
 </div>
 </body>
