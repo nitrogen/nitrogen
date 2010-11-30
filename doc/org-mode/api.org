@@ -3,7 +3,7 @@
 #+TITLE: Nitrogen 2.x Documentation
 #+AUTHOR: Rusty Klophaus (@rklophaus)
 #+OPTIONS:   H:2 num:1 toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+EMAIL: 
+#+EMAIL:
 
 #+TEXT: [[file:./index.org][Getting Started]] | API | [[file:./elements.org][Elements]] | [[file:./actions.org][Actions]] | [[file:./validators.org][Validators]] | [[file:./handlers.org][Handlers]] | [[file:./about.org][About]]
 #+HTML: <div class=headline>Nitrogen API</div>
@@ -180,7 +180,7 @@
    Send the specified message to all comet functions connected to the
    specified local pool.
 
-** wf:send_global(GlobalPool, Message)
+** wf:send\_global(GlobalPool, Message)
 
    Send the specified message to all comet function connected to the
    specified GlobalPool.
@@ -190,20 +190,20 @@
    Normally, the results of a comet function are sent to the browser when the function exits.
    comet\_flush/0 pushes results to the browser immediately, useful for a looping comet function.
 
-** wf:async_mode()
+** wf:async\_mode()
 
    Return the current async mode, either =comet= or ={poll, IntervalInMS}=.
 
-** wf:async_mode(Mode)
+** wf:async\_mode(Mode)
 
    Set the current async mode, either =comet= or ={poll, IntervalInMS}=.
 
-** wf:switch_to_comet()
+** wf:switch\_to\_comet()
 
    Run all current and future async processes in comet mode. This uses more
    resources on the server, as HTTP connections stay open.
 
-** wf:switch_to_polling(IntervalInMS)
+** wf:switch\_to\_polling(IntervalInMS)
 
    Run all current and future async processes in polling mode. This
    uses more resources on the client, as the application must issue a
@@ -232,8 +232,8 @@
    
 ** wf:redirect\_from\_login(DefaultUrl) -> ok
 
-   Redirect the user back to a page that called =wf:redirect\_to\_login(Url)=. If 
-   the user came to the page for some other reason, then the user is redirected to the 
+   Redirect the user back to a page that called =wf:redirect\_to\_login(Url)=. If
+   the user came to the page for some other reason, then the user is redirected to the
    provided DefaultUrl.
 
 * Session State
@@ -261,7 +261,7 @@
    Clear the current user's session.
    
 ** wf:logout() -> ok
-   Clear session state, page state, identity, and roles.	
+   Clear session state, page state, identity, and roles.
 
 * Page State
 # <<7>>
@@ -286,7 +286,7 @@
 ** wf:clear\_state() -> ok
    Clear a user's page state.
 
-* Authentication and Authorization    
+* Authentication and Authorization
 # <<8>>
    
 ** wf:user() -> User or 'undefined'
@@ -305,7 +305,7 @@
    Set whether the current user is in a specified role.
    
 ** wf:clear\_roles() -> ok
-   Remove the user from all roles.	
+   Remove the user from all roles.
 
 * Web Request and Response
 # <<9>>
