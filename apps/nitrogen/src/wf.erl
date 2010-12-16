@@ -34,6 +34,9 @@ remove(Target) ->
 flash(Elements) ->
     element_flash:add_flash(Elements).
 
+flash(FlashID, Elements) ->
+    element_flash:add_flash(FlashID, Elements).
+
 %%% EXPOSE WF_UTILS %%%
 
 f(S) -> 

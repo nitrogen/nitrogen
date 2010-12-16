@@ -69,14 +69,16 @@ event(show_flash) ->
     wf:flash("This is a flash message.");
 
 event(show_advanced_flash) ->
-    wf:flash([
+    FlashID = wf:temp_id(),
+    wf:flash(FlashID, [
         #span { text="Flash messages can contain nested controls." },
         #p{},
-        #button { text="Click Me", postback=advanced_flash_click }
+        #button { text="Click Me", postback={advanced_flash_click, FlashID} }
     ]);
 
-event(advanced_flash_click) ->
-    wf:flash("You clicked the button.");
+event({advanced_flash_click, FlashID}) ->
+    wf:flash("You clicked the button."),
+    wf:wire(FlashID, #hide { effect=blind, speed=100 });
 
 event(show_alert) ->
     wf:wire(#alert { text="This is a Javascript Alert" });

@@ -30,19 +30,22 @@ update() ->
     end.
 
 add_flash(Term) ->
+    FlashID = wf:temp_id(),
+    add_flash(FlashID, Term).
+
+add_flash(FlashID, Elements) ->
     Flashes = case wf:session(flashes) of
         undefined -> [];
         X -> X
     end,
-    wf:session(flashes, [Term|Flashes]).
+    wf:session(flashes, [{FlashID, Elements}|Flashes]).
 
 get_flashes() -> 
     % Create terms for an individual flash...
-    F = fun(X) ->
-        FlashID = wf:temp_id(),
+    F = fun({FlashID, Elements}) ->
         InnerPanel = #panel { class=flash, actions=#show { target=FlashID, effect=blind, speed=400 }, body=[
             #link { class=flash_close_button, text="Close", actions=#event { type=click, target=FlashID, actions=#hide { effect=blind, speed=400 } } },
-            #panel { class=flash_content, body=X }
+            #panel { class=flash_content, body=Elements }
         ]},
         #panel { id=FlashID, style="display: none;", body=InnerPanel}
     end,
