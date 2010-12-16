@@ -7,6 +7,7 @@
     padding: 30px 40px; 
     width: 960px;
     min-height: 540px;
+    page-break-after: always;
 }
 
 h1,
