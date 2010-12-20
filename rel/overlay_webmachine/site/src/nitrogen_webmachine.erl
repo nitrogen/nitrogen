@@ -36,8 +36,19 @@ dispatch() ->
         {["images", '*'], static_resource, [{root, "./site/static/images"}]},
         {["nitrogen", '*'], static_resource, [{root, "./site/static/nitrogen"}]},
 
-        %% Add routes to your modules here...
-        {['*'], ?MODULE, index}
+        %% Add routes to your modules here. The last entry makes the
+        %% system use the dynamic_route_handler, which determines the
+        %% module name based on the path. It's a good way to get
+        %% started, but you'll likely want to remove it after you have
+        %% added a few routes.
+        %%
+        %% p.s. - Remember that you will need to RESTART THE VM for
+        %%        dispatch changes to take effect!!!
+        %% 
+        %% {["path","to","module1",'*'], ?MODULE, module_name_1}
+        %% {["path","to","module2",'*'], ?MODULE, module_name_2}
+        %% {["path","to","module3",'*'], ?MODULE, module_name_3}
+        {['*'], ?MODULE, dynamic_route_handler}
     ].
 
 
@@ -71,5 +82,14 @@ do_nitrogen(PageModule, Req) ->
     RequestBridge = simple_bridge:make_request(webmachine_request_bridge, Req),
     ResponseBridge = simple_bridge:make_response(webmachine_response_bridge, Req),
     nitrogen:init_request(RequestBridge, ResponseBridge),
-    nitrogen:handler(static_route_handler, PageModule)
+
+    %% If we have been given a module name, use it, otherwise use the
+    %% dynamic_route_handler.
+    case PageModule of
+        dynamic_route_handler -> 
+            nitrogen:handler(dynamic_route_handler, []);
+        _Other ->
+            nitrogen:handler(static_route_handler, PageModule)
+    end,
+
     nitrogen:run().
