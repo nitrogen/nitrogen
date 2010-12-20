@@ -1,5 +1,14 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.0.4
+
+* Implement wf:flash(FlashID, Elements) so that flash notice can
+  be manipulated/closed/etc.
+* Add support for running Nitrogen underneath Webmachine. This makes
+  it easier to run Nitrogen and Webmachine side-by-side, and allows
+  the use of Webmachine dispatch table to route requests to Nitrogen.
+* Add ability to generate Nitrogen-Webmachine packages.
+
 ## Nitrogen 2.0.3
 
 * Implement callbacks to chain Ajax effects (Jonas Ådahl)
