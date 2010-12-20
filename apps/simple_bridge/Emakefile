@@ -1,15 +1,22 @@
 % Compile Nitrogen Files.
-{ './src/*', [ debug_info,
+{ 
+    [
+        "./src/*",
+        "./src/*/*"
+    ], [ 
+        debug_info,
 	{ i, "./include" },
 	{ outdir, "./ebin" }
-]}.
+    ]
+}.
 
-{ './src/*/*', [ debug_info,
-	{ i, "./include" },
-	{ outdir, "./ebin" }
-]}.
-
-{ './test/*', [ debug_info,
+{ 
+    [
+	"./test/*"
+    ], 
+    [ 
+        debug_info,
 	{ i, "./include" },
 	{ outdir, "./test_ebin" }
-]}.
+    ]
+}.
