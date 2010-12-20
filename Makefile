@@ -120,6 +120,8 @@ rel_copy_quickstart:
 	cp -R Quickstart/src/* rel/nitrogen/site/src
 	cp -R Quickstart/static/* rel/nitrogen/site/static
 	cp -R Quickstart/templates/* rel/nitrogen/site/templates
+	cp -R doc/html/* rel/nitrogen/site/static/doc
+
 	(cd rel/nitrogen; ln -s site/static static)
 	(cd rel/nitrogen; ln -s site/templates templates)
 

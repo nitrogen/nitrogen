@@ -26,11 +26,11 @@
 
   + *SimpleBridge* - Common interface to Erlang HTTP servers.
     - Git Repo: git://github.com/rklophaus/SimpleBridge.git
-    - Commit:   652a3d1
+    - Tag: v1.1.0
 
   + *mochiweb* - HTTP Server (Optional)
     - SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
-    - Revision: 170
+    - Tag: 1.5.0
 
   + *webmachine* - HTTP Server (Optional)
     - SVN Repo: https://github.com/basho/webmachine
