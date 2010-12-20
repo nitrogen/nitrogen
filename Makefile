@@ -89,13 +89,16 @@ package_yaws: rel_yaws
 
 # Create an Inets release dependent upon the built in Erlang installation.
 
-dependent: rel_inets
+dependent:
 	@rm -rf rel/nitrogen/erts-*
 	@mv rel/nitrogen/lib rel/nitrogen/lib2
 	@mkdir rel/nitrogen/lib
-	@cp -r rel/nitrogen/lib2/nitrogen* rel/nitrogen/lib
-	@cp -r rel/nitrogen/lib2/nprocreg* rel/nitrogen/lib
-	@cp -r rel/nitrogen/lib2/simple_bridge* rel/nitrogen/lib
+	@mv rel/nitrogen/lib2/nitrogen* rel/nitrogen/lib
+	@mv rel/nitrogen/lib2/nprocreg* rel/nitrogen/lib
+	@mv rel/nitrogen/lib2/simple_bridge* rel/nitrogen/lib
+	@mv rel/nitrogen/lib2/webmachine* rel/nitrogen/lib
+	@mv rel/nitrogen/lib2/mochiweb* rel/nitrogen/lib
+	@mv rel/nitrogen/lib2/yaws* rel/nitrogen/lib
 	@rm -rf rel/nitrogen/lib2
 	@cp rel/overlay_dependent/bin/nitrogen rel/nitrogen/bin/
 	@mkdir -p rel/nitrogen/erts/bin
@@ -113,5 +116,14 @@ rel_inner:
 	@cp -r ./apps/nitrogen/www rel/nitrogen/site/static/nitrogen
 	@rm -rf rel/reltool.config	
 
+rel_copy_quickstart:
+	cp -R Quickstart/src/* rel/nitrogen/site/src
+	cp -R Quickstart/static/* rel/nitrogen/site/static
+	cp -R Quickstart/templates/* rel/nitrogen/site/templates
+	(cd rel/nitrogen; ln -s site/static static)
+	(cd rel/nitrogen; ln -s site/templates templates)
+
 rellink:  
 	$(foreach app,$(wildcard apps/*), rm -rf rel/nitrogen/lib/$(shell basename $(app))* && ln -sf $(abspath $(app)) rel/nitrogen/lib;)
+
+
