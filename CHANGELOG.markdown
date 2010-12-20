@@ -8,7 +8,7 @@
   it easier to run Nitrogen and Webmachine side-by-side, and allows
   the use of Webmachine dispatch table to route requests to Nitrogen.
 * Add ability to generate Nitrogen-Webmachine packages.
-* Update Mochiweb dependency to revision 170.
+* Update Mochiweb dependency to 1.5.0.
 * Update Yaws dependency to 1.89.
 
 ## Nitrogen 2.0.3
