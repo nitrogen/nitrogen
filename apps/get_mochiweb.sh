@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
 
-BASE=`dirname $0`
-svn checkout http://mochiweb.googlecode.com/svn/trunk@133 $BASE/mochiweb
+DIR=$(cd ${0%/*} && pwd)
+(cd $DIR; \
+ svn checkout http://mochiweb.googlecode.com/svn/trunk@170 mochiweb; \
+ cd mochiweb;
+ make all)

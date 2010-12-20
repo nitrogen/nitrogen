@@ -8,6 +8,7 @@ help:
 	@echo
 	@echo "       ./make {rel_inets|package_inets}"  
 	@echo "       ./make {rel_mochiweb|package_mochiweb}"
+	@echo "       ./make {rel_webmachine|package_webmachine}"
 	@echo "       ./make {rel_yaws|package_yaws}"
 	@echo
 	@echo "       ./make package_docs"
@@ -44,7 +45,7 @@ package_inets: rel_inets
 
 # MOCHIWEB
 
-rel_mochiweb: compile compile_mochiweb
+rel_mochiweb: compile
 	@rm -rf rel/nitrogen
 	@rm -rf rel/reltool.config
 	@ln rel/mochiweb.config rel/reltool.config
@@ -52,26 +53,34 @@ rel_mochiweb: compile compile_mochiweb
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
-compile_mochiweb:
-	@(cd apps/mochiweb; make all)
-
 package_mochiweb: rel_mochiweb
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
 
+# WEBMACHINE
+
+rel_webmachine: compile
+	@rm -rf rel/nitrogen
+	@rm -rf rel/reltool.config
+	@ln rel/webmachine.config rel/reltool.config
+	@(make rel_inner)
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Webmachine.
+
+package_webmachine: rel_webmachine
+	mkdir -p ./builds
+	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
+
 
 # YAWS
 
-rel_yaws: compile compile_yaws
+rel_yaws: compile
 	@rm -rf rel/nitrogen
 	@rm -rf rel/reltool.config
 	@ln rel/yaws.config rel/reltool.config
 	@(make rel_inner)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
-
-compile_yaws: 
-	@(cd apps/yaws-1.87; ./configure --disable-sendfile; make)
 
 package_yaws: rel_yaws
 	mkdir -p ./builds
@@ -106,4 +115,3 @@ rel_inner:
 
 rellink:  
 	$(foreach app,$(wildcard apps/*), rm -rf rel/nitrogen/lib/$(shell basename $(app))* && ln -sf $(abspath $(app)) rel/nitrogen/lib;)
-

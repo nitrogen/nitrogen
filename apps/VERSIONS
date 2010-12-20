@@ -13,10 +13,14 @@ Nitrogen relies on the following software:
 
   - mochiweb - HTTP Server (Optional)
     SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
-    Revision: 133
+    Revision: 170
+
+  - webmachine - HTTP Resource Server (Optional)
+    git@github.com:basho/webmachine.git
+    Tag: webmachine-1.7.3
 
   - yaws - HTTP Server (Optional)
-    http://yaws.hyber.org/download/yaws-1.87.tar.gz
+    http://yaws.hyber.org/download/yaws-1.89.tar.gz
 
 ---
 
