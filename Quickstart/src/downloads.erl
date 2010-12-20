@@ -35,8 +35,9 @@ left() ->
         You have a choice between three popular Erlang web servers:
         <p>
         <ul>
-        <li>Mochiweb - Erlang HTTP server developed by Bob Ippolito/MochiMedia.</li>
-        <li>Yaws - Erlang HTTP server developed by Claes \"Klacke\" Wikstrom.</li>
+        <li>Mochiweb - HTTP server developed by Bob Ippolito/MochiMedia.</li>
+        <li>Yaws - HTTP server developed by Claes \"Klacke\" Wikstrom.</li>
+        <li>Webmachine - HTTP resource server developed by Basho Technologies (runs on Mochiweb under the hood.)</li>
         <li>Inets - Lightweight HTTP server built into Erlang.
         </ul>
         <p>
