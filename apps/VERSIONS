@@ -9,7 +9,7 @@ Nitrogen relies on the following software:
 
   - SimpleBridge - Common interface to Erlang HTTP servers.
     Git Repo: git://github.com/rklophaus/SimpleBridge.git
-    Commit:   652a3d1
+    Tag: v1.1.0
 
   - mochiweb - HTTP Server (Optional)
     SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
