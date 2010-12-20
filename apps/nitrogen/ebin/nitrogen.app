@@ -1,6 +1,6 @@
 {application, nitrogen, [
     {description,  "Nitrogen Web Framework for Erlang"},
-    {vsn,          "2.0.3"},
+    {vsn,          "2.0.4"},
     {registered, []},
     {modules,      [
         action_add_class,

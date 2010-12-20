@@ -56,6 +56,9 @@
   : # For Mochiweb...
   : ./apps/get_mochiweb.sh
   : 
+  : # For Webmachine...
+  : ./apps/get_webmachine.sh
+
   : # For Yaws...
   : ./apps/get_yaws.sh
 
@@ -131,6 +134,13 @@
 
    + *mochiweb.config* - Configure ip/port of your application, and
      other Mochiweb-specific information.
+
+** Webmachine Configuration
+
+   Nitrogen applications running on Webmachine will also contain:
+
+   + *webmachine.config* - Configure ip/port of your application, and
+     other Webmachine-specific information.
 
 ** Yaws Configuration
 

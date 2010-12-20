@@ -1,6 +1,6 @@
 {application, simple_bridge, [
     {description,  "SimpleBridge - Common Interface to Erlang HTTP Servers"},
-    {vsn,          "1.0"},
+    {vsn,          "1.1.0"},
     {modules,      [
         inets_request_bridge,
         inets_response_bridge,

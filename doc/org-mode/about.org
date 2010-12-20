@@ -30,10 +30,14 @@
 
   + *mochiweb* - HTTP Server (Optional)
     - SVN Repo: http://mochiweb.googlecode.com/svn/trunk/
-    - Revision: 133
+    - Revision: 170
+
+  + *webmachine* - HTTP Server (Optional)
+    - SVN Repo: https://github.com/basho/webmachine
+    - Revision: webmachine-1.7.3
 
   + *yaws* - HTTP Server - http://yaws.hyber.org/ (Optional)
-    - Source: http://yaws.hyber.org/download/yaws-1.87.tar.gz
+    - Source: http://yaws.hyber.org/download/yaws-1.89.tar.gz
 
   + *JQuery 1.4.2* - http://jquery.com
 

@@ -47,8 +47,8 @@ left() ->
         can cause slow loadtimes.
         <p>
         These packages were generated from Nitrogen source code by running 
-        <b>make package_inets</b>, <b>make package_mochiweb</b>, and
-        <b>make package_yaws</b>.
+        <b>make package_inets</b>, <b>make package_mochiweb</b>, 
+        <b>make package_webmachine</b> and <b>make package_yaws</b>.
         <p>
         Alternatively, if you plan on contributing to the Nitrogen
         source code, you can download the source tree from GitHub.
@@ -76,7 +76,7 @@ right() ->
                 #image { image="/images/downloads/erlang_logo.png" }
             ]},
             #span { class=title, text="Source Code" },
-            #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.3", text="Download Nitrogen 2.0.3 source (.tar.gz)" },
+            #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.4", text="Download Nitrogen 2.0.4 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/master", text="Download Latest Code (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen", text="Nitrogen repository on GitHub" },
             #link { url="http://github.com/vim/nitrogen_elements", text="Community Repository of Nitrogen Elements" }
@@ -90,9 +90,10 @@ right() ->
                 #image { image="/images/downloads/mac_logo.png" }
             ]},
             #span { class=title, text="Mac OSX 10.5+ Binaries" },
-            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.3-mochiweb.tar.gz", text="Nitrogen 2.0.3 for Mac OSX on Mochiweb" },
-            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.3-yaws.tar.gz", text="Nitrogen 2.0.3 for Mac OSX on Yaws" },
-            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.3-inets.tar.gz", text="Nitrogen 2.0.3 for Mac OSX on Inets" }
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.4-mochiweb.tar.gz", text="Nitrogen 2.0.4 for Mac OSX on Mochiweb" },
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.4-webmachine.tar.gz", text="Nitrogen 2.0.4 for Mac OSX on Webmachine" },
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.4-yaws.tar.gz", text="Nitrogen 2.0.4 for Mac OSX on Yaws" },
+            #link { class=link, url="http://files.nitrogenproject.com.s3.amazonaws.com/mac/nitrogen-2.0.4-inets.tar.gz", text="Nitrogen 2.0.4 for Mac OSX on Inets" }
         ]},
 
         #panel { class=clear },
@@ -111,9 +112,9 @@ right() ->
                 #image { image="/images/downloads/linux_logo_gray.png" }
             ]},
             #span { class=title, text="Linux Binaries Coming Soon" },
-            #span { class=link, text="Nitrogen 2.0.3 for Linux on Mochiweb" },
-            #span { class=link, text="Nitrogen 2.0.3 for Linux on Yaws" },
-            #span { class=link, text="Nitrogen 2.0.3 for Linux on Inets" }
+            #span { class=link, text="Nitrogen 2.0.4 for Linux on Mochiweb" },
+            #span { class=link, text="Nitrogen 2.0.4 for Linux on Yaws" },
+            #span { class=link, text="Nitrogen 2.0.4 for Linux on Inets" }
         ]},
 
         #panel { class=clear },
@@ -123,6 +124,7 @@ right() ->
                 #image { image="/images/downloads/erlang_logo.png" }
             ]},
             #span { class=title, text="Old Source Code" },
+            #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.3", text="Download Nitrogen 2.0.3 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.2", text="Download Nitrogen 2.0.2 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.1", text="Download Nitrogen 2.0.1 source (.tar.gz)" },
             #link { url="http://github.com/rklophaus/nitrogen/tarball/v2.0.0", text="Download Nitrogen 2.0.0 source (.tar.gz)" },
