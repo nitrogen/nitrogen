@@ -17,15 +17,12 @@
          accept_content/2,
          generate_etag/2]).
 
--define(PRINT(Var), error_logger:info_msg("DEBUG: ~p:~p~n~p~n  ~p~n", [?MODULE, ?LINE, ??Var, Var])).
-
 -record(context, {root,response_body=undefined,metadata=[]}).
 
 -include_lib("kernel/include/file.hrl").
 -include_lib("webmachine/include/webmachine.hrl").
 
 init(ConfigProps) ->
-    ?PRINT(ConfigProps),
     {root, Root} = proplists:lookup(root, ConfigProps),
     {ok, #context{root=Root}}.
     

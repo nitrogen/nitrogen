@@ -36,7 +36,7 @@ dispatch() ->
         {["images", '*'], static_resource, [{root, "./site/static/images"}]},
         {["nitrogen", '*'], static_resource, [{root, "./site/static/nitrogen"}]},
 
-        %% Add your modules here...
+        %% Add routes to your modules here...
         {['*'], ?MODULE, index}
     ].
 
@@ -71,5 +71,5 @@ do_nitrogen(PageModule, Req) ->
     RequestBridge = simple_bridge:make_request(webmachine_request_bridge, Req),
     ResponseBridge = simple_bridge:make_response(webmachine_response_bridge, Req),
     nitrogen:init_request(RequestBridge, ResponseBridge),
-    nitrogen:handler(static_route_handler, PageModule),
+    nitrogen:handler(static_route_handler, PageModule)
     nitrogen:run().

@@ -43,8 +43,30 @@ peer_port(_Req) ->
     throw(unsupported).
 
 headers(Req) ->
-    Headers = wrq:req_headers(Req),
-    mochiweb_headers:to_list(Headers).
+    F = fun(Header) -> wrq:get_req_header(Header, Req) end,
+    Headers1 = [
+        {connection, F("connection")},
+        {accept, F("accept")},
+        {host, F("host")},
+        {if_modified_since, F("if-modified-since")},
+        {if_match, F("if-match")},
+        {if_none_match, F("if-range")},
+        {if_unmodified_since, F("if-unmodified-since")},
+        {range, F("range")},
+        {referer, F("referer")},
+        {user_agent, F("user-agent")},
+        {accept_ranges, F("accept-ranges")},
+        {cookie, F("cookie")},
+        {keep_alive, F("keep-alive")},
+        {location, F("location")},
+        {content_length, F("content-length")},
+        {content_type, F("content-type")},
+        {content_encoding, F("content-encoding")},
+        {authorization, F("authorization")},
+        {x_forwarded_for, F("x-forwarded-for")},
+        {transfer_encoding, F("transfer-encoding")}
+    ],
+    [{K, V} || {K, V} <- Headers1, V /= undefined].
 
 cookies(Req) ->
     wrq:req_cookie(Req).
