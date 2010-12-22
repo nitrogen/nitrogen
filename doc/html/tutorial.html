@@ -2430,8 +2430,8 @@ The previous code, simplified:
     <span style="color: #929292;">% </span><span style="color: #929292;">'mouseover', 'click', and 'mouseout' are standard Javascript
 </span>    <span style="color: #929292;">% </span><span style="color: #929292;">events.
 </span>    <span style="color: #28439B;">wf</span>:<span style="color: #28439B;">wire</span>(mybutton, [
-        #<span style="color: #28439B;">event</span> { type=mouseover, postback=my_mouseover_event }
-        #<span style="color: #28439B;">event</span> { type=click, postback=my_click_event }
+        #<span style="color: #28439B;">event</span> { type=mouseover, postback=my_mouseover_event },
+        #<span style="color: #28439B;">event</span> { type=click, postback=my_click_event },
         #<span style="color: #28439B;">event</span> { type=mouseout, postback=my_mouseout_event }
     ]),
     [
@@ -2441,7 +2441,7 @@ The previous code, simplified:
 <span style="color: #28439B;">event</span>(my_click_event) -&gt;
     ?<span style="color: #28439B;">PRINT</span>({click, <span style="color: #000000;">now</span>()});
 <span style="color: #28439B;">event</span>(<span style="color: #000000;">OtherEvent</span>) -&gt;
-    ?<span style="color: #28439B;">PRINT</span>({other, <span style="color: #000000;">MyEvent</span>, <span style="color: #000000;">now</span>()}).
+    ?<span style="color: #28439B;">PRINT</span>({other, <span style="color: #000000;">OtherEvent</span>, <span style="color: #000000;">now</span>()}).
 </pre>
 
 
