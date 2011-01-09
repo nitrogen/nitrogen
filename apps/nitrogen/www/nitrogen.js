@@ -226,7 +226,7 @@ function objs(path, anchor) {
     path = path.replace(/\bme\b/g, anchor);
 
     // If this is a single word, then rewrite it to a Nitrogen element id.
-    if (path.indexOf(" ") == -1 && path.indexOf(".") == -1) {
+    if (path.indexOf(" ") == -1 && path.indexOf(".") == -1 && path.indexOf("#") == -1) {
         var results = objs(".wfid_" + path, anchor);
         
         // If we found results, then return them...
