@@ -11,6 +11,7 @@
     request_method/1, 
     path/1, 
     uri/1,
+    scheme/1,
     peer_ip/1, 
     peer_port/1,
     headers/1, 
@@ -35,6 +36,9 @@ uri(Req) ->
     RawPath = wrq:raw_path(Req),
     {_, QueryString, _} = mochiweb_util:urlsplit_path(RawPath),
     QueryString.
+
+scheme(_Req) ->
+    undefined.
 
 peer_ip(_Req) -> 
     throw(unsupported).

@@ -37,6 +37,7 @@ behaviour_info(callbacks) -> [
     {request_method, 1}, % GET, POST, etc.
     {uri, 1},            % The uri (path and querystring)
     {path, 1},           % Just the path. (http://server.com/<PATH>?querystring)
+    {scheme, 1},         % http, https, spdy, gopher, ..., undefined
 
     {headers, 1},        % Return a proplist of headers, key and value are strings.
     {cookies, 1},        % Return a proplist of cookies, key and value are strings.
