@@ -1,0 +1,6 @@
+{application, quickstart, [
+    {description,  "Nitrogen Quickstart"},
+    {vsn,          "2.0.4"},
+    {applications, [kernel, stdlib, sasl, nitrogen_core, nprocreg, simple_bridge]},
+    {registered, []}
+]}.

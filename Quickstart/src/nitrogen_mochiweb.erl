@@ -1,6 +1,6 @@
 -module(nitrogen_mochiweb).
 -export ([start/2]).
--include_lib("nitrogen/include/wf.hrl").
+-include_lib("nitrogen_core/include/wf.hrl").
 
 start(_, _) ->
     % Read config...

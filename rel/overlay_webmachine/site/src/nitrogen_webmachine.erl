@@ -12,7 +12,7 @@
     process_post/2
 ]).
 
--include_lib("nitrogen/include/wf.hrl").
+-include_lib("nitrogen_core/include/wf.hrl").
 -include_lib("webmachine/include/webmachine.hrl").
 
 start(_, _) ->

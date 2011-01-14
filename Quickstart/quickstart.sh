@@ -5,7 +5,7 @@ cd `dirname $0`
 (cd ..; make compile)
 
 # Link to nitrogen files...
-(cd static; rm -rf nitrogen; mkdir nitrogen; cp -r ../../apps/nitrogen/www/* nitrogen)
+(cd static; rm -rf nitrogen; mkdir nitrogen; cp -r ../../deps/nitrogen_core/www/* nitrogen)
 
 # Copy latest docs...
 (cd static; rm -rf doc; mkdir doc; cp -r ../../doc/html/* doc)
@@ -17,7 +17,7 @@ make
 echo "Starting Nitrogen on Inets (http://localhost:8000)..."
 erl \
     -name nitrogen@127.0.0.1 \
-    -pa ./ebin ../apps/*/ebin ../apps/*/include  \
+    -pa ./ebin ../deps/*/ebin ../deps/*/include  \
     -env ERL_FULLSWEEP_AFTER 10 \
     -eval "application:start(nprocreg)" \
     -eval "application:start(quickstart)"

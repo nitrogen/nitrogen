@@ -1,3 +1,0 @@
-[submodule "lib/etap"]
-	path = lib/etap
-	url = git://github.com/ngerakines/etap.git

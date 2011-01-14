@@ -1,6 +1,6 @@
 -module (quickstart_app).
 -export ([start/2, stop/0, do/1]).
--include_lib ("nitrogen/include/wf.hrl").
+-include_lib ("nitrogen_core/include/wf.hrl").
 -define(PORT, 8000).
 
 

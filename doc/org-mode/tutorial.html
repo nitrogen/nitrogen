@@ -4199,7 +4199,7 @@ to access modules beginning with the word "my".
 <pre class="src src-erlang"><span style="color: #FB5D17;">-module</span>(my_security_handler).
 <span style="color: #FB5D17;">-behaviour</span>(security_handler).
 <span style="color: #FB5D17;">-export</span>([<span style="color: #28439B;">init/2</span>, <span style="color: #28439B;">finish/2</span>]).
-<span style="color: #FB5D17;">-include_lib</span>(<span style="color: #09A240;">"nitrogen/include/wf.hrl"</span>).
+<span style="color: #FB5D17;">-include_lib</span>(<span style="color: #09A240;">"nitrogen_core/include/wf.hrl"</span>).
 
 <span style="color: #28439B;">init</span>(<span style="color: #000000;">_Config</span>, <span style="color: #000000;">State</span>) -&gt;
     ?<span style="color: #28439B;">PRINT</span>(<span style="color: #28439B;">wf</span>:<span style="color: #28439B;">page_module</span>()),

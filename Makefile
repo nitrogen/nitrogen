@@ -11,21 +11,22 @@ help:
 	@echo "       ./make {rel_webmachine|package_webmachine}"
 	@echo "       ./make {rel_yaws|package_yaws}"
 	@echo
-	@echo "       ./make package_docs"
 	@echo
-	@echo
+
+all: deps compile
+
+deps:
+	./rebar get-deps
 
 compile:
-	@(cd ./apps/nitrogen; make compile)
-	@(cd ./apps/simple_bridge; make compile)
-	@(cd ./apps/nprocreg; make compile)
-
+	@(cd ./deps/nitrogen_core; make compile)
+	@(cd ./deps/simple_bridge; make compile)
+	@(cd ./deps/nprocreg; make compile)
 
 clean:
-	@(cd ./apps/nitrogen; make clean)
-	@(cd ./apps/simple_bridge; make clean)
-	@(cd ./apps/nprocreg; make clean)
-
+	@(cd ./deps/nitrogen_core; make clean)
+	@(cd ./deps/simple_bridge; make clean)
+	@(cd ./deps/nprocreg; make clean)	
 
 # INETS
 
@@ -113,7 +114,7 @@ rel_inner:
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
 	@cp -r ./doc rel/nitrogen/doc
-	@cp -r ./apps/nitrogen/www rel/nitrogen/site/static/nitrogen
+	@cp -r ./deps/nitrogen_core/www rel/nitrogen/site/static/nitrogen
 	@rm -rf rel/reltool.config	
 
 rel_copy_quickstart:
@@ -126,6 +127,6 @@ rel_copy_quickstart:
 	(cd rel/nitrogen; ln -s site/templates templates)
 
 rellink:  
-	$(foreach app,$(wildcard apps/*), rm -rf rel/nitrogen/lib/$(shell basename $(app))* && ln -sf $(abspath $(app)) rel/nitrogen/lib;)
+	$(foreach app,$(wildcard deps/*), rm -rf rel/nitrogen/lib/$(shell basename $(app))* && ln -sf $(abspath $(app)) rel/nitrogen/lib;)
 
 

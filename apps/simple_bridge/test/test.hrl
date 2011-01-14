@@ -1,7 +1,0 @@
--define(GOOGLE_IP, {64,233,169,147}).
--define(GOOGLE_PORT, 80).
--define(PEER_IP, ?GOOGLE_IP).
--define(PEER_PORT, ?GOOGLE_PORT).
--define(QUERY_STRING, "query1=value1&query2=value2&query3=value3").
--define(PRINT(Var), error_logger:info_msg("DEBUG: ~p:~p - ~p: ~p~n", [?MODULE, ?LINE, ??Var, Var])).
--define(MSG(S), io:format(S)).

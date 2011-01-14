@@ -1,7 +1,7 @@
 %% -*- mode: nitrogen -*-
 -module (action_[[[NAME]]]).
 -compile (export_all).
--include_lib ("nitrogen/include/wf.hrl").
+-include_lib ("nitrogen_core/include/wf.hrl").
 -include("records.hrl").
 
 %% Move the following line to records.hrl:

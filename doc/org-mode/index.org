@@ -50,135 +50,17 @@
   : make package_inets
 
   You can also run Nitrogen on Mochiweb or Yaws. Run one of the
-  scripts provided in the =./apps/= directory to download the
-  Mochiweb or Yaws code.
-
-  : # For Mochiweb...
-  : ./apps/get_mochiweb.sh
-  : 
-  : # For Webmachine...
-  : ./apps/get_webmachine.sh
-
-  : # For Yaws...
-  : ./apps/get_yaws.sh
-
-  Then, create the release or the binary package (example below is
-  for Mochiweb):
-  
-  : # Build a release in ./rel/nitrogen
-  : make rel_mochiweb
-  : 
-  : # Build a binary package in ./builds
-  : make package_mochiweb
-
-  Nitrogen 2.0 uses Dave "Dizzy" Smith's [[http://dizzyd.com/blog/post/194][Rebar]] ([[http://bitbucket.org/basho/rebar/][source code]]) to build
-  OTP-compliant releases and packages. Check it out, it is awesome.
-  
+  scripts provided in the =./deps/= directory to download the
 * How do I start/stop/manage Nitrogen?
 # <<2>>
 
-  Once you have a build of Nitrogen that will run on your
-  application, the next step is to start the application. Nitrogen
-  includes a handy script inside your release, under
-  =./bin/nitrogen=, that will let you bring your Nitrogen application
-  up or down:
-
-  : # Start the app in the background...
-  : ./bin/nitrogen start
-  :
-  : # Connect to the app in the background. Control-D to disconnect.
-  : ./bin/nitrogen attach
-  :
-  : # Stop the app...
-  : ./bin/nitrogen stop
-  :
-  : # Start the app in "console" mode...
-  : ./bin/nitrogen console
-  : 
-  : # Ping the app to see if it is running...
-  : ./bin/nitrogen ping
-
-  Once you have started your application, open
-  http://localhost:8000. You should see a basic welcome page.x
-
+  : ./deps/get_mochiweb.sh
 * How do I change configuration settings?
 # <<3>>
-
-  All configuration files for your application can be found under the
-  =./etc= directory.
-
-  Here, you will see:
-
-  + *vm.args* - This controls the arguments passed in to the
-    VM. Here, you can set the node name, cookie, memory flags, etc.
-
-  + *app.config* - This contains application settings for Nitrogen and
-    sasl (error logging).
-
-  *Important:* Before deploying your app to production, you should
-  change the Erlang cookie (found in =./etc/vm.args=) and define a Nitrogen
-  signkey (found in =./etc/app.config=).
-
-** Inets Configuration
-     
-  Nitrogen applications running on Inets will also contain:
-
-  + *inets.config* - You should not need to touch this file.
-     
-  + *inets\_httpd.erlenv* - Configure ip/port of your application, and other
-    Inets-specific information.
-
-** Mochiweb Configuration
-
-   Nitrogen applications running on Mochiweb will also contain:
-
-   + *mochiweb.config* - Configure ip/port of your application, and
-     other Mochiweb-specific information.
-
-** Webmachine Configuration
-
-   Nitrogen applications running on Webmachine will also contain:
-
-   + *webmachine.config* - Configure ip/port of your application, and
-     other Webmachine-specific information.
-
-** Yaws Configuration
-
-   Nitrogen applications running on Yaws will also contain:
-
-   + *yaws.config* - You should not need to touch this file.
-
-   + *yaws.conf* - Configure ip/port of your application, and other
-     Yaws-specific information.
-
+  : ./deps/get_webmachine.sh
 * Where is the code for my website?
 # <<4>>
-
-  The Nitrogen project is structured so that all site specific code
-  is contained inside the =site= directory. It is recommended that
-  you place your entire =site= directory under source control. This
-  will allow you to move your application to other architectures and
-  configurations easily.
-
-  The =site= directory contains the following sub-directories:
-
-  + =./site/src= :: Page modules, custom elements, and custom actions for
-    your site.
-
-  + =./site/static= :: Static files, including Javascript and
-    CSS. These will be served through the web. Place any files you
-    like here, but try not to touch the =nitrogen= directory, as you
-    will need to overwrite this when you upgrade to a new version of
-    Nitrogen.
-
-  + =./site/templates= :: Html files used by the =#template{}= action.
-
-  + =./site/.prototypes= :: Code used by =./bin/dev= to generate a page,
-    element, or action. Feel free to edit these to something more to
-    your liking.
-
-  + =./site/ebin= :: Compiled =.beam= files.
-
+  : ./deps/get_yaws.sh
 * How do I compile my code?
 # <<5>>
 

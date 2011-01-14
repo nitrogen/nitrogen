@@ -4,7 +4,7 @@
 
 -module (static_route_handler).
 -behaviour (route_handler).
--include_lib ("nitrogen/include/wf.hrl").
+-include_lib ("nitrogen_core/include/wf.hrl").
 -export ([
     init/2, 
     finish/2

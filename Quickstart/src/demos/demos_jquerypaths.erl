@@ -1,5 +1,5 @@
 -module (demos_jquerypaths).
--include_lib ("nitrogen/include/wf.hrl").
+-include_lib ("nitrogen_core/include/wf.hrl").
 -compile(export_all).
 -define (STYLE, "border: solid 1px #cde; margin: 7px; float: left; width: 100px; line-height: 40px; text-align: center; height: 40px;").
 

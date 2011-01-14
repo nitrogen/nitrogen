@@ -1,6 +1,6 @@
--pa ../../apps/nitrogen/ebin 
--pa ../../apps/nitrogen/include 
--pa ../../apps/nprocreg/ebin 
--pa ../../apps/nprocreg/include 
--pa ../../apps/simple_bridge/ebin 
--pa ../../apps/simple_bridge/include 
+-pa ../../deps/nitrogen_core/ebin 
+-pa ../../deps/nitrogen_core/include 
+-pa ../../deps/nprocreg/ebin 
+-pa ../../deps/nprocreg/include 
+-pa ../../deps/simple_bridge/ebin 
+-pa ../../deps/simple_bridge/include 

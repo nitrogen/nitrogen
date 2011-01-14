@@ -1,5 +1,5 @@
 -module (demos_binding4).
--include_lib ("nitrogen/include/wf.hrl").
+-include_lib ("nitrogen_core/include/wf.hrl").
 -compile(export_all).
 
 main() -> #template { file="./templates/demos433.html" }.

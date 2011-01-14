@@ -1,5 +1,5 @@
 -module(common).
--include_lib ("nitrogen/include/wf.hrl").
+-include_lib ("nitrogen_core/include/wf.hrl").
 -compile(export_all).
 
 header(Selected) ->

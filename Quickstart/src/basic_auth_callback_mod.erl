@@ -7,7 +7,7 @@
 %%% Created :  2 Jun 2010 by Manuel Durán Aguete <manueld@caixagalicia.es>
 %%%-------------------------------------------------------------------
 -module(basic_auth_callback_mod).
--include_lib ("nitrogen/include/wf.hrl").
+-include_lib ("nitrogen_core/include/wf.hrl").
 
 %% API
 -export([
