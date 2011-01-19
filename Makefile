@@ -13,9 +13,9 @@ help:
 	@echo
 	@echo
 
-all: deps compile
+all: get-deps compile
 
-deps:
+get-deps:
 	./rebar get-deps
 
 compile:
@@ -91,16 +91,14 @@ rel_inner:
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
-	@cp -r ./doc rel/nitrogen/doc
 	@cp -r ./deps/nitrogen_core/www rel/nitrogen/site/static/nitrogen
 	@rm -rf rel/reltool.config	
 
 rel_copy_quickstart:
-	cp -R Quickstart/src/* rel/nitrogen/site/src
-	cp -R Quickstart/static/* rel/nitrogen/site/static
-	cp -R Quickstart/templates/* rel/nitrogen/site/templates
-	cp -R doc/html/* rel/nitrogen/site/static/doc
-
+	cp -R ../NitrogenProject.com/src/* rel/nitrogen/site/src
+	cp -R ../NitrogenProject.com/static/* rel/nitrogen/site/static
+	cp -R ../NitrogenProject.com/templates/* rel/nitrogen/site/templates
+	rm -rf rel/nitrogen/site/src/nitrogen_website.app.src
 	(cd rel/nitrogen; ln -s site/static static)
 	(cd rel/nitrogen; ln -s site/templates templates)
 
