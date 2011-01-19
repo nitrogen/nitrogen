@@ -1,5 +1,5 @@
 
-NITROGEN_VERSION=2.0.4
+NITROGEN_VERSION=2.1.0
 
 help:
 	@echo 
@@ -19,21 +19,17 @@ deps:
 	./rebar get-deps
 
 compile:
-	@(cd ./deps/nitrogen_core; make compile)
-	@(cd ./deps/simple_bridge; make compile)
-	@(cd ./deps/nprocreg; make compile)
+	./rebar compile
 
 clean:
-	@(cd ./deps/nitrogen_core; make clean)
-	@(cd ./deps/simple_bridge; make clean)
-	@(cd ./deps/nprocreg; make clean)	
+	./rebar clean
 
 # INETS
 
 rel_inets: compile
 	@rm -rf rel/nitrogen
 	@rm -rf rel/reltool.config
-	@ln rel/inets.config rel/reltool.config
+	@ln rel/reltool_inets.config rel/reltool.config
 	@(make rel_inner)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
@@ -43,13 +39,12 @@ package_inets: rel_inets
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
 
-
 # MOCHIWEB
 
 rel_mochiweb: compile
 	@rm -rf rel/nitrogen
 	@rm -rf rel/reltool.config
-	@ln rel/mochiweb.config rel/reltool.config
+	@ln rel/reltool_mochiweb.config rel/reltool.config
 	@(make rel_inner)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
@@ -63,7 +58,7 @@ package_mochiweb: rel_mochiweb
 rel_webmachine: compile
 	@rm -rf rel/nitrogen
 	@rm -rf rel/reltool.config
-	@ln rel/webmachine.config rel/reltool.config
+	@ln rel/reltool_webmachine.config rel/reltool.config
 	@(make rel_inner)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
@@ -78,7 +73,7 @@ package_webmachine: rel_webmachine
 rel_yaws: compile
 	@rm -rf rel/nitrogen
 	@rm -rf rel/reltool.config
-	@ln rel/yaws.config rel/reltool.config
+	@ln rel/reltool_yaws.config rel/reltool.config
 	@(make rel_inner)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
@@ -87,23 +82,6 @@ package_yaws: rel_yaws
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
 
-
-# Create an Inets release dependent upon the built in Erlang installation.
-
-dependent:
-	@rm -rf rel/nitrogen/erts-*
-	@mv rel/nitrogen/lib rel/nitrogen/lib2
-	@mkdir rel/nitrogen/lib
-	@mv rel/nitrogen/lib2/nitrogen* rel/nitrogen/lib
-	@mv rel/nitrogen/lib2/nprocreg* rel/nitrogen/lib
-	@mv rel/nitrogen/lib2/simple_bridge* rel/nitrogen/lib
-	@mv rel/nitrogen/lib2/webmachine* rel/nitrogen/lib
-	@mv rel/nitrogen/lib2/mochiweb* rel/nitrogen/lib
-	@mv rel/nitrogen/lib2/yaws* rel/nitrogen/lib
-	@rm -rf rel/nitrogen/lib2
-	@cp rel/overlay_dependent/bin/nitrogen rel/nitrogen/bin/
-	@mkdir -p rel/nitrogen/erts/bin
-	@cp rel/overlay/erts-vsn/bin/nodetool rel/nitrogen/erts/bin
 
 # SHARED
 
