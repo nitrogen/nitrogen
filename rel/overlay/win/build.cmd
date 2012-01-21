@@ -1,12 +1,12 @@
-@echo off
+REM @echo off
 
 echo Run this script from %NITROGENHOME%\rel\overlay_win, otherwise results are unpredictable.
 pause
 
 set ERL="erl.exe"
-set ERTS="C:\Program Files\erl5.7.5\erts-5.7.5"
+set ERTS="c:\erl5.9\erts-5.9"
 
-FOR /D %%f in (..\..\deps\*) DO (
+FOR /D %%f in (..\..\..\deps\*) DO (
     echo Building %%f...
     pushd %%f
     %ERL% -make
@@ -19,15 +19,18 @@ echo Generate the Nitrogen Package...
 rmdir /q /s nitrogen
 mkdir nitrogen
 tar -zxvf nitrogen.tar.gz -C nitrogen
-xcopy /y /e /s %ERTS%\*.* nitrogen\erts-5.7.5\
-xcopy /y /e /s ..\overlay\etc\*.* nitrogen\etc\
-xcopy /y /e /s ..\overlay_inets\etc\*.* nitrogen\etc\
-xcopy /y /e /s ..\overlay\site\*.* nitrogen\site\
-xcopy /y /e /s ..\overlay_inets\site\*.* nitrogen\site\
-xcopy /y /e /s ..\..\deps\nitrogen\include\*.* nitrogen\lib\nitrogen-2.0.3\include\
-xcopy /y /e /s ..\..\deps\simple_bridge\include\*.* nitrogen\lib\simple_bridge-1.0\include\
+xcopy /y /e /s %ERTS%\*.* nitrogen\erts-5.9\
+xcopy /y /e /s ..\common\etc\*.* nitrogen\etc\
+xcopy /y /e /s ..\inets\etc\*.* nitrogen\etc\
+xcopy /y /e /s ..\common\site\*.* nitrogen\site\
+xcopy /y /e /s ..\inets\site\*.* nitrogen\site\
+
+xcopy /y /e /s ..\..\..\deps\sync\* nitrogen\lib\sync\
+xcopy /y /e /s ..\..\..\deps\nprocreg\* nitrogen\lib\nprocreg\
+xcopy /y /e /s ..\..\..\deps\nitrogen_core\* nitrogen\lib\nitrogen_core\
+xcopy /y /e /s ..\..\..\deps\simple_bridge\* nitrogen\lib\simple_bridge\
 xcopy /y /e /s files\*.* nitrogen\
-xcopy /y /e /s ..\..\deps\nitrogen\www\*.* nitrogen\site\static\nitrogen\
+xcopy /y /e /s ..\..\..\deps\nitrogen_core\www\*.* nitrogen\site\static\nitrogen\
 del nitrogen\site\Emakefile
 del nitrogen.boot
 del nitrogen.script
