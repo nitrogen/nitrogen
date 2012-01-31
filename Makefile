@@ -101,7 +101,7 @@ package_yaws: rel_yaws
 # SHARED
 
 rel_inner:
-	@(cd rel; ./rebar generate)
+	@(cd rel; ./rebar generate; escript copy_erl_interface.escript)
 	@(cd rel/nitrogen; make)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
