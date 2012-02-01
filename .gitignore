@@ -8,3 +8,5 @@ TAGS
 builds
 Quickstart/static/nitrogen
 Quickstart/static/doc
+*~
+.*.sw?
