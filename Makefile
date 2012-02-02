@@ -33,7 +33,7 @@ rel_cowboy: compile
 	@ln rel/reltool_cowboy.config rel/reltool.config
 	@(make rel_inner)
 	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Yaws.
+	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
 package_cowboy: rel_cowboy
 	mkdir -p ./builds
