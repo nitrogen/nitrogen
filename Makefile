@@ -34,9 +34,19 @@ rel_inets: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
+rel_inets_win: compile
+	@rm -rf rel/nitrogen
+	@rm -rf rel/reltool.config
+	@ln rel/reltool_inets_win.config rel/reltool.config
+	@(make rel_inner)
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Inets.
+
 package_inets: rel_inets
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
+
+
 
 
 # MOCHIWEB
