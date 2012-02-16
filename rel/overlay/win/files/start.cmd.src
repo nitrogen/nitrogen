@@ -1,0 +1,7 @@
+@echo off
+set PA=
+set PA=%PA% ./site/ebin
+set PA=%PA% ./site/include
+erts-{ERTS_VSN}\bin\escript.exe merge-configs.escript ./etc
+erts-{ERTS_VSN}\bin\erl -boot releases/{APP_VSN}/nitrogen -pa %PA% -make
+erts-{ERTS_VSN}\bin\werl -pa %PA% -boot releases/{APP_VSN}/nitrogen -embedded -config etc/app.generated.config  -args_file etc/vm.args
