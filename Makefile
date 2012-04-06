@@ -6,6 +6,7 @@ help:
 	@echo "Usage: "
 	@echo "       ./make {compile|clean}"        
 	@echo
+	@echo "       ./make {rel_cowboy|package_cowboy}"
 	@echo "       ./make {rel_inets|package_inets}"  
 	@echo "       ./make {rel_mochiweb|package_mochiweb}"
 	@echo "       ./make {rel_webmachine|package_webmachine}"
@@ -23,6 +24,20 @@ compile: get-deps
 
 clean:
 	./rebar clean
+
+# COWBOY
+
+rel_cowboy: compile
+	@rm -rf rel/nitrogen
+	@rm -rf rel/reltool.config
+	@ln rel/reltool_cowboy.config rel/reltool.config
+	@(make rel_inner)
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Cowboy.
+
+package_cowboy: rel_cowboy
+	mkdir -p ./builds
+	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
 
 # INETS
 
