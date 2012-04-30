@@ -1,6 +1,5 @@
 #!/usr/bin/env escript
 %% -*- erlang -*-
-%%! -smp enable -sname copy_erl_interface
 %% vim: ts=4 sw=4 et ft=erlang
 %%
 %% Coyright 2012 - Jesse Gumm
