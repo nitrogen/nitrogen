@@ -29,7 +29,7 @@ fullinstaller does not come with some necessary tools (particularly a working
 2. Navigate to the directory where you'd like to install Nitrogen
 3. `git clone https://github.com/nitrogen/nitrogen`
 4. `cd nitrogen`
-5. `make rel\_inets\_win` or (`make rel\_mochiweb\_win`)
+5. `make rel_inets_win` or (`make rel_mochiweb_win`)
 6. When it completes, you'll have a standalone installation in rel/nitrogen
 7. You can close Msysgit now.
 
