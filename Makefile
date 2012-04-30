@@ -12,11 +12,18 @@ help:
 	@echo "       ./make {rel_webmachine|package_webmachine}"
 	@echo "       ./make {rel_yaws|package_yaws}"
 	@echo
+	@echo "Windows Users:"
+	@echo "       ./make rel_inets_win"
+	@echo "       ./make rel_mochiweb_win"
+	@echo
 	@echo
 
 all: get-deps compile
 
-get-deps:
+distribute-rebar:
+	@(cp rebar rel/rebar; cp rebar rel/overlay/common;)
+
+get-deps: distribute-rebar
 	./rebar get-deps
 
 compile: get-deps
@@ -49,9 +56,19 @@ rel_inets: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
+rel_inets_win: compile
+	@rm -rf rel/nitrogen
+	@rm -rf rel/reltool.config
+	@ln rel/reltool_inets_win.config rel/reltool.config
+	@(make rel_inner_win)
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Inets.
+
 package_inets: rel_inets
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
+
+
 
 
 # MOCHIWEB
@@ -61,6 +78,14 @@ rel_mochiweb: compile
 	@rm -rf rel/reltool.config
 	@ln rel/reltool_mochiweb.config rel/reltool.config
 	@(make rel_inner)
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Mochiweb.
+
+rel_mochiweb_win: compile
+	@rm -rf rel/nitrogen
+	@rm -rf rel/reltool.config
+	@ln rel/reltool_mochiweb_win.config rel/reltool.config
+	@(make rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
@@ -100,14 +125,28 @@ package_yaws: rel_yaws
 
 # SHARED
 
+
 rel_inner:
-	@(cd rel; ./rebar generate; escript copy_erl_interface.escript)
+	@(cd rel; ./rebar generate)
+	@(cd rel; escript copy_erl_interface.escript)
 	@(cd rel/nitrogen; make)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
 	@cp -r ./deps/nitrogen_core/www rel/nitrogen/site/static/nitrogen
 	@rm -rf rel/reltool.config	
+
+rel_inner_win:
+	@(cd rel; ./rebar generate)
+	@(cd rel; escript copy_erl_interface.escript)
+	@(cd rel/nitrogen; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
+	@(cd rel/nitrogen; make)
+	@(cd rel/nitrogen; ./make_start_cmd.sh)
+	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
+	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
+	@uname -v >> rel/nitrogen/BuildInfo.txt
+	@cp -r ./deps/nitrogen_core/www rel/nitrogen/site/static/nitrogen
+	@rm -rf rel/reltool.config rel/nitrogen/make_start_cmd.sh rel/nitrogen/start.cmd.src
 
 rel_copy_quickstart:
 	cp -R ../NitrogenProject.com/src/* rel/nitrogen/site/src

@@ -10,3 +10,5 @@ Quickstart/static/nitrogen
 Quickstart/static/doc
 *~
 .*.sw?
+rel/rebar
+rel/overlay/common/rebar

@@ -2,7 +2,7 @@
     {port, 8000},
     {bind_address, {0,0,0,0}},
     {server_name, "nitrogen"},
-    {server_root, "./"},
+    {server_root, "."},
     {document_root, "./site/static"},
     {error_log, "./log/inets.log"}, 
     {modules, [nitrogen_inets]},
