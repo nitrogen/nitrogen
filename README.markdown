@@ -11,3 +11,7 @@ additional information.
 
 Follow the tutorial at
 [http://nitrogenproject.com/doc/tutorial.html](http://nitrogenproject.com/doc/tutorial.html)
+
+## Building Nitrogen on Windows
+
+Instructions for building on windows can be found at http://github.com/nitrogen/master/rel/overlay/win/README.md
