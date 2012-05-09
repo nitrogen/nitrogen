@@ -1,6 +1,6 @@
 # Compiling Nitrogen on Windows
 
-**Windows support is experimental in Nitrogen.**
+**Windows support is *experimental* in Nitrogen.**
 
 ### Notes:
 
@@ -12,6 +12,17 @@ Windows zip file from the [Nitrogen Home Page](http://www.nitrogenproject.com)
 **Note 2:** To simplify the releasing of Nitrogen on Windows, some significant
 changes have been made to the build process. The previous method required a
 lot of tinkering with things to build with a new release of Erlang.
+
+**Note 3:** Throughout this readme, we recommend installing to `c:\erl5.9` for the
+sake of simplicity.  It's not critical that you use this directory, but it should
+go without saying, if you choose to install into another directory, make sure you
+reference that directory everywhere.  The only **strong** recommendation we make
+is to avoid paths with spaces in them (ie `c:\program files\erl5.9`). Msysgit has
+a bit of a history of not playing nice with paths with spaces in them
+
+**Note 4:** While installing Msysgit, make sure you choose the option, if presented,
+to "Check out as-is and Check in as-is". Otherwise, some of the Nitrogen prerequisits
+don't play nice with Windows-style line-endings (`\r\n`).
 
 ## Prerequisite Steps:
 
@@ -26,7 +37,7 @@ fullinstaller does not come with some necessary tools (particularly a working
 ## To Build Nitrogen
 
 1. Fire up msysgit
-2. Navigate to the directory where you'd like to install Nitrogen
+2. Navigate to the directory where you'd like to install Nitrogen (ie `c:\www`)
 3. `git clone https://github.com/nitrogen/nitrogen`
 4. `cd nitrogen`
 5. `make rel_inets_win` or (`make rel_mochiweb_win`)
