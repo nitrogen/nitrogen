@@ -14,4 +14,4 @@ Follow the tutorial at
 
 ## Building Nitrogen on Windows
 
-Instructions for building on windows can be found in [rel/overlay/win](https://github.com/choptastic/nitrogen/blob/master/rel/overlay/win/README.md)
+Instructions for building on windows can be found in [rel/overlay/win](https://github.com/nitrogen/nitrogen/blob/master/rel/overlay/win/README.md)
