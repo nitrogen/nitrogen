@@ -14,8 +14,8 @@ changes have been made to the build process. The previous method required a
 lot of tinkering with things to build with a new release of Erlang.
 
 **Note 3:** Throughout this readme, we recommend installing to `c:\erl5.9` for the
-sake of simplicity.  It's not critical that you use this directory, but it should
-go without saying, if you choose to install into another directory, make sure you
+sake of simplicity.  It's not critical that you use this directory, but -- and it should
+go without saying -- if you choose to install into another directory, make sure you
 reference that directory everywhere.  The only **strong** recommendation we make
 is to avoid paths with spaces in them (ie `c:\program files\erl5.9`). Msysgit has
 a bit of a history of not playing nice with paths with spaces in them
