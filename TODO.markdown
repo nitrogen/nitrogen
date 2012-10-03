@@ -14,6 +14,7 @@
 ## Elements
 
 * Add Continuous Scrolling Element for loading dynamic content
+* Add a "Pagination" element for use in applications that need to show a list of many items paginated (ie a list of user accounts, or transactions), with it's own set of postbacks
 * Add Code-block element
 * Add Mathjax element = http://mathjax.org
 * Add 'type' to textbox elements to support HTML5 alternate types (number, url, email, etc)
