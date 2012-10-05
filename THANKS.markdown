@@ -19,16 +19,22 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Jay Doane
 * Robert Schonberger
 * Yurii Rashkovskii (@yrashk)
+* Jay Doane
+* Mrinal Wadha
 * Ville Koivula
 * Manuel Durán Aguete
 * Jesse Gumm (@jessegumm)
 * Jan-Felix Wittmann
 * Martin Sivak
+* Markus Flambard
 * Jonas Ådahl
 * Boris Faure
+* Rajiv M. Ranganath
 * Gregory Haskins
+* Andy Skelton
+* Tino Breddin
 * Dave Peticolas
-* Susan Potter
+* Susan Potter (@susanpotter)
 * Rado Kozmer
 * Ward Bekkar
 * Gleb Peregud
