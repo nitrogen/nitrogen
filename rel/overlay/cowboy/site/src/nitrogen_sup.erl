@@ -28,7 +28,7 @@ init([]) ->
     %% Start Cowboy...
     application:start(cowboy),
     {ok, BindAddress} = application:get_env(cowboy, bind_address),
-    {ok, Port} = application:get_env(cowboy, bind_port),
+    {ok, Port} = application:get_env(cowboy, port),
     {ok, ServerName} = application:get_env(cowboy, server_name),
     {ok, DocRoot} = application:get_env(cowboy, document_root),
     {ok, StaticPaths} = application:get_env(cowboy, static_paths),

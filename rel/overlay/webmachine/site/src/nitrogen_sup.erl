@@ -1,10 +1,10 @@
 %% -*- mode: nitrogen -*-
+%% vim: ts=4 sw=4 et
 -module(nitrogen_sup).
 -behaviour(supervisor).
 -export([
     start_link/0,
-    init/1,
-    dispatch/0
+    init/1
 ]).
 
 %% Helper macro for declaring children of supervisor
@@ -29,24 +29,29 @@ init([]) ->
     application:load(webmachine),
     {ok, BindAddress} = application:get_env(webmachine, bind_address),
     {ok, Port} = application:get_env(webmachine, port),
+    {ok, DocRoot} = application:get_env(webmachine, document_root),
+    {ok, StaticPaths} = application:get_env(webmachine, static_paths),
 
     io:format("Starting Webmachine Server on ~s:~p~n", [BindAddress, Port]),
 
     Options = [
         {ip, BindAddress}, 
         {port, Port},
-        {dispatch, dispatch()}
+        {dispatch, dispatch(DocRoot, StaticPaths)}
     ],
     webmachine_mochiweb:start(Options),
 
     {ok, { {one_for_one, 5, 10}, []} }.
 
-dispatch() -> 
-    [
-        %% Static content handlers...
-        {["css", '*'], static_resource, [{root, "./site/static/css"}]},
-        {["images", '*'], static_resource, [{root, "./site/static/images"}]},
-        {["nitrogen", '*'], static_resource, [{root, "./site/static/nitrogen"}]},
+dispatch(DocRoot, StaticPaths) -> 
+    StaticDispatches = [make_static_dispatch(DocRoot, StaticPath) || StaticPath <- StaticPaths],
+    StaticDispatches ++ [
+        %% Static content handlers can be defined manually like so:
+        %% {["css", '*'], static_resource, [{root, "./site/static/css"}]},
+        %% {["images", '*'], static_resource, [{root, "./site/static/images"}]},
+        %% {["nitrogen", '*'], static_resource, [{root, "./site/static/nitrogen"}]},
+        %%
+        %% But instead of doing it manually, we'll load it from the configuration
 
         %% Add routes to your modules here. The last entry makes the
         %% system use the dynamic_route_handler, which determines the
@@ -63,5 +68,19 @@ dispatch() ->
         {['*'], nitrogen_webmachine, dynamic_route_handler}
     ].
 
+join_path(Root,Path) when is_binary(Root) orelse is_binary(Path) ->
+    join_path(wf:to_list(Root),wf:to_list(Path));
+join_path(Root,Path) ->
+    RootEndsWithSlash = lists:last(Root)==$/,
+    PathStartsWithSlash = hd(Path)==$/,
+    if
+        RootEndsWithSlash andalso PathStartsWithSlash -> 
+            Root ++ tl(Path);
+        not(RootEndsWithSlash) andalso not(PathStartsWithSlash) ->
+            Root ++ "/" ++ Path
+    end.
 
-
+make_static_dispatch(DocRoot, StaticPath) ->
+    TokenStatic = string:tokens(StaticPath,"/"),
+    FormattedPath = TokenStatic ++ ['*'],
+    {FormattedPath, static_resource, [{root, join_path(DocRoot,StaticPath)}]}.
