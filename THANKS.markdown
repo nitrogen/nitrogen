@@ -6,7 +6,7 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Chris Williams (@voodootikigod)
 * Joel Reymont (@wagerlabs)
 * Tom McNulty
-* Martin Scholl (@zeit_geist)
+* Martin Scholl (@zeit\_geist)
 * Dave Peticolas
 * Jon Gretar Borgthorsson (@jongretar)
 * Dan Bravender (@dbravender)
@@ -29,6 +29,7 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Gregory Haskins
 * Dave Peticolas
 * Susan Potter
+* Rado Kozmer
 * Ward Bekkar
 * Gleb Peregud
 * Lorant Kurthy
@@ -37,5 +38,11 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 * Justin Kirby
 * Tuncer Ayaz
 * Loïc Hoguin (@lhoguin)
+* Sergei Lebedev
+* Stephen Panning
+* James Pharaoh
+* Milan Svoboda
+* Jenő I. Hajdu
+* Maxim Sothatsky
 
-Roughly sorted by date of contribution. Send your twitter handles to @rustyio or @jessegumm
+Roughly sorted by date of contribution. Send your twitter handles to @jessegumm or @rustyio
