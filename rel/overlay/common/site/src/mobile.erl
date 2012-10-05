@@ -18,7 +18,7 @@ body() ->
         #mobile_toggle{
             on_text="Menu Visible",
             off_text="Menu Hidden",
-            selected="on",
+            selected="off",
             postback=toggle_menu,
             id=menu_on,
             width=200
