@@ -21,6 +21,7 @@
 * Add 'type' to textbox elements to support HTML5 alternate types (number, url, email, etc)
 * Add wf\_render\_elements:map\_body/2, to recursively apply a function to child elements
 * Add support for element\_X:transform\_element for elements which 
+* Add progress bar element
 
 ## Actions and Validators
 
