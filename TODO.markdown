@@ -6,6 +6,7 @@
 * Websocket Support, possibly as alternative replacement for comet backends
 * Email integration with gen\_smtp and its own handler (mail\_handler?)
 * Integrated cache server and using cache\_handler
+* Elements that have to render text should throw a better error if passed nitrogen elements/tuples
 
 ## Installation/Platform
 
