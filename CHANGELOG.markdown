@@ -5,8 +5,36 @@
 * Split dependent projects into separate .git repos, including nitrogen_core, nprocreg, and simple_bridge
 * Move Nitrogen project (plus sub-apps) to github.com/nitrogen
 * Remove ./apps directory.
-* Update sample project (built using 'make rel_*') to start up using a first-class Erlang application.
-* Add new sync project dependency, allowing for automatic code reloading.
+* Update sample project (built using `make rel_*`) to start up using a first-class Erlang application.
+* Sync has been split into its own dependency
+* Add jQuery Mobile support and elements (with help from Mattias Holmlund)
+* Add Mobile sample page to default installation
+* Improved Windows compilation, including official support for Mochiweb on Windows
+* Added ability to clear validators
+* Added RESTful form elements (Jeno I. Hajdu)
+* Added an `html_id` attribute to most elements that would need to specify an HTML id attribute
+* Fixed a critical comet bug causing comet processes to not die 
+* Add file drag/drop and multi-file capabilities to #upload element
+* Add RECAPTCHA element (Steffan Panning)
+* Add support for HTML5 data attributes for select elements
+* Resurrect the `#wizard{}` element
+* Add `module_prefix` configuration option (James Pharaoh)
+* Fix bug where continuations didn't keep the original context
+* Add slide up and down actions
+* Make `html_encode` more forgiving
+* Add helper functions for `wf:q` - `wf:mq`, `wf:q_pl`
+* Add helper attribute `click` to `#button{}`
+* Add `wf:join`
+* Add `make upgrade` to generated releases to simplify the upgrade process from one version of Nitrogen to another
+* Ensure `label`, `p`, `span`, and `panel` all support both `body`, `text`, `html_encode`
+* Add more functions: `peer_ip`, `insert_before`, `insert_after`, 
+* Added lots of documentation, including handlers, configuration, mobile elements, and restful elements.
+* For improved compabitility, removed the .ez files from releases
+* Added Disqus coment system to all documentation pages
+* Add improved options for Webmachine routing dispatch
+* Update Mochiweb dependency to 2.3.1
+* Update Yaws dependency to 1.94
+* Add Cowboy 0.6.0 Webserver Support (with help from Tuncer Ayaz)
 
 ## Nitrogen 2.0.4
 

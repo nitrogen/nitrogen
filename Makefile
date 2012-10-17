@@ -11,6 +11,7 @@ help:
 	@echo "       ./make {rel_mochiweb|package_mochiweb}"
 	@echo "       ./make {rel_webmachine|package_webmachine}"
 	@echo "       ./make {rel_yaws|package_yaws}"
+	@echo "       ./make thanks"
 	@echo
 	@echo "Windows Users:"
 	@echo "       ./make rel_inets_win"
@@ -31,6 +32,9 @@ compile: get-deps
 
 clean:
 	./rebar clean
+
+thanks: 
+	perl support/list_thanks/list_thanks.pl
 
 # COWBOY
 

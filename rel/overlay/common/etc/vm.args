@@ -1,5 +1,5 @@
 
-## Name of the riak node
+## Name of the nitrogen node
 -name nitrogen@127.0.0.1
 
 ## Cookie for distributed erlang
