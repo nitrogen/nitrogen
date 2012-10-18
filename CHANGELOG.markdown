@@ -34,7 +34,10 @@
 * Add improved options for Webmachine routing dispatch
 * Update Mochiweb dependency to 2.3.1
 * Update Yaws dependency to 1.94
+* Update to jQuery 1.8.2 and jQuery UI 1.8.23
 * Add Cowboy 0.6.0 Webserver Support (with help from Tuncer Ayaz)
+* Add Minified versions of standard Nitrogen-provided Javascript files
+
 
 ## Nitrogen 2.0.4
 
