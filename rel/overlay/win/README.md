@@ -18,7 +18,7 @@ sake of simplicity.  It's not critical that you use this directory, but -- and i
 go without saying -- if you choose to install into another directory, make sure you
 reference that directory everywhere.  The only **strong** recommendation we make
 is to avoid paths with spaces in them (ie `c:\program files\erl5.9`). Msysgit has
-a bit of a history of not playing nice with paths with spaces in them.
+a bit of a history of not playing nice with paths with spaces in them. Further, 
 
 **Note 4:** While installing Msysgit, make sure you choose the option, if presented,
 to "Check out as-is and Check in as-is". Otherwise, some of the Nitrogen prerequisits
@@ -26,17 +26,19 @@ don't play nice with Windows-style line-endings (`\r\n`).
 
 ## Prerequisite Steps:
 
-1. Install [Erlang](http://www.erlang.org/download.html) (Recommended R15B+) for Windows into `c:\erl5.9`
-2. Make sure `c:\erl5.9\bin` is in your windows PATH
-3. Get [Msysgit](http://msysgit.github.com) (*not "Git for Windows"*) and install to `c:\msysgit` (the default). 
+1. Install [Erlang](http://www.erlang.org/download.html) (Recommended at least R15B) for
+   Windows into `c:\erl5.9`.
+2. Make sure `c:\erl5.9\bin` is in your windows PATH (Right click My Computer, Click Properties, 
+3. Get [msysGit](http://msysgit.github.com) (*not "Git for Windows"*) and install to `c:\msysgit` (the default). 
 
 **Note**: Download the Msysgit netinstaller, **not** the fullinstaller.  The 
 fullinstaller does not come with some necessary tools (particularly a working
-`make`), despite the misleading name. Quick download link: http://code.google.com/p/msysgit/downloads/list?q=net+installer
+`make`), despite the misleading name. Quick download link: 
+http://code.google.com/p/msysgit/downloads/list?q=net+installer
 
 ## To Build Nitrogen
 
-1. Fire up msysgit
+1. Fire up msysgit (c:\msysgit\msys.bat)
 2. Navigate to the directory where you'd like to install Nitrogen (ie `c:\www`)
 3. Run `git clone https://github.com/nitrogen/nitrogen`
 4. Run `cd nitrogen`
