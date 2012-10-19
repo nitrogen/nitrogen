@@ -46,9 +46,17 @@ rel_cowboy: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
+rel_cowboy_win: compile
+	@rm -rf rel/nitrogen
+	@rm -rf rel/reltool.config
+	@ln rel/reltool_cowboy_win.config rel/reltool.config
+	@(make rel_inner_win)
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Cowboy.
+
 package_cowboy: rel_cowboy
 	mkdir -p ./builds
-	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
+	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
 
 # INETS
 
