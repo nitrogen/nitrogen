@@ -58,6 +58,11 @@ package_cowboy: rel_cowboy
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
 
+package_cowboy_win: rel_cowboy_win
+	mkdir -p ./builds
+	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-cowboy-win.zip ./rel/nitrogen
+	rm -fr ./rel/nitrogen
+
 # INETS
 
 rel_inets: compile
@@ -80,6 +85,10 @@ package_inets: rel_inets
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
+package_inets_win: rel_inets_win
+	mkdir -p ./builds
+	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-inets-win.zip ./rel/nitrogen
+	rm -fr ./rel/nitrogen
 
 
 
@@ -104,6 +113,11 @@ rel_mochiweb_win: compile
 package_mochiweb: rel_mochiweb
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
+
+package_mochiweb_win: rel_mochiweb_win
+	mkdir -p ./builds
+	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb-win.zip ./rel/nitrogen
+	rm -fr ./rel/nitrogen
 
 # WEBMACHINE
 
