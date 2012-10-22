@@ -7,7 +7,7 @@ get-deps:
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar get-deps)
 
 update-deps:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar get-deps)
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar update-deps)
 
 copy-static:
 	@(cp -r lib/nitrogen_core/www/* site/static/nitrogen/)
