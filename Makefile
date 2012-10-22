@@ -151,7 +151,7 @@ package_yaws: rel_yaws
 
 package_all: package_inets package_mochiweb package_cowboy package_yaws package_webmachine
 
-package_all_windows: package_inets_win package_mochiweb_win package_cowboy_win
+package_all_win: package_inets_win package_mochiweb_win package_cowboy_win
 
 # SHARED
 
