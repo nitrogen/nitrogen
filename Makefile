@@ -11,11 +11,11 @@ help:
 	@echo "       ./make {rel_mochiweb|package_mochiweb}"
 	@echo "       ./make {rel_webmachine|package_webmachine}"
 	@echo "       ./make {rel_yaws|package_yaws}"
-	@echo "       ./make thanks"
 	@echo
 	@echo "Windows Users:"
 	@echo "       ./make rel_inets_win"
 	@echo "       ./make rel_mochiweb_win"
+	@echo "       ./make rel_cowboy_win"
 	@echo
 	@echo
 
@@ -27,13 +27,17 @@ distribute-rebar:
 get-deps: distribute-rebar
 	./rebar get-deps
 
+update-deps:
+	./rebar update-deps
+
 compile: get-deps
 	./rebar compile
 
 clean:
 	./rebar clean
 
-thanks: 
+## Produce a list of contributors from the main repo and the dependent repos
+thanks: get-deps
 	perl support/list_thanks/list_thanks.pl
 
 # COWBOY
@@ -56,7 +60,7 @@ rel_cowboy_win: compile
 
 package_cowboy: rel_cowboy
 	mkdir -p ./builds
-	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
+	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
 
 package_cowboy_win: rel_cowboy_win
 	mkdir -p ./builds
@@ -83,7 +87,7 @@ rel_inets_win: compile
 
 package_inets: rel_inets
 	mkdir -p ./builds
-	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
+	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
 package_inets_win: rel_inets_win
 	mkdir -p ./builds
@@ -112,7 +116,7 @@ rel_mochiweb_win: compile
 
 package_mochiweb: rel_mochiweb
 	mkdir -p ./builds
-	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
+	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
 
 package_mochiweb_win: rel_mochiweb_win
 	mkdir -p ./builds
@@ -131,7 +135,7 @@ rel_webmachine: compile
 
 package_webmachine: rel_webmachine
 	mkdir -p ./builds
-	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
+	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
 
 
 # YAWS
@@ -146,12 +150,14 @@ rel_yaws: compile
 
 package_yaws: rel_yaws
 	mkdir -p ./builds
-	tar -C rel -c nitrogen | gzip > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
+	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
 
+# MASS PACKAGING - Produce packages for all servers
 
 package_all: package_inets package_mochiweb package_cowboy package_yaws package_webmachine
 
 package_all_windows: package_inets_win package_mochiweb_win package_cowboy_win
+
 
 # SHARED
 
