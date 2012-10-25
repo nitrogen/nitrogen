@@ -1,5 +1,5 @@
 language: erlang
-script: "make rel_cowboy"
+script: "make travis"
 notifications:
   irc: "irc.freenode.org#nitrogen"
   recipients:
@@ -10,4 +10,3 @@ otp_release:
   - R15B
   - R14B03
   - R14B02
-  - R14B01

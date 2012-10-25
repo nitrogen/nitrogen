@@ -159,6 +159,9 @@ package_all: package_inets package_mochiweb package_cowboy package_yaws package_
 package_all_win: package_inets_win package_mochiweb_win package_cowboy_win
 
 
+# This is primarily for Travis build testing, as each build instruction will overwrite the previous
+travis: rel_inets rel_cowboy rel_yaws rel_mochiweb rel_webmachine
+
 # SHARED
 
 
