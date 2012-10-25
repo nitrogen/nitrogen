@@ -1,10 +1,13 @@
 language: erlang
+script: "make rel_cowboy"
 notifications:
-  email: false
+  irc: "irc.freenode.org#nitrogen"
+  recipients:
+    - gumm@sigma-star.com
 otp_release:
-  - R15B
   - R15B01
   - R15B02
+  - R15B
   - R14B03
   - R14B02
   - R14B01
