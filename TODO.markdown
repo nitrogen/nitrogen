@@ -31,4 +31,4 @@
 
 ## Documentation
 
-[Documentation has its own TODO](http://github.com/nitrogen/nitrogen_core/docs/org-mode/README.markdown)
+[Documentation has its own TODO](https://github.com/nitrogen/nitrogen_core/blob/master/doc/org-mode/README.markdown)
