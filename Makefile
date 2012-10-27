@@ -58,11 +58,11 @@ rel_cowboy_win: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
-package_cowboy: rel_cowboy
+package_cowboy: rel_cowboy link_docs
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
 
-package_cowboy_win: rel_cowboy_win
+package_cowboy_win: rel_cowboy_win copy_docs
 	mkdir -p ./builds
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-cowboy-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
@@ -85,11 +85,11 @@ rel_inets_win: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
-package_inets: rel_inets
+package_inets: rel_inets link_docs
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
-package_inets_win: rel_inets_win
+package_inets_win: rel_inets_win copy_docs
 	mkdir -p ./builds
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-inets-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
@@ -114,11 +114,11 @@ rel_mochiweb_win: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
-package_mochiweb: rel_mochiweb
+package_mochiweb: rel_mochiweb link_docs
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
 
-package_mochiweb_win: rel_mochiweb_win
+package_mochiweb_win: rel_mochiweb_win copy_docs
 	mkdir -p ./builds
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
@@ -133,7 +133,7 @@ rel_webmachine: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
 
-package_webmachine: rel_webmachine
+package_webmachine: rel_webmachine link_docs
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
 
@@ -148,7 +148,7 @@ rel_yaws: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
 
-package_yaws: rel_yaws
+package_yaws: rel_yaws link_docs
 	mkdir -p ./builds
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
 
@@ -158,6 +158,16 @@ package_all: package_inets package_mochiweb package_cowboy package_yaws package_
 
 package_all_win: package_inets_win package_mochiweb_win package_cowboy_win
 
+clean_docs:
+	@(cd rel/nitrogen; rm -fr doc)
+
+copy_docs: clean_docs
+	@(echo "Copying Documentation to the release")
+	@(cd rel/nitrogen; cp -r lib/nitrogen_core/doc .; cd doc; rm *.pl *.html)
+
+link_docs: clean_docs
+	@(echo "Linking Documentation in the release")
+	@(cd rel/nitrogen; ln -s lib/nitrogen_core/doc doc)
 
 # This is primarily for Travis build testing, as each build instruction will overwrite the previous
 travis: rel_inets rel_cowboy rel_yaws rel_mochiweb rel_webmachine
