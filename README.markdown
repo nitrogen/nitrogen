@@ -1,5 +1,7 @@
 # Nitrogen Web Framework for Erlang
 
+[![Build Status](https://travis-ci.org/choptastic/nitrogen.png)](https://travis-ci.org/choptastic/nitrogen)
+
 Nitrogen is an Erlang-based web framework that allows you to develop
 infinitely scaleable, Ajax-rich web applications using a pure Erlang 
 technology stack.
