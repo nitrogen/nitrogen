@@ -58,12 +58,14 @@ rel_cowboy_win: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
-package_cowboy: rel_cowboy link_docs
+package_cowboy: rel_cowboy
 	mkdir -p ./builds
+	make link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
 
 package_cowboy_win: rel_cowboy_win copy_docs
 	mkdir -p ./builds
+	make copy_docs
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-cowboy-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
 
@@ -85,12 +87,14 @@ rel_inets_win: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
-package_inets: rel_inets link_docs
+package_inets: rel_inets
 	mkdir -p ./builds
+	make link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
 package_inets_win: rel_inets_win copy_docs
 	mkdir -p ./builds
+	make copy_docs
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-inets-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
 
@@ -114,12 +118,14 @@ rel_mochiweb_win: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
-package_mochiweb: rel_mochiweb link_docs
+package_mochiweb: rel_mochiweb
 	mkdir -p ./builds
+	make link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
 
 package_mochiweb_win: rel_mochiweb_win copy_docs
 	mkdir -p ./builds
+	make copy_docs
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
 
@@ -133,8 +139,9 @@ rel_webmachine: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
 
-package_webmachine: rel_webmachine link_docs
+package_webmachine: rel_webmachine
 	mkdir -p ./builds
+	make link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
 
 
@@ -148,8 +155,9 @@ rel_yaws: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
 
-package_yaws: rel_yaws link_docs
+package_yaws: rel_yaws
 	mkdir -p ./builds
+	make link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
 
 # MASS PACKAGING - Produce packages for all servers
