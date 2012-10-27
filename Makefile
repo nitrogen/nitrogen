@@ -154,9 +154,9 @@ package_yaws: rel_yaws
 
 # MASS PACKAGING - Produce packages for all servers
 
-package_all: package_inets package_mochiweb package_cowboy package_yaws package_webmachine
+package_all: clean update-deps package_inets package_mochiweb package_cowboy package_yaws package_webmachine
 
-package_all_win: package_inets_win package_mochiweb_win package_cowboy_win
+package_all_win: clean update-deps package_inets_win package_mochiweb_win package_cowboy_win
 
 
 # SHARED
