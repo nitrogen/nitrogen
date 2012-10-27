@@ -2,8 +2,6 @@ language: erlang
 script: "make travis"
 notifications:
   irc: "irc.freenode.org#nitrogen"
-  recipients:
-    - gumm@sigma-star.com
 otp_release:
   - R15B01
   - R15B02
