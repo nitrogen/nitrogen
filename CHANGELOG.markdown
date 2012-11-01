@@ -11,8 +11,8 @@
 * Add Mobile sample page to default installation
 * Improved Windows compilation, including official support for Mochiweb on Windows
 * Added ability to clear validators
-* Added RESTful form elements (Jeno I. Hajdu)
-* Added an `html_id` attribute to most elements that would need to specify an HTML id attribute
+* Added RESTful form elements (Steffan Panning)
+* Added an `html_id` attribute to most elements that would need to specify an HTML id attribute (Jeno Hajdu)
 * Fixed a critical comet bug causing comet processes to not die 
 * Add file drag/drop and multi-file capabilities to #upload element
 * Add RECAPTCHA element (Steffan Panning)
