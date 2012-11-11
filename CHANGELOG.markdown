@@ -1,5 +1,10 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.1.1
+
+* Fix: `inplace_textarea` and `inplace_textbox` will properly always revert to the last set value when the cancel button is pressed
+* Update: `wf:js_escape/1` will now also escape single quotes "'"
+
 ## Nitrogen 2.1.0
 
 * Split dependent projects into separate .git repos, including nitrogen_core, nprocreg, and simple_bridge
