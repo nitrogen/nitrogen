@@ -26,8 +26,8 @@
 
 ## Actions and Validators
 
-* Validators modified like Zotonic so they don't crash when fields are removed
 * Make wf:wire should be able to wire validations without having to wrap those validations in a #validation action. Basically, wf:wire can determine if the specified action is a validator and automatically wrap it.
+* Add an action to ensure a javascript file is loaded. #ensure\_loaded action along with an associated wf:ensure\_loaded/1 function.
 
 ## Documentation
 
