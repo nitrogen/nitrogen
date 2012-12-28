@@ -14,7 +14,7 @@
 
 ## Elements
 
-* Elements can redefined in terms of other Nitrogen elements, and doing so shoul not invoke the overhead associate with typical rendering. So in wf\_render\_elements, we can add a check for ElementMod:transform\_element/1, which basically calls it without.  Before doing this, the speed of such a call should be tested to determine if this is something that should be cached.
+* Elements can be redefined in terms of other Nitrogen elements, and doing so should not invoke the overhead associate with typical rendering. So in wf\_render\_elements, we can add a check for ElementMod:transform\_element/1, which basically calls it without.  Before doing this, the speed of such a call should be tested to determine if this is something that should be cached.
 * Add Continuous Scrolling Element for loading dynamic content
 * Add a "Pagination" element for use in applications that need to show a list of many items paginated (ie a list of user accounts, or transactions), with it's own set of postbacks
 * Add Code-block element
