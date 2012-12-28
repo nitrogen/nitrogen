@@ -48,7 +48,7 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 + James Pharaoh
 + Milan Svoboda
 + Jenő I. Hajdu
-+ Maxim Sothatsky
++ Maxim Sokhatsky (@5HT)
 + Dmitriy Kargapolov
 
 Roughly sorted by date of contribution. Send your twitter handles to @jessegumm or @rustyio
