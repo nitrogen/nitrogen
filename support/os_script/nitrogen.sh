@@ -3,15 +3,14 @@
 #
 # Public Domain
 #
-# Then you can make nitrogen and dev calls from within any directory in a nitrogen 2.0 installation
+# Then you can make nitrogen and dev calls from within any directory in a
+# Nitrogen 2.0 installation.
 #
-# For example, say you're in ./site/src/libs, and you want to create a new page called "login",
-# You would type "dev page login", while normally, you would have to type "../../../bin/dev page login"
+# For example, say you're in ./site/src/libs, and you want to create a new page
+# called "login", you would type "dev page login", while normally, you would
+# have to type "../../../bin/dev page login"
 #
-# This is especially convenient if you have more than one nitrogen installation.
-
-
-
+# This is especially convenient if you have more than one Nitrogen installation.
 
 function find_nitro() {
 	if [ -x "bin/nitrogen" ] && [ -x "bin/dev" ] ; then
