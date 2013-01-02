@@ -4,20 +4,21 @@ NITROGEN_VERSION=2.1.0
 help:
 	@echo 
 	@echo "Usage: "
-	@echo "       ./make {compile|clean}"        
+	@echo "       make {compile|clean}"        
 	@echo
-	@echo "       ./make {rel_cowboy|package_cowboy}"
-	@echo "       ./make {rel_inets|package_inets}"  
-	@echo "       ./make {rel_mochiweb|package_mochiweb}"
-	@echo "       ./make {rel_webmachine|package_webmachine}"
-	@echo "       ./make {rel_yaws|package_yaws}"
+	@echo "       make {rel_cowboy|package_cowboy}"
+	@echo "       make {rel_inets|package_inets}"  
+	@echo "       make {rel_mochiweb|package_mochiweb}"
+	@echo "       make {rel_webmachine|package_webmachine}"
+	@echo "       make {rel_yaws|package_yaws}"
 	@echo
 	@echo "Windows Users:"
-	@echo "       ./make rel_inets_win"
-	@echo "       ./make rel_mochiweb_win"
-	@echo "       ./make rel_cowboy_win"
-	@echo
-	@echo
+	@echo "       make rel_inets_win"
+	@echo "       make rel_mochiweb_win"
+	@echo "       make rel_cowboy_win"
+	@echo 
+	@echo "To install the helper script on linux/unix machines:"
+	@echo "       make install-helper-script" 
 
 all: get-deps compile
 
@@ -35,6 +36,9 @@ compile: get-deps
 
 clean:
 	./rebar clean
+
+install-helper-script:
+	@(cd support/os_script;./install.sh)
 
 ## Produce a list of contributors from the main repo and the dependent repos
 thanks: get-deps
