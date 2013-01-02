@@ -38,7 +38,7 @@ clean:
 	./rebar clean
 
 install-helper-script:
-	@(cd support/os_script;./install.sh)
+	@(cd support/helper_script;./install.sh)
 
 ## Produce a list of contributors from the main repo and the dependent repos
 thanks: get-deps
