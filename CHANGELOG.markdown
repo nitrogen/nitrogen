@@ -1,9 +1,18 @@
 # Nitrogen 2.x
 
+## (in development) Nitrogen 2.2.0
+* Add height and width attributes to the `#image` element.
+* Add `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order
+* Add functionality to restart comet process (needs elaboration)
+
 ## Nitrogen 2.1.1
 
-* Fix: `inplace_textarea` and `inplace_textbox` will properly always revert to the last set value when the cancel button is pressed
-* Update: `wf:js_escape/1` will now also escape single quotes "'"
+* Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
+* Fix `wf:js_escape/1` will now also escape single quotes "'".
+* Fix `#grid_clear{}` will no longer crash if it's the last element in a `#container_X` element.
+* Removing the debug prints from the `action_continue`.
+* Fix a bug in the `#range` element causing a crash when `data` attributes were set.
+* Fix `html_encode=whites` to be allowing of 
 
 ## Nitrogen 2.1.0
 
