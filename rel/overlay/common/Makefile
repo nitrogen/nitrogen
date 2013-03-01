@@ -1,4 +1,4 @@
-all: get-deps compile
+all: get-deps plugins compile
 
 compile:
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar compile)
@@ -11,6 +11,9 @@ update-deps:
 
 copy-static:
 	@(cp -r lib/nitrogen_core/www/* site/static/nitrogen/)
+
+plugins:
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript generate-plugins.escript)
 
 update: update-deps copy-static compile
 	@(echo "*** CONGRATULATIONS ***")
