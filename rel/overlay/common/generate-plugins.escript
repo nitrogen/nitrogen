@@ -17,8 +17,58 @@
 %% into the site/static/plugins/<pluginname> directory. Then one doesn't need 
 %% to copy that information for each upgrade.
 %%
-%% This script will likely not get run manually, but will instead be run by 
-%% `make`.
+%% TO MAKE A PLUGIN WORK WITH THIS SCRIPT:
+%%
+%% 1) Make sure your plugin is able to be used as a rebar dependency
+%% 2) Include a file "nitrogen.plugin" in the root of the plugin directory
+%% 3) If you have any static resources (js, images) put them in a 'static'
+%%    directory
+%% 4) If this is a custom element, action, or validator, or requires anything
+%%    else that should be included in a header, add them to (one or more) .hrl
+%%    files in 'include'
+%% 5) From your Nitrogen app's directory, include your plugin as a rebar
+%%    dependency and run 'make'
+%%
+%% Sample Plugin Directory Structure:
+%%
+%% myplugin/
+%%      ebin/
+%%    
+%%      src/
+%%          element_myplugin.erl
+%%          myplugin.app.src
+%%      
+%%      include/
+%%          myplugin.hrl
+%%      
+%%      static/
+%%          js/
+%%              myplugin.js
+%%              jquery-some-plugin.js
+%%          images/
+%%              some_image.png
+%%          css/
+%%              myplugin.css
+%%
+%%
+%% When the plugin is processed, the following will be updated in your Nitrogen App
+%%
+%% site/
+%%      include/
+%%          plugins.hrl (will include a reference to all .hrl files from your plugin)
+%%      static/
+%%          plugins/
+%%              myplugin/                
+%%                  js/
+%%                      myplugin.js
+%%                      jquery-some-plugin.js
+%%                  images/
+%%                      some_image.png
+%%                  css/
+%%                      myplugin.css
+%%
+%% (Note: The Erlang/Nitrogen Element code is not copied, it'll be loaded just
+%% like any rebar dependency's code)
 
 main([]) ->
     io:format("Checking for Nitrogen Plugins\n"),
