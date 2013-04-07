@@ -15,10 +15,9 @@ init(_Transport, Req, Opts) ->
 
 
 handle(Req,_Opts) ->
-    %% DocRoot is only needed if the cowboy_response_bridge actually handles
-    %% static files, which it doesn't. So it's commented out here
-    %%{ok, DocRoot} = application:get_env(cowboy, document_root),
-    RequestBridge = simple_bridge:make_request(cowboy_request_bridge, Req),
+    {ok, DocRoot} = application:get_env(cowboy, document_root),
+    RequestBridge = simple_bridge:make_request(cowboy_request_bridge,
+                                               {Req, DocRoot}),
 
     %% Because Cowboy uses the same "Req" record, we can pass the 
     %% previously made RequestBridge to make_response, and it'll
