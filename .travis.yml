@@ -1,7 +1,5 @@
 language: erlang
 script: "make travis"
-notifications:
-  irc: "irc.freenode.org#nitrogen"
 otp_release:
   - R16B
   - R15B02
