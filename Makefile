@@ -192,7 +192,7 @@ else
 endif
 	
 	
-travis-r15plus: rel_inets rel_cowboy rel_yaws rel_mochiweb rel_webmachine
+travis-r15plus: rel_cowboy rel_inets rel_yaws rel_mochiweb rel_webmachine
 
 travis-r14: rel_inets rel_yaws rel_mochiweb rel_webmachine
 
