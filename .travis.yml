@@ -3,8 +3,9 @@ script: "make travis"
 notifications:
   irc: "irc.freenode.org#nitrogen"
 otp_release:
-  - R15B01
+  - R16B
   - R15B02
+  - R15B01
   - R15B
   - R14B03
   - R14B02
