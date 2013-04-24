@@ -181,8 +181,20 @@ link_docs: clean_docs
 	@(echo "Linking Documentation in the release")
 	@(cd rel/nitrogen; ln -s lib/nitrogen_core/doc doc)
 
+ERLANG_MAJOR_VERSION=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell | grep -o 'R[0-9]\{2\}')
+
 # This is primarily for Travis build testing, as each build instruction will overwrite the previous
-travis: rel_inets rel_cowboy rel_yaws rel_mochiweb rel_webmachine
+travis:
+ifeq ($(ERLANG_MAJOR_VERSION),"R14")
+	@make travis-r14
+else
+	@make travis-r15plus
+endif
+	
+	
+travis-r15plus: rel_inets rel_cowboy rel_yaws rel_mochiweb rel_webmachine
+
+travis-r14: rel_inets rel_yaws rel_mochiweb rel_webmachine
 
 # SHARED
 
