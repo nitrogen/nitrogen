@@ -181,14 +181,16 @@ link_docs: clean_docs
 	@(echo "Linking Documentation in the release")
 	@(cd rel/nitrogen; ln -s lib/nitrogen_core/doc doc)
 
-ERLANG_MAJOR_VERSION=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell | grep -o 'R[0-9]\{2\}')
+ERLANG_MAJOR_VERSION_CHECK := erl -eval "erlang:display(erlang:system_info(otp_release)), halt()."  -noshell | grep -o 'R[0-9]\{2\}'
+ERLANG_MAJOR_VERSION = $(shell $(ERLANG_MAJOR_VERSION_CHECK))
 
 # This is primarily for Travis build testing, as each build instruction will overwrite the previous
 travis:
-ifeq ($(ERLANG_MAJOR_VERSION),R14)
-	@make travis-r14
+	@echo Building Nitrogen for Travis for OTP $(ERLANG_MAJOR_VERSION)
+ifeq ($(ERLANG_MAJOR_VERSION), R14)
+	@(make travis-r14)
 else
-	@make travis-r15plus
+	@(make travis-r15plus)
 endif
 	
 	
