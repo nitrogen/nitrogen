@@ -2,10 +2,6 @@
 ## Name of the nitrogen node
 -name nitrogen@127.0.0.1
 
-## Cookie for distributed erlang
-## Disabled by default for security
-#-setcookie nitrogen
-
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
 ##-heart

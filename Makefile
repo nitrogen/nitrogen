@@ -204,7 +204,7 @@ travis-r14: rel_inets rel_yaws rel_mochiweb rel_webmachine
 rel_inner:
 	@(cd rel; ./rebar generate)
 	@(cd rel; escript copy_erl_interface.escript)
-	@(cd rel/nitrogen; make)
+	@(cd rel/nitrogen; make; make cookie)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
@@ -215,7 +215,7 @@ rel_inner_win:
 	@(cd rel; ./rebar generate)
 	@(cd rel; escript copy_erl_interface.escript)
 	@(cd rel/nitrogen; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
-	@(cd rel/nitrogen; make)
+	@(cd rel/nitrogen; make; make cookie)
 	@(cd rel/nitrogen; ./make_start_cmd.sh)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
