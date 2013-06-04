@@ -6,18 +6,20 @@ help:
 	@echo "Usage: "
 	@echo "       make {compile|clean}"        
 	@echo
-	@echo "       make {rel_cowboy|package_cowboy}"
-	@echo "       make {rel_inets|package_inets}"  
-	@echo "       make {rel_mochiweb|package_mochiweb}"
-	@echo "       make {rel_webmachine|package_webmachine}"
-	@echo "       make {rel_yaws|package_yaws}"
+	@echo "       make {slim_cowboy|rel_cowboy|package_cowboy}"
+	@echo "       make {slim_inets|rel_inets|package_inets}"  
+	@echo "       make {slim_mochiweb|rel_mochiweb|package_mochiweb}"
+	@echo "       make {slim_webmachine|rel_webmachine|package_webmachine}"
+	@echo "       make {slim_yaws|rel_yaws|package_yaws}"
 	@echo
 	@echo "Windows Users:"
 	@echo "       make rel_inets_win"
 	@echo "       make rel_mochiweb_win"
 	@echo "       make rel_cowboy_win"
 	@echo 
-	@echo "To install the helper script on linux/unix machines:"
+	@echo "To install the helper script on linux/unix machines"
+	@echo "which allows you to invoke "nitrogen" or "dev" from any"
+	@echo "directory in a Nitrogen installation."
 	@echo "       make install-helper-script" 
 
 all: get-deps compile
