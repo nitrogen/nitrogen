@@ -46,17 +46,22 @@ thanks: get-deps
 
 # COWBOY
 
+slim_cowboy: compile
+	@make clean_release
+	@(cd rel; ./make_slim.escript reltool_cowboy.config reltool.config)
+	@(make rel_inner_slim)
+	@echo Generated a slim-release Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Cowboy.
+
 rel_cowboy: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_cowboy.config rel/reltool.config
-	@(make rel_inner)
+	@(make rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
 rel_cowboy_win: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_cowboy_win.config rel/reltool.config
 	@(make rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
@@ -75,17 +80,22 @@ package_cowboy_win: rel_cowboy_win copy_docs
 
 # INETS
 
+slim_inets: compile
+	@make clean_release
+	@(cd rel; ./make_slim.escript reltool_inets.config reltool.config)
+	@(make rel_inner_slim)
+	@echo Generated a slim-release Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Inets.
+
 rel_inets: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_inets.config rel/reltool.config
-	@(make rel_inner)
+	@(make rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
 rel_inets_win: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_inets_win.config rel/reltool.config
 	@(make rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
@@ -106,17 +116,22 @@ package_inets_win: rel_inets_win copy_docs
 
 # MOCHIWEB
 
+slim_mochiweb: compile
+	@make clean_release
+	@(cd rel; ./make_slim.escript reltool_mochiweb.config reltool.config)
+	@(make rel_inner_slim)
+	@echo Generated a slim-release Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Mochiweb.
+
 rel_mochiweb: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_mochiweb.config rel/reltool.config
-	@(make rel_inner)
+	@(make rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 rel_mochiweb_win: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_mochiweb_win.config rel/reltool.config
 	@(make rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
@@ -135,11 +150,17 @@ package_mochiweb_win: rel_mochiweb_win copy_docs
 
 # WEBMACHINE
 
+slim_webmachine: compile
+	@make clean_release
+	@(cd rel; ./make_slim.escript reltool_webmachine.config reltool.config)
+	@(make rel_inner_slim)
+	@echo Generated a slim-release Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Webmachine.
+
 rel_webmachine: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_webmachine.config rel/reltool.config
-	@(make rel_inner)
+	@(make rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
 
@@ -151,11 +172,17 @@ package_webmachine: rel_webmachine
 
 # YAWS
 
+slim_yaws: compile
+	@make clean_release
+	@(cd rel; ./make_slim.escript reltool_yaws.config reltool.config)
+	@(make rel_inner_slim)
+	@echo Generated a slim-release Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Yaws.
+
 rel_yaws: compile
-	@rm -rf rel/nitrogen
-	@rm -rf rel/reltool.config
+	@make clean_release
 	@ln rel/reltool_yaws.config rel/reltool.config
-	@(make rel_inner)
+	@(make rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
 
@@ -200,10 +227,17 @@ travis-r14: rel_inets rel_yaws rel_mochiweb rel_webmachine
 
 # SHARED
 
+clean_release:
+	@(rm -rf rel/nitrogen)
+	@(rm -rf rel/reltool.config)
+
+generate:
+	@(cd rel; ./rebar generate)
+
+erl_interface:
+	@(cd rel; escript copy_erl_interface.escript)
 
 rel_inner:
-	@(cd rel; ./rebar generate)
-	@(cd rel; escript copy_erl_interface.escript)
 	@(cd rel/nitrogen; make; make cookie)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
@@ -211,9 +245,12 @@ rel_inner:
 	@cp -r ./deps/nitrogen_core/www rel/nitrogen/site/static/nitrogen
 	@rm -rf rel/reltool.config	
 
-rel_inner_win:
-	@(cd rel; ./rebar generate)
-	@(cd rel; escript copy_erl_interface.escript)
+rel_inner_slim: generate rel_inner
+
+rel_inner_full: generate erl_interface rel_inner
+
+
+rel_inner_win: generate erl_interface
 	@(cd rel/nitrogen; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
 	@(cd rel/nitrogen; make; make cookie)
 	@(cd rel/nitrogen; ./make_start_cmd.sh)
