@@ -3,12 +3,13 @@
 -module(nitrogen_cowboy).
 -include_lib("nitrogen_core/include/wf.hrl").
 
--export([init/3, handle/2, terminate/2]).
+-export([init/3, handle/2, terminate/3]).
 
 -record(state, {headers, body}).
 
-init({_Transport, http}, Req, Opts) ->
+init(_Transport, Req, Opts) ->
     Headers = proplists:get_value(headers, Opts, []),
+
     Body = proplists:get_value(body, Opts, "http_handler"),
     {ok, Req, #state{headers=Headers, body=Body}}.
 
@@ -18,7 +19,7 @@ handle(Req,_Opts) ->
     RequestBridge = simple_bridge:make_request(cowboy_request_bridge,
                                                {Req, DocRoot}),
 
-    %% Becaue Cowboy usese the same "Req" record, we can pass the 
+    %% Because Cowboy uses the same "Req" record, we can pass the 
     %% previously made RequestBridge to make_response, and it'll
     %% parse out the relevant bits to keep both parts (request and
     %% response) using the same "Req"
@@ -33,5 +34,5 @@ handle(Req,_Opts) ->
     %% This will be returned back to cowboy
     {ok, NewReq, _Opts}.
 
-terminate(_Req, _State) ->
+terminate(_Reason, _Req, _State) ->
     ok.

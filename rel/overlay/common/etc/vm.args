@@ -2,10 +2,6 @@
 ## Name of the nitrogen node
 -name nitrogen@127.0.0.1
 
-## Cookie for distributed erlang
-## Disabled by default for security
-#-setcookie nitrogen
-
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
 ##-heart
@@ -27,8 +23,11 @@
 ## Include .beam files for site.
 -pa ./site/ebin
 
-## Include .beam files for dependencies.
--pa ./deps/*/ebin
+## Include libraries and rebar dependency paths
+-env ERL_LIBS ./lib
 
 ## Run code at startup.
 -eval "application:start(nitrogen)"
+
+## Cookie for distributed erlang (auto-generated)
+-setcookie jhkadB08BdoMbmPhFTKJ3HDJh7UvLP6SqKHfSLtcUaGt4Hni6p

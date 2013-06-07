@@ -24,6 +24,7 @@ start_link() ->
 init([]) ->
     %% Start the Process Registry...
     application:start(nprocreg),
+    application:start(ranch),
 
     %% Start Cowboy...
     application:start(cowboy),
@@ -32,19 +33,29 @@ init([]) ->
     {ok, ServerName} = application:get_env(cowboy, server_name),
     {ok, DocRoot} = application:get_env(cowboy, document_root),
     {ok, StaticPaths} = application:get_env(cowboy, static_paths),
-    DocRootBin = wf:to_binary(DocRoot),
 
     io:format("Starting Cowboy Server (~s) on ~s:~p, root: '~s'~n",
               [ServerName, BindAddress, Port, DocRoot]),
+    
+    Dispatch = init_dispatch(DocRoot, StaticPaths),
+    {ok, _} = cowboy:start_http(http, 100, [{port, Port}], [
+        {env, [{dispatch, Dispatch}]},
+        {max_keepalive, 50}
+    ]),
 
+    {ok, { {one_for_one, 5, 10}, []} }.
+
+init_dispatch(DocRoot,StaticPaths) ->
+    Handler = cowboy_static,
     StaticDispatches = lists:map(fun(Dir) ->
         Path = reformat_path(Dir),
-        Handler = cowboy_http_static,
         Opts = [
-            {directory, filename:join([DocRootBin | Path])},
-            {mimetypes, {fun mimetypes:path_to_mimes/2, default}}
+                {mimetypes, {fun mimetypes:path_to_mimes/2, default}}
+                | localized_dir_file(DocRoot, Dir)
+
+
         ],
-        {Path ++ ['...'],Handler,Opts}
+        {Path,Handler,Opts}
     end,StaticPaths),
 
     %% HandlerModule will end up calling HandlerModule:handle(Req,HandlerOpts)
@@ -61,21 +72,35 @@ init([]) ->
         %% Nitrogen will handle everything that's not handled in the StaticDispatches
         {'_', StaticDispatches ++ [{'_',HandlerModule , HandlerOpts}]}
     ],
-    HttpOpts = [{max_keepalive, 50}, {dispatch, Dispatch}],
-    cowboy:start_listener(http, 100,
-                          cowboy_tcp_transport, [{port, Port}],
-                          cowboy_http_protocol, HttpOpts),
+    cowboy_router:compile(Dispatch).
 
-    {ok, { {one_for_one, 5, 10}, []} }.
 
-%% If the path is a string, it's going to get split on / and switched to the binary
-%% format that cowboy expects
-reformat_path(Path) when is_list(Path) andalso is_integer(hd(Path)) ->
-    TokenizedPath = string:tokens(Path,"/"),
-    [list_to_binary(Part) || Part <- TokenizedPath];
-%% If path is just a binary, let's make it a string and treat it as such
-reformat_path(Path) when is_binary(Path) ->
-    reformat_path(binary_to_list(Path));
-%% If path is a list of binaries, then we assumed it's formatted for cowboy format already
-reformat_path(Path) when is_list(Path) andalso is_binary(hd(Path)) ->
-    Path.
+localized_dir_file(DocRoot,Path) ->
+    NewPath = case hd(Path) of
+        $/ -> DocRoot ++ Path;
+        _ -> DocRoot ++ "/" ++ Path
+    end,
+    _NewPath2 = case lists:last(Path) of
+        $/ -> [{directory, NewPath}];
+        _ ->
+            Dir = filename:dirname(NewPath),
+            File = filename:basename(NewPath),
+            [
+                {directory,Dir},
+                {file,File}
+            ]
+    end.
+
+%% Ensure the paths start with /, and if a path ends with /, then add "[...]" to it
+reformat_path(Path) ->
+    Path2 = case hd(Path) of
+        $/ -> Path;
+        $\ -> Path;
+        _ -> [$/|Path]
+    end,
+    Path3 = case lists:last(Path) of 
+        $/ -> Path2 ++ "[...]";
+        $\ -> Path2 ++ "[...]";
+        _ -> Path2
+    end,
+    Path3.
