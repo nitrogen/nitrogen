@@ -14,6 +14,14 @@ additional information.
 Follow the tutorial at
 [http://nitrogenproject.com/doc/tutorial.html](http://nitrogenproject.com/doc/tutorial.html)
 
+## Building Nitrogen on FreeBSD
+
+Make sure you have gmake installed, and use `gmake` instead of `make`
+
+Example:
+
+$ gmake rel_cowboy
+
 ## Building Nitrogen on Windows
 
 Instructions for building on windows can be found in [rel/overlay/win](https://github.com/nitrogen/nitrogen/blob/master/rel/overlay/win/README.md)
