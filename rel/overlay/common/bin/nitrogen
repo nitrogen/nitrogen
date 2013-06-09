@@ -276,8 +276,8 @@ case "$1" in
         EMU=beam
         PROGNAME=`echo $0 | sed 's/.*\\///'`
 
-        ## NITROGEN CHANGE: '-mode development' for dynamic code loading
-        CMD="$BINDIR/erlexec $SLIM_ARGS -boot $RUNNER_BASE_DIR/releases/$APP_VSN/$BOOTFILE -mode development $CONFIG -args_file $VMARGS_PATH"
+        ## NITROGEN CHANGE: '-mode interactive' for dynamic code loading
+        CMD="$BINDIR/erlexec $SLIM_ARGS -boot $RUNNER_BASE_DIR/releases/$APP_VSN/$BOOTFILE -mode interactive $CONFIG -args_file $VMARGS_PATH"
         export EMU
         export ROOTDIR
         export BINDIR
