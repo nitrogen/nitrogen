@@ -4,23 +4,23 @@ NITROGEN_VERSION=2.1.0
 help:
 	@echo 
 	@echo "Usage: "
-	@echo "       make {compile|clean}"        
+	@echo "       $(MAKE) {compile|clean}"        
 	@echo
-	@echo "       make {slim_cowboy|rel_cowboy|package_cowboy}"
-	@echo "       make {slim_inets|rel_inets|package_inets}"  
-	@echo "       make {slim_mochiweb|rel_mochiweb|package_mochiweb}"
-	@echo "       make {slim_webmachine|rel_webmachine|package_webmachine}"
-	@echo "       make {slim_yaws|rel_yaws|package_yaws}"
+	@echo "       $(MAKE) {slim_cowboy|rel_cowboy|package_cowboy}"
+	@echo "       $(MAKE) {slim_inets|rel_inets|package_inets}"  
+	@echo "       $(MAKE) {slim_mochiweb|rel_mochiweb|package_mochiweb}"
+	@echo "       $(MAKE) {slim_webmachine|rel_webmachine|package_webmachine}"
+	@echo "       $(MAKE) {slim_yaws|rel_yaws|package_yaws}"
 	@echo
 	@echo "Windows Users:"
-	@echo "       make rel_inets_win"
-	@echo "       make rel_mochiweb_win"
-	@echo "       make rel_cowboy_win"
+	@echo "       $(MAKE) rel_inets_win"
+	@echo "       $(MAKE) rel_mochiweb_win"
+	@echo "       $(MAKE) rel_cowboy_win"
 	@echo 
 	@echo "To install the helper script on linux/unix machines"
 	@echo "which allows you to invoke "nitrogen" or "dev" from any"
 	@echo "directory in a Nitrogen installation."
-	@echo "       make install-helper-script" 
+	@echo "       $(MAKE) install-helper-script" 
 
 all: get-deps compile
 
@@ -49,68 +49,68 @@ thanks: get-deps
 # COWBOY
 
 slim_cowboy: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@(cd rel; ./make_slim.escript reltool_cowboy.config reltool.config)
-	@(make rel_inner_slim)
+	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
 rel_cowboy: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_cowboy.config rel/reltool.config
-	@(make rel_inner_full)
+	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
 rel_cowboy_win: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_cowboy_win.config rel/reltool.config
-	@(make rel_inner_win)
+	@($(MAKE) rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
 package_cowboy: rel_cowboy
 	mkdir -p ./builds
-	make link_docs
+	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
 
 package_cowboy_win: rel_cowboy_win copy_docs
 	mkdir -p ./builds
-	make copy_docs
+	$(MAKE) copy_docs
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-cowboy-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
 
 # INETS
 
 slim_inets: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@(cd rel; ./make_slim.escript reltool_inets.config reltool.config)
-	@(make rel_inner_slim)
+	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
 rel_inets: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_inets.config rel/reltool.config
-	@(make rel_inner_full)
+	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
 rel_inets_win: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_inets_win.config rel/reltool.config
-	@(make rel_inner_win)
+	@($(MAKE) rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
 package_inets: rel_inets
 	mkdir -p ./builds
-	make link_docs
+	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
 
 package_inets_win: rel_inets_win copy_docs
 	mkdir -p ./builds
-	make copy_docs
+	$(MAKE) copy_docs
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-inets-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
 
@@ -119,78 +119,78 @@ package_inets_win: rel_inets_win copy_docs
 # MOCHIWEB
 
 slim_mochiweb: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@(cd rel; ./make_slim.escript reltool_mochiweb.config reltool.config)
-	@(make rel_inner_slim)
+	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 rel_mochiweb: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_mochiweb.config rel/reltool.config
-	@(make rel_inner_full)
+	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 rel_mochiweb_win: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_mochiweb_win.config rel/reltool.config
-	@(make rel_inner_win)
+	@($(MAKE) rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 package_mochiweb: rel_mochiweb
 	mkdir -p ./builds
-	make link_docs
+	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
 
 package_mochiweb_win: rel_mochiweb_win copy_docs
 	mkdir -p ./builds
-	make copy_docs
+	$(MAKE) copy_docs
 	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb-win.zip ./rel/nitrogen/
 	rm -fr ./rel/nitrogen
 
 # WEBMACHINE
 
 slim_webmachine: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@(cd rel; ./make_slim.escript reltool_webmachine.config reltool.config)
-	@(make rel_inner_slim)
+	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
 
 rel_webmachine: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_webmachine.config rel/reltool.config
-	@(make rel_inner_full)
+	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
 
 package_webmachine: rel_webmachine
 	mkdir -p ./builds
-	make link_docs
+	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
 
 
 # YAWS
 
 slim_yaws: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@(cd rel; ./make_slim.escript reltool_yaws.config reltool.config)
-	@(make rel_inner_slim)
+	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
 
 rel_yaws: compile
-	@make clean_release
+	@$(MAKE) clean_release
 	@ln rel/reltool_yaws.config rel/reltool.config
-	@(make rel_inner_full)
+	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
 
 package_yaws: rel_yaws
 	mkdir -p ./builds
-	make link_docs
+	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
 
 # MASS PACKAGING - Produce packages for all servers
@@ -217,9 +217,9 @@ ERLANG_MAJOR_VERSION = $(shell $(ERLANG_MAJOR_VERSION_CHECK))
 travis:
 	@echo Building Nitrogen for Travis for OTP $(ERLANG_MAJOR_VERSION)
 ifeq ($(ERLANG_MAJOR_VERSION), R14)
-	@(make travis-r14)
+	@($(MAKE) travis-r14)
 else
-	@(make travis-r15plus)
+	@($(MAKE) travis-r15plus)
 endif
 	
 	
@@ -240,7 +240,7 @@ erl_interface:
 	@(cd rel; escript copy_erl_interface.escript)
 
 rel_inner:
-	@(cd rel/nitrogen; make; make cookie)
+	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
@@ -254,7 +254,7 @@ rel_inner_full: generate erl_interface rel_inner
 
 rel_inner_win: generate erl_interface
 	@(cd rel/nitrogen; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
-	@(cd rel/nitrogen; make; make cookie)
+	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie)
 	@(cd rel/nitrogen; ./make_start_cmd.sh)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
