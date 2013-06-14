@@ -286,7 +286,6 @@ case "$1" in
         # Dump environment info for logging purposes
         echo "Exec: $CMD" -- ${1+"$@"}
         echo "Root: $ROOTDIR"
-        export > exports.works_with_slim
 
         # Log the startup
         logger -t "$SCRIPT[$$]" "Starting up"
