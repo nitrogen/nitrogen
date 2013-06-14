@@ -112,18 +112,22 @@ get_config(File) ->
     end.
 
 analyze_path(Path) ->
-    {ok, Files} = file:list_dir(Path),
-    case lists:member("nitrogen.plugin",Files) of
-        false -> 
-            undefined;
-        true -> 
-            io:format("Found a Nitrogen plugin in ~p~n",[Path]),
-            IncludeDir = filename:join(Path,include),
-            StaticDir = filename:join(Path,static),
+    case filelib:is_dir(Path) of
+        true ->
+            {ok, Files} = file:list_dir(Path),
+            case lists:member("nitrogen.plugin",Files) of
+                false -> 
+                    undefined;
+                true -> 
+                    io:format("Found a Nitrogen plugin in ~p~n",[Path]),
+                    IncludeDir = filename:join(Path,include),
+                    StaticDir = filename:join(Path,static),
 
-            Includes = analyze_path_include(IncludeDir),
-            Statics = analyze_path_static(StaticDir),
-            {ok, Includes, Statics}
+                    Includes = analyze_path_include(IncludeDir),
+                    Statics = analyze_path_static(StaticDir),
+                    {ok, Includes, Statics}
+            end;
+        false -> undefined
     end.
             
 
