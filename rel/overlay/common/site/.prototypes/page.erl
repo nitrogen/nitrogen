@@ -1,4 +1,5 @@
 %% -*- mode: nitrogen -*-
+%% vim: ts=4 sw=4 et
 -module ([[[NAME]]]).
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
