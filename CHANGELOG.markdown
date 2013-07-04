@@ -8,6 +8,8 @@
 * Add height and width attributes to the `#image` element.
 * Add `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
 * Add functionality to restart comet process (needs elaboration)
+* Add `image` and `body` attributes to `#button` to allow simple iconification of a button, or to specify a general body in terms of HTML or Nitrogen Elements for button.
+* Add `data_fields` attributes to lots of other elements.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
 * Fix `#grid_clear{}` will no longer crash if it's the last element in a `#container_X` element.
