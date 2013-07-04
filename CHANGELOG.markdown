@@ -1,18 +1,20 @@
 # Nitrogen 2.x
 
 ## (in development) Nitrogen 2.2.0
+
+* Added plugin system for specifying Nitrogen elements as rebar dependencies, and then including them
+* Added `Module:transform_element` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element.
+* Added support for Erlang Slim Releases, which don't include the full ERTS system. Created with `make slim_X` where `X` is yaws, cowboy, etc. (e.g. `make slim_mochiweb`)
 * Add height and width attributes to the `#image` element.
-* Add `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order
+* Add `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
 * Add functionality to restart comet process (needs elaboration)
-
-## Nitrogen 2.1.1
-
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
 * Fix `#grid_clear{}` will no longer crash if it's the last element in a `#container_X` element.
 * Removing the debug prints from the `action_continue`.
 * Fix a bug in the `#range` element causing a crash when `data` attributes were set.
-* Fix `html_encode=whites` to be allowing of 
+* Fix `html_encode=whites` to be allowing of line-breaks. That is, not all spaces should be converted to `&nbsp;`.
+
 
 ## Nitrogen 2.1.0
 
