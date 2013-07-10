@@ -3,13 +3,17 @@
 ## (in development) Nitrogen 2.2.0
 
 * Added plugin system for specifying Nitrogen elements as rebar dependencies, and then including them
-* Added `Module:transform_element` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element.
+* Added `Module:transform_element/1` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element.
 * Added support for Erlang Slim Releases, which don't include the full ERTS system. Created with `make slim_X` where `X` is yaws, cowboy, etc. (e.g. `make slim_mochiweb`)
+* Add new crash handler for specifying custom page for dealing with page crashes (rather than simply printing "Internal Server Error").
+* Added generalized `#confirm_same` validator for validating that two fields have the same value (useful for confirming entered email addresses match, etc). `#confirm_password` validation redone to use this `#confirn_same` validator.
+* Add `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to simply use this.
 * Add height and width attributes to the `#image` element.
 * Add `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
 * Add functionality to restart comet process (needs elaboration)
 * Add `image` and `body` attributes to `#button` to allow simple iconification of a button, or to specify a general body in terms of HTML or Nitrogen Elements for button.
 * Add `data_fields` attributes to lots of other elements.
+* Reworked `#recaptcha` elements: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
 * Fix `#grid_clear{}` will no longer crash if it's the last element in a `#container_X` element.
