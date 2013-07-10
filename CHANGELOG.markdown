@@ -11,6 +11,7 @@
 * Add height and width attributes to the `#image` element.
 * Add `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
 * Add functionality to restart comet process (needs elaboration)
+* Add `module_alias` option to `#template`, which allows aliasing a referenced module within a template, which can allow using the same template to be "remapped" to more than one different modules. (e.g. making a template call like `layout:some_layout_fun()` have `layout` be remapped to any module you want.
 * Add `image` and `body` attributes to `#button` to allow simple iconification of a button, or to specify a general body in terms of HTML or Nitrogen Elements for button.
 * Add `data_fields` attributes to lots of other elements.
 * Reworked `#recaptcha` elements: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
