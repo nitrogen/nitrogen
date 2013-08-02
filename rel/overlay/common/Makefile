@@ -2,7 +2,6 @@ all: get-deps compile
 
 cookie:
 	@echo Generating a default cookie in /etc/vm.args
-	@(echo \\n\#\# Cookie for distributed erlang \(auto-generated\) >> etc/vm.args)
 	@(echo -setcookie `tr -cd '[:alnum:]' < /dev/urandom | fold -w50 | head -n1` >> etc/vm.args)
 
 compile:
