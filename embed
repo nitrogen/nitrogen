@@ -118,6 +118,7 @@ sub runner {
         system("mkdir -p $to_dir/$templates");
         system("cp $from_dir/rel/overlay/common/site/templates/* $to_dir/$templates");
         system("mkdir -p $to_dir/$static/nitrogen");
+        system("cp -R $from_dir/rel/overlay/common/site/static/* $to_dir/$static");
         system("mkdir -p $to_dir/$src");
         system("cp -R $from_dir/rel/overlay/common/site/src/* $to_dir/$src");
         system("cp -R $from_dir/rel/overlay/$server/site/src/* $to_dir/$src");
@@ -128,6 +129,7 @@ sub runner {
 
         &fix_template_path("$to_dir/$src", $templates);
         &fix_config_static_paths("$to_dir/$config", $static);
+        &fix_config_config_path("$to_dir/$config/yaws.config", $config) if($server eq "yaws");
         &fix_plugin_config_paths("$to_dir/plugins.config", $include, $static) if($do_plugin eq "y");
         &add_rebar_dependencies($from_dir,"$from_dir/rel/overlay/$server/rebar.config","$to_dir/rebar.config") if($add_rebar eq "y");
         &add_make_plugins("$to_dir/Makefile") if($add_make_plugins eq "y");
@@ -145,6 +147,12 @@ sub fix_plugin_config_paths {
     print "Fixing static and include paths in $config\n";
     &fix_one_file($config, "site\/static", &strip_trailing_slash($static));
     &fix_one_file($config, "site\/include", &strip_trailing_slash($include));
+}
+
+sub fix_config_config_path {
+    my ($file, $config) = @_;
+    print "Fixing config paths in $file\n";
+    &fix_one_file($file, "etc", &strip_trailing_slash($config));
 }
 
 sub add_make_plugins {
