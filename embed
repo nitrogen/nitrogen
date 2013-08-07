@@ -122,6 +122,7 @@ sub runner {
         system("mkdir -p $to_dir/$src");
         system("cp -R $from_dir/rel/overlay/common/site/src/* $to_dir/$src");
         system("cp -R $from_dir/rel/overlay/$server/site/src/* $to_dir/$src");
+        system("rm $to_dir/$src/nitrogen_app.erl $to_dir/$src/nitrogen.app.src");
         if($do_plugin eq "y") {
             system("cp $from_dir/rel/overlay/common/generate-plugins.escript $to_dir/");
             system("cp $from_dir/rel/overlay/common/plugins.config $to_dir/");
