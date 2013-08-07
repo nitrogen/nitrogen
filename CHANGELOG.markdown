@@ -5,6 +5,7 @@
 * Added plugin system for specifying Nitrogen elements as rebar dependencies, and then including them
 * Added `Module:transform_element/1` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element.
 * Added support for Erlang Slim Releases, which don't include the full ERTS system. Created with `make slim_X` where `X` is yaws, cowboy, etc. (e.g. `make slim_mochiweb`)
+* Added official support for embedding Nitrogen into existing Erlang applications by using the `embed` script found in the root of the nitrogen repository.
 * Add new crash handler for specifying custom page for dealing with page crashes (rather than simply printing "Internal Server Error").
 * Added generalized `#confirm_same` validator for validating that two fields have the same value (useful for confirming entered email addresses match, etc). `#confirm_password` validation redone to use this `#confirn_same` validator.
 * Add `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to simply use this.
