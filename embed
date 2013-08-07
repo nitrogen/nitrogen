@@ -1,0 +1,257 @@
+#!/usr/bin/perl
+# vim:ts=4 sw=4 et
+use strict;
+use File::Basename;
+use Cwd 'abs_path';
+
+&main();
+
+sub main {
+    &intro();
+    &runner();
+}
+
+
+sub intro {
+    print "**************************************************************\n";
+    print "****           NITROGEN WEB FRAMEWORK EMBEDDER            ****\n";
+    print "****                                                      ****\n";
+    print "****   Adding Nitrogen to an existing Erlang Application  ****\n"; 
+    print "****                                                      ****\n";
+    print "**************************************************************\n";
+    print "\n";
+    print "NOTE: BEFORE PROCEEDING IT'S HIGHLY RECOMMENDED THAT YOU MAKE\n";
+    print "      NEW BRANCH IN YOUR SOURCE CODE MANAGEMENT SYSTEM, OR AT\n";
+    print "      LEAST MAKE A BACKUP OF YOUR DIRECTORY, AS THIS WILL MAKE\n";
+    print "      CHANGES TO THE CURRENT DIRECTORY TREE BY ADDING AND\n";
+    print "      MODIFYING FILES.\n";
+    print "\n";
+    print "\n";
+}
+
+sub outro {
+    my ($config) = @_;
+    print "\n\n";
+    print "*******************************************************************************\n";
+    print "****                          Installation Complete                        ****\n"; 
+    print "*******************************************************************************\n";
+    print "There are a few manual steps you must take before you're completely set up:\n";
+    print "\n";
+    print "1) You must make sure to start Nitrogen.  The easiest way is by\n";
+    print "    adding `nitrogen_sup:start_link()` to your application.\n";
+    print "\n";
+    print "2) You must make sure that the config files in $config are properly\n";
+    print "   loaded. This can be done with a vm.args file if you're using a reltool\n";
+    print "   generated release, or it can be done by adding additional -config calls to\n";
+    print "   the commandline call that launches your app.\n";
+    print "\n";
+    print "3) You may need to add the new packages (nitrogen_core, simple_bridge,\n";
+    print "   nprocreg, etc) to your app's code path (the easy way is with the -pa flag\n";
+    print "   in the `erl` call.)\n";
+    print "\n\n";
+    print "Congratulations on adding Nitrogen to your Application\n\n";
+}
+
+sub runner {
+    my %yesno = (
+        1,"Yes",
+        0,"No",
+        "y", "Yes",
+        "n", "No"
+    );
+
+    my %servers = (
+        "c","cowboy",
+        "i","inets",
+        "m","mochiweb",
+        "w","webmachine",
+        "y","yaws"
+    );
+
+    my $to_dir = `pwd`;
+    chomp($to_dir);
+    my $from_file = abs_path($0);
+    my $from_dir = dirname($from_file);
+
+    print "Will be installing from '$from_dir' into '$to_dir'\n\n";
+
+    my $serverchar = &get_until_valid("Web server to use?\nOptions are (c)owboy, (i)nets, (m)ochiweb, (w)ebmachine, (y)aws.\nPlease choose",reverse(keys(%servers)));
+    my $server = $servers{$serverchar};
+
+    my $rebar_exists = -e "rebar.config";
+    #my $make_exists = -e "Makefile";
+
+    my $src       = &get("src/nitrogen/",  "Where to put the Erlang code for Nitrogen pages and initialization");
+    my $include   = &get("include/",       "Where to put the Erlang headers");
+    my $static    = &get("priv/static/",   "Where to put the static directory (for js, css, etc)");
+    my $templates = &get("priv/templates/","Where to put the templates directory");
+    my $config    = &get("etc/",           "Where to put the config files");
+    my $do_plugin = &get_until_valid("Install the plugin scripts and configs?", ("y","n"));
+    my $add_rebar = &get_until_valid("Add Nitrogen dependencies to rebar.config automatically? (nitrogen_core, simple_bridge, nprocreg, sync, $server, and any of ${server}'s dependencies.", ("y","n"));
+    my $add_make_plugins = $do_plugin=="y" && &get_until_valid("Add a 'make plugins' rule to the Makefile?", ("y", "n"));
+    my $add_copy_static = &get_until_valid("Add a 'make copy-static' rule to the Makefile?", ("y","n"));
+    my $run_make = &get_until_valid("Run 'make' after installation?", ("y","n"));
+
+
+    print "************************************************\n";
+    print "*** We're almost ready to go. Please review: \n";
+    print "*** Erlang Source: $src\n";
+    print "*** Erlang Headers: $include\n";
+    print "*** Static Resources: $static\n";
+    print "*** Nitrogen Templates: $templates\n";
+    print "*** Config Files: $config\n";
+    print "*** Install Plugin Script: $yesno{$do_plugin}\n";
+    print "*** Add 'make plugins' rule to Makefile: $yesno{$add_make_plugins}\n";
+    print "*** Add 'make copy-static' rule to Makefile: $yesno{$add_copy_static}\n";
+    print "*** Add dependencies to rebar.config: $yesno{$add_rebar}\n";
+    print "*** Run 'make' after all is complete: $yesno{$run_make}\n";
+    print "************************************************\n";
+    print "\n";
+
+    my $proceed = &get_until_valid("Are you sure you want to proceed?", ("y","n"));
+    if($proceed eq "y") {
+        system("mkdir -p $to_dir/$config");
+        system("cp $from_dir/rel/overlay/common/etc/*.config $to_dir/$config");
+        system("cp $from_dir/rel/overlay/$server/etc/*.conf* $to_dir/$config");
+        system("mkdir -p $to_dir/$include");
+        system("cp $from_dir/rel/overlay/common/site/include/* $to_dir/$include");
+        system("mkdir -p $to_dir/$templates");
+        system("cp $from_dir/rel/overlay/common/site/templates/* $to_dir/$templates");
+        system("mkdir -p $to_dir/$static/nitrogen");
+        system("mkdir -p $to_dir/$src");
+        system("cp -R $from_dir/rel/overlay/common/site/src/* $to_dir/$src");
+        system("cp -R $from_dir/rel/overlay/$server/site/src/* $to_dir/$src");
+        if($do_plugin eq "y") {
+            system("cp $from_dir/rel/overlay/common/generate-plugins.escript $to_dir/");
+            system("cp $from_dir/rel/overlay/common/plugins.config $to_dir/");
+        }
+
+        &fix_template_path("$to_dir/$src", $templates);
+        &fix_config_static_paths("$to_dir/$config", $static);
+        &fix_plugin_config_paths("$to_dir/plugins.config", $include, $static) if($do_plugin eq "y");
+        &add_rebar_dependencies($from_dir,"$from_dir/rel/overlay/$server/rebar.config","$to_dir/rebar.config") if($add_rebar eq "y");
+        &add_make_plugins("$to_dir/Makefile") if($add_make_plugins eq "y");
+        &add_copy_static($from_dir, "$to_dir/Makefile", "$to_dir/rebar.config", $static) if($add_copy_static eq "y");
+        system("make") if($run_make eq "y");
+        system("make copy-static") if($add_copy_static eq "y");
+        &outro($config);
+    }else{
+        print "Aborted!\n";
+    }
+}
+
+sub fix_plugin_config_paths {
+    my ($config, $include, $static) = @_;
+    print "Fixing static and include paths in $config\n";
+    &fix_one_file($config, "site\/static", &strip_trailing_slash($static));
+    &fix_one_file($config, "site\/include", &strip_trailing_slash($include));
+}
+
+sub add_make_plugins {
+    print "Adding 'make plugins' to Makefile\n";
+    my ($makefile) = @_;
+    my $rule = "\n\nplugins:\n\t".'@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript generate-plugins.escript)'."\n\n";
+    open FILE, ">>$makefile";
+    print FILE $rule;
+    close FILE;
+}
+
+sub add_copy_static {
+    print "Adding 'make copy-static' rule to Makefile\n";
+    my ($from_dir, $makefile, $rebar, $static) = @_;
+    my $deps_dir = `escript $from_dir/support/embed/get_deps_dir.escript $rebar`;
+    chomp($deps_dir);
+    my $rule = "\n\ncopy-static:\n\t@(cp -r $deps_dir/nitrogen_core/www/* $static/nitrogen/)\n\n";
+    open FILE, ">>$makefile";
+    print FILE $rule;
+    close FILE;
+}
+
+sub fix_template_path {
+    my ($src_path, $templatepath) = @_;
+    $src_path =~ s/\/$//;
+    $templatepath =~ s/\/$//;
+    my @files = &get_files($src_path);
+    foreach my $file (@files) {
+        &fix_template_path_in_file("$src_path/$file", $templatepath);
+    }
+}
+
+sub fix_config_static_paths {
+    my ($configs, $static) = @_;
+    $static =~ s/\/$//;
+    my @files = &get_files($configs);
+    foreach my $file (@files) {
+        &fix_config_static_path_one_file("$configs/$file", $static);
+    }
+}
+
+sub fix_one_file {
+    my ($file, $match, $replace) = @_;
+
+    my $newfile = "";
+    open FILE, '<', $file;
+    while(my $line = <FILE>) {
+        $line =~ s/$match/$replace/;
+        $newfile .= $line;
+    }
+    close FILE;
+    open FILE, '>', $file;
+    print FILE $newfile;
+    close FILE;
+}
+
+sub strip_trailing_slash {
+    my ($s) = @_;
+    $s =~ s/\/$//;
+    return $s;
+}
+
+sub fix_config_static_path_one_file {
+    my ($file, $static) = @_;
+    print "Fixing Static paths in $file\n";
+    &fix_one_file($file, "site\/static", &strip_trailing_slash($static));
+}
+
+sub fix_template_path_in_file {
+    my ($file, $templatepath) = @_;
+    print "Fixing Template paths in $file\n";
+    &fix_one_file($file, "site\/templates", &strip_trailing_slash($templatepath));
+}
+
+sub add_rebar_dependencies {
+    my ($from_dir, $from_file, $to_file) = @_;
+    system("escript $from_dir/support/embed/add_rebar_deps.escript $from_file $to_file");
+}
+
+sub get_files {
+    my ($path) = @_;
+    opendir(DIR, $path);
+    my @files = readdir(DIR);
+    closedir DIR;
+    return grep {!/^\.{1,2}$/} @files;
+}
+
+sub get {
+    my ($default, $prompt) = @_;
+    print "$prompt [Default: $default]: ";
+
+    my $val = <>;
+    chomp($val);
+    if($val eq "") {
+        return $default;
+    }else{
+        return $val;
+    }
+}
+
+sub get_until_valid {
+    my ($prompt, @list) = @_;
+    my $val;
+    do {
+        print "$prompt (".join("/",@list)."): ";
+        $val = <>;
+        chomp($val);
+    } while(not($val ~~ @list));
+    return $val;
+}

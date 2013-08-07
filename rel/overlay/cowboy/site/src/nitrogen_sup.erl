@@ -23,6 +23,7 @@ start_link() ->
 
 init([]) ->
     %% Start the Process Registry...
+    application:start(crypto),
     application:start(nprocreg),
     application:start(ranch),
 

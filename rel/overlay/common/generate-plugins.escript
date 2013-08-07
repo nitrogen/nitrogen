@@ -92,7 +92,10 @@ main([]) ->
 
 
 get_plugins(DepDir) ->
-    {ok, Files} = file:list_dir(DepDir),
+    Files = case file:list_dir(DepDir) of
+        {ok, F} -> F;
+        {error, _} -> []
+    end,
     {Inc,Stat} = lists:foldl(fun(X,PluginInfo={Includes,Statics}) ->
                     PluginPath = filename:join(DepDir,X),
                     case analyze_path(PluginPath) of
