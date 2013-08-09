@@ -23,6 +23,7 @@ start_link() ->
 
 init([]) ->
     %% Start the Process Registry...
+    application:start(crypto),
     application:start(nprocreg),
 
     %% Start up Webmachine...
@@ -39,9 +40,13 @@ init([]) ->
         {port, Port},
         {dispatch, dispatch(DocRoot, StaticPaths)}
     ],
-    webmachine_mochiweb:start(Options),
-
-    {ok, { {one_for_one, 5, 10}, []} }.
+    Web = {webmachine_mochiweb,
+            {webmachine_mochiweb, start, [Options]},
+            permanent, 5000, worker, [mochiweb_socket_server]},
+    Processes = [Web],
+    application:start(mochiweb),
+    application:start(webmachine),
+    {ok, { {one_for_one, 5, 10}, Processes} }.
 
 dispatch(DocRoot, StaticPaths) -> 
     StaticDispatches = [make_static_dispatch(DocRoot, StaticPath) || StaticPath <- StaticPaths],

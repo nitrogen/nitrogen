@@ -29,12 +29,12 @@ init(ConfigProps) ->
 allowed_methods(ReqData, Context) ->
     {['HEAD', 'GET', 'PUT', 'DELETE', 'POST'], ReqData, Context}.
 
-file_path(Context, Name) ->
-    RelName = case hd(Name) of
-        "/" -> tl(Name);
-        _ -> Name
-    end,
-    filename:join([Context#context.root, RelName]).
+file_path(Context, "") ->
+	Context#context.root;
+file_path(Context, "/" ++ Name) ->
+	file_path(Context, Name);
+file_path(Context,Name) ->
+    filename:join([Context#context.root, Name]).
 
 file_exists(Context, Name) ->
     NamePath = file_path(Context, Name),
