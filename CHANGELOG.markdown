@@ -6,16 +6,19 @@
 * Added `Module:transform_element/1` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element.
 * Added support for Erlang Slim Releases, which don't include the full ERTS system. Created with `make slim_X` where `X` is yaws, cowboy, etc. (e.g. `make slim_mochiweb`)
 * Added official support for embedding Nitrogen into existing Erlang applications by using the `embed` script found in the root of the nitrogen repository.
-* Add new crash handler for specifying custom page for dealing with page crashes (rather than simply printing "Internal Server Error").
+* Added new crash handler for specifying custom page for dealing with page crashes (rather than simply printing "Internal Server Error").
 * Added generalized `#confirm_same` validator for validating that two fields have the same value (useful for confirming entered email addresses match, etc). `#confirm_password` validation redone to use this `#confirn_same` validator.
-* Add `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to simply use this.
-* Add height and width attributes to the `#image` element. (Maxim Sokhatsky)
-* Add `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
-* Add functionality to restart comet process **(needs elaboration)** (Dmitriy Kargapolov)
-* Add enhanced validation handling to allow advanced functionality to be executed (both server or client side) when a postback is cancelled due to a validation failure. (Jonas Adahl)
-* Add `module_alias` option to `#template`, which allows aliasing a referenced module within a template, which can allow using the same template to be "remapped" to more than one different modules. (e.g. making a template call like `layout:some_layout_fun()` have `layout` be remapped to any module you want. (Joshua Pyle)
-* Add `image` and `body` attributes to `#button` to allow simple iconification of a button, or to specify a general body in terms of HTML or Nitrogen Elements for button.
-* Add `data_fields` attributes to lots of other elements.
+* Added `dependency_js` attribute to the base action, allowing any actions that require certain javascript files to load the specified dependency first, then execute the action. This can help with load times by only loading javascript files on demand.
+* Added `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to simply use this.
+* Added height and width attributes to the `#image` element. (Maxim Sokhatsky)
+* Added `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
+* Added functionality to restart comet process **(needs elaboration)** (Dmitriy Kargapolov)
+* Added enhanced validation handling to allow advanced functionality to be executed (both server or client side) when a postback is cancelled due to a validation failure. (Jonas Adahl)
+* Added `module_alias` option to `#template`, which allows aliasing a referenced module within a template, which can allow using the same template to be "remapped" to more than one different modules. (e.g. making a template call like `layout:some_layout_fun()` have `layout` be remapped to any module you want. (Joshua Pyle)
+* Added `image` and `body` attributes to `#button` to allow simple iconification of a button, or to specify a general body in terms of HTML or Nitrogen Elements for button.
+* Added `#enable`, `#disable` actions for dynamically enabling and disabling form fields. Added `wf:enable` and `wf:disable` convenience functions to go along with those.
+* Added `#make_readonly` and `#make_writable` actions for dynamically toggling the readonly attribute on fields.
+* Added `data_fields` attributes to lots of other elements.
 * Reworked `#recaptcha` elements: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
