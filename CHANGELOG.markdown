@@ -6,7 +6,10 @@
 * Added `Module:transform_element/1` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element.
 * Added support for Erlang Slim Releases, which don't include the full ERTS system. Created with `make slim_X` where `X` is yaws, cowboy, etc. (e.g. `make slim_mochiweb`)
 * Added official support for embedding Nitrogen into existing Erlang applications by using the `embed` script found in the root of the nitrogen repository.
+* Added Binary distributions for FreeBSD (9.1-RELEASE) and Raspberry Pi with Raspbian. Added Webmachine builds to Windows.
 * Added new crash handler for specifying custom page for dealing with page crashes (rather than simply printing "Internal Server Error").
+* Removed support for R14 and below (due to the addition of the use of `-callback` instead of `behaviour_info` in handler definitions.
+* Added typespecs to all built-in elements, actions, and validators. Added function specs in many places. Added `-callback` specs to handler behaviours.
 * Added generalized `#confirm_same` validator for validating that two fields have the same value (useful for confirming entered email addresses match, etc). `#confirm_password` validation redone to use this `#confirn_same` validator.
 * Added `dependency_js` attribute to the base action, allowing any actions that require certain javascript files to load the specified dependency first, then execute the action. This can help with load times by only loading javascript files on demand.
 * Added `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to simply use this.
@@ -18,7 +21,7 @@
 * Added `image` and `body` attributes to `#button` to allow simple iconification of a button, or to specify a general body in terms of HTML or Nitrogen Elements for button.
 * Added `#enable`, `#disable` actions for dynamically enabling and disabling form fields. Added `wf:enable` and `wf:disable` convenience functions to go along with those.
 * Added `#make_readonly` and `#make_writable` actions for dynamically toggling the readonly attribute on fields.
-* Added `data_fields` attributes to lots of other elements.
+* Added `data_fields` attribute to the base element, and added support in all elements where it makes sense to support.
 * Reworked `#recaptcha` elements: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
