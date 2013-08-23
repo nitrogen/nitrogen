@@ -19,6 +19,18 @@ copy-static:
 plugins:
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript generate-plugins.escript)
 
+DEPS_PLT=$(CURDIR)/.deps_plt
+DEPS=erts kernel stdlib sasl nitrogen_core simple_bridge sync nprocreg
+
+$(DEPS_PLT):
+	@echo Building local plt at $(DEPS_PLT)
+	@echo 
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Dialyzer in `which dialyzer`"; dialyzer --output_plt $(DEPS_PLT) --build_plt --apps $(DEPS))
+
+
+dialyzer: all $(DEPS_PLT)
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Dialyzer in `which dialyzer`"; dialyzer --fullpath --plt $(DEPS_PLT) -Wrace_conditions -r ./site/ebin)
+
 update: update-deps copy-static compile
 	@(echo "*** CONGRATULATIONS ***")
 	@(echo "Your Nitrogen installation has been upgraded.")
