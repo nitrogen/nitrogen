@@ -13,9 +13,10 @@ help:
 	@echo "       $(MAKE) {slim_yaws|rel_yaws|package_yaws}"
 	@echo
 	@echo "Windows Users:"
+	@echo "       $(MAKE) rel_cowboy_win"
 	@echo "       $(MAKE) rel_inets_win"
 	@echo "       $(MAKE) rel_mochiweb_win"
-	@echo "       $(MAKE) rel_cowboy_win"
+	@echo "       $(MAKE) rel_webmachine_win"
 	@echo 
 	@echo "To install the helper script on linux/unix machines"
 	@echo "which allows you to invoke "nitrogen" or "dev" from any"
@@ -50,21 +51,22 @@ thanks: get-deps
 
 slim_cowboy: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./make_slim.escript reltool_cowboy.config reltool.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_cowboy.config)
+	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
 rel_cowboy: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_cowboy.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_cowboy.config)
 	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
 
 rel_cowboy_win: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_cowboy_win.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_cowboy.config reltool_win.config)
 	@($(MAKE) rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Cowboy.
@@ -84,21 +86,22 @@ package_cowboy_win: rel_cowboy_win copy_docs
 
 slim_inets: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./make_slim.escript reltool_inets.config reltool.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_inets.config)
+	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
 rel_inets: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_inets.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_inets.config)
 	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
 
 rel_inets_win: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_inets_win.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_inets.config reltool_win.config)
 	@($(MAKE) rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Inets.
@@ -120,21 +123,22 @@ package_inets_win: rel_inets_win copy_docs
 
 slim_mochiweb: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./make_slim.escript reltool_mochiweb.config reltool.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_mochiweb.config)
+	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 rel_mochiweb: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_mochiweb.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_mochiweb.config)
 	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
 
 rel_mochiweb_win: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_mochiweb_win.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_mochiweb.config reltool_win.config)
 	@($(MAKE) rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Mochiweb.
@@ -154,15 +158,23 @@ package_mochiweb_win: rel_mochiweb_win copy_docs
 
 slim_webmachine: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./make_slim.escript reltool_webmachine.config reltool.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_webmachine.config)
+	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
 
 rel_webmachine: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_webmachine.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_webmachine.config)
 	@($(MAKE) rel_inner_full)
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on Webmachine.
+
+rel_webmachine_win: compile
+	@$(MAKE) clean_release
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_webmachine.config reltool_win.config)
+	@($(MAKE) rel_inner_win)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Webmachine.
 
@@ -176,14 +188,15 @@ package_webmachine: rel_webmachine
 
 slim_yaws: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./make_slim.escript reltool_yaws.config reltool.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_yaws.config)
+	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) rel_inner_slim)
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
 
 rel_yaws: compile
 	@$(MAKE) clean_release
-	@ln rel/reltool_yaws.config rel/reltool.config
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_yaws.config)
 	@($(MAKE) rel_inner_full)
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
@@ -210,22 +223,23 @@ link_docs: clean_docs
 	@(echo "Linking Documentation in the release")
 	@(cd rel/nitrogen; ln -s lib/nitrogen_core/doc doc)
 
-ERLANG_MAJOR_VERSION_CHECK := erl -eval "erlang:display(erlang:system_info(otp_release)), halt()."  -noshell | grep -o 'R[0-9]\{2\}'
-ERLANG_MAJOR_VERSION = $(shell $(ERLANG_MAJOR_VERSION_CHECK))
+# TRAVIS-CI STUFF
+
+ERLANG_VERSION_CHECK := erl -eval "io:format(\"~s\",[erlang:system_info(otp_release)]), halt()."  -noshell
+ERLANG_VERSION = $(shell $(ERLANG_VERSION_CHECK))
 
 # This is primarily for Travis build testing, as each build instruction will overwrite the previous
-travis:
-	@echo Building Nitrogen for Travis for OTP $(ERLANG_MAJOR_VERSION)
-ifeq ($(ERLANG_MAJOR_VERSION), R14)
-	@($(MAKE) travis-r14)
-else
-	@($(MAKE) travis-r15plus)
-endif
-	
-	
-travis-r15plus: rel_cowboy rel_inets rel_yaws rel_mochiweb rel_webmachine
+travis: $(ERLANG_VERSION)
 
-travis-r14: rel_inets rel_yaws rel_mochiweb rel_webmachine
+R14B02: rel_inets rel_yaws rel_mochiweb rel_webmachine
+R14B03: R14B02
+R15B: R14B02 rel_cowboy
+R15B01: R15B
+R15B02: R15B slim_cowboy slim_inets slim_yaws slim_mochiweb slim_webmachine
+R15B03: R15B02
+R16B: R15B02
+R16B01: R16B
+R16B02: R16B
 
 # SHARED
 
