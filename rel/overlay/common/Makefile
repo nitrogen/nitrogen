@@ -17,7 +17,7 @@ copy-static:
 	@(cp -r lib/nitrogen_core/www/* site/static/nitrogen/)
 
 plugins:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript generate-plugins.escript)
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript do-plugins.escript)
 
 DEPS_PLT=$(CURDIR)/.deps_plt
 DEPS=erts kernel stdlib sasl nitrogen_core simple_bridge sync nprocreg
