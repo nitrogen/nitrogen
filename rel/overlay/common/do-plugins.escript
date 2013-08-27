@@ -164,8 +164,18 @@ generate_plugin_include(Config, Includes) ->
                    "%% Manually editing this file is not recommended."],
     PluginLines = [includify(I) || I <- Includes],
     PluginContents = string:join(HeaderLines ++ PluginLines,"\n"),
-    file:write_file(IncludeFile,PluginContents).
+    FinalContents = iolist_to_binary(PluginContents),
+    CurrentContents = get_current_include(IncludeFile),
+    case FinalContents == CurrentContents of
+        true -> io:format("No changes to ~p~n",[IncludeFile]);
+        false -> file:write_file(IncludeFile,PluginContents)
+    end.
 
+get_current_include(File) ->
+    case file:read_file(File) of
+        {ok, Binary} -> Binary;
+        {error, _} -> <<>>
+    end.
 
 includify("lib/" ++ Path) ->
     "-include_lib(\"" ++ Path ++ "\").";
