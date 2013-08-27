@@ -12,7 +12,7 @@
 * Added typespecs to all built-in elements, actions, and validators. Added function specs in many places. Added `-callback` specs to handler behaviours.
 * Added generalized `#confirm_same` validator for validating that two fields have the same value (useful for confirming entered email addresses match, etc). `#confirm_password` validation redone to use this `#confirn_same` validator.
 * Added `dependency_js` attribute to the base action, allowing any actions that require certain javascript files to load the specified dependency first, then execute the action. This can help with load times by only loading javascript files on demand.
-* Added `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to simply use this.
+* Added `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to use this.
 * Added height and width attributes to the `#image` element. (Maxim Sokhatsky)
 * Added `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
 * Added functionality to restart comet process **(needs elaboration)** (Dmitriy Kargapolov)
@@ -22,13 +22,14 @@
 * Added `#enable`, `#disable` actions for dynamically enabling and disabling form fields. Added `wf:enable` and `wf:disable` convenience functions to go along with those.
 * Added `#make_readonly` and `#make_writable` actions for dynamically toggling the readonly attribute on fields.
 * Added `data_fields` attribute to the base element, and added support in all elements where it makes sense to support.
-* Reworked `#recaptcha` elements: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
+* Reworked `#recaptcha` element: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
 * Fix `#grid_clear{}` will no longer crash if it's the last element in a `#container_X` element.
-* Removed the annoying debug messages from the `action_continue`.
 * Fix a bug in the `#range` element causing a crash when `data` attributes were set.
 * Fix `html_encode=whites` to be allowing of line-breaks. That is, not all spaces should be converted to `&nbsp;`.
+* Removed the annoying debug messages from the `action_continue`.
+* Removed the `#hgroup` HTML5 element, as that element was removed from the HTML5 spec. Not a big deal, since it was never documented in Nitrogen anyway.
 
 
 ## Nitrogen 2.1.0
