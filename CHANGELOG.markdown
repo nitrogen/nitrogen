@@ -22,15 +22,22 @@
 * Added `#enable`, `#disable` actions for dynamically enabling and disabling form fields. Added `wf:enable` and `wf:disable` convenience functions to go along with those.
 * Added `#make_readonly` and `#make_writable` actions for dynamically toggling the readonly attribute on fields.
 * Added `data_fields` attribute to the base element, and added support in all elements where it makes sense to support.
+* Added `#sparkline` element for making quick inline graphs.
+* Added `text` and `html_encode` attributes to the HTML5 `#mark` element.
+* Added `make dialyzer` to generated Nitrogen releases and `nitrogen_core` to help with debugging apps using the new record and function typespecs.
 * Reworked `#recaptcha` element: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
-* Fix `#grid_clear{}` will no longer crash if it's the last element in a `#container_X` element.
+* Fix `#grid_clear{}` so it will no longer crash if it's the last element in a `#container_X` element.
 * Fix a bug in the `#range` element causing a crash when `data` attributes were set.
 * Fix `html_encode=whites` to be allowing of line-breaks. That is, not all spaces should be converted to `&nbsp;`.
 * Removed the annoying debug messages from the `action_continue`.
 * Removed the `#hgroup` HTML5 element, as that element was removed from the HTML5 spec. Not a big deal, since it was never documented in Nitrogen anyway.
-
+* Update Mochiweb to 2.7.0
+* Update Yaws to a version greater than 1.96 (with a fix for `crypto:sha`)
+* Update Cowboy to 0.8.6 (Thanks Roman Shestakov for doing SimpleBridge's API changes from 0.6 to 0.8)
+* Update Webmachine to 1.10.4p1
+* Update jQuery Mobile to 1.3.1
 
 ## Nitrogen 2.1.0
 
