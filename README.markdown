@@ -25,3 +25,10 @@ $ gmake rel_cowboy
 ## Building Nitrogen on Windows
 
 Instructions for building on windows can be found in [rel/overlay/win](https://github.com/nitrogen/nitrogen/blob/master/rel/overlay/win/README.md)
+
+## Want to contribute?
+
+Read our [contribution
+guidelines](https://github.com/nitrogen/nitrogen/blob/master/CONTRIB.markdown)
+to get started contributing to Nitrogen!  (they're not strict, just
+recommendations)
