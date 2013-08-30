@@ -124,7 +124,7 @@ sub runner {
         system("cp -R $from_dir/rel/overlay/$server/site/src/* $to_dir/$src");
         system("rm $to_dir/$src/nitrogen_app.erl $to_dir/$src/nitrogen.app.src");
         if($do_plugin eq "y") {
-            system("cp $from_dir/rel/overlay/common/generate-plugins.escript $to_dir/");
+            system("cp $from_dir/rel/overlay/common/do-plugins.escript $to_dir/");
             system("cp $from_dir/rel/overlay/common/plugins.config $to_dir/");
         }
 
@@ -159,7 +159,7 @@ sub fix_config_config_path {
 sub add_make_plugins {
     print "Adding 'make plugins' to Makefile\n";
     my ($makefile) = @_;
-    my $rule = "\n\nplugins:\n\t".'@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript generate-plugins.escript)'."\n\n";
+    my $rule = "\n\nplugins:\n\t".'@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript do-plugins.escript)'."\n\n";
     open FILE, ">>$makefile";
     print FILE $rule;
     close FILE;
