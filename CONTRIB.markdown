@@ -67,6 +67,30 @@ as-is, and maybe it'll require some tweaking before or after being pulled.
 
 ## Feature Requests
 
+### Documentation for new Features
+
+Along with any additions, we really, *really*, **really** would like you to
+take the time to put together documentation for the changes. Just think, a
+feature is never quite as fresh in your mind as when you first make it. As a
+result, it makes sense to document your new baby **right away**, thereby
+helping the world to know that your feature is there. So please, if you add a
+feature, please add to the pertinent documentation:
+
+  + [Nitrogen Documentation](https://github.com/nitrogen/nitrogen_core/tree/master/doc/org-mode)
+    + Uses Emacs Org-mode, but can be edited with any text editor
+    + For new elements, actions, validators, or handlers(!), it's probably
+      easiest to just copy an existing element, action, etc, than to start from
+      scratch.
+    + For everything else, finding where to add the documentation is pretty
+      straightforward.
+    + In the cases of more complex elements, adding a demo to the
+      [official Nitrogen site](https://github.com/nitrogen/NitrogenProject.com/tree/master/src/demos)
+
+  + [Simple Bridge Documentation](https://github.com/nitrogen/simple_bridge/blob/master/README.markdown)
+    + Just edit the Simple Bridge Readme (linked above)
+
+  + nprocreg doesn't really have any documentation, but if you want to add it, go right ahead!
+
 ### Want to add something simple?
 
 Want to add an attribute to an element or add an simple element of your own? Go
