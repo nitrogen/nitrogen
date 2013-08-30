@@ -15,6 +15,35 @@ Contributions from the community are thoroughly welcome and pull requests are
 fabulous! Those to make pull requests are even more fabulous! But there are
 some things to consider when you've got the itch to make a pull request.
 
+### Licensing (boring semi-legal stuff first)
+
+By making a pull request to be merged into Nitrogen or one of its related
+repositories, you grant to the Nitrogen Project, its maintainers, and its users
+an irrevocable and unconditional license to your code. Further the submitted
+code will be licensed under the [MIT
+License](https://github.com/nitrogen/nitrogen/blob/master/MIT-LICENSE).
+
+If a pull request's contents contain any "Viral Open Source Licenses", like the
+GPL, or non-commercial clauses, we will reject the pull request. We have
+organizations that use Nitrogen and we don't want to shackle them into
+releasing their source code as well, further we cannot include into mainline
+Nitrogen a component that in order to be used by profit-seeking entity must
+first have a "commercial license" purchased (some javascript libraries function
+this way).
+
+In short:
+  + **No** GPL, unless dual licensed with the MIT, BSD, or similar free
+    licenses.
+  + **No** non-commercial licenses or "pay us to use in for profit"-type
+    licenses.
+  + **Yes** to MIT Licensed free code
+
+**If you really want to use something that is GPL or non-free**, the way to
+accomplish this is with the use of [Nitrogen
+plugins](http://nitrogenproject.com/doc/plugins.html). This way the entire
+plugin can be distributed separately, and if a user wishes to incorporate that
+plugin into their application, they can do so by their choice.
+
 ### Please try to keep the number of commits down
 
 While we're okay with pull requests being more than one commit, we *prefer*
