@@ -24,8 +24,9 @@
 * Added `data_fields` attribute to the base element, and added support in all elements where it makes sense to support.
 * Added `#sparkline` element for making quick inline graphs.
 * Added `text` and `html_encode` attributes to the HTML5 `#mark` element.
-* Added `make dialyzer` to generated Nitrogen releases and `nitrogen_core` to help with debugging apps using the new record and function typespecs.
+* Added `make dialyzer` to `nitrogen_core`, `nprocreg`, and `NitrogenProject.com` as well as generated releases to help with debugging apps using the new record and function typespecs.
 * Reworked `#recaptcha` element: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
+* Reworked `wf:peer_ip/1-3` to use IPv4 and IPv6, as well as making them always use tuples for IP Addresses, even if provided IP Addresses as strings/binaries.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
 * Fix `wf:js_escape/1` will now also escape single quotes "'".
 * Fix `#grid_clear{}` so it will no longer crash if it's the last element in a `#container_X` element.
@@ -38,6 +39,7 @@
 * Update Cowboy to 0.8.6 (Thanks Roman Shestakov for doing SimpleBridge's API changes from 0.6 to 0.8)
 * Update Webmachine to 1.10.4p1
 * Update jQuery Mobile to 1.3.1
+* Added a [Contribution guide](http://https://github.com/nitrogen/nitrogen/blob/master/CONTRIB.markdown)
 
 ## Nitrogen 2.1.0
 
