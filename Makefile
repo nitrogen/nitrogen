@@ -201,6 +201,16 @@ rel_yaws: compile
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on Yaws.
 
+####
+#### One day, this will work, but it is not this day :(
+####
+## rel_yaws_win: compile
+## 	@$(MAKE) clean_release
+## 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_yaws.config reltool_win.config)
+## 	@($(MAKE) rel_inner_win)
+## 	@echo Generated a self-contained Nitrogen project
+## 	@echo in 'rel/nitrogen', configured to run on Yaws.
+
 package_yaws: rel_yaws
 	mkdir -p ./builds
 	$(MAKE) link_docs
@@ -210,7 +220,7 @@ package_yaws: rel_yaws
 
 package_all: clean update-deps package_inets package_mochiweb package_cowboy package_yaws package_webmachine
 
-package_all_win: clean update-deps package_inets_win package_mochiweb_win package_cowboy_win
+package_all_win: clean update-deps package_inets_win package_mochiweb_win package_cowboy_win package_webmachine_win
 
 clean_docs:
 	@(cd rel/nitrogen; rm -fr doc)
