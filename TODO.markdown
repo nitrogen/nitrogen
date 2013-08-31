@@ -8,10 +8,6 @@
 * Integrated cache server and using cache\_handler
 * Elements that have to render text should throw a better error if passed nitrogen elements/tuples
 
-## Installation/Platform
-
-* Provide a smoother mechanism for including Nitrogen in an application as a simple rebar dependency
-
 ## Elements
 
 * Add Code-block element
@@ -21,7 +17,6 @@
 ## Actions and Validators
 
 * Make wf:wire should be able to wire validations without having to wrap those validations in a #validation action. Basically, wf:wire can determine if the specified action is a validator and automatically wrap it.
-* Add an action to ensure a javascript file is loaded. #ensure\_loaded action along with an associated wf:ensure\_loaded/1 function.
 
 ## Documentation
 

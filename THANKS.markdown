@@ -50,5 +50,21 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 + Jenő I. Hajdu
 + Maxim Sokhatsky (@5HT)
 + Dmitriy Kargapolov
++ Witeman Zheng
++ Chan Sisowath
++ Florent Gallaire
++ Andrii Zadorozhnii
++ Evan Miller (@evmill)
++ Alice Blitter Copper
++ Roman Shestakov (@rshestakov)
++ Petr Kozorezov
++ Nikolay Garanko
++ Paul Khusainov
++ David N. Welton
++ Tobias Herre
++ Josh Pyle
++ Niclas Axelsson
++ Evgeny M.
 
-Roughly sorted by date of contribution. Send your twitter handles to @jessegumm or @rustyio
+Roughly sorted by date of contribution. Send your twitter handles to
+[@jessegumm](http://twitter.com/jessevumm)
