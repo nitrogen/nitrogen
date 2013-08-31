@@ -183,6 +183,11 @@ package_webmachine: rel_webmachine
 	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
 
+package_webmachine_win: rel_webmachine_win copy_docs
+	mkdir -p ./builds
+	$(MAKE) copy_docs
+	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-webmachine-win.zip ./rel/nitrogen/
+	rm -fr ./rel/nitrogen
 
 # YAWS
 
