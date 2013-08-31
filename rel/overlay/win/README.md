@@ -4,11 +4,6 @@
 
 ### Notes:
 
-**COMPATIBILITY NOTE:** There is currently a known issue with compiling
-Nitrogen on Windows with any version of Erlang after R15B. This is being worked
-on. For now, we recommend compiling Nitrogen for Windows with Erlang R15B.
-R125B01 and R15B02 generate critical errors during the build process.
-
 **Note 1:** This process can be a hair tedius, but will allow you to have the
 latest and greatest version of Nitrogen from Github.com.  For the version that
 doesn't require you to screw around with installing msysgit, download the
