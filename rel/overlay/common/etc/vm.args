@@ -29,5 +29,4 @@
 ## Run code at startup.
 -eval "application:start(nitrogen)"
 
-## Cookie for distributed erlang (auto-generated)
--setcookie jhkadB08BdoMbmPhFTKJ3HDJh7UvLP6SqKHfSLtcUaGt4Hni6p
+
