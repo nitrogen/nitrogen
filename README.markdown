@@ -14,9 +14,15 @@ additional information.
 Follow the tutorial at
 [http://nitrogenproject.com/doc/tutorial.html](http://nitrogenproject.com/doc/tutorial.html)
 
+## Building Nitrogen on Linux and OSX
+
+The [Getting Started](http://nitrogenproject.com/doc/index.html#sec-3) guide covers this.
+
 ## Building Nitrogen on FreeBSD
 
-Make sure you have gmake installed, and use `gmake` instead of `make`
+Install Erlang from 
+
+Make sure you have `gmake` installed, and use `gmake` instead of `make`
 
 Example:
 
