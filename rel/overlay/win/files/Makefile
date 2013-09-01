@@ -4,7 +4,10 @@ cookie:
 	@echo Generating a default cookie in /etc/vm.args
 	@(echo -setcookie `openssl rand -base64 50 | head -n1` >> etc/vm.args)
 
-compile:
+ini-file:
+	./build-ini.sh
+
+compile: ini-file
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar compile)
 
 get-deps:
