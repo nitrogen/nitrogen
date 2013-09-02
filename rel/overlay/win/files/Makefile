@@ -2,7 +2,7 @@ all: get-deps plugins compile
 
 cookie:
 	@echo Generating a default cookie in /etc/vm.args
-	@(echo -setcookie `openssl rand -base64 50 | head -n1` >> etc/vm.args)
+	@(echo -setcookie `openssl rand -base64 50 | head -n1 | sed -e 's/[^a-zA-Z0-9]//g'` >> etc/vm.args)
 
 ini-file:
 	./build-ini.sh
