@@ -25,6 +25,7 @@
 * Added `#sparkline` element for making quick inline graphs.
 * Added `text` and `html_encode` attributes to the HTML5 `#mark` element.
 * Added `make dialyzer` to `nitrogen_core`, `nprocreg`, and `NitrogenProject.com` as well as generated releases to help with debugging apps using the new record and function typespecs.
+* Added `wf:redirect_to_login(Url, PostLoginUrl)` for specifying a destination URL after login that is not necessarily the current page.
 * Reworked `#recaptcha` element: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
 * Reworked `wf:peer_ip/1-3` to use IPv4 and IPv6, as well as making them always use tuples for IP Addresses, even if provided IP Addresses as strings/binaries.
 * Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
