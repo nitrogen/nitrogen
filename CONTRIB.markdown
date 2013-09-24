@@ -12,23 +12,23 @@ Note: These guidelines apply to the Nitrogen Web Framework and it's subprojects:
 ## Basic Pull Request Guidelines
 
 Contributions from the community are thoroughly welcome and pull requests are
-fabulous! Those to make pull requests are even more fabulous! But there are
+fabulous! Those who make pull requests are even more fabulous! But there are
 some things to consider when you've got the itch to make a pull request.
 
 ### Licensing (boring semi-legal stuff first)
 
 By making a pull request to be merged into Nitrogen or one of its related
 repositories, you grant to the Nitrogen Project, its maintainers, and its users
-an irrevocable and unconditional license to your code. Further the submitted
-code will be licensed under the [MIT
+an irrevocable and unconditional license to the contributed code, and the
+contributed code will be licensed under the [MIT
 License](https://github.com/nitrogen/nitrogen/blob/master/MIT-LICENSE).
 
 If a pull request's contents contain any "Viral Open Source Licenses", like the
-GPL, or non-commercial clauses, we will reject the pull request. We have
-organizations that use Nitrogen and we don't want to shackle them into
-releasing their source code as well, further we cannot include into mainline
-Nitrogen a component that in order to be used by profit-seeking entity must
-first have a "commercial license" purchased (some javascript libraries function
+GPL, or non-commercial-only clauses, we will reject the pull request. We have
+commercial organizations that use Nitrogen and we don't want to shackle them
+into releasing their source code as well, further we cannot include into
+mainline Nitrogen a component that in order to be used by profit-seeking entity
+must first purchase a "commercial license" (some javascript libraries function
 this way).
 
 In short:
@@ -61,13 +61,14 @@ usually mean it doesn't work). Please squash those out with `git rebase`.
 Commit messages should try to be at most 50 characters, but if you go over a
 few, it's not a big deal.  Keep the commit messages as concise as possible, and
 if you need to add more elaboration, put it on the lines below the commit.
-Please keep those lines under 80 characters.
+Please try to keep those lines under 80 characters. This can be done quite
+trivially in vim with the key combination `gq`.
 
 ### Topic Branches
 
 One of the things you'll notice if you do a pull request from your master
 branch is that any future commits to that master branch will be automatically
-added to the pull request.  That's a problem, because then it muddles the
+added to the pull request.  *That's a problem*, because then it muddles the
 intent of the pull request.  Please make a topic branch (`git checkout -b
 my-awesome-fix`) before submitting the pull request, then submit the pull
 request from your topic branch.
