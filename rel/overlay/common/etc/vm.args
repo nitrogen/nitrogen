@@ -16,10 +16,6 @@
 ## Tweak GC to run more often 
 -env ERL_FULLSWEEP_AFTER 10
 
-## If you run the sync application, this will switch it to 
-## nitrogen_mode for proper include file detection
--sync sync_mode nitrogen
-
 ## Include .beam files for site.
 -pa ./site/ebin
 
