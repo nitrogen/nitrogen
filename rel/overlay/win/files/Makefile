@@ -5,7 +5,7 @@ cookie:
 	@(echo -setcookie `openssl rand -base64 50 | head -n1 | sed -e 's/[^a-zA-Z0-9]//g'` >> etc/vm.args)
 
 ini-file:
-	./build-ini.sh
+	@(cmd /c build-ini.bat)
 
 compile: ini-file
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar compile)
