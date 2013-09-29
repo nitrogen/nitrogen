@@ -1,23 +1,24 @@
 # Nitrogen 2.x
 
-## (in development) Nitrogen 2.2.0
+## Nitrogen 2.2.0
 
 * Added plugin system for specifying Nitrogen elements as rebar dependencies, and then copying static resources, and linking in necessary headers.
-* Added `Module:transform_element/1` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element.
+  * Available plugins: https://github.com/nitrogen/nitrogen/wiki/Nitrogen-Plugins
+  * Sample Plugin: https://github.com/nitrogen/sample_nitrogen_plugin
+* Added `Module:transform_element/1` as an alternative to `Module:render_element`. `transform_element` assumes the element is defined in terms of other Nitrogen elements, and will not incur the overhead associated with rendering an element twice.
 * Added support for Erlang Slim Releases, which don't include the full ERTS system. Created with `make slim_X` where `X` is yaws, cowboy, etc. (e.g. `make slim_mochiweb`)
 * Added official support for embedding Nitrogen into existing Erlang applications by using the `embed` script found in the root of the nitrogen repository.
 * Added Binary distributions for FreeBSD (9.1-RELEASE) and Raspberry Pi with Raspbian. Added Webmachine builds to Windows.
 * Added new crash handler for specifying custom page for dealing with page crashes (rather than simply printing "Internal Server Error").
-* Removed support for R14 and below (due to the addition of the use of `-callback` instead of `behaviour_info` in handler definitions.
+* Removed support for any version of Erlang below R15 (due to the addition of the use of `-callback` instead of `behaviour_info` in handler definitions.
 * Added typespecs to all built-in elements, actions, and validators. Added function specs in many places. Added `-callback` specs to handler behaviours.
 * Added generalized `#confirm_same` validator for validating that two fields have the same value (useful for confirming entered email addresses match, etc). `#confirm_password` validation redone to use this `#confirn_same` validator.
 * Added `dependency_js` attribute to the base action, allowing any actions that require certain javascript files to load the specified dependency first, then execute the action. This can help with load times by only loading javascript files on demand.
 * Added `type` attribute to textbox to allow HTML5 textbox types. `#password` reworked to use this.
 * Added height and width attributes to the `#image` element. (Maxim Sokhatsky)
 * Added `wf:defer` and `wf:eager` variants to `wf:wire` to help ensure wiring order, and modify many helper functions (e.g. `wf:insert_after`) to specify priority (`eager`, `normal`, or `defer`).
-* Added functionality to restart comet process **(needs elaboration)** (Dmitriy Kargapolov)
 * Added enhanced validation handling to allow advanced functionality to be executed (both server or client side) when a postback is cancelled due to a validation failure. (Jonas Adahl)
-* Added `module_alias` option to `#template`, which allows aliasing a referenced module within a template, which can allow using the same template to be "remapped" to more than one different modules. (e.g. making a template call like `layout:some_layout_fun()` have `layout` be remapped to any module you want. (Joshua Pyle)
+* Added `module_alias` option to `#template`, which allows aliasing a referenced module within a template, allowing templates to be "remapped" to more than one different modules. (e.g. In making a template call like `layout:some_layout_fun()` have `layout` be remapped to any module you want. (Joshua Pyle)
 * Added `image` and `body` attributes to `#button` to allow simple iconification of a button, or to specify a general body in terms of HTML or Nitrogen Elements for button.
 * Added `#enable`, `#disable` actions for dynamically enabling and disabling form fields. Added `wf:enable` and `wf:disable` convenience functions to go along with those.
 * Added `#make_readonly` and `#make_writable` actions for dynamically toggling the readonly attribute on fields.
@@ -27,12 +28,13 @@
 * Added `make dialyzer` to `nitrogen_core`, `nprocreg`, and `NitrogenProject.com` as well as generated releases to help with debugging apps using the new record and function typespecs.
 * Added `wf:redirect_to_login(Url, PostLoginUrl)` for specifying a destination URL after login that is not necessarily the current page.
 * Reworked `#recaptcha` element: application variables are no longer required (instead those values can be specified in the element itself). General `event/1` callback replaced with recaptcha-specific `recaptcha_event/2` callback more consistent with other elements that work similarly.
-* Reworked `wf:peer_ip/1-3` to use IPv4 and IPv6, as well as making them always use tuples for IP Addresses, even if provided IP Addresses as strings/binaries.
-* Fix `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
-* Fix `wf:js_escape/1` will now also escape single quotes "'".
-* Fix `#grid_clear{}` so it will no longer crash if it's the last element in a `#container_X` element.
-* Fix a bug in the `#range` element causing a crash when `data` attributes were set.
-* Fix `html_encode=whites` to be allowing of line-breaks. That is, not all spaces should be converted to `&nbsp;`.
+* Reworked `wf:peer_ip/1-3` to use IPv4 and IPv6, as well as making them always use tuples for IP Addresses, even if provided IP Addresses are strings/binaries.
+* Fixed Comet such that navigating back to a page that previously had comet running, and if the comet process itself is still alive (has not yet timed out on the server), the page will properly restore the comet connection (Dmitriy Kargapolov)
+* Fixed `inplace_textarea` and `inplace_textbox` to ensure they will always revert to the last set value when the cancel button is pressed.
+* Fixed `wf:js_escape/1` will now also escape single quotes "'".
+* Fixed `#grid_clear{}` so it will no longer crash if it's the last element in a `#container_X` element.
+* Fixed a bug in the `#range` element causing a crash when `data` attributes were set.
+* Fixed `html_encode=whites` to be allowing of line-breaks. That is, not all spaces should be converted to `&nbsp;`.
 * Removed the annoying debug messages from the `action_continue`.
 * Removed the `#hgroup` HTML5 element, as that element was removed from the HTML5 spec. Not a big deal, since it was never documented in Nitrogen anyway.
 * Update Mochiweb to 2.7.0
