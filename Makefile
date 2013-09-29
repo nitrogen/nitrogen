@@ -74,7 +74,8 @@ rel_cowboy_win: compile
 package_cowboy: rel_cowboy
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar.gz
+	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar -C rel nitrogen
+	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar 
 
 package_cowboy_win: rel_cowboy_win copy_docs
 	mkdir -p ./builds
@@ -109,7 +110,8 @@ rel_inets_win: compile
 package_inets: rel_inets
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar.gz
+	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar -C rel nitrogen
+	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar 
 
 package_inets_win: rel_inets_win copy_docs
 	mkdir -p ./builds
@@ -147,6 +149,8 @@ package_mochiweb: rel_mochiweb
 	mkdir -p ./builds
 	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
+	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar -C rel nitrogen
+	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar 
 
 package_mochiweb_win: rel_mochiweb_win copy_docs
 	mkdir -p ./builds
@@ -182,6 +186,8 @@ package_webmachine: rel_webmachine
 	mkdir -p ./builds
 	$(MAKE) link_docs
 	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
+	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar -C rel nitrogen
+	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar 
 
 package_webmachine_win: rel_webmachine_win copy_docs
 	mkdir -p ./builds
@@ -219,7 +225,8 @@ rel_yaws: compile
 package_yaws: rel_yaws
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar.gz
+	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar -C rel nitrogen
+	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar 
 
 # MASS PACKAGING - Produce packages for all servers
 
