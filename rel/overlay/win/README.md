@@ -14,13 +14,14 @@ Page](http://www.nitrogenproject.com).
 changes have been made to the build process. The previous method required a lot
 of tinkering with things to build with a new release of Erlang.
 
-**Note 3:** Throughout this readme, we recommend installing to `c:\erl5.9` for
-the sake of simplicity.  It's not critical that you use this directory, but --
-and it should go without saying -- if you choose to install into another
-directory, make sure you reference that directory everywhere.  The only
-**strong** recommendation we make is to avoid paths with spaces in them (e.g.
-`c:\program files\erl5.9`). Msysgit has a bit of a history of not playing nice
-with paths with spaces in them.
+**Note 3:** Throughout this readme, we recommend installing to `c:\erlX.Y`
+(where X.Y is the version, for example, `5.10`) for the sake of simplicity.
+It's not critical that you use this directory, but -- and it should go without
+saying -- if you choose to install into another directory, make sure you
+reference that directory everywhere.  The only **strong** recommendation we
+make is to avoid paths with spaces in them (e.g.  `c:\program files\erlX.Y`).
+Msysgit has a bit of a history of not playing nice with paths with spaces in
+them.
 
 **Note 4:** While installing Msysgit, make sure you choose the option, if
 presented, to "Check out as-is and Check in as-is". Otherwise, some of the
@@ -29,16 +30,15 @@ Nitrogen prerequisits don't play nice with Windows-style line-endings (`\r\n`).
 ## Prerequisite Steps:
 
 1. Install [Erlang](http://www.erlang.org/download.html) (Recommended at least
-   R15B) for Windows into `c:\erl5.9`.
-2. Make sure `c:\erl5.9\bin` is in your windows PATH (Right click My Computer,
+   R15B) for Windows into `c:\erlX.Y`.
+2. Make sure `c:\erlX.Y\bin` is in your windows PATH (Right click My Computer,
    Click Properties, 
-3. Get [msysGit](http://msysgit.github.com) (*not "Git for Windows"*) and
+3. Get [msysGit](http://j.mp/msysgit-net) (*not "Git for Windows"*) and
    install to `c:\msysgit` (the default). 
 
 **Note**: Download the Msysgit _netinstaller_, **not** the fullinstaller.
 Despite the misleading name, the fullinstaller does not come with some
-necessary tools (particularly a working `make`). Quick download link:
-http://code.google.com/p/msysgit/downloads/list?q=net+installer
+necessary tools (particularly a working `make`).
 
 ## To Build Nitrogen
 
