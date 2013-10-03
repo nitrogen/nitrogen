@@ -148,7 +148,6 @@ rel_mochiweb_win: compile
 package_mochiweb: rel_mochiweb
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar.gz
 	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar -C rel nitrogen
 	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar 
 
@@ -185,7 +184,6 @@ rel_webmachine_win: compile
 package_webmachine: rel_webmachine
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar -C rel -c nitrogen | gzip --best > ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar.gz
 	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar -C rel nitrogen
 	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar 
 
