@@ -54,7 +54,11 @@ APP_VSN=${START_ERL#* }
 ERTS_PATH=$RUNNER_BASE_DIR/erts-$ERTS_VSN/bin
 
 # Setup command to control the node
-NODETOOL="$ERTS_PATH/escript $ERTS_PATH/nodetool $NAME_ARG $COOKIE_ARG"
+if [ -x $ERTS_PATH/escript ]; then
+	NODETOOL="$ERTS_PATH/escript $ERTS_PATH/nodetool $NAME_ARG $COOKIE_ARG"
+else
+	NODETOOL="escript $RUNNER_BASE_DIR/releases/*/nodetool $NAME_ARG $COOKIE_ARG"
+fi
 
 # Make sure the local node IS running
 RES=`$NODETOOL ping`
