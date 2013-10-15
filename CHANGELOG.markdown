@@ -10,6 +10,7 @@
   to make it consistent with `#textbox`.
 * Fix bug in `#upload` that was emitting the wrong formatting for `multiple`
   attribute
+* Fix bug in `dev` script related to slim releases
 * Added and updated docs
 
 ## Nitrogen 2.2.0
