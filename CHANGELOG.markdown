@@ -3,9 +3,9 @@
 ## Nitrogen 2.2.1 (In development)
 
 * Add Secure Pickling with AES (the core of the operation inspired by N2O's
-  version), though changes had to made to ensure backwards compatibility with
+  version, though changes had to made to ensure backwards compatibility with
   R15B, including an include generator for dealing with crypto changes from
-  R15B to R16B01
+  R15B to R16B01)
 * Add fields that were intended to be added in 2.2.0 to `#datepicker_textbox`
   to make it consistent with `#textbox`.
 * Fix bug in `#upload` that was emitting the wrong formatting for `multiple`
