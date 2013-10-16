@@ -11,6 +11,7 @@
 * Fix bug in `#upload` that was emitting the wrong formatting for `multiple`
   attribute
 * Fix bug in `dev` script related to slim releases
+* Fix in `#make_writable` and `#make_readonly`
 * Added and updated docs
 
 ## Nitrogen 2.2.0
