@@ -10,6 +10,6 @@ main([SrcFile, DepsFile, DestFile]) ->
 
     [Part1, Part2] = re:split(Src, Regex, [{return, binary},dotall]),
 
-    NewContents = [Part1, Deps, "\n", Part2],
+    NewContents = [Part1,"\n", Deps, "\n", Part2],
     ok = file:write_file(DestFile, NewContents).
 

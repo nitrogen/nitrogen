@@ -20,14 +20,14 @@
     %% END_PLATFORM_DEPENDENCIES
 
     %% Uncomment the following lines to always pull the latest versions
-    %{nitrogen_core, ".*",   {git, "git://github.com/nitrogen/nitrogen_core",{branch, master}}},
-    %{nprocreg,      ".*",   {git, "git://github.com/nitrogen/nprocreg",     {branch, master}}},
-    %{simple_bridge, ".*",   {git, "git://github.com/nitrogen/simple_bridge",{branch, master}}},
-    %{sync,          ".*",   {git, "git://github.com/rustyio/sync",          {branch, master}}}
+    {nitrogen_core, ".*",   {git, "git://github.com/nitrogen/nitrogen_core",{branch, master}}},
+    {nprocreg,      ".*",   {git, "git://github.com/nitrogen/nprocreg",     {branch, master}}},
+    {simple_bridge, ".*",   {git, "git://github.com/nitrogen/simple_bridge",{branch, master}}},
+    {sync,          ".*",   {git, "git://github.com/rustyio/sync",          {branch, master}}}
 
     %% Get specific tagged version
-    {nitrogen_core, ".*",   {git, "git://github.com/nitrogen/nitrogen_core",{tag, "v2.2.1"}}},
-    {nprocreg,      ".*",   {git, "git://github.com/nitrogen/nprocreg",     {tag, "v0.2.1"}}},
-    {simple_bridge, ".*",   {git, "git://github.com/nitrogen/simple_bridge",{tag, "v1.3.0"}}},
-    {sync,          ".*",   {git, "git://github.com/rustyio/sync",          "a8366be73244383c07f9cafe30b72e83f3ad0621"}}
+    % {nitrogen_core, ".*",   {git, "git://github.com/nitrogen/nitrogen_core",{tag, "v2.2.1"}}},
+    % {nprocreg,      ".*",   {git, "git://github.com/nitrogen/nprocreg",     {tag, "v0.2.1"}}},
+    % {simple_bridge, ".*",   {git, "git://github.com/nitrogen/simple_bridge",{tag, "v1.3.0"}}},
+    % {sync,          ".*",   {git, "git://github.com/rustyio/sync",          "a8366be73244383c07f9cafe30b72e83f3ad0621"}}
 ]}.
