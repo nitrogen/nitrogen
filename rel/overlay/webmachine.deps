@@ -1,0 +1,1 @@
+    {webmachine,    "1.*",  {git, "git://github.com/basho/webmachine.git",  {tag, "1.10.4p1"}}},

@@ -1,0 +1,3 @@
+    {cowboy,        ".*",   {git, "git://github.com/extend/cowboy",         {tag, "0.8.6"}}},
+    {ranch,         ".*",   {git, "git://github.com/extend/ranch",          {tag, "0.8.4"}}},
+    {mimetypes,     ".*",   {git, "git://github.com/spawngrid/mimetypes",   {branch, master}}},

@@ -47,184 +47,132 @@ install-helper-script:
 thanks: get-deps
 	perl support/list_thanks/list_thanks.pl
 
+
 # COWBOY
 
-slim_cowboy: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_cowboy.config)
-	@(cd rel; ./make_slim.escript reltool.config)
-	@($(MAKE) rel_inner_slim)
-	@echo Generated a slim-release Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Cowboy.
+slim_cowboy:
+	@($(MAKE) slim PLATFORM=cowboy)
 
-rel_cowboy: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_cowboy.config)
-	@($(MAKE) rel_inner_full)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Cowboy.
+rel_cowboy:
+	@($(MAKE) rel PLATFORM=cowboy)
 
-rel_cowboy_win: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_cowboy.config reltool_win.config)
-	@($(MAKE) rel_inner_win)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Cowboy.
+rel_cowboy_win:
+	@($(MAKE) rel_win PLATFORM=cowboy)
 
-package_cowboy: rel_cowboy
-	mkdir -p ./builds
-	$(MAKE) link_docs
-	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar -C rel nitrogen
-	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-cowboy.tar 
+package_cowboy: 
+	@($(MAKE) package PLATFORM=cowboy)
 
-package_cowboy_win: rel_cowboy_win copy_docs
-	mkdir -p ./builds
-	$(MAKE) copy_docs
-	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-cowboy-win.zip ./rel/nitrogen/
-	rm -fr ./rel/nitrogen
+package_cowboy_win:
+	@($(MAKE) package_win PLATFORM=cowboy)
+
 
 # INETS
 
-slim_inets: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_inets.config)
-	@(cd rel; ./make_slim.escript reltool.config)
-	@($(MAKE) rel_inner_slim)
-	@echo Generated a slim-release Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Inets.
+slim_inets:
+	@($(MAKE) slim PLATFORM=inets)
 
-rel_inets: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_inets.config)
-	@($(MAKE) rel_inner_full)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Inets.
+rel_inets:
+	@($(MAKE) rel PLATFORM=inets)
 
-rel_inets_win: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_inets.config reltool_win.config)
-	@($(MAKE) rel_inner_win)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Inets.
+rel_inets_win:
+	@($(MAKE) rel_win PLATFORM=inets)
 
-package_inets: rel_inets
-	mkdir -p ./builds
-	$(MAKE) link_docs
-	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar -C rel nitrogen
-	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-inets.tar 
+package_inets: 
+	@($(MAKE) package PLATFORM=inets)
 
-package_inets_win: rel_inets_win copy_docs
-	mkdir -p ./builds
-	$(MAKE) copy_docs
-	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-inets-win.zip ./rel/nitrogen/
-	rm -fr ./rel/nitrogen
-
+package_inets_win:
+	@($(MAKE) package_win PLATFORM=inets)
 
 
 # MOCHIWEB
 
-slim_mochiweb: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_mochiweb.config)
-	@(cd rel; ./make_slim.escript reltool.config)
-	@($(MAKE) rel_inner_slim)
-	@echo Generated a slim-release Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Mochiweb.
+slim_mochiweb:
+	@($(MAKE) slim PLATFORM=mochiweb)
 
-rel_mochiweb: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_mochiweb.config)
-	@($(MAKE) rel_inner_full)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Mochiweb.
+rel_mochiweb:
+	@($(MAKE) rel PLATFORM=mochiweb)
 
-rel_mochiweb_win: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_mochiweb.config reltool_win.config)
-	@($(MAKE) rel_inner_win)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Mochiweb.
+rel_mochiweb_win:
+	@($(MAKE) rel_win PLATFORM=mochiweb)
 
-package_mochiweb: rel_mochiweb
-	mkdir -p ./builds
-	$(MAKE) link_docs
-	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar -C rel nitrogen
-	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb.tar 
+package_mochiweb: 
+	@($(MAKE) package PLATFORM=mochiweb)
 
-package_mochiweb_win: rel_mochiweb_win copy_docs
-	mkdir -p ./builds
-	$(MAKE) copy_docs
-	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-mochiweb-win.zip ./rel/nitrogen/
-	rm -fr ./rel/nitrogen
+package_mochiweb_win:
+	@($(MAKE) package_win PLATFORM=mochiweb)
+
 
 # WEBMACHINE
 
-slim_webmachine: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_webmachine.config)
-	@(cd rel; ./make_slim.escript reltool.config)
-	@($(MAKE) rel_inner_slim)
-	@echo Generated a slim-release Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Webmachine.
+slim_webmachine:
+	@($(MAKE) slim PLATFORM=webmachine)
 
-rel_webmachine: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_webmachine.config)
-	@($(MAKE) rel_inner_full)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Webmachine.
+rel_webmachine:
+	@($(MAKE) rel PLATFORM=webmachine)
 
-rel_webmachine_win: compile
-	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_webmachine.config reltool_win.config)
-	@($(MAKE) rel_inner_win)
-	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Webmachine.
+rel_webmachine_win:
+	@($(MAKE) rel_win PLATFORM=webmachine)
 
-package_webmachine: rel_webmachine
-	mkdir -p ./builds
-	$(MAKE) link_docs
-	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar -C rel nitrogen
-	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-webmachine.tar 
+package_webmachine: 
+	@($(MAKE) package PLATFORM=webmachine)
 
-package_webmachine_win: rel_webmachine_win copy_docs
-	mkdir -p ./builds
-	$(MAKE) copy_docs
-	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-webmachine-win.zip ./rel/nitrogen/
-	rm -fr ./rel/nitrogen
+package_webmachine_win:
+	@($(MAKE) package_win PLATFORM=webmachine)
+
 
 # YAWS
 
-slim_yaws: compile
+slim_yaws:
+	@($(MAKE) slim PLATFORM=yaws)
+
+rel_yaws:
+	@($(MAKE) rel PLATFORM=yaws)
+
+rel_yaws_win:
+	@($(MAKE) rel_win PLATFORM=yaws)
+
+package_yaws: 
+	@($(MAKE) package PLATFORM=yaws)
+
+package_yaws_win:
+	@($(MAKE) package_win PLATFORM=yaws)
+
+
+# PLATFORM-AGNOSTIC
+
+slim: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_yaws.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
 	@(cd rel; ./make_slim.escript reltool.config)
-	@($(MAKE) rel_inner_slim)
+	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
 	@echo Generated a slim-release Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Yaws.
+	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
 
-rel_yaws: compile
+rel: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_yaws.config)
-	@($(MAKE) rel_inner_full)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
+	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
 	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on Yaws.
+	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
 
-####
-#### One day, this will work, but it is not this day :(
-####
-## rel_yaws_win: compile
-## 	@$(MAKE) clean_release
-## 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_yaws.config reltool_win.config)
-## 	@($(MAKE) rel_inner_win)
-## 	@echo Generated a self-contained Nitrogen project
-## 	@echo in 'rel/nitrogen', configured to run on Yaws.
+rel_win: compile
+	@$(MAKE) clean_release
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_win.config)
+	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
+	@echo Generated a self-contained Nitrogen project
+	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
 
-package_yaws: rel_yaws
+package: rel
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar -C rel nitrogen
-	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-yaws.tar 
+	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-$(PLATFORM).tar -C rel nitrogen
+	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-$(PLATFORM).tar 
+
+package_win: rel_win copy_docs
+	mkdir -p ./builds
+	$(MAKE) copy_docs
+	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-$(PLATFORM)-win.zip ./rel/nitrogen/
+	rm -fr ./rel/nitrogen
 
 # MASS PACKAGING - Produce packages for all servers
 
@@ -274,19 +222,23 @@ erl_interface:
 	@(cd rel; escript copy_erl_interface.escript)
 
 rel_inner:
+	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
 	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
 	@uname -v >> rel/nitrogen/BuildInfo.txt
 	@rm -rf rel/reltool.config	
 
-rel_inner_slim: generate rel_inner
+rel_inner_slim:
+	@(cd rel; ./make_slim.escript reltool.config)
+	@($(MAKE) generate rel_inner PLATFORM=$(PLATFORM))
 
 rel_inner_full: generate erl_interface rel_inner
 
 
 rel_inner_win: generate erl_interface
 	@(cd rel/nitrogen; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
+	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
 	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
 	@(cd rel/nitrogen; ./make_start_cmd.sh)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
