@@ -1,6 +1,6 @@
 # Nitrogen 2.x
 
-## Nitrogen 2.2.1 (In development)
+## Nitrogen 2.2.1
 
 * Add Secure Pickling with AES (the core of the operation inspired by N2O's
   version, though changes had to made to ensure backwards compatibility with
