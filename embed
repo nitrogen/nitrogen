@@ -132,7 +132,11 @@ sub runner {
         &fix_config_static_paths("$to_dir/$config", $static);
         &fix_config_config_path("$to_dir/$config/yaws.config", $config) if($server eq "yaws");
         &fix_plugin_config_paths("$to_dir/plugins.config", $include, $static) if($do_plugin eq "y");
-        &add_rebar_dependencies($from_dir,"$from_dir/rel/overlay/$server/rebar.config","$to_dir/rebar.config") if($add_rebar eq "y");
+        if($add_rebar eq "y") {
+            system("$from_dir/rel/merge_platform_dependencies.escript $from_dir/rel/overlay/rebar.config.src $from_dir/rel/overlay/$server.deps $from_dir/rel/overlay/$server/rebar.config");
+            &add_rebar_dependencies($from_dir,"$from_dir/rel/overlay/$server/rebar.config","$to_dir/rebar.config");
+            unlink("$from_dir/rel/overlay/$server/rebar.config");
+        }
         &add_make_plugins("$to_dir/Makefile") if($add_make_plugins eq "y");
         &add_copy_static($from_dir, "$to_dir/Makefile", "$to_dir/rebar.config", $static) if($add_copy_static eq "y");
         system("make") if($run_make eq "y");
