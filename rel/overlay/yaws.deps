@@ -1,5 +1,1 @@
-    %%{yaws, "1.*", {git, "git://github.com/klacke/yaws",{tag, "yaws-1.96"}}},
-    %%Doing manual commit that fixes bug in 1.96 related to crypto:sha
-    %%{yaws, "1.*", {git, "git://github.com/klacke/yaws",{tag, "yaws-1.96"}}},
-    {yaws,          "1.*",  {git, "git://github.com/klacke/yaws",
-                                                    "98db40b3d301254a86820a837848660cb9e1b2f0"}},
+    {yaws, "1.*", {git, "git://github.com/klacke/yaws",	{tag, "yaws-1.97"}}},
