@@ -44,8 +44,17 @@ install-helper-script:
 	@(cd support/helper_script;./install.sh)
 
 ## Produce a list of contributors from the main repo and the dependent repos
-thanks: get-deps
-	perl support/list_thanks/list_thanks.pl
+thanks: 
+	@(cd support/list_thanks; \
+	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
+	git clone git://github.com/nitrogen/simple_bridge; \
+	git clone git://github.com/nitrogen/nprocreg; \
+	git clone git://github.com/nitrogen/nitrogen_core; \
+	git clone git://github.com/nitrogen/NitrogenProject.com; \
+	perl list_thanks.pl >> ../../thanks.txt; \
+	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
+	echo "Thanks file generated in thanks.txt - please review")
+	
 
 
 # COWBOY

@@ -21,9 +21,10 @@ local $git_cmd = "git log --shortstat --date=short | sed '/^commit/d' | sed '/^ 
 local %authors = {};
 
 &do_repo("");
-&do_repo("/deps/nitrogen_core");
-&do_repo("/deps/simple_bridge");
-&do_repo("/deps/nprocreg");
+&do_repo("nitrogen_core");
+&do_repo("simple_bridge");
+&do_repo("nprocreg");
+&do_repo("NitrogenProject.com");
 
 foreach $author (sort compare_date (keys(%authors))) {
 	print "$author\n" if not exists($filter{$author});

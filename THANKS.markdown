@@ -65,6 +65,9 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 + Josh Pyle
 + Niclas Axelsson
 + Evgeny M.
++ Boris Resnick
++ Piotr Nosek
++ Stefan Zegenhagen
 
 Roughly sorted by date of contribution. Send your twitter handles to
 [@jessegumm](http://twitter.com/jessevumm)

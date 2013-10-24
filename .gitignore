@@ -12,3 +12,4 @@ Quickstart/static/doc
 .*.sw?
 rel/rebar
 rel/overlay/common/rebar
+thanks.txt
