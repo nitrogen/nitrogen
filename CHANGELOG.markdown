@@ -1,5 +1,9 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.2.2 (In development)
+
+* Fix an infinite loop bug in `#mobile_grid`.
+
 ## Nitrogen 2.2.1
 
 * Add Secure Pickling with AES (the core of the operation inspired by N2O's
