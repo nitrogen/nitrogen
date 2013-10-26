@@ -41,14 +41,15 @@
 %%      include/
 %%          myplugin.hrl
 %%      
-%%      static/
-%%          js/
-%%              myplugin.js
-%%              jquery-some-plugin.js
-%%          images/
-%%              some_image.png
-%%          css/
-%%              myplugin.css
+%%      priv/
+%%          static/
+%%              js/
+%%                  myplugin.js
+%%                  jquery-some-plugin.js
+%%              images/
+%%                  some_image.png
+%%              css/
+%%                  myplugin.css
 %%
 %%
 %% When the plugin is processed, the following will be updated in your Nitrogen App
@@ -125,9 +126,16 @@ analyze_path(Path) ->
                     io:format("Found a Nitrogen plugin in ~p~n",[Path]),
                     IncludeDir = filename:join(Path,include),
                     StaticDir = filename:join(Path,static),
+                    PrivStaticDir = filename:join([Path,priv,static]),
 
                     Includes = analyze_path_include(IncludeDir),
-                    Statics = analyze_path_static(StaticDir),
+                    %% Originally, the plugin spec called for statics to be
+                    %% located in the "static" dir, however, it's more
+                    %% OTP-compliant to have statics to be located in
+                    %% "priv/static", so we support both here with StaticDir
+                    %% and PrivStaticDir
+                    Statics = analyze_path_static(StaticDir) 
+                              ++ analyze_path_static(PrivStaticDir),
                     {ok, Includes, Statics}
             end;
         false -> undefined
@@ -192,12 +200,20 @@ generate_plugin_static(Config, Statics) ->
 clear_plugin_static(PluginStaticBase) ->
     rm_rf(PluginStaticBase).
 
+plugin_name_from_static_path(PluginStatic) ->
+    PluginStaticParts = filename:split(PluginStatic),
+    case lists:reverse(PluginStaticParts) of
+        %% If the path is something like "deps/plugin_name/priv/static", we want "plugin_name"
+        ["static","priv",PluginName|_] -> PluginName;
+
+        %% If the path is "deps/plugin_name/static", then we want "plugin_name"
+        ["static",PluginName|_] -> PluginName
+    end.
 
 generate_plugin_static_worker(PluginBase,CopyMode, PluginStatic) ->
     %% Split the Plugin Static Dir into parts and extract the name of the plugin
     %% ie "lib/whatever/static" - the Plugin Name is "whatever"
-    PluginStaticParts = filename:split(PluginStatic),
-    PluginName = lists:nth(length(PluginStaticParts)-1,PluginStaticParts),
+    PluginName = plugin_name_from_static_path(PluginStatic),
 
    
     %% And we're going to copy it into our system's plugin static dir
