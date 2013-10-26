@@ -149,10 +149,10 @@ package_yaws_win:
 
 # PLATFORM-AGNOSTIC
 
+## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
 slim: compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
-	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
