@@ -55,7 +55,11 @@ thanks:
 	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
 	echo "Thanks file generated in thanks.txt - please review")
 	
+quickstart: rel_mochiweb rel_copy_quickstart
+	@(cd rel/nitrogen;$(MAKE))
 
+quickstart_win: rel_mochiweb_win rel_copy_quickstart
+	@(cd rel/nitrogen;$(MAKE))
 
 # COWBOY
 
@@ -256,9 +260,12 @@ rel_inner_win: generate erl_interface
 	@rm -rf rel/reltool.config rel/nitrogen/make_start_cmd.sh rel/nitrogen/start.cmd.src
 
 rel_copy_quickstart:
-	cp -R ../NitrogenProject.com/src/* rel/nitrogen/site/src
-	cp -R ../NitrogenProject.com/static/* rel/nitrogen/site/static
-	cp -R ../NitrogenProject.com/templates/* rel/nitrogen/site/templates
+	mkdir -p deps
+	(rm -fr deps/NitrogenProject.com)
+	(cd deps; git clone git://github.com/nitrogen/NitrogenProject.com.git)
+	cp -R deps/NitrogenProject.com/src/* rel/nitrogen/site/src
+	cp -R deps/NitrogenProject.com/static/* rel/nitrogen/site/static
+	cp -R deps/NitrogenProject.com/templates/* rel/nitrogen/site/templates
 	rm -rf rel/nitrogen/site/src/nitrogen_website.app.src
 	(cd rel/nitrogen; ln -s site/static static)
 	(cd rel/nitrogen; ln -s site/templates templates)
