@@ -156,21 +156,20 @@ package_yaws_win:
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
 slim: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
+	@(cd rel;cp reltool_base.config reltool.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
 
 rel: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
 	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
 
 rel_win: compile
 	@$(MAKE) clean_release
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_win.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_win.config)
 	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
@@ -236,6 +235,7 @@ erl_interface:
 
 rel_inner:
 	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
+	@(cd rel/nitrogen/etc; sed -i 's/BACKEND/$(PLATFORM)/' simple_bridge.config)
 	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
 	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
@@ -252,6 +252,7 @@ rel_inner_full: generate erl_interface rel_inner
 rel_inner_win: generate erl_interface
 	@(cd rel/nitrogen; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
 	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
+	@(cd rel/nitrogen/etc; sed -i 's/BACKEND/$(PLATFORM)/' simple_bridge.config)
 	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
 	@(cd rel/nitrogen; ./make_start_cmd.sh)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt

@@ -1,4 +1,5 @@
 %% -*- mode: nitrogen -*-
+%% vim: ts=4 sw=4 et
 -module(nitrogen_sup).
 -behaviour(supervisor).
 -export([
@@ -21,26 +22,8 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    %% Start the Process Registry...
+    application:start(crypto),
     application:start(nprocreg),
-
-    %% Start Mochiweb...
-    application:load(mochiweb),
-    {ok, BindAddress} = application:get_env(mochiweb, bind_address),
-    {ok, Port} = application:get_env(mochiweb, port),
-    {ok, ServerName} = application:get_env(mochiweb, server_name),
-    {ok, DocRoot} = application:get_env(mochiweb, document_root),
-
-    io:format("Starting Mochiweb Server (~s) on ~s:~p, root: '~s'~n", [ServerName, BindAddress, Port, DocRoot]),
-
-    % Start Mochiweb...
-    Options = [
-        {name, ServerName},
-        {ip, BindAddress}, 
-        {port, Port},
-        {loop, fun nitrogen_mochiweb:loop/1}
-    ],
-    mochiweb_http:start(Options),
+    application:start(simple_bridge),
 
     {ok, { {one_for_one, 5, 10}, []} }.
-
