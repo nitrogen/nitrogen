@@ -42,6 +42,9 @@
 %%          myplugin.hrl
 %%      
 %%      priv/
+%%          templates/
+%%              mytemplate.html
+%%
 %%          static/
 %%              js/
 %%                  myplugin.js
@@ -67,6 +70,9 @@
 %%                      some_image.png
 %%                  css/
 %%                      myplugin.css
+%%      templates/
+%%          plugins/
+%%              mytemplate.html
 %%
 %% (Note: The Erlang/Nitrogen Element code is not copied, it'll be loaded just
 %% like any rebar dependency's code)
@@ -76,18 +82,20 @@ main([]) ->
     RebarConfig = get_config("rebar.config"),
     PluginConfig = get_config("plugins.config"),
     DepDirs = proplists:get_value(deps_dir, RebarConfig, ["lib"]),
-    {Includes,Statics} = lists:foldl(fun(Dir, {Inc, Stat}) ->
-                            {ok, FoundIncludes, FoundStatics} = get_plugins(Dir),
-                            {FoundIncludes ++ Inc, FoundStatics ++ Stat}
-                         end, {[],[]}, DepDirs),
-    case {Includes, Statics} of
-        {[],[]} -> 
+    {Includes,Statics,Templates} = lists:foldl(fun(Dir, {Inc, Stat, Temp}) ->
+                            {ok, FoundIncludes, FoundStatics, FoundTemplates} = get_plugins(Dir),
+                            {FoundIncludes ++ Inc, FoundStatics ++ Stat, FoundTemplates ++ Temp}
+                        end, {[],[],[]}, DepDirs),
+    case {Includes, Statics, Templates} of
+        {[],[],[]} -> 
             io:format("No Nitrogen Plugins Found~n");
         _ ->
             io:format("Generating aggregate plugin header (plugins.hrl)~n"),
             generate_plugin_include(PluginConfig, Includes),
             io:format("Generating plugin static directories~n"),
             generate_plugin_static(PluginConfig, Statics),
+            io:format("Generating plugin template directories~n"),
+            generate_plugin_templates(PluginConfig, Templates),
             io:format("Plugin generation complete~n")
     end.
 
@@ -97,17 +105,17 @@ get_plugins(DepDir) ->
         {ok, F} -> F;
         {error, _} -> []
     end,
-    {Inc,Stat} = lists:foldl(fun(X,PluginInfo={Includes,Statics}) ->
+    {Inc,Stat,Temp} = lists:foldl(fun(X,PluginInfo={Includes,Statics,Templates}) ->
                     PluginPath = filename:join(DepDir,X),
                     case analyze_path(PluginPath) of
                         undefined ->
                             %% Not a plugin, so just continue
                             PluginInfo;
-                        {ok, FoundIncludes, FoundStatics} ->
-                            {FoundIncludes++Includes, FoundStatics++Statics}
+                        {ok, FoundIncludes, FoundStatics, FoundTemplates} ->
+                            {FoundIncludes++Includes, FoundStatics++Statics, FoundTemplates++Templates}
                     end
-                 end,{[],[]},Files),
-    {ok, Inc, Stat}.
+                end,{[],[],[]},Files),
+    {ok, Inc, Stat, Temp}.
                           
 get_config(File) ->
     case file:consult(File) of
@@ -127,6 +135,7 @@ analyze_path(Path) ->
                     IncludeDir = filename:join(Path,include),
                     StaticDir = filename:join(Path,static),
                     PrivStaticDir = filename:join([Path,priv,static]),
+                    TemplateDir = filename:join([Path,priv,templates]),
 
                     Includes = analyze_path_include(IncludeDir),
                     %% Originally, the plugin spec called for statics to be
@@ -134,9 +143,11 @@ analyze_path(Path) ->
                     %% OTP-compliant to have statics to be located in
                     %% "priv/static", so we support both here with StaticDir
                     %% and PrivStaticDir
-                    Statics = analyze_path_static(StaticDir) 
-                              ++ analyze_path_static(PrivStaticDir),
-                    {ok, Includes, Statics}
+                    Statics = analyze_path_exists_only(StaticDir) 
+                              ++ analyze_path_exists_only(PrivStaticDir),
+
+                    Templates = analyze_path_exists_only(TemplateDir),
+                    {ok, Includes, Statics, Templates}
             end;
         false -> undefined
     end.
@@ -160,7 +171,7 @@ filter_non_includes([File | Files]) ->
         nomatch -> filter_non_includes(Files)
     end.
 
-analyze_path_static(Path) ->
+analyze_path_exists_only(Path) ->
     case filelib:is_dir(Path) of
         false -> [];
         true -> [Path]
@@ -193,33 +204,30 @@ includify(Path) ->
 generate_plugin_static(Config, Statics) ->
     PluginStaticBase = proplists:get_value(static_dir, Config, "site/static/plugins"),
     CopyMode = proplists:get_value(copy_mode, Config, copy),
-    clear_plugin_static(PluginStaticBase),
+    clear_plugin_dir(PluginStaticBase),
     filelib:ensure_dir(filename:join(PluginStaticBase,dummy)),
-    [generate_plugin_static_worker(PluginStaticBase,CopyMode,Static) || Static <- Statics].
+    [generate_plugin_copy_worker(PluginStaticBase,CopyMode,Static) || Static <- Statics].
 
-clear_plugin_static(PluginStaticBase) ->
-    rm_rf(PluginStaticBase).
+clear_plugin_dir(Dir) ->
+    rm_rf(Dir).
 
 plugin_name_from_static_path(PluginStatic) ->
     PluginStaticParts = filename:split(PluginStatic),
     case lists:reverse(PluginStaticParts) of
-        %% If the path is something like "deps/plugin_name/priv/static", we want "plugin_name"
-        ["static","priv",PluginName|_] -> PluginName;
-
-        %% If the path is "deps/plugin_name/static", then we want "plugin_name"
-        ["static",PluginName|_] -> PluginName
+        ["templates","priv",PluginName|_]   -> PluginName;
+        ["templates",PluginName|_]          -> PluginName;
+        ["static","priv",PluginName|_]      -> PluginName;
+        ["static",PluginName|_]             -> PluginName
     end.
 
-generate_plugin_static_worker(PluginBase,CopyMode, PluginStatic) ->
+generate_plugin_copy_worker(PluginBase, CopyMode, PluginStatic) ->
     %% Split the Plugin Static Dir into parts and extract the name of the plugin
     %% ie "lib/whatever/static" - the Plugin Name is "whatever"
     PluginName = plugin_name_from_static_path(PluginStatic),
-
    
     %% And we're going to copy it into our system's plugin static dir
     %% (ie "site/static/plugins/whatever")
     FinalDestination = filename:join(PluginBase,PluginName),
-
 
     %% And let's copy or link them.
     case CopyMode of 
@@ -236,11 +244,19 @@ generate_plugin_static_worker(PluginBase,CopyMode, PluginStatic) ->
             filelib:ensure_dir(filename:join(FinalDestination,dummy)),
 
             %% And copy the directory
-            cp_r([PluginSource],FinalDestination);
+            try cp_r([PluginSource],FinalDestination)
+            catch _:_ -> ok  %% getting here usually just means that the source directory is empty
+            end;
         Other ->
             throw({invalid_copy_mode, Other})
     end.
 
+generate_plugin_templates(Config, Templates) ->
+    TemplateBase = proplists:get_value(template_dir, Config, "site/templates"),
+    CopyMode = proplists:get_value(copy_mode, Config, copy),
+    clear_plugin_dir(TemplateBase),
+    filelib:ensure_dir(filename:join(TemplateBase,dummy)),
+    [generate_plugin_copy_worker(TemplateBase, CopyMode, Template) || Template <- Templates].
 
 %% Because the symlink is relative, we need to make sure it includes the
 %% proper relative path prefix (ie, the right number of "../../../" to get us
