@@ -7,6 +7,8 @@
   `priv/static` instead of just `static` on the root of the plugin directory.
 * Plugins now support importing templates from `priv/templates`, added
   `template_dir` option to plugins.config
+* Modify `#checkbox` to render the HTML checkbox inside its associated label
+  for better semantics.
 
 ## Nitrogen 2.2.1
 
