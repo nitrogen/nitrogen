@@ -9,6 +9,7 @@
   `template_dir` option to plugins.config
 * Modify `#checkbox` to render the HTML checkbox inside its associated label
   for better semantics.
+* Bugfix for AES pickling when signkey specified is incorrect size for AES.
 
 ## Nitrogen 2.2.1
 
