@@ -1,5 +1,5 @@
 
-NITROGEN_VERSION=2.2.1
+NITROGEN_VERSION=2.2.2
 
 help:
 	@echo 
