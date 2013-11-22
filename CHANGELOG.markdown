@@ -10,6 +10,7 @@
 * Modify `#checkbox` to render the HTML checkbox inside its associated label
   for better semantics.
 * Bugfix for AES pickling when signkey specified is incorrect size for AES.
+* Update to SimpleBridge 1.4.0
 
 ## Nitrogen 2.2.1
 
