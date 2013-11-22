@@ -1,6 +1,6 @@
 # Nitrogen 2.x
 
-## Nitrogen 2.2.2 (In development)
+## Nitrogen 2.2.2
 
 * Fix an infinite loop bug in `#mobile_grid`.
 * Plugins now support more OTP-compliant static directory structure with
