@@ -163,6 +163,7 @@ slim: compile
 
 rel: compile
 	@$(MAKE) clean_release
+	@(cd rel;cp reltool_base.config reltool.config)
 	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
 	@echo Generated a self-contained Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
@@ -246,7 +247,8 @@ rel_inner_slim:
 	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) generate rel_inner PLATFORM=$(PLATFORM))
 
-rel_inner_full: generate erl_interface rel_inner
+rel_inner_full:
+	@($(MAKE) generate erl_interface rel_inner PLATFORM=$(PLATFORM))
 
 
 rel_inner_win: generate erl_interface
