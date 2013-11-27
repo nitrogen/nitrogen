@@ -13,3 +13,4 @@ Quickstart/static/doc
 rel/rebar
 rel/overlay/common/rebar
 thanks.txt
+deps/
