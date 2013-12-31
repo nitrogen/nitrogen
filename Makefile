@@ -265,7 +265,7 @@ rel_inner_win: generate erl_interface
 rel_copy_quickstart:
 	mkdir -p deps
 	(rm -fr deps/NitrogenProject.com)
-	(cd deps; git clone git://github.com/nitrogen/NitrogenProject.com.git)
+	(cd deps; git clone -b ws git://github.com/nitrogen/NitrogenProject.com.git)
 	cp -R deps/NitrogenProject.com/src/* rel/nitrogen/site/src
 	cp -R deps/NitrogenProject.com/static/* rel/nitrogen/site/static
 	cp -R deps/NitrogenProject.com/templates/* rel/nitrogen/site/templates

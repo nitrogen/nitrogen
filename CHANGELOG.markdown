@@ -1,5 +1,9 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.3 (In development)
+
+* Upgrade to Simple Bridge 2.0.0
+
 ## Nitrogen 2.2.2 (In development)
 
 * Fix an infinite loop bug in `#mobile_grid`.
