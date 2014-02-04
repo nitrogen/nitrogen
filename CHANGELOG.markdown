@@ -1,5 +1,9 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.2.3 (in development)
+
+* Fix the use of wf:qs/1 with `#dropdown{multiple=true}`
+
 ## Nitrogen 2.2.2
 
 * Fix an infinite loop bug in `#mobile_grid`.
