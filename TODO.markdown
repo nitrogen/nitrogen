@@ -4,13 +4,13 @@
 
 * Look into ErlyDTL integration as alternate templating engine
 * Websocket Support, possibly as alternative replacement for comet backends
-* Email integration with gen\_smtp and its own handler (mail\_handler?)
 * Integrated cache server and using cache\_handler
 * Elements that have to render text should throw a better error if passed
   nitrogen elements/tuples
 * Test suite for `nitrogen_core`, probably using NitrogenProject.com's demos
-  section as the main test, and integrating it with javascript testing. This
-  will ensure many of the elements succeed in rendering without crashing.
+  section combined with the tool Selenium as the main test, and integrating it
+  with javascript testing. This will ensure many of the elements succeed in
+  rendering without crashing.
 
 ## Elements
 

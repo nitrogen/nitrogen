@@ -1,8 +1,25 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.3.0 (in development)
+
+* Upgrade to SimpleBridge 2.0 **(in progress)**:
+  + Eliminate platform-specific code in Nitrogen, relying completely on
+    SimpleBridge for setting up underlying server.
+  + Add websockets as an alternative connection mode for `wf:comet` and its
+    siblings as well as, if available, used in place of ajax for postbacks.
+* Add `#sync_panel` element, which for simple real-time content
+  synchronization.
+* Allow validation to be applied to `#radiogroup` element.
+* Add `body` to `#radio`
+* Add minified versions of included javascript versions as well as non-minified
+  versions.
+
 ## Nitrogen 2.2.3 (in development)
 
 * Fix the use of wf:qs/1 with `#dropdown{multiple=true}`
+* Improve a handful of error messages (comet pool unexpected death and action
+  module failing to load).
+* Fix default configuration for Yaws to allow larger POST values
 
 ## Nitrogen 2.2.2
 
