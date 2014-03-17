@@ -10,9 +10,11 @@
 * Add `#sync_panel` element, which for simple real-time content
   synchronization.
 * Allow validation to be applied to `#radiogroup` element.
-* Add `body` to `#radio`
+* Add `body` to `#radio` and `#restful_submit` (Stuart Thackray)
+* Add `button_class` to `#recaptcha{}` (Stuary Thackray)
 * Add minified versions of included javascript versions as well as non-minified
   versions.
+* Fix issue with POST size in Yaws (Steve Vinoski)
 
 ## Nitrogen 2.2.3 (in development)
 
