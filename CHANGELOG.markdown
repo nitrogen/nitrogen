@@ -9,6 +9,8 @@
     siblings as well as, if available, used in place of ajax for postbacks.
 * Add `#sync_panel` element, which for simple real-time content
   synchronization.
+* Add `html_id` and `title` attributes to all elements, corresponding with the
+  HTML `id` and `title` attributes (@fooflare)
 * Allow validation to be applied to `#radiogroup` element.
 * Add `body` to `#radio` and `#restful_submit` (Stuart Thackray)
 * Add `button_class` to `#recaptcha{}` (Stuary Thackray)
