@@ -4,7 +4,7 @@
     "deps"
 ]}.
 
-{require_otp_vsn, "R15|R16"}.
+{require_otp_vsn, "R15|R16|17"}.
 
 {cover_enabled, true}.
 
