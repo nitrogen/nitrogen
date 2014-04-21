@@ -7,19 +7,21 @@
     SimpleBridge for setting up underlying server.
   + Add websockets as an alternative connection mode for `wf:comet` and its
     siblings as well as, if available, used in place of ajax for postbacks.
-* Add `#sync_panel` element, which for simple real-time content
+* Add `#sync_panel` element, which allows for simple real-time content
   synchronization.
 * Add `html_id` and `title` attributes to all elements, corresponding with the
   HTML `id` and `title` attributes (@fooflare)
+* Normalize the `next` attribute on input elements to use tab instead of enter,
+  and also add `next` to elements where it was previously missing (with help
+  from Stuart Thackray)
 * Allow validation to be applied to `#radiogroup` element.
 * Add `body` to `#radio` and `#restful_submit` (Stuart Thackray)
 * Add `button_class` to `#recaptcha{}` (Stuary Thackray)
 * Add minified versions of included javascript versions as well as non-minified
   versions.
+* Fix rendering bug in `#upload` when it would start hidden by CSS.
 * Fix issue with POST size in Yaws (Steve Vinoski)
-
-## Nitrogen 2.2.3 (in development)
-
+* Updated to work with Erlang/OTP 17.0
 * Fix the use of wf:qs/1 with `#dropdown{multiple=true}`
 * Improve a handful of error messages (comet pool unexpected death and action
   module failing to load).
