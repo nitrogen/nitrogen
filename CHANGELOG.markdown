@@ -18,6 +18,9 @@
 * Add `trap_tabs` attribute to `#textarea` to allow user to specify if the tab
   key should move focus to the next element (default behavior) or insert a tab
   into the textarea.
+* Add a helper script for fixing a Nitrogen slim release if the version of
+  Erlang installed on the machine and the version of Erlang the slim release
+  depends on are different.
 * Add `body` to `#radio` and `#restful_submit` (Stuart Thackray)
 * Add `button_class` to `#recaptcha{}` (Stuary Thackray)
 * Add minified versions of included javascript versions as well as non-minified

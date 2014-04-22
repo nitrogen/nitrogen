@@ -1,3 +1,5 @@
+.PHONY: fix-slim-release
+
 all: get-deps plugins compile
 
 cookie:
@@ -19,6 +21,11 @@ copy-static:
 
 plugins:
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH;escript do-plugins.escript)
+
+## This is only applicable for slim releases
+fix-slim-release:
+	@echo Fixing slim release to the version of Erlang installed on this machine
+	@(./fix-slim-release)
 
 DEPS_PLT=$(CURDIR)/.deps_plt
 DEPS=erts kernel stdlib sasl nitrogen_core simple_bridge sync nprocreg
