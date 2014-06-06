@@ -20,6 +20,9 @@
   into the textarea.
 * Add a helper script for fixing a Nitrogen slim release if the version of
   Erlang installed on the machine and the version of Erlang the slim release
+* Updated `wf:html_encode` to be more flexible (preventing crashes when a user
+  accidentally puts tuples, records, or anything else in an element's `text`
+  field). Also added some tests for `html_encode`. (First of many?)
   depends on are different.
 * Add `body` to `#radio` and `#restful_submit` (Stuart Thackray)
 * Add `button_class` to `#recaptcha{}` (Stuary Thackray)
