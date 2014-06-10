@@ -9,6 +9,7 @@
     siblings as well as, if available, used in place of ajax for postbacks.
 * Add `#sync_panel` element, which allows for simple real-time content
   synchronization.
+* Add `#qr` element for simple QR code generation.
 * Add `html_id` and `title` attributes to all elements, corresponding with the
   HTML `id` and `title` attributes (@fooflare)
 * Normalize the `next` attribute on input elements to use tab instead of enter,
@@ -18,6 +19,11 @@
 * Add `trap_tabs` attribute to `#textarea` to allow user to specify if the tab
   key should move focus to the next element (default behavior) or insert a tab
   into the textarea.
+* Add `wf:to_qs/1` function for converting a proplist of elements into a
+  URL-encoded querystring.
+* Add `wf:protocol/0` function to retrieve the protocol used (http or https)
+* Add `wf:url/0` function to get the full request path, including protocol and
+  host name.
 * Add a helper script for fixing a Nitrogen slim release if the version of
   Erlang installed on the machine and the version of Erlang the slim release
 * Updated `wf:html_encode` to be more flexible (preventing crashes when a user
