@@ -9,6 +9,7 @@ technology stack.
 See the [Nitrogen Project website](http://nitrogenproject.com) for
 additional information.
 
+
 ## Getting Started
 
 Follow the tutorial at
@@ -33,6 +34,10 @@ $ gmake rel_cowboy
 Instructions for building on windows can be found in [rel/overlay/win](https://github.com/nitrogen/nitrogen/blob/master/rel/overlay/win/README.md)
 
 ## Want to contribute?
+
+[nitrogen_core](https://github.com/nitrogen/nitrogen_core) is where you would
+find the vast majority of Nitrogen's codebase, should you wish to contribute or
+make changes.
 
 Read our [contribution
 guidelines](https://github.com/nitrogen/nitrogen/blob/master/CONTRIB.markdown)

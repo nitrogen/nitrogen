@@ -4,6 +4,7 @@ coverage
 .hgignore
 *.beam
 rel/nitrogen
+deps/
 TAGS
 builds
 Quickstart/static/nitrogen

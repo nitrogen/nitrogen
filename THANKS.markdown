@@ -68,6 +68,8 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 + Boris Resnick
 + Piotr Nosek
 + Stefan Zegenhagen
++ Mehmet Emin Tok
++ Stuart Thackray
 
 Roughly sorted by date of contribution. Send your twitter handles to
 [@jessegumm](http://twitter.com/jessevumm)

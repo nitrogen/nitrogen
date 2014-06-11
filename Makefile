@@ -1,5 +1,5 @@
 
-NITROGEN_VERSION=2.2.1
+NITROGEN_VERSION=2.2.2
 
 help:
 	@echo 
@@ -156,7 +156,7 @@ package_yaws_win:
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
 slim: compile
 	@$(MAKE) clean_release
-	@(cd rel;cp reltool_base.config reltool.config)
+	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_slim.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
 	@echo Generated a slim-release Nitrogen project
 	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
@@ -221,6 +221,9 @@ R15B03: R15B02
 R16B: R15B02
 R16B01: R16B
 R16B02: R16B
+R16B03: R16B
+R16B03-1: R16B
+17: R16B
 
 # SHARED
 
