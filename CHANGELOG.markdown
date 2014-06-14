@@ -5,42 +5,48 @@
 * Upgrade to SimpleBridge 2.0 **(in progress)**:
   + Eliminate platform-specific code in Nitrogen, relying completely on
     SimpleBridge for setting up underlying server.
-  + Add websockets as an alternative connection mode for `wf:comet` and its
+  + Added websockets as an alternative connection mode for `wf:comet` and its
     siblings as well as, if available, used in place of ajax for postbacks.
-* Add `#sync_panel` element, which allows for simple real-time content
+* Added `#sync_panel` element, which allows for simple real-time content
   synchronization.
-* Add `#qr` element for simple QR code generation.
-* Add `html_id` and `title` attributes to all elements, corresponding with the
-  HTML `id` and `title` attributes (@fooflare)
+* Added `#qr` element for simple QR code generation.
+* Added `html_id` and `title` attributes to all elements, corresponding with
+  the HTML `id` and `title` attributes (@fooflare)
 * Normalize the `next` attribute on input elements to use tab instead of enter,
   and also add `next` to elements where it was previously missing (with help
   from Stuart Thackray)
 * Allow validation to be applied to `#radiogroup` element.
-* Add `trap_tabs` attribute to `#textarea` to allow user to specify if the tab
+* Added `unless_has_value` option to the `#is_required` validator, which links
+  multiple fields together, allowing options such as "Please enter either
+  FieldX or FieldY".
+* Added `when_empty` attribute to the `#js_custom` validator, giving the option
+  to validate a custom javascript validator even if the value is empty.
+* Added `trap_tabs` attribute to `#textarea` to allow user to specify if the tab
   key should move focus to the next element (default behavior) or insert a tab
   into the textarea.
-* Add `wf:to_qs/1` function for converting a proplist of elements into a
+* Added `wf:to_qs/1` function for converting a proplist of elements into a
   URL-encoded querystring.
-* Add `wf:protocol/0` function to retrieve the protocol used (http or https)
-* Add `wf:url/0` function to get the full request path, including protocol and
-  host name.
-* Add a helper script for fixing a Nitrogen slim release if the version of
+* Added `wf:protocol/0` function to retrieve the protocol used (http or https)
+* Added `wf:url/0` function to get the full request path, including protocol
+  and host name.
+* Added a helper script for fixing a Nitrogen slim release if the version of
   Erlang installed on the machine and the version of Erlang the slim release
 * Updated `wf:html_encode` to be more flexible (preventing crashes when a user
   accidentally puts tuples, records, or anything else in an element's `text`
   field). Also added some tests for `html_encode`. (First of many?)
   depends on are different.
-* Add `body` to `#radio` and `#restful_submit` (Stuart Thackray)
-* Add `button_class` to `#recaptcha{}` (Stuary Thackray)
-* Add minified versions of included javascript versions as well as non-minified
+* Added `body` to `#radio` and `#restful_submit` (Stuart Thackray)
+* Added `button_class` to `#recaptcha{}` (Stuary Thackray)
+* Added minified versions of included javascript versions as well as
+  non-minified
   versions.
-* Fix rendering bug in `#upload` when it would start hidden by CSS.
-* Fix issue with POST size in Yaws (Steve Vinoski)
+* Fixed rendering bug in `#upload` when it would start hidden by CSS.
+* Fixed issue with POST size in Yaws (Steve Vinoski)
 * Updated to work with Erlang/OTP 17.0
-* Fix the use of wf:qs/1 with `#dropdown{multiple=true}`
+* Fixed the use of wf:qs/1 with `#dropdown{multiple=true}`
 * Improve a handful of error messages (comet pool unexpected death and action
   module failing to load).
-* Fix default configuration for Yaws to allow larger POST values
+* Fixed default configuration for Yaws to allow larger POST values
 
 ## Nitrogen 2.2.2
 
