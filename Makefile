@@ -1,6 +1,9 @@
 
 NITROGEN_VERSION=2.2.2
 
+# If project name is not provided, just use 'nitrogen'
+PROJECT?=nitrogen
+
 help:
 	@echo 
 	@echo "Usage: "
@@ -17,7 +20,11 @@ help:
 	@echo "       $(MAKE) rel_inets_win"
 	@echo "       $(MAKE) rel_mochiweb_win"
 	@echo "       $(MAKE) rel_webmachine_win"
-	@echo 
+	@echo
+	@echo "To customize your project's name, add PROJECT=projectname"
+	@echo "Example:"
+	@echo "       $(MAKE) slim_yaws PROJECT=my_project"
+	@echo
 	@echo "To install the helper script on linux/unix machines"
 	@echo "which allows you to invoke "nitrogen" or "dev" from any"
 	@echo "directory in a Nitrogen installation."
@@ -64,91 +71,91 @@ quickstart_win: rel_mochiweb_win rel_copy_quickstart
 # COWBOY
 
 slim_cowboy:
-	@($(MAKE) slim PLATFORM=cowboy)
+	@($(MAKE) slim PLATFORM=cowboy PROJECT=$(PROJECT))
 
 rel_cowboy:
-	@($(MAKE) rel PLATFORM=cowboy)
+	@($(MAKE) rel PLATFORM=cowboy PROJECT=$(PROJECT))
 
 rel_cowboy_win:
-	@($(MAKE) rel_win PLATFORM=cowboy)
+	@($(MAKE) rel_win PLATFORM=cowboy PROJECT=$(PROJECT))
 
 package_cowboy: 
-	@($(MAKE) package PLATFORM=cowboy)
+	@($(MAKE) package PLATFORM=cowboy PROJECT=$(PROJECT))
 
 package_cowboy_win:
-	@($(MAKE) package_win PLATFORM=cowboy)
+	@($(MAKE) package_win PLATFORM=cowboy PROJECT=$(PROJECT))
 
 
 # INETS
 
 slim_inets:
-	@($(MAKE) slim PLATFORM=inets)
+	@($(MAKE) slim PLATFORM=inets PROJECT=$(PROJECT))
 
 rel_inets:
-	@($(MAKE) rel PLATFORM=inets)
+	@($(MAKE) rel PLATFORM=inets PROJECT=$(PROJECT))
 
 rel_inets_win:
-	@($(MAKE) rel_win PLATFORM=inets)
+	@($(MAKE) rel_win PLATFORM=inets PROJECT=$(PROJECT))
 
 package_inets: 
-	@($(MAKE) package PLATFORM=inets)
+	@($(MAKE) package PLATFORM=inets PROJECT=$(PROJECT))
 
 package_inets_win:
-	@($(MAKE) package_win PLATFORM=inets)
+	@($(MAKE) package_win PLATFORM=inets PROJECT=$(PROJECT))
 
 
 # MOCHIWEB
 
 slim_mochiweb:
-	@($(MAKE) slim PLATFORM=mochiweb)
+	@($(MAKE) slim PLATFORM=mochiweb PROJECT=$(PROJECT))
 
 rel_mochiweb:
-	@($(MAKE) rel PLATFORM=mochiweb)
+	@($(MAKE) rel PLATFORM=mochiweb PROJECT=$(PROJECT))
 
 rel_mochiweb_win:
-	@($(MAKE) rel_win PLATFORM=mochiweb)
+	@($(MAKE) rel_win PLATFORM=mochiweb PROJECT=$(PROJECT))
 
 package_mochiweb: 
-	@($(MAKE) package PLATFORM=mochiweb)
+	@($(MAKE) package PLATFORM=mochiweb PROJECT=$(PROJECT))
 
 package_mochiweb_win:
-	@($(MAKE) package_win PLATFORM=mochiweb)
+	@($(MAKE) package_win PLATFORM=mochiweb PROJECT=$(PROJECT))
 
 
 # WEBMACHINE
 
 slim_webmachine:
-	@($(MAKE) slim PLATFORM=webmachine)
+	@($(MAKE) slim PLATFORM=webmachine PROJECT=$(PROJECT))
 
 rel_webmachine:
-	@($(MAKE) rel PLATFORM=webmachine)
+	@($(MAKE) rel PLATFORM=webmachine PROJECT=$(PROJECT))
 
 rel_webmachine_win:
-	@($(MAKE) rel_win PLATFORM=webmachine)
+	@($(MAKE) rel_win PLATFORM=webmachine PROJECT=$(PROJECT))
 
 package_webmachine: 
-	@($(MAKE) package PLATFORM=webmachine)
+	@($(MAKE) package PLATFORM=webmachine PROJECT=$(PROJECT))
 
 package_webmachine_win:
-	@($(MAKE) package_win PLATFORM=webmachine)
+	@($(MAKE) package_win PLATFORM=webmachine PROJECT=$(PROJECT))
 
 
 # YAWS
 
 slim_yaws:
-	@($(MAKE) slim PLATFORM=yaws)
+	@($(MAKE) slim PLATFORM=yaws PROJECT=$(PROJECT))
 
 rel_yaws:
-	@($(MAKE) rel PLATFORM=yaws)
+	@($(MAKE) rel PLATFORM=yaws PROJECT=$(PROJECT))
 
 rel_yaws_win:
-	@($(MAKE) rel_win PLATFORM=yaws)
+	@($(MAKE) rel_win PLATFORM=yaws PROJECT=$(PROJECT))
 
 package_yaws: 
-	@($(MAKE) package PLATFORM=yaws)
+	@($(MAKE) package PLATFORM=yaws PROJECT=$(PROJECT))
 
 package_yaws_win:
-	@($(MAKE) package_win PLATFORM=yaws)
+	@($(MAKE) package_win PLATFORM=yaws PROJECT=$(PROJECT))
 
 
 # PLATFORM-AGNOSTIC
@@ -158,34 +165,37 @@ slim: compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_slim.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
+	@(mv rel/nitrogen rel/$(PROJECT))
 	@echo Generated a slim-release Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
+	@echo in 'rel/$(PROJECT)', configured to run on $(PLATFORM).
 
 rel: compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
 	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
+	@(mv rel/nitrogen rel/$(PROJECT))
 	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
+	@echo in 'rel/$(PROJECT)', configured to run on $(PLATFORM).
 
 rel_win: compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_win.config)
 	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
+	@(mv rel/nitrogen rel/$(PROJECT))
 	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/nitrogen', configured to run on $(PLATFORM).
+	@echo in 'rel/$(PROJECT)', configured to run on $(PLATFORM).
 
 package: rel
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar cf ./builds/nitrogen-${NITROGEN_VERSION}-$(PLATFORM).tar -C rel nitrogen
-	gzip --best ./builds/nitrogen-${NITROGEN_VERSION}-$(PLATFORM).tar 
+	tar cf ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar -C rel $(PROJECT)
+	gzip --best ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar 
 
 package_win: rel_win copy_docs
 	mkdir -p ./builds
 	$(MAKE) copy_docs
-	7za a -r -tzip ./builds/nitrogen-${NITROGEN_VERSION}-$(PLATFORM)-win.zip ./rel/nitrogen/
-	rm -fr ./rel/nitrogen
+	7za a -r -tzip ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM)-win.zip ./rel/$(PROJECT)/
+	rm -fr ./rel/$(PROJECT)
 
 # MASS PACKAGING - Produce packages for all servers
 
