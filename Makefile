@@ -3,6 +3,7 @@ NITROGEN_VERSION=2.2.2
 
 # If project name is not provided, just use 'nitrogen'
 PROJECT?=nitrogen
+PREFIX?=./rel
 
 help:
 	@echo 
@@ -160,42 +161,48 @@ package_yaws_win:
 
 # PLATFORM-AGNOSTIC
 
+move_release:
+ifneq ("$(PREFIX)/$(PROJECT)", "./rel/nitrogen")
+	@(mv ./rel/nitrogen $(PREFIX)/$(PROJECT))
+endif
+
+
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
 slim: compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_slim.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
-	@(mv rel/nitrogen rel/$(PROJECT))
+	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
 	@echo Generated a slim-release Nitrogen project
-	@echo in 'rel/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
 
 rel: compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
 	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
-	@(mv rel/nitrogen rel/$(PROJECT))
+	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
 	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
 
 rel_win: compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_win.config)
 	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
-	@(mv rel/nitrogen rel/$(PROJECT))
+	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
 	@echo Generated a self-contained Nitrogen project
-	@echo in 'rel/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
 
 package: rel
 	mkdir -p ./builds
 	$(MAKE) link_docs
-	tar cf ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar -C rel $(PROJECT)
+	tar cf ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar -C $(PREFIX) $(PROJECT)
 	gzip --best ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar 
 
 package_win: rel_win copy_docs
 	mkdir -p ./builds
 	$(MAKE) copy_docs
-	7za a -r -tzip ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM)-win.zip ./rel/$(PROJECT)/
-	rm -fr ./rel/$(PROJECT)
+	7za a -r -tzip ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM)-win.zip $(PREFIX)/$(PROJECT)/
+	rm -fr $(PREFIX)/$(PROJECT)
 
 # MASS PACKAGING - Produce packages for all servers
 
