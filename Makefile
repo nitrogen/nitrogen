@@ -1,9 +1,9 @@
 
 NITROGEN_VERSION=2.2.2
 
-# If project name is not provided, just use 'nitrogen'
-PROJECT?=nitrogen
-PREFIX?=./rel
+# If project name is not provided, just use 'myapp'
+PROJECT?=myapp
+PREFIX?=..
 
 help:
 	@echo 
@@ -166,31 +166,48 @@ ifneq ("$(PREFIX)/$(PROJECT)", "./rel/nitrogen")
 	@(mv ./rel/nitrogen $(PREFIX)/$(PROJECT))
 endif
 
+check_exists:
+	@(test ! \( -e "$(PREFIX)/$(PROJECT)" \) || { echo "\n\
+********************************************************************************\n\
+ERROR: $(PREFIX)/$(PROJECT) exists.\n\
+\n\
+Please re-specify a project name with PROJECT=projectname and/or\n\
+an installation directory with PREFIX=/path\n\
+\n\
+Exiting...\n\
+********************************************************************************\n"; exit 1; })
+
 
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
-slim: compile
+slim: check_exists compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_slim.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
+	@echo "********************************************************************************"
 	@echo Generated a slim-release Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo "********************************************************************************"
 
-rel: compile
+rel: check_exists compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
 	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
+	@echo "********************************************************************************"
 	@echo Generated a self-contained Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo "********************************************************************************"
 
-rel_win: compile
+rel_win: check_exists compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_win.config)
 	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
+	@echo "********************************************************************************"
 	@echo Generated a self-contained Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo "********************************************************************************"
 
 package: rel
 	mkdir -p ./builds
