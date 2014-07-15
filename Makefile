@@ -63,11 +63,13 @@ thanks:
 	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
 	echo "Thanks file generated in thanks.txt - please review")
 	
-quickstart: rel_mochiweb rel_copy_quickstart
-	@(cd rel/nitrogen;$(MAKE))
+quickstart: rel_mochiweb
+	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")	
+	@(cd "$(PREFIX)/nitrogenproject_com;$(MAKE))
 
 quickstart_win: rel_mochiweb_win rel_copy_quickstart
-	@(cd rel/nitrogen;$(MAKE))
+	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
+	@(cd "$(PREFIX)/nitrogenproject_com";$(MAKE))
 
 # COWBOY
 
@@ -183,6 +185,7 @@ slim: check_exists compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_slim.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
+	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
 	@echo "********************************************************************************"
 	@echo Generated a slim-release Nitrogen project
@@ -193,6 +196,7 @@ rel: check_exists compile
 	@$(MAKE) clean_release
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
 	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
+	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
 	@echo "********************************************************************************"
 	@echo Generated a self-contained Nitrogen project
@@ -217,7 +221,6 @@ package: rel
 
 package_win: rel_win copy_docs
 	mkdir -p ./builds
-	$(MAKE) copy_docs
 	7za a -r -tzip ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM)-win.zip $(PREFIX)/$(PROJECT)/
 	rm -fr $(PREFIX)/$(PROJECT)
 
@@ -232,11 +235,11 @@ clean_docs:
 
 copy_docs: clean_docs
 	@(echo "Copying Documentation to the release")
-	@(cd rel/nitrogen; cp -r lib/nitrogen_core/doc .; cd doc; rm *.pl *.html)
+	@(cd "$(PREFIX)/$(PROJECT)"; cp -r lib/nitrogen_core/doc .; cd doc; rm *.pl *.html)
 
 link_docs: clean_docs
 	@(echo "Linking Documentation in the release")
-	@(cd rel/nitrogen; ln -s lib/nitrogen_core/doc doc)
+	@(cd "$(PREFIX)/$(PROJECT)"; ln -s lib/nitrogen_core/doc doc)
 
 # TRAVIS-CI STUFF
 
@@ -274,10 +277,10 @@ erl_interface:
 rel_inner:
 	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
 	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
-	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
-	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
-	@uname -v >> rel/nitrogen/BuildInfo.txt
-	@rm -rf rel/reltool.config	
+	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > "rel/nitrogen/BuildInfo.txt"
+	@echo "Built On (uname -v):" >> "rel/nitrogen/BuildInfo.txt"
+	@uname -v >> "rel/nitrogen/BuildInfo.txt"
+	@rm -rf rel/reltool.config
 
 rel_inner_slim:
 	@(cd rel; ./make_slim.escript reltool.config)
@@ -285,27 +288,30 @@ rel_inner_slim:
 
 rel_inner_full: generate erl_interface rel_inner
 
-
 rel_inner_win: generate erl_interface
-	@(cd rel/nitrogen; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
+	@(cd "rel/nitrogen"; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
 	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
-	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
-	@(cd rel/nitrogen; ./make_start_cmd.sh)
-	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > rel/nitrogen/BuildInfo.txt
-	@echo "Built On (uname -v):" >> rel/nitrogen/BuildInfo.txt
-	@uname -v >> rel/nitrogen/BuildInfo.txt
-	@rm -rf rel/reltool.config rel/nitrogen/make_start_cmd.sh rel/nitrogen/start.cmd.src
+	@(cd "rel/nitrogen"; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
+	@(cd "rel/nitrogen"; ./make_start_cmd.sh)
+	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > "rel/nitrogen/BuildInfo.txt"
+	@echo "Built On (uname -v):" >> "rel/nitrogen/BuildInfo.txt"
+	@uname -v >> "rel/nitrogen/BuildInfo.txt"
+	@rm -rf rel/reltool.config "rel/nitrogen/make_start_cmd.sh" "rel/nitrogen/start.cmd.src"
+
+replace_project_name:
+	@(sed -i 's/{{PROJECT}}/$(PROJECT)/g' rel/nitrogen/etc/vm.args)
 
 rel_copy_quickstart:
 	mkdir -p deps
 	(rm -fr deps/NitrogenProject.com)
 	(cd deps; git clone git://github.com/nitrogen/NitrogenProject.com.git)
-	cp -R deps/NitrogenProject.com/src/* rel/nitrogen/site/src
-	cp -R deps/NitrogenProject.com/static/* rel/nitrogen/site/static
-	cp -R deps/NitrogenProject.com/templates/* rel/nitrogen/site/templates
-	rm -rf rel/nitrogen/site/src/nitrogen_website.app.src
-	(cd rel/nitrogen; ln -s site/static static)
-	(cd rel/nitrogen; ln -s site/templates templates)
+	cp -R deps/NitrogenProject.com/src/* "$(PREFIX)/$(PROJECT)/site/src"
+	cp -R deps/NitrogenProject.com/static/* "$(PREFIX)/$(PROJECT)/site/static"
+	cp -R deps/NitrogenProject.com/templates/* "$(PREFIX)/$(PROJECT)/site/templates"
+	rm -rf "$(PREFIX)/$(PROJECT)/site/src/nitrogen_website.app.src"
+	(cd "$(PREFIX)/$(PROJECT)"; ln -s site/static static)
+	(cd "$(PREFIX)/$(PROJECT)"; ln -s site/templates templates)
+
 
 rellink:  
 	$(foreach app,$(wildcard deps/*), rm -rf rel/nitrogen/lib/$(shell basename $(app))* && ln -sf $(abspath $(app)) rel/nitrogen/lib;)
