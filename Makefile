@@ -247,13 +247,35 @@ ERLANG_VERSION_CHECK := erl -eval "io:format(\"~s\",[erlang:system_info(otp_rele
 ERLANG_VERSION = $(shell $(ERLANG_VERSION_CHECK))
 
 # This is primarily for Travis build testing, as each build instruction will overwrite the previous
-travis: $(ERLANG_VERSION)
+travis:
+	$(MAKE) $(ERLANG_VERSION) PREFIX=rel PROJECT=nitrogen
 
-R14B02: rel_inets rel_yaws rel_mochiweb rel_webmachine
+R14B02:
+	$(MAKE) rel_inets
+	$(MAKE) clean_release
+	$(MAKE) rel_yaws
+	$(MAKE) clean_release
+	$(MAKE) rel_mochiweb
+	$(MAKE) clean_release
+	$(MAKE) rel_webmachine
+	$(MAKE) clean_release
 R14B03: R14B02
-R15B: R14B02 rel_cowboy
+R15B: R14B02
+	$(MAKE) rel_cowboy
+	$(MAKE) clean_release
+
 R15B01: R15B
-R15B02: R15B slim_cowboy slim_inets slim_yaws slim_mochiweb slim_webmachine
+R15B02: R15B
+	$(MAKE) slim_inets
+	$(MAKE) clean_release
+	$(MAKE) slim_cowboy
+	$(MAKE) clean_release
+	$(MAKE) slim_yaws
+	$(MAKE) clean_release
+	$(MAKE) slim_mochiweb
+	$(MAKE) clean_release
+	$(MAKE) slim_webmachine
+	$(MAKE) clean_release
 R15B03: R15B02
 R16B: R15B02
 R16B01: R16B
