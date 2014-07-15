@@ -1,6 +1,6 @@
 
 ## Name of the nitrogen node
--name nitrogen@127.0.0.1
+-name {{PROJECT}}@127.0.0.1
 
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
