@@ -164,7 +164,8 @@ package_yaws_win:
 # PLATFORM-AGNOSTIC
 
 move_release:
-ifneq ("$(PREFIX)/$(PROJECT)", "./rel/nitrogen")
+ifneq ($(shell readlink -f "$(PREFIX)/$(PROJECT)"), $(shell readlink -f "rel/nitrogen"))
+	@(mkdir $(shell dirname "$(PREFIX)/$(PROJECT)"))
 	@(mv ./rel/nitrogen $(PREFIX)/$(PROJECT))
 endif
 
@@ -183,6 +184,9 @@ Exiting...\n\
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
 slim: check_exists compile
 	@$(MAKE) clean_release
+	@echo "********************************************************************************"
+	@echo "Creating slim release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "********************************************************************************"
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_slim.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
 	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
@@ -194,6 +198,9 @@ slim: check_exists compile
 
 rel: check_exists compile
 	@$(MAKE) clean_release
+	@echo "********************************************************************************"
+	@echo "Creating full release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "********************************************************************************"
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config)
 	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
 	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
@@ -205,6 +212,9 @@ rel: check_exists compile
 
 rel_win: check_exists compile
 	@$(MAKE) clean_release
+	@echo "********************************************************************************"
+	@echo "Creating full Windows release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "********************************************************************************"
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_$(PLATFORM).config reltool_win.config)
 	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
