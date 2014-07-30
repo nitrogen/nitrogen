@@ -26,6 +26,9 @@
   into the textarea.
 * Added `wf:to_qs/1` function for converting a proplist of elements into a
   URL-encoded querystring.
+* Added `wf:download_as/1` convenience function for specifying the
+  Content-Disposition header so the client will download a page with specified
+  filename.
 * Added `wf:protocol/0` function to retrieve the protocol used (http or https)
 * Added `wf:url/0` function to get the full request path, including protocol
   and host name.
