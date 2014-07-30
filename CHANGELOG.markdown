@@ -7,6 +7,9 @@
     SimpleBridge for setting up underlying server.
   + Added websockets as an alternative connection mode for `wf:comet` and its
     siblings as well as, if available, used in place of ajax for postbacks.
+* Update the build process to support `	PROJECT` and `PREFIX` variables to
+  create a new project. By default, the build process (`make rel_X` without any
+  variables specified) will create the app at `../myapp`.
 * Added `#sync_panel` element, which allows for simple real-time content
   synchronization.
 * Added `#qr` element for simple QR code generation.
