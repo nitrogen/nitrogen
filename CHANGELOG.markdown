@@ -7,6 +7,9 @@
     SimpleBridge for setting up underlying server.
   + Added websockets as an alternative connection mode for `wf:comet` and its
     siblings as well as, if available, used in place of ajax for postbacks.
+* Update the build process to support `	PROJECT` and `PREFIX` variables to
+  create a new project. By default, the build process (`make rel_X` without any
+  variables specified) will create the app at `../myapp`.
 * Added `#sync_panel` element, which allows for simple real-time content
   synchronization.
 * Added `#qr` element for simple QR code generation.
@@ -26,6 +29,9 @@
   into the textarea.
 * Added `wf:to_qs/1` function for converting a proplist of elements into a
   URL-encoded querystring.
+* Added `wf:download_as/1` convenience function for specifying the
+  Content-Disposition header so the client will download a page with specified
+  filename.
 * Added `wf:protocol/0` function to retrieve the protocol used (http or https)
 * Added `wf:url/0` function to get the full request path, including protocol
   and host name.

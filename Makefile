@@ -165,7 +165,7 @@ package_yaws_win:
 
 move_release:
 ifneq ($(shell readlink -f "$(PREFIX)/$(PROJECT)"), $(shell readlink -f "rel/nitrogen"))
-	@(mkdir $(shell dirname "$(PREFIX)/$(PROJECT)"))
+	@(mkdir -p $(shell dirname "$(PREFIX)/$(PROJECT)"))
 	@(mv ./rel/nitrogen $(PREFIX)/$(PROJECT))
 endif
 
