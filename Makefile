@@ -163,8 +163,11 @@ package_yaws_win:
 
 # PLATFORM-AGNOSTIC
 
+## OSX doesn't ship with a decent readlink, so this is a workaround
+READLINK="support/readlink/readlink-f.sh"
+
 move_release:
-ifneq ($(shell readlink -f "$(PREFIX)/$(PROJECT)"), $(shell readlink -f "rel/nitrogen"))
+ifneq ($(shell $(READLINK) "$(PREFIX)/$(PROJECT)"), $(shell $(READLINK) "rel/nitrogen"))
 	@(mkdir -p $(shell dirname "$(PREFIX)/$(PROJECT)"))
 	@(mv ./rel/nitrogen $(PREFIX)/$(PROJECT))
 endif
@@ -331,7 +334,11 @@ rel_inner_win: generate erl_interface
 	@rm -rf rel/reltool.config "rel/nitrogen/make_start_cmd.sh" "rel/nitrogen/start.cmd.src"
 
 replace_project_name:
-	@(sed -i 's/{{PROJECT}}/$(PROJECT)/g' rel/nitrogen/etc/vm.args)
+	## This rather stupid looking workaround is because OSX throws odd
+	## stdin errors with sed and "-i" despite us not even using stdin.
+	## I really wish OSX would ship with some non-terrible UNIX utilities.
+	sed "s/{{PROJECT}}/$(PROJECT)/g" < rel/nitrogen/etc/vm.args > rel/nitrogen/etc/temp.args
+	mv rel/nitrogen/etc/temp.args rel/nitrogen/etc/vm.args
 
 rel_copy_quickstart:
 	mkdir -p deps
