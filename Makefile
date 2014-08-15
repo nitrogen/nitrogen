@@ -333,12 +333,13 @@ rel_inner_win: generate erl_interface
 	@uname -v >> "rel/nitrogen/BuildInfo.txt"
 	@rm -rf rel/reltool.config "rel/nitrogen/make_start_cmd.sh" "rel/nitrogen/start.cmd.src"
 
+
+## This rather stupid looking workaround is because OSX throws odd
+## stdin errors with sed and "-i" despite us not even using stdin.
+## I really wish OSX would ship with some non-terrible UNIX utilities.
 replace_project_name:
-	## This rather stupid looking workaround is because OSX throws odd
-	## stdin errors with sed and "-i" despite us not even using stdin.
-	## I really wish OSX would ship with some non-terrible UNIX utilities.
-	sed "s/{{PROJECT}}/$(PROJECT)/g" < rel/nitrogen/etc/vm.args > rel/nitrogen/etc/temp.args
-	mv rel/nitrogen/etc/temp.args rel/nitrogen/etc/vm.args
+	@(sed "s/{{PROJECT}}/$(PROJECT)/g" < rel/nitrogen/etc/vm.args > rel/nitrogen/etc/temp.args)
+	@(mv rel/nitrogen/etc/temp.args rel/nitrogen/etc/vm.args)
 
 rel_copy_quickstart:
 	mkdir -p deps
