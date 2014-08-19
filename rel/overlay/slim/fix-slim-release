@@ -10,7 +10,7 @@
 
 ## 1) It removes the releases directory
 ## 2) it clones nitrogen into /tmp
-## 3) it generates a slim_release in /tmp/nitrogen/rel/nitrogen
+## 3) it generates a slim_release in /tmp/myapp
 ## 4) It moves the newly generated releases directory into our project's directory
 
 ## This is as inelegant as can possibly be done, but it works.
@@ -34,7 +34,8 @@ make slim_inets
 # back to project dir
 cd $home
 rm -fr releases
-mv /tmp/nitrogen/rel/nitrogen/releases .
+mv /tmp/myapp/releases .
 
 # clean up
 rm -fr /tmp/nitrogen
+rm -fr /tmp/myapp
