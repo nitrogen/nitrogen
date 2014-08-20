@@ -2,18 +2,20 @@
 
 all: get-deps plugins compile
 
+REBAR?=./rebar -q
+
 cookie:
 	@echo Generating a default cookie in /etc/vm.args
 	@(echo -setcookie `openssl rand -base64 50 | head -n1 | sed -e 's/[^a-zA-Z0-9]//g'` >> etc/vm.args)
 
 compile:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar compile)
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) compile)
 
 get-deps:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar get-deps)
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) get-deps)
 
 update-deps:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; ./rebar update-deps)
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) update-deps)
 
 copy-static:
 	@(mkdir -p site/static/nitrogen)
@@ -52,4 +54,4 @@ update: update-deps copy-static compile
 upgrade: update
 
 clean:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; ./rebar clean)
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; $(REBAR) clean)
