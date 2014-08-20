@@ -21,6 +21,7 @@
 
 -include_lib("kernel/include/file.hrl").
 -include_lib("webmachine/include/webmachine.hrl").
+-include_lib("nitrogen_core/include/crypto_compat.hrl").
 
 init(ConfigProps) ->
     {root, Root} = proplists:lookup(root, ConfigProps),
@@ -143,7 +144,7 @@ last_modified(ReqData, Context) ->
     {LMod, ReqData, Context#context{metadata=[{'last-modified',
                     httpd_util:rfc1123_date(LMod)}|Context#context.metadata]}}.
 
-hash_body(Body) -> mochihex:to_hex(binary_to_list(crypto:sha(Body))).
+hash_body(Body) -> mochihex:to_hex(binary_to_list(?WF_HASH(Body))).
 
 generate_etag(ReqData, Context) ->
     case maybe_fetch_object(Context, wrq:disp_path(ReqData)) of
