@@ -262,7 +262,7 @@ generate_plugin_copy_worker(PluginBase, CopyMode, PluginStatic) ->
     end.
 
 generate_plugin_templates(Config, Templates) ->
-    TemplateBase = proplists:get_value(template_dir, Config, "site/templates"),
+    TemplateBase = proplists:get_value(template_dir, Config, "priv/templates/plugins"),
     CopyMode = proplists:get_value(copy_mode, Config, copy),
     clear_plugin_dir(TemplateBase),
     filelib:ensure_dir(filename:join(TemplateBase,dummy)),
