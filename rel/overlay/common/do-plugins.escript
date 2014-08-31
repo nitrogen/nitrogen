@@ -124,7 +124,7 @@ get_config(File) ->
     end.
 
 analyze_path(Path) ->
-    case filelib:is_dir(Path) of
+    case is_dir_or_symlink_dir(Path) of
         true ->
             {ok, Files} = file:list_dir(Path),
             case lists:member("nitrogen.plugin",Files) of
@@ -150,6 +150,16 @@ analyze_path(Path) ->
                     {ok, Includes, Statics, Templates}
             end;
         false -> undefined
+    end.
+
+is_dir_or_symlink_dir(Path) ->
+    case filelib:is_dir(Path) of
+        true -> true;
+        false ->
+            case file:read_link(Path) of
+                {ok, _} -> true;
+                {error, _} -> false
+            end
     end.
             
 
