@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 RUNNER_SCRIPT_DIR=$(cd ${0%/*} && pwd)
 
@@ -23,12 +23,12 @@ if [ -z "$NAME_ARG" ]; then
 fi
 
 # Learn how to specify node name for connection from remote nodes
-if [[ "$NAME_ARG" =~ ^-sname ]]; then
+if  echo $NAME_ARG | grep -E "^-sname" > /dev/null ; then
     NAME_PARAM="-sname"
     NAME_HOST=""
 else
     NAME_PARAM="-name"
-    if [[ "$NAME_ARG" =~ (@.*) ]]; then
+    if echo $NAME_ARG | grep -E "(@.*)" > /dev/null ; then
         NAME_HOST=${BASH_REMATCH[1]}
     else
         NAME_HOST=""
