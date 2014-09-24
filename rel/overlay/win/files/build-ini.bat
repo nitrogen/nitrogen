@@ -11,7 +11,7 @@ REM Further, if you were to move the nitrogen directory to a different location,
 REM the previously generated INI files would again be pointing at the wrong
 REM location, so we rebuild it every time before we compile.
 
-dir /X /B ERTS-*>>%TEMP%\erts.txt
+dir /X /B ERTS-*>%TEMP%\erts.txt
 set /p ERTS=<%TEMP%\erts.txt
 
 set INIFILE=%ERTS%\bin\erl.ini
