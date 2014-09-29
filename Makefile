@@ -220,6 +220,7 @@ rel_win: check_exists compile
 	@echo "********************************************************************************"
 	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_win.config)
 	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
+	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
 	@echo "********************************************************************************"
 	@echo Generated a self-contained Nitrogen project
