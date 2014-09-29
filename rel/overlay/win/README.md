@@ -33,12 +33,8 @@ Nitrogen prerequisits don't play nice with Windows-style line-endings (`\r\n`).
    R15B) for Windows into `c:\erlX.Y`.
 2. Make sure `c:\erlX.Y\bin` is in your windows PATH (Right click My Computer,
    Click Properties, 
-3. Get [msysGit](http://j.mp/msysgit-net) (*not "Git for Windows"*) and
-   install to `c:\msysgit` (the default). 
-
-**Note**: Download the Msysgit _netinstaller_, **not** the fullinstaller.
-Despite the misleading name, the fullinstaller does not come with some
-necessary tools (particularly a working `make`).
+3. Get [msysGit](https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140815/msysGit-netinstall-1.9.4-preview20140815.exe) and
+   install to `c:\msysgit` (the default).
 
 ## To Build Nitrogen
 
