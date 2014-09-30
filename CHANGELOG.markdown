@@ -73,7 +73,11 @@
 * Improve a handful of error messages (comet pool unexpected death and action
   module failing to load).
 * Fixed default configuration for Yaws to allow larger POST values
-* Fixed compatibility issues with Windows Bash and the `dev` script. (Alex Popov)
+* Fixed compatibility issues with Windows Bash and the `dev` script. (Alex
+  Popov)
+* Update to jQuery and jQuery UI 1.11.1
+* Add jQuery Touch Punch for better touchscreen support for drag, drop, and
+  sort.
 * More documentation improvements and new
   [demos](http://nitrogenproject.com/demos) on the homepage.
 
