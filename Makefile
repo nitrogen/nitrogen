@@ -275,14 +275,12 @@ R14B02:
 	$(MAKE) clean_release
 R14B03: R14B02
 R15B: R14B02
-	$(MAKE) rel_cowboy
 	$(MAKE) clean_release
 
 R15B01: R15B
 R15B02: R15B
 	$(MAKE) slim_inets
 	$(MAKE) clean_release
-	$(MAKE) slim_cowboy
 	$(MAKE) clean_release
 	$(MAKE) slim_yaws
 	$(MAKE) clean_release
@@ -292,6 +290,8 @@ R15B02: R15B
 	$(MAKE) clean_release
 R15B03: R15B02
 R16B: R15B02
+	$(MAKE) rel_cowboy
+	$(MAKE) slim_cowboy
 R16B01: R16B
 R16B02: R16B
 R16B03: R16B
