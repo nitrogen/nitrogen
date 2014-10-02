@@ -10,7 +10,8 @@
 	be established, AJAX and Comet will be used.
   + Uploads still use AJAX.
   + Remains backwards compatible with versions of Nitrogen prior to 2.3,
-    however, websockets will not be available.
+	however, websockets will not be available unless a proper upgrade is
+    performed.
 * Update the build process to support `PROJECT` and `PREFIX` variables to
   create a new project. By default, the build process (`make rel_X` without any
   variables specified) will create the app at `../myapp`.
@@ -23,13 +24,13 @@
   based on the request type (example: `GET` requests will call
   `PageModule:get/0`, etc).
 * Added `#sync_panel` element, which allows for simple real-time content
-  synchronization.
+  synchronization over comet/websockets.
 * Added `#qr` element for simple QR code generation (which uses Google Charts).
 * Added `html_id` and `title` attributes to all elements, corresponding with
   the HTML `id` and `title` attributes (@fooflare)
 * Normalize the `next` attribute on input elements to use tab instead of enter,
-  and also add `next` to elements where it was previously missing (with help
-  from Stuart Thackray)
+  and also add `next` to elements where it was previously missing
+  (@stuart-thackray)
 * Added `distance` and `options` attributes to `#draggable` to minimize
   accidental clicking and dragging when the cursor only moves a few pixels.
 * Allow validation to be applied to `#radiogroup` element.
@@ -42,7 +43,7 @@
   key should move focus to the next element (default behavior) or insert a tab
   into the textarea.
 * Added `wf:to_qs/1` function for converting a proplist of elements into a
-  URL-enco	ded querystring.
+  URL-encoded querystring.
 * Added `wf:json_encode/1` and `wf:json_decode/1`.
 * Added `wf:download_as/1` convenience function for specifying the
   `Content-Disposition` header so the client will download a page with
@@ -61,23 +62,29 @@
 * Updated `wf:html_encode` to be more flexible (preventing crashes when a user
   accidentally puts tuples, records, or anything else in an element's `text`
   field). Also added some tests for `html_encode`. (First of many?)
-* Added `body` to `#radio` and `#restful_submit` (Stuart Thackray)
-* Added `button_class` to `#recaptcha{}` (Stuary Thackray)
+* Added `body` to `#radio` and `#restful_submit` (@stuart-thackray)
+* Added `button_class` to `#recaptcha{}` (@stuart-thackray)
 * Added minified versions of included javascript versions as well as
   non-minified
   versions.
 * Fixed rendering bug in `#upload` when it would start hidden by CSS.
-* Fixed issue with POST size in Yaws (Steve Vinoski)
+* Fixed issue with POST size in Yaws (@vinoski)
 * Updated to work with Erlang/OTP 17+
-* Fixed the use of wf:qs/1 with `#dropdown{multiple=true}`
+* Fixed the use of `wf:qs/1` with `#dropdown{multiple=true}`
 * Improve a handful of error messages (comet pool unexpected death and action
   module failing to load).
 * Fixed default configuration for Yaws to allow larger POST values
-* Fixed compatibility issues with Windows Bash and the `dev` script. (Alex
-  Popov)
+* Fixed compatibility issues with Windows Bash and the `dev` script.
+  (@aseidlitz)
 * Update to jQuery and jQuery UI 1.11.1
+* Update to jQuery Mobile 1.4.4 (@fooflare)
 * Add jQuery Touch Punch for better touchscreen support for drag, drop, and
   sort.
+* Webserver Upgrades:
+  + Cowboy => 1.0.0 (@fooflare)
+  + Mochiweb => 2.9.1
+  + Yaws => 1.9.8
+  + Webmachine => 1.10.6
 * More documentation improvements and new
   [demos](http://nitrogenproject.com/demos) on the homepage.
 
