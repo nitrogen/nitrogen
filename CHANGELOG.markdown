@@ -25,6 +25,9 @@
   `PageModule:get/0`, etc).
 * Added `#sync_panel` element, which allows for simple real-time content
   synchronization over comet/websockets.
+* Added `#progress_bar` element.
+* Updated and improved the `#upload` element, adding progress bars, delete
+  buttons, and proper enforcement of the `multiple` option.
 * Added `#qr` element for simple QR code generation (which uses Google Charts).
 * Added `html_id` and `title` attributes to all elements, corresponding with
   the HTML `id` and `title` attributes (@fooflare)
