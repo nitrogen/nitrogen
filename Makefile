@@ -65,7 +65,7 @@ thanks:
 	
 quickstart: rel_mochiweb
 	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")	
-	@(cd "$(PREFIX)/nitrogenproject_com;$(MAKE))
+	@(cd "$(PREFIX)/nitrogenproject_com;$(MAKE)")
 
 quickstart_win: rel_mochiweb_win rel_copy_quickstart
 	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
