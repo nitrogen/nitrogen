@@ -12,6 +12,13 @@
   + Remains backwards compatible with versions of Nitrogen prior to 2.3,
 	however, websockets will not be available unless a proper upgrade is
     performed.
+* Added a testing framework that runs on the client and the server through
+  Nitrogen's postback system, ensuring that you can add automated testing which
+  will verify your interface in the browser of your choice.
+* Significantly improve the comet/async reconnection system, including a
+  default notice at the top of the page, and the ability to specify manual
+  reconnection actions (if you so desire).  This is done with
+  `#comet.reconnection_actions` attribute.
 * Update the build process to support `PROJECT` and `PREFIX` variables to
   create a new project. By default, the build process (`make rel_X` without any
   variables specified) will create the app at `../myapp`.
