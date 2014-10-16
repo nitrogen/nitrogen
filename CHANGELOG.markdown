@@ -36,6 +36,8 @@
 * Updated and improved the `#upload` element, adding progress bars, delete
   buttons, and proper enforcement of the `multiple` option.
 * Added `#qr` element for simple QR code generation (which uses Google Charts).
+* Added `wf:set_multiple/2` call and related `#set_multiple` action for setting
+  multiple values in `#dropdown.multiple` elements.
 * Added `html_id` and `title` attributes to all elements, corresponding with
   the HTML `id` and `title` attributes (@fooflare)
 * Normalize the `next` attribute on input elements to use tab instead of enter,
