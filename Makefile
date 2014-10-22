@@ -311,7 +311,8 @@ erl_interface:
 
 rel_inner:
 	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
-	@(cd rel/nitrogen/etc; sed -i 's/BACKEND/$(PLATFORM)/' simple_bridge.config)
+	@(cd rel/nitrogen/etc; sed 's/BACKEND/$(PLATFORM)/' < simple_bridge.config > simple_bridge.temp)
+	@(cd rel/nitrogen/etc; mv simple_bridge.temp simple_bridge.config)
 	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
 	@printf "Nitrogen Version:\n${NITROGEN_VERSION}\n\n" > "rel/nitrogen/BuildInfo.txt"
 	@echo "Built On (uname -v):" >> "rel/nitrogen/BuildInfo.txt"
