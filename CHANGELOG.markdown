@@ -15,6 +15,11 @@
 * Added a testing framework that runs on the client and the server through
   Nitrogen's postback system, ensuring that you can add automated testing which
   will verify your interface in the browser of your choice.
+* To go along with the testing framework are a number of initial tests to test
+  the core of the Nitrogen framework. These can be found in the src/tests
+  directory of the
+  [NitrogenProject.com](https://github.com/nitrogen/NitrogenProject.com.git)
+  repository.
 * Significantly improve the comet/async reconnection system, including a
   default notice at the top of the page, and the ability to specify manual
   reconnection actions (if you so desire).  This is done with
@@ -43,8 +48,17 @@
 * Normalize the `next` attribute on input elements to use tab instead of enter,
   and also add `next` to elements where it was previously missing
   (@stuart-thackray)
+* Added `role` attribute to remaining HTML5 elements. (@afrantisak)
+* Added `#iframe{}` element. (@afrantisak)
+* Update Bert.js and `#api{}` action to use binaries for proplist keys instead
+  of atoms inconjuction with the `safe` option for `term_to_binary` preventing
+  possible crash related to atom table limit.
 * Added `distance` and `options` attributes to `#draggable` to minimize
   accidental clicking and dragging when the cursor only moves a few pixels.
+* Improved Unicode handling - messages between client and server will always
+  convert UTF8. Update Bert.js to support unicode strings.
+* Improve template system to use binaries instead of strings, improving
+  template rendering performance.
 * Allow validation to be applied to `#radiogroup` element.
 * Added `unless_has_value` option to the `#is_required` validator, which links
   multiple fields together, allowing options such as "Please enter either
@@ -56,6 +70,7 @@
   into the textarea.
 * Added `wf:to_qs/1` function for converting a proplist of elements into a
   URL-encoded querystring.
+* Added `wf:to_existing_atom/1`.
 * Added `wf:json_encode/1` and `wf:json_decode/1`.
 * Added `wf:download_as/1` convenience function for specifying the
   `Content-Disposition` header so the client will download a page with
@@ -73,12 +88,15 @@
   depends on are different.
 * Updated `wf:html_encode` to be more flexible (preventing crashes when a user
   accidentally puts tuples, records, or anything else in an element's `text`
-  field). Also added some tests for `html_encode`. (First of many?)
+  field). Also added some tests for `html_encode`.
 * Added `body` to `#radio` and `#restful_submit` (@stuart-thackray)
 * Added `button_class` to `#recaptcha{}` (@stuart-thackray)
 * Added minified versions of included javascript versions as well as
   non-minified
   versions.
+* Significantly reworked the `#textbox_autocomplete{}` element to simplify its
+  implementation (no more `{struct` tuples for mochijson compliance) and rework
+  the associated demo to NitrogenProject.com.
 * Fixed rendering bug in `#upload` when it would start hidden by CSS.
 * Fixed issue with POST size in Yaws (@vinoski)
 * Updated to work with Erlang/OTP 17+
