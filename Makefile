@@ -63,9 +63,10 @@ thanks:
 	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
 	echo "Thanks file generated in thanks.txt - please review")
 	
-quickstart: rel_mochiweb
+quickstart:
+	@($(MAKE) rel_mochiweb PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
 	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")	
-	@(cd "$(PREFIX)/nitrogenproject_com;$(MAKE)")
+	@(cd "$(PREFIX)/nitrogenproject_com";$(MAKE))
 
 quickstart_win: rel_mochiweb_win rel_copy_quickstart
 	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
