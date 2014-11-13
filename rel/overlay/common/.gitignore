@@ -1,4 +1,4 @@
-*.beam
+site/ebin/*
 *.sw?
 erl_crash.dump
 *~
