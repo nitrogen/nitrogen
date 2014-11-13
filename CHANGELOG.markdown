@@ -89,6 +89,8 @@
 * Updated `wf:html_encode` to be more flexible (preventing crashes when a user
   accidentally puts tuples, records, or anything else in an element's `text`
   field). Also added some tests for `html_encode`.
+* Added `wf:encode/{0,1}` to specify any custom response encoding to be applied
+  before sending to the client.
 * Added `body` to `#radio` and `#restful_submit` (@stuart-thackray)
 * Added `button_class` to `#recaptcha{}` (@stuart-thackray)
 * Added minified versions of included javascript versions as well as
