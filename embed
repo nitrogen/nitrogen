@@ -112,7 +112,7 @@ sub runner {
     if($proceed eq "y") {
         system("mkdir -p $to_dir/$config");
         system("cp $from_dir/rel/overlay/common/etc/*.config $to_dir/$config");
-        system("cp $from_dir/rel/overlay/$server/etc/*.conf* $to_dir/$config");
+        #system("cp $from_dir/rel/overlay/$server/etc/*.conf* $to_dir/$config");
         system("mkdir -p $to_dir/$include");
         system("cp $from_dir/rel/overlay/common/site/include/* $to_dir/$include");
         system("mkdir -p $to_dir/$templates");
@@ -121,21 +121,23 @@ sub runner {
         system("cp -R $from_dir/rel/overlay/common/site/static/* $to_dir/$static");
         system("mkdir -p $to_dir/$src");
         system("cp -R $from_dir/rel/overlay/common/site/src/* $to_dir/$src");
-        system("cp -R $from_dir/rel/overlay/$server/site/src/* $to_dir/$src");
+        #system("cp -R $from_dir/rel/overlay/$server/site/src/* $to_dir/$src");
         system("rm $to_dir/$src/nitrogen_app.erl $to_dir/$src/nitrogen.app.src");
         if($do_plugin eq "y") {
             system("cp $from_dir/rel/overlay/common/do-plugins.escript $to_dir/");
             system("cp $from_dir/rel/overlay/common/plugins.config $to_dir/");
         }
 
+        &fix_config_backend("$to_dir/$config/simple_bridge.config", $server);
         &fix_template_path("$to_dir/$src", $templates);
         &fix_config_static_paths("$to_dir/$config", $static);
-        &fix_config_config_path("$to_dir/$config/yaws.config", $config) if($server eq "yaws");
+        #&fix_config_config_path("$to_dir/$config/yaws.config", $config) if($server eq "yaws");
         &fix_plugin_config_paths("$to_dir/plugins.config", $include, $static) if($do_plugin eq "y");
         if($add_rebar eq "y") {
-            system("$from_dir/rel/merge_platform_dependencies.escript $from_dir/rel/overlay/rebar.config.src $from_dir/rel/overlay/$server.deps $from_dir/rel/overlay/$server/rebar.config");
-            &add_rebar_dependencies($from_dir,"$from_dir/rel/overlay/$server/rebar.config","$to_dir/rebar.config");
-            unlink("$from_dir/rel/overlay/$server/rebar.config");
+            print "Merging Nitrogen and $server dependencies\n";
+            system("$from_dir/rel/merge_platform_dependencies.escript $from_dir/rel/overlay/rebar.config.src $from_dir/rel/overlay/$server.deps $from_dir/rel/overlay/rebar.config");
+            &add_rebar_dependencies($from_dir,"$from_dir/rel/overlay/rebar.config","$to_dir/rebar.config");
+            unlink("$from_dir/rel/overlay/rebar.config");
         }
         &add_make_plugins("$to_dir/Makefile") if($add_make_plugins eq "y");
         &add_copy_static($from_dir, "$to_dir/Makefile", "$to_dir/rebar.config", $static) if($add_copy_static eq "y");
@@ -158,6 +160,12 @@ sub fix_config_config_path {
     my ($file, $config) = @_;
     print "Fixing config paths in $file\n";
     &fix_one_file($file, "etc", &strip_trailing_slash($config));
+}
+
+sub fix_config_backend {
+    my ($file, $backend) = @_;
+    print "Setting 'backend' in simple_bridge.config to '$backend'\n";
+    &fix_one_file($file, "BACKEND", $backend);
 }
 
 sub add_make_plugins {
