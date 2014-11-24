@@ -10,8 +10,13 @@ handlers() ->
     %% See http://nitrogenproject.com/doc/handlers.html
     %% Example:
     %%
-    %%   wf_handler:set_handler(MySecurityHandler, HandlerConfig),
+    %%   nitrogen:handler(MySecurityHandler, HandlerConfig),
     %%
+    %%
+    %% The following enables the debug_crash_handler for development. If you
+    %% wish to use the default_crash_handler, which just spits out "Internal
+    %% Server Error", comment or delete this next line.
+    nitrogen:handler(debug_crash_handler, []),
     ok.
 
 ws_init() ->
