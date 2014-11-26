@@ -38,6 +38,9 @@
 * Added `#sync_panel` element, which allows for simple real-time content
   synchronization over comet/websockets.
 * Added `#progress_bar` element.
+* Added a `debug_crash_handler`, which is enabled by default in new Nitrogen
+  projects. This will print stacktraces to the reply, or to the client's
+ `console.log` (if the borwser supports it). Helps with debugging.
 * Updated and improved the `#upload` element, adding progress bars, delete
   buttons, and proper enforcement of the `multiple` option.
 * Added `#qr` element for simple QR code generation (which uses Google Charts).
@@ -96,6 +99,8 @@
 * Added minified versions of included javascript versions as well as
   non-minified
   versions.
+* Added `Nitrogen.$eval()` to nitrogen.js to allow you to control when to
+  evaluate postback responses.
 * Significantly reworked the `#textbox_autocomplete{}` element to simplify its
   implementation (no more `{struct` tuples for mochijson compliance) and rework
   the associated demo to NitrogenProject.com.
@@ -108,6 +113,8 @@
 * Fixed default configuration for Yaws to allow larger POST values
 * Fixed compatibility issues with Windows Bash and the `dev` script.
   (@aseidlitz)
+* Fixed issue with the combination of a REST handler combined with the HTTP
+  auth security handler (@homeway)
 * Update to jQuery and jQuery UI 1.11.1
 * Update to jQuery Mobile 1.4.4 (@fooflare)
 * Add jQuery Touch Punch for better touchscreen support for drag, drop, and
