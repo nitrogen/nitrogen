@@ -70,7 +70,7 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 + Stefan Zegenhagen
 + Mehmet Emin Tok
 + Stuart Thackray
-+ @fooflare
++ Amos Oviedo (@fooflare)
 + Alex Popov (@seidlitz)
 + Aaron Frantisak
 + Lloyd R. Prentice.
