@@ -1,6 +1,6 @@
 # Nitrogen 2.x
 
-## Nitrogen 2.3.0 (in development)
+## Nitrogen 2.3.0
 
 * Upgrade to SimpleBridge 2.0:
   + Eliminate platform-specific code in Nitrogen, relying completely on

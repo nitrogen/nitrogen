@@ -1,5 +1,5 @@
 
-NITROGEN_VERSION=2.3.0-beta5
+NITROGEN_VERSION=2.3.0
 
 # If project name is not provided, just use 'myapp'
 PROJECT?=myapp
@@ -233,6 +233,7 @@ package: rel
 	$(MAKE) link_docs
 	tar cf ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar -C $(PREFIX) $(PROJECT)
 	gzip --best ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar 
+	rm -fr $(PREFIX)/$(PROJECT)
 
 package_win: rel_win copy_docs
 	mkdir -p ./builds
@@ -241,9 +242,11 @@ package_win: rel_win copy_docs
 
 # MASS PACKAGING - Produce packages for all servers
 
-package_all: clean update-deps package_inets package_mochiweb package_cowboy package_yaws package_webmachine
+package_all: clean update-deps
+	$(MAKE) package_inets package_mochiweb package_cowboy package_yaws package_webmachine PROJECT=nitrogen PREFIX=/tmp
 
-package_all_win: clean update-deps package_inets_win package_mochiweb_win package_cowboy_win package_webmachine_win
+package_all_win: clean update-deps
+	$(MAKE) package_inets_win package_mochiweb_win package_cowboy_win package_webmachine_win PROJECT=nitrogen PREFIX=/tmp
 
 clean_docs:
 	@(cd rel/nitrogen; rm -fr doc)
