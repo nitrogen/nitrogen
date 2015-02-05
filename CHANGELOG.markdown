@@ -47,12 +47,12 @@
 * Added `wf:set_multiple/2` call and related `#set_multiple` action for setting
   multiple values in `#dropdown.multiple` elements.
 * Added `html_id` and `title` attributes to all elements, corresponding with
-  the HTML `id` and `title` attributes (@fooflare)
+  the HTML `id` and `title` attributes (Amos Oviedo)
 * Normalize the `next` attribute on input elements to use tab instead of enter,
   and also add `next` to elements where it was previously missing
-  (@stuart-thackray)
-* Added `role` attribute to remaining HTML5 elements. (@afrantisak)
-* Added `#iframe{}` element. (@afrantisak)
+  (Stuart Thackray)
+* Added `role` attribute to remaining HTML5 elements. (Aaron Frantisak)
+* Added `#iframe{}` element. (Aaron Frantisak)
 * Update Bert.js and `#api{}` action to use binaries for proplist keys instead
   of atoms inconjuction with the `safe` option for `term_to_binary` preventing
   possible crash related to atom table limit.
@@ -94,8 +94,8 @@
   field). Also added some tests for `html_encode`.
 * Added `wf:encode/{0,1}` to specify any custom response encoding to be applied
   before sending to the client.
-* Added `body` to `#radio` and `#restful_submit` (@stuart-thackray)
-* Added `button_class` to `#recaptcha{}` (@stuart-thackray)
+* Added `body` to `#radio` and `#restful_submit` (Stuart Thackray)
+* Added `button_class` to `#recaptcha{}` (Stuart Thackray)
 * Added minified versions of included javascript versions as well as
   non-minified
   versions.
@@ -105,22 +105,22 @@
   implementation (no more `{struct` tuples for mochijson compliance) and rework
   the associated demo to NitrogenProject.com.
 * Fixed rendering bug in `#upload` when it would start hidden by CSS.
-* Fixed issue with POST size in Yaws (@vinoski)
+* Fixed issue with POST size in Yaws (Steve Vinoski)
 * Updated to work with Erlang/OTP 17+
 * Fixed the use of `wf:qs/1` with `#dropdown{multiple=true}`
 * Improve a handful of error messages (comet pool unexpected death and action
   module failing to load).
 * Fixed default configuration for Yaws to allow larger POST values
 * Fixed compatibility issues with Windows Bash and the `dev` script.
-  (@aseidlitz)
+  (Alex Popov)
 * Fixed issue with the combination of a REST handler combined with the HTTP
-  auth security handler (@homeway)
+  auth security handler (Xue Hongwei)
 * Update to jQuery and jQuery UI 1.11.1
-* Update to jQuery Mobile 1.4.4 (@fooflare)
+* Update to jQuery Mobile 1.4.4 (Alex Popov)
 * Add jQuery Touch Punch for better touchscreen support for drag, drop, and
   sort.
 * Webserver Upgrades:
-  + Cowboy => 1.0.0 (@fooflare)
+  + Cowboy => 1.0.1 (Amos Oviedo)
   + Mochiweb => 2.9.1
   + Yaws => 1.9.8
   + Webmachine => 1.10.6
