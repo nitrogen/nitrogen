@@ -75,6 +75,7 @@ Sincere thanks to all the people who have helped make Nitrogen great, including:
 + Aaron Frantisak
 + Lloyd R. Prentice.
 + Cameron Frederick (@cammcad)
++ Xue Hongwei
 
 Roughly sorted by date of contribution. Send your twitter handles to
 [@jessegumm](http://twitter.com/jessegumm)
