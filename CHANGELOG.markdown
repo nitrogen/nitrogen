@@ -1,5 +1,13 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.3.1 (in development)
+
+* Make return values of `wf_convert:parse_ip/1` consistent.
+* Update to SimpleBridge 2.0.1 (Fixes an inets header bug)
+* Fixed issue where clicking a link to download a file would stop the event
+  loop on the client.
+* Added a URL to the error message printed by the `debug_crash_handler`.
+
 ## Nitrogen 2.3.0
 
 * Upgrade to SimpleBridge 2.0:
