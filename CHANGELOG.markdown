@@ -1,6 +1,6 @@
 # Nitrogen 2.x
 
-## Nitrogen 2.3.1 (in development)
+## Nitrogen 2.3.1
 
 * Make return values of `wf_convert:parse_ip/1` consistent.
 * Update to SimpleBridge 2.0.1 (Fixes an inets header bug)

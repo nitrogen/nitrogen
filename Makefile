@@ -1,5 +1,5 @@
 
-NITROGEN_VERSION=2.3.0
+NITROGEN_VERSION=2.3.1
 
 # If project name is not provided, just use 'myapp'
 PROJECT?=myapp
