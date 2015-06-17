@@ -1,5 +1,10 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.3.2 (in development)
+
+* Fix a few bugs related to Unicode in `wf:json_decode/1` and
+  `#textbox_autocomplete{}`.
+
 ## Nitrogen 2.3.1
 
 * Make return values of `wf_convert:parse_ip/1` consistent.
