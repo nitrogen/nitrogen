@@ -1,9 +1,32 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.4.0 (in development)
+
+* Cache Handler is finally implemented.
+* Added `wf:cache/[1,2,3]`, `wf:set_cache/[2,3]` and `wf:clear_cache/[1,2]`
+* Improved performance by no longer relying on mochiglobal (which was very slow
+  for sets, but plenty fast for gets), replaced by using the new Cache Handler,
+  which is very fast for both.
+* Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
+  returns a proplist.
+
 ## Nitrogen 2.3.2 (in development)
 
-* Fix a few bugs related to Unicode in `wf:json_decode/1` and
-  `#textbox_autocomplete{}`.
+* Fix a handful of issues related to unicode
+* Fix a process leak in `#sync_panel{}`
+* Upgrade to SimpleBridge 2.0.2 (Fixes a potential tail-call related crash - or
+  rather a crash caused by a poorly written function that wasn't tail-call
+  optimized)
+* Upgrade included rebar to 2.6.0
+* Removed a number of `erlang:now()` calls for support for Erlang 18.
+* Added `wf_test:[en|dis]able_autoadvance`, preventing a test from advancing to
+  the next test on its own - this facilitates relying on the page itself
+  manually initiate the redirect.
+* Added `test_options` to the test system, allowing to specify certain options
+  for initializing and running the test.
+* Currently, the only `test_option` is `base_url` for setting prefix of the URL
+  (ie, `https://my-domain-name.com`)
+* Added binary builds for Raspberry Pi again.
 
 ## Nitrogen 2.3.1
 
