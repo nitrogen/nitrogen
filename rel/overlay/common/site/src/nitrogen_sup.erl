@@ -22,6 +22,7 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
+    application:start(simple_cache),
     application:start(crypto),
     application:start(nprocreg),
     application:start(simple_bridge),

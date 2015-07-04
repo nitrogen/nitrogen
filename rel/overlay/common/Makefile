@@ -1,4 +1,4 @@
-.PHONY: fix-slim-release
+.PHONY: fix-slim-release test
 
 all: get-deps plugins compile
 
@@ -16,6 +16,9 @@ get-deps:
 
 update-deps:
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) update-deps)
+
+eunit: get-deps compile
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) skip_deps=true eunit)
 
 copy-static:
 	@(mkdir -p site/static/nitrogen)
