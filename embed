@@ -271,8 +271,18 @@ sub get_until_valid {
     my $val;
     do {
         print "$prompt (".join("/",@list)."): ";
-        $val = <>;
+        $val = <STDIN>;
         chomp($val);
-    } while(not($val ~~ @list));
+    } while(not(in_list($val,@list)));
     return $val;
 }
+
+sub in_list {
+    my ($val, @list) = @_;
+    for (@list) {
+        return 1 if($val eq $_);
+    }
+    return 0;
+}
+
+
