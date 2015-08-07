@@ -13,7 +13,7 @@
 ## Nitrogen 2.3.2 (in development)
 
 * Fix a handful of issues related to unicode
-* Fix a process leak in `#sync_panel{}`
+* Fix a process leak in comet and `#sync_panel{}`
 * Upgrade to SimpleBridge 2.0.2 (Fixes a potential tail-call related crash - or
   rather a crash caused by a poorly written function that wasn't tail-call
   optimized)
