@@ -25,7 +25,8 @@
 * Added `test_options` to the test system, allowing to specify certain options
   for initializing and running the test.
 * Currently, the only `test_option` is `base_url` for setting prefix of the URL
-  (ie, `https://my-domain-name.com`)
+  (ie, `https://my-domain-name.com`).
+* Fix Bert encoding for string longer than 65535 characters.
 * Added binary builds for Raspberry Pi again.
 
 ## Nitrogen 2.3.1
