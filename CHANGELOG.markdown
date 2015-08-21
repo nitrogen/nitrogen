@@ -28,6 +28,7 @@
   (ie, `https://my-domain-name.com`).
 * Fix Bert encoding for string longer than 65535 characters.
 * Added binary builds for Raspberry Pi again.
+* `wf:url_encode/1` will now properly handle floats.
 
 ## Nitrogen 2.3.1
 
