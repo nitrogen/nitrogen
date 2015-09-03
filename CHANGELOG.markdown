@@ -4,11 +4,13 @@
 
 * Cache Handler is finally implemented.
 * Added `wf:cache/[1,2,3]`, `wf:set_cache/[2,3]` and `wf:clear_cache/[1,2]`
-* Improved performance by no longer relying on mochiglobal (which was very slow
-  for sets, but plenty fast for gets), replaced by using the new Cache Handler,
-  which is very fast for both.
+* Improved performance by no longer relying on mochiglobal in templates (which
+  was very slow for sets, but plenty fast for gets), replaced by using the new
+  cache candler, which is very fast for both gets and sets.
 * Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
   returns a proplist.
+* Nitrogen template callouts now be used to print variables, rather than just
+  function calls. For example: `[[[MyVar]]]`
 
 ## Nitrogen 2.3.2 (in development)
 
