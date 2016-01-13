@@ -9,7 +9,7 @@
   cache candler, which is very fast for both gets and sets.
 * Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
   returns a proplist.
-* Nitrogen template callouts now be used to print variables, rather than just
+* Nitrogen template callouts now be used to render variables, rather than just
   function calls. For example: `[[[MyVar]]]`
 
 ## Nitrogen 2.3.2 (in development)
@@ -31,6 +31,12 @@
 * Fix Bert encoding for string longer than 65535 characters.
 * Added binary builds for Raspberry Pi again.
 * `wf:url_encode/1` will now properly handle floats.
+* Refactor `wf_render_elements:render_element/1` from a single monolothic
+  function into a bunch of smaller parts.
+* Fix `wf:json_encode/1` issue related to some structures not properly removing
+  `{struct` tuples.
+* Fix bug related to improperly selected elements in a `#dropdown{}` element
+  (Stuart Thackray)
 
 ## Nitrogen 2.3.1
 
