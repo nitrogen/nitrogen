@@ -9,6 +9,8 @@
   which is very fast for both.
 * Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
   returns a proplist.
+* Added a new settings file for vim users. Can be installed to .vimrc by
+  running `make install-vim-script`
 
 ## Nitrogen 2.3.2 (in development)
 
