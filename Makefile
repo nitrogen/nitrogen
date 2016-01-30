@@ -51,6 +51,10 @@ clean:
 install-helper-script:
 	@(cd support/helper_script;./install.sh)
 
+install-vim-script:
+	@(cd support/vim_rules/; ./install_rules.sh)
+	@echo "Added vim rules to ~/.vimrc"
+
 ## Produce a list of contributors from the main repo and the dependent repos
 thanks: 
 	@(cd support/list_thanks; \
