@@ -6,5 +6,5 @@
 "     uses tab width of 4 and uses vim's 'smartindent', which works much
 "     better indentation rules for nitrogen elements.
 if has("autocmd")
-	autocmd FileType nitrogen set filetype=erlang smartindent expandtab shiftwidth=4 tabstop=4 indentexpr=""
+	autocmd FileType nitrogen set filetype=erlang smartindent expandtab shiftwidth=4 tabstop=4 softtabstop=4 indentexpr=""
 endif
