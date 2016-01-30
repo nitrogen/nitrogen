@@ -11,6 +11,16 @@
   returns a proplist.
 * Added a new settings file for vim users. Can be installed to .vimrc by
   running `make install-vim-script`
+* Added `#js_fun{}` action to aid calling javascript functions with properly
+  escaped arguments.
+* Added `#youtube{}` and `#video{}` elements.
+* Added `wf:q_map()` and `wf:q_maps()` API calls to retrieve form fields as
+  maps.
+* Added `wf:in_request()` which will return `true` if the current process is
+  actually a Nitrogen request.
+* Fix bug related to `#dropdown{}` option ambigious item selection. (Help from
+  Stuart Thackray)
+* Upgrade to Yaws 2.02 (Stuart Thackray)
 
 ## Nitrogen 2.3.2 (in development)
 
