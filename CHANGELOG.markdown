@@ -25,9 +25,9 @@
   the next test on its own - this facilitates relying on the page itself
   manually initiate the redirect.
 * Added `test_options` to the test system, allowing to specify certain options
-  for initializing and running the test.
-* Currently, the only `test_option` is `base_url` for setting prefix of the URL
-  (ie, `https://my-domain-name.com`).
+  for initializing and running the test. Currently, the only `test_option` is
+  `base_url` for setting prefix of the URL (ie, `https://my-domain-name.com`).
+* Added `login` attribute to `#redirect{}` element. (Alexander Sedov)
 * Fix Bert encoding for string longer than 65535 characters.
 * Added binary builds for Raspberry Pi again.
 * `wf:url_encode/1` will now properly handle floats.
