@@ -9,7 +9,7 @@ CALLER_DIR=$PWD
 RUNNER_BASE_DIR=${RUNNER_SCRIPT_DIR%/*}
 RUNNER_ETC_DIR=$RUNNER_BASE_DIR/etc
 # Note the trailing slash on $PIPE_DIR/
-PIPE_DIR=/tmp/$RUNNER_BASE_DIR/
+PIPE_DIR=/tmp/`whoami`/$RUNNER_BASE_DIR/
 RUNNER_USER=
 
 # Make sure this script is running as the appropriate user
