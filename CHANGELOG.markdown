@@ -20,6 +20,8 @@
   maps.
 * Added `wf:in_request()` which will return `true` if the current process is
   actually a Nitrogen request.
+* Added `#is_number{}` validator, which works exactly like `#is_integer{}`
+  except it allows floats.
 * Removed a number of `erlang:now()` calls for support for Erlang 18.
 * Added `wf_test:[en|dis]able_autoadvance`, preventing a test from advancing to
   the next test on its own - this facilitates relying on the page itself
