@@ -36,7 +36,8 @@
 * Upgrade to SimpleBridge 2.0.2 (Fixes a potential tail-call related crash - or
   rather a crash caused by a poorly written function that wasn't tail-call
   optimized)
-* Upgrade included rebar to 2.6.0
+* Upgrade included rebar to a post-2.6.0 version that includes support for
+  Rebar3-type deps (This will be the last non-bugfix release that uses rebar2).
 * Fix Bert encoding for string longer than 65535 characters.
 * Added binary builds for Raspberry Pi again.
 * `wf:url_encode/1` will now properly handle floats.
