@@ -11,15 +11,15 @@
   returns a proplist.
 * Nitrogen template callouts now be used to render variables, rather than just
   function calls. For example: `[[[MyVar]]]`
-
-## Nitrogen 2.3.2 (in development)
-
-* Fix a handful of issues related to unicode
-* Fix a process leak in comet and `#sync_panel{}`
-* Upgrade to SimpleBridge 2.0.2 (Fixes a potential tail-call related crash - or
-  rather a crash caused by a poorly written function that wasn't tail-call
-  optimized)
-* Upgrade included rebar to 2.6.0
+* Added a new settings file for vim users. Can be installed to .vimrc by
+  running `make install-vim-script`
+* Added `#js_fun{}` action to aid calling javascript functions with properly
+  escaped arguments.
+* Added `#youtube{}` and `#video{}` elements.
+* Added `wf:q_map()` and `wf:q_maps()` API calls to retrieve form fields as
+  maps.
+* Added `wf:in_request()` which will return `true` if the current process is
+  actually a Nitrogen request.
 * Removed a number of `erlang:now()` calls for support for Erlang 18.
 * Added `wf_test:[en|dis]able_autoadvance`, preventing a test from advancing to
   the next test on its own - this facilitates relying on the page itself
@@ -28,6 +28,15 @@
   for initializing and running the test. Currently, the only `test_option` is
   `base_url` for setting prefix of the URL (ie, `https://my-domain-name.com`).
 * Added `login` attribute to `#redirect{}` element. (Alexander Sedov)
+* Fix bug related to `#dropdown{}` option ambigious item selection. (Help from
+  Stuart Thackray)
+* Upgrade to Yaws 2.02 (Stuart Thackray)
+* Fix a handful of issues related to unicode
+* Fix a process leak in comet and `#sync_panel{}`
+* Upgrade to SimpleBridge 2.0.2 (Fixes a potential tail-call related crash - or
+  rather a crash caused by a poorly written function that wasn't tail-call
+  optimized)
+* Upgrade included rebar to 2.6.0
 * Fix Bert encoding for string longer than 65535 characters.
 * Added binary builds for Raspberry Pi again.
 * `wf:url_encode/1` will now properly handle floats.
