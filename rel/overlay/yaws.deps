@@ -1,1 +1,1 @@
-    {yaws, "2.*", {git, "git://github.com/klacke/yaws",	{tag, "yaws-2.0.2"}}},
+    {yaws, "2.*", {git, "git://github.com/klacke/yaws",	{tag, "yaws-2.0.3"}}},
