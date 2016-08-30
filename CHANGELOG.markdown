@@ -29,6 +29,10 @@
 * Added `test_options` to the test system, allowing to specify certain options
   for initializing and running the test. Currently, the only `test_option` is
   `base_url` for setting prefix of the URL (ie, `https://my-domain-name.com`).
+* Add `wf:render_isolated/1`, which returns a tuple containing the `{HTML, JS}`,
+  where `HTML` is the rendered HTML from the Nitrogen elements, and `JS` is the
+  queued javascript that was either attached directly to the elements, or wired
+  in the elements' render functions.
 * Added `login` attribute to `#redirect{}` element. (Alexander Sedov)
 * Fix bug related to `#dropdown{}` option ambigious item selection. (Help from
   Stuart Thackray)
