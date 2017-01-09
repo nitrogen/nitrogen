@@ -53,6 +53,8 @@
   `{struct` tuples.
 * Fix bug related to improperly selected elements in a `#dropdown{}` element
   (Stuart Thackray)
+* Fix so `wf:pickle` uses `crypto:strong_rand_bytes` instead of the now
+  deprecated `crypto:rand_bytes`
 
 ## Nitrogen 2.3.1
 
