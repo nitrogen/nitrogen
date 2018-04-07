@@ -20,7 +20,7 @@
   maps.
 * Added `wf:in_request()` which will return `true` if the current process is
   actually a Nitrogen request.
-* Added `#is_value{}` validator, which lets you wrap other actions with
+* Added `#if_value{}` action, which lets you wrap other actions with
   conditionals based on the value of form elements.
 * Added `#is_number{}` validator, which works exactly like `#is_integer{}`
   except it allows floats.
