@@ -1,1 +1,1 @@
-    {mochiweb,      "2.*",  {git, "git://github.com/mochi/mochiweb.git",    {tag, "v2.9.1"}}},
+    {mochiweb, {git, "git://github.com/mochi/mochiweb.git",    {tag, "c06e08ee2"}}},
