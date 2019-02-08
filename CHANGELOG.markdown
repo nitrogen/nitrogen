@@ -65,7 +65,9 @@
 * Fix so `wf:pickle` uses `crypto:strong_rand_bytes` instead of the now
   deprecated `crypto:rand_bytes`
 * Upgrade to Cowboy 2.0 (@etxemag75)
+* Add experimental support for Cowboy 2.0's sendfile (@rkulkarni)
 * Add support for Erlang 21 (@etxemag75)
+* Add support for UTF-16 (@miby00)
 
 ## Nitrogen 2.3.1
 
