@@ -39,6 +39,10 @@
   queued javascript that was either attached directly to the elements, or wired
   in the elements' render functions.
 * Added `login` attribute to `#redirect{}` element. (Alexander Sedov)
+* Updated the `#radiogroup` element such that it will now do a deep dive of
+  containing elements to update the `name` attributes.  This eliminates the
+  need to use a flattened list and makes the `#radiogroup` element much more
+  useful.
 * Fix bug related to `#dropdown{}` option ambigious item selection. (Help from
   Stuart Thackray)
 * Upgrade to Yaws 2.02 (Stuart Thackray)
