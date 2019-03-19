@@ -7,6 +7,9 @@
 * Improved performance by no longer relying on mochiglobal in templates (which
   was very slow for sets, but plenty fast for gets), replaced by using the new
   cache candler, which is very fast for both gets and sets.
+* Added a record extension capability through the use of the `rekt` parse
+  transform.  This allows quickly creating new elements from old ones, sort of
+  like a inheritance.
 * Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
   returns a proplist.
 * Nitrogen template callouts now be used to render variables, rather than just
@@ -20,6 +23,8 @@
   maps.
 * Added `wf:in_request()` which will return `true` if the current process is
   actually a Nitrogen request.
+* Added `#if_value{}` action, which lets you wrap other actions with
+  conditionals based on the value of form elements.
 * Added `#is_number{}` validator, which works exactly like `#is_integer{}`
   except it allows floats.
 * Removed a number of `erlang:now()` calls for support for Erlang 18.
@@ -34,12 +39,16 @@
   queued javascript that was either attached directly to the elements, or wired
   in the elements' render functions.
 * Added `login` attribute to `#redirect{}` element. (Alexander Sedov)
+* Updated the `#radiogroup` element such that it will now do a deep dive of
+  containing elements to update the `name` attributes.  This eliminates the
+  need to use a flattened list and makes the `#radiogroup` element much more
+  useful.
 * Fix bug related to `#dropdown{}` option ambigious item selection. (Help from
   Stuart Thackray)
 * Upgrade to Yaws 2.02 (Stuart Thackray)
 * Fix a handful of issues related to unicode
 * Fix a process leak in comet and `#sync_panel{}`
-* Upgrade to SimpleBridge 2.0.2 (Fixes a potential tail-call related crash - or
+* Upgrade to SimpleBridge 2.1.0 (Fixes a potential tail-call related crash - or
   rather a crash caused by a poorly written function that wasn't tail-call
   optimized)
 * Upgrade included rebar to a post-2.6.0 version that includes support for
@@ -55,6 +64,10 @@
   (Stuart Thackray)
 * Fix so `wf:pickle` uses `crypto:strong_rand_bytes` instead of the now
   deprecated `crypto:rand_bytes`
+* Upgrade to Cowboy 2.0 (@etxemag75)
+* Add experimental support for Cowboy 2.0's sendfile (@rkulkarni)
+* Add support for Erlang 21 (@etxemag75)
+* Add support for UTF-16 (@miby00)
 
 ## Nitrogen 2.3.1
 

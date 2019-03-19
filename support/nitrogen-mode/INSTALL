@@ -2,7 +2,7 @@
 INTRODUCTION
 --
 
-Nitrogen-mode is a a major Emacs mode, derived from erlang-mode, that
+Nitrogen-mode is a major Emacs mode, derived from erlang-mode, that
 fixes Erlang indentation to be more nitrogen friendly by indenting
 block at a fixed amount rather than underneath the end of the block.
 

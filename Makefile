@@ -272,19 +272,7 @@ ERLANG_VERSION = $(shell $(ERLANG_VERSION_CHECK))
 travis:
 	$(MAKE) $(ERLANG_VERSION) PREFIX=rel PROJECT=nitrogen
 
-R14B02:
-	$(MAKE) rel_inets
-	$(MAKE) clean_release
-	$(MAKE) rel_yaws
-	$(MAKE) clean_release
-	$(MAKE) rel_mochiweb
-	$(MAKE) clean_release
-	$(MAKE) rel_webmachine
-	$(MAKE) clean_release
-R14B03: R14B02
-R15B: R14B02
-R15B01: R15B
-R15B02: R15B
+base_make_all:
 	$(MAKE) slim_inets
 	$(MAKE) clean_release
 	$(MAKE) slim_yaws
@@ -293,19 +281,16 @@ R15B02: R15B
 	$(MAKE) clean_release
 	$(MAKE) slim_webmachine
 	$(MAKE) clean_release
-R15B03: R15B02
-R16B: R15B02
+
+17: base_make_all
+18: base_make_all
+19: base_make_all
 	$(MAKE) rel_cowboy
 	$(MAKE) clean_release
 	$(MAKE) slim_cowboy
 	$(MAKE) clean_release
-R16B01: R16B
-R16B02: R16B
-R16B03: R16B
-R16B03-1: R16B
-17: R16B
-18: R16B
-19: R16B	
+20: 19
+21: 19
 
 # SHARED
 
