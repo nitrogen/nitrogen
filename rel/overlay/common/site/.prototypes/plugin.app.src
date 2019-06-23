@@ -1,0 +1,11 @@
+{application, [[[NAME]]],
+ [
+  {description, "A sample plugin for the Nitrogen Web Framework"},
+  {vsn, ""},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
