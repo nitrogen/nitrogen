@@ -30,6 +30,9 @@
   actually a Nitrogen request.
 * Added `#date_dropdown{}` element, which is an alternative date picker ideal
   for dates of birth (where you don't need a calendar visual).
+* Added [qdate](https://github.com/choptastic/qdate) as a default dependency
+  for use with `#date_dropdown{}`.  It works a little better, but it's not
+  necessary.
 * Added `#remove_option{}`, `#add_option{}`, `#disable_option{}`, and
   `#enable_option{}` for interfacing with `#dropdown{}` options.
 * Added `#open_window{}` to open new windows.
