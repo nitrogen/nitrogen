@@ -2,8 +2,13 @@
 
 ## Nitrogen 2.4.0 (in development)
 
-* Cache Handler is finally implemented.
+* Cache Handler is finally implemented, using a fork of
+  [Simple Cache](https://github.com/marcelog/simple_cache), modified to provide
+  use a mutex server to prevent paralell calculation of the same keys.  The new
+  version is at [nitrogen/simple_cache](https://github.com/nitrogen/simple_cache)
 * Added `wf:cache/[1,2,3]`, `wf:set_cache/[2,3]` and `wf:clear_cache/[1,2]`
+* Added a new `plugin` command to the `bin/dev` script to initialize a new
+  plugin (@fbrau)
 * Improved performance by no longer relying on mochiglobal in templates (which
   was very slow for sets, but plenty fast for gets), replaced by using the new
   cache candler, which is very fast for both gets and sets.
@@ -23,11 +28,16 @@
   maps.
 * Added `wf:in_request()` which will return `true` if the current process is
   actually a Nitrogen request.
+* Added `#date_dropdown{}` element, which is an alternative date picker ideal
+  for dates of birth (where you don't need a calendar visual).
+* Added `#remove_option{}`, `#add_option{}`, `#disable_option{}`, and
+  `#enable_option{}` for interfacing with `#dropdown{}` options.
+* Added `#open_window{}` to open new windows.
 * Added `#if_value{}` action, which lets you wrap other actions with
   conditionals based on the value of form elements.
 * Added `#is_number{}` validator, which works exactly like `#is_integer{}`
   except it allows floats.
-* Removed a number of `erlang:now()` calls for support for Erlang 18.
+* Removed a number of deprecated `erlang:now()` calls.
 * Added `wf_test:[en|dis]able_autoadvance`, preventing a test from advancing to
   the next test on its own - this facilitates relying on the page itself
   manually initiate the redirect.
