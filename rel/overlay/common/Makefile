@@ -1,6 +1,6 @@
 .PHONY: fix-slim-release test
 
-all: get-deps plugins compile
+all: releases get-deps plugins compile
 
 REBAR?=./rebar -q
 
@@ -19,6 +19,9 @@ update-deps:
 
 eunit: get-deps compile
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) skip_deps=true eunit)
+
+releases:
+	make fix-slim-release
 
 copy-static:
 	@(mkdir -p site/static/nitrogen)
