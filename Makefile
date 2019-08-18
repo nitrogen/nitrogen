@@ -291,6 +291,7 @@ base_make_all:
 	$(MAKE) clean_release
 20: 19
 21: 19
+22: 19
 
 # SHARED
 
