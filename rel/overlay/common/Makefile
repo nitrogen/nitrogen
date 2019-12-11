@@ -36,12 +36,12 @@ fix-slim-release:
 	@(./fix-slim-release)
 
 DEPS_PLT=$(CURDIR)/.deps_plt
-DEPS=erts kernel stdlib sasl nitrogen_core simple_bridge sync nprocreg
+DEPS=erts kernel stdlib sasl lib/nitrogen_core lib/simple_bridge lib/nprocreg lib/simple_cache
 
 $(DEPS_PLT):
 	@echo Building local plt at $(DEPS_PLT)
 	@echo 
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Dialyzer in `which dialyzer`"; dialyzer --output_plt $(DEPS_PLT) --build_plt --apps $(DEPS))
+	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Dialyzer in `which dialyzer`"; dialyzer --output_plt $(DEPS_PLT) --build_plt --apps $(DEPS) -r ./lib)
 
 
 dialyzer: all $(DEPS_PLT)
