@@ -68,7 +68,7 @@ thanks:
 	echo "Thanks file generated in thanks.txt - please review")
 	
 quickstart:
-	@($(MAKE) rel_mochiweb PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
+	@($(MAKE) slim_mochiweb PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
 	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")	
 	@(cd "$(PREFIX)/nitrogenproject_com";$(MAKE))
 
@@ -292,6 +292,7 @@ base_make_all:
 20: 19
 21: 19
 22: 19
+23: 19
 
 # SHARED
 
