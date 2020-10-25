@@ -7,7 +7,6 @@ use File::Copy;
 
 sub main {
 	my ($app, @files) = @_;
-
 		
 	my $orig_dir=`pwd`;
 	chomp($orig_dir);
@@ -41,8 +40,15 @@ sub main {
 	print "$app initialized.\nNext Step: copy the element records into $app/include/records.hrl\n\n";
 }
 
-if($#ARGV < 1) {
+if($#ARGV == -1) {
 	print "Usage: $0 app_name file1.erl,file2.erl,...\n";
+	print "          or\n";
+	print "       $0 file1.erl\n";
+}elsif($#ARGV==0) {
+	my $file = $ARGV[0];
+	my $basename = basename($file);
+	(my $app = $basename) =~ s/\.[^.]+$//;
+	&main($app, $file);
 }else{
 	&main(@ARGV);
 }
