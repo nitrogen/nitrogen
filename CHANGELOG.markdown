@@ -4,7 +4,7 @@
 
 * Cache Handler is finally implemented, using a fork of
   [Simple Cache](https://github.com/marcelog/simple_cache), modified to provide
-  use a mutex server to prevent paralell calculation of the same keys.  The new
+  use a mutex system to prevent parallel calculation of the same keys.  The new
   version is at [nitrogen/simple_cache](https://github.com/nitrogen/simple_cache)
 * Added `wf:cache/[1,2,3]`, `wf:set_cache/[2,3]` and `wf:clear_cache/[1,2]`
 * Added a new `plugin` command to the `bin/dev` script to initialize a new
@@ -15,11 +15,16 @@
 * Added a record extension capability through the use of the `rekt` parse
   transform.  This allows quickly creating new elements from old ones, sort of
   like a inheritance.
+* All documentation has been converted from org-mode to markdown for easier
+  editing.
+* The `#template{}` element is now enabled to use the `pandoc` utility (if it's
+  on the system) to load and convert from all sorts of files.
+* Improved nprocreg performance by usings ETS instead of lists.
 * Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
   returns a proplist.
 * Nitrogen template callouts now be used to render variables, rather than just
   function calls. For example: `[[[MyVar]]]`
-* Added a new settings file for vim users. Can be installed to .vimrc by
+* Added a new settings file for vim users. Can be installed to `.vimrc` by
   running `make install-vim-script`
 * Added `#js_fun{}` action to aid calling javascript functions with properly
   escaped arguments.
@@ -31,8 +36,7 @@
 * Added `#date_dropdown{}` element, which is an alternative date picker ideal
   for dates of birth (where you don't need a calendar visual).
 * Added [qdate](https://github.com/choptastic/qdate) as a default dependency
-  for use with `#date_dropdown{}`.  It works a little better, but it's not
-  necessary.
+  for use with `#date_dropdown{}`.
 * Added `#remove_option{}`, `#add_option{}`, `#disable_option{}`, and
   `#enable_option{}` for interfacing with `#dropdown{}` options.
 * Added `#open_window{}` to open new windows.
@@ -79,8 +83,10 @@
   deprecated `crypto:rand_bytes`
 * Upgrade to Cowboy 2.0 (@etxemag75)
 * Add experimental support for Cowboy 2.0's sendfile (@rkulkarni)
-* Add support for Erlang 21 (@etxemag75)
+* Add support for Erlang 23 (@etxemag75)
 * Add support for UTF-16 (@miby00)
+* jQuery Mobile's elements have been deprecated and will be removed in
+  Nitrogen 3.0.
 
 ## Nitrogen 2.3.1
 
