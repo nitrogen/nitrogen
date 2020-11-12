@@ -63,6 +63,7 @@ thanks:
 	git clone git://github.com/nitrogen/nprocreg; \
 	git clone git://github.com/nitrogen/nitrogen_core; \
 	git clone git://github.com/nitrogen/NitrogenProject.com; \
+	git clone git://github.com/nitrogen/rekt; \
 	perl list_thanks.pl >> ../../thanks.txt; \
 	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
 	echo "Thanks file generated in thanks.txt - please review")

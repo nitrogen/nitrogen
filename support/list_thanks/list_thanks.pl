@@ -24,6 +24,8 @@ local %authors = {};
 &do_repo("nitrogen_core");
 &do_repo("simple_bridge");
 &do_repo("nprocreg");
+&do_repo("simple_cache");
+&do_repo("rekt");
 &do_repo("NitrogenProject.com");
 
 foreach $author (sort compare_date (keys(%authors))) {

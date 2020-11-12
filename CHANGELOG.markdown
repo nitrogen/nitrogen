@@ -19,18 +19,20 @@
   editing.
 * The `#template{}` element is now enabled to use the `pandoc` utility (if it's
   on the system) to load and convert from all sorts of files.
-* Improved nprocreg performance by usings ETS instead of lists.
+* Improved nprocreg performance. Version 0.3.0.
 * Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
   returns a proplist.
 * Nitrogen template callouts now be used to render variables, rather than just
   function calls. For example: `[[[MyVar]]]`
 * Added a new settings file for vim users. Can be installed to `.vimrc` by
   running `make install-vim-script`
+* Added a support for [Mermaid](https://mermaid-js.github.io/mermaid/#/) with
+  a `#mermaid{}` element. (@joaohf)
 * Added `#js_fun{}` action to aid calling javascript functions with properly
   escaped arguments.
 * Added `#youtube{}` and `#video{}` elements.
-* Added `wf:q_map()` and `wf:q_maps()` API calls to retrieve form fields as
-  maps.
+* Added `wf:q_map()` and `wf:q_maps()` API calls to retrieve collections of 
+  form fields as maps.
 * Added `wf:in_request()` which will return `true` if the current process is
   actually a Nitrogen request.
 * Added `#date_dropdown{}` element, which is an alternative date picker ideal
@@ -81,8 +83,8 @@
   (Stuart Thackray)
 * Fix so `wf:pickle` uses `crypto:strong_rand_bytes` instead of the now
   deprecated `crypto:rand_bytes`
-* Upgrade to Cowboy 2.0 (@etxemag75)
-* Add experimental support for Cowboy 2.0's sendfile (@rkulkarni)
+* Upgrade to Cowboy 2.x (@etxemag75)
+* Add experimental support for Cowboy 2.x's sendfile (@rkulkarni)
 * Add support for Erlang 23 (@etxemag75)
 * Add support for UTF-16 (@miby00)
 * jQuery Mobile's elements have been deprecated and will be removed in
