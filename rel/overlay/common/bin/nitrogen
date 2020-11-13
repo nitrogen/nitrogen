@@ -107,7 +107,12 @@ elif [ "$RUNNER_SCRIPT_DATA" = "slim" ]; then
         exit 1
     fi
     SYSTEM_HOME_BIN=${SYSTEM_ERL_PATH%/*}
-    ROOTDIR=$SYSTEM_HOME_BIN/../lib/erlang
+    ## This is a check for OSX using the Erlang Solutions installer
+    if [ -d "$SYSTEM_HOME_BIN../lib/erlang" ]; then
+        ROOTDIR=$SYSTEM_HOME_BIN/../lib/erlang
+    else
+        ROOTDIR=$SYSTEM_HOME_BIN/..
+    fi
     ERTS_PATH=$ROOTDIR/erts-$ERTS_VSN/bin
     unset SYSTEM_ERL_PATH
     unset SYSTEM_HOME_BIN
