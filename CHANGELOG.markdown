@@ -64,7 +64,6 @@
   useful.
 * Fix bug related to `#dropdown{}` option ambigious item selection. (Help from
   Stuart Thackray)
-* Upgrade to Yaws 2.02 (Stuart Thackray)
 * Fix a handful of issues related to unicode
 * Fix a process leak in comet and `#sync_panel{}`
 * Upgrade to SimpleBridge 2.1.0 (Fixes a potential tail-call related crash - or
@@ -83,7 +82,10 @@
   (Stuart Thackray)
 * Fix so `wf:pickle` uses `crypto:strong_rand_bytes` instead of the now
   deprecated `crypto:rand_bytes`
-* Upgrade to Cowboy 2.x (@etxemag75)
+* Upgrade to Cowboy 2.7.0 (@etxemag75)
+* Upgrade to Yaws 2.0.8 (Stuart Thackray)
+* Upgrade to Mochiweb 2.20.1
+* Upgrade to Webmachine 1.11.1
 * Add experimental support for Cowboy 2.x's sendfile (@rkulkarni)
 * Add support for Erlang 23 (@etxemag75)
 * Add support for UTF-16 (@miby00)
