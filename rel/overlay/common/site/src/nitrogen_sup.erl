@@ -23,7 +23,7 @@ start_link() ->
 
 init([]) ->
     application:load(nitrogen_core),
-    application:start(simple_cache),
+    application:start(nitro_cache),
     application:start(crypto),
     application:start(nprocreg),
     application:start(simple_bridge),
