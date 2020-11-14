@@ -30,29 +30,32 @@ Nitrogen prerequisits don't play nice with Windows-style line-endings (`\r\n`).
 ## Prerequisite Steps:
 
 1. Install [Erlang](http://www.erlang.org/download.html) (Recommended at least
-   R15B) for Windows into `c:\erlX.Y`.
-2. Make sure `c:\erlX.Y\bin` is in your windows PATH (Right click My Computer,
-   Click Properties, 
-3. Get [msysGit](https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140815/msysGit-netinstall-1.9.4-preview20140815.exe) and
-   install to `c:\msysgit` (the default).
+   Version 21) for Windows into `c:\erlX.Y`.
+2. Make sure `c:\erl-X.Y\bin` is in your windows `PATH` (Windows Key - Type
+   "path", and click the option that says "Edit the system environment variables,"
+   then click "Environment Variables", and edit the `PATH` entry under "System
+   Variables" to include `c:\erl-X.Y\bin` (make sure `X.Y` is the actual installed
+   version (e.g. `erl-23.1`)
+3. Install the [Git for Windows SDK](https://github.com/git-for-windows/build-extra/releases/tag/git-sdk-1.0.8).
+   This will take a few minutes, be patient (it clones and builds a 
 
 ## To Build Nitrogen
 
-1. Fire up msysgit (c:\msysgit\msys.bat)
+1. Fire up `msys2` from where Git for Windows installed (likely `c:\git-sdk-64\msys2.exe`)
 2. Navigate to the directory where you'd like to install Nitrogen (e.g.
-   `c:\www`)
+   `c:\www` - you can use `cd /c/www` and it will figure out `/c` means `c:`)
 3. Run `git clone https://github.com/nitrogen/nitrogen`
 4. Run `cd nitrogen`
-5. Run `make rel_inets_win` or (`make rel_mochiweb_win`)
-6. When it completes, you'll have a standalone installation in rel/nitrogen
-7. You can close Msysgit now
+5. Run `make rel_inets_win`, `make rel_mochiweb_win`, `make_rel_cowboy_win`,
+   or `make_rel_webmachine_win. When it completes, you'll have a standalone installation in `../myapp`
+7. You can close `Msys2`
 
-**Note:** You only need to use msysgit for when you want to *build* Nitrogen.
+**Note:** You only need to use `msys2` for when you want to *build* Nitrogen.
 Once it's built, you can run Nitrogen from the normal Windows Explorer.
 
 ## Running Nitrogen
 
-1. Close Msysgit and open Windows Explorer to where you installed Nitrogen
+1. Close `Msys2` and open Windows Explorer to where you installed Nitrogen
 2. Run (double-click) `start.cmd`
 3. Navigate your browser to `http://127.0.0.1:8000`
 
