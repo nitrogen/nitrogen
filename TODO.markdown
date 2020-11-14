@@ -3,14 +3,11 @@
 ## General functionality
 
 * Look into ErlyDTL integration as alternate templating engine
-* Integrated cache server and using cache\_handler
 
 ## Elements
 
 * Add Code-block element
 * Add Mathjax element = http://mathjax.org
-* Add wf\_render\_elements:map\_body/2, to recursively apply a function to
-  child elements
 
 ## Actions and Validators
 
