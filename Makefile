@@ -1,5 +1,5 @@
 
-NITROGEN_VERSION=2.3.1
+NITROGEN_VERSION=2.4.0
 
 # If project name is not provided, just use 'myapp'
 PROJECT?=myapp
@@ -325,7 +325,8 @@ rel_inner_full:
 	@($(MAKE) generate erl_interface rel_inner PLATFORM=$(PLATFORM))
 
 rel_inner_win: generate erl_interface
-	@(cd "rel/nitrogen"; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/)
+	@# In OTP 21, start_clean.boot became no_dot_erlang.boot
+	@(cd "rel/nitrogen"; cp releases/${NITROGEN_VERSION}/start_clean.boot bin/no_dot_erlang.boot)
 	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
 	@(cd rel/nitrogen/etc; sed -i 's/BACKEND/$(PLATFORM)/' simple_bridge.config)
 	@(cd rel/nitrogen; $(MAKE); $(MAKE) cookie; $(MAKE) copy-static)
