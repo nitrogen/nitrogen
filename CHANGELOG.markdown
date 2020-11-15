@@ -1,8 +1,8 @@
 # Nitrogen 2.x
 
-## Nitrogen 2.4.0 (in development)
+## Nitrogen 2.4.0
 
-* Cache Handler is finally implemented with [Nitro Cache](https://github.com/nitrogen/nitro_cache),
+* Cache Handler handler implemented with [Nitro Cache](https://github.com/nitrogen/nitro_cache),
   a fork of [Simple Cache](https://github.com/marcelog/simple_cache), modified
   with a mutex system to prevent parallel calculation of the same keys for use
   with Nitrogen.
@@ -18,8 +18,8 @@
 * All documentation has been converted from org-mode to markdown for easier
   editing.
 * The `#template{}` element is now enabled to use the `pandoc` utility (if it's
-  on the system) to load and convert from all sorts of files.
-* Improved nprocreg performance. Version 0.3.0.
+  on the system) to load and convert from all sorts of files (markdown, HTML,
+  LaTeX, epub, PDF, etc).
 * Added `wf:parse_qs/1`, which takes a URL-Encoded query (or post) string and
   returns a proplist.
 * Nitrogen template callouts now be used to render variables, rather than just
@@ -66,9 +66,6 @@
   Stuart Thackray)
 * Fix a handful of issues related to unicode
 * Fix a process leak in comet and `#sync_panel{}`
-* Upgrade to SimpleBridge 2.1.0 (Fixes a potential tail-call related crash - or
-  rather a crash caused by a poorly written function that wasn't tail-call
-  optimized)
 * Upgrade included rebar to a post-2.6.0 version that includes support for
   Rebar3-type deps (This will be the last non-bugfix release that uses rebar2).
 * Fix Bert encoding for string longer than 65535 characters.
@@ -80,17 +77,19 @@
   `{struct` tuples.
 * Fix bug related to improperly selected elements in a `#dropdown{}` element
   (Stuart Thackray)
-* Fix so `wf:pickle` uses `crypto:strong_rand_bytes` instead of the now
-  deprecated `crypto:rand_bytes`
+* Add experimental support for Cowboy 2.x's sendfile (@rkulkarni)
 * Upgrade to Cowboy 2.7.0 (@etxemag75)
 * Upgrade to Yaws 2.0.8 (Stuart Thackray)
 * Upgrade to Mochiweb 2.20.1
 * Upgrade to Webmachine 1.11.1
-* Add experimental support for Cowboy 2.x's sendfile (@rkulkarni)
 * Add support for Erlang 23 (@etxemag75)
 * Add support for UTF-16 (@miby00)
+* SimpleBridge to version 2.1.0 (most critically, fixes a number of crashes)
+* nprocreg to version 0.3.0 to improve performance.
+* jQuery to version 3.5.1
 * jQuery Mobile's elements have been deprecated and will be removed in
-  Nitrogen 3.0.
+  Nitrogen 3.0 and moved into a plugin (@fbrau)
+* Various fixes for deprecated modules and functions (crypto, rand, inets, etc)
 
 ## Nitrogen 2.3.1
 
