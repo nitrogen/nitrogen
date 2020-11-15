@@ -2,10 +2,10 @@
 
 ## Nitrogen 2.4.0 (in development)
 
-* Cache Handler is finally implemented, using a fork of
-  [Simple Cache](https://github.com/marcelog/simple_cache), modified to provide
-  use a mutex system to prevent parallel calculation of the same keys.  The new
-  version is at [nitrogen/simple_cache](https://github.com/nitrogen/simple_cache)
+* Cache Handler is finally implemented with [Nitro Cache](https://github.com/nitrogen/nitro_cache),
+  a fork of [Simple Cache](https://github.com/marcelog/simple_cache), modified
+  with a mutex system to prevent parallel calculation of the same keys for use
+  with Nitrogen.
 * Added `wf:cache/[1,2,3]`, `wf:set_cache/[2,3]` and `wf:clear_cache/[1,2]`
 * Added a new `plugin` command to the `bin/dev` script to initialize a new
   plugin (@fbrau)
