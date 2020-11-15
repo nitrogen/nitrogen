@@ -235,7 +235,7 @@ rel_win: check_exists compile
 
 package: rel
 	mkdir -p ./builds
-	$(MAKE) link_docs
+	$(MAKE) link_docs PREFIX=$(PREFIX) PROJECT=$(PROJECT)
 	tar cf ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar -C $(PREFIX) $(PROJECT)
 	gzip --best ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar 
 	rm -fr $(PREFIX)/$(PROJECT)
