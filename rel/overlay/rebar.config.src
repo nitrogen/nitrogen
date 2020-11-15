@@ -19,18 +19,18 @@
 
     %% Uncomment the following lines and comment the bottom lines with specific
     %% tags to always pull the latest versions
-    {simple_bridge, {git, "git://github.com/nitrogen/simple_bridge",{branch, master}}},
-    {qdate,         {git, "git://github.com/choptastic/qdate",      {branch, master}}},
-    {nprocreg,      {git, "git://github.com/nitrogen/nprocreg",     {branch, master}}},
-    {nitrogen_core, {git, "git://github.com/nitrogen/nitrogen_core",{branch, master}}},
-    {sync,          {git, "git://github.com/rustyio/sync",          {branch, master}}},
-    {nitro_cache,   {git, "git://github.com/nitrogen/nitro_cache",  {branch, master}}}
+    % {simple_bridge, {git, "git://github.com/nitrogen/simple_bridge",{branch, master}}},
+    % {qdate,         {git, "git://github.com/choptastic/qdate",      {branch, master}}},
+    % {nprocreg,      {git, "git://github.com/nitrogen/nprocreg",     {branch, master}}},
+    % {nitrogen_core, {git, "git://github.com/nitrogen/nitrogen_core",{branch, master}}},
+    % {sync,          {git, "git://github.com/rustyio/sync",          {branch, master}}},
+    % {nitro_cache,   {git, "git://github.com/nitrogen/nitro_cache",  {branch, master}}}
 
     %% Get specific tagged version
-    % {simple_bridge, {git, "git://github.com/nitrogen/simple_bridge",{tag, "v2.0.1"}}},
-    % {qdate,         {git, "git://github.com/choptastic/qdate",      {branch, master}}},
-    % {nprocreg,      {git, "git://github.com/nitrogen/nprocreg",     {tag, "v0.2.1"}}},
-    % {nitrogen_core, {git, "git://github.com/nitrogen/nitrogen_core",{tag, "v2.4.0"}}},
-    % {sync,          {git, "git://github.com/rustyio/sync",          {tag, "90e9237"}}},
-    % {simple_cache,  {git, "git://github.com/nitrogen/simple_cache", {branch, master}}}
+    {simple_bridge, {git, "git://github.com/nitrogen/simple_bridge",{tag, "v2.0.1"}}},
+    {qdate,         {git, "git://github.com/choptastic/qdate",      {tag, "0.5.0"}}},
+    {nprocreg,      {git, "git://github.com/nitrogen/nprocreg",     {tag, "v0.2.1"}}},
+    {nitrogen_core, {git, "git://github.com/nitrogen/nitrogen_core",{tag, "v2.4.0"}}},
+    {sync,          {git, "git://github.com/rustyio/sync",          {tag, "v0.2.0"}}},
+    {nitro_cache,   {git, "git://github.com/nitrogen/nitro_cache",  {tag, "0.4.0"}}}
 ]}.
