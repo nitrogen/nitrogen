@@ -254,7 +254,7 @@ package_all_win: clean update-deps
 	$(MAKE) package_inets_win package_mochiweb_win package_cowboy_win package_webmachine_win PROJECT=nitrogen PREFIX=/tmp
 
 clean_docs:
-	@(cd rel/nitrogen; rm -fr doc)
+	@(cd $(PREFIX)/$(PROJECT); rm -fr doc)
 
 copy_docs: clean_docs
 	@(echo "Copying Documentation to the release")
