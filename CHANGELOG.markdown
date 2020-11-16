@@ -14,7 +14,7 @@
   cache candler, which is very fast for both gets and sets.
 * Added a record extension capability through the use of the `rekt` parse
   transform.  This allows quickly creating new elements from old ones, sort of
-  like a inheritance.
+  like inheritance.
 * All documentation has been converted from org-mode to markdown for easier
   editing.
 * The `#template{}` element is now enabled to use the `pandoc` utility (if it's
