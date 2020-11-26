@@ -1,5 +1,19 @@
 # Nitrogen 2.x
 
+## Nitrogen 2.4.1 (in progress)
+
+* Added a `callouts` attribute to the `#template` element to enable or disable
+  callout functionality. (Setting `callouts` to `false` will result in the
+  template to not process `[[[mod:fun()]]]` blocks).
+* Added a `method` to the `#delay_body` element, which may selectively be used
+  to determine if s `simple` method (that may be less optimized, but more
+  universally acceptable) can be used.  This is the method used in `comet`,
+  and is also recommended if the `#delay_body` element will have its rendered
+  results cached.
+* When using caching, you're able to run `wf_context:cache()` to determine if
+  the current operation is being run while being cached, or just being run
+  normally.
+
 ## Nitrogen 2.4.0
 
 * Cache Handler handler implemented with [Nitro Cache](https://github.com/nitrogen/nitro_cache),
