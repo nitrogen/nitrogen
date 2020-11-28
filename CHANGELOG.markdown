@@ -13,6 +13,9 @@
 * When using caching, you're able to run `wf_context:cache()` to determine if
   the current operation is being run while being cached, or just being run
   normally.
+* Nitrogen can now generate documentation for [Dash](https://kapeli.com/dash)
+  (OSX) and [Zeal](https://zealdocs.org/) (Linux/Windows). Big thanks to
+  @bunnylushington for this.
 
 ## Nitrogen 2.4.0
 
