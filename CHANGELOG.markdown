@@ -12,6 +12,7 @@
   `simple` method (that may be less optimized, but more universally acceptable)
   can be used.  This is the method used in `comet`, and is also recommended if
   the `#delay_body` element will have its rendered results cached.
+* Fix `#delay_body` crash if `delegate` is not specified.
 * When using caching, you're able to run `wf_context:cache()` to determine if
   the current operation is being run while being cached, or just being run
   normally.
