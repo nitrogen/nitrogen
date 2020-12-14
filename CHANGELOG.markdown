@@ -2,6 +2,10 @@
 
 ## Nitrogen 2.4.1 (in progress)
 
+* Added Content Security Policy functionality (@bunnylushington)
+* Added a new Postback handler. This is the new last handler to process
+  anything, and gives the user a change to capture, modify, or do anything else
+  to a postback request before it gets processed. (@bunnylushington)
 * Added `#template.callouts` attribute to enable or disable callout
   functionality. (Setting `callouts` to `false` will result in the template to
   not process `[[[mod:fun()]]]` blocks).
