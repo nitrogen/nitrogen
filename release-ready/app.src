@@ -1,0 +1,18 @@
+{application, '[-$PROJECT-]',
+ [{description, "A Nitrogen/Cowboy OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {'[-$PROJECT-]_app', []}},
+  {included_applications,
+    [nitrogen_core, sync, cowboy, nprocreg, simple_bridge]},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {contributors, []},
+  {licenses, []},
+  {links, []}
+ ]}.

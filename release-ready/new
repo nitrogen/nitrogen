@@ -1,0 +1,161 @@
+#!env perl
+
+use strict;
+use autodie;
+use feature qw[ :5.10 ];
+
+use Getopt::Long;
+use Pod::Usage;
+use File::Spec;
+use FindBin;
+use File::Copy qw[ cp ];
+
+use lib "$FindBin::Bin/lib";
+use Text::Template;
+
+my $source_directory =  File::Spec->rel2abs($FindBin::bin);
+my $rebar = "$source_directory/rebar3";
+my $overlay_directory = "$source_directory/../rel/overlay/common";
+say $overlay_directory;
+
+my $delimiters = [ '[-', '-]' ];
+
+# -- option processing
+my ($help) = ();
+my $base = '.';
+GetOptions("help"   => \$help,
+           "base=s" => \$base);
+
+pod2usage() if ($help);
+
+my $project_name = shift;
+pod2usage("Must supply project name.") unless $project_name;
+
+# -- figure out directories.
+$base = File::Spec->rel2abs($base);
+my $project_directory = "$base/$project_name";
+unless (-W $base and -d _) {
+  die "Base directory ($base) must exist and be writable.\n"
+}
+if (-e $project_directory) {
+  die "Project directory ($project_directory) must not exist.\n"
+}
+
+say "Creating project $project_name in $project_directory.";
+
+# -- create release skel
+chdir $base;
+say `$rebar new release $project_name`;
+
+# -- install merge-configs
+mkdir "$project_name/bin";
+cp "$source_directory/merge-configs" => "$project_name/bin";
+chmod 0755, "$project_name/bin/merge-configs";
+
+# -- copy rebar3
+cp $rebar => "$project_name/rebar3";
+chmod 0755, "$project_name/rebar3";
+
+# -- install rebar.config
+fill_in_template("rebar.config", "$project_name/rebar.config");
+
+# -- make some directories
+chdir "$project_name/apps/$project_name";
+my @dirs = qw[ etc 
+               include 
+               test 
+               priv 
+               src/handlers 
+               src/nitrogen
+               src/actions
+               src/elements
+               priv/templates 
+               priv/static 
+               priv/static/js 
+               priv/static/images
+               priv/static/nitrogen 
+               priv/static/css ];
+mkdir $_ for @dirs;
+
+# -- install a project-specific config handler
+fill_in_template("config_handler.erl",
+                 "src/handlers/${project_name}_config_handler.erl");
+
+fill_in_template("nitrogen_main_handler.erl",
+                 "src/nitrogen/nitrogen_main_handler.erl");
+
+# -- install and fix up the config scripts
+for (qw[ app.config simple_bridge.config sync.config vm.args ]) {
+  cp "$overlay_directory/etc/$_" => "etc/$_";
+}
+`perl -pi -e 's/BACKEND/cowboy/'              etc/simple_bridge.config`;
+`perl -pi -e 's/{nitrogen,/{$project_name,/'  etc/app.config`;
+
+my $SB = "etc/simple_bridge.config";
+`$source_directory/update-simple-bridge $SB $SB`;
+
+
+# -- more of the default source scripts
+cp "$overlay_directory/site/src/$_" => "src/$_" for qw[ index.erl mobile.erl ];
+cp "$overlay_directory/site/src/nitrogen_sup.erl" => "src/nitrogen";
+
+# -- an updated app.src script
+fill_in_template("app.src", "src/${project_name}.app.src");
+
+# -- fixup the default app to start the nitro_sup.
+my $app = "src/${project_name}_app.erl";
+`perl -pi -e "s/'${project_name}_sup':/nitrogen_sup:/" $app`;
+unlink "src/${project_name}_sup.erl";
+
+# -- fix simple_bridge dispatch to use priv_dir
+fill_in_template("nitrogen_helpers.erl",
+                 "src/nitrogen/nitrogen_helpers.erl");
+
+# -- and update the sample pages to use the nitrogen_helper
+`perl -pi -e 's["./site/templates/bare.html"][nitrogen_helpers:template("bare.html")]' src/index.erl`;
+`perl -pi -e 's["./site/templates/mobile.html"][nitrogen_helpers:template("mobile.html")]' src/mobile.erl`;
+
+# -- copy the sample templates into place.
+cp "$overlay_directory/site/templates/${_}.html" => "priv/templates/${_}.html"
+  for qw[ bare mobile ];
+
+sub fill_in_template {
+  my ($source, $destination) = @_;
+  my $template = Text::Template->new(TYPE => 'FILE',
+                                     DELIMITERS => $delimiters,
+                                     SOURCE => "$source_directory/$source");
+  open my $fh, ">", $destination;
+  print $fh $template->fill_in(HASH => {PROJECT => $project_name});
+  close $fh;
+}
+
+                      
+
+__END__
+
+=head1 NAME
+
+new - Create an OTP release ready Nitrogen project.
+
+=head1 SYNOPSIS
+
+  new [options] <project-name>
+
+Options are
+
+  --help - show this message
+  --base - base directory where the project will be created
+
+This is really pretty hacky but lays down a reasonable foundation on
+which a Nitrogen/Cowboy application can be build and (most
+importantly) released.
+
+=head1 LICENSE
+
+Same as Nitrogen.
+
+=head1 AUTHOR
+
+  Kevin Montuori <montuori@bapi.us>
+  August 2015
+  
