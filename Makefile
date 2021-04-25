@@ -1,9 +1,11 @@
 
-NITROGEN_VERSION=2.4.0
+NITROGEN_VERSION=3.0.0
 
 # If project name is not provided, just use 'myapp'
 PROJECT?=myapp
 PREFIX?=..
+
+REBAR?=./rebar3
 
 help:
 	@echo 
@@ -33,20 +35,25 @@ help:
 
 all: get-deps compile
 
+template:
+	@(mkdir -p ~/.config/rebar3/templates/nitrogen)
+	@(cp priv/templates/nitrogen.template ~/.config/rebar3/templates/nitrogen)
+	@(cp -R priv/templates/common ~/.config/rebar3/templates/nitrogen/)
+
 distribute-rebar:
-	@(cp rebar rel/rebar; cp rebar rel/overlay/common;)
+	@(cp rebar3 rel/rebar; cp rebar3 rel/overlay/common;)
 
 get-deps: distribute-rebar
-	./rebar get-deps
+	$(REBAR) get-deps
 
 update-deps:
-	./rebar update-deps
+	$(REBAR) update-deps
 
 compile: get-deps
-	./rebar compile
+	$(REBAR) compile
 
 clean:
-	./rebar clean
+	$(REBAR) clean
 
 install-helper-script:
 	@(cd support/helper_script;./install.sh)
@@ -191,12 +198,11 @@ Exiting...\n\
 
 
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
-slim: check_exists compile
+slim: check_exists
 	@$(MAKE) clean_release
 	@echo "********************************************************************************"
 	@echo "Creating slim release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
 	@echo "********************************************************************************"
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_slim.config)
 	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
 	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
 	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
@@ -205,7 +211,7 @@ slim: check_exists compile
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
 	@echo "********************************************************************************"
 
-rel: check_exists compile
+rel: check_exists
 	@$(MAKE) clean_release
 	@echo "********************************************************************************"
 	@echo "Creating full release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
@@ -219,7 +225,7 @@ rel: check_exists compile
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
 	@echo "********************************************************************************"
 
-rel_win: check_exists compile
+rel_win: check_exists
 	@$(MAKE) clean_release
 	@echo "********************************************************************************"
 	@echo "Creating full Windows release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
@@ -299,7 +305,7 @@ base_make_all:
 
 clean_release:
 	@(rm -rf rel/nitrogen)
-	@(rm -rf rel/reltool.config)
+	@(rm -rf rel/relx.config)
 
 generate:
 	@(cd rel; ./rebar generate)
@@ -318,7 +324,6 @@ rel_inner:
 	@rm -rf rel/reltool.config
 
 rel_inner_slim:
-	@(cd rel; ./make_slim.escript reltool.config)
 	@($(MAKE) generate rel_inner PLATFORM=$(PLATFORM))
 
 rel_inner_full:
