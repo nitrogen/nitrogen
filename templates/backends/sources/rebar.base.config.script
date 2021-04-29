@@ -1,0 +1,15 @@
+%% -*- mode: erlang -*-
+%% -*- tab-width: 4;erlang-indent-level: 4;indent-tabs-mode: nil -*-
+%% ex: ts=4 sw=4 sts ft=erlang et
+
+case erlang:function_exported(rebar3, main, 1) of
+    true -> % rebar3
+        CONFIG;
+    false -> % rebar 2.x or older
+        %% Rebuild deps, possibly including those that have been moved to
+        %% profiles
+        [{deps, [
+            %% SCRIPT_BACKENDS,
+            {nitrogen_core, {git, "git://github.com/nitrogen/nitrogen_core", {branch, master}}},
+        ]} | lists:keydelete(deps, 1, CONFIG)]
+end.
