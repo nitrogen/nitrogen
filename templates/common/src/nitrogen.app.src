@@ -1,9 +1,9 @@
-{application, nitrogen,
+{application, {{name}},
  [
   {description, "My Nitrogen Web Project"},
   {vsn, "1"},
   {registered, []},
   {applications, [kernel, stdlib]},
-  {mod, { nitrogen_app, []}},
+  {mod, { {{name}}_app, []}},
   {env, []}
  ]}.

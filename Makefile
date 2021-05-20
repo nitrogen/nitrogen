@@ -36,24 +36,14 @@ help:
 all: get-deps compile
 
 template:
+	@(echo "Generating backend templates and re-deploying Rebar templates")
+	@(cd templates/backends; ./build_backend_configs.escript)
 	@(mkdir -p ~/.config/rebar3/templates/nitrogen)
-	@(cp priv/templates/nitrogen.template ~/.config/rebar3/templates/nitrogen)
-	@(cp -R priv/templates/common ~/.config/rebar3/templates/nitrogen/)
-
-distribute-rebar:
-	@(cp rebar3 rel/rebar; cp rebar3 rel/overlay/common;)
-
-get-deps: distribute-rebar
-	$(REBAR) get-deps
-
-update-deps:
-	$(REBAR) update-deps
-
-compile: get-deps
-	$(REBAR) compile
-
-clean:
-	$(REBAR) clean
+	@(echo "Copying Template Files to ./config/rebar3/templates")
+	@(cp templates/nitrogen.template ~/.config/rebar3/templates/nitrogen)
+	@(cp -R templates/common ~/.config/rebar3/templates/nitrogen/)
+	@(cp rebar3 ~/.config/rebar3/templates/nitrogen/common/)
+	@(cp -R templates/backends ~/.config/rebar3/templates/nitrogen/)
 
 install-helper-script:
 	@(cd support/helper_script;./install.sh)
@@ -75,14 +65,14 @@ thanks:
 	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
 	echo "Thanks file generated in thanks.txt - please review")
 	
-quickstart:
-	@($(MAKE) slim_mochiweb PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
-	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")	
-	@(cd "$(PREFIX)/nitrogenproject_com";$(MAKE))
-
-quickstart_win: rel_mochiweb_win rel_copy_quickstart
-	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
-	@(cd "$(PREFIX)/nitrogenproject_com";$(MAKE))
+#quickstart:
+#	@($(MAKE) slim_mochiweb PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
+#	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")	
+#	@(cd "$(PREFIX)/nitrogenproject_com";$(MAKE))
+#
+#quickstart_win: rel_mochiweb_win rel_copy_quickstart
+#	@($(MAKE) rel_copy_quickstart PROJECT=nitrogenproject_com PREFIX="$(PREFIX)")
+#	@(cd "$(PREFIX)/nitrogenproject_com";$(MAKE))
 
 # COWBOY
 
@@ -179,11 +169,11 @@ package_yaws_win:
 ## OSX doesn't ship with a decent readlink, so this is a workaround
 READLINK="support/readlink/readlink-f.sh"
 
-move_release:
-ifneq ($(shell $(READLINK) "$(PREFIX)/$(PROJECT)"), $(shell $(READLINK) "rel/nitrogen"))
-	@(mkdir -p $(shell dirname "$(PREFIX)/$(PROJECT)"))
-	@(mv ./rel/nitrogen $(PREFIX)/$(PROJECT))
-endif
+## move_release:
+## ifneq ($(shell $(READLINK) "$(PREFIX)/$(PROJECT)"), $(shell $(READLINK) "rel/nitrogen"))
+## 	@(mkdir -p $(shell dirname "$(PREFIX)/$(PROJECT)"))
+## 	@(mv ./rel/nitrogen $(PREFIX)/$(PROJECT))
+## endif
 
 check_exists:
 	@(test ! \( -e "$(PREFIX)/$(PROJECT)" \) || { echo "\n\
@@ -198,35 +188,29 @@ Exiting...\n\
 
 
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
-slim: check_exists
-	@$(MAKE) clean_release
-	@echo "********************************************************************************"
-	@echo "Creating slim release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
-	@echo "********************************************************************************"
-	@($(MAKE) rel_inner_slim PLATFORM=$(PLATFORM))
-	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
-	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
+slim: check_exists template
+	@echo "***********************************************************************************************"
+	@echo "Creating project that will default to a slim release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "***********************************************************************************************"
+	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM))
+	@(cd $(PREFIX)/$(PROJECT); make rebar2_links)
 	@echo "********************************************************************************"
 	@echo Generated a slim-release Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
 	@echo "********************************************************************************"
 
-rel: check_exists
-	@$(MAKE) clean_release
-	@echo "********************************************************************************"
-	@echo "Creating full release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
-	@echo "********************************************************************************"
-	@(cd rel;cp reltool_base.config reltool.config)
-	@($(MAKE) rel_inner_full PLATFORM=$(PLATFORM))
-	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
-	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
-	@echo "********************************************************************************"
+rel: check_exists template
+	@echo "***********************************************************************************************"
+	@echo "Creating a project that will default to a full release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "***********************************************************************************************"
+	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
+	@(cd $(PREFIX)/$(PROJECT); make rebar2_links)
+	@echo "***********************************************************************************************"
 	@echo Generated a self-contained Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
-	@echo "********************************************************************************"
+	@echo "***********************************************************************************************"
 
-rel_win: check_exists
-	@$(MAKE) clean_release
+rel_win: check_exists template
 	@echo "********************************************************************************"
 	@echo "Creating full Windows release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
 	@echo "********************************************************************************"
@@ -303,15 +287,15 @@ base_make_all:
 
 # SHARED
 
-clean_release:
-	@(rm -rf rel/nitrogen)
-	@(rm -rf rel/relx.config)
+## clean_release:
+## 	@(rm -rf rel/nitrogen)
+## 	@(rm -rf rel/relx.config)
 
-generate:
-	@(cd rel; ./rebar generate)
-
-erl_interface:
-	@(cd rel; escript copy_erl_interface.escript)
+## generate:
+## 	@(cd rel; ./rebar generate)
+## 
+## erl_interface:
+## 	@(cd rel; escript copy_erl_interface.escript)
 
 rel_inner:
 	@(cd rel; ./merge_platform_dependencies.escript overlay/rebar.config.src overlay/$(PLATFORM).deps nitrogen/rebar.config)
@@ -322,12 +306,6 @@ rel_inner:
 	@echo "Built On (uname -v):" >> "rel/nitrogen/BuildInfo.txt"
 	@uname -v >> "rel/nitrogen/BuildInfo.txt"
 	@rm -rf rel/reltool.config
-
-rel_inner_slim:
-	@($(MAKE) generate rel_inner PLATFORM=$(PLATFORM))
-
-rel_inner_full:
-	@($(MAKE) generate erl_interface rel_inner PLATFORM=$(PLATFORM))
 
 rel_inner_win: generate erl_interface
 	@# In OTP 21, start_clean.boot became no_dot_erlang.boot
@@ -342,12 +320,12 @@ rel_inner_win: generate erl_interface
 	@rm -rf rel/reltool.config rel/nitrogen/make_start_cmd.sh rel/nitrogen/start.cmd.src
 
 
-## This rather stupid looking workaround is because OSX throws odd
-## stdin errors with sed and "-i" despite us not even using stdin.
-## I really wish OSX would ship with some non-terrible UNIX utilities.
-replace_project_name:
-	@(sed "s/{{PROJECT}}/$(PROJECT)/g" < rel/nitrogen/etc/vm.args > rel/nitrogen/etc/temp.args)
-	@(mv rel/nitrogen/etc/temp.args rel/nitrogen/etc/vm.args)
+## ## This rather stupid looking workaround is because OSX throws odd
+## ## stdin errors with sed and "-i" despite us not even using stdin.
+## ## I really wish OSX would ship with some non-terrible UNIX utilities.
+## replace_project_name:
+## 	@(sed "s/{{PROJECT}}/$(PROJECT)/g" < rel/nitrogen/etc/vm.args > rel/nitrogen/etc/temp.args)
+## 	@(mv rel/nitrogen/etc/temp.args rel/nitrogen/etc/vm.args)
 
 rel_copy_quickstart:
 	mkdir -p deps

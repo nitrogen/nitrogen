@@ -1,6 +1,6 @@
 %% -*- mode: nitrogen -*-
 %% vim: ts=4 sw=4 et
--module(nitrogen_sup).
+-module({{name}}_sup).
 -behaviour(supervisor).
 -export([
     start_link/0,

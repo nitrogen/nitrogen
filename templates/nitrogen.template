@@ -1,10 +1,10 @@
 {description, "Nitrogen Installation Plugin"}.
 {variables, [
-	{name, nitrogen, "Default app name will be nitrogen"},
-    {prefix, "./", "Parent Directory will the app be installed"},
-	{backend, cowboy, "Default Backend"},
-	{port, 8000, "Port"},
-	{include_erts, false, "Should a built release include ERTS (false = slim release, true = full release)"}
+	{name, "nitrogen", "Default app name will be nitrogen"},
+    {prefix, ".", "Parent Directory will the app be installed"},
+	{backend, "cowboy", "Default Backend"},
+	{port, "8000", "Port"},
+	{include_erts, "false", "Should a built release include ERTS (false = slim release, true = full release)"}
 ]}.
 
 {dir, "{{prefix}}/{{name}}/priv"}.
@@ -13,6 +13,7 @@
 {dir, "{{prefix}}/{{name}}/priv/static/css"}.
 {dir, "{{prefix}}/{{name}}/priv/static/js"}.
 {dir, "{{prefix}}/{{name}}/priv/static/images"}.
+{dir, "{{prefix}}/{{name}}/priv/prototypes"}.
 {dir, "{{prefix}}/{{name}}/site"}.
 {dir, "{{prefix}}/{{name}}/etc"}.
 {dir, "{{prefix}}/{{name}}/src"}.
@@ -23,6 +24,8 @@
 {file, "common/README.md",  "{{prefix}}/{{name}}/README.md"}.
 {file, "common/plugins.config",  "{{prefix}}/{{name}}/plugins.config"}.
 {file, "common/.gitignore",  "{{prefix}}/{{name}}/.gitignore"}.
+{file, "common/rebar3", "{{prefix}}/{{name}}/rebar3"}.
+{chmod, "{{prefix}}/{{name}}/rebar3", 8#755}.
 
 {file, "common/priv/static/css/style.css",  "{{prefix}}/{{name}}/priv/static/css/style.css"}.
 {file, "common/priv/static/images/spinner.gif",  "{{prefix}}/{{name}}/priv/static/images/spinner.gif"}.
@@ -36,17 +39,16 @@
 {file, "common/do-plugins.escript",  "{{prefix}}/{{name}}/do-plugins.escript"}.
 
 %% Symlinks
-{file, "common/site/src",  "{{prefix}}/{{name}}/site/src"}.
-{file, "common/site/static",  "{{prefix}}/{{name}}/site/static"}.
-{file, "common/site/templates",  "{{prefix}}/{{name}}/site/templates"}.
-{file, "common/site/include", "{{prefix}}/{{name}}/site/include"}.
+%{file, "common/site/src",  "{{prefix}}/{{name}}/site/src"}.
+%{file, "common/site/static",  "{{prefix}}/{{name}}/site/static"}.
+%{file, "common/site/templates",  "{{prefix}}/{{name}}/site/templates"}.
+%{file, "common/site/include", "{{prefix}}/{{name}}/site/include"}.
 
-{file, "common/site/.prototypes",  "{{prefix}}/{{name}}/site/.prototypes"}.
-{file, "common/site/.prototypes/plugin.app.src",  "{{prefix}}/{{name}}/site/.prototypes/plugin.app.src"}.
-{file, "common/site/.prototypes/plugin_page.erl",  "{{prefix}}/{{name}}/site/.prototypes/plugin_page.erl"}.
-{file, "common/site/.prototypes/element.erl",  "{{prefix}}/{{name}}/site/.prototypes/element.erl"}.
-{file, "common/site/.prototypes/page.erl",  {{prefix}}/"{{name}}/site/.prototypes/page.erl"}.
-{file, "common/site/.prototypes/action.erl",  "{{prefix}}/{{name}}/site/.prototypes/action.erl"}.
+{file, "common/prototypes/plugin.app.src",  "{{prefix}}/{{name}}/priv/prototypes/plugin.app.src"}.
+{file, "common/prototypes/plugin_page.erl",  "{{prefix}}/{{name}}/priv/prototypes/plugin_page.erl"}.
+{file, "common/prototypes/element.erl",  "{{prefix}}/{{name}}/priv/prototypes/element.erl"}.
+{file, "common/prototypes/page.erl",  "{{prefix}}/{{name}}/priv/prototypes/page.erl"}.
+{file, "common/prototypes/action.erl",  "{{prefix}}/{{name}}/priv/prototypes/action.erl"}.
 
 {file, "common/etc/app.config",  "{{prefix}}/{{name}}/etc/app.config"}.
 {file, "common/etc/vm.args",  "{{prefix}}/{{name}}/etc/vm.args"}.
