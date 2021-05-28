@@ -33,9 +33,12 @@ replace(FromFile, ToFile, Comment, ContentsFile) ->
     {ok, FileBin} = file:read_file(FromFile),
     {ok, ContentsBin} = file:read_file(ContentsFile),
     
-    FileStr = binary_to_list(FileBin),
-    ContentsStr = binary_to_list(ContentsBin),
+    FileStr = chomp(binary_to_list(FileBin)),
+    ContentsStr = chomp(binary_to_list(ContentsBin)),
 
     NewStr = string:replace(FileStr, Comment, ContentsStr),
 
     ok = file:write_file(ToFile, NewStr).
+
+chomp(Str) ->
+    string:trim(Str, trailing, "\n").

@@ -20,12 +20,15 @@
 {dir, "{{prefix}}/{{name}}/src/actions"}.
 {dir, "{{prefix}}/{{name}}/src/elements"}.
 {dir, "{{prefix}}/{{name}}/include"}.
+{dir, "{{prefix}}/{{name}}/bin"}.
 
 {file, "common/README.md",  "{{prefix}}/{{name}}/README.md"}.
 {file, "common/plugins.config",  "{{prefix}}/{{name}}/plugins.config"}.
 {file, "common/.gitignore",  "{{prefix}}/{{name}}/.gitignore"}.
 {file, "common/rebar3", "{{prefix}}/{{name}}/rebar3"}.
+{file, "common/bin/nitrogen", "{{prefix}}/{{name}}/bin/nitrogen"}.
 {chmod, "{{prefix}}/{{name}}/rebar3", 8#755}.
+{chmod, "{{prefix}}/{{name}}/bin/nitrogen", 8#755}.
 
 {file, "common/priv/static/css/style.css",  "{{prefix}}/{{name}}/priv/static/css/style.css"}.
 {file, "common/priv/static/images/spinner.gif",  "{{prefix}}/{{name}}/priv/static/images/spinner.gif"}.
