@@ -39,7 +39,7 @@ template:
 	@(echo "Generating backend templates and re-deploying Rebar templates")
 	@(cd templates/backends; ./build_backend_configs.escript)
 	@(mkdir -p ~/.config/rebar3/templates/nitrogen)
-	@(echo "Copying Template Files to ./config/rebar3/templates")
+	@(echo "Copying Template Files to ./config/rebar3/templates/nitrogen")
 	@(cp templates/nitrogen.template ~/.config/rebar3/templates/nitrogen)
 	@(cp -R templates/common ~/.config/rebar3/templates/nitrogen/)
 	@(cp rebar3 ~/.config/rebar3/templates/nitrogen/common/)

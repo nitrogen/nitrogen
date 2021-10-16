@@ -29,7 +29,6 @@
 {file, "common/bin/nitrogen", "{{prefix}}/{{name}}/bin/nitrogen"}.
 {chmod, "{{prefix}}/{{name}}/rebar3", 8#755}.
 {chmod, "{{prefix}}/{{name}}/bin/nitrogen", 8#755}.
-
 {file, "common/priv/static/css/style.css",  "{{prefix}}/{{name}}/priv/static/css/style.css"}.
 {file, "common/priv/static/images/spinner.gif",  "{{prefix}}/{{name}}/priv/static/images/spinner.gif"}.
 {file, "common/priv/templates/bare.html",  "{{prefix}}/{{name}}/priv/templates/bare.html"}.
@@ -40,6 +39,7 @@
 {file, "common/src/index.erl",  "{{prefix}}/{{name}}/src/index.erl"}.
 {file, "common/Makefile",  "{{prefix}}/{{name}}/Makefile"}.
 {file, "common/do-plugins.escript",  "{{prefix}}/{{name}}/do-plugins.escript"}.
+{chmod, "{{prefix}}/{{name}}/do-plugins.escript", 8#755}.
 
 %% Symlinks
 %{file, "common/site/src",  "{{prefix}}/{{name}}/site/src"}.
@@ -53,6 +53,8 @@
 {file, "common/prototypes/page.erl",  "{{prefix}}/{{name}}/priv/prototypes/page.erl"}.
 {file, "common/prototypes/action.erl",  "{{prefix}}/{{name}}/priv/prototypes/action.erl"}.
 
+{file, "common/etc/assemble_config.escript", "{{prefix}}/{{name}}/etc/assemble_config.escript"}.
+{chmod, "{{prefix}}/{{name}}/etc/assemble_config.escript", 8#755}.
 {file, "common/etc/app.config",  "{{prefix}}/{{name}}/etc/app.config"}.
 {file, "common/etc/vm.args",  "{{prefix}}/{{name}}/etc/vm.args"}.
 {file, "common/etc/sync.config",  "{{prefix}}/{{name}}/etc/sync.config"}.
