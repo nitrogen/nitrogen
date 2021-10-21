@@ -1,6 +1,6 @@
 .PHONY: fix-slim-release test
 
-all: plugins compile nitrogen_js_css
+all: compile nitrogen_js_css
 
 REBAR?=./rebar3
 
@@ -20,13 +20,15 @@ update-deps:
 eunit: get-deps compile
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) skip_deps=true eunit)
 
-nitrogen_js_css: link-static
+nitrogen_js_css: site/static/nitrogen
 
 copy-static:
+	@(rm -fr priv/static/nitrogen)
 	@(mkdir -p priv/static/nitrogen)
 	@(cp -r _build/default/lib/nitrogen_core/www/* priv/static/nitrogen/)
 
 link-static:
+	@(rm -fr priv/static/nitrogen)
 	@(ln -s ../../_build/default/lib/nitrogen_core/www priv/static/nitrogen)
 
 plugins:
