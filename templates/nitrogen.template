@@ -56,7 +56,7 @@
 {file, "common/etc/assemble_config.escript", "{{prefix}}/{{name}}/etc/assemble_config.escript"}.
 {chmod, "{{prefix}}/{{name}}/etc/assemble_config.escript", 8#755}.
 {file, "common/etc/app.config",  "{{prefix}}/{{name}}/etc/app.config"}.
-{file, "common/etc/vm.args",  "{{prefix}}/{{name}}/etc/vm.args"}.
+{template, "common/etc/vm.args",  "{{prefix}}/{{name}}/etc/vm.args"}.
 {file, "common/etc/sync.config",  "{{prefix}}/{{name}}/etc/sync.config"}.
 {template, "common/etc/simple_bridge.config",  "{{prefix}}/{{name}}/etc/simple_bridge.config"}.
 
