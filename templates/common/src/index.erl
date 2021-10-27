@@ -21,15 +21,7 @@ inner_body() ->
         running. Click the button below to test postbacks.
         ",
         #p{}, 	
-        #button { id=button, text="Click me!", postback=click },
-		#p{},
-        "
-        Run <b>./bin/dev help</b> to see some useful developer commands.
-        ",
-		#p{},
-		"
-		<b>Want to see the ",#link{text="Sample Nitrogen jQuery Mobile Page",url="/mobile"},"?</b>
-		"
+        #button { id=button, text="Click me!", postback=click }
     ].
 	
 event(click) ->
