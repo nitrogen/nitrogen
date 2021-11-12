@@ -24,7 +24,7 @@ case "$1" in
     console)
         cat $RUNNER_ETC_DIR/*.config > $APP_CONFIG
         $RUNNER_ETC_DIR/assemble_config.escript $RUNNER_ETC_DIR $APP_CONFIG
-        $RUNNER_BASE_DIR/rebar3 run
+        $RUNNER_BASE_DIR/rebar3 shell
         ;;
 
     stop)

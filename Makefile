@@ -214,10 +214,11 @@ rel_win: check_exists template
 	@echo "********************************************************************************"
 	@echo "Creating full Windows release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
 	@echo "********************************************************************************"
-	@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_win.config)
-	@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
-	@($(MAKE) replace_project_name PROJECT=$(PROJECT))
-	@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
+	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
+	#@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_win.config)
+	#@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
+	#@($(MAKE) replace_project_name PROJECT=$(PROJECT))
+	#@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
 	@echo "********************************************************************************"
 	@echo Generated a self-contained Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
