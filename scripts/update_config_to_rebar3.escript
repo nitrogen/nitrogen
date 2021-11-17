@@ -28,13 +28,14 @@ main([File]) ->
     C5 = add_plugin(rebar3_run, C4),
     C6 = add_relx(C5),
     C7 = hexify_deps(C6),
-    case C7==Config of
+    FinalConfig = C7,
+    case FinalConfig==Config of
         true ->
             io:format("No changes were made to ~s~n",[File]);
         false ->
-            NoDeps = lists:keydelete(deps, 1, C7),
+            NoDeps = lists:keydelete(deps, 1, FinalConfig),
             Formatted = writable_terms(NoDeps),
-            OnlyDeps = writable_deps(proplists:get_value(deps, C7, [])),
+            OnlyDeps = writable_deps(proplists:get_value(deps, FinalConfig, [])),
             NewBody = [Formatted, OnlyDeps],
             io:format("Writing new ~s~n",[File]),
             file:write_file(File, NewBody)
@@ -127,13 +128,15 @@ remove_option(Rule, Config) ->
     end.
 
 add_relx(Config) ->
-    io:format("Adding Relx config.~n"),
+    io:format("Adding Relx config: "),
     Relx = proplists:get_value(relx, Config, undefined),
     case Relx of
         undefined ->
-            add_relx_inner(Config);
+            C2 = add_relx_inner(Config),
+            io:format("added.~n"),
+            C2;
         _ ->
-            io:format("Target file already has relx rules. Aborting.~n"),
+            io:format("already present, skipping.~n"),
             Config
     end.
 
@@ -166,26 +169,42 @@ add_relx_inner(Config) ->
     ]},
     Config ++ [NewRelx].
 
+can_ignore_dep(Dep) ->
+    lists:member(Dep, [simple_bridge, nitro_cache, nprocreg, rekt, qdate]).
+
 hexify_deps(Config) ->
-    io:format("Hexifying Deps...~n"),
+    io:format("Hexifying Dependancies...~n"),
     Deps = proplists:get_value(deps, Config, []),
     NewDeps = lists:map(fun
         (App) when is_atom(App) ->
-            io:format("...~p is already Hexified~n", [App]),
-            App;
+            case can_ignore_dep(App) of
+                true ->
+                    io:format("...~p does not need to be explicitly specified as a dependency, removing.~n",[App]),
+                    undefined;
+                false ->
+                    io:format("...~p is already Hexified~n", [App]),
+                    App
+            end;
         (App) when is_tuple(App) ->
             Appname = element(1, App),
-            io:format("...~p? ", [Appname]),
-            case is_in_hex(Appname) of
+            case can_ignore_dep(Appname) of
                 true ->
-                    io:format("YES.~n"),
-                    Appname;
+                    io:format("...~p does not need to be explicitly specified as a dependency, removing.~n",[App]),
+                    undefined;
                 false ->
-                    io:format("NO.~n"),
-                    App
+                    io:format("...~p? ", [Appname]),
+                    case is_in_hex(Appname) of
+                        true ->
+                            io:format("YES.~n"),
+                            Appname;
+                        false ->
+                            io:format("NO.~n"),
+                            App
+                    end
             end
     end, Deps),
-    lists:keydelete(deps, 1, Config) ++ [{deps, NewDeps}].
+    NewDeps2 = [X || X <- NewDeps, X=/=undefined],
+    lists:keydelete(deps, 1, Config) ++ [{deps, NewDeps2}].
 
 is_in_hex(App) ->
     BaseURL = "https://hex.pm/api/packages/",
