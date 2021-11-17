@@ -11,6 +11,7 @@ mv -v releases rebar2_to_rebar3_trash
 mv -v fix-slim-release rebar2_to_rebar3_trash
 mv -v lib rebar2_to_rebar3_trash
 mv -v rebar rebar2_to_rebar3_trash
+cp -v rebar.config rebar2_to_rebar3_trash/
 
 mv -v site/static priv
 mv -v site/templates priv
@@ -39,4 +40,9 @@ curl https://github.com/nitrogen/nitrogen/raw/rebar3/templates/common/bin/nitrog
 chmod 755 bin/nitrogen
 
 ## rewrite rebar.config based on current deps
-./add_relx_to_rebar3.escript
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/scripts/update_config_to_rebar3.escript -o "update_config_to_rebar3.escript"
+./update_config_to_rebar3.escript
+
+## Add additional new rebar3 rules
+
+echo Done converting rebar2 nitrogen-based project to rebar3
