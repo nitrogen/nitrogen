@@ -18,29 +18,31 @@ mv -v site/templates priv
 mv -v bin/nitrogen bin/nitrogen.old
 mv -v bin/dev bin/dev.old
 mv -v Makefile Makefile.old
-ln -sv priv/static site/static
-ln -sv priv/templates site/templates
+ln -sv ../priv/static site/static
+ln -sv ../priv/templates site/templates
 
 ## Download new Makefile
 
-curl https://github.com/nitrogen/nitrogen/raw/rebar3/templates/common/Makefile -o Makefile
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/Makefile -o Makefile
 
 ## download rebar3
 
-curl https://github.com/nitrogen/nitrogen/raw/rebar3/rebar3 -o "rebar3"
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/raw/rebar3/rebar3 -o "rebar3"
 chmod 755 rebar3
 
 ## download assemble_config.escript
 
-curl https://github.com/nitrogen/nitrogen/raw/rebar3/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/raw/rebar3/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
+chmod 755 etc/assemble_config.escript
 
 ## download new nitrogen/bin
 
-curl https://github.com/nitrogen/nitrogen/raw/rebar3/templates/common/bin/nitrogen -o "bin/nitrogen"
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/raw/rebar3/templates/common/bin/nitrogen -o "bin/nitrogen"
 chmod 755 bin/nitrogen
 
 ## rewrite rebar.config based on current deps
 curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/scripts/update_config_to_rebar3.escript -o "update_config_to_rebar3.escript"
+chmod 755 update_config_to_rebar3.escript
 ./update_config_to_rebar3.escript
 
 ## Add additional new rebar3 rules

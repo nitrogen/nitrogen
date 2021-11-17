@@ -23,7 +23,7 @@ main([File]) ->
     C2 = remove_option(sub_dirs, Config),
     C3 = remove_option(deps_dir, C2),
     C4 = remove_sub_option(erl_opts, i, C3),
-    C5 = add_plugins(C4),
+    C5 = add_plugin(rebar3_run, C4),
     C6 = add_relx(C5),
     case C6==Config of
         true ->
@@ -54,8 +54,8 @@ writable_terms(Terms) ->
     end, Terms).
 
 remove_sub_option(Rule, Subrule, Config) ->
-    io:format("Removing ~p/~p rule (if it exists): "),
-    case lists:keyfind(Rule, 1 Config) of
+    io:format("Removing ~p/~p rule (if it exists): ", [Rule, Subrule]),
+    case lists:keyfind(Rule, 1, Config) of
         false ->
             io:format("~p does not exist, skipping.~n",[Rule]),
             Config;
