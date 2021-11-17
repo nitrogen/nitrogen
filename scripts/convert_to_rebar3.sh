@@ -27,7 +27,7 @@ curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common
 
 ## download rebar3
 
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/raw/rebar3/rebar3 -o "rebar3"
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/rebar3 -o "rebar3"
 chmod 755 rebar3
 
 ## download assemble_config.escript
