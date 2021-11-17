@@ -3,9 +3,7 @@
 mkdir -pv rebar2_to_rebar3_trash
 mkdir -pv priv
 mv -v site/src .
-ln -sv site/src ../src
 mv -v site/include .
-ln -sv site/include ../include
 mv -v site/ebin rebar2_to_rebar3_trash
 mv -v releases rebar2_to_rebar3_trash
 mv -v fix-slim-release rebar2_to_rebar3_trash
@@ -18,6 +16,9 @@ mv -v site/templates priv
 mv -v bin/nitrogen bin/nitrogen.old
 mv -v bin/dev bin/dev.old
 mv -v Makefile Makefile.old
+
+ln -sv ../src site/src
+ln -sv ../include site/include
 ln -sv ../priv/static site/static
 ln -sv ../priv/templates site/templates
 

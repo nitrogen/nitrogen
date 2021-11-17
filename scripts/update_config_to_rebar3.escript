@@ -189,7 +189,7 @@ hexify_deps(Config) ->
             Appname = element(1, App),
             case can_ignore_dep(Appname) of
                 true ->
-                    io:format("...~p does not need to be explicitly specified as a dependency, removing.~n",[App]),
+                    io:format("...~p does not need to be explicitly specified as a dependency, removing.~n",[Appname]),
                     undefined;
                 false ->
                     io:format("...~p? ", [Appname]),
