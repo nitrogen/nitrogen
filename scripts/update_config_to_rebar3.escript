@@ -28,7 +28,8 @@ main([File]) ->
     C5 = add_plugin(rebar3_run, C4),
     C6 = add_relx(C5),
     C7 = hexify_deps(C6),
-    FinalConfig = C7,
+    C8 = add_hooks(C7),
+    FinalConfig = C8,
     case FinalConfig==Config of
         true ->
             io:format("No changes were made to ~s~n",[File]);
@@ -40,6 +41,24 @@ main([File]) ->
             io:format("Writing new ~s~n",[File]),
             file:write_file(File, NewBody)
     end.
+
+add_hooks(Config) ->
+    io:format("Add compile hooks? "),
+    Hooks = proplists:get_value(pre_hooks, Config, []),
+    ToAddHooks = [
+        {"linux|bsd|darwin|solaris", compile, "escript do-plugins.escript"},
+        {"win32", compile, "escript.exe do-plugins.escript"}
+    ],
+    NewHooks = (Hooks -- ToAddHooks) ++ ToAddHooks,
+    case Hooks==NewHooks of
+        true ->
+            io:format("NO~n"),
+            Config;
+        false ->
+            io:format("YES~n"),
+            [{pre_hooks, NewHooks} | Config]
+    end.
+
 
 add_plugin(Plugin, Config) ->
     io:format("Adding plugin ~p: ",[Plugin]),

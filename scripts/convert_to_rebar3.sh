@@ -22,32 +22,37 @@ ln -sv ../include site/include
 ln -sv ../priv/static site/static
 ln -sv ../priv/templates site/templates
 
+BASEURL=https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3
+
 ## Download new Makefile
 
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/Makefile -o Makefile
+curl $BASEURL/templates/common/Makefile -o Makefile
 
 ## download rebar3
 
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/rebar3 -o "rebar3"
+curl $BASEURL/rebar3 -o "rebar3"
 chmod 755 rebar3
 
 ## download assemble_config.escript
 
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
+curl $BASEURL/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
 chmod 755 etc/assemble_config.escript
 
 ## download new nitrogen/bin
 
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/bin/nitrogen -o "bin/nitrogen"
+curl $BASEURL/templates/common/bin/nitrogen -o "bin/nitrogen"
 chmod 755 bin/nitrogen
 
 ## Get new plugins thing
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/do-plugins.escript -o "do-plugins.escript"
+curl $BASEURL/templates/common/do-plugins.escript -o "do-plugins.escript"
 chmod 755 do-plugins.escript
 
 ## rewrite rebar.config based on current deps
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/scripts/update_config_to_rebar3.escript -o "update_config_to_rebar3.escript"
+curl $BASEURL/scripts/update_config_to_rebar3.escript -o "update_config_to_rebar3.escript"
 chmod 755 update_config_to_rebar3.escript
+
+## Get new plugins.config
+curl $BASEURL/templates/common/plugins.config -o "plugins.config"
 
 ./update_config_to_rebar3.escript
 
