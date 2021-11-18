@@ -33,17 +33,22 @@ chmod 755 rebar3
 
 ## download assemble_config.escript
 
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/raw/rebar3/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
 chmod 755 etc/assemble_config.escript
 
 ## download new nitrogen/bin
 
-curl https://raw.githubusercontent.com/nitrogen/nitrogen/raw/rebar3/templates/common/bin/nitrogen -o "bin/nitrogen"
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/bin/nitrogen -o "bin/nitrogen"
 chmod 755 bin/nitrogen
+
+## Get new plugins thing
+curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/templates/common/do-plugins.escript -o "do-plugins.escript"
+chmod 755 do-plugins.escript
 
 ## rewrite rebar.config based on current deps
 curl https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/scripts/update_config_to_rebar3.escript -o "update_config_to_rebar3.escript"
 chmod 755 update_config_to_rebar3.escript
+
 ./update_config_to_rebar3.escript
 
 ## Add additional new rebar3 rules
