@@ -88,6 +88,9 @@ rel_cowboy:
 rel_cowboy_win:
 	@($(MAKE) rel_win PLATFORM=cowboy PROJECT=$(PROJECT))
 
+slim_cowboy_win:
+	@($(MAKE) slim_win PLATFORM=cowboy PROJECT=$(PROJECT))
+
 package_cowboy: 
 	@($(MAKE) package PLATFORM=cowboy PROJECT=$(PROJECT))
 
@@ -105,6 +108,9 @@ rel_inets:
 
 rel_inets_win:
 	@($(MAKE) rel_win PLATFORM=inets PROJECT=$(PROJECT))
+
+slim_inets_win:
+	@($(MAKE) slim_win PLATFORM=inets PROJECT=$(PROJECT))
 
 package_inets: 
 	@($(MAKE) package PLATFORM=inets PROJECT=$(PROJECT))
@@ -124,6 +130,9 @@ rel_mochiweb:
 rel_mochiweb_win:
 	@($(MAKE) rel_win PLATFORM=mochiweb PROJECT=$(PROJECT))
 
+slim_mochiweb_win:
+	@($(MAKE) slim_win PLATFORM=mochiweb PROJECT=$(PROJECT))
+
 package_mochiweb: 
 	@($(MAKE) package PLATFORM=mochiweb PROJECT=$(PROJECT))
 
@@ -142,6 +151,9 @@ rel_webmachine:
 rel_webmachine_win:
 	@($(MAKE) rel_win PLATFORM=webmachine PROJECT=$(PROJECT))
 
+slim_webmachine_win:
+	@($(MAKE) slim_win PLATFORM=webmachine PROJECT=$(PROJECT))
+
 package_webmachine: 
 	@($(MAKE) package PLATFORM=webmachine PROJECT=$(PROJECT))
 
@@ -159,6 +171,9 @@ rel_yaws:
 
 rel_yaws_win:
 	@($(MAKE) rel_win PLATFORM=yaws PROJECT=$(PROJECT))
+
+slim_yaws_win:
+	@($(MAKE) slim_win PLATFORM=yaws PROJECT=$(PROJECT))
 
 package_yaws: 
 	@($(MAKE) package PLATFORM=yaws PROJECT=$(PROJECT))
@@ -192,35 +207,53 @@ Exiting...\n\
 
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
 slim: check_exists template
-	@echo "***********************************************************************************************"
-	@echo "Creating project that will default to a slim release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
-	@echo "***********************************************************************************************"
+	@echo "********************************************************************************"
+	@echo "Creating a project that will default to a slim release"
+	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "********************************************************************************"
 	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM))
 	@(cd $(PREFIX)/$(PROJECT); make rebar2_links)
+	@(cd $(PREFIX)/$(PROJECT); make cookie)
 	@echo "********************************************************************************"
-	@echo Generated a slim-release Nitrogen project
-	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo Generated a new Nitrogen project
+	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a slim release
 	@echo "********************************************************************************"
 
 rel: check_exists template
-	@echo "***********************************************************************************************"
-	@echo "Creating a project that will default to a full release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
-	@echo "***********************************************************************************************"
+	@echo "********************************************************************************"
+	@echo "Creating a project that will default to a full release"
+	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "********************************************************************************"
 	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
 	@(cd $(PREFIX)/$(PROJECT); make rebar2_links)
-	@echo "***********************************************************************************************"
-	@echo Generated a self-contained Nitrogen project
-	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
-	@echo "***********************************************************************************************"
+	@(cd $(PREFIX)/$(PROJECT); make cookie)
+	@echo "********************************************************************************"
+	@echo Generated a new Nitrogen project
+	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a full release
+	@echo "********************************************************************************"
+
+slim_win: check_exists template
+	@echo "********************************************************************************"
+	@echo "Creating a project that will default to a slim release"
+	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM) running on Windows"
+	@echo "********************************************************************************"
+	@($(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=false)
+	@(cd $(PREFIX)/$(PROJECT); make cookie)
+	@echo "********************************************************************************"
+	@echo Generated a new Windows-based Nitrogen project
+	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a slim release
+	@echo "********************************************************************************"
 
 rel_win: check_exists template
 	@echo "********************************************************************************"
-	@echo "Creating full Windows release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
+	@echo "Creating a project that will default to a full release"
+	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM) running on Windows"
 	@echo "********************************************************************************"
 	@($(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
+	@(cd $(PREFIX)/$(PROJECT); make cookie)
 	@echo "********************************************************************************"
-	@echo Generated a self-contained Nitrogen project
-	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
+	@echo Generated a new Windows-based Nitrogen project
+	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a full release
 	@echo "********************************************************************************"
 
 package: rel
