@@ -1,0 +1,3 @@
+{file, "win/build_release.cmd", "{{prefix}}/{{name}}/build_release.cmd"}.
+{file, "win/compile.cmd", "{{prefix}}/{{name}}/compile.cmd"}.
+{file, "win/start_dev.cmd", "{{prefix}}/{{name}}/start_dev.cmd"}.

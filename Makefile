@@ -43,7 +43,10 @@ template:
 	@(cp templates/nitrogen.template ~/.config/rebar3/templates/nitrogen)
 	@(cp -R templates/common ~/.config/rebar3/templates/nitrogen/)
 	@(cp rebar3 ~/.config/rebar3/templates/nitrogen/common/)
+	@(cp -R templates/win ~/.config/rebar3/templates/nitrogen/)
 	@(cp -R templates/backends ~/.config/rebar3/templates/nitrogen/)
+	@(cat templates/nitrogen.template templates/win.template > ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
+
 
 install-helper-script:
 	@(cd support/helper_script;./install.sh)
@@ -214,11 +217,7 @@ rel_win: check_exists template
 	@echo "********************************************************************************"
 	@echo "Creating full Windows release in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
 	@echo "********************************************************************************"
-	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
-	#@(cd rel; ./add_overlay.escript reltool.config reltool_base.config reltool_win.config)
-	#@($(MAKE) rel_inner_win PLATFORM=$(PLATFORM))
-	#@($(MAKE) replace_project_name PROJECT=$(PROJECT))
-	#@($(MAKE) move_release PROJECT=$(PROJECT) PREFIX=$(PREFIX))
+	@($(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
 	@echo "********************************************************************************"
 	@echo Generated a self-contained Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM).
