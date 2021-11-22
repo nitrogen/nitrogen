@@ -77,11 +77,14 @@
 %% (Note: The Erlang/Nitrogen Element code is not copied, it'll be loaded just
 %% like any rebar dependency's code)
 
+-define(PLUGIN_FILE, "nitrogen.plugin").
+
 main([]) ->
     io:format("Checking for Nitrogen Plugins\n"),
     RebarConfig = get_config("rebar.config"),
     PluginConfig = get_config("plugins.config"),
-    DepDirs = proplists:get_value(deps_dir, RebarConfig, ["_build/default/lib"]),
+    DepDirs = proplists:get_value(deps_dir, RebarConfig, ["lib", "_build/default/lib", "_build/default/checkouts"]),
+    io:format("Deps dirs: ~p",[DepDirs]),
     {Includes,Statics,Templates} = lists:foldl(fun(Dir, {Inc, Stat, Temp}) ->
                             {ok, FoundIncludes, FoundStatics, FoundTemplates} = get_plugins(Dir),
                             {FoundIncludes ++ Inc, FoundStatics ++ Stat, FoundTemplates ++ Temp}
@@ -128,8 +131,7 @@ get_config(File) ->
 analyze_path(Path) ->
     case is_dir_or_symlink_dir(Path) of
         true ->
-            {ok, Files} = file:list_dir(Path),
-            case lists:member("nitrogen.plugin",Files) of
+            case is_plugin(Path) of
                 false -> 
                     undefined;
                 true -> 
@@ -153,6 +155,16 @@ analyze_path(Path) ->
             end;
         false -> undefined
     end.
+
+%% Similarly to the "static" dir, the nitrogen.plugin file used to exist in the
+%% root of the directory, but it was moved to the priv directory to ensure it
+%% is easily copied by hex
+is_plugin(Path) ->
+    PossibleFiles = [
+        filename:join([Path, ?PLUGIN_FILE]),
+        filename:join([Path, priv, ?PLUGIN_FILE])
+    ],
+    lists:any(fun filelib:is_regular/1, PossibleFiles).
 
 is_dir_or_symlink_dir(Path) ->
     case filelib:is_dir(Path) of
