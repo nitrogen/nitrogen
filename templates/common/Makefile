@@ -11,8 +11,27 @@ cookie:
 compile:
 	@($(REBAR) compile)
 
-eunit: get-deps compile
+eunit:
 	@($(REBAR) eunit)
+
+release:
+	./make_version_file.escript go
+	@($(REBAR) release)
+	make finish_version
+
+revert_version:
+	./make_version_file.escript revert
+
+finish_version:
+	./make_version_file.escript finish
+
+upgrade_running:
+	./make_version_file.escript go
+	./upgrade_release.sh
+	make finish_version
+	
+upgrade_deps:
+	@($(REBAR) upgrade)
 
 nitrogen_js_css: priv/static/nitrogen
 
@@ -51,17 +70,24 @@ priv/static/nitrogen: link-static
 dialyzer:
 	@($(REBAR) dialyzer)
 
-#update: update-deps copy-static compile
+dev:
+	mkdir -p _checkouts
+	git clone git://github.com/nitrogen/nitrogen_core _checkouts/nitrogen_core
+	git clone git://github.com/nitrogen/nprocreg_checkouts/nprocreg
+	git clone git://github.com/nitrogen/simple_bridge_checkouts/simple_bridge
+	git clone git://github.com/nitrogen/rekt _checkouts/rekt
+	git clone git://github.com/nitrogen/nitro_cache  _checkouts/nitro_cache
+	git clone git://github.com/choptastic/qdate  _checkouts/qdate
+	git clone git://github.com/rustyio/sync _checkouts/sync
+
+#update: compile
 #	@(echo "*** CONGRATULATIONS ***")
 #	@(echo "Your Nitrogen installation has been upgraded.")
 #	@(echo "You may need to manually merge any changes that may have been made to")
 #	@(echo "configuration files as well as the initialization modules:")
-#	@(echo "    site/src/nitrogen_sup.erl")
-#	@(echo "    site/src/nitrogen_PLATFORM.erl")
-#	@(echo "    site/src/nitrogen_app.erl")
+#	@(echo "    src/nitrogen.app.src")
+#	@(echo "    src/nitrogen_sup.erl")
+#	@(echo "    src/nitrogen_app.erl")
 #	@(echo "")
 #
 #upgrade: update
-#
-#clean:
-#	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; $(REBAR) clean)

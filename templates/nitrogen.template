@@ -39,6 +39,10 @@
 {file, "common/src/index.erl",  "{{prefix}}/{{name}}/src/index.erl"}.
 {file, "common/Makefile",  "{{prefix}}/{{name}}/Makefile"}.
 {file, "common/do-plugins.escript",  "{{prefix}}/{{name}}/do-plugins.escript"}.
+{file, "common/make_version_file.escript", "{{prefix}}/{{name}}/make_version_file.escript"}.
+{template, "common/upgrade_release.sh", "{{prefix}}/{{name}}/upgrade_release.sh"}.
+{chmod, "{{prefix}}/{{name}}/upgrade_release.sh", 8#755}.
+{chmod, "{{prefix}}/{{name}}/make_version_file.escript", 8#755}.
 {chmod, "{{prefix}}/{{name}}/do-plugins.escript", 8#755}.
 
 %% Symlinks
