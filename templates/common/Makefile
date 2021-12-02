@@ -11,16 +11,10 @@ cookie:
 compile:
 	@($(REBAR) compile)
 
-get-deps:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) get-deps)
-
-update-deps:
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) update-deps)
-
 eunit: get-deps compile
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) skip_deps=true eunit)
+	@($(REBAR) eunit)
 
-nitrogen_js_css: site/static/nitrogen
+nitrogen_js_css: priv/static/nitrogen
 
 copy-static:
 	@(rm -fr priv/static/nitrogen)
@@ -52,19 +46,10 @@ site/templates:
 site/include:
 	@(ln -s ../include site/include)
 
-site/static/nitrogen: link-static
+priv/static/nitrogen: link-static
 
-#DEPS_PLT=$(CURDIR)/.deps_plt
-#DEPS=erts kernel stdlib sasl lib/nitrogen_core lib/simple_bridge lib/nprocreg lib/nitro_cache lib/rekt lib/qdate
-#
-#$(DEPS_PLT):
-#	@echo Building local plt at $(DEPS_PLT)
-#	@echo 
-#	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Dialyzer in `which dialyzer`"; dialyzer --output_plt $(DEPS_PLT) --build_plt --apps $(DEPS) -r ./lib)
-#
-
-dialyzer: all $(DEPS_PLT)
-	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Dialyzer in `which dialyzer`"; dialyzer --fullpath --plt $(DEPS_PLT) -Wrace_conditions -r ./site/ebin)
+dialyzer:
+	@($(REBAR) dialyzer)
 
 #update: update-deps copy-static compile
 #	@(echo "*** CONGRATULATIONS ***")
