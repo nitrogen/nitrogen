@@ -210,9 +210,11 @@ generate_plugin_include(Config, Includes) ->
     FinalContents = iolist_to_binary(PluginContents),
     CurrentContents = get_current_include(IncludeFile),
     case FinalContents == CurrentContents of
-        true -> io:format("No changes to ~p~n",[IncludeFile]);
-        false -> io:format("Writing changes to ~p~n",[IncludeFile]),
-                 file:write_file(IncludeFile,PluginContents)
+        true ->
+            io:format("No changes to ~p~n",[IncludeFile]);
+        false -> 
+            io:format("Writing changes to ~p~n",[IncludeFile]),
+            file:write_file(IncludeFile,PluginContents)
     end.
 
 get_current_include(File) ->
@@ -221,10 +223,17 @@ get_current_include(File) ->
         {error, _} -> <<>>
     end.
 
+
 includify("lib/" ++ Path) ->
     "-include_lib(\"" ++ Path ++ "\").";
-includify(Path) ->
-    "-include(\"" ++ filename:join("..",Path) ++ "\").".
+includify(Path0) ->
+    Options = [{capture, all_but_first, list}],
+    case re:run(Path0, "/(?:lib|checkouts)/([\\w\\-]+\/include/[\\w\\-]+\\.hrl)$", Options) of
+        {match, [Path]} ->
+            "-include_lib(\"" ++ Path ++ "\").";
+        _ ->
+            "-include(\"" ++ filename:join("..",Path0) ++ "\")."
+    end.
 
 generate_plugin_static(Config, Statics) ->
     PluginStaticBase = proplists:get_value(static_dir, Config, "priv/static/plugins"),
