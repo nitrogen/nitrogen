@@ -1,0 +1,61 @@
+{description, "Nitrogen Plugin Plugin"}.
+{variables, [
+	{name, "my_nitrogen_plugin", "Default app name will be my_nitrogen_plugin"},
+    {prefix, ".", "Parent Directory will the app be installed"}
+]}.
+
+{dir, "{{prefix}}/{{name}}/priv"}.
+{file, "plugin/nitrogen.plugin", "{{prefix}}/{{name}}/priv/nitrogen.plugin"}.
+{file, "plugin/nitrogen.plugin", "{{prefix}}/{{name}}/nitrogen.plugin"}.
+{template, "plugin/records.hrl", "{{prefix}}/{{name}}/records.hrl"}.
+
+{dir, "{{prefix}}/{{name}}/priv/templates"}.
+{dir, "{{prefix}}/{{name}}/priv/static"}.
+{dir, "{{prefix}}/{{name}}/src"}.
+{dir, "{{prefix}}/{{name}}/include"}.
+
+{file, "README.md",  "{{prefix}}/{{name}}/README.md"}.
+{file, ".gitignore",  "{{prefix}}/{{name}}/.gitignore"}.
+{file, "rebar3", "{{prefix}}/{{name}}/rebar3"}.
+{chmod, "{{prefix}}/{{name}}/rebar3", 8#755}.
+{file, "common/priv/static/css/style.css",  "{{prefix}}/{{name}}/priv/static/css/style.css"}.
+{file, "common/priv/static/images/spinner.gif",  "{{prefix}}/{{name}}/priv/static/images/spinner.gif"}.
+{file, "common/priv/templates/bare.html",  "{{prefix}}/{{name}}/priv/templates/bare.html"}.
+{file, "common/src/nitrogen_main_handler.erl",  "{{prefix}}/{{name}}/src/nitrogen_main_handler.erl"}.
+{template, "common/src/nitrogen.app.src",  "{{prefix}}/{{name}}/src/{{name}}.app.src"}.
+{template, "common/src/nitrogen_sup.erl",  "{{prefix}}/{{name}}/src/{{name}}_sup.erl"}.
+{template, "common/src/nitrogen_app.erl",  "{{prefix}}/{{name}}/src/{{name}}_app.erl"}.
+{file, "common/src/index.erl",  "{{prefix}}/{{name}}/src/index.erl"}.
+{file, "common/Makefile",  "{{prefix}}/{{name}}/Makefile"}.
+{file, "common/do-plugins.escript",  "{{prefix}}/{{name}}/do-plugins.escript"}.
+{file, "common/make_version_file.escript", "{{prefix}}/{{name}}/make_version_file.escript"}.
+{template, "common/upgrade_release.sh", "{{prefix}}/{{name}}/upgrade_release.sh"}.
+{chmod, "{{prefix}}/{{name}}/upgrade_release.sh", 8#755}.
+{chmod, "{{prefix}}/{{name}}/make_version_file.escript", 8#755}.
+{chmod, "{{prefix}}/{{name}}/do-plugins.escript", 8#755}.
+
+%% Symlinks
+%{file, "common/site/src",  "{{prefix}}/{{name}}/site/src"}.
+%{file, "common/site/static",  "{{prefix}}/{{name}}/site/static"}.
+%{file, "common/site/templates",  "{{prefix}}/{{name}}/site/templates"}.
+%{file, "common/site/include", "{{prefix}}/{{name}}/site/include"}.
+
+{file, "common/prototypes/plugin.app.src",  "{{prefix}}/{{name}}/priv/prototypes/plugin.app.src"}.
+{file, "common/prototypes/plugin_page.erl",  "{{prefix}}/{{name}}/priv/prototypes/plugin_page.erl"}.
+{file, "common/prototypes/element.erl",  "{{prefix}}/{{name}}/priv/prototypes/element.erl"}.
+{file, "common/prototypes/page.erl",  "{{prefix}}/{{name}}/priv/prototypes/page.erl"}.
+{file, "common/prototypes/action.erl",  "{{prefix}}/{{name}}/priv/prototypes/action.erl"}.
+
+{file, "common/etc/assemble_config.escript", "{{prefix}}/{{name}}/etc/assemble_config.escript"}.
+{chmod, "{{prefix}}/{{name}}/etc/assemble_config.escript", 8#755}.
+{file, "common/etc/app.config",  "{{prefix}}/{{name}}/etc/app.config"}.
+{template, "common/etc/vm.args",  "{{prefix}}/{{name}}/etc/vm.args"}.
+{file, "common/etc/sync.config",  "{{prefix}}/{{name}}/etc/sync.config"}.
+{template, "common/etc/simple_bridge.config",  "{{prefix}}/{{name}}/etc/simple_bridge.config"}.
+
+{file, "common/include/records.hrl",  "{{prefix}}/{{name}}/include/records.hrl"}.
+{file, "common/include/plugins.hrl",  "{{prefix}}/{{name}}/include/plugins.hrl"}.
+
+{template, "backends/rebar.{{backend}}.config", "{{prefix}}/{{name}}/rebar.config"}.
+{template, "backends/rebar.{{backend}}.config.script", "{{prefix}}/{{name}}/rebar.config.script"}.
+

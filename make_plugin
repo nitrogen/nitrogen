@@ -15,14 +15,17 @@ sub main {
 	mkdir "../$app";
 	chdir "../$app";
 
+	mkdir "../$app/priv";
+
 	print "...Generating base files\n";
-	system("$orig_dir/rebar create-lib libid=$app");
+	system("$orig_dir/rebar3 new lib $app");
 
 	print "...Removing default $app.erl\n";
 	unlink("src/$app.erl");
 
 	print "...Adding nitrogen.plugin\n";
 	system("touch nitrogen.plugin");
+	system("touch priv/nitrogen.plugin");
 
 	print "...creating include directory\n";
 	mkdir "include";
