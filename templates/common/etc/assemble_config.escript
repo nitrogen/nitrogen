@@ -18,10 +18,10 @@ main([ConfDir, OutFile]) ->
         io:format("CONFIG ASSEMBLER: Loading ~s...",[F]),
         case file:consult(F) of
             {error, {LineNo, Module, Error}} ->
-                io:format("FAIL! Reason: ~s on line ~p (reported by ~p)~n",[Error, LineNo, Module]),
+                io:format("FAIL! Reason: ~s on line ~p (reported by ~p) (File: ~s)~n",[Error, LineNo, Module, F]),
                 halt(1);
             {error, Error} ->
-                io:format("FAIL! Reason: ~p~n",[Error]),
+                io:format("FAIL! Reason: ~p~n (File: ~s)",[Error, F]),
                 halt(1);
             {ok, Config} ->
                 io:format("Success!~n"),
