@@ -18,7 +18,7 @@
 main(["go"]) ->
     case filelib:is_regular(?VSN_LOCK) of
         true ->
-            io:format("Cannot proceed. Previous version attempt failed.  You probably want to run this with the revert option"),
+            io:format("Cannot proceed. Previous version attempt failed.  You probably want to run this with the revert option~n"),
             halt(1);
         false ->
             {Vsn, RawRef, RawCount} = collect_default_refcount(),
@@ -30,12 +30,11 @@ main(["go"]) ->
                 false ->
                     VsnChange = [OldVsn," => ",VsnString],
                     io:format("Version Change: ~s~n",[VsnChange]),
-                    io:format("Saving new version file: ~s.",[?VSN_CURRENT]),
+                    io:format("Saving new version file: ~s.~n",[?VSN_CURRENT]),
                     file:rename(?VSN_PREVIOUS, ?VSN_OLD_PREVIOUS),
                     file:rename(?VSN_CURRENT, ?VSN_PREVIOUS),
                     file:write_file(?VSN_CURRENT, VsnString),
-                    io:format("...done~n"),
-                    io:format("Locking Version..."),
+                    io:format("Locking Version while release is being generated...~n"),
                     file:write_file(?VSN_LOCK, "")
             end
         end;
@@ -45,7 +44,7 @@ main(["revert"]) ->
             file:rename(?VSN_PREVIOUS, ?VSN_CURRENT),
             file:rename(?VSN_OLD_PREVIOUS, ?VSN_PREVIOUS),
             file:delete(?VSN_LOCK),
-            io:format("Version File successfully reverted");
+            io:format("Version File successfully reverted~n");
         false ->
             io:format("The version is not currently locked~n"),
             halt(1)
@@ -56,13 +55,13 @@ main(["finish"]) ->
             NewVsn = read_file(?VSN_CURRENT),
             OldVsn = read_file(?VSN_PREVIOUS),
             VsnChange = [OldVsn," => ",NewVsn],
-            file:write_file(?VSN_HISTORY, [VsnChange, "\n"], [append]),
+	    TS = timestamp(),
+            file:write_file(?VSN_HISTORY, ["(",TS,"): ",VsnChange, "\n"], [append]),
             file:delete(?VSN_OLD_PREVIOUS),
             file:delete(?VSN_LOCK),
             io:format("Version Unlocked~n");
         false ->
-            io:format("The version is not currently locked~n"),
-            halt(1)
+            io:format("The version is not currently locked, but that is okay~n")
     end;
 main(_) ->
     ScriptName = escript:script_name(),
@@ -111,3 +110,6 @@ parse_tags() ->
     Tag = os:cmd("git describe --abbrev=0 --tags"),
     Vsn = string:trim(string:trim(Tag, leading, "v"), trailing, "\n"),
     {Tag, Vsn}.
+
+timestamp() ->
+    calendar:system_time_to_rfc3339(os:system_time(second)).
