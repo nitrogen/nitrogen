@@ -25,11 +25,9 @@ ln -sv ../priv/templates site/templates
 BASEURL=https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3
 
 ## Download new Makefile
-
 curl $BASEURL/templates/common/Makefile -o Makefile
 
 ## download rebar3
-
 curl $BASEURL/rebar3 -o "rebar3"
 chmod 755 rebar3
 
@@ -39,7 +37,7 @@ chmod 755 etc/assemble_config.escript
 
 ## download upgrade_release.sh
 curl $BASEURL/templates/common/common/upload_release.sh -o "upload_release.sh"
-chmod 755 assemble_config.sh
+chmod 755 upload_release.sh
 
 ## download upgrade_release.sh
 curl $BASEURL/templates/common/common/make_version_file.escript -o "make_version_file.escript"
