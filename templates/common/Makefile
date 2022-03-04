@@ -29,6 +29,12 @@ upgrade_running:
 	./make_version_file.escript go
 	./upgrade_release.sh
 	make finish_version
+
+run_release: release
+	@($(REBAR) run)
+
+run_dev:
+	@($(REBAR) shell)
 	
 upgrade_deps:
 	@($(REBAR) upgrade)

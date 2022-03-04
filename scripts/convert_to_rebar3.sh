@@ -34,12 +34,18 @@ curl $BASEURL/rebar3 -o "rebar3"
 chmod 755 rebar3
 
 ## download assemble_config.escript
-
 curl $BASEURL/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
 chmod 755 etc/assemble_config.escript
 
-## download new nitrogen/bin
+## download upgrade_release.sh
+curl $BASEURL/templates/common/common/upload_release.sh -o "upload_release.sh"
+chmod 755 assemble_config.sh
 
+## download upgrade_release.sh
+curl $BASEURL/templates/common/common/make_version_file.escript -o "make_version_file.escript"
+chmod 755 make_version_file.escript
+
+## download new nitrogen/bin
 curl $BASEURL/templates/common/bin/nitrogen -o "bin/nitrogen"
 chmod 755 bin/nitrogen
 
