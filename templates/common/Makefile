@@ -43,13 +43,10 @@ upgrade_deps:
 nitrogen_js_css: priv/static/nitrogen
 
 copy-static:
-	@(rm -fr priv/static/nitrogen)
-	@(mkdir -p priv/static/nitrogen)
-	@(cp -r _build/default/lib/nitrogen_core/www/* priv/static/nitrogen/)
+	@(escript copy_static.escript copy)
 
 link-static:
-	@(rm -fr priv/static/nitrogen)
-	@(ln -s ../../_build/default/lib/nitrogen_core/www priv/static/nitrogen)
+	@(escript copy_static.escript link)
 
 plugins:
 	@(escript do-plugins.escript)
