@@ -19,7 +19,6 @@ main(_) ->
     ?P("Example: ./merge-configs.escript ./etc").
 
 do_main(BaseDir) ->
-    ?P(BaseDir),
     TargetFile = BaseDir ++ "/app.generated.config",
     Files = get_file_list(BaseDir,TargetFile),
     Config = build_config(Files),
@@ -31,9 +30,13 @@ do_main(BaseDir) ->
 get_file_list(BaseDir,TargetFile) ->
     ?P("Compiling list of .config files"),
     Files = filelib:wildcard(BaseDir ++ "/*.config"),
+    %% Windows is case insensitive - so let's just make everything lowercase
+    TargetFileBase = string:to_lower(filename:basename(TargetFile)),
 
     %% We don't want to read the TargetFile, since this is what will be generated, so let's remove it from the response
-    lists:delete(TargetFile,Files).
+    lists:filter(fun(F) ->
+        string:to_lower(filename:basename(F))=/=TargetFileBase
+    end, Files).
 
 build_config(Files) ->
     ?P("Loading and appending Configuration files..."),
