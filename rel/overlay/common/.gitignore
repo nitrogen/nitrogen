@@ -4,7 +4,4 @@ erl_crash.dump
 *~
 /log
 /scratch
-lib/nitrogen_core
-lib/simple_bridge
-lib/nprocreg
-lib/sync
+lib/*
