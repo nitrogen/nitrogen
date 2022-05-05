@@ -46,8 +46,8 @@ template:
 	@(cp -R templates/win ~/.config/rebar3/templates/nitrogen/)
 	@(cp -R templates/backends ~/.config/rebar3/templates/nitrogen/)
 	@(cat templates/nitrogen.template templates/win.template > ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
-	@(cp -R templates/plugin ~/.config/rebar3/templates/nitrogen_plugin)
-	@(cp nitrogen_plugin.template ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
+	#@(cp -R templates/plugin ~/.config/rebar3/templates/nitrogen_plugin)
+	#@(cp nitrogen_plugin.template ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
 
 
 install-helper-script:
