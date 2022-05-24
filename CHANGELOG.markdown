@@ -4,7 +4,8 @@
 
 * Added a new default session handler called `canister`.  This canister module
   is more robust, self-healing, and stores the session data with mnesia,
-  allowing session data to survive restarts.
+  allowing session data to survive restarts. The code for canister can be found
+  here: https://github.com/nitrogen/canister
 * Added Content Security Policy functionality (@bunnylushington)
 * Added a new Postback handler. This is the new last handler to process
   anything, and gives the user a change to capture, modify, or do anything else
