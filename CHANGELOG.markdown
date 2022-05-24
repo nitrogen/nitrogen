@@ -1,7 +1,10 @@
-# Nitrogen 2.x
+# Nitrogen 3
 
-## Nitrogen 2.4.1 (in progress)
+## Nitrogen 3.0.0 (in development)
 
+* Added a new default session handler called `canister`.  This canister module
+  is more robust, self-healing, and stores the session data with mnesia,
+  allowing session data to survive restarts.
 * Added Content Security Policy functionality (@bunnylushington)
 * Added a new Postback handler. This is the new last handler to process
   anything, and gives the user a change to capture, modify, or do anything else
@@ -16,13 +19,26 @@
   `simple` method (that may be less optimized, but more universally acceptable)
   can be used.  This is the method used in `comet`, and is also recommended if
   the `#delay_body` element will have its rendered results cached.
+* Added security options to session cookies.
+* The `wf_pickle` module now supports a backup `signkey`, which the depickler
+  can fall back on.  This will significantly cut back on errors if you decide
+  to change the signkey at some point.
 * Fix `#delay_body` crash if `delegate` is not specified.
 * When using caching, you're able to run `wf_context:cache()` to determine if
   the current operation is being run while being cached, or just being run
   normally.
+* Updated `#sync_panel` to allow the passed function to be a `{Module, Function}`
+  or `{Module, Function, Args}` tuple as well as a function.
+* Improved the automatic websocket reconnection functionality - attempting to
+  detect if the browser or device goes to sleep, periodically checking postback
+  status from the client with pings, and cutting back on the overly aggressive
+  messages notifying the user they are disconnected when they might not actually
+  be.
 * Nitrogen can now generate documentation for [Dash](https://kapeli.com/dash)
   (OSX) and [Zeal](https://zealdocs.org/) (Linux/Windows). Big thanks to
   @bunnylushington for this.
+
+# Nitrogen 2.x
 
 ## Nitrogen 2.4.0
 
