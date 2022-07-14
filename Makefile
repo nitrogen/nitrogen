@@ -33,7 +33,19 @@ help:
 
 all: get-deps compile
 
-distribute-rebar:
+rebar:
+	@(echo "Building rebar2 for your platform..")
+	@(cd /tmp && \
+	git clone https://github.com/choptastic/rebar && \
+	cd rebar && \
+	./bootstrap)
+	@(echo "Moving rebar executable into your Nitrogen directory")
+	@(mv /tmp/rebar/rebar .)
+	@(echo "Cleaning up rebar remnants")
+	@(cd /tmp && rm -fr rebar)
+ 
+
+distribute-rebar: rebar
 	@(cp rebar rel/rebar; cp rebar rel/overlay/common;)
 
 get-deps: distribute-rebar

@@ -8,17 +8,28 @@ cookie:
 	@echo Generating a default cookie in /etc/vm.args
 	@(echo -setcookie `openssl rand -base64 50 | head -n1 | sed -e 's/[^a-zA-Z0-9]//g'` >> etc/vm.args)
 
-compile:
+compile: rebar
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) compile)
 
-get-deps:
+get-deps: rebar
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) get-deps)
 
-update-deps:
+update-deps: rebar
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) update-deps)
 
 eunit: get-deps compile
 	@(export PATH=`pwd`/`echo erts-*/bin`:$$PATH; echo "Using Erlang in `which erl`"; $(REBAR) skip_deps=true eunit)
+
+rebar:
+	@(echo "Building rebar2 for your platform..")
+	@(cd /tmp && \
+	git clone https://github.com/choptastic/rebar && \
+	cd rebar && \
+	./bootstrap)
+	@(echo "Moving rebar executable into your Nitrogen directory")
+	@(mv /tmp/rebar/rebar .)
+	@(echo "Cleaning up rebar remnants")
+	@(cd /tmp && rm -fr rebar)
 
 releases:
 	make fix-slim-release
