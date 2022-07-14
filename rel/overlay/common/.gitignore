@@ -6,3 +6,4 @@ erl_crash.dump
 /scratch
 lib/*
 rebar
+releases/*
