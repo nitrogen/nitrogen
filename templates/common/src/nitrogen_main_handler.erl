@@ -24,4 +24,7 @@ ws_init() ->
 
 run() ->
     handlers(),
+    %% This ensures that this page will never be cached by the browser, even with the back/forward buttons
+    %% You may want to override this on indivual pages either for CDN purposes, or just in general
+    wf:header('cache-control', "no-cache, no-store, private, max-age=0"),
     wf_core:run().
