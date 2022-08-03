@@ -16,7 +16,14 @@
 * Added `#template.text` attribute, which allows to in-line templates.
   Basically, the `text` attribute will be used as the `body` of the template.
   (Thanks @bunnylushington)
-* Added a `#delay_body.method`, which may selectively be used to determine if s
+* Added `#icon` element, which provides an icon mechanism that integrates with
+  FontAwesome, LineAwesome, Google Material Icons, Bootstrap Icons, and custom
+  Icon Fonts from IcoMoon, as well as any other Icon font you might want to
+  use.
+* Exported `nitrogen:handler/3` to accommodate issues caused by modules that
+  have had their attributes stripped by relx. See [the pull request for details](https://github.com/nitrogen/nitrogen_core/pull/147)
+  (Thanks, @joaohf)
+* Added a `#delay_body.method`, which may selectively be used to determine if 
   `simple` method (that may be less optimized, but more universally acceptable)
   can be used.  This is the method used in `comet`, and is also recommended if
   the `#delay_body` element will have its rendered results cached.
@@ -28,6 +35,7 @@
 * When using caching, you're able to run `wf_context:cache()` to determine if
   the current operation is being run while being cached, or just being run
   normally.
+* Fix an issue related to posting back an empty multiselect element.
 * Updated `#sync_panel` to allow the passed function to be a `{Module, Function}`
   or `{Module, Function, Args}` tuple as well as a function.
 * Improved the automatic websocket reconnection functionality - attempting to
