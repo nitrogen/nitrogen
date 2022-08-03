@@ -20,6 +20,13 @@
   FontAwesome, LineAwesome, Google Material Icons, Bootstrap Icons, and custom
   Icon Fonts from IcoMoon, as well as any other Icon font you might want to
   use.
+* Added `/2` versions to conversion functions like `wf:to_integer`,
+  `wf:to_float`, etc.. These versions are crash-safe versions. That means that
+  the call `wf:to_integer("some-garbage", 99999)` will return the integer
+  `99999` (because `wf:to_integer("some-garbage")` crashes).
+* Added `?WF_SAFE(Expression, Default)` which is just a shorter version of
+  `try (Expression) catch _:_ -> Default end`, as well as `?WF_SAFE(Expression)`,
+  which is just a shortcut to `?WF_SAFE(Expression, undefined)`.
 * Exported `nitrogen:handler/3` to accommodate issues caused by modules that
   have had their attributes stripped by relx. See [the pull request for details](https://github.com/nitrogen/nitrogen_core/pull/147)
   (Thanks, @joaohf)
