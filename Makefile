@@ -10,7 +10,7 @@ REBAR?=./rebar3
 help:
 	@echo 
 	@echo "Usage: "
-	@echo "       $(MAKE) {compile|clean}"        
+	@echo "       $(MAKE) clean"        
 	@echo
 	@echo "       $(MAKE) {slim_cowboy|rel_cowboy|package_cowboy}"
 	@echo "       $(MAKE) {slim_inets|rel_inets|package_inets}"  
@@ -33,7 +33,7 @@ help:
 	@echo "directory in a Nitrogen installation."
 	@echo "       $(MAKE) install-helper-script" 
 
-all: get-deps compile
+all: help
 
 template:
 	@(echo "Generating backend templates and re-deploying Rebar templates")
@@ -42,12 +42,22 @@ template:
 	@(echo "Copying Template Files to ./config/rebar3/templates/nitrogen")
 	@(cp templates/nitrogen.template ~/.config/rebar3/templates/nitrogen)
 	@(cp -R templates/common ~/.config/rebar3/templates/nitrogen/)
-	@(cp rebar3 ~/.config/rebar3/templates/nitrogen/common/)
 	@(cp -R templates/win ~/.config/rebar3/templates/nitrogen/)
 	@(cp -R templates/backends ~/.config/rebar3/templates/nitrogen/)
 	@(cat templates/nitrogen.template templates/win.template > ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
 	#@(cp -R templates/plugin ~/.config/rebar3/templates/nitrogen_plugin)
 	#@(cp nitrogen_plugin.template ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
+
+rebar3:
+	echo "Fetching and compiling updated rebar3 (this will not replace your system-wide rebar3, if you have one)"
+	@(cd /tmp && \
+	git clone https://github.com/erlang/rebar3 && \
+	cd rebar3 && \
+	./bootstrap)
+	echo "Installing rebar3 into Nitrogen directory"
+	@(mv /tmp/rebar3/rebar3 .)
+	echo "Cleaning up..."
+	@(rm -fr /tmp/rebar3)
 
 
 install-helper-script:
@@ -208,7 +218,7 @@ Exiting...\n\
 
 
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full
-slim: check_exists template
+slim: rebar3 check_exists template
 	@echo "********************************************************************************"
 	@echo "Creating a project that will default to a slim release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
@@ -221,7 +231,7 @@ slim: check_exists template
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a slim release
 	@echo "********************************************************************************"
 
-rel: check_exists template
+rel: rebar3 check_exists template
 	@echo "********************************************************************************"
 	@echo "Creating a project that will default to a full release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
@@ -258,14 +268,14 @@ rel_win: check_exists template
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a full release
 	@echo "********************************************************************************"
 
-package: rel
+package: rebar3 rel
 	mkdir -p ./builds
 	$(MAKE) link_docs PREFIX=$(PREFIX) PROJECT=$(PROJECT)
 	tar cf ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar -C $(PREFIX) $(PROJECT)
 	gzip --best ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar 
 	rm -fr $(PREFIX)/$(PROJECT)
 
-package_win: rel_win copy_docs
+package_win: rebar3 rel_win copy_docs
 	mkdir -p ./builds
 	7za a -r -tzip ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM)-win.zip $(PREFIX)/$(PROJECT)/
 	rm -fr $(PREFIX)/$(PROJECT)

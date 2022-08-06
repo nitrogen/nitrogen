@@ -8,11 +8,21 @@ cookie:
 	@echo Generating a default cookie in /etc/vm.args
 	@(echo -setcookie `openssl rand -base64 50 | head -n1 | sed -e 's/[^a-zA-Z0-9]//g'` >> etc/vm.args)
 
-compile:
+compile: rebar3
 	@($(REBAR) compile)
 
 eunit:
 	@($(REBAR) eunit)
+
+rebar3:
+	echo "Fetching and compiling updated rebar3 (this will not replace your system-wide rebar3, if you have one)"
+	@(cd /tmp && \
+	git clone https://github.com/erlang/rebar3 && \
+	cd rebar3 && \
+	./bootstrap)
+	@(mv /tmp/rebar3/rebar3 .)
+	@(rm -fr /tmp/rebar3)
+
 
 release:
 	./make_version_file.escript go && \
