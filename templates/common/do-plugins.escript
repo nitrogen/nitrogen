@@ -84,7 +84,7 @@ main([]) ->
     RebarConfig = get_config("rebar.config"),
     PluginConfig = get_config("plugins.config"),
     DepDirs = proplists:get_value(deps_dir, RebarConfig, ["lib", "_build/default/lib", "_build/default/checkouts"]),
-    io:format("Deps dirs: ~p",[DepDirs]),
+    io:format("Deps dirs: ~p~n",[DepDirs]),
     {Includes,Statics,Templates} = lists:foldl(fun(Dir, {Inc, Stat, Temp}) ->
                             {ok, FoundIncludes, FoundStatics, FoundTemplates} = get_plugins(Dir),
                             {FoundIncludes ++ Inc, FoundStatics ++ Stat, FoundTemplates ++ Temp}
