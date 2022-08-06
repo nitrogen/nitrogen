@@ -20,6 +20,7 @@
   FontAwesome, LineAwesome, Google Material Icons, Bootstrap Icons, and custom
   Icon Fonts from IcoMoon, as well as any other Icon font you might want to
   use.
+* Update `#textbox` to properly support the date/time/datetime-local types.
 * Added `/2` versions to conversion functions like `wf:to_integer`,
   `wf:to_float`, etc.. These versions are crash-safe versions. That means that
   the call `wf:to_integer("some-garbage", 99999)` will return the integer
