@@ -7,6 +7,7 @@ RUNNER_SCRIPT_DIR=$(cd ${0%/*} && pwd)
 CALLER_DIR=$PWD
 
 RUNNER_BASE_DIR=${RUNNER_SCRIPT_DIR%/*}
+
 RUNNER_ETC_DIR=$RUNNER_BASE_DIR/etc
 # Note the trailing slash on $PIPE_DIR/
 PIPE_DIR=/tmp/`whoami`/$RUNNER_BASE_DIR/
@@ -107,8 +108,14 @@ elif [ "$RUNNER_SCRIPT_DATA" = "slim" ]; then
         exit 1
     fi
     SYSTEM_HOME_BIN=${SYSTEM_ERL_PATH%/*}
-    ## This is a check for OSX using the Erlang Solutions installer
-    if [ -d "$SYSTEM_HOME_BIN/../lib/erlang" ]; then
+    
+    SYSTEM_HOME_BASENAME=`basename "$SYSTEM_HOME_BIN"`
+
+    if [ "$SYSTEM_HOME_BASENAME" = "shims" ]; then
+        # this is asdf, so let's find ASDF's installation
+	ROOTDIR="$SYSTEM_HOME_BIN/../installs/erlang/$ASDF_ERLANG_VERSION";
+    elif [ -d "$SYSTEM_HOME_BIN/../lib/erlang" ]; then
+	## This is a check for OSX using the Erlang Solutions installer
         ROOTDIR=$SYSTEM_HOME_BIN/../lib/erlang
     else
         ROOTDIR=$SYSTEM_HOME_BIN/..
