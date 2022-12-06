@@ -36,6 +36,8 @@
   can be used.  This is the method used in `comet`, and is also recommended if
   the `#delay_body` element will have its rendered results cached.
 * Added security options to session cookies.
+* Default Nitrogen projects will now include `erlang_ls.config` file for the
+  [Erlang Language Server](https://github.com/erlang-ls/erlang_ls)
 * The `wf_pickle` module now supports a backup `signkey`, which the depickler
   can fall back on.  This will significantly cut back on errors if you decide
   to change the signkey at some point.
