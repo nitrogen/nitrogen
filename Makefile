@@ -91,6 +91,8 @@ thanks:
 
 # COWBOY
 
+cowboy: slim_cowboy
+
 slim_cowboy:
 	@($(MAKE) slim PLATFORM=cowboy PROJECT=$(PROJECT))
 
@@ -111,6 +113,8 @@ package_cowboy_win:
 
 
 # INETS
+
+inets: slim_inets
 
 slim_inets:
 	@($(MAKE) slim PLATFORM=inets PROJECT=$(PROJECT))
@@ -133,6 +137,8 @@ package_inets_win:
 
 # MOCHIWEB
 
+mochiweb: slim_mochiweb
+
 slim_mochiweb:
 	@($(MAKE) slim PLATFORM=mochiweb PROJECT=$(PROJECT))
 
@@ -154,6 +160,8 @@ package_mochiweb_win:
 
 # WEBMACHINE
 
+webmachine: slim_webmachine
+
 slim_webmachine:
 	@($(MAKE) slim PLATFORM=webmachine PROJECT=$(PROJECT))
 
@@ -174,6 +182,8 @@ package_webmachine_win:
 
 
 # YAWS
+
+yaws: slim_yaws
 
 slim_yaws:
 	@($(MAKE) slim PLATFORM=yaws PROJECT=$(PROJECT))
