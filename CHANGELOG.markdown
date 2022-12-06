@@ -43,6 +43,7 @@
 * When using caching, you're able to run `wf_context:cache()` to determine if
   the current operation is being run while being cached, or just being run
   normally.
+* Fix a crash related to preassigning a unicode value to a `#dropdown` element. (@dmsnell)
 * Fix an issue related to posting back an empty multiselect element.
 * Updated `#sync_panel` to allow the passed function to be a `{Module, Function}`
   or `{Module, Function, Args}` tuple as well as a function.

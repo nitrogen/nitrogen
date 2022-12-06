@@ -58,6 +58,9 @@ chmod 755 update_config_to_rebar3.escript
 ## Get new plugins.config
 curl $BASEURL/templates/common/plugins.config -o "plugins.config"
 
+## Get erlang_ls.config for Erlang_LS
+curl $BASEURL/templates/common/erlang_ls.config -o "erlang_ls.config"
+
 ./update_config_to_rebar3.escript
 
 ## Add additional new rebar3 rules

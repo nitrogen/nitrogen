@@ -24,6 +24,7 @@
 
 {file, "common/README.md",  "{{prefix}}/{{name}}/README.md"}.
 {file, "common/plugins.config",  "{{prefix}}/{{name}}/plugins.config"}.
+{file, "common/erlang_ls.config",  "{{prefix}}/{{name}}/erlang_ls.config"}.
 {file, "common/.gitignore",  "{{prefix}}/{{name}}/.gitignore"}.
 {file, "common/bin/nitrogen", "{{prefix}}/{{name}}/bin/nitrogen"}.
 {chmod, "{{prefix}}/{{name}}/bin/nitrogen", 8#755}.

@@ -45,7 +45,7 @@ run_release: release
 	@($(REBAR) run)
 
 run_dev:
-	@($(REBAR) shell)
+	@($(REBAR) shell --eval "sync:go()")
 	
 upgrade_deps:
 	@($(REBAR) upgrade)
