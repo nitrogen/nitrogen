@@ -10,7 +10,10 @@ REBAR?=./rebar3
 help:
 	@echo 
 	@echo "Usage: "
-	@echo "       $(MAKE) clean"        
+	@echo "       $(MAKE) build"
+	@echo "           This will guide you through the choices below and is"
+	@echo "           recommended for users who don't have a lot of experience"
+	@echo "           with Nitrogen"
 	@echo
 	@echo "       $(MAKE) {slim_cowboy|rel_cowboy|package_cowboy}"
 	@echo "       $(MAKE) {slim_inets|rel_inets|package_inets}"  
@@ -34,6 +37,10 @@ help:
 	@echo "       $(MAKE) install-helper-script" 
 
 all: help
+
+build:
+	./build_helper
+
 
 template:
 	@(echo "Generating backend templates and re-deploying Rebar templates")

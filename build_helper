@@ -1,0 +1,178 @@
+#!/usr/bin/perl
+# vim:ts=4 sw=4 et
+use strict;
+use File::Basename;
+use Cwd 'abs_path';
+
+&main();
+
+sub main {
+    &intro();
+    &runner();
+}
+
+
+sub intro {
+    print "*******************************************************************************\n";
+    print "****                   NITROGEN WEB FRAMEWORK BUILD HELPER                 ****\n";
+    print "*******************************************************************************\n";
+    print "\n";
+}
+
+sub outro {
+    my ($config) = @_;
+    print "\n\n";
+    print "*******************************************************************************\n";
+    print "****                          Installation Complete                        ****\n"; 
+    print "*******************************************************************************\n";
+    print "There are a few manual steps you must take before you're completely set up:\n";
+    print "\n";
+    print "1) You must make sure to start Nitrogen.  The easiest way is by\n";
+    print "    adding `nitrogen_sup:start_link()` to your application.\n";
+    print "\n";
+    print "2) You must make sure that the config files in $config are properly\n";
+    print "   loaded. This can be done with a vm.args file if you're using a reltool\n";
+    print "   generated release, or it can be done by adding additional -config calls to\n";
+    print "   the commandline call that launches your app.\n";
+    print "\n";
+    print "3) You may need to add the new packages (nitrogen_core, simple_bridge,\n";
+    print "   nprocreg, etc) to your app's code path (the easy way is with the -pa flag\n";
+    print "   in the `erl` call.)\n";
+    print "\n\n";
+    print "Congratulations on adding Nitrogen to your Application\n\n";
+}
+
+sub runner {
+    my %release_types = (
+        "s","slim",
+        "f","full"
+    );
+
+    my %servers = (
+        "c","cowboy",
+        "i","inets",
+        "m","mochiweb",
+        "w","webmachine",
+        "y","yaws"
+    );
+
+    my $os = $^O;
+
+
+    my $windows = ($os eq "msys" || $os eq "MSWin32");
+
+    my $os_suffix = $windows ? "_win" : "";
+
+    my $os_label = $windows ? "Windows" : "Linux, Unix, Darwin, or BSD";
+
+    print "Your detected operating system is $os_label.\n";
+
+    my $name       = &get_until_atom("my_project",  "What do you want to name this project?");
+    my $prefix    = &get("..", "In which directory do you want to create this new project?");
+
+    my $serverchar = &get_until_valid("Which web server to use?\nOptions are (c)owboy, (i)nets, (m)ochiweb, (w)ebmachine, (y)aws.\nWe recommend Cowboy or Yaws for production\nIf you aren't sure, go with Cowboy.\nPlease choose",reverse(keys(%servers)));
+    my $server = $servers{$serverchar};
+
+    my $typechar = &get_until_valid(
+"When you create a release, which type of release do you want to make by default?
+
+ * A (s)lim release is a release that requires Erlang to already be installed
+   on the target machine. These will build faster and have smaller footprints
+   than a full release.
+ * A (f)ull release packages up a full Erlang installation with each release,
+   making the release more portable (you can just copy the directory to another
+   machine even if it doesn't have Erlang), but at the expense of build speed and a
+   much higher footprint.
+   
+NOTE: You can change this any time by editing the new project's rebar.config.
+
+If you aren't sure, we recommend a slim release.
+
+Would you prefer (s)lim or (f)ull releases? Please choose",reverse(keys(%release_types)));
+
+    my $release_type = $release_types{$typechar};
+
+    my $cmd = "make ${release_type}_${server}${os_suffix} PROJECT=$name PREFIX=$prefix";
+
+    print "\n\nThe command to create this Nitrogen project is:
+
+$cmd\n\n";
+
+    my $run_make = &get_until_valid("Would you like to run that command now?", ("y","n"));
+
+
+    if($run_make eq "y") {
+        print "Running: $cmd\n";
+        system($cmd);
+    }
+
+}
+
+
+sub get {
+    my ($default, $prompt) = @_;
+    print "\n$prompt [Default: $default]: ";
+
+    my $val = <>;
+    chomp($val);
+    if($val eq "") {
+        return $default;
+    }else{
+        return $val;
+    }
+}
+
+sub get_until_valid {
+    my ($prompt, @list) = @_;
+    my $val;
+    do {
+        print "\n$prompt (".join("/",@list)."): ";
+        $val = <STDIN>;
+        chomp($val);
+    } while(not(in_list($val,@list)));
+    return $val;
+}
+
+sub get_until_atom {
+    my ($default, $prompt) = @_;
+    my $val;
+    my $okay = 0;
+    do {
+        print "\n$prompt [Default: $default]: ";
+        $val = <STDIN>;
+        chomp($val);
+        if($val eq "") {
+            $val = $default;
+            $okay = 1;
+        }elsif($val =~ /^[^a-z]/) {
+            print "ERROR: A project's name must start with a lower-case ASCII character(a-z).\n";
+        }elsif($val !~ /^[a-zA-Z0-9_]+$/) {
+            print "ERROR: A project's name must contain only the following:\n       Latin characters(a-z), digits(0-9), and underscores(_).\n";
+        }elsif($val =~ /[A-Z]/) {
+            print "WARNING: By convention. we don't recommend having upper-case characters as\n         project names.\n";
+            my $action = &get_until_valid("Do you want to convert the name to (l)ower-case, (c)ontinue, or (r)ename it?", ("l","c", "r"));
+            if($action eq "c") {
+                $okay = 1;
+            }elsif($action eq "l") {
+                my $old = $val;
+                $val = lc($val);
+                print "Making project name lower-case: $old => $val\n";
+                $okay = 1;
+            }
+        }else{
+            ## No errors were shown. We're good to go.
+            $okay = 1;
+        }
+    } while(!$okay);
+    return $val;
+}
+
+sub in_list {
+    my ($val, @list) = @_;
+    for (@list) {
+        return 1 if($val eq $_);
+    }
+    return 0;
+}
+
+
