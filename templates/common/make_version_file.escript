@@ -2,7 +2,7 @@
 %% -*- erlang -*-
 %% vim: ts=4 sw=4 et ft=erlang
 %%
-%% Coyright 2021 - Jesse Gumm
+%% Coyright 2023 - Jesse Gumm
 %%
 %% MIT License
 %%
@@ -21,8 +21,7 @@ main(["go"]) ->
             io:format("Cannot proceed. Previous version attempt failed.  You probably want to run this with the revert option~n"),
             halt(1);
         false ->
-            {Vsn, RawRef, RawCount} = collect_default_refcount(),
-            VsnString = build_vsn_string(Vsn, RawRef, RawCount),
+            VsnString = get_version_string(),
             OldVsn = read_file(?VSN_CURRENT),
             case VsnString==OldVsn of
                 true ->
@@ -77,15 +76,36 @@ read_file(F) ->
         {error, _} -> "first-run"
     end.
 
+get_version_string() ->
+    case in_git() of
+        true ->
+            {Vsn, RawRef, RawCount} = collect_default_refcount(),
+            build_vsn_string(Vsn, RawRef, RawCount);
+        false ->
+           os:cmd("date +0.%Y%m%d.%H%M.%S")
+    end.
+
+
+in_git() ->
+    case os:cmd("./in-git.sh") of
+        "yes" ++ _ -> true;
+        _ -> false
+    end.
 
 collect_default_refcount() ->
     %% Get the tag timestamp and minimal ref from the system. The
     %% timestamp is really important from an ordering perspective.
     RawRef = os:cmd("git log -n 1 --pretty=format:'%h\n' "),
-
-    {Tag, Vsn} = parse_tags(),
-    RawCount = get_patch_count(Tag),
-    {Vsn, RawRef, RawCount}.
+    
+    case parse_tags() of
+        {"0", "0"} ->
+            TotalCommitCount = os:cmd("git rev-list --all --count"),
+            {"0.0.0", RawRef, TotalCommitCount};
+        {Tag, Vsn} ->
+            io:format("Tag: ~p. Vsn: ~p~n",[Tag, Vsn]),
+            RawCount = get_patch_count(Tag),
+            {Vsn, RawRef, RawCount}
+    end.
 
 get_patch_count(RawRef) ->
     Ref = re:replace(RawRef, "\\s", "", [global]),
@@ -107,9 +127,13 @@ build_vsn_string(Vsn, RawRef, RawCount) ->
     end.
 
 parse_tags() ->
-    Tag = os:cmd("git describe --abbrev=0 --tags"),
-    Vsn = string:trim(string:trim(Tag, leading, "v"), trailing, "\n"),
-    {Tag, Vsn}.
+    case os:cmd("git describe --abbrev=0 --tags") of
+        "fatal:" ++ _ ->
+            {"0", "0"};
+        Tag ->
+            Vsn = string:trim(string:trim(Tag, leading, "v"), trailing, "\n"),
+            {Tag, Vsn}
+    end.
 
 timestamp() ->
     calendar:system_time_to_rfc3339(os:system_time(second)).
