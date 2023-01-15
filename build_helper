@@ -14,7 +14,7 @@ sub main {
 
 sub intro {
     print "*******************************************************************************\n";
-    print "****                   NITROGEN WEB FRAMEWORK BUILD HELPER                 ****\n";
+    print "****                  NITROGEN WEB FRAMEWORK BUILD HELPER                  ****\n";
     print "*******************************************************************************\n";
     print "\n";
 }
@@ -67,7 +67,7 @@ sub runner {
 
     print "Your detected operating system is $os_label.\n";
 
-    my $name       = &get_until_atom("my_project",  "What do you want to name this project?");
+    my $name       = &get_until_atom("myapp",  "What do you want to name this project?");
     my $prefix    = &get("..", "In which directory do you want to create this new project?");
 
     my $serverchar = &get_until_valid("Which web server to use?\nOptions are (c)owboy, (i)nets, (m)ochiweb, (w)ebmachine, (y)aws.\nWe recommend Cowboy or Yaws for production\nIf you aren't sure, go with Cowboy.\nPlease choose",reverse(keys(%servers)));

@@ -10,36 +10,38 @@ REBAR?=./rebar3
 help:
 	@echo 
 	@echo "Usage: "
+	@echo "   This will guide you through the choices below and is"
+	@echo "   recommended for users who don't have a lot of experience"
+	@echo "   with Nitrogen:"
 	@echo "       $(MAKE) build"
-	@echo "           This will guide you through the choices below and is"
-	@echo "           recommended for users who don't have a lot of experience"
-	@echo "           with Nitrogen"
 	@echo
+	@echo "   The below instructions are shortcuts to creating a new project:"
+	@echo "     Linux/Unix/OSX/WSL Users:"
 	@echo "       $(MAKE) {slim_cowboy|rel_cowboy|package_cowboy}"
 	@echo "       $(MAKE) {slim_inets|rel_inets|package_inets}"  
 	@echo "       $(MAKE) {slim_mochiweb|rel_mochiweb|package_mochiweb}"
 	@echo "       $(MAKE) {slim_webmachine|rel_webmachine|package_webmachine}"
 	@echo "       $(MAKE) {slim_yaws|rel_yaws|package_yaws}"
 	@echo
-	@echo "Windows Users:"
+	@echo "     Windows Users:"
 	@echo "       $(MAKE) rel_cowboy_win"
 	@echo "       $(MAKE) rel_inets_win"
 	@echo "       $(MAKE) rel_mochiweb_win"
 	@echo "       $(MAKE) rel_webmachine_win"
 	@echo
-	@echo "To customize your project's name, add PROJECT=projectname"
-	@echo "Example:"
+	@echo "   To customize your project's name, add PROJECT=projectname"
+	@echo "   Example:"
 	@echo "       $(MAKE) slim_yaws PROJECT=my_project"
 	@echo
-	@echo "To install the helper script on linux/unix machines"
-	@echo "which allows you to invoke "nitrogen" or "dev" from any"
-	@echo "directory in a Nitrogen installation."
-	@echo "       $(MAKE) install-helper-script" 
+	@echo "   To update your .vimrc file to handle nitrogen files better."
+	@echo "   Specifically, any file that has vim:ft=nitrogen in the modeline"
+	@echo "       $(MAKE) install-vim-script" 
+	@echo
 
 all: help
 
 build:
-	./build_helper
+	@(./build_helper)
 
 
 template:
