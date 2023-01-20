@@ -5,6 +5,15 @@
     ws_init/0
 ]).
 
+%% You may think that this would be the logical place to handle pass-thru
+%% websocket messages (did you know you can use the existing Nitrogen websocket
+%% to send and receive custom messages?).
+%%
+%% That customization is actually defined by the websocket_handler. You can
+%% define your own websocket_handler and customize how you want to route
+%% non-Nitrogen websocket messages. Look at the default_websocket_handler.erl
+%% module in nitrogen_core.
+
 handlers() ->
     %% Put any custom handlers here
     %% See http://nitrogenproject.com/doc/handlers.html
@@ -24,7 +33,8 @@ ws_init() ->
 
 run() ->
     handlers(),
-    %% This ensures that this page will never be cached by the browser, even with the back/forward buttons
-    %% You may want to override this on indivual pages either for CDN purposes, or just in general
+    %% This ensures that this page will never be cached by the browser, even
+    %% with the back/forward buttons You may want to override this on indivual
+    %% pages either for CDN purposes, or just in general
     wf:header('cache-control', "no-cache, no-store, private, max-age=0"),
     wf_core:run().

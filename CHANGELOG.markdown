@@ -6,6 +6,10 @@
   is more robust, self-healing, and stores the session data with mnesia,
   allowing session data to survive restarts. The code for canister can be found
   here: https://github.com/nitrogen/canister
+* Added a Websocket Handler. This allows overloading the existing Nitrogen
+  websocket to send, receive, and handle your own custom websocket contents.  A
+  good use-case for this might be games or a lightweight protocol for lots of
+  little messages that would be handled by custom javascript.
 * Added Content Security Policy functionality (@bunnylushington)
 * Added a new Postback handler. This is the new last handler to process
   anything, and gives the user a change to capture, modify, or do anything else
