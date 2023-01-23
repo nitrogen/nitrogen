@@ -36,7 +36,7 @@
 {template, "common/src/nitrogen_sup.erl",  "{{prefix}}/{{name}}/src/{{name}}_sup.erl"}.
 {template, "common/src/nitrogen_app.erl",  "{{prefix}}/{{name}}/src/{{name}}_app.erl"}.
 {file, "common/src/index.erl",  "{{prefix}}/{{name}}/src/index.erl"}.
-{file, "common/Makefile",  "{{prefix}}/{{name}}/Makefile"}.
+{template, "common/Makefile",  "{{prefix}}/{{name}}/Makefile"}.
 {file, "common/do-plugins.escript",  "{{prefix}}/{{name}}/do-plugins.escript"}.
 {file, "common/copy_static.escript",  "{{prefix}}/{{name}}/copy_static.escript"}.
 {file, "common/make_version_file.escript", "{{prefix}}/{{name}}/make_version_file.escript"}.

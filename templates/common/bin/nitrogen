@@ -15,20 +15,36 @@ VMARGS=$RUNNER_ETC_DIR/vm.args
 RUNNER_USER=
 
 
+cd $RUNNER_BASE_DIR
+
+echo "NOTE: This particular script is now deprecated."
+echo "RECOMMENDATION: We recommending running things from the Makefile"
+echo "or directly with rebar3 if you prefer that."
 
 case "$1" in
     start)
-            
+        echo "RECOMMENDED REPLACEMENT: make daemon"
+        make daemon        
+        ;;
+
+    daemon)
+        echo "RECOMMENDED REPLACEMENT: make daemon"
+        make daemon        
         ;;
 
     console)
-        cat $RUNNER_ETC_DIR/*.config > $APP_CONFIG
-        $RUNNER_ETC_DIR/assemble_config.escript $RUNNER_ETC_DIR $APP_CONFIG
-        $RUNNER_BASE_DIR/rebar3 shell
+        echo "RECOMMENDED REPLACEMENT: make run_dev"
+        make run_dev
+        ;;
+
+    attach)
+        echo "RECOMMENDED REPLACEMENT: make attach"
+        make attach
         ;;
 
     stop)
-
+        echo "RECOMMENDED REPLACEMENT: make stop"
+        make stop
         ;;
 
 esac
