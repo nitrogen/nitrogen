@@ -15,7 +15,7 @@ eunit:
 	@($(REBAR) eunit)
 
 rebar3:
-	echo "Fetching and compiling updated rebar3 (this will not replace your system-wide rebar3, if you have one)"
+	@echo "Fetching and compiling updated rebar3 (this will not replace your system-wide rebar3, if you have one)"
 	@(cd /tmp && \
 	git clone https://github.com/erlang/rebar3 && \
 	cd rebar3 && \
