@@ -32,6 +32,11 @@
 * Added `?WF_SAFE(Expression, Default)` which is just a shorter version of
   `try (Expression) catch _:_ -> Default end`, as well as `?WF_SAFE(Expression)`,
   which is just a shortcut to `?WF_SAFE(Expression, undefined)`.
+* Add `wf:to_bool/1`, which converts a number of loose terms to the boolean
+  `true` or `false`.  Currently these terms all will be converted to false:
+  numbers that are equal to `0`, strings and binaries of the number `0`, the
+  empty strings and binaries, and strings and binaries of the word "false" (case
+  insensitive). All else evaluates to `true`.
 * Exported `nitrogen:handler/3` to accommodate issues caused by modules that
   have had their attributes stripped by relx. See [the pull request for details](https://github.com/nitrogen/nitrogen_core/pull/147)
   (Thanks, @joaohf)
