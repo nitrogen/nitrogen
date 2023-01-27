@@ -114,6 +114,7 @@ dev:
 	git clone https://github.com/nitrogen/simple_bridge_checkouts/simple_bridge
 	git clone https://github.com/nitrogen/rekt _checkouts/rekt
 	git clone https://github.com/nitrogen/nitro_cache  _checkouts/nitro_cache
+	git clone https://github.com/nitrogen/canister  _checkouts/canister
 	git clone https://github.com/choptastic/qdate  _checkouts/qdate
 	git clone https://github.com/rustyio/sync _checkouts/sync
 
