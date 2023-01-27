@@ -109,13 +109,13 @@ dialyzer: rebar3
 
 dev:
 	mkdir -p _checkouts
-	git clone git://github.com/nitrogen/nitrogen_core _checkouts/nitrogen_core
-	git clone git://github.com/nitrogen/nprocreg_checkouts/nprocreg
-	git clone git://github.com/nitrogen/simple_bridge_checkouts/simple_bridge
-	git clone git://github.com/nitrogen/rekt _checkouts/rekt
-	git clone git://github.com/nitrogen/nitro_cache  _checkouts/nitro_cache
-	git clone git://github.com/choptastic/qdate  _checkouts/qdate
-	git clone git://github.com/rustyio/sync _checkouts/sync
+	git clone https://github.com/nitrogen/nitrogen_core _checkouts/nitrogen_core
+	git clone https://github.com/nitrogen/nprocreg_checkouts/nprocreg
+	git clone https://github.com/nitrogen/simple_bridge_checkouts/simple_bridge
+	git clone https://github.com/nitrogen/rekt _checkouts/rekt
+	git clone https://github.com/nitrogen/nitro_cache  _checkouts/nitro_cache
+	git clone https://github.com/choptastic/qdate  _checkouts/qdate
+	git clone https://github.com/rustyio/sync _checkouts/sync
 
 #update: compile
 #	@(echo "*** CONGRATULATIONS ***")
