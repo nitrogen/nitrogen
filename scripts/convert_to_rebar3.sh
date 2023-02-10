@@ -27,10 +27,6 @@ BASEURL=https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3
 ## Download new Makefile
 curl $BASEURL/templates/common/Makefile -o Makefile
 
-## download rebar3
-curl $BASEURL/rebar3 -o "rebar3"
-chmod 755 rebar3
-
 ## download assemble_config.escript
 curl $BASEURL/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
 chmod 755 etc/assemble_config.escript
