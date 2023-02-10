@@ -37,7 +37,8 @@ main([File]) ->
             NoDeps = lists:keydelete(deps, 1, FinalConfig),
             Formatted = writable_terms(NoDeps),
             OnlyDeps = writable_deps(proplists:get_value(deps, FinalConfig, [])),
-            NewBody = [Formatted, OnlyDeps],
+            VimHeader = "%% vim: ft=erlang ts=4 sw=4 et sts=4\n\n",
+            NewBody = [VimHeader, Formatted, OnlyDeps],
             io:format("Writing new ~s~n",[File]),
             file:write_file(File, NewBody)
     end.
@@ -90,6 +91,8 @@ writable_deps(Deps) ->
 
 format_dep(_, Dep) when is_atom(Dep) ->
     "\t" ++ atom_to_list(Dep);
+format_dep(_, {converted, Dep, Orig}) when is_atom(Dep) ->
+    "\t" ++ atom_to_list(Dep) ++ ",\t\t%% Original: " ++ io_lib:print(Orig, 1, 200, -1);
 format_dep(NumSpacesAfterNameBase, {Name, Source}) when is_tuple(Source) ->
     NumSpacesAfterName = NumSpacesAfterNameBase - length(atom_to_list(Name)),
     Spaces = lists:duplicate(NumSpacesAfterName, 32), %% 32 = space ASCII
@@ -98,9 +101,10 @@ format_dep(NumSpacesAfterNameBase, {Name, Source}) when is_tuple(Source) ->
 
 
 format_source({VCS, URL, Tag}) ->
-    "{" ++ atom_to_list(VCS) ++ ",\t\"" ++ URL ++ "\",\t" ++ io_lib:format("~p", [Tag]) ++ "}";
+    "{" ++ atom_to_list(VCS) ++ ",\t\"" ++ URL ++ "\",\t" ++ io_lib:print(Tag, 1, 200, -1) ++ "}";
 format_source({VCS, URL}) ->
     "{" ++ atom_to_list(VCS) ++ ",\t\"" ++ URL ++ "\"}".
+
 
 longest_dep_name(Deps) ->
     lists:foldl(fun
@@ -189,7 +193,7 @@ add_relx_inner(Config) ->
     Config ++ [NewRelx].
 
 can_ignore_dep(Dep) ->
-    lists:member(Dep, [simple_bridge, nitro_cache, nprocreg, rekt, qdate]).
+    lists:member(Dep, [simple_bridge, nitro_cache, nprocreg, rekt, qdate, canister]).
 
 hexify_deps(Config) ->
     io:format("Hexifying Dependancies...~n"),
@@ -198,24 +202,25 @@ hexify_deps(Config) ->
         (App) when is_atom(App) ->
             case can_ignore_dep(App) of
                 true ->
-                    io:format("...~p does not need to be explicitly specified as a dependency, removing.~n",[App]),
+                    io:format("* ~p does not need to be explicitly specified as a dependency, removing.~n",[App]),
                     undefined;
                 false ->
-                    io:format("...~p is already Hexified~n", [App]),
+                    io:format("* ~p is already Hexified~n", [App]),
                     App
             end;
-        (App) when is_tuple(App) ->
-            Appname = element(1, App),
+        (App0) when is_tuple(App0) ->
+            Appname = element(1, App0),
             case can_ignore_dep(Appname) of
                 true ->
-                    io:format("...~p does not need to be explicitly specified as a dependency, removing.~n",[Appname]),
+                    io:format("* ~p does not need to be explicitly specified as a dependency, removing.~n",[Appname]),
                     undefined;
                 false ->
-                    io:format("...~p? ", [Appname]),
+                    App = fix_github_prefix(App0),
+                    io:format("* Hexify ~p? ", [Appname]),
                     case is_in_hex(Appname) of
                         true ->
                             io:format("YES.~n"),
-                            Appname;
+                            {converted, Appname, App};
                         false ->
                             io:format("NO.~n"),
                             App
@@ -225,12 +230,31 @@ hexify_deps(Config) ->
     NewDeps2 = [X || X <- NewDeps, X=/=undefined],
     lists:keydelete(deps, 1, Config) ++ [{deps, NewDeps2}].
 
+fix_github_prefix({Appname, _Vsn, {git, Path, Tag}}) ->
+    NewPath = fix_path(Path),
+    {Appname, {git, NewPath, Tag}};
+fix_github_prefix({Appname, {git, Path, Tag}}) ->
+    NewPath = fix_path(Path),
+    {Appname, {git, NewPath, Tag}};
+fix_github_prefix({Appname, {git, Path}}) ->
+    NewPath = fix_path(Path),
+    {Appname, {git, NewPath}};
+fix_github_prefix(App) ->
+    App.
+
+fix_path("git://github.com/" ++ Path) ->
+    print_fixing_prefix(Path),
+    "https://github.com/" ++ Path.
+
+print_fixing_prefix(Path) ->
+    io:format("* Fixing git://github.com/~s => https://github.com/~s~n",[Path, Path]).
+
 is_in_hex(App) ->
     BaseURL = "https://hex.pm/api/packages/",
     URL = BaseURL ++ atom_to_list(App),
-    Headers = [{"user-agent", "Erlang's httpc, baby!"}],
+    Headers = [{"user-agent", "Nitrogen-Upgrade/Erlang/httpc"}],
     Request = {URL, Headers},
-    case httpc:request(get, Request, [], []) of
+    case httpc:request(get, Request, [{ssl, [{verify, verify_none}]}], []) of
         {ok, {{_, 200, "OK"}, _, _}} -> true;
         _ -> false
     end.
