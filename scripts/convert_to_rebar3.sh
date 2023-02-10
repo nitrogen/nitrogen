@@ -36,8 +36,8 @@ curl $BASEURL/templates/common/etc/assemble_config.escript -o "etc/assemble_conf
 chmod 755 etc/assemble_config.escript
 
 ## download upgrade_release.sh
-curl $BASEURL/templates/common/common/upload_release.sh -o "upload_release.sh"
-chmod 755 upload_release.sh
+curl $BASEURL/templates/common/common/upgrade_release.sh -o "upgrade_release.sh"
+chmod 755 upgrade_release.sh
 
 ## download upgrade_release.sh
 curl $BASEURL/templates/common/common/make_version_file.escript -o "make_version_file.escript"
