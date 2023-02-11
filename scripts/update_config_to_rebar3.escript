@@ -249,6 +249,17 @@ fix_path("git://github.com/" ++ Path) ->
 print_fixing_prefix(Path) ->
     io:format("* Fixing git://github.com/~s => https://github.com/~s~n",[Path, Path]).
 
+is_in_hex(simple_cache) ->
+    %% Nitrogen's simple_cache is not the same simple_cache that's in hex.
+    %% That's the reason that simple_cache was renamed to nitro_cache in the
+    %% first place.
+    io:format(
+ "Simple_cache for Nitrogen has been replaced with nitro_cache. Simple_cache
+  will continue to be included in your rebar.config, but we recommend replacing
+  simple_cache calls with nitro_cache calls. If you are not manually calling
+  simple_cache anywhere, you are safe to remove the simple_cache dependency from
+  rebar.config as nitro_cache is a default dependency of nitrogen_core."),
+    false;
 is_in_hex(App) ->
     BaseURL = "https://hex.pm/api/packages/",
     URL = BaseURL ++ atom_to_list(App),
