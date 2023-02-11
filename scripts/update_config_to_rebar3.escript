@@ -41,7 +41,7 @@ main([File, "fix_relx_apps"]) ->
             Indent,
             "{",D,",load},\n"
         ]
-    end, Dirs4),
+    end, Dirs5),
     LoadFinal = iolist_to_binary(["\n",LoadStrings,Indent]),
     {ok, OrigFile} = file:read_file(File),
     DepsWithComma = list_to_binary(atom_to_list(?DEPS_ATOM) ++ ","),
