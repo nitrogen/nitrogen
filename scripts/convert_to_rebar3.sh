@@ -74,6 +74,9 @@ curl $BASEURL/templates/common/erlang_ls.config -o "erlang_ls.config"
 echo "Updating rebar.config for rebar3"
 ./update_config_to_rebar3.escript
 
+## Replace {{name}} with nitrogen in the Makefile
+sed -i 's/{{name}}/nitrogen/g' Makefile
+
 ## Add additional new rebar3 rules
 
 echo Done converting rebar2 nitrogen-based project to rebar3
