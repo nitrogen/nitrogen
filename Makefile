@@ -43,7 +43,6 @@ all: help
 build:
 	@(./build_helper)
 
-
 template:
 	@(echo "Generating backend templates and re-deploying Rebar templates")
 	@(cd templates/backends; ./build_backend_configs.escript)
