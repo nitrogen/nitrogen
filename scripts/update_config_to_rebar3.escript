@@ -63,7 +63,7 @@ main([File]) ->
     C3 = remove_option(deps_dir, C2),
     C4 = remove_sub_option(erl_opts, i, C3),
     C5 = add_plugin(rebar3_run, C4),
-    C6 = add_relx(C5a),
+    C6 = add_relx(C5),
     C7 = hexify_deps(C6),
     C8 = add_hooks(C7),
     C9 = add_plugin({rebar3_appup_plugin, {git, "https://github.com/lrascao/rebar3_appup_plugin", {branch, develop}}}, C8),
