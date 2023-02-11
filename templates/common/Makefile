@@ -109,23 +109,12 @@ dialyzer: rebar3
 
 dev:
 	mkdir -p _checkouts
-	git clone https://github.com/nitrogen/nitrogen_core _checkouts/nitrogen_core
-	git clone https://github.com/nitrogen/nprocreg_checkouts/nprocreg
-	git clone https://github.com/nitrogen/simple_bridge_checkouts/simple_bridge
-	git clone https://github.com/nitrogen/rekt _checkouts/rekt
-	git clone https://github.com/nitrogen/nitro_cache  _checkouts/nitro_cache
-	git clone https://github.com/nitrogen/canister  _checkouts/canister
-	git clone https://github.com/choptastic/qdate  _checkouts/qdate
-	git clone https://github.com/rustyio/sync _checkouts/sync
+	git clone https://github.com/nitrogen/nitrogen_core -b rebar3 	_checkouts/nitrogen_core
+	git clone https://github.com/nitrogen/nprocreg			_checkouts/nprocreg
+	git clone https://github.com/nitrogen/simple_bridge		_checkouts/simple_bridge
+	git clone https://github.com/nitrogen/rekt 				_checkouts/rekt
+	git clone https://github.com/nitrogen/nitro_cache  		_checkouts/nitro_cache
+	git clone https://github.com/nitrogen/canister  		_checkouts/canister
+	git clone https://github.com/choptastic/qdate  			_checkouts/qdate
+	git clone https://github.com/rustyio/sync 				_checkouts/sync
 
-#update: compile
-#	@(echo "*** CONGRATULATIONS ***")
-#	@(echo "Your Nitrogen installation has been upgraded.")
-#	@(echo "You may need to manually merge any changes that may have been made to")
-#	@(echo "configuration files as well as the initialization modules:")
-#	@(echo "    src/nitrogen.app.src")
-#	@(echo "    src/nitrogen_sup.erl")
-#	@(echo "    src/nitrogen_app.erl")
-#	@(echo "")
-#
-#upgrade: update
