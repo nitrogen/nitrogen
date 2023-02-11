@@ -28,6 +28,10 @@ BASEURL=https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3
 echo "Downloading $BASEURL/templates/common/Makefile"
 curl $BASEURL/templates/common/Makefile -o Makefile
 
+## Replace {{name}} with nitrogen in the Makefile
+echo "Setting the app name to 'nitrogen' in the Makefile"
+sed -i 's/{{name}}/nitrogen/g' Makefile
+
 ## download assemble_config.escript
 echo "Downloading $BASEURL/templates/common/etc/assemble_config.escript"
 curl $BASEURL/templates/common/etc/assemble_config.escript -o "etc/assemble_config.escript"
@@ -71,12 +75,14 @@ curl $BASEURL/templates/common/plugins.config -o "plugins.config"
 echo "Downloading $BASEURL/templates/common/erlang_ls.config"
 curl $BASEURL/templates/common/erlang_ls.config -o "erlang_ls.config"
 
-echo "Updating rebar.config for rebar3"
+
+echo "Updating rebar.config"
 ./update_config_to_rebar3.escript
 
-## Replace {{name}} with nitrogen in the Makefile
-sed -i 's/{{name}}/nitrogen/g' Makefile
-
-## Add additional new rebar3 rules
-
-echo Done converting rebar2 nitrogen-based project to rebar3
+echo "Almost finished. You must do the following:"
+echo "1. Review the updated rebar.config to ensure your dependencies look good"
+echo
+echo "2. Once the dependencies are good, run the following command:"
+echo
+echo "  make fix-deps"
+echo
