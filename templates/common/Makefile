@@ -118,6 +118,9 @@ dev:
 	git clone https://github.com/choptastic/qdate  			_checkouts/qdate
 	git clone https://github.com/rustyio/sync 				_checkouts/sync
 
+deps: rebar3
+	@(./rebar3 deps)
+
 
 ## This is only used during an upgrade from rebar2 to rebar3, generally
 fix-deps: rebar3

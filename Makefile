@@ -262,25 +262,25 @@ rel: rebar3 check_exists template
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a full release
 	@echo "********************************************************************************"
 
-slim_win: check_exists template
+slim_win: rebar3 check_exists template
 	@echo "********************************************************************************"
 	@echo "Creating a project that will default to a slim release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM) running on Windows"
 	@echo "********************************************************************************"
 	@($(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=false)
-	@(cd $(PREFIX)/$(PROJECT); make cookie)
+	@(cd $(PREFIX)/$(PROJECT); make cookie; make deps)
 	@echo "********************************************************************************"
 	@echo Generated a new Windows-based Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a slim release
 	@echo "********************************************************************************"
 
-rel_win: check_exists template
+rel_win: rebar3 check_exists template
 	@echo "********************************************************************************"
 	@echo "Creating a project that will default to a full release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM) running on Windows"
 	@echo "********************************************************************************"
 	@($(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
-	@(cd $(PREFIX)/$(PROJECT); make cookie)
+	@(cd $(PREFIX)/$(PROJECT); make cookie; make deps)
 	@echo "********************************************************************************"
 	@echo Generated a new Windows-based Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a full release
