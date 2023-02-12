@@ -105,7 +105,7 @@ site/templates:
 site/include:
 	@(ln -s ../include site/include)
 
-priv/static/nitrogen: _build link-static
+priv/static/nitrogen: link-static
 
 dialyzer: rebar3
 	@($(REBAR) dialyzer)
