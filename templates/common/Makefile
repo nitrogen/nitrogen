@@ -81,7 +81,10 @@ copy-static:
 link-static:
 	@(escript copy_static.escript link)
 
-plugins:
+## If the _build directory doesn't exist, we need to pull the dependencies
+_build: deps
+
+plugins: _build
 	@(escript do-plugins.escript)
 
 rebar2_links: site site/static site/src site/templates site/include
@@ -102,7 +105,7 @@ site/templates:
 site/include:
 	@(ln -s ../include site/include)
 
-priv/static/nitrogen: link-static
+priv/static/nitrogen: _build link-static
 
 dialyzer: rebar3
 	@($(REBAR) dialyzer)

@@ -23,7 +23,9 @@ main([Action]) when Action=="copy"; Action=="link" ->
     ],
     Src = find_first_loc(PossibleLocations),
     Dest = "priv/static/nitrogen",
-    
+  
+    %% These need to be changed such that they don't rely on linux tools and just use
+    %% file:copy and file:make_symlink
     cmd("rm -fr " ++ Dest),
     case Action of
         "copy" ->
