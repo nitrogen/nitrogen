@@ -1,1 +1,1 @@
-escript.exe rebar3 shell
+escript.exe rebar3 shell --eval "sync:go()."
