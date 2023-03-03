@@ -23,6 +23,7 @@ main(["go"]) ->
         false ->
             VsnString = get_version_string(),
             OldVsn = read_file(?VSN_CURRENT),
+	    io:format("OldVsn: ~s~n",[OldVsn]),
             case VsnString==OldVsn of
                 true ->
                     io:format("No version change~n");
@@ -72,18 +73,22 @@ main(_) ->
 
 read_file(F) ->
     case file:read_file(F) of
-        {ok, X} -> binary_to_list(X);
+        {ok, X} -> chomp(binary_to_list(X));
         {error, _} -> "first-run"
     end.
 
+chomp(X) ->
+	string:chomp(X).
+
 get_version_string() ->
-    case in_git() of
+    V = case in_git() of
         true ->
             {Vsn, RawRef, RawCount} = collect_default_refcount(),
             build_vsn_string(Vsn, RawRef, RawCount);
         false ->
            os:cmd("date +0.%Y%m%d.%H%M.%S")
-    end.
+    end,
+    chomp(V).
 
 
 in_git() ->
