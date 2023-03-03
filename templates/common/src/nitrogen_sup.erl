@@ -22,10 +22,15 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    application:load(nitrogen_core),
-    application:start(nitro_cache),
-    application:start(crypto),
-    application:start(nprocreg),
-    application:start(simple_bridge),
+    application:ensure_all_started(nitrogen_core),
+    application:ensure_all_started(nitro_cache),
+    application:ensure_all_started(crypto),
+    application:ensure_all_started(nprocreg),
+    application:ensure_all_started(simple_bridge),
+
+    %% Add global handlers here like this
+    %% wf:global_handler(Module, Config),
+    %% or
+    %% wf:global_handler(Name, Module, Config),
 
     {ok, { {one_for_one, 5, 10}, []} }.
