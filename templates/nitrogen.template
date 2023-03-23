@@ -40,6 +40,7 @@
 {file, "common/do-plugins.escript",  "{{prefix}}/{{name}}/do-plugins.escript"}.
 {file, "common/copy_static.escript",  "{{prefix}}/{{name}}/copy_static.escript"}.
 {file, "common/make_version_file.escript", "{{prefix}}/{{name}}/make_version_file.escript"}.
+{file, "common/in-git.sh", "{{prefix}}/{{name}}/in-git.sh"}.
 {template, "common/upgrade_release.sh", "{{prefix}}/{{name}}/upgrade_release.sh"}.
 {chmod, "{{prefix}}/{{name}}/upgrade_release.sh", 8#755}.
 {chmod, "{{prefix}}/{{name}}/copy_static.escript", 8#755}.
