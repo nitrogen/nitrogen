@@ -38,8 +38,9 @@
   empty strings and binaries, and strings and binaries of the word "false" (case
   insensitive). All else evaluates to `true`.
 * Exported `nitrogen:handler/3` to accommodate issues caused by modules that
-  have had their attributes stripped by relx. See [the pull request for details](https://github.com/nitrogen/nitrogen_core/pull/147)
-  (Thanks, @joaohf)
+  have had their attributes stripped by relx. See
+  [the pull request for details](https://github.com/nitrogen/nitrogen_core/pull/147)
+  (Thanks @joaohf)
 * Added a `#delay_body.method`, which may selectively be used to determine if 
   `simple` method (that may be less optimized, but more universally acceptable)
   can be used.  This is the method used in `comet`, and is also recommended if
@@ -54,7 +55,8 @@
 * When using caching, you're able to run `wf_context:cache()` to determine if
   the current operation is being run while being cached, or just being run
   normally.
-* Fix a crash related to preassigning a unicode value to a `#dropdown` element. (@dmsnell)
+* Fix a crash related to preassigning a unicode value to a `#dropdown` element.
+  (Thanks @dmsnell)
 * Fix an issue related to posting back an empty multiselect element.
 * Updated `#sync_panel` to allow the passed function to be a `{Module, Function}`
   or `{Module, Function, Args}` tuple as well as a function.
@@ -63,18 +65,39 @@
   status from the client with pings, and cutting back on the overly aggressive
   messages notifying the user they are disconnected when they might not actually
   be.
+* Began the work of removing the jQuery as a dependency.  It will likely take a
+  while, and mechanisms will be put in place to allow some jquery functionality
+  to be retained and controlled by the user, but for those of you wishing to
+  rely less on jquery and more on pure javascript, this will help to satisfy
+  this.  Huge thanks to @dmsnell for spearheading this.
+* Fix the `WF_RAND_UNIFORM` macro to actually match the semantics of the now
+  removed `crypto:rand_uniform/2` (it had an off-by-one error).
 * Nitrogen can now generate documentation for [Dash](https://kapeli.com/dash)
   (OSX) and [Zeal](https://zealdocs.org/) (Linux/Windows). Big thanks to
   @bunnylushington for this.
+* Add a new `#basic_tag{}`, and collapsed a bunch of files into that one
+  element. All the very simple tags, like `#span`, `#panel`, `#main`, `#em`,
+  etc were collapsed into this one element module, allowing the deletion of
+  more than 20 files that were almost copies of eachother.  See the
+  [full module definition](https://github.com/nitrogen/nitrogen_core/blob/master/src/elements/html/element_basic_tag.erl)
+  and see the
+  [element definitions](https://github.com/nitrogen/nitrogen_core/blob/rebar3/include/wf.hrl#L244-L282)
+* Added `?ADD_ELEMENT_CLASS(NewClass, ExistingClasses)`, which is conditionlly
+  defined at compile time.  This is for enabling or disabling the redundant
+  classes (for example `#label` producing `<label class="label">`.  This can be
+  enabled or disabled in rebar.config, in the `overrides` section
+* More performance optimizations in the render system, specifically around
+  traversing the body, and in the `class` attribute normalization.
 
 # Nitrogen 2.x
 
 ## Nitrogen 2.4.0
 
-* Cache Handler handler implemented with [Nitro Cache](https://github.com/nitrogen/nitro_cache),
-  a fork of [Simple Cache](https://github.com/marcelog/simple_cache), modified
-  with a mutex system to prevent parallel calculation of the same keys for use
-  with Nitrogen.
+* Cache Handler handler implemented with
+  [Nitro Cache](https://github.com/nitrogen/nitro_cache), a fork of
+  [Simple Cache](https://github.com/marcelog/simple_cache), modified with a
+  mutex system to prevent parallel calculation of the same keys for use with
+  Nitrogen.
 * Added `wf:cache/[1,2,3]`, `wf:set_cache/[2,3]` and `wf:clear_cache/[1,2]`
 * Added a new `plugin` command to the `bin/dev` script to initialize a new
   plugin (@fbrau)
