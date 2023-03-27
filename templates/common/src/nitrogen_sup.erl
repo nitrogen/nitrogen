@@ -28,9 +28,4 @@ init([]) ->
     application:ensure_all_started(nprocreg),
     application:ensure_all_started(simple_bridge),
 
-    %% Add global handlers here like this
-    %% wf:global_handler(Module, Config),
-    %% or
-    %% wf:global_handler(Name, Module, Config),
-
     {ok, { {one_for_one, 5, 10}, []} }.
