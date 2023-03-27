@@ -53,6 +53,11 @@ echo "Downloading $BASEURL/templates/common/make_version_file.escript"
 curl $OPTS $BASEURL/templates/common/make_version_file.escript -o "make_version_file.escript"
 chmod 755 make_version_file.escript
 
+## download in-git.sh
+echo "Downloading $BASEURL/templates/common/in-git.sh"
+curl $OPTS $BASEURL/templates/common/in-git.sh -o "in-git.sh"
+chmod 755 in-git.sh
+
 ## download new nitrogen/bin
 echo "Downloading $BASEURL/templates/common/bin/nitrogen"
 curl $OPTS $BASEURL/templates/common/bin/nitrogen -o "bin/nitrogen"
