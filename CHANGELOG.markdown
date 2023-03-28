@@ -86,6 +86,9 @@
   defined at compile time.  This is for enabling or disabling the redundant
   classes (for example `#label` producing `<label class="label">`.  This can be
   enabled or disabled in rebar.config, in the `overrides` section
+* Updated some of the logic in `wf_tags` to be a little more explicit about
+  which tags are always self-closing (void tags) vs which tags are optionally
+  self-closing.
 * More performance optimizations in the render system, specifically around
   traversing the body, and in the `class` attribute normalization.
 
