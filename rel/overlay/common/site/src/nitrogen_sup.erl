@@ -26,6 +26,7 @@ init([]) ->
     application:start(nitro_cache),
     application:start(crypto),
     application:start(nprocreg),
+    application:ensure_all_started(qdate),
     application:start(simple_bridge),
 
     {ok, { {one_for_one, 5, 10}, []} }.
