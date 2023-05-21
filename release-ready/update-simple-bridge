@@ -1,0 +1,8 @@
+#!/usr/bin/env escript
+%% -*- mode: erlang -*-
+
+main([In, Out]) ->
+  {ok, [[{simple_bridge, Block}]]} = file:consult(In),
+  NewBlock = [{cowboy_dispatch_fun, {nitrogen_helpers, build_dispatch}} |
+              Block],
+  file:write_file(Out, io_lib:format("~p.~n", [[{simple_bridge, NewBlock}]])).
