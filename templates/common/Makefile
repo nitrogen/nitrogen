@@ -1,8 +1,15 @@
 .PHONY: fix-slim-release test
 
-all: compile nitrogen_js_css
+# Check if rebar3.mk exists, and if not, download it
+ifeq ("$(wildcard rebar3.mk)","")
+$(shell curl -O https://raw.githubusercontent.com/choptastic/rebar3.mk/master/rebar3.mk)
+endif
 
-REBAR?=./rebar3
+# rebar3.mk adds a new rebar3 rule to your Makefile
+# (see https://github.com/choptastic/rebar3.mk) for full info
+include rebar3.mk
+
+all: compile nitrogen_js_css
 
 cookie:
 	@echo Generating a default cookie in /etc/vm.args
@@ -13,16 +20,6 @@ compile: rebar3
 
 eunit:
 	@($(REBAR) eunit)
-
-rebar3:
-	@echo "Fetching and compiling updated rebar3 (this will not replace your system-wide rebar3, if you have one)"
-	@(cd /tmp && \
-	git clone https://github.com/erlang/rebar3 && \
-	cd rebar3 && \
-	./bootstrap)
-	@(mv /tmp/rebar3/rebar3 .)
-	@(rm -fr /tmp/rebar3)
-
 
 release: rebar3
 	@(./make_version_file.escript go && \

@@ -1,11 +1,19 @@
-
 NITROGEN_VERSION=3.0.0
 
 # If project name is not provided, just use 'myapp'
 PROJECT?=myapp
 PREFIX?=..
 
-REBAR?=./rebar3
+all: help
+
+# Check if rebar3.mk exists, and if not, download it
+ifeq ("$(wildcard rebar3.mk)","")
+$(shell curl -O https://raw.githubusercontent.com/choptastic/rebar3.mk/master/rebar3.mk)
+endif
+
+# rebar3.mk adds a new rebar3 rule to your Makefile
+# (see https://github.com/choptastic/rebar3.mk) for full info
+include rebar3.mk
 
 help:
 	@echo 
@@ -38,7 +46,6 @@ help:
 	@echo "       $(MAKE) install-vim-script" 
 	@echo
 
-all: help
 
 build:
 	@(./build_helper)
@@ -55,17 +62,6 @@ template:
 	@(cat templates/nitrogen.template templates/win.template > ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
 	#@(cp -R templates/plugin ~/.config/rebar3/templates/nitrogen_plugin)
 	#@(cp nitrogen_plugin.template ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
-
-rebar3:
-	echo "Fetching and compiling updated rebar3 (this will not replace your system-wide rebar3, if you have one)"
-	@(cd /tmp && \
-	git clone https://github.com/erlang/rebar3 && \
-	cd rebar3 && \
-	./bootstrap)
-	echo "Installing rebar3 into Nitrogen directory"
-	@(mv /tmp/rebar3/rebar3 .)
-	echo "Cleaning up..."
-	@(rm -fr /tmp/rebar3)
 
 
 install-helper-script:
