@@ -1,1 +1,1 @@
-{yaws, {git, "https://github.com/erlyaws/yaws",	{tag, "yaws-2.1.0"}}}
+{yaws, {git, "https://github.com/erlyaws/yaws",	{tag, "yaws-2.1.1"}}}
