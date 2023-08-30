@@ -1,5 +1,8 @@
 .PHONY: fix-slim-release test
 
+## The all rule should be first
+all: compile nitrogen_js_css
+
 # Check if rebar3.mk exists, and if not, download it
 ifeq ("$(wildcard rebar3.mk)","")
 $(shell curl -O https://raw.githubusercontent.com/choptastic/rebar3.mk/master/rebar3.mk)
@@ -9,7 +12,6 @@ endif
 # (see https://github.com/choptastic/rebar3.mk) for full info
 include rebar3.mk
 
-all: compile nitrogen_js_css
 
 cookie:
 	@echo Generating a default cookie in /etc/vm.args
