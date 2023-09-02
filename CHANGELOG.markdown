@@ -29,6 +29,17 @@
   `wf:to_float`, etc.. These versions are crash-safe versions. That means that
   the call `wf:to_integer("some-garbage", 99999)` will return the integer
   `99999` (because `wf:to_integer("some-garbage")` crashes).
+* Added a new `wf_fastmap` module that implements a super-fast lookup mechanism
+  (similar to `mochiglobal` and `persistent_term`).  For looking up atoms and
+  other small terms, there was a 2-10x speedup from `persistent_term`.
+  `persistent_term`, however, remains much faster for large terms and binaries,
+  so use `persistent_term` for that.
+* Implemented a new handler system for grid systems and front-end frameworks.
+  This will make it possible to reuse the `#grid` elements (that were
+  previously designed to work only with the old Grid960 system).  With this,
+  one can use those elements and just change the default grid system either
+  with `default_grid_system_name` and `default_grid_system_module` keys in your
+  `nitrogen_core` application config.
 * Added `?WF_SAFE(Expression, Default)` which is just a shorter version of
   `try (Expression) catch _:_ -> Default end`, as well as `?WF_SAFE(Expression)`,
   which is just a shortcut to `?WF_SAFE(Expression, undefined)`.
@@ -86,6 +97,10 @@
   defined at compile time.  This is for enabling or disabling the redundant
   classes (for example `#label` producing `<label class="label">`.  This can be
   enabled or disabled in rebar.config, in the `overrides` section
+* Added a very simple profiling system for single function calls that totals
+  reductions, memory usage before and after the call, and actual clock time to
+  execute, then send those results either the console, a CSV file, or a shell.
+  This is done with `wf:profile/[2-3]` and the macros `?WF_PROFILE/[1-3]`.
 * Updated some of the logic in `wf_tags` to be a little more explicit about
   which tags are always self-closing (void tags) vs which tags are optionally
   self-closing.
