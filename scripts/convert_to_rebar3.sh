@@ -23,7 +23,7 @@ ln -sv ../priv/static site/static
 ln -sv ../priv/templates site/templates
 
 BASEURL=https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3
-OPTS=-H 'Cache-Control: no-cache, no-store'
+OPTS=-H'Cache-Control:no-cache,no-store'
 
 ## Download new Makefile
 echo "Downloading $BASEURL/templates/common/Makefile"

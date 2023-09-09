@@ -304,7 +304,9 @@ fix_github_prefix(App) ->
 
 fix_path("git://github.com/" ++ Path) ->
     print_fixing_prefix(Path),
-    "https://github.com/" ++ Path.
+    "https://github.com/" ++ Path;
+fix_path(Path) ->
+    Path.
 
 print_fixing_prefix(Path) ->
     io:format("* Fixing git://github.com/~s => https://github.com/~s~n",[Path, Path]).
