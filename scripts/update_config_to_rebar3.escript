@@ -324,11 +324,10 @@ is_in_hex(simple_cache) ->
   Anyway, Hexifying simple_cache? "),
     false;
 is_in_hex(bbcode) ->
-    io:format("\n
-  (bbcode is an Elixir dependency.  As such, this is assuming you don't actually
-  mean the Elixir version.  You can always update rebar.config if you really did
-  mean to use the Elixir version.
-  Anyway, Hexifying bbcode? "),
+    io:format(" (bbcode is the name of an Elixir dependency in hex.pm) "),
+    false;
+is_in_hex(markdown) ->
+    io:format(" (markdown is the name of an Elixir dependency in hex.pm) "),
     false;
 is_in_hex(App) ->
     BaseURL = "https://hex.pm/api/packages/",
