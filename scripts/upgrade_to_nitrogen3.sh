@@ -98,3 +98,5 @@ echo "*                                                                         
 echo "*****************************************************************************"
 echo
 read -n 1 -s -r -p "            Press any key to acknowledge the message above"
+echo
+echo
