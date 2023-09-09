@@ -85,11 +85,16 @@ curl $OPTS $BASEURL/templates/common/erlang_ls.config -o "erlang_ls.config"
 echo "Updating rebar.config"
 ./update_config_to_rebar3.escript
 
-echo "Almost finished. You must do the following:"
-echo "1. Review the updated rebar.config to ensure your dependencies look good"
+echo "*****************************************************************************"
+echo "*            YOU'RE ALMOST FINISHED. You MUST now do the following          *"
+echo "*****************************************************************************"
+echo "*                                                                           *"
+echo "* 1. Review the updated rebar.config to ensure your dependencies look good  *"
+echo "*                                                                           *"
+echo "* 2. Once the dependencies are good, run the following command:             *"
+echo "*                                                                           *"
+echo "*    make fix-deps                                                          *" 
+echo "*                                                                           *"
+echo "*****************************************************************************"
 echo
-echo "2. Once the dependencies are good, run the following command:"
-echo
-echo "  make fix-deps"
-echo
-read -n 1 -s -r -p "Press any key to acknowledge the message above"
+read -n 1 -s -r -p "            Press any key to acknowledge the message above"
