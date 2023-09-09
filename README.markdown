@@ -1,7 +1,5 @@
 # Nitrogen Web Framework for Erlang
 
-[![Build Status](https://travis-ci.org/nitrogen/nitrogen.png)](https://travis-ci.org/nitrogen/nitrogen)
-
 Nitrogen is an Erlang-based web framework that allows you to develop
 infinitely scaleable, Ajax-rich web applications using a pure Erlang 
 technology stack.
@@ -9,6 +7,18 @@ technology stack.
 See the [Nitrogen Project website](http://nitrogenproject.com) for
 additional information.
 
+## Upgrading from Nitrogen 2 to Nitrogen 3?
+
+If you are using a Nitrogen 2 structured project, run the following command
+from the root of your Nitrogen 2-based project.
+
+**WARNING: Make sure you commit to version control before running this - it will change your working directory heavily**
+
+**WARNING 2: Running scripts directly from the internet is dumb. Review the code of this script before you run it. But if you really want to do it this way, here you go. **
+
+```bash
+curl -S https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/scripts/convert_to_rebar3.sh | bash
+```
 
 ## Getting Started
 

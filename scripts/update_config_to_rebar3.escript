@@ -253,6 +253,7 @@ add_relx_inner(Config) ->
     Config ++ [NewRelx].
 
 can_ignore_dep(Dep) ->
+    io:format(" ---- checking if we can ignore ~p~n",[Dep]),
     lists:member(Dep, [simple_bridge, nitro_cache, nprocreg, rekt, qdate, canister]).
 
 hexify_deps(Config) ->
@@ -322,6 +323,13 @@ is_in_hex(simple_cache) ->
   simple_cache anywhere, you are safe to remove the simple_cache dependency from
   rebar.config as nitro_cache is a default dependency of nitrogen_core)
   Anyway, Hexifying simple_cache? "),
+    false;
+is_in_hex(bbcode) ->
+    io:format("\n
+  (bbcode is an Elixir dependency.  As such, this is assuming you don't actually
+  mean the Elixir version.  You can always update rebar.config if you really did
+  mean to use the Elixir version.
+  Anyway, Hexifying bbcode? "),
     false;
 is_in_hex(App) ->
     BaseURL = "https://hex.pm/api/packages/",
