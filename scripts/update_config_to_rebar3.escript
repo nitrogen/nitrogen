@@ -329,18 +329,24 @@ is_in_hex(simple_cache) ->
   rebar.config as nitro_cache is a default dependency of nitrogen_core)
   Anyway, Hexifying simple_cache? "),
     false;
-is_in_hex(bbcode) ->
-    io:format(" (bbcode is the name of an Elixir dependency in hex.pm) "),
-    false;
-is_in_hex(markdown) ->
-    io:format(" (markdown is the name of an Elixir dependency in hex.pm) "),
-    false;
 is_in_hex(App) ->
-    BaseURL = "https://hex.pm/api/packages/",
-    URL = BaseURL ++ atom_to_list(App),
-    Headers = [{"user-agent", "Nitrogen-Upgrade/Erlang/httpc"}],
-    Request = {URL, Headers},
-    case httpc:request(get, Request, [{ssl, [{verify, verify_none}]}], []) of
-        {ok, {{_, 200, "OK"}, _, _}} -> true;
-        _ -> false
+    case is_elixir(App) of
+        true ->
+            io:format(" (~p is the name of an Elixir dependency in hex.pm) ", [App]),
+            false;
+        false ->
+            BaseURL = "https://hex.pm/api/packages/",
+            URL = BaseURL ++ atom_to_list(App),
+            Headers = [{"user-agent", "Nitrogen-Upgrade/Erlang/httpc"}],
+            Request = {URL, Headers},
+            case httpc:request(get, Request, [{ssl, [{verify, verify_none}]}], []) of
+                {ok, {{_, 200, "OK"}, _, _}} -> true;
+                _ -> false
+            end
     end.
+
+is_elixir(App) ->
+    lists:member(App, elixir_apps()).
+
+elixir_apps() ->
+    [bbcode, markdown, gm].
