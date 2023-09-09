@@ -144,20 +144,26 @@ writable_deps([]) ->
     [];
 writable_deps(Deps) ->
     NumSpacesAfterName = longest_dep_name(Deps) + 2,
-    Formatted = lists:map(fun(Dep) ->
-        format_dep(NumSpacesAfterName, Dep)
-    end, Deps),
-    "{deps, [\n" ++ lists:join(",\n", Formatted) ++ "\n]}.".
+    NumDeps = length(Deps),
+    Formatted = lists:map(fun({N, Dep}) ->
+        IsLast = N == NumDeps,
+        format_dep(NumSpacesAfterName, Dep, IsLast)
+    end, lists:zip(lists:seq(1, NumDeps), Deps)),
+    "{deps, [\n" ++ lists:join("\n", Formatted) ++ "\n]}.".
 
-format_dep(_, Dep) when is_atom(Dep) ->
-    "\t" ++ atom_to_list(Dep);
-format_dep(_, {converted, Dep, Orig}) when is_atom(Dep) ->
-    "\t" ++ atom_to_list(Dep) ++ ",\t\t%% Original: " ++ io_lib:print(Orig, 1, 200, -1);
-format_dep(NumSpacesAfterNameBase, {Name, Source}) when is_tuple(Source) ->
+format_dep(_, Dep, IsLast) when is_atom(Dep) ->
+    "\t" ++ atom_to_list(Dep) ++ trailing_comma(IsLast);
+format_dep(_, {converted, Dep, Orig}, IsLast) when is_atom(Dep) ->
+    "\t" ++ atom_to_list(Dep) ++ trailing_comma(IsLast) ++ "\t\t%% Original: " ++ io_lib:print(Orig, 1, 200, -1);
+format_dep(NumSpacesAfterNameBase, {Name, Source}, IsLast) when is_tuple(Source) ->
     NumSpacesAfterName = NumSpacesAfterNameBase - length(atom_to_list(Name)),
     Spaces = lists:duplicate(NumSpacesAfterName, 32), %% 32 = space ASCII
-    "\t{" ++ atom_to_list(Name) ++ "," ++ Spaces ++ format_source(Source) ++ "}".
+    "\t{" ++ atom_to_list(Name) ++ "," ++ Spaces ++ format_source(Source) ++ "}" ++ trailing_comma(IsLast).
     
+trailing_comma(_IsLast=true) ->
+    "";
+trailing_comma(_IsLast=false) ->
+    ",".
 
 
 format_source({VCS, URL, Tag}) ->
