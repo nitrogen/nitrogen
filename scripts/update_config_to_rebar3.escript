@@ -253,7 +253,6 @@ add_relx_inner(Config) ->
     Config ++ [NewRelx].
 
 can_ignore_dep(Dep) ->
-    io:format(" ---- checking if we can ignore ~p~n",[Dep]),
     lists:member(Dep, [simple_bridge, nitro_cache, nprocreg, rekt, qdate, canister]).
 
 hexify_deps(Config) ->
