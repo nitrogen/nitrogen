@@ -92,3 +92,4 @@ echo "2. Once the dependencies are good, run the following command:"
 echo
 echo "  make fix-deps"
 echo
+read -n 1 -s -r -p "Press any key to acknowledge the message above"
