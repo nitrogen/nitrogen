@@ -121,12 +121,12 @@ dev:
 	git clone https://github.com/rustyio/sync 				_checkouts/sync
 
 deps: rebar3
-	@(./rebar3 deps)
+	@($(REBAR) deps)
 
 
 ## This is only used during an upgrade from rebar2 to rebar3, generally
 fix-deps: rebar3
 	@echo "Pulling dependencies"
-	@(./rebar3 deps)
+	@($(REBAR) deps)
 	@echo "Using the pulled dependencies to populate the relx application list"
 	@(./update_config_to_rebar3.escript rebar.config fix_relx_apps)
