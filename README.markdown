@@ -9,7 +9,7 @@ additional information.
 
 ## Upgrading from Nitrogen 2 to Nitrogen 3?
 
-If you are using a Nitrogen 2 structured project, run the following command
+If you are using a Nitrogen 2 structured project, run the following two commands
 from the root of your Nitrogen 2-based project.
 
 **WARNING: Make sure you commit to version control before running this - it will change your working directory heavily**
@@ -17,8 +17,14 @@ from the root of your Nitrogen 2-based project.
 **WARNING 2: Running scripts directly from the internet is dumb. Review the code of this script before you run it. But if you really want to do it this way, here you go. **
 
 ```bash
-curl -S https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/scripts/convert_to_rebar3.sh | bash
+curl -o https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3/scripts/upgrade_to_nitrogen3.sh
+bash upgrade_to_nitrogen3.sh
 ```
+
+The first line downloads the upgrade script to your local project directory
+
+The second line runs that script
+
 
 ## Getting Started
 
