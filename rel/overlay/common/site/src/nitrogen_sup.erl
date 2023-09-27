@@ -23,10 +23,10 @@ start_link() ->
 
 init([]) ->
     application:load(nitrogen_core),
-    application:start(nitro_cache),
-    application:start(crypto),
-    application:start(nprocreg),
+    application:ensure_all_started(nitro_cache),
+    application:ensure_all_started(crypto),
+    application:ensure_all_started(nprocreg),
     application:ensure_all_started(qdate),
-    application:start(simple_bridge),
+    application:ensure_all_started(simple_bridge),
 
     {ok, { {one_for_one, 5, 10}, []} }.
