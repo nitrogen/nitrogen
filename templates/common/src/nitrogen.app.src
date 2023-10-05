@@ -1,0 +1,9 @@
+{application, {{name}},
+ [
+  {description, "My Nitrogen Web Project"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [kernel, stdlib, nitrogen_core]},
+  {mod, { {{name}}_app, []}},
+  {env, []}
+ ]}.

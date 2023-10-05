@@ -1,0 +1,1 @@
+../templates/common/etc/assemble_config.escript

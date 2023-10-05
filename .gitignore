@@ -7,6 +7,8 @@ rel/nitrogen
 deps/
 TAGS
 builds
+rebar3
+rebar3.mk
 Quickstart/static/nitrogen
 Quickstart/static/doc
 *~

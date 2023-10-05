@@ -5,6 +5,8 @@ Note: These guidelines apply to the Nitrogen Web Framework and it's subprojects:
  + [nitrogen](http://github.com/nitrogen/nitrogen)
  + [nitrogen\_core](http://github.com/nitrogen/nitrogen_core)
  + [simple\_bridge](http://github.com/nitrogen/simple_bridge)
+ + [canister](http://github.com/nitrogen/canister)
+ + [nitro\_cache](http://github.com/nitrogen/nitro_cache)
  + [nprocreg](http://github.com/nitrogen/nprocreg)
  + [sample\_nitrogen\_plugin](http://github.com/nitrogen/sample_nitrogen_plugin)
 
@@ -32,11 +34,11 @@ must first purchase a "commercial license" (some javascript libraries function
 this way).
 
 In short:
-  + **No** GPL, unless dual licensed with the MIT, BSD, or similar free
+  + **No** GPL, unless dual licensed with the MIT, BSD, Apache, or similar free
     licenses.
   + **No** non-commercial licenses or "pay us to use in for profit"-type
     licenses.
-  + **Yes** to MIT Licensed free code
+  + **Yes** to MIT, BSD, and Apache Licensed free code
 
 **If you really want to use something that is GPL or non-free**, the way to
 accomplish this is with the use of [Nitrogen

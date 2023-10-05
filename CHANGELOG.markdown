@@ -1,7 +1,15 @@
-# Nitrogen 2.x
+# Nitrogen 3
 
-## Nitrogen 2.4.1 (in progress)
+## Nitrogen 3.0.0 (in development)
 
+* Added a new default session handler called `canister`.  This canister module
+  is more robust, self-healing, and stores the session data with mnesia,
+  allowing session data to survive restarts. The code for canister can be found
+  here: https://github.com/nitrogen/canister
+* Added a Websocket Handler. This allows overloading the existing Nitrogen
+  websocket to send, receive, and handle your own custom websocket contents.  A
+  good use-case for this might be games or a lightweight protocol for lots of
+  little messages that would be handled by custom javascript.
 * Added Content Security Policy functionality (@bunnylushington)
 * Added a new Postback handler. This is the new last handler to process
   anything, and gives the user a change to capture, modify, or do anything else
@@ -12,24 +20,102 @@
 * Added `#template.text` attribute, which allows to in-line templates.
   Basically, the `text` attribute will be used as the `body` of the template.
   (Thanks @bunnylushington)
-* Added a `#delay_body.method`, which may selectively be used to determine if s
+* Added `#icon` element, which provides an icon mechanism that integrates with
+  FontAwesome, LineAwesome, Google Material Icons, Bootstrap Icons, and custom
+  Icon Fonts from IcoMoon, as well as any other Icon font you might want to
+  use.
+* Update `#textbox` to properly support the date/time/datetime-local types.
+* Added `/2` versions to conversion functions like `wf:to_integer`,
+  `wf:to_float`, etc.. These versions are crash-safe versions. That means that
+  the call `wf:to_integer("some-garbage", 99999)` will return the integer
+  `99999` (because `wf:to_integer("some-garbage")` crashes).
+* Added a new `wf_fastmap` module that implements a super-fast lookup mechanism
+  (similar to `mochiglobal` and `persistent_term`).  For looking up atoms and
+  other small terms, there was a 2-10x speedup from `persistent_term`.
+  `persistent_term`, however, remains much faster for large terms and binaries,
+  so use `persistent_term` for that.
+* Implemented a new handler system for grid systems and front-end frameworks.
+  This will make it possible to reuse the `#grid` elements (that were
+  previously designed to work only with the old Grid960 system).  With this,
+  one can use those elements and just change the default grid system either
+  with `default_grid_system_name` and `default_grid_system_module` keys in your
+  `nitrogen_core` application config.
+* Added `?WF_SAFE(Expression, Default)` which is just a shorter version of
+  `try (Expression) catch _:_ -> Default end`, as well as `?WF_SAFE(Expression)`,
+  which is just a shortcut to `?WF_SAFE(Expression, undefined)`.
+* Add `wf:to_bool/1`, which converts a number of loose terms to the boolean
+  `true` or `false`.  Currently these terms all will be converted to false:
+  numbers that are equal to `0`, strings and binaries of the number `0`, the
+  empty strings and binaries, and strings and binaries of the word "false" (case
+  insensitive). All else evaluates to `true`.
+* Exported `nitrogen:handler/3` to accommodate issues caused by modules that
+  have had their attributes stripped by relx. See
+  [the pull request for details](https://github.com/nitrogen/nitrogen_core/pull/147)
+  (Thanks @joaohf)
+* Added a `#delay_body.method`, which may selectively be used to determine if 
   `simple` method (that may be less optimized, but more universally acceptable)
   can be used.  This is the method used in `comet`, and is also recommended if
   the `#delay_body` element will have its rendered results cached.
+* Added security options to session cookies.
+* Default Nitrogen projects will now include `erlang_ls.config` file for the
+  [Erlang Language Server](https://github.com/erlang-ls/erlang_ls)
+* The `wf_pickle` module now supports a backup `signkey`, which the depickler
+  can fall back on.  This will significantly cut back on errors if you decide
+  to change the signkey at some point.
 * Fix `#delay_body` crash if `delegate` is not specified.
 * When using caching, you're able to run `wf_context:cache()` to determine if
   the current operation is being run while being cached, or just being run
   normally.
+* Fix a crash related to preassigning a unicode value to a `#dropdown` element.
+  (Thanks @dmsnell)
+* Fix an issue related to posting back an empty multiselect element.
+* Updated `#sync_panel` to allow the passed function to be a `{Module, Function}`
+  or `{Module, Function, Args}` tuple as well as a function.
+* Improved the automatic websocket reconnection functionality - attempting to
+  detect if the browser or device goes to sleep, periodically checking postback
+  status from the client with pings, and cutting back on the overly aggressive
+  messages notifying the user they are disconnected when they might not actually
+  be.
+* Began the work of removing the jQuery as a dependency.  It will likely take a
+  while, and mechanisms will be put in place to allow some jquery functionality
+  to be retained and controlled by the user, but for those of you wishing to
+  rely less on jquery and more on pure javascript, this will help to satisfy
+  this.  Huge thanks to @dmsnell for spearheading this.
+* Fix the `WF_RAND_UNIFORM` macro to actually match the semantics of the now
+  removed `crypto:rand_uniform/2` (it had an off-by-one error).
 * Nitrogen can now generate documentation for [Dash](https://kapeli.com/dash)
   (OSX) and [Zeal](https://zealdocs.org/) (Linux/Windows). Big thanks to
   @bunnylushington for this.
+* Add a new `#basic_tag{}`, and collapsed a bunch of files into that one
+  element. All the very simple tags, like `#span`, `#panel`, `#main`, `#em`,
+  etc were collapsed into this one element module, allowing the deletion of
+  more than 20 files that were almost copies of eachother.  See the
+  [full module definition](https://github.com/nitrogen/nitrogen_core/blob/master/src/elements/html/element_basic_tag.erl)
+  and see the
+  [element definitions](https://github.com/nitrogen/nitrogen_core/blob/rebar3/include/wf.hrl#L244-L282)
+* Added `?ADD_ELEMENT_CLASS(NewClass, ExistingClasses)`, which is conditionlly
+  defined at compile time.  This is for enabling or disabling the redundant
+  classes (for example `#label` producing `<label class="label">`.  This can be
+  enabled or disabled in rebar.config, in the `overrides` section
+* Added a very simple profiling system for single function calls that totals
+  reductions, memory usage before and after the call, and actual clock time to
+  execute, then send those results either the console, a CSV file, or a shell.
+  This is done with `wf:profile/[2-3]` and the macros `?WF_PROFILE/[1-3]`.
+* Updated some of the logic in `wf_tags` to be a little more explicit about
+  which tags are always self-closing (void tags) vs which tags are optionally
+  self-closing.
+* More performance optimizations in the render system, specifically around
+  traversing the body, and in the `class` attribute normalization.
+
+# Nitrogen 2.x
 
 ## Nitrogen 2.4.0
 
-* Cache Handler handler implemented with [Nitro Cache](https://github.com/nitrogen/nitro_cache),
-  a fork of [Simple Cache](https://github.com/marcelog/simple_cache), modified
-  with a mutex system to prevent parallel calculation of the same keys for use
-  with Nitrogen.
+* Cache Handler handler implemented with
+  [Nitro Cache](https://github.com/nitrogen/nitro_cache), a fork of
+  [Simple Cache](https://github.com/marcelog/simple_cache), modified with a
+  mutex system to prevent parallel calculation of the same keys for use with
+  Nitrogen.
 * Added `wf:cache/[1,2,3]`, `wf:set_cache/[2,3]` and `wf:clear_cache/[1,2]`
 * Added a new `plugin` command to the `bin/dev` script to initialize a new
   plugin (@fbrau)

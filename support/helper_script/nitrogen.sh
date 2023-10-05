@@ -13,7 +13,7 @@
 # This is especially convenient if you have more than one Nitrogen installation.
 
 function find_nitro() {
-	if [ -x "bin/nitrogen" ] && [ -x "bin/dev" ] ; then
+	if [ -x "bin/nitrogen" ] ; then
 		./bin/$1 $2 $3
 	else
 		if [ `pwd` == "/" ]; then

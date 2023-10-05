@@ -1,9 +1,0 @@
-site/ebin/*
-*.sw?
-erl_crash.dump
-*~
-/log
-/scratch
-lib/*
-rebar
-releases/*

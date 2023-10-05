@@ -1,0 +1,74 @@
+{description, "Nitrogen Installation Plugin"}.
+{variables, [
+	{name, "nitrogen", "Default app name will be nitrogen"},
+    {prefix, ".", "Parent Directory will the app be installed"},
+	{backend, "cowboy", "Default Backend"},
+	{port, "8000", "Port"},
+	{include_erts, "false", "Should a built release include ERTS (false = slim release, true = full release)"}
+]}.
+
+{dir, "{{prefix}}/{{name}}/priv"}.
+{dir, "{{prefix}}/{{name}}/priv/templates"}.
+{dir, "{{prefix}}/{{name}}/priv/static"}.
+{dir, "{{prefix}}/{{name}}/priv/static/css"}.
+{dir, "{{prefix}}/{{name}}/priv/static/js"}.
+{dir, "{{prefix}}/{{name}}/priv/static/images"}.
+{dir, "{{prefix}}/{{name}}/priv/prototypes"}.
+{dir, "{{prefix}}/{{name}}/site"}.
+{dir, "{{prefix}}/{{name}}/etc"}.
+{dir, "{{prefix}}/{{name}}/src"}.
+{dir, "{{prefix}}/{{name}}/src/actions"}.
+{dir, "{{prefix}}/{{name}}/src/elements"}.
+{dir, "{{prefix}}/{{name}}/include"}.
+{dir, "{{prefix}}/{{name}}/bin"}.
+
+{file, "common/README.md",  "{{prefix}}/{{name}}/README.md"}.
+{file, "common/plugins.config",  "{{prefix}}/{{name}}/plugins.config"}.
+{file, "common/erlang_ls.config",  "{{prefix}}/{{name}}/erlang_ls.config"}.
+{file, "common/.gitignore",  "{{prefix}}/{{name}}/.gitignore"}.
+{file, "common/bin/nitrogen", "{{prefix}}/{{name}}/bin/nitrogen"}.
+{chmod, "{{prefix}}/{{name}}/bin/nitrogen", 8#755}.
+{file, "common/priv/static/css/style.css",  "{{prefix}}/{{name}}/priv/static/css/style.css"}.
+{file, "common/priv/static/images/spinner.gif",  "{{prefix}}/{{name}}/priv/static/images/spinner.gif"}.
+{file, "common/priv/templates/bare.html",  "{{prefix}}/{{name}}/priv/templates/bare.html"}.
+{file, "common/src/nitrogen_main_handler.erl",  "{{prefix}}/{{name}}/src/nitrogen_main_handler.erl"}.
+{template, "common/src/nitrogen.app.src",  "{{prefix}}/{{name}}/src/{{name}}.app.src"}.
+{template, "common/src/nitrogen_sup.erl",  "{{prefix}}/{{name}}/src/{{name}}_sup.erl"}.
+{template, "common/src/nitrogen_app.erl",  "{{prefix}}/{{name}}/src/{{name}}_app.erl"}.
+{file, "common/src/index.erl",  "{{prefix}}/{{name}}/src/index.erl"}.
+{template, "common/Makefile",  "{{prefix}}/{{name}}/Makefile"}.
+{file, "common/do-plugins.escript",  "{{prefix}}/{{name}}/do-plugins.escript"}.
+{file, "common/copy_static.escript",  "{{prefix}}/{{name}}/copy_static.escript"}.
+{file, "common/make_version_file.escript", "{{prefix}}/{{name}}/make_version_file.escript"}.
+{file, "common/in-git.sh", "{{prefix}}/{{name}}/in-git.sh"}.
+{template, "common/upgrade_release.sh", "{{prefix}}/{{name}}/upgrade_release.sh"}.
+{chmod, "{{prefix}}/{{name}}/upgrade_release.sh", 8#755}.
+{chmod, "{{prefix}}/{{name}}/copy_static.escript", 8#755}.
+{chmod, "{{prefix}}/{{name}}/make_version_file.escript", 8#755}.
+{chmod, "{{prefix}}/{{name}}/do-plugins.escript", 8#755}.
+
+%% Symlinks
+%{file, "common/site/src",  "{{prefix}}/{{name}}/site/src"}.
+%{file, "common/site/static",  "{{prefix}}/{{name}}/site/static"}.
+%{file, "common/site/templates",  "{{prefix}}/{{name}}/site/templates"}.
+%{file, "common/site/include", "{{prefix}}/{{name}}/site/include"}.
+
+{file, "common/prototypes/plugin.app.src",  "{{prefix}}/{{name}}/priv/prototypes/plugin.app.src"}.
+{file, "common/prototypes/plugin_page.erl",  "{{prefix}}/{{name}}/priv/prototypes/plugin_page.erl"}.
+{file, "common/prototypes/element.erl",  "{{prefix}}/{{name}}/priv/prototypes/element.erl"}.
+{file, "common/prototypes/page.erl",  "{{prefix}}/{{name}}/priv/prototypes/page.erl"}.
+{file, "common/prototypes/action.erl",  "{{prefix}}/{{name}}/priv/prototypes/action.erl"}.
+
+{file, "common/etc/assemble_config.escript", "{{prefix}}/{{name}}/etc/assemble_config.escript"}.
+{chmod, "{{prefix}}/{{name}}/etc/assemble_config.escript", 8#755}.
+{file, "common/etc/app.config",  "{{prefix}}/{{name}}/etc/app.config"}.
+{template, "common/etc/vm.args",  "{{prefix}}/{{name}}/etc/vm.args"}.
+{file, "common/etc/sync.config",  "{{prefix}}/{{name}}/etc/sync.config"}.
+{template, "common/etc/simple_bridge.config",  "{{prefix}}/{{name}}/etc/simple_bridge.config"}.
+
+{file, "common/include/records.hrl",  "{{prefix}}/{{name}}/include/records.hrl"}.
+{file, "common/include/plugins.hrl",  "{{prefix}}/{{name}}/include/plugins.hrl"}.
+
+{template, "backends/rebar.{{backend}}.config", "{{prefix}}/{{name}}/rebar.config"}.
+{template, "backends/rebar.{{backend}}.config.script", "{{prefix}}/{{name}}/rebar.config.script"}.
+

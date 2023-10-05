@@ -1,0 +1,2 @@
+    %% Inets has no external dependencies
+    {mimetypes, {git, "https://github.com/spawngrid/mimetypes.git", {branch, master}}}
