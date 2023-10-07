@@ -19,7 +19,8 @@ main([Action]) when Action=="copy"; Action=="link" ->
         "_checkouts/nitrogen_core/www", %% old loc, but let's check
         "_checkouts/nitrogen_core/priv/www",
         "_build/default/checkouts/nitrogen_core/priv/www",
-        "_build/default/lib/nitrogen_core/priv/www"
+        "_build/default/lib/nitrogen_core/priv/www",
+        "_build/default/lib/nitrogen_core/www" %% another old location
     ],
     Src = find_first_loc(PossibleLocations),
     Dest = "priv/static/nitrogen",
