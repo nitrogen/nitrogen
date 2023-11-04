@@ -74,14 +74,17 @@ install-vim-script:
 ## Produce a list of contributors from the main repo and the dependent repos
 thanks: 
 	@(cd support/list_thanks; \
-	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
-	git clone git://github.com/nitrogen/simple_bridge; \
-	git clone git://github.com/nitrogen/nprocreg; \
-	git clone git://github.com/nitrogen/nitrogen_core; \
-	git clone git://github.com/nitrogen/NitrogenProject.com; \
-	git clone git://github.com/nitrogen/rekt; \
+	rm -fr simple_bridge mutagen nprocreg nitrogen_core canister rekt nitro_cache NitrogenProject.com; \
+	git clone https://github.com/nitrogen/simple_bridge; \
+	git clone https://github.com/nitrogen/nprocreg; \
+	git clone https://github.com/nitrogen/nitrogen_core; \
+	git clone https://github.com/nitrogen/mutagen; \
+	git clone https://github.com/nitrogen/NitrogenProject.com; \
+	git clone https://github.com/nitrogen/nitro_cache; \
+	git clone https://github.com/nitrogen/canister; \
+	git clone https://github.com/nitrogen/rekt; \
 	perl list_thanks.pl >> ../../thanks.txt; \
-	rm -fr simple_bridge nprocreg nitrogen_core NitrogenProject.com; \
+	rm -fr simple_bridge mutagen nprocreg nitrogen_core canister rekt nitro_cache NitrogenProject.com; \
 	echo "Thanks file generated in thanks.txt - please review")
 	
 #quickstart:
