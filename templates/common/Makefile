@@ -86,7 +86,7 @@ _build: deps
 plugins: _build
 	@(escript do-plugins.escript)
 
-rebar2_links: site site/static site/src site/templates site/include
+rebar2_links: site site/static site/src site/templates site/include site/ebin
 
 site:
 	@echo Making Nitrogen 2 compatible directory structure symlinks
@@ -103,6 +103,10 @@ site/templates:
 
 site/include:
 	@(ln -s ../include site/include)
+
+site/ebin:
+	@(mkdir -p _build/default/lib/{{name}}/ebin)
+	@(ln -s ../_build/default/lib/nb/ebin site/ebin)
 
 priv/static/nitrogen: link-static
 
