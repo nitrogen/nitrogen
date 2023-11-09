@@ -104,6 +104,10 @@
 * Updated some of the logic in `wf_tags` to be a little more explicit about
   which tags are always self-closing (void tags) vs which tags are optionally
   self-closing.
+* Removed Jquery Mobile and its elements (its functionality was moved to a
+  [plugin](https://github.com/nitrogen/nitrogen_jqm)
+* Removed jquery.placeholder.js which was there for compatibility with Internet
+  Explorer.
 * More performance optimizations in the render system, specifically around
   traversing the body, and in the `class` attribute normalization.
 

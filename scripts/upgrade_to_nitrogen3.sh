@@ -22,7 +22,7 @@ ln -sv ../include site/include
 ln -sv ../priv/static site/static
 ln -sv ../priv/templates site/templates
 
-BASEURL=https://raw.githubusercontent.com/nitrogen/nitrogen/rebar3
+BASEURL=https://raw.githubusercontent.com/nitrogen/nitrogen/master
 OPTS=-H'Cache-Control:no-cache,no-store'
 
 ## Download new Makefile
