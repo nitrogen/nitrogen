@@ -1,0 +1,132 @@
+#!/usr/bin/perl
+# vim:ts=4 sw=4 et
+use strict;
+use File::Basename;
+use Cwd 'abs_path';
+
+my ($arg) = @ARGV;
+
+&main();
+
+sub main {
+	my ($arg) = @ARGV;
+	if($arg eq "letsencrypt") {
+		&letsencrypt_intro();
+		&do_letsencrypt("domains.txt");
+	}else{
+		&intro();
+		&runner();
+	}
+}
+
+
+sub intro {
+    print "\n";
+    print "*******************************************************************************\n";
+    print "****                  NITROGEN WEB FRAMEWORK NGINX HELPER                  ****\n";
+    print "*******************************************************************************\n";
+    print "\n";
+}
+
+sub letsencrypt_intro {
+    print "\n";
+    print "*******************************************************************************\n";
+    print "****               NITROGEN WEB FRAMEWORK LETSENCRYPT HELPER               ****\n";
+    print "*******************************************************************************\n";
+    print "\n";
+}
+
+sub runner {
+
+    my $os = $^O;
+
+    my $windows = ($os eq "msys" || $os eq "MSWin32");
+
+    my $os_suffix = $windows ? "_win" : "";
+
+    my $os_label = $windows ? "Windows" : "Linux, Unix, Darwin, or BSD";
+
+    print "Your detected operating system is $os_label.\n";
+
+    my $domains = &get("", "What domain name(s) would you like to configure nginx to handle.\nSeparate each one with a space.\nIf this is a development environment, you can safely leave it blank.");
+
+    my $fh;
+
+	print "Saving to domains.txt..\n\n";
+
+    open $fh, ">", "domains.txt";
+    print $fh $domains;
+    close $fh;
+}
+
+
+# Function to process domains
+sub do_letsencrypt {
+	print "Reading the contents of domains.txt to determine which domains to encrypt...\n\n";
+    my $filename = shift;  # Get the filename from the arguments
+
+    # Open the file for reading
+    open(my $fh, '<', $filename) or die "Could not open file '$filename' $!";
+
+    # Read the entire file into a single string
+    my $domains = do { local $/; <$fh> };
+
+	print "domains.txt contained the following domain names:\n\n  $domains\n\n";
+
+    # Close the file handle
+    close $fh;
+
+    # Split the string into an array of domains
+    my @domains = split(/\s+/, $domains);
+
+    # Concatenate domains with -d flags
+    my $args = join(" -d ", @domains);
+    $args = "-d $args" if $args; # prepend -d to the first domain
+
+	my $cmd = "sudo certbot --nginx $args";
+
+	my $go = &get_until_valid("Nitrogen's Let's Encrypt Helper would like to run this command:\n\n  $cmd\n\nProceed?", ("y","n"));
+
+	if($go eq "y") {
+		print "This is running the `sudo` command and so will need the `sudo` password...\n";
+		# Execute the command with all domains
+		system($cmd);
+	}else{
+		print "Aborting!\n";
+	}
+}
+
+
+sub get {
+    my ($default, $prompt) = @_;
+    print "\n$prompt [Default: $default]: ";
+
+    my $val = <>;
+    chomp($val);
+    if($val eq "") {
+        return $default;
+    }else{
+        return $val;
+    }
+}
+
+sub get_until_valid {
+    my ($prompt, @list) = @_;
+    my $val;
+    do {
+        print "\n$prompt (".join("/",@list)."): ";
+        $val = <STDIN>;
+        chomp($val);
+    } while(not(in_list($val,@list)));
+    return $val;
+}
+
+sub in_list {
+    my ($val, @list) = @_;
+    for (@list) {
+        return 1 if($val eq $_);
+    }
+    return 0;
+}
+
+

@@ -21,6 +21,7 @@
 {dir, "{{prefix}}/{{name}}/src/elements"}.
 {dir, "{{prefix}}/{{name}}/include"}.
 {dir, "{{prefix}}/{{name}}/bin"}.
+{dir, "{{prefix}}/{{name}}/nginx"}.
 
 {file, "common/README.md",  "{{prefix}}/{{name}}/README.md"}.
 {file, "common/plugins.config",  "{{prefix}}/{{name}}/plugins.config"}.
@@ -42,6 +43,8 @@
 {file, "common/make_version_file.escript", "{{prefix}}/{{name}}/make_version_file.escript"}.
 {file, "common/in-git.sh", "{{prefix}}/{{name}}/in-git.sh"}.
 {template, "common/upgrade_release.sh", "{{prefix}}/{{name}}/upgrade_release.sh"}.
+{template, "common/nginx/nitrogen.nginx", "{{prefix}}/{{name}}/nginx/nitrogen.nginx"}.
+{template, "common/nginx/domain_helper", "{{prefix}}/{{name}}/nginx/domain_helper"}.
 {chmod, "{{prefix}}/{{name}}/upgrade_release.sh", 8#755}.
 {chmod, "{{prefix}}/{{name}}/copy_static.escript", 8#755}.
 {chmod, "{{prefix}}/{{name}}/make_version_file.escript", 8#755}.

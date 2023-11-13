@@ -1,4 +1,4 @@
-.PHONY: fix-slim-release test
+.PHONY: fix-slim-release test nginx
 
 ## The all rule should be first
 all: compile nitrogen_js_css
@@ -12,6 +12,7 @@ endif
 # (see https://github.com/choptastic/rebar3.mk) for full info
 include rebar3.mk
 
+APPNAME={{name}}
 
 cookie:
 	@echo Generating a default cookie in /etc/vm.args
@@ -47,15 +48,15 @@ start: daemon
 ## name of your application or make multiple release versions, you'll very
 ## likely need to revise this path
 daemon: release
-	_build/default/rel/{{name}}/bin/{{name}} daemon
+	_build/default/rel/$(APPNAME)/bin/$(APPNAME) daemon
 
 ## This path is set during project creation.  If you decide to change the
 ## name of your application or make multiple release versions, you'll very
 ## likely need to revise this path
-attach: _build/default/rel/{{name}}/bin/{{name}}
-	_build/default/rel/{{name}}/bin/{{name}} attach
+attach: _build/default/rel/$(APPNAME)/bin/$(APPNAME)
+	_build/default/rel/$(APPNAME)/bin/$(APPNAME) daemon_attach
 
-_build/default/rel/{{name}}/bin/{{name}}:
+_build/default/rel/$(APPNAME)/bin/$(APPNAME):
 	@echo "ERROR: There is no release built to attach to."
 	@exit 1;
 
@@ -108,6 +109,19 @@ priv/static/nitrogen: link-static
 
 dialyzer: rebar3
 	@($(REBAR) dialyzer)
+
+nginx:
+	@(cd nginx; ./domain_helper)
+	@(sed "s/DOMAINS/$$(cat nginx/domains.txt)/g" nginx/nitrogen.nginx > nginx/$(APPNAME).nginx)
+	@(sudo cp nginx/$(APPNAME).nginx /etc/nginx/sites-enabled/$(APPNAME).nginx)
+	@(sudo nginx -s reload)
+
+letsencrypt: nginx/domains.txt
+	@(cd nginx; ./domain_helper letsencrypt)
+
+nginx/domains.txt:
+	@(cd nginx; ./domain_helper)
+
 
 dev:
 	mkdir -p _checkouts
