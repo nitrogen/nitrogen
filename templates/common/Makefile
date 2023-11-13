@@ -111,7 +111,7 @@ dialyzer: rebar3
 
 dev:
 	mkdir -p _checkouts
-	git clone https://github.com/nitrogen/nitrogen_core -b rebar3 	_checkouts/nitrogen_core
+	git clone https://github.com/nitrogen/nitrogen_core 	_checkouts/nitrogen_core
 	git clone https://github.com/nitrogen/nprocreg			_checkouts/nprocreg
 	git clone https://github.com/nitrogen/simple_bridge		_checkouts/simple_bridge
 	git clone https://github.com/nitrogen/rekt 				_checkouts/rekt
