@@ -104,6 +104,13 @@
 * Updated some of the logic in `wf_tags` to be a little more explicit about
   which tags are always self-closing (void tags) vs which tags are optionally
   self-closing.
+* Added a simpler way to define a custom 404 page module with the
+  configuration option `file_not_found_module`.
+* The default project `app.config` will include an easy option for mnesia
+  settings, which will be useful when the new default `canister` session
+  manager is being used.
+* A default new project will now include helper tools for setting up nginx as a
+  reverse proxy.
 * Removed Jquery Mobile and its elements (its functionality was moved to a
   [plugin](https://github.com/nitrogen/nitrogen_jqm)
 * Removed jquery.placeholder.js which was there for compatibility with Internet
