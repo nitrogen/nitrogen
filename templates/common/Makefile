@@ -106,8 +106,8 @@ site/include:
 	@(ln -s ../include site/include)
 
 site/ebin:
-	@(mkdir -p _build/default/lib/{{name}}/ebin)
-	@(ln -s ../_build/default/lib/{{name}}/ebin site/ebin)
+	@(mkdir -p _build/default/lib/$(APPNAME)/ebin)
+	@(ln -s ../_build/default/lib/$(APPNAME)/ebin site/ebin)
 
 priv/static/nitrogen: link-static
 
