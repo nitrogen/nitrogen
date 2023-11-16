@@ -11,6 +11,13 @@
   good use-case for this might be games or a lightweight protocol for lots of
   little messages that would be handled by custom javascript.
 * Added Content Security Policy functionality (@bunnylushington)
+* The default `query_handler` now can handle queries in the form of
+  `{FieldName, ReturnType}`. This means that a field can be pulled from a form
+  or query string and immediately converted to the desired type without having
+  to do a separate conversion. This works for all `wf:q` and its variants
+  (`wf:qs`, `wf:mq`, `wf:q_map`, etc.)  For example: `wf:q({my_age, int})` will
+  return either the integer provided in the `my_age` or `undefined`, if the
+  value is not parseable as an integer.
 * Added a new Postback handler. This is the new last handler to process
   anything, and gives the user a change to capture, modify, or do anything else
   to a postback request before it gets processed. (@bunnylushington)
