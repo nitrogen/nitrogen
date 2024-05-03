@@ -6,7 +6,7 @@ coverage
 rel/nitrogen
 deps/
 TAGS
-builds
+_build/
 rebar3
 rebar3.mk
 Quickstart/static/nitrogen

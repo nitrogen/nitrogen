@@ -51,18 +51,7 @@ build:
 	@(./build_helper)
 
 template:
-	@(echo "Generating backend templates and re-deploying Rebar templates")
-	@(cd templates/backends; ./build_backend_configs.escript)
-	@(mkdir -p ~/.config/rebar3/templates/nitrogen)
-	@(echo "Copying Template Files to ./config/rebar3/templates/nitrogen")
-	@(cp templates/nitrogen.template ~/.config/rebar3/templates/nitrogen)
-	@(cp -R templates/common ~/.config/rebar3/templates/nitrogen/)
-	@(cp -R templates/win ~/.config/rebar3/templates/nitrogen/)
-	@(cp -R templates/backends ~/.config/rebar3/templates/nitrogen/)
-	@(cat templates/nitrogen.template templates/win.template > ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
-	#@(cp -R templates/plugin ~/.config/rebar3/templates/nitrogen_plugin)
-	#@(cp nitrogen_plugin.template ~/.config/rebar3/templates/nitrogen/nitrogen_win.template)
-
+	@(./install_templates)
 
 install-helper-script:
 	@(cd support/helper_script;./install.sh)
@@ -240,7 +229,7 @@ slim: rebar3 check_exists template
 	@echo "Creating a project that will default to a slim release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
 	@echo "********************************************************************************"
-	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM))
+	$(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM)
 	@(cd $(PREFIX)/$(PROJECT); make rebar2_links)
 	@(cd $(PREFIX)/$(PROJECT); make cookie)
 	@echo "********************************************************************************"
@@ -253,7 +242,7 @@ rel: rebar3 check_exists template
 	@echo "Creating a project that will default to a full release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM)"
 	@echo "********************************************************************************"
-	@($(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
+	$(REBAR) new nitrogen name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true
 	@(cd $(PREFIX)/$(PROJECT); make rebar2_links)
 	@(cd $(PREFIX)/$(PROJECT); make cookie)
 	@echo "********************************************************************************"
@@ -266,7 +255,7 @@ slim_win: rebar3 check_exists template
 	@echo "Creating a project that will default to a slim release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM) running on Windows"
 	@echo "********************************************************************************"
-	@($(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=false)
+	$(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=false
 	@(cd $(PREFIX)/$(PROJECT); make cookie; make deps)
 	@echo "********************************************************************************"
 	@echo Generated a new Windows-based Nitrogen project
@@ -278,16 +267,17 @@ rel_win: rebar3 check_exists template
 	@echo "Creating a project that will default to a full release"
 	@echo "in $(PREFIX)/$(PROJECT) with $(PLATFORM) running on Windows"
 	@echo "********************************************************************************"
-	@($(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true)
+	$(REBAR) new nitrogen_win name=$(PROJECT) prefix=$(PREFIX) backend=$(PLATFORM) include_erts=true
 	@(cd $(PREFIX)/$(PROJECT); make cookie; make deps)
 	@echo "********************************************************************************"
 	@echo Generated a new Windows-based Nitrogen project
 	@echo in '$(PREFIX)/$(PROJECT)', configured to run on $(PLATFORM) with a full release
 	@echo "********************************************************************************"
 
-package: rebar3 rel
+package: rebar3
 	mkdir -p ./builds
-	$(MAKE) link_docs PREFIX=$(PREFIX) PROJECT=$(PROJECT)
+	$(MAKE) rel_$(PLATFORM) PREFIX=./builds PROJECT=nitrogen
+	#$(MAKE) link_docs PREFIX=$(PREFIX) PROJECT=$(PROJECT)
 	tar cf ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar -C $(PREFIX) $(PROJECT)
 	gzip --best ./builds/$(PROJECT)-${NITROGEN_VERSION}-$(PLATFORM).tar 
 	rm -fr $(PREFIX)/$(PROJECT)
