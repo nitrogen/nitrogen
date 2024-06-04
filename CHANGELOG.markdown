@@ -59,6 +59,9 @@
   have had their attributes stripped by relx. See
   [the pull request for details](https://github.com/nitrogen/nitrogen_core/pull/147)
   (Thanks @joaohf)
+* Reworked the `#qr{}` element to use a fork of
+  [qrcode](https://github.com/komone/qrcode) instead of the deprecated Google
+  Charts implementation.
 * Added a `#delay_body.method`, which may selectively be used to determine if 
   `simple` method (that may be less optimized, but more universally acceptable)
   can be used.  This is the method used in `comet`, and is also recommended if
