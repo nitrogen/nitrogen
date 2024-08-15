@@ -1,7 +1,7 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 echo "Determining rebar3 Templates directory"
-TEMP_PATH=$(./rebar3 dirs template_dir)
+TEMP_PATH=$(./rebar3 dirs template_dir || rebar3 dirs template_dir)
 TEMP_PATH=$(echo -n "$TEMP_PATH")
 echo "Template Path = $TEMP_PATH"
 

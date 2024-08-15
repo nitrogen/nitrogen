@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Nitrogen initialization script for *nix OSes
 #
 # Public Domain
