@@ -313,7 +313,7 @@ clean_release:
 	@(rm -rf rel/nitrogen)
 	@(rm -rf rel/reltool.config)
 
-generate:
+generate: rel_remove_archive
 	@(cd rel; ./rebar generate)
 
 erl_interface:
@@ -328,6 +328,9 @@ rel_inner:
 	@echo "Built On (uname -v):" >> "rel/nitrogen/BuildInfo.txt"
 	@uname -v >> "rel/nitrogen/BuildInfo.txt"
 	@rm -rf rel/reltool.config
+
+rel_remove_archive:
+	@(cd rel; ./remove_reltool_archive.escript reltool.config)
 
 rel_inner_slim:
 	@(cd rel; ./make_slim.escript reltool.config)
