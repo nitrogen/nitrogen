@@ -127,6 +127,8 @@
   Explorer.
 * More performance optimizations in the render system, specifically around
   traversing the body, and in the `class` attribute normalization.
+* Fix some shell scripts to work on Mac OS (@matthewtolman)
+
 
 # Nitrogen 2.x
 
