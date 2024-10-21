@@ -50,7 +50,7 @@ help:
 build:
 	@(./build_helper)
 
-template:
+template: rebar3
 	@(./install_templates)
 
 install-helper-script:
@@ -89,6 +89,10 @@ thanks:
 
 cowboy: slim_cowboy
 
+full_cowboy: rel_cowboy
+
+full_cowboy_win: rel_cowboy_win
+
 slim_cowboy:
 	@($(MAKE) slim PLATFORM=cowboy PROJECT=$(PROJECT))
 
@@ -111,6 +115,10 @@ package_cowboy_win:
 # INETS
 
 inets: slim_inets
+
+full_inets: rel_inets
+
+full_inets: rel_inets_win
 
 slim_inets:
 	@($(MAKE) slim PLATFORM=inets PROJECT=$(PROJECT))
@@ -135,6 +143,10 @@ package_inets_win:
 
 mochiweb: slim_mochiweb
 
+full_mochiweb: rel_mochiweb
+
+rel_mochiweb_: rel_mochiweb_win
+
 slim_mochiweb:
 	@($(MAKE) slim PLATFORM=mochiweb PROJECT=$(PROJECT))
 
@@ -143,6 +155,7 @@ rel_mochiweb:
 
 rel_mochiweb_win:
 	@($(MAKE) rel_win PLATFORM=mochiweb PROJECT=$(PROJECT))
+
 
 slim_mochiweb_win:
 	@($(MAKE) slim_win PLATFORM=mochiweb PROJECT=$(PROJECT))
@@ -157,6 +170,10 @@ package_mochiweb_win:
 # WEBMACHINE
 
 webmachine: slim_webmachine
+
+full_webmachine: rel_webmachine
+
+full_webmachine_win: rel_webmachine_win
 
 slim_webmachine:
 	@($(MAKE) slim PLATFORM=webmachine PROJECT=$(PROJECT))
@@ -180,6 +197,10 @@ package_webmachine_win:
 # YAWS
 
 yaws: slim_yaws
+
+full_yaws: rel_yaws
+
+full_yaws_win: rel_yaws_win
 
 slim_yaws:
 	@($(MAKE) slim PLATFORM=yaws PROJECT=$(PROJECT))

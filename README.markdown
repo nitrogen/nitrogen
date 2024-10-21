@@ -40,7 +40,7 @@ The [Getting Started](http://nitrogenproject.com/doc/index.html#sec-3) guide cov
 
 ## Building Nitrogen on FreeBSD
 
-Install Erlang from 
+Install Erlang
 
 Make sure you have `gmake` installed, and use `gmake` instead of `make`
 
