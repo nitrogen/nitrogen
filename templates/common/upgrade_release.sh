@@ -2,7 +2,7 @@
 
 set -e
 
-APPNAME=nitrogen
+APPNAME={{name}}
 CURRENT_VSN=`cat version.current`
 PREVIOUS_VSN=`cat version.previous`
 TARBALL=$APPNAME-$CURRENT_VSN.tar.gz

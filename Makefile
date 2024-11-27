@@ -47,7 +47,7 @@ help:
 	@echo
 
 
-build:
+build: template
 	@(./build_helper)
 
 template: rebar3

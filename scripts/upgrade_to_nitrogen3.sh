@@ -43,6 +43,10 @@ echo "Downloading $BASEURL/templates/common/upgrade_release.sh"
 curl $OPTS $BASEURL/templates/common/upgrade_release.sh -o "upgrade_release.sh"
 chmod 755 upgrade_release.sh
 
+## Replace {{name}} with nitrogen in upgrade_release.sh
+echo "Setting the app name to 'nitrogen' in the Makefile"
+sed -i 's/{{name}}/nitrogen/g' upgrade_release.sh
+
 ## download copy_static.escript
 echo "Downloading $BASEURL/templates/common/copy_static.escript"
 curl $OPTS $BASEURL/templates/common/copy_static.escript -o "copy_static.escript"
