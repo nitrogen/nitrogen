@@ -338,31 +338,44 @@ travis:
 
 base_make_all:
 	$(MAKE) slim_inets
+	$(MAKE) test_travis
 	$(MAKE) clean_release
 	$(MAKE) slim_yaws
+	$(MAKE) test_travis
 	$(MAKE) clean_release
 	$(MAKE) slim_mochiweb
+	$(MAKE) test_travis
 	$(MAKE) clean_release
 	$(MAKE) slim_webmachine
+	$(MAKE) test_travis
 	$(MAKE) clean_release
 
 17: base_make_all
 18: base_make_all
 19: base_make_all
 	$(MAKE) rel_cowboy
+	$(MAKE) test_travis
 	$(MAKE) clean_release
 	$(MAKE) slim_cowboy
+	$(MAKE) test_travis
 	$(MAKE) clean_release
 20: 19
 21: 19
 22: 19
 23: 19
+24: 19
+25: 19
+26: 19
+27: 19
+28: 19
 
 # SHARED
 
-## clean_release:
-## 	@(rm -rf rel/nitrogen)
-## 	@(rm -rf rel/relx.config)
+clean_release:
+	@(rm -rf rel)
+
+test_travis:
+	@(cd rel/nitrogen; make)
 
 ## generate:
 ## 	@(cd rel; ./rebar generate)
