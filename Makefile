@@ -233,15 +233,18 @@ READLINK="support/readlink/readlink-f.sh"
 ## endif
 
 check_exists:
-	@(test ! \( -e "$(PREFIX)/$(PROJECT)" \) || { echo "\n\
-********************************************************************************\n\
-ERROR: $(PREFIX)/$(PROJECT) exists.\n\
-\n\
-Please re-specify a project name with PROJECT=projectname and/or\n\
-an installation directory with PREFIX=/path\n\
-\n\
-Exiting...\n\
-********************************************************************************\n"; exit 1; })
+	@if [ -e "$(PREFIX)/$(PROJECT)" ]; then \
+		echo "********************************************************************************"; \
+		echo "ERROR: $(PREFIX)/$(PROJECT) exists."; \
+		echo ""; \
+		echo "Please re-specify a project name with PROJECT=projectname and/or"; \
+		echo "an installation directory with PREFIX=/path"; \
+		echo ""; \
+		echo "Exiting..."; \
+		echo "********************************************************************************"; \
+		exit 1; \
+	fi
+## "\n\
 
 
 ## TODO: simplify further by adding a $(MODE) argument to be used in place of rel_inner_slim and rel_inner_full

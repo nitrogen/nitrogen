@@ -113,7 +113,7 @@ elif [ "$RUNNER_SCRIPT_DATA" = "slim" ]; then
 
     if [ "$SYSTEM_HOME_BASENAME" = "shims" ]; then
       # this is asdf, so let's find ASDF's installation
-      CURRENT_ERLANG_VERSION="${ASDF_ERLANG_VERSION:-$(asdf current erlang | awk '{print $2}')}"
+      CURRENT_ERLANG_VERSION="${ASDF_ERLANG_VERSION:-$(asdf current erlang | grep '^erlang' | awk '{print $2}')}"
       ROOTDIR="$SYSTEM_HOME_BIN/../installs/erlang/$CURRENT_ERLANG_VERSION";
     elif [ -d "$SYSTEM_HOME_BIN/../lib/erlang" ]; then
 	## This is a check for OSX using the Erlang Solutions installer
